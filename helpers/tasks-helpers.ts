@@ -1,9 +1,5 @@
-import type { Dispatch, SetStateAction } from "react";
-import type {
-	NativeSyntheticEvent,
-	TextInput,
-	TextInputKeyPressEventData,
-} from "react-native";
+import { Colors } from "@/constants/Colors";
+import type { TextInput } from "react-native";
 
 export const handleSlashKeyPress = (
 	e: KeyboardEvent,
@@ -15,25 +11,17 @@ export const handleSlashKeyPress = (
 	}
 };
 
-export const handleKeyPress = (
-	e: NativeSyntheticEvent<TextInputKeyPressEventData>,
-	inputValue: string,
-	setTaskList: Dispatch<SetStateAction<string[]>>,
-	setInputValue: Dispatch<SetStateAction<string>>,
+export const getTaskInputWrapperColor = (
+	inputError: boolean,
+	isFocused: boolean,
 ) => {
-	if (e.nativeEvent.key === "Enter") {
-		e.preventDefault();
-		handleTaskInput(inputValue, setTaskList, setInputValue);
+	if (inputError) {
+		return Colors.universal.negative;
 	}
-};
 
-export const handleTaskInput = (
-	inputValue: string,
-	setTaskList: Dispatch<SetStateAction<string[]>>,
-	setInputValue: Dispatch<SetStateAction<string>>,
-) => {
-	if (!inputValue) return;
+	if (isFocused) {
+		return Colors.universal.primary;
+	}
 
-	setTaskList((prev) => [...prev, inputValue]);
-	setInputValue("");
+	return undefined;
 };

@@ -3,6 +3,7 @@ import {
 	DefaultTheme,
 	ThemeProvider,
 } from "@react-navigation/native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -24,15 +25,16 @@ export default function RootLayout() {
 	}, [fontsLoaded]);
 
 	return fontsLoaded ? (
-		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-			<Stack
-				screenOptions={{
-					headerTitleStyle: {
-						fontFamily: "SohneBook",
-					},
-				}}
-			/>
-			<StatusBar style="auto" />
-		</ThemeProvider>
+		<GestureHandlerRootView style={{ flex: 1 }}>
+			<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+				<Stack
+					screenOptions={{
+						headerTitleStyle: { fontFamily: "SohneBook" },
+						headerShown: false,
+					}}
+				/>
+				<StatusBar style="auto" />
+			</ThemeProvider>
+		</GestureHandlerRootView>
 	) : null;
 }

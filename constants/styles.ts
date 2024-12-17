@@ -25,11 +25,16 @@ export const styles = StyleSheet.create({
 	pageWidth: {
 		width: "100%",
 		maxWidth: 480, // "60ch"
+		padding: 0,
 	},
 	textInput: {
 		width: "100%",
 		height: "100%",
 		fontSize: Tokens.m,
+	},
+	squareMedium: {
+		width: Tokens.m,
+		height: Tokens.m,
 	},
 });
 
@@ -78,7 +83,7 @@ export const textStyles = StyleSheet.create({
 	},
 	link: {
 		fontSize: Tokens.m,
-		color: Colors.universal.link,
+		color: Colors.universal.primary,
 		cursor: "pointer",
 	},
 });

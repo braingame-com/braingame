@@ -6,6 +6,12 @@ import type {
 	TextStyle,
 	ViewStyle,
 } from "react-native";
+import type {
+	HandlerStateChangeEvent,
+	PanGestureHandlerEventPayload,
+	PanGestureHandlerGestureEvent,
+} from "react-native-gesture-handler";
+import type { SharedValue } from "react-native-reanimated";
 
 // View types
 export type ViewProps = RNViewProps & {
@@ -13,6 +19,10 @@ export type ViewProps = RNViewProps & {
 	transparent?: boolean;
 	rounded?: boolean;
 	border?: boolean;
+	hoverable?: boolean;
+	grabbable?: boolean;
+	onMouseEnter?: () => void;
+	onMouseLeave?: () => void;
 };
 
 // Text types
@@ -26,12 +36,24 @@ export type LinkProps = {
 	style?: StyleProp<TextStyle>;
 };
 
+// export type TextInputProps = {
+// 	ref?: RefObject<TextInput>;
+// 	placeholder?: string;
+// 	placeholderTextColor?: string;
+// 	value: string;
+// 	onChangeText?: (text: string) => void;
+// 	onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
+// 	style?: StyleProp<TextStyle>;
+// };
+
 // Button types
 export type ButtonProps = {
 	text?: string;
 	icon?: string;
+	iconColor?: string;
 	iconType?: string;
 	onPress: () => void;
+	disabled?: boolean;
 };
 
 // Icon types
@@ -45,4 +67,27 @@ export type IconProps = {
 	size?: IconSizeProps | number;
 	type?: string;
 	style?: StyleProp<ViewStyle>;
+};
+
+// tasks.tsx types
+export type DraggableTaskItemProps = {
+	text: string;
+	index: number;
+	onGestureEvent: (event: PanGestureHandlerGestureEvent) => void;
+	onHandlerStateChange: (
+		event: HandlerStateChangeEvent<PanGestureHandlerEventPayload>,
+	) => void;
+	translateY: SharedValue<number>;
+	isDragging: SharedValue<boolean>;
+	targetIndex: number | null;
+	itemHeight: number;
+};
+
+export type DraggableTaskHandlersProps = {
+	initialIndex: number;
+	itemHeight: number;
+	swapTasks: (fromIndex: number, toIndex: number) => void;
+	setTargetIndex: (index: number | null) => void;
+	taskOrder: string[];
+	setTaskOrder: (prev: string[]) => void;
 };
