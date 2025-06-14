@@ -1,41 +1,63 @@
 # AGENTS.md
 
 ## Purpose
+This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the BrainGame monorepo.
 
-This document describes the roles, usage, and guidelines for any AI agents, bots, or automation integrated into the **braingame** project.
+> **Key rule:** *Before generating code, tests, or docs, agents **MUST** read*
+> **`docs/ARCHITECTURE.md`** *to follow the agreed folder structure and naming conventions.*
+
+---
 
 ## Agent Roles
 
-- **Development Assistant:** Helps automate repetitive development tasks, code generation, or refactoring.
-- **Testing Agent:** Assists in running, generating, or maintaining tests for the application.
-- **CI/CD Bots:** Automate build, test, and deployment processes (if applicable).
-- **In-App Agents:** Any AI or bot logic that is part of the app's user experience (e.g., game logic, hints, or adaptive difficulty).
+| Role | Scope | Typical Tech |
+|------|-------|--------------|
+| **Development Assistant** | Code generation, refactoring, dependency upgrades | GitHub App / CLI |
+| **Testing Agent** | Generate & run unit/e2e tests, report coverage | Vitest/Jest, Playwright, Maestro |
+| **CI/CD Bot** | Build, lint, test, deploy, publish packages | GitHub Actions, Turborepo |
+| **In‑App Agents** | End‑user features (e.g. adaptive coaching) | OpenAI, Firebase Functions |
+
+---
 
 ## Integration Points
 
-- **Source Code:** Agents may interact with the codebase for code generation, linting, or formatting.
-- **Testing:** Agents can help generate or run tests, and report results.
-- **Documentation:** Agents may assist in generating or maintaining documentation.
-- **App Features:** If the app includes AI-driven features, describe their integration here.
+1. **Source Code** – linting, formatting, code‑mod PRs.  
+2. **Testing** – auto‑generated tests, flaky‑test retries.  
+3. **Documentation** – MD edits, Storybook stories.  
+4. **Release** – version bumps, npm publish, EAS submit.  
+5. **App Features** – Any AI logic shipped to end users.
+
+---
 
 ## Best Practices
 
-- Ensure all agent-generated code is reviewed by a human before merging.
-- Document any agent or bot added to the project, including its purpose and configuration.
-- Keep agent dependencies up-to-date and secure.
-- Use environment variables or configuration files to manage agent credentials or API keys securely.
-- Monitor agent activity and logs for unexpected behavior.
+- Every agent runs in **read‑only** mode by default; write access is gated behind CI checks.
+- Agent‑generated code **must be human‑reviewed** before merge.
+- Store credentials in GitHub/CI **secrets**, never in git.
+- Pin agent dependencies; upgrade via PRs with changelogs.
+- Log all agent actions; surface anomalies in CI summary.
+- Respect repository **CODEOWNERS** and branch protection rules.
+
+---
 
 ## Adding a New Agent
 
-1. Document the agent's purpose and integration steps here.
-2. Add configuration and credentials to the appropriate location (never commit secrets).
-3. Ensure the agent follows project coding and security standards.
+1. **Document** its purpose & config here.  
+2. Create a secrets entry (if needed) in the CI provider ‑ *never* commit credentials.  
+3. Ensure it follows project ESLint/Biome rules.  
+4. Open a PR; tag `@maintainers` for approval.
+
+---
 
 ## Contact
+For questions about agents or automation, ping **@BrainGame/maintainers** or email devops@mywebsite.com.
 
-For questions about agents or automation in this project, contact the project maintainer or lead developer.
+---
 
-## Tooling
+## Tooling reference
 
-- **Biome** is the default linter and formatter for this project. All code should be formatted and linted using Biome before merging. Use the provided npm/yarn scripts or run `npx biome check --fix` manually as needed.
+- **Biome** – default linter/formatter (`pnpm biome`)  
+- **Turborepo** – task graph & caching (`turbo run …`)  
+- **Changesets** – automated semver & npm publish  
+- **Playwright** – web E2E; **Maestro/Detox** – native E2E
+
