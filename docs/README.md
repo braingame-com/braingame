@@ -1,6 +1,6 @@
-# 📚 BrainGame Internal Documentation
+# 📚 Brain Game Internal Documentation
 
-Welcome to BrainGame's technical documentation hub.
+Welcome to Brain Game's technical documentation hub.
 
 ## 🏗️ Architecture & Design
 

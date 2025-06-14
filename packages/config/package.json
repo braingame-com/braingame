@@ -1,7 +1,7 @@
 {
 	"name": "@braingame/config",
 	"version": "1.0.0",
-	"description": "BrainGame shared configuration - ESLint, TypeScript, Biome presets",
+	"description": "Brain Game shared configuration - ESLint, TypeScript, Biome presets",
 	"main": "index.js",
 	"scripts": {
 		"dev": "echo 'Config package ready'",

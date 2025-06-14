@@ -1,4 +1,4 @@
-// BrainGame UI Kit - Main exports
+// Brain Game UI Kit - Main exports
 export { Button } from "./Button";
 export { Text } from "./Text";
 export { View } from "./View";

@@ -1,7 +1,7 @@
 {
 	"name": "@braingame/bgui",
 	"version": "1.0.0",
-	"description": "BrainGame UI Kit - React Native components that work on web and mobile",
+	"description": "Brain Game UI Kit - React Native components that work on web and mobile",
 	"main": "index.js",
 	"types": "index.d.ts",
 	"scripts": {

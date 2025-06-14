@@ -1,18 +1,18 @@
 # ARCHITECTURE.md
 
-> **Single‑source of truth** for BrainGame’s technical blueprint.  
+> **Single‑source of truth** for Brain Game’s technical blueprint.  
 > All agents and humans **must** follow the conventions laid out here.
 
 ---
 
 ## 1. System overview
 
-BrainGame ships **three artefacts** from one Turborepo‑managed monorepo:
+Brain Game ships **three artefacts** from one Turborepo‑managed monorepo:
 
 | Layer | Tech | Output / Domain |
 |-------|------|-----------------|
 | **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.mywebsite.com` |
-| **Marketing & Docs** | Next.js (in `apps/web`) | `www.mywebsite.com` |
+| **Marketing & Docs** | Next.js (in `apps/website`) | `www.mywebsite.com` |
 | **UI Kit** | `packages/bgui` – sharable RN components | npm: `@brain-game/bgui` |
 
 Common infra: pnpm workspaces, Biome lint/format, Vitest/Jest tests, Turbo task graph.
@@ -67,8 +67,8 @@ braingame/
 | Task | Command |
 |------|---------|
 | Dev all | `pnpm dev` |
-| Dev Expo only | `pnpm dev --filter app` |
-| Dev Next only | `pnpm dev --filter web` |
+| Dev Expo only | `pnpm dev --filter product` |
+| Dev Next only | `pnpm dev --filter website` |
 | Lint / format | `pnpm lint` (Biome) |
 | Unit tests | `pnpm test` (Vitest / Jest) |
 | Storybook | `pnpm storybook` (BGUI) |

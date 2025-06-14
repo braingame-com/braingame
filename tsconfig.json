@@ -9,7 +9,8 @@
 		}
 	},
 	"references": [
-		{ "path": "./apps/app" },
+		{ "path": "./apps/product" },
+		{ "path": "./apps/website" },
 		{ "path": "./packages/bgui" },
 		{ "path": "./packages/utils" },
 		{ "path": "./packages/config" }

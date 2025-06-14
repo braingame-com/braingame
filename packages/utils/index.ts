@@ -1,4 +1,4 @@
-// BrainGame Utils - Main exports
+// Brain Game Utils - Main exports
 
 // Export all helpers
 export * from "./helpers";

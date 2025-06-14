@@ -1,23 +1,23 @@
-# BrainGame • Universal App + Website + UI Kit (monorepo)
+# Brain Game • Universal App + Website + UI Kit (monorepo)
 
-BrainGame is a personal‑development tech company.
+Brain Game is a personal‑development tech company.
 
 | Surface | Tech | Domain |
 |---------|------|--------|
-| Universal client | Expo / React Native (+ react‑native‑web) | `app.mywebsite.com` |
-| Marketing & docs site | Next.js (in `apps/web`) | `www.mywebsite.com` |
-| UI kit | `packages/bgui` – open‑source React Native components | npm: `@brain-game/bgui` |
+| Universal client | Expo / React Native (+ react‑native‑web) | `app.mywebsite.com` |
+| Marketing & docs site | Next.js (in `apps/website`) | `www.mywebsite.com` |
+| UI kit | `packages/bgui` – open‑source React Native components | npm: `@brain-game/bgui` |
 
 A single **Turborepo** + **pnpm workspaces** keeps all code, tests and tooling in one place.
 
 ---
 
-## Quick start
+## Quick start
 
-> **Prereqs** – Node ≥18, pnpm ≥9, Git, Firebase CLI
+> **Prereqs** – Node ≥18, pnpm ≥9, Git, Firebase CLI
 
 ```bash
-git clone https://github.com/brain-game/brain-game.git
+git clone https://github.com/braingame-com/braingame.git
 cd brain-game
 
 # install all deps
@@ -31,10 +31,10 @@ pnpm dev
 
 ```bash
 # Expo universal app
-pnpm dev --filter app
+pnpm dev --filter product
 
 # Next.js marketing / docs
-pnpm dev --filter web
+pnpm dev --filter website
 ```
 
 ### Common scripts
@@ -53,8 +53,8 @@ pnpm dev --filter web
 
 ```
 apps/           # deployables
-  web/          # Next.js site
-  app/          # Expo universal client
+  website/      # Next.js site
+  product/      # Expo universal client
 
 packages/       # shared libraries
   bgui/         # UI kit (RN + web)
@@ -88,4 +88,4 @@ Policy & supported versions in **[SECURITY.md](SECURITY.md)**.
 
 ## License
 
-MIT © BrainGame 2025
+MIT © Brain Game 2025

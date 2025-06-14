@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Purpose
-This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the BrainGame monorepo.
+This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
 > **Key rule:** *Before generating code, tests, or docs, agents **MUST** read*
 > **`docs/ARCHITECTURE.md`** *to follow the agreed folder structure and naming conventions.*
@@ -50,7 +50,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 ---
 
 ## Contact
-For questions about agents or automation, ping **@BrainGame/maintainers** or email devops@mywebsite.com.
+For questions about agents or automation, ping **@Brain Game/maintainers** or email devops@mywebsite.com.
 
 ---
 

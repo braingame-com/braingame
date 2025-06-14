@@ -1,5 +1,5 @@
 {
-	"name": "@braingame/app",
+	"name": "@braingame/product",
 	"main": "expo-router/entry",
 	"version": "1.0.0",
 	"private": true,
