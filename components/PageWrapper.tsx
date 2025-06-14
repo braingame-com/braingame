@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import { styles } from "@/constants/styles";
-import { View } from "./View";
 import { Tokens } from "@/constants/Tokens";
+import { styles } from "@/constants/styles";
+import type { ReactNode } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
+import { View } from "./View";
 
 export const PageWrapper = ({ children }: { children: ReactNode }) => (
 	<SafeAreaView style={{ flex: 1 }}>

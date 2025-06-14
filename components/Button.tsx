@@ -1,10 +1,10 @@
-import { Pressable } from "react-native";
-import type { ButtonProps } from "@/constants/types";
-import { Text } from "./Text";
-import { Icon } from "./Icon";
 import { buttonStyles } from "@/constants/styles";
+import type { ButtonProps } from "@/constants/types";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { useState } from "react";
+import { Pressable } from "react-native";
+import { Icon } from "./Icon";
+import { Text } from "./Text";
 
 export const Button = ({
 	text,

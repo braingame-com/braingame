@@ -1,11 +1,11 @@
 import type { DraggableTaskHandlersProps } from "@/constants/types";
 import { useState } from "react";
 import type {
-	PanGestureHandlerGestureEvent,
 	HandlerStateChangeEvent,
 	PanGestureHandlerEventPayload,
+	PanGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
-import { useSharedValue, withSpring, runOnJS } from "react-native-reanimated";
+import { runOnJS, useSharedValue, withSpring } from "react-native-reanimated";
 
 export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 	const [taskOrder, setTaskOrder] = useState(initialTasks);

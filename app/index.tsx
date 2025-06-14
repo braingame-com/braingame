@@ -1,9 +1,9 @@
-import { Stack } from "expo-router";
-import { Text } from "@/components/Text";
-import { Link } from "@/components/Link";
 import { Icon } from "@/components/Icon";
-import { Tokens } from "@/constants/Tokens";
+import { Link } from "@/components/Link";
 import { PageWrapper } from "@/components/PageWrapper";
+import { Text } from "@/components/Text";
+import { Tokens } from "@/constants/Tokens";
+import { Stack } from "expo-router";
 
 export default function Index() {
 	return (

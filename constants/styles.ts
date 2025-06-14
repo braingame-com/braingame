@@ -1,6 +1,6 @@
-import { StyleSheet, type ViewStyle } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { Tokens } from "@/constants/Tokens";
+import { StyleSheet, type ViewStyle } from "react-native";
 
 // Utility styles
 export const styles = StyleSheet.create({

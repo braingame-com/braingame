@@ -1,3 +1,18 @@
+import { Button } from "@/components/Button";
+import { SlashIcon } from "@/components/Icon";
+import { PageWrapper } from "@/components/PageWrapper";
+import { Text } from "@/components/Text";
+import { View } from "@/components/View";
+import { Tokens } from "@/constants/Tokens";
+import { styles } from "@/constants/styles";
+import type { DraggableTaskItemProps } from "@/constants/types";
+import {
+	getTaskInputWrapperColor,
+	handleSlashKeyPress,
+} from "@/helpers/tasks-helpers";
+import { useDraggableTaskHandlers } from "@/hooks/useDraggableTaskHandlers";
+import { useTaskInput } from "@/hooks/useTaskInput";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import {
 	type Dispatch,
 	type ReactNode,
@@ -9,21 +24,6 @@ import {
 import { TextInput } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { View } from "@/components/View";
-import { Text } from "@/components/Text";
-import { Button } from "@/components/Button";
-import { styles } from "@/constants/styles";
-import { Tokens } from "@/constants/Tokens";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { PageWrapper } from "@/components/PageWrapper";
-import {
-	getTaskInputWrapperColor,
-	handleSlashKeyPress,
-} from "@/helpers/tasks-helpers";
-import { SlashIcon } from "@/components/Icon";
-import type { DraggableTaskItemProps } from "@/constants/types";
-import { useDraggableTaskHandlers } from "@/hooks/useDraggableTaskHandlers";
-import { useTaskInput } from "@/hooks/useTaskInput";
 
 export default function Tasks() {
 	const [taskList, setTaskList] = useState([
