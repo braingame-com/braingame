@@ -35,3 +35,7 @@ This document describes the roles, usage, and guidelines for any AI agents, bots
 ## Contact
 
 For questions about agents or automation in this project, contact the project maintainer or lead developer.
+
+## Tooling
+
+- **Biome** is the default linter and formatter for this project. All code should be formatted and linted using Biome before merging. Use the provided npm/yarn scripts or run `npx biome check --fix` manually as needed.
