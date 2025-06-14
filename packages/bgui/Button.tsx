@@ -1,8 +1,8 @@
-import { buttonStyles } from "@/constants/styles";
-import type { ButtonProps } from "@/constants/types";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { useState } from "react";
 import { Pressable } from "react-native";
+import { buttonStyles } from "../utils/constants/styles";
+import type { ButtonProps } from "../utils/constants/types";
+import { useThemeColor } from "../utils/hooks/useThemeColor";
 import { Icon } from "./Icon";
 import { Text } from "./Text";
 

@@ -1,8 +1,3 @@
-import { Tokens } from "@/constants/Tokens";
-import { styles } from "@/constants/styles";
-import type { IconPrefix, IconProps } from "@/constants/types";
-import { getIconSize } from "@/helpers/getIconSize";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import type { IconName } from "@fortawesome/fontawesome-svg-core";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -10,6 +5,11 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Svg, { Path } from "react-native-svg";
+import { Tokens } from "../utils/constants/Tokens";
+import { styles } from "../utils/constants/styles";
+import type { IconPrefix, IconProps } from "../utils/constants/types";
+import { getIconSize } from "../utils/helpers/getIconSize";
+import { useThemeColor } from "../utils/hooks/useThemeColor";
 import { Text } from "./Text";
 import { View } from "./View";
 

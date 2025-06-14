@@ -1,5 +1,5 @@
-import { Tokens } from "@/constants/Tokens";
-import type { IconSizeProps } from "@/constants/types";
+import { Tokens } from "../constants/Tokens";
+import type { IconSizeProps } from "../constants/types";
 
 export const getIconSize = (size: IconSizeProps | number) => {
 	if (typeof size === "number") return size;

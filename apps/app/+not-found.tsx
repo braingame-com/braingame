@@ -1,6 +1,4 @@
-import { Link } from "@/components/Link";
-import { PageWrapper } from "@/components/PageWrapper";
-import { Text } from "@/components/Text";
+import { Link, PageWrapper, Text } from "@braingame/bgui";
 import { Stack } from "expo-router";
 
 export default function NotFoundScreen() {

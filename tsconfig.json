@@ -1,11 +1,18 @@
 {
-	"extends": "expo/tsconfig.base",
+	"extends": "./packages/config/tsconfig.base.json",
 	"compilerOptions": {
-		"strict": true,
-		"jsx": "react-jsx",
+		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./*"]
+			"@braingame/bgui": ["./packages/bgui"],
+			"@braingame/utils": ["./packages/utils"],
+			"@braingame/config": ["./packages/config"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+	"references": [
+		{ "path": "./apps/app" },
+		{ "path": "./packages/bgui" },
+		{ "path": "./packages/utils" },
+		{ "path": "./packages/config" }
+	],
+	"files": []
 }

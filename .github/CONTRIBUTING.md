@@ -7,11 +7,15 @@ Thank you for your interest in contributing to Brain Game! We welcome contributi
 1. **Fork the repository** and clone it locally
 2. **Install dependencies:**
    ```bash
-   npm install
+   pnpm install
    ```
 3. **Start the development server:**
    ```bash
-   npx expo start
+   # All apps (Expo + Next.js when available)
+   pnpm dev
+   
+   # Or just the Expo app
+   pnpm dev --filter @braingame/app
    ```
 
 ## Development Workflow
@@ -28,16 +32,16 @@ Thank you for your interest in contributing to Brain Game! We welcome contributi
 2. **Make your changes** following our coding standards
 3. **Format and lint your code:**
    ```bash
-   npx biome check --fix
+   pnpm lint
    ```
 4. **Run tests:**
    ```bash
-   npm test
+   pnpm test
    ```
 5. **Commit your changes** with a clear, descriptive message
 
 ### Coding Standards
-- Use **Biome** for formatting and linting (run `npx biome check --fix`)
+- Use **Biome** for formatting and linting (run `pnpm lint`)
 - Follow **TypeScript** best practices
 - Write **meaningful commit messages**
 - Add **tests** for new features when applicable
@@ -54,12 +58,16 @@ Thank you for your interest in contributing to Brain Game! We welcome contributi
 4. **Respond to feedback** and make requested changes
 
 ## Project Structure
-- `app/` - Main application code (screens, navigation)
-- `components/` - Reusable UI components
-- `assets/` - Fonts and images
-- `constants/` - App-wide constants
-- `helpers/` - Utility/helper functions
-- `hooks/` - Custom React hooks
+This is a **monorepo** with multiple packages:
+
+- `apps/app/` - Expo universal client (mobile + web)
+- `apps/web/` - Next.js marketing site *(coming soon)*
+- `packages/bgui/` - UI components library
+- `packages/utils/` - Shared utilities (hooks, helpers, constants)
+- `packages/config/` - Shared configurations
+- `docs/` - Architecture and technical documentation
+
+See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for the complete technical blueprint.
 
 ## Reporting Issues
 - Use the GitHub issue tracker

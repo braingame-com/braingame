@@ -1,15 +1,15 @@
-import { Button } from "@/components/Button";
-import { SlashIcon } from "@/components/Icon";
-import { PageWrapper } from "@/components/PageWrapper";
-import { Text } from "@/components/Text";
-import { View } from "@/components/View";
-import { Tokens } from "@/constants/Tokens";
-import { styles } from "@/constants/styles";
-import type { DraggableTaskItemProps } from "@/constants/types";
-import { getTaskInputWrapperColor, handleSlashKeyPress } from "@/helpers/tasks-helpers";
-import { useDraggableTaskHandlers } from "@/hooks/useDraggableTaskHandlers";
-import { useTaskInput } from "@/hooks/useTaskInput";
-import { useThemeColor } from "@/hooks/useThemeColor";
+import { Button, PageWrapper, Text, View } from "@braingame/bgui";
+import { Icon } from "@braingame/bgui";
+import {
+	Tokens,
+	getTaskInputWrapperColor,
+	handleSlashKeyPress,
+	styles,
+	useDraggableTaskHandlers,
+	useTaskInput,
+	useThemeColor,
+} from "@braingame/utils";
+import type { DraggableTaskItemProps } from "@braingame/utils";
 import {
 	type Dispatch,
 	type ReactNode,
@@ -61,7 +61,7 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 	return (
 		<TaskInputWrapper inputError={inputError} isFocused={isFocused}>
 			<View style={{ padding: Tokens.xs, borderRadius: Tokens.xs }} border>
-				<SlashIcon color={colorSecondary} />
+				<Icon name="slash" color={colorSecondary} type="fas" />
 			</View>
 
 			<TextInput

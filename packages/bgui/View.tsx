@@ -1,9 +1,9 @@
-import { Tokens } from "@/constants/Tokens";
-import { viewStyles } from "@/constants/styles";
-import type { ViewProps } from "@/constants/types";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { useState } from "react";
 import { Platform, View as RNView } from "react-native";
+import { Tokens } from "../utils/constants/Tokens";
+import { viewStyles } from "../utils/constants/styles";
+import type { ViewProps } from "../utils/constants/types";
+import { useThemeColor } from "../utils/hooks/useThemeColor";
 
 export const View = ({
 	type = "background",
