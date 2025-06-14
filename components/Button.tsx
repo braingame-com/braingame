@@ -6,14 +6,7 @@ import { Pressable } from "react-native";
 import { Icon } from "./Icon";
 import { Text } from "./Text";
 
-export const Button = ({
-	text,
-	icon,
-	iconColor,
-	iconType,
-	onPress,
-	disabled,
-}: ButtonProps) => {
+export const Button = ({ text, icon, iconColor, iconType, onPress, disabled }: ButtonProps) => {
 	const backgroundColor = useThemeColor("button");
 	const backgroundColorHovered = useThemeColor("buttonHovered");
 	const [isHovered, setIsHovered] = useState(false);

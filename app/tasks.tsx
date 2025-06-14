@@ -6,10 +6,7 @@ import { View } from "@/components/View";
 import { Tokens } from "@/constants/Tokens";
 import { styles } from "@/constants/styles";
 import type { DraggableTaskItemProps } from "@/constants/types";
-import {
-	getTaskInputWrapperColor,
-	handleSlashKeyPress,
-} from "@/helpers/tasks-helpers";
+import { getTaskInputWrapperColor, handleSlashKeyPress } from "@/helpers/tasks-helpers";
 import { useDraggableTaskHandlers } from "@/hooks/useDraggableTaskHandlers";
 import { useTaskInput } from "@/hooks/useTaskInput";
 import { useThemeColor } from "@/hooks/useThemeColor";
@@ -44,21 +41,13 @@ export default function Tasks() {
 	);
 }
 
-const TaskInput = ({
-	setTaskList,
-}: { setTaskList: Dispatch<SetStateAction<string[]>> }) => {
+const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<string[]>> }) => {
 	const [isFocused, setIsFocused] = useState(false);
 	const inputRef = useRef<TextInput>(null);
 	const color = useThemeColor("text");
 	const colorSecondary = useThemeColor("textSecondary");
-	const {
-		inputValue,
-		setInputValue,
-		inputError,
-		setInputError,
-		handleKeyPress,
-		handleTaskInput,
-	} = useTaskInput(setTaskList);
+	const { inputValue, setInputValue, inputError, setInputError, handleKeyPress, handleTaskInput } =
+		useTaskInput(setTaskList);
 
 	// Slash key focus effect
 	useEffect(() => {
@@ -121,8 +110,7 @@ const TaskInputWrapper = ({
 };
 
 const TasksList = ({ tasks }: { tasks: string[] }) => {
-	const { taskOrder, targetIndex, getGestureHandlers } =
-		useDraggableTaskHandlers(tasks);
+	const { taskOrder, targetIndex, getGestureHandlers } = useDraggableTaskHandlers(tasks);
 
 	return (
 		<View style={{ paddingVertical: 0 }}>
@@ -159,10 +147,7 @@ export const DraggableTaskItem = ({
 	itemHeight,
 }: DraggableTaskItemProps) => {
 	const animatedStyle = useAnimatedStyle(() => ({
-		transform: [
-			{ translateY: translateY.value },
-			{ rotate: isDragging.value ? "1deg" : "0deg" },
-		],
+		transform: [{ translateY: translateY.value }, { rotate: isDragging.value ? "1deg" : "0deg" }],
 		zIndex: isDragging.value ? 1 : 0,
 		opacity: isDragging.value ? 0.9 : 1, // Slight transparency while dragging
 		// position: isDragging.value ? "absolute" : "relative", // Lift it off the list

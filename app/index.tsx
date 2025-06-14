@@ -12,11 +12,7 @@ export default function Index() {
 				options={{
 					title: "",
 					headerLeft: () => (
-						<Icon
-							name="brain-game"
-							size="secondary"
-							style={{ marginLeft: Tokens.m }}
-						/>
+						<Icon name="brain-game" size="secondary" style={{ marginLeft: Tokens.m }} />
 					),
 				}}
 			/>

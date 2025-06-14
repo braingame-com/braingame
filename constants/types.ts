@@ -74,9 +74,7 @@ export type DraggableTaskItemProps = {
 	text: string;
 	index: number;
 	onGestureEvent: (event: PanGestureHandlerGestureEvent) => void;
-	onHandlerStateChange: (
-		event: HandlerStateChangeEvent<PanGestureHandlerEventPayload>,
-	) => void;
+	onHandlerStateChange: (event: HandlerStateChangeEvent<PanGestureHandlerEventPayload>) => void;
 	translateY: SharedValue<number>;
 	isDragging: SharedValue<boolean>;
 	targetIndex: number | null;

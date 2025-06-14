@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-export const useTaskInput = (
-	setTaskList: (update: (prev: string[]) => string[]) => void,
-) => {
+export const useTaskInput = (setTaskList: (update: (prev: string[]) => string[]) => void) => {
 	const [inputValue, setInputValue] = useState("");
 	const [inputError, setInputError] = useState(false);
 
