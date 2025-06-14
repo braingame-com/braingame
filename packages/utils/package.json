@@ -1,0 +1,21 @@
+{
+	"name": "@braingame/utils",
+	"version": "1.0.0",
+	"description": "BrainGame utilities - shared helpers, hooks, and constants",
+	"main": "index.js",
+	"types": "index.d.ts",
+	"scripts": {
+		"dev": "echo 'Utils ready for development'",
+		"build": "tsc",
+		"test": "jest",
+		"lint": "npx biome check --fix ."
+	},
+	"peerDependencies": {
+		"react": "18.3.1",
+		"react-native": "0.76.3"
+	},
+	"devDependencies": {
+		"@types/react": "~18.3.12",
+		"typescript": "^5.3.3"
+	}
+}
