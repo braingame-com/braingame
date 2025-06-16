@@ -1,5 +1,10 @@
 # ARCHITECTURE.md
 
+![Architecture](https://img.shields.io/badge/architecture-enterprise%20monorepo-blue?style=flat-square&logo=react)
+![Turborepo](https://img.shields.io/badge/build-turborepo-ef4444?style=flat-square&logo=turborepo)
+![TypeScript](https://img.shields.io/badge/language-TypeScript-3178c6?style=flat-square&logo=typescript)
+![React Native](https://img.shields.io/badge/platform-universal-61dafb?style=flat-square&logo=react)
+
 > **Single‑source of truth** for Brain Game’s technical blueprint.  
 > All agents and humans **must** follow the conventions laid out here.
 
@@ -7,15 +12,15 @@
 
 ## 1. System overview
 
-Brain Game ships **three artefacts** from one Turborepo‑managed monorepo:
+Brain Game ships **three enterprise-grade artefacts** from one professionally-managed Turborepo monorepo:
 
 | Layer | Tech | Output / Domain |
 |-------|------|-----------------|
-| **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.mywebsite.com` |
-| **Marketing & Docs** | Next.js (in `apps/website`) | `www.mywebsite.com` |
+| **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.braingame.dev` |
+| **Marketing & Docs** | Next.js (in `apps/website`) | `www.braingame.dev` |
 | **UI Kit** | `packages/bgui` – sharable RN components | npm: `@brain-game/bgui` |
 
-Common infra: pnpm workspaces, Biome lint/format, Vitest/Jest tests, Turbo task graph.
+Common infra: pnpm workspaces, Biome lint/format, Jest tests, Turbo task graph.
 
 ---
 
@@ -37,8 +42,8 @@ Common infra: pnpm workspaces, Biome lint/format, Vitest/Jest tests, Turbo task 
 ```text
 braingame/
 ├── apps/
-│   ├── web/               # Next.js site
-│   └── app/               # Expo universal client
+│   ├── website/           # Next.js site
+│   └── product/           # Expo universal client
 │
 ├── packages/
 │   ├── bgui/              # UI kit (RN + web)
@@ -70,7 +75,7 @@ braingame/
 | Dev Expo only | `pnpm dev --filter product` |
 | Dev Next only | `pnpm dev --filter website` |
 | Lint / format | `pnpm lint` (Biome) |
-| Unit tests | `pnpm test` (Vitest / Jest) |
+| Unit tests | `pnpm test` (Jest) |
 | Storybook | `pnpm storybook` (BGUI) |
 | Prod build | `pnpm build` (Turbo graph) |
 

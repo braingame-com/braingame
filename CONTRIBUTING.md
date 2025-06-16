@@ -1,5 +1,9 @@
 # Contributing to Brain Game
 
+![Contributing](https://img.shields.io/badge/contributing-welcome-brightgreen?style=flat-square&logo=github)
+![Code Style](https://img.shields.io/badge/code%20style-enterprise-gold?style=flat-square&logo=eslint)
+![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-success?style=flat-square&logo=git)
+
 Thank you for your interest in contributing to Brain Game! We welcome contributions from everyone.
 
 ## Getting Started
@@ -15,7 +19,7 @@ Thank you for your interest in contributing to Brain Game! We welcome contributi
    pnpm dev
    
    # Or just the Expo app
-   pnpm dev --filter @braingame/app
+   pnpm dev --filter product
    ```
 
 ## Development Workflow
@@ -60,8 +64,8 @@ Thank you for your interest in contributing to Brain Game! We welcome contributi
 ## Project Structure
 This is a **monorepo** with multiple packages:
 
-- `apps/app/` - Expo universal client (mobile + web)
-- `apps/web/` - Next.js marketing site *(coming soon)*
+- `apps/product/` - Expo universal client (mobile + web)
+- `apps/website/` - Next.js marketing site
 - `packages/bgui/` - UI components library
 - `packages/utils/` - Shared utilities (hooks, helpers, constants)
 - `packages/config/` - Shared configurations

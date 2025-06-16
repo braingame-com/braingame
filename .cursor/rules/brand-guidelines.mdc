@@ -3,8 +3,13 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Brand Guidelines - Brain Game
+# Brand Info/Guidelines - Brain Game
 
+## Info
+- We are the world's most effective personal development company.
+- The main company email address is `hello@braingame.dev`.
+
+## Naming
 - Always refer to the company as **"Brain Game"** (with a space).
-- If spaces are not allowed (e.g., usernames, subdomains), use all lowercase: **"braingame"**.
-- Avoid casing variations like "Brain Game", "Brain GameAI", or "BGame" — these break brand clarity.
+- If spaces are not allowed (e.g. usernames, subdomains), use all lowercase: **"braingame"**.
+- Avoid casing variations like "BrainGame", "Braingame", or "brainGame" — these break brand clarity.

@@ -13,16 +13,45 @@
 		"typecheck": "turbo typecheck",
 		"changeset": "changeset",
 		"version": "changeset version",
-		"release": "turbo build --filter=./packages/* && changeset publish"
+		"release": "turbo build --filter=./packages/* && changeset publish",
+		"prepare": "husky",
+		"test:coverage": "turbo test -- --coverage",
+		"test:watch": "turbo test -- --watch",
+		"build:packages": "turbo build --filter=./packages/*",
+		"build:apps": "turbo build --filter=./apps/*",
+		"dev:packages": "turbo dev --filter=./packages/*",
+		"dev:apps": "turbo dev --filter=./apps/*",
+		"lint:fix": "turbo lint -- --fix",
+		"format:check": "biome check",
+		"format:write": "biome format --write .",
+		"typecheck:strict": "turbo typecheck -- --strict",
+		"analyze": "turbo analyze",
+		"security:audit": "pnpm audit --audit-level moderate",
+		"deps:update": "pnpm update --recursive",
+		"deps:outdated": "pnpm outdated --recursive",
+		"workspace:graph": "turbo graph",
+		"workspace:prune": "turbo prune",
+		"secrets:scan": "secretlint .",
+		"secrets:check": "secretlint --no-color .",
+		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+		"precommit": "lint-staged && pnpm secrets:check && pnpm test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@changesets/cli": "^2.27.1",
+		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
+		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.1.2",
+		"secretlint": "^10.1.0",
 		"turbo": "^2.3.3",
 		"typescript": "^5.3.3"
 	},
 	"engines": {
 		"node": ">=18",
 		"pnpm": ">=9"
+	},
+	"lint-staged": {
+		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
 	}
 }

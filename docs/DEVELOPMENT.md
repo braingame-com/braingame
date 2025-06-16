@@ -5,7 +5,7 @@ Welcome to Brain Game! This guide will help you get started with development.
 ## Prerequisites
 
 - **Node.js 18+** (check `.nvmrc` for exact version)
-- **pnpm 8+** (install with `npm install -g pnpm`)
+- **pnpm 9+** (install with `npm install -g pnpm`)
 - **Git**
 - **VS Code** (recommended, see `.vscode/settings.json`)
 
@@ -13,7 +13,7 @@ Welcome to Brain Game! This guide will help you get started with development.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/braingame.git
+git clone https://github.com/braingame-com/braingame.git
 cd braingame
 
 # Install correct Node version (if using nvm)
@@ -62,7 +62,7 @@ pnpm --filter product web
 ### 2. Working with Components
 
 ```bash
-# Start Storybook for component development
+# Start Storybook for component development (not yet implemented)
 pnpm storybook
 
 # Create a new component in bgui
@@ -80,7 +80,7 @@ pnpm test
 # Run tests in watch mode
 pnpm test:watch
 
-# Run tests with coverage
+# Run tests with coverage (not yet implemented)
 pnpm test:coverage
 
 # Run tests for specific package
@@ -93,7 +93,7 @@ pnpm test --filter bgui
 # Run linting and formatting
 pnpm lint
 
-# Type checking
+# Type checking (not yet implemented)
 pnpm typecheck
 
 # Clean all build artifacts

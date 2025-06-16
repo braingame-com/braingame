@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Pressable } from "react-native";
-import { buttonStyles } from "../utils/constants/styles";
-import type { ButtonProps } from "../utils/constants/types";
-import { useThemeColor } from "../utils/hooks/useThemeColor";
-import { Icon } from "./Icon";
-import { Text } from "./Text";
+import { buttonStyles } from "../../utils/constants/styles";
+import { useThemeColor } from "../../utils/hooks/useThemeColor";
+import { Icon } from "../Icon";
+import { Text } from "../Text";
+import type { ButtonProps } from "./types";
 
 export const Button = ({ text, icon, iconColor, iconType, onPress, disabled }: ButtonProps) => {
 	const backgroundColor = useThemeColor("button");

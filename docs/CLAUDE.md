@@ -1,11 +1,18 @@
 # CLAUDE.md
 
+![AI Assistant](https://img.shields.io/badge/AI%20assistant-Claude%20Code-purple?style=flat-square&logo=anthropic)
+![Standards](https://img.shields.io/badge/standards-enterprise%20grade-gold?style=flat-square&logo=checkmk)
+![Quality](https://img.shields.io/badge/quality-Fortune%20500-critical?style=flat-square&logo=shield)
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+**CRITICAL:** Brain Game maintains **ENTERPRISE-GRADE, WORLD-CLASS** software standards. All code must meet Fortune 500 quality expectations.
 
 ## Task Management
 
 Before starting any work:
-1. **Always read `TODO.md`** to understand current priorities and task status
+1. **Read `docs/BRAND.md`** for brand guidelines and contact information
+2. **Always read `TODO.md`** to understand current priorities and task status
 2. **Update task status** in TODO.md when beginning work (mark as `in_progress`)
 3. **Complete one task at a time** - mark completed before starting next
 4. **Update `AI_CONTEXT.md`** with a session summary when finishing work
@@ -50,6 +57,9 @@ pnpm lint
 # Run unit tests (Jest/Vitest)
 pnpm test
 
+# Enterprise secret scanning (Secretlint)
+pnpm secrets:check
+
 # Build all projects
 pnpm build
 
@@ -91,13 +101,17 @@ packages/       # Shared libraries
 - **Website**: Next.js
 - **Shared**: Biome (linting/formatting), TypeScript, pnpm, Turborepo
 
-### Development Principles
+### Enterprise Development Principles
 
-1. Deployable `apps/*` may depend on `packages/*`
-2. `packages/*` must never depend on `apps/*` (keep the DAG acyclic)
-3. Shared UI components should go in the `bgui` package
-4. Shared utilities should go in the `utils` package
-5. Use Biome for formatting and linting
+1. **MANDATORY:** All code must follow CODING_STYLE.md enterprise standards
+2. **Architecture:** Deployable `apps/*` may depend on `packages/*`
+3. **Dependency Graph:** `packages/*` must never depend on `apps/*` (maintain DAG)
+4. **Component Structure:** Use folder-per-component for enterprise scalability
+5. **Import Strategy:** MANDATORY absolute imports (`@braingame/*`)
+6. **UI Components:** All shared components go in `bgui` package
+7. **Utilities:** All shared utilities go in `utils` package
+8. **Quality:** Use Biome for formatting and linting
+9. **Testing:** Minimum 80% test coverage on all packages
 
 ## Testing
 

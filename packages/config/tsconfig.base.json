@@ -3,7 +3,11 @@
 	"compilerOptions": {
 		"strict": true,
 		"jsx": "react-jsx",
+		"baseUrl": ".",
 		"paths": {
+			"@braingame/bgui": ["../../packages/bgui"],
+			"@braingame/utils": ["../../packages/utils"],
+			"@braingame/config": ["../../packages/config"],
 			"@/*": ["./*"]
 		}
 	},
