@@ -16,7 +16,7 @@
 		"react-native": "0.76.3"
 	},
 	"devDependencies": {
-		"@types/react": "~18.3.12",
+		"@types/react": "~19.1.8",
 		"typescript": "^5.3.3"
 	}
 }

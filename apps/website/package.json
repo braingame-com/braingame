@@ -10,14 +10,14 @@
 		"clean": "rm -rf .next"
 	},
 	"dependencies": {
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
 		"next": "15.3.3",
 		"@braingame/bgui": "workspace:*",
 		"@braingame/utils": "workspace:*"
 	},
 	"devDependencies": {
-		"@types/node": "^20",
+		"@types/node": "^24",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"@tailwindcss/postcss": "^4",
