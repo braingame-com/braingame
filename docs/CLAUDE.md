@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+![AI Assistant](https://img.shields.io/badge/AI%20assistant-Claude%20Code-purple?style=flat-square&logo=anthropic)
+![Standards](https://img.shields.io/badge/standards-enterprise%20grade-gold?style=flat-square&logo=checkmk)
+![Quality](https://img.shields.io/badge/quality-Fortune%20500-critical?style=flat-square&logo=shield)
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 **CRITICAL:** Brain Game maintains **ENTERPRISE-GRADE, WORLD-CLASS** software standards. All code must meet Fortune 500 quality expectations.
@@ -52,6 +56,9 @@ pnpm lint
 
 # Run unit tests (Jest/Vitest)
 pnpm test
+
+# Enterprise secret scanning (Secretlint)
+pnpm secrets:check
 
 # Build all projects
 pnpm build

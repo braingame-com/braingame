@@ -1,0 +1,16 @@
+# ENTERPRISE-GRADE PRE-COMMIT QUALITY GATES
+echo "🚀 ENTERPRISE QUALITY GATES: Running pre-commit checks..."
+
+# Scan for secrets first - critical security check
+echo "🔐 Scanning for secrets..."
+pnpm secrets:check
+
+# Run lint-staged for changed files
+echo "✨ Running linting and formatting..."
+npx lint-staged
+
+# Run tests to ensure nothing is broken
+echo "🧪 Running tests..."
+pnpm test
+
+echo "✅ All quality gates passed! Enterprise-grade commit approved."

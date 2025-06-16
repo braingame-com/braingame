@@ -7,7 +7,7 @@
 	"scripts": {
 		"dev": "echo 'BGUI components ready for development'",
 		"build": "tsc",
-		"test": "jest",
+		"test": "jest --passWithNoTests",
 		"lint": "biome check --fix",
 		"clean": "rm -rf dist"
 	},

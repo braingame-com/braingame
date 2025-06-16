@@ -1,18 +1,22 @@
 // ENTERPRISE-GRADE UI KIT EXPORTS
 // Brain Game UI components built for scale and maintainability
 
-// Core Components (Enterprise folder structure)
-export { Button } from './Button';
-export { Text } from './Text';
-export { View } from './View';
+// All Components (Enterprise folder-per-component structure)
+export { Button } from "./Button";
+export { Text } from "./Text";
+export { View } from "./View";
+export { Icon } from "./Icon";
+export { Link } from "./Link";
+export { PageWrapper } from "./PageWrapper";
+export { TextInput } from "./TextInput";
+export { ErrorBoundary } from "./ErrorBoundary";
 
-// Legacy Components (TODO: Refactor to folder structure)
-export { Icon } from './Icon';
-export { Link } from './Link';
-export { PageWrapper } from './PageWrapper';
-export { TextInput } from './TextInput';
-
-// Type Exports
-export type { ButtonProps } from './Button/types';
-export type { TextProps } from './Text/types';
-export type { ViewProps } from './View/types';
+// Type Exports (Enterprise TypeScript interfaces)
+export type { ButtonProps } from "./Button/types";
+export type { TextProps } from "./Text/types";
+export type { ViewProps } from "./View/types";
+export type { IconProps } from "./Icon/types";
+export type { LinkProps } from "./Link/types";
+export type { PageWrapperProps } from "./PageWrapper/types";
+export type { TextInputProps } from "./TextInput/types";
+export type { ErrorBoundaryProps, ErrorInfo } from "./ErrorBoundary/types";
