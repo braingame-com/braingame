@@ -105,7 +105,26 @@ build -> transpile -> test -> typecheck -> package
 
 ---
 
-## 7. Security & compliance
+## 7. Task Management & AI Coordination
+
+Key files for task tracking and AI agent coordination:
+
+| File | Purpose | Update Frequency |
+|------|---------|------------------|
+| **TODO.md** | Central task tracker with priorities | Daily/per session |
+| **AI_CONTEXT.md** | AI agent context & session summaries | After each session |
+| **CLAUDE.md** | Project-specific AI instructions | As needed |
+| **AGENTS.md** | AI agent roles and guidelines | When adding agents |
+
+All AI agents **MUST**:
+1. Read `TODO.md` before starting work
+2. Update task status when beginning/completing tasks
+3. Add session summary to `AI_CONTEXT.md` after work
+4. Follow conventions in `CLAUDE.md` and this document
+
+---
+
+## 8. Security & compliance
 
 - Secrets only in CI secret manager; scanned via TruffleHog pre‑commit.  
 - Dependabot weekly updates for npm + GH Actions.  
@@ -113,7 +132,7 @@ build -> transpile -> test -> typecheck -> package
 
 ---
 
-## 8. Extension points
+## 9. Extension points
 
 - **Add platform**: create `apps/desktop` (Electron/Tauri) – same folder contract.  
 - **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.  

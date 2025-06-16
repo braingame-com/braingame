@@ -3,8 +3,9 @@
 ## Purpose
 This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
-> **Key rule:** *Before generating code, tests, or docs, agents **MUST** read*
-> **`docs/ARCHITECTURE.md`** *to follow the agreed folder structure and naming conventions.*
+> **Key rules:** 
+> 1. *Before generating code, tests, or docs, agents **MUST** read **`docs/ARCHITECTURE.md`** to follow the agreed folder structure and naming conventions.*
+> 2. *Before starting work, agents **MUST** read **`TODO.md`** to understand current priorities and **`AI_CONTEXT.md`** for project state.*
 
 ---
 
@@ -37,6 +38,8 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 - Pin agent dependencies; upgrade via PRs with changelogs.
 - Log all agent actions; surface anomalies in CI summary.
 - Respect repository **CODEOWNERS** and branch protection rules.
+- Update **TODO.md** task status when working on tasks.
+- Add session summaries to **AI_CONTEXT.md** after completing work.
 
 ---
 

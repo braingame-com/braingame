@@ -11,7 +11,8 @@
 		"dev": "expo start",
 		"build": "expo export",
 		"test": "jest --watchAll",
-		"lint": "expo lint"
+		"lint": "biome check --fix",
+		"clean": "rm -rf .expo dist web-build"
 	},
 	"jest": {
 		"preset": "jest-expo"

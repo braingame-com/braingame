@@ -4,14 +4,21 @@
 	"private": true,
 	"packageManager": "pnpm@9.0.0",
 	"scripts": {
-		"dev": "pnpm --filter=\"*\" dev",
-		"build": "pnpm --filter=\"*\" build",
-		"lint": "npx biome check --fix",
-		"test": "pnpm --filter=\"*\" test",
-		"clean": "pnpm --filter=\"*\" clean"
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"lint": "turbo lint",
+		"test": "turbo test",
+		"clean": "turbo clean",
+		"format": "biome check --fix",
+		"typecheck": "turbo typecheck",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "turbo build --filter=./packages/* && changeset publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@changesets/cli": "^2.27.1",
+		"turbo": "^2.3.3",
 		"typescript": "^5.3.3"
 	},
 	"engines": {

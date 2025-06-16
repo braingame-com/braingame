@@ -6,7 +6,9 @@
 	"scripts": {
 		"dev": "echo 'Config package ready'",
 		"build": "echo 'No build needed for config'",
-		"lint": "echo 'Config package ready'"
+		"lint": "echo 'Config package ready'",
+		"test": "echo 'No tests for config'",
+		"clean": "echo 'No cleanup needed for config'"
 	},
 	"files": ["*.json", "*.js", "*.ts"],
 	"publishConfig": {

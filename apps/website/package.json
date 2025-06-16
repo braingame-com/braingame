@@ -6,7 +6,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "biome check --fix",
+		"clean": "rm -rf .next"
 	},
 	"dependencies": {
 		"react": "^19.0.0",
@@ -16,15 +17,11 @@
 		"@braingame/utils": "workspace:*"
 	},
 	"devDependencies": {
-		"typescript": "^5",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"@tailwindcss/postcss": "^4",
 		"tailwindcss": "^4",
-		"eslint": "^9",
-		"eslint-config-next": "15.3.3",
-		"@eslint/eslintrc": "^3",
 		"@braingame/config": "workspace:*"
 	}
 }
