@@ -53,7 +53,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 ---
 
 ## Contact
-For questions about agents or automation, ping **@Brain Game/maintainers** or email devops@mywebsite.com.
+For questions about agents or automation, ping **@Brain Game/maintainers** or email hello@braingame.dev.
 
 ---
 

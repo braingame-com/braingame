@@ -4,8 +4,8 @@ Brain Game is a personal‑development tech company.
 
 | Surface | Tech | Domain |
 |---------|------|--------|
-| Universal client | Expo / React Native (+ react‑native‑web) | `app.mywebsite.com` |
-| Marketing & docs site | Next.js (in `apps/website`) | `www.mywebsite.com` |
+| Universal client | Expo / React Native (+ react‑native‑web) | `app.braingame.dev` |
+| Marketing & docs site | Next.js (in `apps/website`) | `www.braingame.dev` |
 | UI kit | `packages/bgui` – open‑source React Native components | npm: `@brain-game/bgui` |
 
 A single **Turborepo** + **pnpm workspaces** keeps all code, tests and tooling in one place.
@@ -18,7 +18,7 @@ A single **Turborepo** + **pnpm workspaces** keeps all code, tests and tooling i
 
 ```bash
 git clone https://github.com/braingame-com/braingame.git
-cd brain-game
+cd braingame
 
 # install all deps
 pnpm install
@@ -42,9 +42,9 @@ pnpm dev --filter website
 | Command | Description |
 |---------|-------------|
 | `pnpm lint` | Lint & format with **Biome** |
-| `pnpm test` | Unit tests (Vitest / Jest) |
+| `pnpm test` | Unit tests (Jest) |
 | `pnpm build` | Turbo graph build (web & app) |
-| `pnpm storybook` | Run BGUI Storybook |
+| `pnpm storybook` | Run BGUI Storybook (not yet implemented) |
 | `pnpm clean` | Purge caches, dist, .next |
 
 ---
@@ -81,7 +81,7 @@ See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full checklist.
 
 ## Security
 
-Vulnerability reports → security@mywebsite.com.  
+Vulnerability reports → hello@braingame.dev.  
 Policy & supported versions in **[SECURITY.md](SECURITY.md)**.
 
 ---

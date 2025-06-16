@@ -5,7 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Task Management
 
 Before starting any work:
-1. **Always read `TODO.md`** to understand current priorities and task status
+1. **Read `docs/BRAND.md`** for brand guidelines and contact information
+2. **Always read `TODO.md`** to understand current priorities and task status
 2. **Update task status** in TODO.md when beginning work (mark as `in_progress`)
 3. **Complete one task at a time** - mark completed before starting next
 4. **Update `AI_CONTEXT.md`** with a session summary when finishing work

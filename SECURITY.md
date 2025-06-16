@@ -17,7 +17,7 @@ We take security seriously. If you discover a security vulnerability, please fol
 Security vulnerabilities should be reported privately to protect users.
 
 ### 2. **Contact us directly**
-- **Email:** [Add your security contact email here]
+- **Email:** hello@braingame.dev
 - **Subject:** `[SECURITY] Brain Game Vulnerability Report`
 
 ### 3. **Include the following information:**
@@ -70,6 +70,6 @@ Security updates will be:
 
 ## Questions?
 
-If you have questions about this security policy, please contact us at [Add contact email].
+If you have questions about this security policy, please contact us at hello@braingame.dev.
 
 Thank you for helping keep Brain Game secure! 
