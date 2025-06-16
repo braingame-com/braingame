@@ -45,6 +45,7 @@ const baseViewStyles = {
 
 export const viewStyles = StyleSheet.create({
 	background: { ...baseViewStyles },
+	surface: { ...baseViewStyles },
 	card: {
 		...baseViewStyles,
 		borderRadius: Tokens.m,

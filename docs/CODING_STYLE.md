@@ -1,5 +1,10 @@
 # Coding Style – Brain Game
 
+![Code Style](https://img.shields.io/badge/code%20style-enterprise%20grade-gold?style=flat-square&logo=eslint)
+![Biome](https://img.shields.io/badge/formatter-biome-60a5fa?style=flat-square&logo=eslint)
+![TypeScript](https://img.shields.io/badge/types-strict-3178c6?style=flat-square&logo=typescript)
+![Architecture](https://img.shields.io/badge/architecture-enterprise-purple?style=flat-square&logo=react)
+
 **ENTERPRISE-GRADE SOFTWARE STANDARDS**
 
 Brain Game is committed to **WORLD-CLASS, INDUSTRY-LEADING** software quality from day one. This guide establishes the foundation for scalable, maintainable, and professional-grade codebases that can compete with Fortune 500 companies.

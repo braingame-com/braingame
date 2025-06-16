@@ -1,5 +1,10 @@
 # ARCHITECTURE.md
 
+![Architecture](https://img.shields.io/badge/architecture-enterprise%20monorepo-blue?style=flat-square&logo=react)
+![Turborepo](https://img.shields.io/badge/build-turborepo-ef4444?style=flat-square&logo=turborepo)
+![TypeScript](https://img.shields.io/badge/language-TypeScript-3178c6?style=flat-square&logo=typescript)
+![React Native](https://img.shields.io/badge/platform-universal-61dafb?style=flat-square&logo=react)
+
 > **Single‑source of truth** for Brain Game’s technical blueprint.  
 > All agents and humans **must** follow the conventions laid out here.
 

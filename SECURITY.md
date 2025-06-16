@@ -1,5 +1,9 @@
 # Security Policy
 
+![Security](https://img.shields.io/badge/security-enterprise%20grade-critical?style=flat-square&logo=shield)
+![Secret Scanning](https://img.shields.io/badge/secret%20scanning-enabled-success?style=flat-square&logo=github)
+![Vulnerability](https://img.shields.io/badge/reporting-hello%40braingame.dev-blue?style=flat-square&logo=mail)
+
 ## Supported Versions
 
 We actively support the following versions of Brain Game:

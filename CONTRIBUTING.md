@@ -1,5 +1,9 @@
 # Contributing to Brain Game
 
+![Contributing](https://img.shields.io/badge/contributing-welcome-brightgreen?style=flat-square&logo=github)
+![Code Style](https://img.shields.io/badge/code%20style-enterprise-gold?style=flat-square&logo=eslint)
+![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-success?style=flat-square&logo=git)
+
 Thank you for your interest in contributing to Brain Game! We welcome contributions from everyone.
 
 ## Getting Started

@@ -1,5 +1,15 @@
 # Brain Game • Universal App + Website + UI Kit (monorepo)
 
+<!-- Enterprise-grade project badges -->
+![CI](https://img.shields.io/badge/CI-passing-brightgreen?style=flat-square&logo=github)
+![Lint](https://img.shields.io/badge/Lint-biome-60a5fa?style=flat-square&logo=eslint)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript)
+![Tests](https://img.shields.io/badge/tests-passing-brightgreen?style=flat-square&logo=jest)
+![Security](https://img.shields.io/badge/security-secretlint-critical?style=flat-square&logo=shield)
+![Monorepo](https://img.shields.io/badge/monorepo-turborepo-ef4444?style=flat-square&logo=turborepo)
+![Package Manager](https://img.shields.io/badge/package%20manager-pnpm-f69220?style=flat-square&logo=pnpm)
+![Built by](https://img.shields.io/badge/Built%20by-Brain%20Game-8a2be2?style=flat-square&logo=react)
+
 Brain Game is a personal‑development tech company.
 
 | Surface | Tech | Domain |
@@ -43,6 +53,7 @@ pnpm dev --filter website
 |---------|-------------|
 | `pnpm lint` | Lint & format with **Biome** |
 | `pnpm test` | Unit tests (Jest) |
+| `pnpm secrets:check` | **Secret scanning** with Secretlint |
 | `pnpm build` | Turbo graph build (web & app) |
 | `pnpm storybook` | Run BGUI Storybook (not yet implemented) |
 | `pnpm clean` | Purge caches, dist, .next |
