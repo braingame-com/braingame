@@ -8,6 +8,9 @@
 			}
 		],
 		"paths": {
+			"@braingame/bgui": ["../../packages/bgui"],
+			"@braingame/utils": ["../../packages/utils"],
+			"@braingame/config": ["../../packages/config"],
 			"@/*": ["./src/*"]
 		},
 		"incremental": true,

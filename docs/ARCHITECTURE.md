@@ -7,7 +7,7 @@
 
 ## 1. System overview
 
-Brain Game ships **three artefacts** from one Turborepo‑managed monorepo:
+Brain Game ships **three enterprise-grade artefacts** from one professionally-managed Turborepo monorepo:
 
 | Layer | Tech | Output / Domain |
 |-------|------|-----------------|

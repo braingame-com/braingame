@@ -1,7 +1,7 @@
 import { Text as RNText } from "react-native";
-import { textStyles } from "../utils/constants/styles";
-import type { TextProps } from "../utils/constants/types";
-import { useThemeColor } from "../utils/hooks/useThemeColor";
+import { textStyles } from "../../utils/constants/styles";
+import { useThemeColor } from "../../utils/hooks/useThemeColor";
+import type { TextProps } from "./types";
 
 export const Text = ({ type = "default", style, ...rest }: TextProps) => {
 	const color = useThemeColor("text");

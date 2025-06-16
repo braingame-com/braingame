@@ -1,5 +1,5 @@
 // Add custom jest matchers
-import "@testing-library/jest-dom";
+require("@testing-library/jest-dom");
 
 // Mock React Native modules if needed
 jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
