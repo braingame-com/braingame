@@ -65,6 +65,38 @@
   - Established task tracking patterns
 - **Next Steps**: Implement CI/CD pipeline
 
+### 2024-06-17 - Pre-commit enhancements
+- **Agent**: Codex
+- **Tasks**: Improve pre-commit lints
+- **Completed**: Added lint and typecheck steps to pre-commit, updated docs
+- **Next Steps**: Fix failing tests and lints
+
+### 2025-06-17 - Documentation sync
+- **Agent**: Codex
+- **Tasks**: Align docs with repository state
+- **Completed**:
+  - Added placeholder Storybook script
+  - Created `firebase.json` and `.firebaserc`
+  - Updated README, DEVELOPMENT.md, CLAUDE.md and ARCHITECTURE.md references
+  - Clarified TODO test suite info
+  - Updated known constraints section
+- **Next Steps**: Expand test coverage and implement real Storybook
+
+### 2025-06-17 - Environment Setup Improvements
+- **Agent**: Codex
+- **Tasks**: Implement environment management tasks
+- **Completed**:
+  - Created `apps/website/.env.example`
+  - Added `env` validation helper with Zod in `packages/utils`
+  - Updated TODO.md status for Environment Management
+- **Next Steps**: Document required variables in docs
+
+### 2025-06-17 - Added PLAN.md and repository review
+- **Agent**: Codex
+- **Tasks**: Review repo, create comprehensive plan
+- **Completed**: Added PLAN.md summarizing architecture and upcoming work
+- **Next Steps**: Follow plan items in upcoming sessions
+
 ### 2025-06-17 - UI Component Planning
 - **Agent**: ChatGPT
 - **Tasks**: Document universal component plan
@@ -76,10 +108,10 @@
 <!-- Add new session summaries above this line -->
 
 ## Known Constraints
-- No CI/CD pipeline exists yet
-- No test files despite Jest being configured
-- Turborepo lacks turbo.json configuration
-- No pre-commit hooks setup
+- Basic CI/CD pipeline implemented (`.github/workflows/ci.yml`)
+- Minimal Jest test suite (only utils package has tests)
+- Turborepo configured via `turbo.json`
+- Husky pre-commit hooks with secret scanning enabled
 
 ## Architecture Decisions
 - Using pnpm workspaces (not npm/yarn)

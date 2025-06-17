@@ -1,0 +1,14 @@
+{
+	"hosting": [
+		{
+			"target": "www",
+			"public": "apps/website",
+			"ignore": ["firebase.json", "**/.*"]
+		},
+		{
+			"target": "app",
+			"public": "apps/product",
+			"ignore": ["firebase.json", "**/.*"]
+		}
+	]
+}
