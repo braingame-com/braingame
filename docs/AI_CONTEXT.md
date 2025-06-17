@@ -65,13 +65,24 @@
   - Established task tracking patterns
 - **Next Steps**: Implement CI/CD pipeline
 
+### 2025-06-17 - Documentation sync
+- **Agent**: Codex
+- **Tasks**: Align docs with repository state
+- **Completed**:
+  - Added placeholder Storybook script
+  - Created `firebase.json` and `.firebaserc`
+  - Updated README, DEVELOPMENT.md, CLAUDE.md and ARCHITECTURE.md references
+  - Clarified TODO test suite info
+  - Updated known constraints section
+- **Next Steps**: Expand test coverage and implement real Storybook
+
 <!-- Add new session summaries above this line -->
 
 ## Known Constraints
-- No CI/CD pipeline exists yet
-- No test files despite Jest being configured
-- Turborepo lacks turbo.json configuration
-- No pre-commit hooks setup
+- Basic CI/CD pipeline implemented (`.github/workflows/ci.yml`)
+- Minimal Jest test suite (only utils package has tests)
+- Turborepo configured via `turbo.json`
+- Husky pre-commit hooks with secret scanning enabled
 
 ## Architecture Decisions
 - Using pnpm workspaces (not npm/yarn)
