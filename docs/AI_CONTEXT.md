@@ -65,6 +65,15 @@
   - Established task tracking patterns
 - **Next Steps**: Implement CI/CD pipeline
 
+### 2025-06-17 - Environment Setup Improvements
+- **Agent**: Codex
+- **Tasks**: Implement environment management tasks
+- **Completed**:
+  - Created `apps/website/.env.example`
+  - Added `env` validation helper with Zod in `packages/utils`
+  - Updated TODO.md status for Environment Management
+- **Next Steps**: Document required variables in docs
+
 <!-- Add new session summaries above this line -->
 
 ## Known Constraints
