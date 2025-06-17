@@ -1,41 +1,55 @@
-# CLAUDE.md
+# CLAUDE.md - AI Agent Cheatsheet
 
-![AI Assistant](https://img.shields.io/badge/AI%20assistant-Claude%20Code-purple?style=flat-square&logo=anthropic)
-![Standards](https://img.shields.io/badge/standards-enterprise%20grade-gold?style=flat-square&logo=checkmk)
-![Quality](https://img.shields.io/badge/quality-Fortune%20500-critical?style=flat-square&logo=shield)
+> **This is your tactical guide.** It provides the essential commands and workflows for operating effectively within the Brain Game repository. For project structure and high-level decisions, refer to `docs/ARCHITECTURE.md`.
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+---
 
-**CRITICAL:** Brain Game maintains **ENTERPRISE-GRADE, WORLD-CLASS** software standards. All code must meet Fortune 500 quality expectations.
+## 1. Golden Path Workflow
+Follow these steps for every development task.
 
-## Task Management
+**Phase 1: Setup & Pre-flight**
+1.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
+2.  **Consult Docs:** Read `ARCHITECTURE.md` and `AI_CONTEXT.md` to refresh context.
+3.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
-Before starting any work:
-1. **Read `docs/BRAND.md`** for brand guidelines and contact information
-2. **Always read `TODO.md`** to understand current priorities and task status
-2. **Update task status** in TODO.md when beginning work (mark as `in_progress`)
-3. **Complete one task at a time** - mark completed before starting next
-4. **Update `AI_CONTEXT.md`** with a session summary when finishing work
+**Phase 2: Development & Implementation**
+1.  **Code:** Implement the required changes, following the guidelines below.
+2.  **Lint:** Run `pnpm lint` frequently to ensure code is clean.
+3.  **Test:** Add or update tests as needed. Run `pnpm test` to verify.
 
-## Project Overview
+**Phase 3: Completion & Handoff**
+1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
+2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
+3.  **Summarize:** Add a session summary to `AI_CONTEXT.md`.
 
-Brain Game is a personal-development tech company with a monorepo structure containing:
+---
 
-1. Universal client app (Expo/React Native + react-native-web) at `apps/product`
-2. Marketing & docs site (Next.js) at `apps/website` 
-3. UI kit (React Native components that work on web) at `packages/bgui`
+## 2. Code Generation Guidelines
 
-The repository uses Turborepo + pnpm workspaces to manage all code, tests, and tooling.
+- **Language:** All code **MUST** be TypeScript.
+- **Components:** All UI components go in the `packages/bgui` package. Follow the existing folder-per-component structure.
+- **Utilities:** All shared helpers, hooks, and wrappers go in the `packages/utils` package.
+- **Styling:** Use the theming system defined in `BGUI_COMPONENT_PLAN.md`. Do not use inline styles or arbitrary values.
+- **Imports:** **MUST** use absolute imports for workspace packages (e.g., `@braingame/bgui`, `@braingame/utils`).
+- **Quality:** Code must be "enterprise-grade"—robust, readable, and maintainable. Adhere to `CODING_STYLE.md`.
 
-## Common Commands
+---
 
-### Development
+## 3. Administrative Guidelines
 
+- **Date Format:** All dates in documentation (`TODO.md`, `AI_CONTEXT.md`, etc.) **MUST** use the `DD-MM-YYYY` format.
+- **Accurate Dating:** Ensure the current, correct date is used. Time-traveling agents will be decommissioned.
+
+---
+
+## 4. Common Commands
+
+### Core Development
 ```bash
-# Install all dependencies
+# Install all monorepo dependencies
 pnpm install
 
-# Run all apps in watch mode (Expo & Next)
+# Run all apps in development mode (Expo & Next.js)
 pnpm dev
 
 # Run only the Expo universal app
@@ -43,95 +57,31 @@ pnpm dev --filter product
 
 # Run only the Next.js website
 pnpm dev --filter website
-
-# Run Storybook for UI components (placeholder)
-pnpm storybook
 ```
 
-### Build & Test
-
+### Quality & Testing
 ```bash
-# Lint & format with Biome
+# Lint & format all files with Biome
 pnpm lint
 
-# Run unit tests (Jest/Vitest)
+# Run all unit tests with Jest
 pnpm test
 
-# Enterprise secret scanning (Secretlint)
-pnpm secrets:check
-
-# Build all projects
+# Build all packages and apps
 pnpm build
 
-# Clean caches, dist folders, .next
+# Clean all build caches and output folders
 pnpm clean
 ```
 
-### Platform-Specific Commands
-
+### Platform-Specific
 ```bash
-# Start the Expo app (iOS)
+# Start the Expo app on the iOS Simulator
 pnpm --filter product ios
 
-# Start the Expo app (Android)
+# Start the Expo app on an Android emulator
 pnpm --filter product android
 
-# Start the Expo app (Web)
+# Start the Expo app in a web browser
 pnpm --filter product web
 ```
-
-## Architecture
-
-### Monorepo Structure
-
-```
-apps/           # Deployable applications
-  product/      # Expo universal client
-  website/      # Next.js marketing site
-
-packages/       # Shared libraries
-  bgui/         # UI kit (React Native + web)
-  utils/        # Shared helpers, Firebase wrappers, hooks
-  config/       # Linting, TypeScript, Biome configuration
-```
-
-### Key Dependencies
-
-- **Universal App**: Expo, React Native, react-native-web
-- **Website**: Next.js
-- **Shared**: Biome (linting/formatting), TypeScript, pnpm, Turborepo
-
-### Enterprise Development Principles
-
-1. **MANDATORY:** All code must follow CODING_STYLE.md enterprise standards
-2. **Architecture:** Deployable `apps/*` may depend on `packages/*`
-3. **Dependency Graph:** `packages/*` must never depend on `apps/*` (maintain DAG)
-4. **Component Structure:** Use folder-per-component for enterprise scalability
-5. **Import Strategy:** MANDATORY absolute imports (`@braingame/*`)
-6. **UI Components:** All shared components go in `bgui` package
-7. **Utilities:** All shared utilities go in `utils` package
-8. **Quality:** Use Biome for formatting and linting
-9. **Testing:** Minimum 80% test coverage on all packages
-
-## Testing
-
-- Unit tests are run with Jest (with jest-expo preset for the Expo app)
-- Run tests with `pnpm test`
-- Tests should be located alongside the files they test
-
-## CI/CD Pipeline
-
-The CI/CD pipeline (GitHub Actions) follows these steps:
-
-1. **lint**: Biome, dependency graph check
-2. **test**: Unit & E2E tests (Playwright, Maestro) 
-3. **build**: Turborepo cache, artifact upload
-4. **preview deploy**: Vercel (web) & Expo EAS (app)
-5. **release** (main branch only): Changesets publish, Firebase deploy
-
-## Security & Compliance
-
-- Secrets only in CI secret manager
-- Pre-commit hooks scan for secrets
-- Dependabot weekly updates for npm + GitHub Actions
-- Disclosure policy in SECURITY.md

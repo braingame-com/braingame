@@ -1,69 +1,50 @@
 # Security Policy
 
-![Security](https://img.shields.io/badge/security-enterprise%20grade-critical?style=flat-square&logo=shield)
-![Secret Scanning](https://img.shields.io/badge/secret%20scanning-enabled-success?style=flat-square&logo=github)
-![Vulnerability](https://img.shields.io/badge/reporting-hello%40braingame.dev-blue?style=flat-square&logo=mail)
+The Brain Game team takes security seriously. We appreciate the help of the security community in keeping our applications and users safe.
 
-## Supported Versions
+---
 
-We actively support the following versions of Brain Game:
+## 1. Supported Versions
+We provide security updates for the **latest released version** of our applications and packages. We encourage all users to stay on the most recent version.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| Latest  | :white_check_mark: |
-| < Latest| :x:                |
+| Version | Supported |
+|---|---|
+| Latest | ✅ Yes |
+| Previous Versions | ❌ No |
 
-## Reporting a Vulnerability
+---
 
-We take security seriously. If you discover a security vulnerability, please follow these steps:
+## 2. Reporting a Vulnerability
+If you discover a security vulnerability, please report it to us privately. **Do not create a public GitHub issue.**
 
-### 1. **Do NOT** create a public GitHub issue
-Security vulnerabilities should be reported privately to protect users.
+1.  **Email us directly** at `hello@braingame.dev`.
+2.  Use the subject line: `[SECURITY] Vulnerability Report: <Brief Description>`
+3.  **Provide detailed information**, including:
+    -   A clear description of the vulnerability.
+    -   The component or URL where the vulnerability exists.
+    -   Step-by-step instructions to reproduce the issue.
+    -   The potential impact of the vulnerability.
+    -   Any suggested mitigations, if you have them.
 
-### 2. **Contact us directly**
-- **Email:** hello@braingame.dev
-- **Subject:** `[SECURITY] Brain Game Vulnerability Report`
+We will acknowledge your report within 48 hours and will work with you to understand and resolve the issue. We will give you credit for your discovery after the vulnerability has been patched.
 
-### 3. **Include the following information:**
-- Description of the vulnerability
-- Steps to reproduce the issue
-- Potential impact and severity
-- Any suggested fixes or mitigations
-- Your contact information (optional, but helpful for follow-up)
+---
 
-### 4. **What to expect:**
-- **Acknowledgment:** We'll acknowledge receipt within 48 hours
-- **Initial Assessment:** We'll provide an initial assessment within 5 business days
-- **Updates:** We'll keep you informed of our progress
-- **Resolution:** We'll work to resolve critical issues as quickly as possible
-- **Credit:** With your permission, we'll credit you in our security advisories
+## 3. Our Security Measures
+- **Secret Scanning:** We use `TruffleHog` and other tools in our pre-commit hooks and CI pipeline to prevent secrets from being committed to the repository.
+- **Dependency Management:** We use Dependabot to automatically monitor and update our dependencies.
+- **Secure Coding:** We adhere to secure coding practices and follow the principle of least privilege.
+- **Environment Variables:** All sensitive information, API keys, and secrets are managed via environment variables and are never stored in the codebase.
 
-## Security Best Practices
+---
 
-### For Contributors
-- Keep dependencies up to date
-- Follow secure coding practices
-- Never commit secrets, API keys, or sensitive data
-- Use environment variables for configuration
-- Validate all user inputs
-- Follow the principle of least privilege
+## 4. Scope
+This security policy applies to the following assets:
+- The `braingame` monorepo on GitHub.
+- The deployed applications at `app.braingame.dev` and `www.braingame.dev`.
+- Packages published under the `@brain-game` scope on npm.
 
-### For Users
-- Keep the app updated to the latest version
-- Report suspicious behavior or potential security issues
-- Use strong authentication methods when available
-
-## Scope
-
-This security policy applies to:
-- The main Brain Game application
-- Official Brain Game repositories
-- Brain Game infrastructure and services
-
-## Out of Scope
-- Third-party dependencies (report to their respective maintainers)
-- Issues in development/testing environments
-- Social engineering attacks
+Any other assets or third-party services are considered out of scope.
 
 ## Security Updates
 

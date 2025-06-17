@@ -1,102 +1,59 @@
-# Brain Game • Universal App + Website + UI Kit (monorepo)
+# Brain Game
 
-<!-- Enterprise-grade project badges -->
-![CI](https://img.shields.io/badge/CI-passing-brightgreen?style=flat-square&logo=github)
-![Lint](https://img.shields.io/badge/Lint-biome-60a5fa?style=flat-square&logo=eslint)
+> **The operating system for personal development.**
+
+![CI](https://img.shields.io/github/actions/workflow/status/braingame-com/braingame/ci.yml?style=flat-square&logo=github&label=CI)
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript)
-![Tests](https://img.shields.io/badge/tests-passing-brightgreen?style=flat-square&logo=jest)
-![Security](https://img.shields.io/badge/security-secretlint-critical?style=flat-square&logo=shield)
 ![Monorepo](https://img.shields.io/badge/monorepo-turborepo-ef4444?style=flat-square&logo=turborepo)
-![Package Manager](https://img.shields.io/badge/package%20manager-pnpm-f69220?style=flat-square&logo=pnpm)
-![Built by](https://img.shields.io/badge/Built%20by-Brain%20Game-8a2be2?style=flat-square&logo=react)
+![Managed by Brain Game](https://img.shields.io/badge/Managed%20by-Brain%20Game-7c3aed?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuMjE3MyAxOS4yNDk4QzYuMTU0MyAxOS4yNDk4IDUuMjc0MyAxOC44NDI4IDQuNjM4MyAxOC4wNzM4QzQuMDAyMyAxNy4zMDQ4IDMuNjY3MyAxNi4zNTQ4IDMuNjY3MyAxNS4yOTg4VjguNzAwOEMzLjY2NzMgNy42NDQ4IDQuMDAyMyA2LjY5NDggNC42MzgzIDUuOTI1OEM1LjI3NDMgNS4xNTY4IDYuMTU0MyA0Ljc0OTggNy4yMTczIDQuNzQ5OEgxMS4wNDkzQzEyLjEwNjMgNC43NDk4IDEzLjA3NTMgNS4xNTY4IDEzLjcxMTMgNS45MjU4QzE0LjM0NzMgNi42OTQ4IDE0LjY4MjMgNy42NDQ4IDE0LjY4MjMgOC43MDA4VjEzLjQ4NjhDMTQuNjgyMyAxMy41NzA4IDE0LjY3NTMgMTMuNjUyOCAxNC42NjEzIDEzLjczNDhDMTQuNjQ3MyAxMy44MTY4IDE0LjYyNjMgMTMuODk4OCAxNC42MDAzIDEzLjk4MDhDMTQuMzc0MyAxNC42NDA4IDEzLjkxMzMgMTUuMTMwOCAxMy4yMTczIDE1Ljc5MjhDMTIuNTEwMyAxNi40NDQ4IDExLjYxMjMgMTYuOTA1OCAxMC41ODIzIDE3LjI3MjhDMTIuMDYxMyAxNy42NzU4IDEzLjE0NTMgMTguNDIyOCAxMy44MzQzIDE5LjUxNDhDMTQuNTIzMyAyMC42MDY4IDE0LjgyMzMgMjEuODk5OCAxNC44MjMzIDIzLjM5MjhWjcuMjE3MyAxOS4yNDk4WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==)
 
-Brain Game is a personal‑development tech company.
 
-| Surface | Tech | Domain |
-|---------|------|--------|
-| Universal client | Expo / React Native (+ react‑native‑web) | `app.braingame.dev` |
-| Marketing & docs site | Next.js (in `apps/website`) | `www.braingame.dev` |
-| UI kit | `packages/bgui` – open‑source React Native components | npm: `@brain-game/bgui` |
-
-A single **Turborepo** + **pnpm workspaces** keeps all code, tests and tooling in one place.
+This monorepo contains the code for all Brain Game applications, websites, and shared libraries.
 
 ---
 
-## Quick start
+## 🚀 Get Started
 
-> **Prereqs** – Node ≥18, pnpm ≥9, Git, Firebase CLI
+To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
-```bash
-git clone https://github.com/braingame-com/braingame.git
-cd braingame
-
-# install all deps
-pnpm install
-
-# run both apps (Expo & Next) in watch mode
-pnpm dev
-```
-
-### Individual dev servers
-
-```bash
-# Expo universal app
-pnpm dev --filter product
-
-# Next.js marketing / docs
-pnpm dev --filter website
-```
-
-### Common scripts
-
-| Command | Description |
-|---------|-------------|
-| `pnpm lint` | Lint & format with **Biome** |
-| `pnpm test` | Unit tests (Jest) |
-| `pnpm secrets:check` | **Secret scanning** with Secretlint |
-| `pnpm build` | Turbo graph build (web & app) |
-| `pnpm storybook` | Run BGUI Storybook (placeholder script) |
-| `pnpm clean` | Purge caches, dist, .next |
+For a high-level overview of the project's structure, goals, and technical decisions, please see our **[Architecture Documentation](./docs/ARCHITECTURE.md)**.
 
 ---
 
-## Monorepo layout (abridged)
+## 🧠 Guiding Principles
 
-```
-apps/           # deployables
-  website/      # Next.js site
-  product/      # Expo universal client
-
-packages/       # shared libraries
-  bgui/         # UI kit (RN + web)
-  utils/        # helpers, Firebase wrappers
-  config/       # lint / TS / Biome presets
-
-docs/           # architecture, ADRs, runbooks
-```
-
-Full details live in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
+- **Enterprise-Grade by Default:** We build robust, scalable, and maintainable software that meets Fortune 500 quality standards from day one.
+- **Pragmatic & Ambitious:** We use proven technologies and patterns to solve problems, but we are not afraid to innovate where it matters.
+- **Documentation is Law:** Our `docs` folder is not just a suggestion; it is the single source of truth for how we build, architect, and collaborate.
 
 ---
 
-## Contributing
+## 📂 What's Inside?
 
-1. Fork → branch → code.  
-2. `pnpm lint && pnpm test` must pass.  
-3. Follow commit‑message conventions (Changesets bumps versions).  
-4. Open a PR — CI runs build, tests and preview deploys.
+This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm workspaces](https://pnpm.io/workspaces). It contains:
 
-See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full checklist.
-
----
-
-## Security
-
-Vulnerability reports → hello@braingame.dev.  
-Policy & supported versions in **[SECURITY.md](SECURITY.md)**.
+| Path | Description |
+|---|---|
+| `apps/product` | The universal **Expo client** for iOS, Android, and Web. This is the core Brain Game product. |
+| `apps/website` | The **Next.js marketing site** and documentation hub. |
+| `packages/bgui` | Our **shared component library**, built with React Native and `react-native-web`. |
+| `packages/utils` | Shared utilities, hooks, and helpers used across the monorepo. |
+| `packages/config` | Shared configurations for TypeScript, Biome, etc. |
+| `docs` | All project documentation, from architecture to coding style. |
 
 ---
 
-## License
+## 🤝 Contributing
 
-MIT © Brain Game 2025
+We welcome contributions! Please see our **[Contributing Guide](./CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
+
+A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./docs/TODO.md)**.
+
+## 🛡️ Security
+
+Security is a top priority. Please see our **[Security Policy](./SECURITY.md)** for details on our supported versions and how to report vulnerabilities.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the **[LICENSE](./LICENSE)** file for details.

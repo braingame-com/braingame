@@ -199,7 +199,7 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
 ### Text
 - **Props**
   - `children: ReactNode` – text content
-  - `color?: string` – text color
+  - `color?: ThemeColor` – text color
   - `align?: 'left' | 'center' | 'right'` – text alignment
   - `numberOfLines?: number` – truncate after lines
 - **Variants**
@@ -224,7 +224,7 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
   - `count?: number` – numeric badge
   - `text?: string` – text badge
   - `dot?: boolean` – small dot indicator
-  - `color?: string` – badge color
+  - `color?: ThemeColor` – badge color
 - **Variants**
   - `notification` – red notification badge
   - `status` – colored status indicator
@@ -233,7 +233,7 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
 ### Checkbox
 - **Props**
   - `checked: boolean`
-  - `onValueChange: (checked: boolean) => void`
+  - `onValueChange: (value: boolean) => void`
   - `children?: ReactNode` – checkbox label
   - `indeterminate?: boolean` – partial selection state
   - `disabled?: boolean`
@@ -256,35 +256,60 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
   - `standard` – default toggle switch
   - `compact` – smaller switch
 
-### RadioButton
+### RadioGroup
 - **Props**
-  - `selected: boolean`
-  - `onPress: () => void`
-  - `label?: string`
+  - `children: ReactNode` – RadioGroup.Item components
+  - `value: string` – value of the selected radio item
+  - `onValueChange: (value: string) => void` – callback when selection changes
+  - `defaultValue?: string` – initially selected value (uncontrolled)
   - `disabled?: boolean`
+  - `aria-label?: string` – accessibility label
 - **Variants**
-  - `standard` – default radio button
-  - `card` – card-style selection
+  - `standard` – default vertical radio group
+  - `card` – card-style selection group
+- **Accessibility**
+  - Keyboard: Arrow keys for navigation, Space to select
+  - Screen readers: Announced as group with item count and selection state
+  - Each radio item is associated with the group label
+- **Composition**
+  ```jsx
+  <RadioGroup value={selectedValue} onValueChange={setSelectedValue}>
+    <RadioGroup.Item value="item1">Item 1</RadioGroup.Item>
+    <RadioGroup.Item value="item2">Item 2</RadioGroup.Item>
+  </RadioGroup>
+  ```
 
 ### Select
 - **Props**
+  - `children: ReactNode` - Select.Item components
   - `value?: string | string[]`
-  - `onSelectionChange: (value: string | string[]) => void`
-  - `options: Array<{label: string, value: string}>`
+  - `onValueChange: (value: string | string[]) => void`
   - `placeholder?: string`
   - `searchable?: boolean`
   - `multiple?: boolean`
   - `disabled?: boolean`
+  - `aria-label?: string` – accessibility label
 - **Variants**
   - `dropdown` – traditional dropdown
   - `modal` – modal selection on mobile
-  - `multi` – multiple selection
+- **Accessibility**
+  - Keyboard: Arrow keys for navigation, Enter/Space to select/open
+  - Screen readers: Proper ARIA listbox role and state announcement
+  - Focus management for dropdown/modal
+- **Composition**
+  ```jsx
+  <Select value={value} onValueChange={setValue}>
+    <Select.Item value="option1">Option 1</Select.Item>
+    <Select.Item value="option2">Option 2</Select.Item>
+    <Select.Item value="option3">Option 3</Select.Item>
+  </Select>
+  ```
 
 ### ProgressBar
 - **Props**
   - `value: number` – progress value (0-100)
-  - `color?: string` – progress color
-  - `backgroundColor?: string` – track color
+  - `color?: ThemeColor` – progress color
+  - `backgroundColor?: ThemeColor` – track color
   - `animated?: boolean`
 - **Variants**
   - `linear` – horizontal progress bar
@@ -293,7 +318,7 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
 ### Divider
 - **Props**
   - `orientation?: 'horizontal' | 'vertical'`
-  - `color?: string`
+  - `color?: ThemeColor`
   - `thickness?: number`
 - **Variants**
   - `solid` – solid line
@@ -383,8 +408,10 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
 ### Accordion
 - **Props**
   - `children: ReactNode` – Accordion.Item components
+  - `value?: string | string[]` – controlled expanded item(s)
+  - `onValueChange?: (value: string | string[]) => void` – callback for controlled expansion
+  - `defaultValue?: string | string[]` – initially expanded item(s) (uncontrolled)
   - `allowMultiple?: boolean` – multiple panels open
-  - `defaultExpanded?: string[]` – initially expanded panels
 - **Variants**
   - `standard` – default accordion
   - `flush` – no borders/padding
@@ -395,7 +422,7 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
   - Focus management between panels
 - **Composition**
   ```jsx
-  <Accordion>
+  <Accordion value={expanded} onValueChange={setExpanded}>
     <Accordion.Item title="Panel 1" value="panel1">
       Content for panel 1
     </Accordion.Item>
@@ -407,12 +434,23 @@ typography: 'h1' | 'h2' | 'h3' | 'body' | 'caption'
 
 ### Breadcrumb
 - **Props**
-  - `items: Array<{label: string, href?: string, onPress?: () => void}>`
+  - `children: ReactNode` – Breadcrumb.Item components
   - `separator?: ReactNode` – custom separator
   - `maxItems?: number` – collapse after limit
 - **Variants**
   - `standard` – default breadcrumb
   - `compact` – condensed spacing
+- **Accessibility**
+  - Keyboard: Tab to navigate between items
+  - Screen readers: Announced as a navigation landmark with item count
+- **Composition**
+  ```jsx
+  <Breadcrumb>
+    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+    <Breadcrumb.Item href="/category">Category</Breadcrumb.Item>
+    <Breadcrumb.Item>Current Page</Breadcrumb.Item>
+  </Breadcrumb>
+  ```
 
 ### Menu
 - **Props**
@@ -465,7 +503,7 @@ Components for app structure:
 ### Phase 3: Advanced Interactions  
 Complex interactive components:
 - Menu, Tooltip, Accordion
-- Select, RadioButton, ProgressBar
+- Select, RadioGroup, ProgressBar
 - Slider, Image
 
 ## Component Development Checklist
@@ -518,7 +556,7 @@ Complex interactive components:
   - [ ] Implement props and variants
   - [ ] Write unit tests
   - [ ] Add Storybook examples
-- [ ] **RadioButton**
+- [ ] **RadioGroup**
   - [ ] Implement props and variants
   - [ ] Write unit tests
   - [ ] Add Storybook examples

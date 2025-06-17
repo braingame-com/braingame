@@ -3,9 +3,9 @@
 ![Architecture](https://img.shields.io/badge/architecture-enterprise%20monorepo-blue?style=flat-square&logo=react)
 ![Turborepo](https://img.shields.io/badge/build-turborepo-ef4444?style=flat-square&logo=turborepo)
 ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178c6?style=flat-square&logo=typescript)
-![React Native](https://img.shields.io/badge/platform-universal-61dafb?style=flat-square&logo=react)
+![React Native](https://img.shields.io/badge/platform-cross--platform-61dafb?style=flat-square&logo=react)
 
-> **Single‑source of truth** for Brain Game’s technical blueprint.  
+> **Single‑source of truth** for Brain Game's technical blueprint.  
 > All agents and humans **must** follow the conventions laid out here.
 
 ---
@@ -16,7 +16,7 @@ Brain Game ships **three enterprise-grade artefacts** from one professionally-ma
 
 | Layer | Tech | Output / Domain |
 |-------|------|-----------------|
-| **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.braingame.dev` |
+| **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.braingame.dev` (Web), App/Play Store (Native) |
 | **Marketing & Docs** | Next.js (in `apps/website`) | `www.braingame.dev` |
 | **UI Kit** | `packages/bgui` – sharable RN components | npm: `@brain-game/bgui` |
 
@@ -31,6 +31,7 @@ Common infra: pnpm workspaces, Biome lint/format, Jest tests, Turbo task graph.
 | **Repo style** | Single **Turborepo** monorepo | Atomic commits & shared cache |
 | **Workspaces** | `apps/*`, `packages/*` | Clear separation deployable vs library |
 | **Docs rendering** | Docs live **inside Next.js** using BGUI components | Brand cohesion, no MDX styling drift |
+| **Component Dev** | **Storybook** is first‑class | Critical for developing, testing & documenting BGUI |
 | **Hosting** | **Firebase Hosting multi‑site** (`www` & `app` targets) | Simple CDN, same auth/config |
 | **Caching** | Local + optional **Vercel remote cache** | Fast CI across PRs |
 | **Secrets** | `.env` (local), CI secret manager (prod) | Never commit credentials |
