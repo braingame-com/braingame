@@ -38,7 +38,7 @@
 		"storybook": "echo 'Storybook is not yet implemented'"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "^2.0.0",
 		"@changesets/cli": "^2.27.1",
 		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
 		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
