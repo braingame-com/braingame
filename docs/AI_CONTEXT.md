@@ -82,6 +82,15 @@
   - Updated known constraints section
 - **Next Steps**: Expand test coverage and implement real Storybook
 
+### 2025-06-17 - Environment Setup Improvements
+- **Agent**: Codex
+- **Tasks**: Implement environment management tasks
+- **Completed**:
+  - Created `apps/website/.env.example`
+  - Added `env` validation helper with Zod in `packages/utils`
+  - Updated TODO.md status for Environment Management
+- **Next Steps**: Document required variables in docs
+
 <!-- Add new session summaries above this line -->
 
 ## Known Constraints

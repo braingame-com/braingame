@@ -60,10 +60,10 @@
   - Status: Not started
 
 - [ ] Environment Management
-  - [ ] Create `.env.example` files
+  - [ ] Create `.env.example` files (in progress)
   - [ ] Add validation with zod
   - [ ] Document required variables
-  - Status: Basic setup exists
+  - Status: In progress - adding env examples and validation
 
 - [ ] Setup Monitoring
   - [ ] Integrate Sentry for errors
