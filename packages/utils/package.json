@@ -9,6 +9,7 @@
 		"build": "tsc",
 		"test": "jest",
 		"lint": "biome check --fix",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist",
 		"prepare": "husky"
 	},

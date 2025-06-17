@@ -7,6 +7,7 @@
 		"dev": "echo 'Config package ready'",
 		"build": "echo 'No build needed for config'",
 		"lint": "echo 'Config package ready'",
+		"typecheck": "echo 'No typecheck needed for config'",
 		"test": "echo 'No tests for config'",
 		"clean": "echo 'No cleanup needed for config'"
 	},

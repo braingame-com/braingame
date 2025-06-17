@@ -12,6 +12,7 @@
 		"build": "expo export",
 		"test": "jest --passWithNoTests",
 		"lint": "biome check --fix",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf .expo dist web-build"
 	},
 	"jest": {
