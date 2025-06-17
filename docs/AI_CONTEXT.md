@@ -65,13 +65,19 @@
   - Established task tracking patterns
 - **Next Steps**: Implement CI/CD pipeline
 
+### 2024-06-17 - Pre-commit enhancements
+- **Agent**: Codex
+- **Tasks**: Improve pre-commit lints
+- **Completed**: Added lint and typecheck steps to pre-commit, updated docs
+- **Next Steps**: Fix failing tests and lints
+
 <!-- Add new session summaries above this line -->
 
 ## Known Constraints
 - No CI/CD pipeline exists yet
 - No test files despite Jest being configured
 - Turborepo lacks turbo.json configuration
-- No pre-commit hooks setup
+- Pre-commit hooks enforce lint, typecheck, and tests
 
 ## Architecture Decisions
 - Using pnpm workspaces (not npm/yarn)
