@@ -65,6 +65,12 @@
   - Established task tracking patterns
 - **Next Steps**: Implement CI/CD pipeline
 
+### 2024-06-17 - Pre-commit enhancements
+- **Agent**: Codex
+- **Tasks**: Improve pre-commit lints
+- **Completed**: Added lint and typecheck steps to pre-commit, updated docs
+- **Next Steps**: Fix failing tests and lints
+
 ### 2025-06-17 - Documentation sync
 - **Agent**: Codex
 - **Tasks**: Align docs with repository state
