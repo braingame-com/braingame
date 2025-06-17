@@ -44,7 +44,7 @@ pnpm dev --filter product
 # Run only the Next.js website
 pnpm dev --filter website
 
-# Run Storybook for UI components
+# Run Storybook for UI components (placeholder)
 pnpm storybook
 ```
 

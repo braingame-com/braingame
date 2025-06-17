@@ -55,7 +55,7 @@ pnpm dev --filter website
 | `pnpm test` | Unit tests (Jest) |
 | `pnpm secrets:check` | **Secret scanning** with Secretlint |
 | `pnpm build` | Turbo graph build (web & app) |
-| `pnpm storybook` | Run BGUI Storybook (not yet implemented) |
+| `pnpm storybook` | Run BGUI Storybook (placeholder script) |
 | `pnpm clean` | Purge caches, dist, .next |
 
 ---
