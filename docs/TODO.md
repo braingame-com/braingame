@@ -15,7 +15,7 @@
 - [x] Implement Testing Infrastructure (2024-06-16)
   - [x] Add unit tests for `utils` functions
   - [x] Configure Jest for packages 
-  - [x] Working test suite with 5 passing tests
+  - [x] Working test suite with 5 passing tests (single utils file)
   - [ ] Add unit tests for `bgui` components (needs React Native test setup)
   - [ ] Setup integration tests for apps
   - [ ] Configure coverage reporting
@@ -34,7 +34,8 @@
   - [x] Configure lint-staged with Biome
   - [x] Setup enterprise-grade quality gates
   - [x] Add secret scanning (2024-06-16)
-  - Status: Complete - pre-commit hooks with Secretlint integration working
+  - Status: Enhanced - additional lint and typecheck checks added
+    - [x] Enhanced linting with typecheck and project-wide lint (2024-06-17)
 
 - [x] Implement Changesets
   - [x] Initialize changesets config
@@ -59,10 +60,10 @@
   - Status: Not started
 
 - [ ] Environment Management
-  - [ ] Create `.env.example` files
+  - [ ] Create `.env.example` files (in progress)
   - [ ] Add validation with zod
   - [ ] Document required variables
-  - Status: Basic setup exists
+  - Status: In progress - adding env examples and validation
 
 - [ ] Setup Monitoring
   - [ ] Integrate Sentry for errors
