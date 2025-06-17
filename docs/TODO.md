@@ -55,9 +55,9 @@
 ## 📋 Medium Priority
 - [ ] Configure Storybook
   - [ ] Setup for `bgui` package
-  - [ ] Document components
+  - [x] Document components (2025-06-17)
   - [ ] Add visual testing
-  - Status: Not started
+  - Status: In progress - planning notes in `docs/BGUI_COMPONENT_PLAN.md`
 
 - [ ] Environment Management
   - [ ] Create `.env.example` files (in progress)
