@@ -15,7 +15,7 @@
 - [x] Implement Testing Infrastructure (2024-06-16)
   - [x] Add unit tests for `utils` functions
   - [x] Configure Jest for packages 
-  - [x] Working test suite with 5 passing tests
+  - [x] Working test suite with 5 passing tests (single utils file)
   - [ ] Add unit tests for `bgui` components (needs React Native test setup)
   - [ ] Setup integration tests for apps
   - [ ] Configure coverage reporting
