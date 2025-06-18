@@ -15,6 +15,15 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 17-06-2025 - Codex Secret Scanner
+- **Agent**: ChatGPT
+- **Tasks**: Implement script to detect hardcoded secrets
+- **Completed**:
+  - Created `scripts/scan-secrets.ts`
+  - Added `secrets:codex` npm script
+  - Updated TODO with new entry
+- **Next Steps**: Integrate scanner into CI pipeline
+
 ### 17-06-2025 - Added Spinner Component
 - **Agent**: ChatGPT
 - **Tasks**: Implement Spinner UI component with accessibility support
@@ -40,6 +49,7 @@
   - Generated `docs/TOKEN_USAGE.md`
   - Updated `docs/TODO.md` with completion status
 - **Next Steps**: Integrate token report into design workflow
+>>>>>>> main
 >>>>>>> main
 
 ### 18-06-2025 - Full Documentation Overhaul

@@ -34,6 +34,7 @@
   - [x] Configure lint-staged with Biome
   - [x] Setup enterprise-grade quality gates
   - [x] Add secret scanning (17-06-2025)
+  - [x] Codex secret scan script added (17-06-2025)
   - Status: Enhanced - additional lint and typecheck checks added
     - [x] Enhanced linting with typecheck and project-wide lint (17-06-2025)
 
