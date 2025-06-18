@@ -33,10 +33,11 @@
 		"workspace:prune": "turbo prune",
 		"secrets:scan": "secretlint .",
 		"secrets:check": "secretlint --no-color .",
-                "quality": "turbo lint typecheck test",
-                "ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
-                "precommit": "lint-staged && pnpm secrets:check && pnpm quality",
-		"storybook": "echo 'Storybook is not yet implemented'"
+		"quality": "turbo lint typecheck test",
+		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
+		"precommit": "lint-staged && pnpm secrets:check && pnpm quality",
+		"storybook": "echo 'Storybook is not yet implemented'",
+		"bgui:scaffold": "node scripts/create-bgui-component.js"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0",
