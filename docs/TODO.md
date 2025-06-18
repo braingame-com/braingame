@@ -56,6 +56,7 @@
 - [ ] Configure Storybook
   - [ ] Setup for `bgui` package
   - [x] Document components (17-06-2025)
+  - [ ] Generate docs pages for each `bgui` component (blocked - no Storybook)
   - [ ] Add visual testing
   - Status: Completed planning - comprehensive `docs/BGUI_COMPONENT_PLAN.md` with 28 enterprise-grade components, accessibility specs, and implementation roadmap
 
