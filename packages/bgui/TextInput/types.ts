@@ -1,6 +1,10 @@
 import type { TextInputProps as RNTextInputProps } from "react-native";
 
-// Enterprise-grade TypeScript interfaces
+/**
+ * Props for the {@link TextInput} component.
+ */
 export interface TextInputProps extends RNTextInputProps {
-	// Additional custom props can be added here
+	/**
+	 * Additional custom props can be added here in the future.
+	 */
 }
