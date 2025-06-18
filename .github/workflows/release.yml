@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
       
@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
       
@@ -70,7 +70,7 @@ jobs:
         run: pnpm build --filter website
       
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v13.0.0
+        uses: w9jds/firebase-action@v14.7.0
         with:
           args: deploy --only hosting:www
         env:
@@ -84,7 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
       
