@@ -1,4 +1,5 @@
 import { StyleSheet, type ViewStyle } from "react-native";
+import { BorderRadius } from "./BorderRadius";
 import { Colors } from "./Colors";
 import { Tokens } from "./Tokens";
 
@@ -48,12 +49,12 @@ export const viewStyles = StyleSheet.create({
 	surface: { ...baseViewStyles },
 	card: {
 		...baseViewStyles,
-		borderRadius: Tokens.m,
+		borderRadius: BorderRadius.md,
 	},
 	"mini-card": {
 		...baseViewStyles,
 		padding: Tokens.s,
-		borderRadius: Tokens.s,
+		borderRadius: BorderRadius.sm,
 	},
 });
 
@@ -94,7 +95,7 @@ const baseButtonStyles: ViewStyle = {
 	flexDirection: "row",
 	alignItems: "center",
 	gap: Tokens.xs,
-	borderRadius: Tokens.xs,
+	borderRadius: BorderRadius.sm,
 };
 
 export const buttonStyles = StyleSheet.create({

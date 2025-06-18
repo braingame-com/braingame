@@ -1,4 +1,4 @@
-import { Opacity, Tokens } from "@braingame/utils";
+import { BorderRadius, Shadows, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
 
 /**
@@ -7,12 +7,9 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
 	menu: {
 		minWidth: 160, // Keep fixed for UI consistency
-		borderRadius: Tokens.xs,
+		borderRadius: BorderRadius.sm,
 		paddingVertical: Tokens.xs,
-		shadowColor: "#000",
-		shadowOpacity: Opacity.shadow,
-		shadowRadius: Tokens.xxs,
-		elevation: 2,
+		...Shadows.md,
 	},
 	item: {
 		paddingHorizontal: Tokens.m,

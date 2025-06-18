@@ -1,4 +1,4 @@
-import { Opacity, Tokens } from "@braingame/utils";
+import { Animation, BorderRadius, Opacity, Tokens } from "@braingame/utils";
 import { Platform, type ViewStyle } from "react-native";
 
 /**
@@ -23,7 +23,7 @@ export const getBaseCardStyle = (
 ): ViewStyle => ({
 	backgroundColor,
 	padding: paddingMap[padding],
-	borderRadius: Tokens.m,
+	borderRadius: BorderRadius.md,
 	elevation,
 	// Add focus outline for web
 	...(Platform.OS === "web" && isFocused
@@ -37,8 +37,17 @@ export const getBaseCardStyle = (
 });
 
 /**
- * Get interactive card styles
+ * Get interactive card styles with smooth transitions
  */
 export const getInteractiveCardStyle = (isHovered: boolean): ViewStyle => ({
-	...(isHovered && Platform.OS === "web" ? { opacity: Opacity.hover, cursor: "pointer" } : {}),
+	opacity: isHovered ? Opacity.hover : 1,
+	...(Platform.OS === "web"
+		? {
+				cursor: "pointer",
+				transitionProperty: "opacity, transform",
+				transitionDuration: `${Animation.duration.fast}ms`,
+				transitionTimingFunction: Animation.easing.easeOut,
+				transform: isHovered ? [{ scale: 1.02 }] : [{ scale: 1 }],
+			}
+		: {}),
 });
