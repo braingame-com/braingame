@@ -10,6 +10,8 @@ import {
 	useState,
 } from "react";
 import { type NativeSyntheticEvent, Platform, Pressable, Text, View } from "react-native";
+import { validateProps, validators } from "../../utils/validation";
+import { withErrorBoundary } from "../../utils/withErrorBoundary";
 
 export interface AccordionProps {
 	children: ReactNode;
@@ -33,7 +35,7 @@ const toArray = (val?: string | string[]) => {
 	return Array.isArray(val) ? val : [val];
 };
 
-export const Accordion = ({
+const AccordionComponent = ({
 	children,
 	value,
 	onValueChange,
@@ -41,6 +43,11 @@ export const Accordion = ({
 	allowMultiple = false,
 }: AccordionProps) => {
 	const controlled = value !== undefined;
+
+	// Validate props
+	if (controlled && !onValueChange) {
+		throw new Error("Accordion: onValueChange is required when value is provided");
+	}
 	const [internal, setInternal] = useState<string[]>(toArray(defaultValue));
 	const expanded = controlled ? toArray(value) : internal;
 
@@ -177,5 +184,9 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 	);
 };
 
-Accordion.Item = Item;
+// Wrap with error boundary and attach Item
+export const Accordion = Object.assign(withErrorBoundary(AccordionComponent), {
+	Item: withErrorBoundary(Item),
+});
+
 export default Accordion;

@@ -2,6 +2,8 @@ import { Colors, Tokens, buttonStyles } from "@braingame/utils";
 import { useState } from "react";
 import { ActivityIndicator, Pressable, Text, type View } from "react-native";
 import { Icon } from "../../../Icon";
+import { validateProps, validators } from "../../utils/validation";
+import { withErrorBoundary } from "../../utils/withErrorBoundary";
 import type { ButtonProps, ButtonVariant } from "./types";
 
 const VARIANT_COLORS: Record<ButtonVariant, { background: string; text: string }> = {
@@ -12,7 +14,7 @@ const VARIANT_COLORS: Record<ButtonVariant, { background: string; text: string }
 	icon: { background: "transparent", text: Colors.light.text },
 };
 
-export function Button({
+function ButtonComponent({
 	children,
 	onPress,
 	icon,
@@ -25,6 +27,18 @@ export function Button({
 	"aria-label": ariaLabel,
 	"aria-describedby": ariaDescribedBy,
 }: ButtonProps) {
+	// Validate props
+	validateProps(
+		{ onPress, variant, size, iconPosition },
+		{
+			onPress: validators.required,
+			variant: validators.oneOf(["primary", "secondary", "ghost", "danger", "icon"] as const),
+			size: validators.oneOf(["sm", "md", "lg"] as const),
+			iconPosition: validators.oneOf(["left", "right"] as const),
+		},
+		"Button",
+	);
+
 	const [hovered, setHovered] = useState(false);
 
 	const { background, text } = VARIANT_COLORS[variant];
@@ -64,3 +78,6 @@ export function Button({
 		</Pressable>
 	);
 }
+
+// Export wrapped component
+export const Button = withErrorBoundary(ButtonComponent);

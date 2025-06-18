@@ -3,10 +3,12 @@ import { Children, type ReactElement, cloneElement, useEffect, useRef, useState 
 import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
 import { Text } from "../../../Text";
 import { View as BView } from "../../../View";
+import { validateProps, validators } from "../../utils/validation";
+import { withErrorBoundary } from "../../utils/withErrorBoundary";
 import { SelectItem } from "./SelectItem";
 import type { SelectItemProps, SelectProps } from "./types";
 
-export const Select = ({
+const SelectComponent = ({
 	children,
 	value,
 	onValueChange,
@@ -14,9 +16,23 @@ export const Select = ({
 	searchable,
 	multiple,
 	disabled,
+	error,
+	errorMessage,
+	helperText,
 	variant = "dropdown",
 	"aria-label": ariaLabel,
+	"aria-invalid": ariaInvalid = error,
 }: SelectProps) => {
+	// Validate props
+	validateProps(
+		{ onValueChange, variant },
+		{
+			onValueChange: validators.required,
+			variant: validators.oneOf(["dropdown", "modal"] as const),
+		},
+		"Select",
+	);
+
 	const [open, setOpen] = useState(false);
 	const selectedValues = Array.isArray(value) ? value : value ? [value] : [];
 
@@ -53,9 +69,10 @@ export const Select = ({
 		</ScrollView>
 	);
 
-	const borderColor = useThemeColor("border");
+	const borderColor = useThemeColor(error ? "error" : "border");
 	const background = useThemeColor("background");
 	const textColor = useThemeColor(disabled ? "textSecondary" : "text");
+	const errorColor = useThemeColor("error");
 
 	const label = selectedValues.length > 0 ? selectedValues.join(", ") : placeholder;
 
@@ -65,6 +82,7 @@ export const Select = ({
 				accessibilityRole="button"
 				accessibilityLabel={ariaLabel}
 				accessibilityState={{ disabled, expanded: open }}
+				accessibilityInvalid={ariaInvalid}
 				onPress={toggleOpen}
 				style={{
 					padding: Tokens.s,
@@ -75,6 +93,14 @@ export const Select = ({
 			>
 				<Text style={{ color: textColor }}>{label}</Text>
 			</Pressable>
+			{helperText && !error && (
+				<Text style={{ fontSize: 12, color: textColor, marginTop: 4 }}>{helperText}</Text>
+			)}
+			{error && errorMessage && (
+				<Text style={{ fontSize: 12, color: errorColor, marginTop: 4 }} accessibilityRole="alert">
+					{errorMessage}
+				</Text>
+			)}
 			{variant === "dropdown" && open && (
 				<View
 					style={{
@@ -122,4 +148,7 @@ export const Select = ({
 	);
 };
 
-Select.Item = SelectItem;
+// Wrap with error boundary
+export const Select = Object.assign(withErrorBoundary(SelectComponent), {
+	Item: SelectItem,
+});
