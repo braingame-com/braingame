@@ -56,8 +56,13 @@
 - [ ] Configure Storybook
   - [ ] Setup for `bgui` package
   - [x] Document components (17-06-2025)
+  - [ ] Generate docs pages for each `bgui` component (blocked - no Storybook)
   - [ ] Add visual testing
   - Status: Completed planning - comprehensive `docs/BGUI_COMPONENT_PLAN.md` with 28 enterprise-grade components, accessibility specs, and implementation roadmap
+
+- [ ] Component Prop Docs
+  - [ ] Document props for each BGUI component
+  - Status: in_progress (17-06-2025)
 
 - [ ] Environment Management
   - [ ] Create `.env.example` files (in progress)
@@ -86,6 +91,10 @@
   - Reviewed and upgraded all project markdown files to enterprise-grade standards
   - Ensured all documentation is consistent, linked, and serves a clear purpose
   - Status: Completed @ 18-06-2025
+- [x] Design token usage report (17-06-2025)
+  - Documented all Colors and Tokens references in `packages/bgui`
+  - Added `docs/TOKEN_USAGE.md`
+  - Status: Completed @ 17-06-2025
 
 ## 📝 Notes for AI Agents
 - Always update status when working on tasks

@@ -7,3 +7,9 @@ export default function LinkExample() {
   return <Link href="/about">About Us</Link>;
 }
 ```
+
+## Simple Usage
+
+```tsx
+<Link href="/about">About</Link>
+```
