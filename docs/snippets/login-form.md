@@ -1,8 +1,7 @@
 # Login Form Example
 
 ```tsx
-import { Button, TextInput, View } from '@brain-game/bgui';
-import { Checkbox } from '@brain-game/bgui';
+import { Button, TextInput, Checkbox, View } from '@brain-game/bgui';
 import { useState } from 'react';
 
 export function LoginForm() {
@@ -11,7 +10,7 @@ export function LoginForm() {
   const [remember, setRemember] = useState(false);
 
   return (
-    <View style={{ gap: 8 }}>
+    <View style={{ gap: 8, padding: 16 }}>
       <TextInput value={email} onChangeText={setEmail} placeholder="Email" />
       <TextInput
         value={password}
@@ -22,7 +21,7 @@ export function LoginForm() {
       <Checkbox checked={remember} onValueChange={setRemember}>
         Remember me
       </Checkbox>
-      <Button text="Login" onPress={() => {}} />
+      <Button text="Sign In" onPress={() => console.log('login')} />
     </View>
   );
 }

@@ -15,6 +15,14 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 17-06-2025 - Added BGUI usage snippets
+- **Agent**: ChatGPT
+- **Tasks**: Provide code snippets for each BGUI component
+- **Completed**:
+  - Created `docs/snippets` with examples for all components
+  - Added a login form example using Button, TextInput and Checkbox
+- **Next Steps**: Integrate snippets into broader documentation
+
 ### 17-06-2025 - Design Token Audit
 - **Agent**: ChatGPT
 - **Tasks**: Catalog all design tokens used in `@brain-game/bgui`
