@@ -15,6 +15,15 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 17-06-2025 - Design Token Audit
+- **Agent**: ChatGPT
+- **Tasks**: Catalog all design tokens used in `@brain-game/bgui`
+- **Completed**:
+  - Scanned components for `Colors` and `Tokens` references
+  - Generated `docs/TOKEN_USAGE.md`
+  - Updated `docs/TODO.md` with completion status
+- **Next Steps**: Integrate token report into design workflow
+
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
 - **Tasks**: Review and upgrade all project documentation to enterprise-grade standards.
