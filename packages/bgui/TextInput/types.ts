@@ -1,6 +1,8 @@
 import type { TextInputProps as RNTextInputProps } from "react-native";
 
-// Enterprise-grade TypeScript interfaces
+/**
+ * Props for the {@link TextInput} component with variants and accessibility features.
+ */
 export interface TextInputProps extends Omit<RNTextInputProps, "onChangeText"> {
 	value: string;
 	onValueChange: (value: string) => void;

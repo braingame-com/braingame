@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
-// Enterprise-grade TypeScript interfaces
+/** Props for the {@link PageWrapper} layout component. */
 export interface PageWrapperProps {
+	/** Content to render inside the page wrapper. */
 	children: ReactNode;
 }

@@ -5,6 +5,9 @@ import { useThemeColor } from "../../utils/hooks/useThemeColor";
 import { Icon } from "../Icon";
 import type { TextInputProps } from "./types";
 
+/**
+ * Styled text input component with variants and accessibility features.
+ */
 export const TextInput = ({
 	style,
 	leftIcon,
