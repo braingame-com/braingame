@@ -1,6 +1,6 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 18-06-2025
+> **Last Updated**: 17-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
@@ -30,7 +30,13 @@
   - Documentation should be "living" and continuously updated.
   - AI-specific documentation is critical for effective human-AI collaboration.
 - **Next Steps**: The repository's documentation is now considered enterprise-grade. Ready for next development phase.
-
+### 17-06-2025 - Added BGUI Snippet Examples
+- **Agent**: ChatGPT
+- **Tasks**: Generate reusable code snippets for BGUI components
+- **Completed**:
+  - Created `docs/snippets/` folder with usage examples for all components
+  - Provided a login form sample using Button, TextInput and Checkbox
+- **Next Steps**: Integrate snippets into Storybook docs
 ### 17-06-2025 - Enterprise-Grade BGUI Component Plan
 - **Agent**: Claude Sonnet 4
 - **Tasks**: Review and enhance BGUI component plan for enterprise standards
