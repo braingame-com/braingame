@@ -90,6 +90,10 @@
   - Reviewed and upgraded all project markdown files to enterprise-grade standards
   - Ensured all documentation is consistent, linked, and serves a clear purpose
   - Status: Completed @ 18-06-2025
+- [x] Design token usage report (17-06-2025)
+  - Documented all Colors and Tokens references in `packages/bgui`
+  - Added `docs/TOKEN_USAGE.md`
+  - Status: Completed @ 17-06-2025
 
 ## 📝 Notes for AI Agents
 - Always update status when working on tasks
