@@ -25,6 +25,13 @@ export const Tooltip = ({
 		setVisible(false);
 	};
 
+	// Handle keyboard interactions
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (Platform.OS === "web" && e.key === "Escape" && visible) {
+			hide();
+		}
+	};
+
 	const backgroundColor =
 		variant === "light"
 			? useThemeColor("card")
@@ -41,16 +48,24 @@ export const Tooltip = ({
 				onHoverOut={hide}
 				onFocus={show}
 				onBlur={hide}
-				{...(Platform.OS === "web" && { "aria-describedby": tooltipId })}
+				onKeyDown={handleKeyDown}
+				{...(Platform.OS === "web" && {
+					"aria-describedby": visible ? tooltipId : undefined,
+					tabIndex: 0,
+				})}
 			>
 				{children}
 			</Pressable>
 			{visible && (
 				<View
 					nativeID={tooltipId}
+					id={tooltipId}
+					role="tooltip"
 					style={[styles.base, styles[placement], { backgroundColor }]}
 					accessibilityRole="text"
 					accessibilityLiveRegion="polite"
+					aria-live="polite"
+					aria-hidden={!visible}
 				>
 					{typeof content === "string" ? (
 						<Text style={[styles.text, { color: textColor }]}>{content}</Text>

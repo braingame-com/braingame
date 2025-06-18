@@ -15,10 +15,31 @@ export const Badge = ({
 	const backgroundColor = getBackgroundColor(variant, color, neutral);
 	const content = dot ? undefined : (text ?? (count != null ? String(count) : undefined));
 
+	const getAriaLabel = () => {
+		if (dot) return "Notification indicator";
+		if (variant === "notification" && count != null) {
+			return `${count} notification${count !== 1 ? "s" : ""}`;
+		}
+		if (variant === "status") {
+			return `Status: ${text || color}`;
+		}
+		if (count != null) {
+			return `Count: ${count}`;
+		}
+		return text || "Badge";
+	};
+
 	return (
-		<View style={[styles.base, dot && styles.dot, { backgroundColor }, style]}>
+		<View
+			style={[styles.base, dot && styles.dot, { backgroundColor }, style]}
+			accessibilityRole="text"
+			accessibilityLabel={getAriaLabel()}
+			aria-label={getAriaLabel()}
+			aria-live={variant === "notification" ? "polite" : undefined}
+			aria-atomic="true"
+		>
 			{content && (
-				<Text type="small" style={styles.text}>
+				<Text type="small" style={styles.text} aria-hidden="true">
 					{content}
 				</Text>
 			)}

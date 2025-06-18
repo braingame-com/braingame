@@ -7,4 +7,6 @@ export interface CardProps extends RNViewProps {
 	padding?: "none" | "small" | "medium" | "large";
 	elevation?: number;
 	onPress?: () => void;
+	"aria-label"?: string;
+	"aria-describedby"?: string;
 }

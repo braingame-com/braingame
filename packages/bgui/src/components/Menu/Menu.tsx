@@ -33,6 +33,9 @@ export const MenuItem = ({ children, onPress, disabled }: MenuItemProps) => {
 	return (
 		<Pressable
 			accessibilityRole="menuitem"
+			role="menuitem"
+			tabIndex={disabled ? -1 : 0}
+			aria-disabled={disabled}
 			onPress={handlePress}
 			disabled={disabled}
 			style={styles.item}
@@ -101,6 +104,29 @@ export const Menu = ({
 					}
 				}
 			}
+			// Add arrow key navigation
+			if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+				e.preventDefault();
+				const currentIndex = Array.from(focusable).indexOf(document.activeElement as HTMLElement);
+				if (currentIndex === -1) {
+					first.focus();
+				} else {
+					const nextIndex =
+						e.key === "ArrowDown"
+							? (currentIndex + 1) % focusable.length
+							: (currentIndex - 1 + focusable.length) % focusable.length;
+					focusable[nextIndex].focus();
+				}
+			}
+			// Home and End key navigation
+			if (e.key === "Home") {
+				e.preventDefault();
+				first.focus();
+			}
+			if (e.key === "End") {
+				e.preventDefault();
+				last.focus();
+			}
 		};
 
 		document.addEventListener("keydown", handleKeyDown);
@@ -113,10 +139,17 @@ export const Menu = ({
 
 	const backgroundColor = useThemeColor("card");
 
+	const triggerId = useRef(`menu-trigger-${Math.random().toString(36).slice(2)}`).current;
+	const menuId = useRef(`menu-${Math.random().toString(36).slice(2)}`).current;
+
 	const triggerElement = React.isValidElement(trigger)
 		? cloneElement(trigger as React.ReactElement, {
 				onPress: variant === "dropdown" ? open : undefined,
 				onContextMenu: variant === "context" ? open : undefined,
+				"aria-haspopup": "menu",
+				"aria-expanded": visible,
+				"aria-controls": menuId,
+				id: triggerId,
 			})
 		: null;
 
@@ -128,7 +161,11 @@ export const Menu = ({
 				<View
 					ref={menuRef}
 					accessibilityRole="menu"
+					role="menu"
 					accessibilityLabel={ariaLabel}
+					aria-label={ariaLabel}
+					aria-labelledby={triggerId}
+					id={menuId}
 					style={[
 						styles.menu,
 						{ backgroundColor },

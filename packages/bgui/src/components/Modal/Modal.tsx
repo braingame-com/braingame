@@ -45,6 +45,15 @@ export const Modal = ({
 						{ backgroundColor: backdropColor },
 					]}
 					accessibilityLabel={ariaLabel}
+					accessibilityRole="dialog"
+					accessibilityModal
+					{...(Platform.OS === "web"
+						? {
+								role: "dialog",
+								"aria-modal": true,
+								"aria-label": ariaLabel,
+							}
+						: {})}
 				>
 					{children}
 				</View>

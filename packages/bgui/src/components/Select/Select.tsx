@@ -1,6 +1,6 @@
 import { Tokens, useThemeColor } from "@braingame/utils";
-import { Children, type ReactElement, cloneElement, useState } from "react";
-import { Pressable, Modal as RNModal, ScrollView, View } from "react-native";
+import { Children, type ReactElement, cloneElement, useEffect, useRef, useState } from "react";
+import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
 import { Text } from "../../../Text";
 import { View as BView } from "../../../View";
 import { SelectItem } from "./SelectItem";

@@ -55,11 +55,15 @@ export const ActionList = ({
 		return child;
 	});
 
+	const role = selectable ? "listbox" : variant === "menu" ? "menu" : "list";
+
 	return (
 		<View
-			accessibilityRole={variant === "menu" ? "menu" : "list"}
-			role={variant === "menu" ? "menu" : "list"}
+			accessibilityRole={role}
+			role={role}
 			aria-label={ariaLabel}
+			aria-multiselectable={selectable}
+			aria-orientation="vertical"
 		>
 			{enhancedChildren}
 		</View>

@@ -30,15 +30,33 @@ export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionL
 			}
 		};
 
+		const handleKeyDown = (e: React.KeyboardEvent) => {
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				handlePress();
+			} else if (e.key === "ArrowDown") {
+				e.preventDefault();
+				onArrowNext?.();
+			} else if (e.key === "ArrowUp") {
+				e.preventDefault();
+				onArrowPrev?.();
+			}
+		};
+
+		// Determine the appropriate role based on selectable state
+		const role = selectable ? "option" : "menuitem";
+
 		return (
 			<Pressable
 				ref={ref}
-				accessibilityRole="menuitem"
-				role="menuitem"
+				accessibilityRole={role}
+				role={role}
 				aria-selected={selectable ? selected : undefined}
 				aria-disabled={disabled}
-				tabIndex={0}
+				aria-checked={selectable ? selected : undefined}
+				tabIndex={disabled ? -1 : 0}
 				onPress={handlePress}
+				onKeyDown={handleKeyDown}
 				disabled={disabled}
 				style={{
 					flexDirection: "row",
@@ -46,11 +64,15 @@ export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionL
 					padding: 8,
 					backgroundColor: background,
 					opacity: disabled ? 0.5 : 1,
+					cursor: disabled ? "not-allowed" : "pointer",
 				}}
 				{...rest}
 			>
-				{icon && <Icon name={icon} style={{ marginRight: 8 }} />}
+				{icon && <Icon name={icon} style={{ marginRight: 8 }} aria-hidden="true" />}
 				<Text>{children}</Text>
+				{selectable && selected && (
+					<Icon name="check" style={{ marginLeft: "auto" }} aria-label="Selected" />
+				)}
 			</Pressable>
 		);
 	},

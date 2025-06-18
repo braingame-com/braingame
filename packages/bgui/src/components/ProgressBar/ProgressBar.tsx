@@ -41,8 +41,22 @@ export const ProgressBar = ({
 		});
 
 		return (
-			<View style={style}>
-				<Svg width={size} height={size}>
+			<View
+				style={style}
+				accessibilityRole="progressbar"
+				accessibilityValue={{
+					min: 0,
+					max: 100,
+					now: value,
+				}}
+				accessibilityLabel={`Progress: ${value} percent`}
+				aria-label={`Progress: ${value} percent`}
+				aria-valuemin={0}
+				aria-valuemax={100}
+				aria-valuenow={value}
+				role="progressbar"
+			>
+				<Svg width={size} height={size} aria-hidden="true">
 					<Circle
 						cx={radius}
 						cy={radius}
@@ -74,10 +88,26 @@ export const ProgressBar = ({
 	});
 
 	return (
-		<View style={[styles.track, { backgroundColor: trackColor }, style]}>
+		<View
+			style={[styles.track, { backgroundColor: trackColor }, style]}
+			accessibilityRole="progressbar"
+			accessibilityValue={{
+				min: 0,
+				max: 100,
+				now: value,
+			}}
+			accessibilityLabel={`Progress: ${value} percent`}
+			aria-label={`Progress: ${value} percent`}
+			aria-valuemin={0}
+			aria-valuemax={100}
+			aria-valuenow={value}
+			aria-live="polite"
+			role="progressbar"
+		>
 			<Animated.View
 				testID="progress-bar-inner"
 				style={[styles.bar, { backgroundColor: progressColor, width }]}
+				aria-hidden="true"
 			/>
 		</View>
 	);

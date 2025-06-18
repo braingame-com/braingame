@@ -1,3 +1,4 @@
+import { Tokens, useThemeColor } from "@braingame/utils";
 import type React from "react";
 import {
 	type ReactNode,
@@ -8,7 +9,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { type NativeSyntheticEvent, Pressable, Text, View } from "react-native";
+import { type NativeSyntheticEvent, Platform, Pressable, Text, View } from "react-native";
 
 export interface AccordionProps {
 	children: ReactNode;
@@ -97,6 +98,8 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 	const { expanded, toggle, register, refs } = context;
 	const ref = useRef<View>(null);
 	const indexRef = useRef<number>(-1);
+	const [isFocused, setIsFocused] = useState(false);
+	const borderColor = useThemeColor("border");
 
 	useEffect(() => {
 		register(ref);
@@ -105,22 +108,37 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 
 	const expandedState = expanded.includes(val);
 
-	const handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
-		if (e.nativeEvent.key === "ArrowDown") {
-			e.preventDefault();
+	// biome-ignore lint/suspicious/noExplicitAny: Event type varies between web and native
+	const handleKeyDown = (e: any) => {
+		const key = Platform.OS === "web" ? e.key : e.nativeEvent?.key;
+		if (key === "ArrowDown") {
+			if (Platform.OS === "web") e.preventDefault();
 			const next = (indexRef.current + 1) % refs.length;
 			const nextRef = refs[next];
+			// @ts-ignore - focus exists on web
 			nextRef?.current?.focus?.();
-		} else if (e.nativeEvent.key === "ArrowUp") {
-			e.preventDefault();
+		} else if (key === "ArrowUp") {
+			if (Platform.OS === "web") e.preventDefault();
 			const prev = (indexRef.current - 1 + refs.length) % refs.length;
 			const prevRef = refs[prev];
+			// @ts-ignore - focus exists on web
 			prevRef?.current?.focus?.();
-		} else if (e.nativeEvent.key === " " || e.nativeEvent.key === "Enter") {
-			e.preventDefault();
+		} else if (key === " " || key === "Enter") {
+			if (Platform.OS === "web") e.preventDefault();
 			toggle(val);
 		}
 	};
+
+	const webProps =
+		Platform.OS === "web"
+			? {
+					onKeyDown: handleKeyDown,
+					tabIndex: 0,
+					role: "button",
+					"aria-expanded": expandedState,
+					"aria-controls": `accordion-content-${val}`,
+				}
+			: {};
 
 	return (
 		<View>
@@ -129,12 +147,32 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 				accessibilityRole="button"
 				accessibilityState={{ expanded: expandedState }}
 				ref={ref}
-				// onKeyDown={handleKeyDown} // Not supported in React Native
-				// tabIndex={0} // Not supported in React Native
+				onFocus={() => setIsFocused(true)}
+				onBlur={() => setIsFocused(false)}
+				style={{
+					padding: Tokens.m,
+					borderRadius: Tokens.xs,
+					// Add focus outline for web
+					...(Platform.OS === "web" && isFocused
+						? {
+								outlineWidth: 2,
+								outlineColor: borderColor,
+								outlineStyle: "solid",
+								outlineOffset: 2,
+							}
+						: {}),
+				}}
+				{...webProps}
 			>
 				{typeof title === "string" ? <Text>{title}</Text> : title}
 			</Pressable>
-			{expandedState && <View>{children}</View>}
+			{expandedState && (
+				<View
+					{...(Platform.OS === "web" ? { id: `accordion-content-${val}`, role: "region" } : {})}
+				>
+					{children}
+				</View>
+			)}
 		</View>
 	);
 };
