@@ -3,6 +3,9 @@ import { textStyles } from "../../utils/constants/styles";
 import { useThemeColor } from "../../utils/hooks/useThemeColor";
 import type { TextProps } from "./types";
 
+/**
+ * Typography component that applies theme-based styles.
+ */
 export const Text = ({ type = "default", style, ...rest }: TextProps) => {
 	const color = useThemeColor("text");
 
