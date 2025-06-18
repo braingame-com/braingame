@@ -33,20 +33,21 @@
 		"workspace:prune": "turbo prune",
 		"secrets:scan": "secretlint .",
 		"secrets:check": "secretlint --no-color .",
-		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
-		"precommit": "lint-staged && pnpm secrets:check && pnpm test",
+		"quality": "turbo lint typecheck test",
+		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
+		"precommit": "lint-staged && pnpm secrets:check && pnpm quality",
 		"storybook": "echo 'Storybook is not yet implemented'",
-		"secrets:codex": "tsx scripts/scan-secrets.ts"
+		"bgui:scaffold": "node scripts/create-bgui-component.js"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "^2.0.0",
 		"@changesets/cli": "^2.27.1",
 		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
 		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^16.1.2",
 		"secretlint": "^10.1.0",
-		"tsx": "4.3.0",
+		"ts-morph": "^26.0.0",
 		"turbo": "^2.3.3",
 		"typescript": "^5.3.3"
 	},
@@ -55,6 +56,9 @@
 		"pnpm": ">=9"
 	},
 	"lint-staged": {
-		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
+		"**/*.{ts,tsx,js,jsx}": [
+			"biome check --fix",
+			"biome format --write"
+		]
 	}
 }

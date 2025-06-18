@@ -6,6 +6,11 @@ import { Icon } from "../Icon";
 import { Text } from "../Text";
 import type { ButtonProps } from "./types";
 
+/**
+ * Render a theme-aware button.
+ *
+ * Provides hover states on web and supports optional icon-only mode.
+ */
 export const Button = ({ text, icon, iconColor, iconType, onPress, disabled }: ButtonProps) => {
 	const backgroundColor = useThemeColor("button");
 	const backgroundColorHovered = useThemeColor("buttonHovered");
