@@ -10,6 +10,7 @@ export { Link } from "./Link";
 export { PageWrapper } from "./PageWrapper";
 export { TextInput } from "./TextInput";
 export { ErrorBoundary } from "./ErrorBoundary";
+export { ProgressBar } from "./src/components/ProgressBar";
 
 // Type Exports (Enterprise TypeScript interfaces)
 export type { ButtonProps } from "./Button/types";
@@ -20,3 +21,4 @@ export type { LinkProps } from "./Link/types";
 export type { PageWrapperProps } from "./PageWrapper/types";
 export type { TextInputProps } from "./TextInput/types";
 export type { ErrorBoundaryProps, ErrorInfo } from "./ErrorBoundary/types";
+export type { ProgressBarProps } from "./src/components/ProgressBar/types";
