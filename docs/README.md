@@ -26,6 +26,13 @@
 | [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | The detailed API and specification for our BGUI component library. |
 | [`SECURITY.md`](../SECURITY.md) | Our security policy, including how to report vulnerabilities. |
 
+## 📚 Component Snippets
+*Quick examples showing how to use our UI kit.*
+
+| Document | Description |
+|---|---|
+| [`snippets/`](./snippets) | Ready-to-use code snippets for each BGUI component. |
+
 ---
 
 ## 📈 Project Management & Strategy
