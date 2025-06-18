@@ -1,29 +1,29 @@
 {
-        "$schema": "https://turbo.build/schema.json",
-        "globalDependencies": ["**/package.json", "pnpm-lock.yaml", "turbo.json"],
-        "tasks": {
-                "build": {
-                        "dependsOn": ["^build"],
-                        "outputs": [".next/**", "dist/**", "web-build/**"]
-                },
-                "dev": {
-                        "persistent": true,
-                        "cache": false
-                },
-                "lint": {
-                        "dependsOn": ["^lint"],
-                        "outputs": []
-                },
-                "test": {
-                        "dependsOn": ["^test"],
-                        "outputs": ["coverage/**"]
-                },
-                "typecheck": {
-                        "dependsOn": ["^typecheck"],
-                        "outputs": []
-                },
-                "clean": {
-                        "cache": false
-                }
-        }
+	"$schema": "https://turbo.build/schema.json",
+	"globalDependencies": ["**/package.json", "pnpm-lock.yaml", "turbo.json"],
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": [".next/**", "dist/**", "web-build/**"]
+		},
+		"dev": {
+			"persistent": true,
+			"cache": false
+		},
+		"lint": {
+			"dependsOn": ["^lint"],
+			"outputs": []
+		},
+		"test": {
+			"dependsOn": ["^test"],
+			"outputs": ["coverage/**"]
+		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"],
+			"outputs": []
+		},
+		"clean": {
+			"cache": false
+		}
+	}
 }

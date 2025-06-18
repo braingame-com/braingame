@@ -14,6 +14,7 @@ const CheckboxComponent = ({
 	disabled,
 	"aria-label": ariaLabel,
 	"aria-describedby": ariaDescribedBy,
+	...pressableProps
 }: CheckboxProps) => {
 	const borderColor = useThemeColor("border");
 	const bg = useThemeColor("background");
@@ -41,6 +42,7 @@ const CheckboxComponent = ({
 			accessibilityLabel={ariaLabel}
 			{...(ariaDescribedBy ? { "aria-describedby": ariaDescribedBy } : {})}
 			style={containerStyle}
+			{...pressableProps}
 		>
 			<View style={checkboxStyle}>
 				{(checked || indeterminate) && <Icon name={iconName} size="sm" color="background" />}

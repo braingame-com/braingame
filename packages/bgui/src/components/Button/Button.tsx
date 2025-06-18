@@ -1,7 +1,8 @@
 import { buttonStyles } from "@braingame/utils";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useMemo } from "react";
 import { ActivityIndicator, Pressable, Text } from "react-native";
 import { Icon } from "../../../Icon";
+import { useInteractiveState } from "../../hooks";
 import { validateProps } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
 import { VARIANT_COLORS, getPaddingForSize, validationRules } from "./styles";
@@ -46,10 +47,7 @@ function ButtonComponent({
 		validateProps({ onPress, variant, size, iconPosition }, validationRules, "Button");
 	}
 
-	const [hovered, setHovered] = useState(false);
-
-	const handleHoverIn = useCallback(() => setHovered(true), []);
-	const handleHoverOut = useCallback(() => setHovered(false), []);
+	const { isHovered, handleHoverIn, handleHoverOut } = useInteractiveState();
 
 	const { background, text } = VARIANT_COLORS[variant];
 
@@ -71,7 +69,7 @@ function ButtonComponent({
 					backgroundColor: background,
 					paddingVertical,
 					paddingHorizontal,
-					opacity: disabled ? 0.5 : 1,
+					opacity: disabled ? 0.5 : isHovered ? 0.9 : 1,
 					width: fullWidth ? "100%" : undefined,
 					flexDirection: iconPosition === "right" ? "row-reverse" : "row",
 				},

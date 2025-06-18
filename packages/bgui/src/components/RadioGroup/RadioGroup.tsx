@@ -1,5 +1,6 @@
 import { useThemeColor } from "@braingame/utils";
-import React, {
+import type React from "react";
+import {
 	Children,
 	type ReactElement,
 	cloneElement,
@@ -9,11 +10,11 @@ import React, {
 	useContext,
 	useEffect,
 	useRef,
-	useState,
 } from "react";
 import type { KeyboardEvent } from "react";
 import type { NativeSyntheticEvent } from "react-native";
 import { Pressable, View } from "react-native";
+import { useControlledState, useFocusManagement } from "../../hooks";
 import { getItemStyles } from "./styles";
 import type { RadioGroupItemProps, RadioGroupProps } from "./types";
 
@@ -39,46 +40,18 @@ const RadioGroupRoot = ({
 	"aria-label": ariaLabel,
 	style,
 }: RadioGroupProps) => {
-	const [uncontrolled, setUncontrolled] = useState(defaultValue);
-	const isControlled = controlledValue !== undefined;
-	const value = isControlled ? controlledValue : uncontrolled;
-
-	const itemRefs = useRef<Array<React.RefObject<View>>>([]);
-
-	const register = useCallback((index: number, ref: React.RefObject<View>) => {
-		itemRefs.current[index] = ref;
-	}, []);
-
-	const focus = useCallback((index: number) => {
-		const ref = itemRefs.current[index];
-		if (ref?.current && typeof ref.current.focus === "function") {
-			ref.current.focus();
-		}
-	}, []);
-
-	const onSelect = useCallback(
-		(val: string) => {
-			if (!isControlled) {
-				setUncontrolled(val);
-			}
-			if (onValueChange) {
-				onValueChange(val);
-			}
-		},
-		[isControlled, onValueChange],
-	);
+	const [value, setValue] = useControlledState(controlledValue, defaultValue, onValueChange);
 
 	const childrenArray = Children.toArray(children);
-	// ensure we have ref for each child
-	itemRefs.current = childrenArray.map((_, i) => itemRefs.current[i] || React.createRef());
+	const { register, focusItem } = useFocusManagement(childrenArray.length);
 
 	const context: ContextValue = {
 		value,
 		disabled,
 		variant,
-		onSelect,
+		onSelect: setValue,
 		register,
-		focus,
+		focus: focusItem,
 		count: childrenArray.length,
 	};
 

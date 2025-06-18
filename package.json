@@ -56,9 +56,6 @@
 		"pnpm": ">=9"
 	},
 	"lint-staged": {
-		"**/*.{ts,tsx,js,jsx}": [
-			"biome check --fix",
-			"biome format --write"
-		]
+		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
 	}
 }

@@ -1,6 +1,6 @@
 import { useThemeColor } from "@braingame/utils";
-import { useState } from "react";
 import { Platform, Pressable, View as RNView } from "react-native";
+import { useInteractiveState } from "../../hooks";
 import { getBaseCardStyle, getInteractiveCardStyle } from "./styles";
 import type { CardProps } from "./types";
 
@@ -17,8 +17,8 @@ export const Card = ({
 }: CardProps) => {
 	const backgroundColor = useThemeColor("card");
 	const borderColor = useThemeColor("border");
-	const [isHovered, setIsHovered] = useState(false);
-	const [isFocused, setIsFocused] = useState(false);
+	const { isHovered, isFocused, handleHoverIn, handleHoverOut, handleFocus, handleBlur } =
+		useInteractiveState();
 
 	const baseStyle = getBaseCardStyle(backgroundColor, padding, elevation, isFocused, borderColor);
 
@@ -29,10 +29,10 @@ export const Card = ({
 				accessibilityRole="button"
 				accessibilityLabel={ariaLabel}
 				{...(ariaDescribedBy && { "aria-describedby": ariaDescribedBy })}
-				onFocus={() => setIsFocused(true)}
-				onBlur={() => setIsFocused(false)}
+				onFocus={handleFocus}
+				onBlur={handleBlur}
 				{...(Platform.OS === "web" && variant === "interactive"
-					? { onHoverIn: () => setIsHovered(true), onHoverOut: () => setIsHovered(false) }
+					? { onHoverIn: handleHoverIn, onHoverOut: handleHoverOut }
 					: {})}
 				style={[
 					baseStyle,
