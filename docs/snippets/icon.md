@@ -1,9 +1,5 @@
-# Icon Usage
+# Icon
 
 ```tsx
-import { Icon } from '@brain-game/bgui';
-
-export function IconExample() {
-  return <Icon name="check" size="md" />;
-}
+<Icon name="check" size="md" color="primary" />
 ```

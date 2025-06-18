@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { Modal as RNModal, View, Pressable, StyleSheet, Platform } from "react-native";
+import type React from "react";
+import { useEffect, useRef } from "react";
+import { Platform, Pressable, Modal as RNModal, StyleSheet, View } from "react-native";
 import { Tokens } from "../../../utils/constants/Tokens";
 import { useThemeColor } from "../../../utils/hooks/useThemeColor";
 import type { ModalProps } from "./types";

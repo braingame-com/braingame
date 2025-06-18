@@ -1,9 +1,5 @@
-# Text Usage
+# Text
 
 ```tsx
-import { Text } from '@brain-game/bgui';
-
-export function TextExample() {
-  return <Text type="title">Hello World</Text>;
-}
+<Text type="body">Hello world</Text>
 ```
