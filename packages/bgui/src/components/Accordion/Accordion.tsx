@@ -8,7 +8,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { Pressable, Text, View } from "react-native";
+import { type NativeSyntheticEvent, Pressable, Text, View } from "react-native";
 
 export interface AccordionProps {
 	children: ReactNode;
@@ -21,8 +21,8 @@ export interface AccordionProps {
 interface AccordionContextValue {
 	expanded: string[];
 	toggle: (panel: string) => void;
-	register: (ref: React.RefObject<any>) => void;
-	refs: React.RefObject<any>[];
+	register: (ref: React.RefObject<View>) => void;
+	refs: React.RefObject<View>[];
 }
 
 const AccordionContext = createContext<AccordionContextValue | null>(null);
@@ -43,9 +43,9 @@ export const Accordion = ({
 	const [internal, setInternal] = useState<string[]>(toArray(defaultValue));
 	const expanded = controlled ? toArray(value) : internal;
 
-	const itemRefs = useRef<React.RefObject<any>[]>([]);
+	const itemRefs = useRef<React.RefObject<View>[]>([]);
 
-	const register = useCallback((ref: React.RefObject<any>) => {
+	const register = useCallback((ref: React.RefObject<View>) => {
 		itemRefs.current.push(ref);
 	}, []);
 
@@ -95,7 +95,7 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 		throw new Error("Accordion.Item must be used within Accordion");
 	}
 	const { expanded, toggle, register, refs } = context;
-	const ref = useRef<any>(null);
+	const ref = useRef<View>(null);
 	const indexRef = useRef<number>(-1);
 
 	useEffect(() => {
@@ -105,7 +105,7 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 
 	const expandedState = expanded.includes(val);
 
-	const handleKeyDown = (e: any) => {
+	const handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
 		if (e.nativeEvent.key === "ArrowDown") {
 			e.preventDefault();
 			const next = (indexRef.current + 1) % refs.length;
@@ -129,8 +129,8 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 				accessibilityRole="button"
 				accessibilityState={{ expanded: expandedState }}
 				ref={ref}
-				onKeyDown={handleKeyDown}
-				tabIndex={0}
+				// onKeyDown={handleKeyDown} // Not supported in React Native
+				// tabIndex={0} // Not supported in React Native
 			>
 				{typeof title === "string" ? <Text>{title}</Text> : title}
 			</Pressable>

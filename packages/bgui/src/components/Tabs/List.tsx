@@ -9,7 +9,7 @@ export const List = ({ children }: TabsListProps) => {
 	const containerRef = useRef<ScrollView | View | null>(null);
 	const tabRefs = useRef<(View | null)[]>([]);
 
-	const handleKeyDown = (e: NativeSyntheticEvent<any>) => {
+	const handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
 		const key = e.nativeEvent.key;
 		const currentIndex = tabRefs.current.findIndex(
 			(ref) => ref && ref === (e.target as unknown as View),
@@ -43,7 +43,7 @@ export const List = ({ children }: TabsListProps) => {
 			horizontal={scrollable}
 			accessibilityRole="tablist"
 			style={[styles.list, scrollable && styles.scrollable]}
-			onKeyDown={handleKeyDown}
+			// onKeyDown={handleKeyDown} // Not supported in React Native
 		>
 			{childrenWithRefs}
 		</Container>

@@ -87,7 +87,7 @@ export const Slider = ({
 				{!isRange && <View style={[styles.range, { width: lower }]} />}
 				{responders.map((responder, index) => (
 					<View
-						key={index}
+						key={`slider-thumb-${index === 0 ? "start" : "end"}`}
 						{...responder.panHandlers}
 						style={[styles.thumb, { left: index === 0 ? lower : upper }]}
 						aria-valuemin={min}

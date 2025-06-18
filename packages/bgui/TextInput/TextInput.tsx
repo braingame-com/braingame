@@ -10,6 +10,7 @@ import type { TextInputProps } from "./types";
  */
 export const TextInput = ({
 	style,
+	containerStyle,
 	leftIcon,
 	rightIcon,
 	variant = "standard",
@@ -35,7 +36,7 @@ export const TextInput = ({
 				variant === "error" && { borderWidth: 1 },
 				{ borderColor, backgroundColor },
 				!editable && styles.disabled,
-				style,
+				containerStyle,
 			]}
 			accessible
 			accessibilityLabel={ariaLabel}

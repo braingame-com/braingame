@@ -1,9 +1,7 @@
+import { Colors, Tokens, useThemeColor } from "@braingame/utils";
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import Svg, { Circle } from "react-native-svg";
-import { Colors } from "../../../utils/constants/Colors";
-import { Tokens } from "../../../utils/constants/Tokens";
-import { useThemeColor } from "../../../utils/hooks/useThemeColor";
 import type { ProgressBarProps } from "./types";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);

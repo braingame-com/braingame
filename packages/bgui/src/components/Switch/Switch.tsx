@@ -1,5 +1,4 @@
-import { Colors, Tokens } from "@braingame/utils/constants";
-import { useThemeColor } from "@braingame/utils/hooks";
+import { Colors, Tokens, useThemeColor } from "@braingame/utils";
 import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import type { SwitchProps } from "./types";
@@ -7,7 +6,7 @@ import type { SwitchProps } from "./types";
 const PADDING = 2;
 
 export const Switch = ({
-	value,
+	checked,
 	onValueChange,
 	disabled = false,
 	variant = "standard",
@@ -27,18 +26,18 @@ export const Switch = ({
 		<Pressable
 			role="switch"
 			accessibilityRole="switch"
-			accessibilityState={{ checked: value, disabled }}
+			accessibilityState={{ checked: checked, disabled }}
 			aria-label={ariaLabel}
 			aria-describedby={ariaDescribedby}
-			aria-checked={value}
+			aria-checked={checked}
 			aria-disabled={disabled}
-			onPress={() => onValueChange(!value)}
+			onPress={() => onValueChange(!checked)}
 			disabled={disabled}
 			style={[
 				trackStyles,
 				{
 					width,
-					backgroundColor: value ? activeColor : inactiveColor,
+					backgroundColor: checked ? activeColor : inactiveColor,
 					opacity: disabled ? 0.5 : 1,
 				},
 				style,
@@ -48,7 +47,7 @@ export const Switch = ({
 				style={[
 					knobStyles,
 					{
-						transform: value ? [{ translateX }] : undefined,
+						transform: checked ? [{ translateX }] : undefined,
 						backgroundColor: "#fff",
 					},
 				]}
