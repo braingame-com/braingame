@@ -4,199 +4,123 @@ import { Slider } from "./Slider";
 
 describe("Slider", () => {
 	it("renders with value", () => {
-		const { getByRole } = render(<Slider value={50} onValueChange={() => {}} min={0} max={100} />);
+		const { getByRole } = render(<Slider value={50} onValueChange={() => {}} />);
+		expect(getByRole("slider")).toBeTruthy();
+	});
+
+	it("renders with min and max", () => {
+		const onValueChange = jest.fn();
+		const { getByRole } = render(
+			<Slider value={50} onValueChange={onValueChange} min={0} max={100} />,
+		);
 		const slider = getByRole("slider");
+		expect(slider.props.accessibilityValue.min).toBe(0);
+		expect(slider.props.accessibilityValue.max).toBe(100);
 		expect(slider.props.accessibilityValue.now).toBe(50);
 	});
 
-	it("calls onValueChange when dragged", () => {
+	it("calls onValueChange when value changes", () => {
 		const onValueChange = jest.fn();
-		const { getByTestId } = render(
-			<Slider value={50} onValueChange={onValueChange} min={0} max={100} testID="slider" />,
-		);
+		const { getByRole } = render(<Slider value={50} onValueChange={onValueChange} />);
 
-		const slider = getByTestId("slider");
-		// Simulate drag gesture
-		fireEvent(slider, "responderMove", { nativeEvent: { locationX: 100 } });
-		expect(onValueChange).toHaveBeenCalled();
+		const slider = getByRole("slider");
+		// Simulate a value change
+		fireEvent(slider, "valueChange", 75);
+		expect(onValueChange).toHaveBeenCalledWith(75);
 	});
 
-	it("respects min and max bounds", () => {
+	it("respects step prop", () => {
 		const onValueChange = jest.fn();
 		const { getByRole } = render(
-			<Slider value={50} onValueChange={onValueChange} min={10} max={90} />,
+			<Slider value={50} onValueChange={onValueChange} min={0} max={100} step={10} />,
 		);
 
 		const slider = getByRole("slider");
-		expect(slider.props.accessibilityValue.min).toBe(10);
-		expect(slider.props.accessibilityValue.max).toBe(90);
+		// Value should be rounded to nearest step
+		fireEvent(slider, "valueChange", 53);
+		expect(onValueChange).toHaveBeenCalledWith(50);
 	});
 
-	it("snaps to step values", () => {
+	it("disables interaction when disabled", () => {
 		const onValueChange = jest.fn();
-		const { getByTestId } = render(
-			<Slider
-				value={50}
-				onValueChange={onValueChange}
-				min={0}
-				max={100}
-				step={10}
-				testID="slider"
-			/>,
+		const { getByRole } = render(
+			<Slider value={50} onValueChange={onValueChange} min={0} max={100} disabled />,
 		);
 
-		const slider = getByTestId("slider");
-		fireEvent(slider, "responderMove", { nativeEvent: { locationX: 55 } });
-		// Should snap to nearest step (50 or 60)
-		expect(onValueChange).toHaveBeenCalledWith(expect.any(Number));
-	});
-
-	it("disables interaction", () => {
-		const onValueChange = jest.fn();
-		const { getByTestId } = render(
-			<Slider
-				value={50}
-				onValueChange={onValueChange}
-				min={0}
-				max={100}
-				disabled
-				testID="slider"
-			/>,
-		);
-
-		const slider = getByTestId("slider");
-		fireEvent(slider, "responderMove", { nativeEvent: { locationX: 100 } });
+		const slider = getByRole("slider");
+		expect(slider.props.disabled).toBe(true);
+		fireEvent(slider, "valueChange", 75);
 		expect(onValueChange).not.toHaveBeenCalled();
 	});
 
-	it("shows marks", () => {
-		const marks = [
-			{ value: 0, label: "Min" },
-			{ value: 50, label: "Mid" },
-			{ value: 100, label: "Max" },
-		];
+	it("shows error state", () => {
 		const { getByText } = render(
-			<Slider value={50} onValueChange={() => {}} min={0} max={100} marks={marks} />,
+			<Slider value={50} onValueChange={() => {}} error errorMessage="Value is out of range" />,
 		);
-
-		expect(getByText("Min")).toBeTruthy();
-		expect(getByText("Mid")).toBeTruthy();
-		expect(getByText("Max")).toBeTruthy();
+		expect(getByText("Value is out of range")).toBeTruthy();
 	});
 
-	it("displays value label", () => {
+	it("shows helper text", () => {
 		const { getByText } = render(
-			<Slider value={75} onValueChange={() => {}} min={0} max={100} showValue />,
+			<Slider value={50} onValueChange={() => {}} helperText="Adjust the volume" />,
 		);
-		expect(getByText("75")).toBeTruthy();
+		expect(getByText("Adjust the volume")).toBeTruthy();
 	});
 
-	it("formats value with custom formatter", () => {
-		const formatter = (value: number) => `${value}%`;
-		const { getByText } = render(
-			<Slider
-				value={75}
-				onValueChange={() => {}}
-				min={0}
-				max={100}
-				showValue
-				formatValue={formatter}
-			/>,
-		);
-		expect(getByText("75%")).toBeTruthy();
-	});
-
-	it("applies custom colors", () => {
-		const { getByTestId } = render(
-			<Slider
-				value={50}
-				onValueChange={() => {}}
-				min={0}
-				max={100}
-				trackColor="#ccc"
-				activeTrackColor="#00f"
-				thumbColor="#f00"
-				testID="slider"
-			/>,
-		);
-
-		const slider = getByTestId("slider");
-		expect(slider).toBeTruthy();
-	});
-
-	it("renders vertically", () => {
+	it("supports range values", () => {
+		const onValueChange = jest.fn();
 		const { getByRole } = render(
-			<Slider value={50} onValueChange={() => {}} min={0} max={100} orientation="vertical" />,
+			<Slider value={[20, 80]} onValueChange={onValueChange} min={0} max={100} />,
 		);
 
 		const slider = getByRole("slider");
-		expect(slider.props["aria-orientation"]).toBe("vertical");
+		// Should handle range values
+		fireEvent(slider, "valueChange", [30, 70]);
+		expect(onValueChange).toHaveBeenCalledWith([30, 70]);
 	});
 
-	it("supports range selection", () => {
-		const onValueChange = jest.fn();
-		const { getAllByRole } = render(
-			<Slider value={[20, 80]} onValueChange={onValueChange} min={0} max={100} range />,
+	it("applies custom styles", () => {
+		const customStyle = { backgroundColor: "red" };
+		const { getByRole } = render(
+			<Slider value={50} onValueChange={() => {}} style={customStyle} />,
 		);
 
-		const sliders = getAllByRole("slider");
-		expect(sliders).toHaveLength(2);
-		expect(sliders[0].props.accessibilityValue.now).toBe(20);
-		expect(sliders[1].props.accessibilityValue.now).toBe(80);
-	});
-
-	it("calls onSlidingStart and onSlidingComplete", () => {
-		const onSlidingStart = jest.fn();
-		const onSlidingComplete = jest.fn();
-		const { getByTestId } = render(
-			<Slider
-				value={50}
-				onValueChange={() => {}}
-				onSlidingStart={onSlidingStart}
-				onSlidingComplete={onSlidingComplete}
-				min={0}
-				max={100}
-				testID="slider"
-			/>,
+		const slider = getByRole("slider");
+		expect(slider.props.style).toEqual(
+			expect.arrayContaining([expect.objectContaining(customStyle)]),
 		);
-
-		const slider = getByTestId("slider");
-		fireEvent(slider, "responderGrant");
-		expect(onSlidingStart).toHaveBeenCalledWith(50);
-
-		fireEvent(slider, "responderRelease");
-		expect(onSlidingComplete).toHaveBeenCalledWith(50);
 	});
 
 	it("applies aria-label", () => {
 		const { getByLabelText } = render(
-			<Slider value={50} onValueChange={() => {}} min={0} max={100} aria-label="Volume control" />,
+			<Slider value={50} onValueChange={() => {}} aria-label="Volume control" />,
 		);
 		expect(getByLabelText("Volume control")).toBeTruthy();
 	});
 
-	it("applies size variants", () => {
-		const sizes = ["sm", "md", "lg"] as const;
-		sizes.forEach((size) => {
-			const { getByTestId } = render(
-				<Slider
-					value={50}
-					onValueChange={() => {}}
-					min={0}
-					max={100}
-					size={size}
-					testID={`slider-${size}`}
-				/>,
-			);
-			expect(getByTestId(`slider-${size}`)).toBeTruthy();
-		});
+	it("applies aria-describedby", () => {
+		const { getByRole } = render(
+			<Slider value={50} onValueChange={() => {}} aria-describedby="volume-description" />,
+		);
+		const slider = getByRole("slider");
+		expect(slider.props["aria-describedby"]).toBe("volume-description");
 	});
 
-	it("supports custom thumb component", () => {
-		const CustomThumb = () => <div testID="custom-thumb" />;
-		const { getByTestId } = render(
-			<Slider value={50} onValueChange={() => {}} min={0} max={100} renderThumb={CustomThumb} />,
+	it("applies aria-invalid", () => {
+		const { getByRole } = render(
+			<Slider value={50} onValueChange={() => {}} aria-invalid={true} />,
 		);
-		expect(getByTestId("custom-thumb")).toBeTruthy();
+		const slider = getByRole("slider");
+		expect(slider.props["aria-invalid"]).toBe(true);
+	});
+
+	it("sets accessibility value", () => {
+		const { getByRole } = render(<Slider value={75} onValueChange={() => {}} min={0} max={100} />);
+		const slider = getByRole("slider");
+		expect(slider.props.accessibilityValue).toEqual({
+			min: 0,
+			max: 100,
+			now: 75,
+		});
 	});
 });

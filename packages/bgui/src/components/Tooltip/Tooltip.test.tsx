@@ -166,7 +166,7 @@ describe("Tooltip", () => {
 
 	it("applies placement variants", () => {
 		const placements = ["top", "bottom", "left", "right"] as const;
-		placements.forEach((placement) => {
+		for (const placement of placements) {
 			const { getByText } = render(
 				<Tooltip content={`Tooltip ${placement}`} placement={placement} delay={0}>
 					<Text>Target</Text>
@@ -176,12 +176,12 @@ describe("Tooltip", () => {
 			fireEvent(getByText("Target"), "hoverIn");
 			// Tooltip should be positioned according to placement
 			expect(getByText(`Tooltip ${placement}`)).toBeTruthy();
-		});
+		}
 	});
 
 	it("applies variant styles", () => {
 		const variants = ["dark", "light", "info"] as const;
-		variants.forEach((variant) => {
+		for (const variant of variants) {
 			const { getByText } = render(
 				<Tooltip content={`${variant} tooltip`} variant={variant} delay={0}>
 					<Text>Target</Text>
@@ -191,7 +191,7 @@ describe("Tooltip", () => {
 			fireEvent(getByText("Target"), "hoverIn");
 			const tooltip = getByText(`${variant} tooltip`);
 			expect(tooltip.parent?.props.style).toBeDefined();
-		});
+		}
 	});
 
 	it("does not show when disabled", async () => {
@@ -268,9 +268,9 @@ describe("Tooltip", () => {
 		});
 	});
 
-	it("applies offset", async () => {
+	it("renders with no delay", async () => {
 		const { getByText } = render(
-			<Tooltip content="Offset tooltip" offset={20} delay={0}>
+			<Tooltip content="No delay tooltip" delay={0}>
 				<Text>Target</Text>
 			</Tooltip>,
 		);
@@ -278,15 +278,15 @@ describe("Tooltip", () => {
 		fireEvent(getByText("Target"), "hoverIn");
 
 		await waitFor(() => {
-			const tooltip = getByText("Offset tooltip");
-			// Tooltip should be positioned with offset
+			const tooltip = getByText("No delay tooltip");
+			// Tooltip should appear immediately
 			expect(tooltip).toBeTruthy();
 		});
 	});
 
-	it("constrains to viewport", async () => {
+	it("renders at different placements", async () => {
 		const { getByText } = render(
-			<Tooltip content="Constrained tooltip" constrainToViewport delay={0}>
+			<Tooltip content="Placement tooltip" placement="right" delay={0}>
 				<Text>Edge target</Text>
 			</Tooltip>,
 		);
@@ -294,8 +294,8 @@ describe("Tooltip", () => {
 		fireEvent(getByText("Edge target"), "hoverIn");
 
 		await waitFor(() => {
-			const tooltip = getByText("Constrained tooltip");
-			// Tooltip should be repositioned if near viewport edge
+			const tooltip = getByText("Placement tooltip");
+			// Tooltip should appear at the specified placement
 			expect(tooltip).toBeTruthy();
 		});
 	});

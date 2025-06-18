@@ -36,13 +36,11 @@ describe("Switch", () => {
 		expect(fn).not.toHaveBeenCalled();
 	});
 
-	it("renders with label", () => {
-		const { getByText } = render(
-			<Switch checked={false} onValueChange={() => {}}>
-				Enable notifications
-			</Switch>,
+	it("renders with aria-label", () => {
+		const { getByLabelText } = render(
+			<Switch checked={false} onValueChange={() => {}} aria-label="Enable notifications" />,
 		);
-		expect(getByText("Enable notifications")).toBeTruthy();
+		expect(getByLabelText("Enable notifications")).toBeTruthy();
 	});
 
 	it("applies disabled state to accessibility", () => {

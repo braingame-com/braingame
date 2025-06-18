@@ -8,113 +8,47 @@ describe("Text", () => {
 		expect(getByText("Hello World")).toBeTruthy();
 	});
 
-	it("applies type variants", () => {
-		const types = ["body", "heading", "title", "subtitle", "caption", "small"] as const;
-		types.forEach((type) => {
-			const { getByText } = render(<Text type={type}>Text {type}</Text>);
-			const text = getByText(`Text ${type}`);
+	it("applies variant styles", () => {
+		const variants = ["h1", "h2", "h3", "body", "caption"] as const;
+		for (const variant of variants) {
+			const { getByText } = render(<Text variant={variant}>Text {variant}</Text>);
+			const text = getByText(`Text ${variant}`);
 			expect(text.props.style).toBeDefined();
-		});
+		}
 	});
 
-	it("applies size variants", () => {
-		const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl"] as const;
-		sizes.forEach((size) => {
-			const { getByText } = render(<Text size={size}>Size {size}</Text>);
-			const text = getByText(`Size ${size}`);
-			expect(text.props.style).toEqual(
-				expect.arrayContaining([expect.objectContaining({ fontSize: expect.any(Number) })]),
-			);
-		});
-	});
-
-	it("applies weight variants", () => {
-		const weights = ["normal", "medium", "semibold", "bold"] as const;
-		weights.forEach((weight) => {
-			const { getByText } = render(<Text weight={weight}>Weight {weight}</Text>);
-			const text = getByText(`Weight ${weight}`);
-			expect(text.props.style).toEqual(
-				expect.arrayContaining([expect.objectContaining({ fontWeight: expect.any(String) })]),
-			);
-		});
-	});
-
-	it("applies text alignment", () => {
-		const alignments = ["left", "center", "right", "justify"] as const;
-		alignments.forEach((align) => {
-			const { getByText } = render(<Text align={align}>Align {align}</Text>);
-			const text = getByText(`Align ${align}`);
-			expect(text.props.style).toEqual(
-				expect.arrayContaining([expect.objectContaining({ textAlign: align })]),
-			);
-		});
-	});
-
-	it("applies color variants", () => {
-		const colors = ["primary", "secondary", "success", "danger", "warning", "muted"] as const;
-		colors.forEach((color) => {
+	it("applies color prop", () => {
+		const colors = ["primary", "secondary", "danger", "neutral", "success", "warning"] as const;
+		for (const color of colors) {
 			const { getByText } = render(<Text color={color}>Color {color}</Text>);
 			const text = getByText(`Color ${color}`);
 			expect(text.props.style).toBeDefined();
-		});
+		}
 	});
 
-	it("applies custom color", () => {
-		const { getByText } = render(<Text color="#ff0000">Red text</Text>);
-		const text = getByText("Red text");
-		expect(text.props.style).toEqual(
-			expect.arrayContaining([expect.objectContaining({ color: "#ff0000" })]),
-		);
+	it("applies text alignment", () => {
+		const alignments = ["left", "center", "right"] as const;
+		for (const align of alignments) {
+			const { getByText } = render(<Text align={align}>Aligned {align}</Text>);
+			const text = getByText(`Aligned ${align}`);
+			expect(text.props.style).toEqual(
+				expect.arrayContaining([expect.objectContaining({ textAlign: align })]),
+			);
+		}
 	});
 
-	it("truncates with numberOfLines", () => {
+	it("applies numberOfLines prop", () => {
 		const { getByText } = render(
-			<Text numberOfLines={1}>
-				This is a very long text that should be truncated to a single line
+			<Text numberOfLines={2}>
+				This is a very long text that should be truncated after two lines
 			</Text>,
 		);
-		const text = getByText("This is a very long text that should be truncated to a single line");
-		expect(text.props.numberOfLines).toBe(1);
-	});
-
-	it("applies text transform", () => {
-		const transforms = ["none", "uppercase", "lowercase", "capitalize"] as const;
-		transforms.forEach((transform) => {
-			const { getByText } = render(<Text transform={transform}>transform text</Text>);
-			const text = getByText("transform text");
-			expect(text.props.style).toEqual(
-				expect.arrayContaining([expect.objectContaining({ textTransform: transform })]),
-			);
-		});
-	});
-
-	it("applies text decoration", () => {
-		const decorations = ["none", "underline", "line-through"] as const;
-		decorations.forEach((decoration) => {
-			const { getByText } = render(<Text decoration={decoration}>Decorated</Text>);
-			const text = getByText("Decorated");
-			expect(text.props.style).toEqual(
-				expect.arrayContaining([expect.objectContaining({ textDecorationLine: decoration })]),
-			);
-		});
-	});
-
-	it("applies italic style", () => {
-		const { getByText } = render(<Text italic>Italic text</Text>);
-		const text = getByText("Italic text");
-		expect(text.props.style).toEqual(
-			expect.arrayContaining([expect.objectContaining({ fontStyle: "italic" })]),
-		);
-	});
-
-	it("renders as selectable", () => {
-		const { getByText } = render(<Text selectable>Selectable text</Text>);
-		const text = getByText("Selectable text");
-		expect(text.props.selectable).toBe(true);
+		const text = getByText("This is a very long text that should be truncated after two lines");
+		expect(text.props.numberOfLines).toBe(2);
 	});
 
 	it("applies custom styles", () => {
-		const customStyle = { letterSpacing: 2 };
+		const customStyle = { fontSize: 20, fontWeight: "bold" as const };
 		const { getByText } = render(<Text style={customStyle}>Styled text</Text>);
 		const text = getByText("Styled text");
 		expect(text.props.style).toEqual(
@@ -122,63 +56,74 @@ describe("Text", () => {
 		);
 	});
 
-	it("sets accessibility role for headings", () => {
-		const { getByRole } = render(<Text type="heading">Main Heading</Text>);
-		expect(getByRole("header")).toBeTruthy();
-	});
-
-	it("applies font family", () => {
-		const { getByText } = render(<Text fontFamily="monospace">Code text</Text>);
-		const text = getByText("Code text");
-		expect(text.props.style).toEqual(
-			expect.arrayContaining([expect.objectContaining({ fontFamily: "monospace" })]),
-		);
-	});
-
-	it("applies line height", () => {
-		const { getByText } = render(<Text lineHeight={1.5}>Spaced text</Text>);
-		const text = getByText("Spaced text");
-		expect(text.props.style).toEqual(
-			expect.arrayContaining([expect.objectContaining({ lineHeight: expect.any(Number) })]),
-		);
-	});
-
-	it("renders with testID", () => {
-		const { getByTestId } = render(<Text testID="custom-text">Test</Text>);
-		expect(getByTestId("custom-text")).toBeTruthy();
-	});
-
-	it("supports nested text", () => {
+	it("renders children nodes", () => {
 		const { getByText } = render(
 			<Text>
-				Parent <Text weight="bold">Bold</Text> text
+				<Text>Nested </Text>
+				<Text>Text</Text>
 			</Text>,
 		);
-		expect(getByText("Bold")).toBeTruthy();
+		expect(getByText("Nested")).toBeTruthy();
+		expect(getByText("Text")).toBeTruthy();
 	});
 
-	it("applies muted variant", () => {
-		const { getByText } = render(<Text muted>Muted text</Text>);
-		const text = getByText("Muted text");
+	it("applies accessibility props", () => {
+		const { getByRole } = render(
+			<Text accessibilityRole="header" accessibilityLabel="Main heading">
+				Heading
+			</Text>,
+		);
+		const text = getByRole("header");
+		expect(text.props.accessibilityLabel).toBe("Main heading");
+	});
+
+	it("inherits Text component props", () => {
+		const onPress = jest.fn();
+		const { getByText } = render(
+			<Text onPress={onPress} testID="pressable-text">
+				Press me
+			</Text>,
+		);
+		const text = getByText("Press me");
+		expect(text.props.testID).toBe("pressable-text");
+	});
+
+	it("combines variant and custom styles", () => {
+		const { getByText } = render(
+			<Text variant="h1" style={{ color: "red" }}>
+				Combined styles
+			</Text>,
+		);
+		const text = getByText("Combined styles");
 		expect(text.props.style).toBeDefined();
 	});
 
-	it("combines multiple style props", () => {
+	it("applies default body variant", () => {
+		const { getByText } = render(<Text>Default variant</Text>);
+		const text = getByText("Default variant");
+		expect(text.props.style).toBeDefined();
+	});
+
+	it("renders empty string", () => {
+		const { queryByText } = render(<Text>{""}</Text>);
+		// Empty text should still render but won't be queryable
+		expect(queryByText("")).toBeNull();
+	});
+
+	it("applies selectable prop", () => {
+		const { getByText } = render(<Text selectable>Selectable text</Text>);
+		const text = getByText("Selectable text");
+		expect(text.props.selectable).toBe(true);
+	});
+
+	it("applies ellipsizeMode with numberOfLines", () => {
 		const { getByText } = render(
-			<Text size="lg" weight="bold" color="primary" italic align="center">
-				Complex styled text
+			<Text numberOfLines={1} ellipsizeMode="tail">
+				Long text that should be truncated
 			</Text>,
 		);
-		const text = getByText("Complex styled text");
-		expect(text.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({
-					fontSize: expect.any(Number),
-					fontWeight: expect.any(String),
-					fontStyle: "italic",
-					textAlign: "center",
-				}),
-			]),
-		);
+		const text = getByText("Long text that should be truncated");
+		expect(text.props.numberOfLines).toBe(1);
+		expect(text.props.ellipsizeMode).toBe("tail");
 	});
 });

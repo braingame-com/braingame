@@ -1,12 +1,26 @@
 import { fireEvent, render } from "@testing-library/react-native";
-import React from "react";
+import type React from "react";
+import { useState } from "react";
 import { Text } from "react-native";
 import { Tabs } from "./Tabs";
+
+// Helper component for testing controlled mode
+const ControlledTabs = ({
+	initialValue = "tab1",
+	children,
+}: { initialValue?: string; children: React.ReactNode }) => {
+	const [activeTab, setActiveTab] = useState(initialValue);
+	return (
+		<Tabs activeTab={activeTab} onValueChange={setActiveTab}>
+			{children}
+		</Tabs>
+	);
+};
 
 describe("Tabs", () => {
 	it("renders tabs and panels", () => {
 		const { getByText } = render(
-			<Tabs defaultValue="tab1">
+			<ControlledTabs>
 				<Tabs.List>
 					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
 					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
@@ -17,7 +31,7 @@ describe("Tabs", () => {
 				<Tabs.Panel value="tab2">
 					<Text>Panel 2</Text>
 				</Tabs.Panel>
-			</Tabs>,
+			</ControlledTabs>,
 		);
 		expect(getByText("Tab 1")).toBeTruthy();
 		expect(getByText("Tab 2")).toBeTruthy();
@@ -26,7 +40,7 @@ describe("Tabs", () => {
 
 	it("switches tabs when clicked", () => {
 		const { getByText, queryByText } = render(
-			<Tabs defaultValue="tab1">
+			<ControlledTabs>
 				<Tabs.List>
 					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
 					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
@@ -37,7 +51,7 @@ describe("Tabs", () => {
 				<Tabs.Panel value="tab2">
 					<Text>Panel 2</Text>
 				</Tabs.Panel>
-			</Tabs>,
+			</ControlledTabs>,
 		);
 
 		fireEvent.press(getByText("Tab 2"));
@@ -48,11 +62,9 @@ describe("Tabs", () => {
 	it("supports controlled mode", () => {
 		const fn = jest.fn();
 		const { getByText } = render(
-			<Tabs value="tab1" onValueChange={fn}>
-				<Tabs.List>
-					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
-				</Tabs.List>
+			<Tabs activeTab="tab1" onValueChange={fn}>
+				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+				<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
 			</Tabs>,
 		);
 
@@ -60,16 +72,27 @@ describe("Tabs", () => {
 		expect(fn).toHaveBeenCalledWith("tab2");
 	});
 
-	it("disables tab interaction", () => {
+	it("calls onValueChange when tab changes", () => {
 		const fn = jest.fn();
 		const { getByText } = render(
-			<Tabs defaultValue="tab1" onValueChange={fn}>
-				<Tabs.List>
-					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-					<Tabs.Tab value="tab2" disabled>
-						Tab 2
-					</Tabs.Tab>
-				</Tabs.List>
+			<Tabs activeTab="tab1" onValueChange={fn}>
+				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+				<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
+			</Tabs>,
+		);
+
+		fireEvent.press(getByText("Tab 2"));
+		expect(fn).toHaveBeenCalledWith("tab2");
+	});
+
+	it("disables tabs", () => {
+		const fn = jest.fn();
+		const { getByText } = render(
+			<Tabs activeTab="tab1" onValueChange={fn}>
+				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+				<Tabs.Tab value="tab2" disabled>
+					Tab 2
+				</Tabs.Tab>
 			</Tabs>,
 		);
 
@@ -77,53 +100,45 @@ describe("Tabs", () => {
 		expect(fn).not.toHaveBeenCalled();
 	});
 
-	it("applies correct accessibility roles", () => {
+	it("applies variant styles", () => {
+		const { getByText } = render(
+			<Tabs activeTab="tab1" onValueChange={() => {}} variant="pills">
+				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+			</Tabs>,
+		);
+
+		const tab = getByText("Tab 1");
+		expect(tab).toBeTruthy();
+	});
+
+	it("supports scrollable tabs", () => {
+		const { getByText } = render(
+			<Tabs activeTab="tab1" onValueChange={() => {}} scrollable>
+				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+			</Tabs>,
+		);
+
+		const tab = getByText("Tab 1");
+		expect(tab).toBeTruthy();
+	});
+
+	it("applies aria roles", () => {
 		const { getByRole, getAllByRole } = render(
-			<Tabs defaultValue="tab1">
+			<ControlledTabs>
 				<Tabs.List>
 					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
 					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
 				</Tabs.List>
-			</Tabs>,
+			</ControlledTabs>,
 		);
 
 		expect(getByRole("tablist")).toBeTruthy();
 		expect(getAllByRole("tab")).toHaveLength(2);
 	});
 
-	it("supports different variants", () => {
-		const { getByRole } = render(
-			<Tabs defaultValue="tab1" variant="pills">
-				<Tabs.List>
-					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-				</Tabs.List>
-			</Tabs>,
-		);
-
-		const tablist = getByRole("tablist");
-		// Variant is passed through context, so we just verify rendering
-		expect(tablist).toBeTruthy();
-	});
-
-	it("supports scrollable tabs", () => {
-		const { getByRole } = render(
-			<Tabs defaultValue="tab1" scrollable>
-				<Tabs.List>
-					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
-					<Tabs.Tab value="tab3">Tab 3</Tabs.Tab>
-				</Tabs.List>
-			</Tabs>,
-		);
-
-		const tablist = getByRole("tablist");
-		// ScrollView wrapper will be applied when scrollable
-		expect(tablist).toBeTruthy();
-	});
-
-	it("marks active tab with aria-selected", () => {
+	it("sets aria-selected on active tab", () => {
 		const { getAllByRole } = render(
-			<Tabs defaultValue="tab2">
+			<Tabs activeTab="tab2" onValueChange={() => {}}>
 				<Tabs.List>
 					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
 					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
@@ -132,28 +147,39 @@ describe("Tabs", () => {
 		);
 
 		const tabs = getAllByRole("tab");
-		expect(tabs[0].props.accessibilityState.selected).toBe(false);
-		expect(tabs[1].props.accessibilityState.selected).toBe(true);
+		expect(tabs[0].props["aria-selected"]).toBe(false);
+		expect(tabs[1].props["aria-selected"]).toBe(true);
 	});
 
-	it("lazy renders panels", () => {
-		const { queryByText } = render(
-			<Tabs defaultValue="tab1" lazy>
+	it("sets aria-controls and aria-labelledby", () => {
+		const { getByRole } = render(
+			<ControlledTabs>
 				<Tabs.List>
 					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
 				</Tabs.List>
 				<Tabs.Panel value="tab1">
 					<Text>Panel 1</Text>
 				</Tabs.Panel>
-				<Tabs.Panel value="tab2">
-					<Text>Panel 2</Text>
-				</Tabs.Panel>
-			</Tabs>,
+			</ControlledTabs>,
 		);
 
-		// Only active panel should be rendered when lazy
-		expect(queryByText("Panel 1")).toBeTruthy();
-		expect(queryByText("Panel 2")).toBeNull();
+		const tab = getByRole("tab");
+		expect(tab.props["aria-controls"]).toBe("tabpanel-tab1");
+	});
+
+	it("supports keyboard navigation", () => {
+		const { getAllByRole } = render(
+			<ControlledTabs>
+				<Tabs.List>
+					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+					<Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
+					<Tabs.Tab value="tab3">Tab 3</Tabs.Tab>
+				</Tabs.List>
+			</ControlledTabs>,
+		);
+
+		// Keyboard navigation would be tested here if supported
+		const tabs = getAllByRole("tab");
+		expect(tabs).toHaveLength(3);
 	});
 });

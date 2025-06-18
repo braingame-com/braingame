@@ -47,11 +47,11 @@ describe("Badge", () => {
 
 	it("applies different colors", () => {
 		const colors = ["primary", "secondary", "success", "danger", "warning"] as const;
-		colors.forEach((color) => {
+		for (const color of colors) {
 			const { getByLabelText } = render(<Badge count={1} color={color} />);
 			const badge = getByLabelText("Count: 1");
 			expect(badge.props.style).toBeDefined();
-		});
+		}
 	});
 
 	it("sets aria-live for notification variant", () => {

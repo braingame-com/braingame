@@ -107,7 +107,7 @@ describe("Select", () => {
 		console.error = jest.fn();
 		expect(() => {
 			render(
-				<Select value="" onValueChange={undefined as any}>
+				<Select value="" onValueChange={undefined as unknown as () => void}>
 					<Select.Item value="option1">Option 1</Select.Item>
 				</Select>,
 			);

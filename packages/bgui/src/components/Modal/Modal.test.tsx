@@ -77,7 +77,7 @@ describe("Modal", () => {
 
 	it("supports different variants", () => {
 		const { getByTestId } = render(
-			<Modal visible={true} onClose={() => {}} variant="bottomSheet">
+			<Modal visible={true} onClose={() => {}} variant="bottom-sheet">
 				<Text>Bottom sheet</Text>
 			</Modal>,
 		);

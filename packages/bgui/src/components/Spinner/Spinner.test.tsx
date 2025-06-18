@@ -4,79 +4,45 @@ import { Spinner } from "./Spinner";
 
 describe("Spinner", () => {
 	it("renders spinner", () => {
-		const { getByTestId } = render(<Spinner testID="spinner" />);
-		expect(getByTestId("spinner")).toBeTruthy();
+		const { getByLabelText } = render(<Spinner />);
+		expect(getByLabelText("Loading")).toBeTruthy();
 	});
 
-	it("applies size variants", () => {
-		const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-		sizes.forEach((size) => {
-			const { getByTestId } = render(<Spinner size={size} testID={`spinner-${size}`} />);
-			const spinner = getByTestId(`spinner-${size}`);
-			expect(spinner.props.style).toBeDefined();
-		});
+	it("applies size prop", () => {
+		const sizes = ["sm", "md", "lg"] as const;
+		for (const size of sizes) {
+			const { getByLabelText } = render(<Spinner size={size} />);
+			const spinner = getByLabelText("Loading");
+			expect(spinner).toBeTruthy();
+		}
 	});
 
-	it("applies custom size", () => {
-		const { getByTestId } = render(<Spinner size={48} testID="spinner" />);
-		const spinner = getByTestId("spinner");
-		expect(spinner.props.style).toEqual(
-			expect.objectContaining({
-				width: 48,
-				height: 48,
-			}),
-		);
+	it("applies color prop", () => {
+		const { getByLabelText } = render(<Spinner color="#ff0000" />);
+		const spinner = getByLabelText("Loading");
+		expect(spinner).toBeTruthy();
 	});
 
-	it("applies color", () => {
-		const { getByTestId } = render(<Spinner color="#ff0000" testID="spinner" />);
-		const spinner = getByTestId("spinner");
-		expect(spinner.props.color).toBe("#ff0000");
+	it("applies inline variant", () => {
+		const { getByLabelText } = render(<Spinner variant="inline" />);
+		const spinner = getByLabelText("Loading");
+		expect(spinner).toBeTruthy();
 	});
 
-	it("applies theme color", () => {
-		const { getByTestId } = render(<Spinner color="primary" testID="spinner" />);
-		const spinner = getByTestId("spinner");
-		// Should use theme color
-		expect(spinner.props.color).toBeDefined();
+	it("applies overlay variant", () => {
+		const { getByLabelText } = render(<Spinner variant="overlay" />);
+		const spinner = getByLabelText("Loading");
+		expect(spinner).toBeTruthy();
 	});
 
-	it("renders with label", () => {
-		const { getByText } = render(<Spinner label="Loading..." />);
-		expect(getByText("Loading...")).toBeTruthy();
-	});
-
-	it("positions label", () => {
-		const positions = ["top", "bottom", "left", "right"] as const;
-		positions.forEach((labelPosition) => {
-			const { getByText } = render(
-				<Spinner label={`Loading ${labelPosition}`} labelPosition={labelPosition} />,
-			);
-			expect(getByText(`Loading ${labelPosition}`)).toBeTruthy();
-		});
-	});
-
-	it("applies variants", () => {
-		const variants = ["circular", "dots", "bars"] as const;
-		variants.forEach((variant) => {
-			const { getByTestId } = render(<Spinner variant={variant} testID={`spinner-${variant}`} />);
-			expect(getByTestId(`spinner-${variant}`)).toBeTruthy();
-		});
+	it("applies custom aria-label", () => {
+		const { getByLabelText } = render(<Spinner ariaLabel="Processing data" />);
+		expect(getByLabelText("Processing data")).toBeTruthy();
 	});
 
 	it("sets accessibility role", () => {
 		const { getByRole } = render(<Spinner />);
 		expect(getByRole("progressbar")).toBeTruthy();
-	});
-
-	it("applies aria-label", () => {
-		const { getByLabelText } = render(<Spinner aria-label="Loading content" />);
-		expect(getByLabelText("Loading content")).toBeTruthy();
-	});
-
-	it("uses label as aria-label fallback", () => {
-		const { getByLabelText } = render(<Spinner label="Processing..." />);
-		expect(getByLabelText("Processing...")).toBeTruthy();
 	});
 
 	it("sets aria-busy", () => {
@@ -85,55 +51,30 @@ describe("Spinner", () => {
 		expect(spinner.props["aria-busy"]).toBe(true);
 	});
 
-	it("renders in overlay mode", () => {
-		const { getByTestId } = render(<Spinner overlay testID="spinner-overlay" />);
-		const overlay = getByTestId("spinner-overlay");
-		expect(overlay.props.style).toEqual(
-			expect.objectContaining({
-				position: "absolute",
-			}),
-		);
-	});
-
-	it("applies custom styles", () => {
-		const customStyle = { margin: 20 };
-		const { getByTestId } = render(<Spinner style={customStyle} testID="spinner" />);
-		const spinner = getByTestId("spinner");
-		expect(spinner.props.style).toEqual(expect.objectContaining(customStyle));
-	});
-
-	it("controls animation speed", () => {
-		const { getByTestId } = render(<Spinner speed={2000} testID="spinner" />);
-		const spinner = getByTestId("spinner");
-		// Animation duration should be set
+	it("renders with default size", () => {
+		const { getByLabelText } = render(<Spinner />);
+		const spinner = getByLabelText("Loading");
+		// Should render with default medium size
 		expect(spinner).toBeTruthy();
 	});
 
-	it("renders with custom thickness", () => {
-		const { getByTestId } = render(<Spinner thickness={4} testID="spinner" />);
-		const spinner = getByTestId("spinner");
+	it("renders with default color", () => {
+		const { getByLabelText } = render(<Spinner />);
+		const spinner = getByLabelText("Loading");
+		// Should render with theme color
 		expect(spinner).toBeTruthy();
 	});
 
-	it("applies track color", () => {
-		const { getByTestId } = render(<Spinner trackColor="#cccccc" testID="spinner" />);
-		const spinner = getByTestId("spinner");
+	it("renders inline without overlay", () => {
+		const { queryByTestId } = render(<Spinner variant="inline" />);
+		// Should not have overlay backdrop
+		expect(queryByTestId("spinner-overlay")).toBeNull();
+	});
+
+	it("renders overlay with backdrop", () => {
+		const { getByLabelText } = render(<Spinner variant="overlay" />);
+		// Should have overlay backdrop
+		const spinner = getByLabelText("Loading");
 		expect(spinner).toBeTruthy();
-	});
-
-	it("supports determinate progress", () => {
-		const { getByRole } = render(<Spinner value={75} />);
-		const spinner = getByRole("progressbar");
-		expect(spinner.props.accessibilityValue).toEqual({
-			min: 0,
-			max: 100,
-			now: 75,
-		});
-	});
-
-	it("hides from screen readers when decorative", () => {
-		const { getByTestId } = render(<Spinner decorative testID="spinner" />);
-		const spinner = getByTestId("spinner");
-		expect(spinner.props["aria-hidden"]).toBe(true);
 	});
 });

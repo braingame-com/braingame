@@ -31,21 +31,8 @@ const ActionListItemComponent = forwardRef<ComponentRef<typeof Pressable>, Actio
 			}
 		}, [onPress, selectable, onSelect]);
 
-		const handleKeyDown = useCallback(
-			(e: React.KeyboardEvent) => {
-				if (e.key === "Enter" || e.key === " ") {
-					e.preventDefault();
-					handlePress();
-				} else if (e.key === "ArrowDown") {
-					e.preventDefault();
-					onArrowNext?.();
-				} else if (e.key === "ArrowUp") {
-					e.preventDefault();
-					onArrowPrev?.();
-				}
-			},
-			[handlePress, onArrowNext, onArrowPrev],
-		);
+		// Note: onKeyDown is not supported in React Native
+		// Keyboard navigation would need to be handled differently
 
 		// Determine the appropriate role based on selectable state
 		const role = selectable ? "option" : "menuitem";
@@ -57,7 +44,6 @@ const ActionListItemComponent = forwardRef<ComponentRef<typeof Pressable>, Actio
 				padding: 8,
 				backgroundColor: background,
 				opacity: disabled ? 0.5 : 1,
-				...(Platform.OS === "web" ? { cursor: (disabled ? "not-allowed" : "pointer") as any } : {}),
 			}),
 			[background, disabled],
 		);
@@ -75,7 +61,6 @@ const ActionListItemComponent = forwardRef<ComponentRef<typeof Pressable>, Actio
 				aria-checked={selectable ? selected : undefined}
 				tabIndex={disabled ? -1 : 0}
 				onPress={handlePress}
-				onKeyDown={handleKeyDown}
 				disabled={disabled}
 				style={itemStyle}
 				{...rest}

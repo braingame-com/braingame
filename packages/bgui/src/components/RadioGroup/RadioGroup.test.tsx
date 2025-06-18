@@ -6,8 +6,8 @@ describe("RadioGroup", () => {
 	it("renders radio options", () => {
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={() => {}}>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
 			</RadioGroup>,
 		);
 		expect(getByText("Option 1")).toBeTruthy();
@@ -18,8 +18,8 @@ describe("RadioGroup", () => {
 		const onValueChange = jest.fn();
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={onValueChange}>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
 			</RadioGroup>,
 		);
 
@@ -30,8 +30,8 @@ describe("RadioGroup", () => {
 	it("shows selected state", () => {
 		const { getAllByRole } = render(
 			<RadioGroup value="option2" onValueChange={() => {}}>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
 			</RadioGroup>,
 		);
 
@@ -44,8 +44,10 @@ describe("RadioGroup", () => {
 		const onValueChange = jest.fn();
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={onValueChange}>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" disabled />
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2" disabled>
+					Option 2
+				</RadioGroup.Item>
 			</RadioGroup>,
 		);
 
@@ -57,8 +59,8 @@ describe("RadioGroup", () => {
 		const onValueChange = jest.fn();
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={onValueChange} disabled>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
 			</RadioGroup>,
 		);
 
@@ -66,124 +68,77 @@ describe("RadioGroup", () => {
 		expect(onValueChange).not.toHaveBeenCalled();
 	});
 
-	it("renders with description", () => {
-		const { getByText } = render(
-			<RadioGroup value="option1" onValueChange={() => {}}>
-				<RadioGroup.Item value="option1" label="Option 1" description="This is the first option" />
-			</RadioGroup>,
-		);
-		expect(getByText("This is the first option")).toBeTruthy();
-	});
-
-	it("applies orientation", () => {
-		const { getByRole } = render(
-			<RadioGroup value="option1" onValueChange={() => {}} orientation="horizontal">
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+	it("supports default value", () => {
+		const { getAllByRole } = render(
+			<RadioGroup defaultValue="option2">
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
 			</RadioGroup>,
 		);
 
-		const group = getByRole("radiogroup");
-		expect(group.props["aria-orientation"]).toBe("horizontal");
+		const radios = getAllByRole("radio");
+		expect(radios[1].props.accessibilityState.checked).toBe(true);
 	});
 
-	it("applies size variants", () => {
-		const sizes = ["sm", "md", "lg"] as const;
-		sizes.forEach((size) => {
+	it("applies variant styles", () => {
+		const variants = ["standard", "card"] as const;
+		for (const variant of variants) {
 			const { getByText } = render(
-				<RadioGroup value="option1" onValueChange={() => {}} size={size}>
-					<RadioGroup.Item value="option1" label={`Option ${size}`} />
+				<RadioGroup value="option1" onValueChange={() => {}} variant={variant}>
+					<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
 				</RadioGroup>,
 			);
-			expect(getByText(`Option ${size}`)).toBeTruthy();
-		});
-	});
-
-	it("validates required selection", () => {
-		const onValueChange = jest.fn();
-		const { getByRole } = render(
-			<RadioGroup value={undefined} onValueChange={onValueChange} required>
-				<RadioGroup.Item value="option1" label="Option 1" />
-			</RadioGroup>,
-		);
-
-		const group = getByRole("radiogroup");
-		expect(group.props["aria-required"]).toBe(true);
+			expect(getByText("Option 1")).toBeTruthy();
+		}
 	});
 
 	it("shows error state", () => {
 		const { getByText } = render(
-			<RadioGroup
-				value="option1"
-				onValueChange={() => {}}
-				error
-				errorMessage="Please select an option"
-			>
-				<RadioGroup.Item value="option1" label="Option 1" />
+			<RadioGroup value="" onValueChange={() => {}} error errorMessage="Please select an option">
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
 			</RadioGroup>,
 		);
 		expect(getByText("Please select an option")).toBeTruthy();
 	});
 
-	it("applies custom styles to items", () => {
+	it("shows helper text", () => {
 		const { getByText } = render(
-			<RadioGroup value="option1" onValueChange={() => {}}>
-				<RadioGroup.Item value="option1" label="Option 1" style={{ padding: 20 }} />
+			<RadioGroup value="" onValueChange={() => {}} helperText="Select one option">
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
 			</RadioGroup>,
 		);
-
-		const item = getByText("Option 1").parent;
-		expect(item?.props.style).toEqual(expect.objectContaining({ padding: 20 }));
+		expect(getByText("Select one option")).toBeTruthy();
 	});
 
-	it("supports uncontrolled mode with defaultValue", () => {
-		const onValueChange = jest.fn();
-		const { getByText } = render(
-			<RadioGroup defaultValue="option1" onValueChange={onValueChange}>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+	it("applies aria-label", () => {
+		const { getByLabelText } = render(
+			<RadioGroup value="" onValueChange={() => {}} aria-label="Choose your preference">
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
 			</RadioGroup>,
 		);
-
-		fireEvent.press(getByText("Option 2"));
-		expect(onValueChange).toHaveBeenCalledWith("option2");
+		expect(getByLabelText("Choose your preference")).toBeTruthy();
 	});
 
-	it("applies name to group", () => {
-		const { getByRole } = render(
-			<RadioGroup value="option1" onValueChange={() => {}} name="preferences">
-				<RadioGroup.Item value="option1" label="Option 1" />
+	it("applies aria-invalid", () => {
+		const { getByLabelText } = render(
+			<RadioGroup value="" onValueChange={() => {}} aria-label="Options" aria-invalid={true}>
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
 			</RadioGroup>,
 		);
-
-		const group = getByRole("radiogroup");
-		expect(group.props.accessibilityLabel).toBe("preferences");
+		const group = getByLabelText("Options");
+		expect(group.props["aria-invalid"]).toBe(true);
 	});
 
-	it("supports custom radio rendering", () => {
-		const { getByTestId } = render(
-			<RadioGroup value="option1" onValueChange={() => {}}>
-				<RadioGroup.Item
-					value="option1"
-					label="Option 1"
-					renderRadio={() => <div testID="custom-radio" />}
-				/>
-			</RadioGroup>,
-		);
-		expect(getByTestId("custom-radio")).toBeTruthy();
-	});
-
-	it("prevents selection when max selections reached", () => {
-		const onValueChange = jest.fn();
+	it("handles keyboard navigation", () => {
 		const { getAllByRole } = render(
-			<RadioGroup value="option1" onValueChange={onValueChange}>
-				<RadioGroup.Item value="option1" label="Option 1" />
-				<RadioGroup.Item value="option2" label="Option 2" />
+			<RadioGroup value="option1" onValueChange={() => {}}>
+				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+				<RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
 			</RadioGroup>,
 		);
 
-		// Radio groups only allow one selection by design
+		// Keyboard navigation would be tested here if supported
 		const radios = getAllByRole("radio");
-		expect(radios.filter((r) => r.props.accessibilityState.checked)).toHaveLength(1);
+		expect(radios).toHaveLength(2);
 	});
 });

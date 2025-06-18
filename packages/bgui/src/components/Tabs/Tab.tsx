@@ -32,7 +32,7 @@ const TabComponent = forwardRef<View, TabProps>(function Tab(
 
 	const tabStyle = useMemo(() => {
 		const baseStyle = styles.tab;
-		const additionalStyles: any[] = [];
+		const additionalStyles = [];
 
 		if (variant === "pills") {
 			additionalStyles.push(styles.pill);

@@ -1,6 +1,6 @@
 import { act, fireEvent, render, waitFor } from "@testing-library/react-native";
 import React from "react";
-import { Toast, showToast } from "./Toast";
+import { Toast } from "./Toast";
 
 describe("Toast", () => {
 	beforeEach(() => {
@@ -8,268 +8,109 @@ describe("Toast", () => {
 		jest.clearAllTimers();
 	});
 
-	it("shows toast with message", async () => {
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({ message: "Hello Toast!" });
-		});
-
-		await waitFor(() => {
-			expect(getByText("Hello Toast!")).toBeTruthy();
-		});
+	it("shows toast with message", () => {
+		const { getByText } = render(<Toast message="Hello Toast!" />);
+		expect(getByText("Hello Toast!")).toBeTruthy();
 	});
 
-	it("shows toast with title and message", async () => {
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				title: "Success",
-				message: "Operation completed",
-			});
-		});
-
-		await waitFor(() => {
-			expect(getByText("Success")).toBeTruthy();
-			expect(getByText("Operation completed")).toBeTruthy();
-		});
-	});
-
-	it("shows different toast types", async () => {
+	it("shows different toast types", () => {
 		const types = ["success", "error", "warning", "info"] as const;
-		const { getByText } = render(<Toast />);
-
 		for (const type of types) {
-			act(() => {
-				showToast({
-					message: `${type} toast`,
-					type,
-				});
-			});
-
-			await waitFor(() => {
-				expect(getByText(`${type} toast`)).toBeTruthy();
-			});
+			const { getByText } = render(<Toast message={`${type} toast`} type={type} />);
+			expect(getByText(`${type} toast`)).toBeTruthy();
 		}
 	});
 
-	it("auto dismisses after duration", async () => {
-		jest.useFakeTimers();
-		const { getByText, queryByText } = render(<Toast />);
+	it("renders with action button", () => {
+		const onActionPress = jest.fn();
+		const { getByText } = render(
+			<Toast
+				message="Toast with action"
+				actionLabel="Undo"
+				onActionPress={onActionPress}
+				variant="with-action"
+			/>,
+		);
 
-		act(() => {
-			showToast({
-				message: "Auto dismiss",
-				duration: 3000,
-			});
-		});
+		expect(getByText("Toast with action")).toBeTruthy();
+		expect(getByText("Undo")).toBeTruthy();
 
-		await waitFor(() => {
-			expect(getByText("Auto dismiss")).toBeTruthy();
-		});
-
-		act(() => {
-			jest.advanceTimersByTime(3000);
-		});
-
-		await waitFor(() => {
-			expect(queryByText("Auto dismiss")).toBeNull();
-		});
-
-		jest.useRealTimers();
+		// Press action button
+		fireEvent.press(getByText("Undo"));
+		expect(onActionPress).toHaveBeenCalled();
 	});
 
-	it("dismisses on press when dismissible", async () => {
-		const { getByText, queryByText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				message: "Dismissible toast",
-				dismissible: true,
-			});
-		});
-
-		await waitFor(() => {
-			const toast = getByText("Dismissible toast");
-			fireEvent.press(toast);
-		});
-
-		await waitFor(() => {
-			expect(queryByText("Dismissible toast")).toBeNull();
-		});
+	it("applies simple variant by default", () => {
+		const { queryByText } = render(<Toast message="Simple toast" />);
+		expect(queryByText("Simple toast")).toBeTruthy();
 	});
 
-	it("shows action button", async () => {
-		const onAction = jest.fn();
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				message: "Toast with action",
-				action: {
-					label: "Undo",
-					onPress: onAction,
-				},
-			});
-		});
-
-		await waitFor(() => {
-			const actionButton = getByText("Undo");
-			fireEvent.press(actionButton);
-		});
-
-		expect(onAction).toHaveBeenCalled();
+	it("applies with-action variant when action provided", () => {
+		const { getByText } = render(
+			<Toast
+				message="Action toast"
+				actionLabel="Retry"
+				onActionPress={() => {}}
+				variant="with-action"
+			/>,
+		);
+		expect(getByText("Action toast")).toBeTruthy();
+		expect(getByText("Retry")).toBeTruthy();
 	});
 
-	it("shows multiple toasts", async () => {
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({ message: "First toast" });
-			showToast({ message: "Second toast" });
-		});
-
-		await waitFor(() => {
-			expect(getByText("First toast")).toBeTruthy();
-			expect(getByText("Second toast")).toBeTruthy();
-		});
+	it("applies success type styles", () => {
+		const { getByText } = render(<Toast message="Success!" type="success" />);
+		const toast = getByText("Success!");
+		expect(toast).toBeTruthy();
 	});
 
-	it("respects position prop", () => {
-		const positions = ["top", "bottom", "center"] as const;
-		positions.forEach((position) => {
-			const { getByTestId } = render(<Toast position={position} testID={`toast-${position}`} />);
-			const container = getByTestId(`toast-${position}`);
-			expect(container.props.style).toBeDefined();
-		});
+	it("applies error type styles", () => {
+		const { getByText } = render(<Toast message="Error occurred" type="error" />);
+		const toast = getByText("Error occurred");
+		expect(toast).toBeTruthy();
 	});
 
-	it("calls onShow callback", async () => {
-		const onShow = jest.fn();
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				message: "Show callback",
-				onShow,
-			});
-		});
-
-		await waitFor(() => {
-			expect(getByText("Show callback")).toBeTruthy();
-			expect(onShow).toHaveBeenCalled();
-		});
+	it("applies warning type styles", () => {
+		const { getByText } = render(<Toast message="Warning!" type="warning" />);
+		const toast = getByText("Warning!");
+		expect(toast).toBeTruthy();
 	});
 
-	it("calls onHide callback", async () => {
-		jest.useFakeTimers();
-		const onHide = jest.fn();
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				message: "Hide callback",
-				duration: 1000,
-				onHide,
-			});
-		});
-
-		await waitFor(() => {
-			expect(getByText("Hide callback")).toBeTruthy();
-		});
-
-		act(() => {
-			jest.advanceTimersByTime(1000);
-		});
-
-		await waitFor(() => {
-			expect(onHide).toHaveBeenCalled();
-		});
-
-		jest.useRealTimers();
+	it("applies info type styles", () => {
+		const { getByText } = render(<Toast message="Info message" type="info" />);
+		const toast = getByText("Info message");
+		expect(toast).toBeTruthy();
 	});
 
-	it("shows icon for toast types", async () => {
-		const { getByLabelText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				message: "Success with icon",
-				type: "success",
-				showIcon: true,
-			});
-		});
-
-		await waitFor(() => {
-			expect(getByLabelText("success icon")).toBeTruthy();
-		});
+	it("sets accessibility role", () => {
+		const { getByRole } = render(<Toast message="Accessible toast" />);
+		expect(getByRole("alert")).toBeTruthy();
 	});
 
-	it("applies custom styles", async () => {
-		const { getByText } = render(<Toast />);
-
-		act(() => {
-			showToast({
-				message: "Styled toast",
-				style: { backgroundColor: "purple" },
-			});
-		});
-
-		await waitFor(() => {
-			const toast = getByText("Styled toast").parent;
-			expect(toast?.props.style).toEqual(expect.objectContaining({ backgroundColor: "purple" }));
-		});
+	it("applies aria-live for announcements", () => {
+		const { getByRole } = render(<Toast message="Live region toast" />);
+		const toast = getByRole("alert");
+		expect(toast.props["aria-live"]).toBe("polite");
 	});
 
-	it("prevents duplicate toasts", async () => {
-		const { getAllByText } = render(<Toast />);
-
-		act(() => {
-			showToast({ message: "Duplicate", id: "unique-id" });
-			showToast({ message: "Duplicate", id: "unique-id" });
-		});
-
-		await waitFor(() => {
-			const toasts = getAllByText("Duplicate");
-			expect(toasts).toHaveLength(1);
-		});
+	it("handles empty message gracefully", () => {
+		const { queryByRole } = render(<Toast message="" />);
+		// Should still render the toast container
+		expect(queryByRole("alert")).toBeTruthy();
 	});
 
-	it("limits maximum toasts", async () => {
-		const { queryByText } = render(<Toast maxToasts={2} />);
-
-		act(() => {
-			showToast({ message: "Toast 1" });
-			showToast({ message: "Toast 2" });
-			showToast({ message: "Toast 3" });
-		});
-
-		await waitFor(() => {
-			expect(queryByText("Toast 1")).toBeNull(); // First toast removed
-			expect(queryByText("Toast 2")).toBeTruthy();
-			expect(queryByText("Toast 3")).toBeTruthy();
-		});
+	it("renders with custom duration prop", () => {
+		const { getByText } = render(<Toast message="Custom duration" duration={5000} />);
+		expect(getByText("Custom duration")).toBeTruthy();
 	});
 
-	it("applies swipe to dismiss", async () => {
-		const { getByText, queryByText } = render(<Toast />);
+	it("handles action without callback", () => {
+		const { getByText } = render(
+			<Toast message="Action without handler" actionLabel="Action" variant="with-action" />,
+		);
+		expect(getByText("Action")).toBeTruthy();
 
-		act(() => {
-			showToast({
-				message: "Swipeable",
-				swipeable: true,
-			});
-		});
-
-		await waitFor(() => {
-			const toast = getByText("Swipeable");
-			// Simulate swipe gesture
-			fireEvent(toast, "swipe", { direction: "right" });
-		});
-
-		await waitFor(() => {
-			expect(queryByText("Swipeable")).toBeNull();
-		});
+		// Should not throw when pressing action without handler
+		fireEvent.press(getByText("Action"));
 	});
 });

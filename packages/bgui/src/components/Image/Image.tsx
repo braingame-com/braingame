@@ -55,14 +55,14 @@ const ImageComponent = ({
 		);
 	}
 
-	const handleLoad = () => {
+	const handleLoad: typeof onLoad = (e) => {
 		setLoaded(true);
-		if (onLoad) onLoad({ nativeEvent: {} } as any);
+		if (onLoad) onLoad(e);
 	};
 
-	const handleError = () => {
+	const handleError: typeof onError = (e) => {
 		setError(true);
-		if (onError) onError({ nativeEvent: { error: "Failed to load image" } } as any);
+		if (onError) onError(e);
 	};
 
 	return (

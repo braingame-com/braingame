@@ -13,27 +13,25 @@ describe("Card", () => {
 		expect(getByText("Card content")).toBeTruthy();
 	});
 
-	it("renders header", () => {
+	it("renders with multiple children", () => {
 		const { getByText } = render(
 			<Card>
-				<Card.Header>
-					<Text>Header</Text>
-				</Card.Header>
+				<Text>Header</Text>
 				<Text>Content</Text>
 			</Card>,
 		);
 		expect(getByText("Header")).toBeTruthy();
+		expect(getByText("Content")).toBeTruthy();
 	});
 
-	it("renders footer", () => {
+	it("renders with nested content", () => {
 		const { getByText } = render(
 			<Card>
 				<Text>Content</Text>
-				<Card.Footer>
-					<Text>Footer</Text>
-				</Card.Footer>
+				<Text>Footer</Text>
 			</Card>,
 		);
+		expect(getByText("Content")).toBeTruthy();
 		expect(getByText("Footer")).toBeTruthy();
 	});
 
@@ -104,7 +102,7 @@ describe("Card", () => {
 
 	it("applies padding prop", () => {
 		const { getByTestId } = render(
-			<Card padding="lg" testID="card">
+			<Card padding="large" testID="card">
 				<Text>Padded card</Text>
 			</Card>,
 		);
@@ -115,8 +113,8 @@ describe("Card", () => {
 	});
 
 	it("applies variant styles", () => {
-		const variants = ["outlined", "filled", "elevated"] as const;
-		variants.forEach((variant) => {
+		const variants = ["basic", "interactive"] as const;
+		for (const variant of variants) {
 			const { getByTestId } = render(
 				<Card variant={variant} testID={`card-${variant}`}>
 					<Text>Card</Text>
@@ -124,18 +122,18 @@ describe("Card", () => {
 			);
 			const card = getByTestId(`card-${variant}`);
 			expect(card.props.style).toBeDefined();
-		});
+		}
 	});
 
-	it("disables interaction when disabled", () => {
+	it("handles press when interactive", () => {
 		const onPress = jest.fn();
 		const { getByText } = render(
-			<Card onPress={onPress} disabled>
-				<Text>Disabled card</Text>
+			<Card onPress={onPress}>
+				<Text>Interactive card</Text>
 			</Card>,
 		);
-		fireEvent.press(getByText("Disabled card"));
-		expect(onPress).not.toHaveBeenCalled();
+		fireEvent.press(getByText("Interactive card"));
+		expect(onPress).toHaveBeenCalled();
 	});
 
 	it("applies custom styles", () => {

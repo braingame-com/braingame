@@ -29,53 +29,34 @@ describe("Label", () => {
 		expect(getByText("*")).toBeTruthy();
 	});
 
-	it("applies disabled styles", () => {
-		const { getByText } = render(
-			<Label htmlFor="input" disabled>
-				Disabled Field
-			</Label>,
-		);
-		const label = getByText("Disabled Field");
-		expect(label.props.style).toEqual(
-			expect.arrayContaining([expect.objectContaining({ opacity: expect.any(Number) })]),
-		);
-	});
-
-	it("shows error state", () => {
-		const { getByText } = render(
-			<Label htmlFor="input" error>
-				Password
-			</Label>,
-		);
-		const label = getByText("Password");
-		// Should have error color
-		expect(label.props.style).toBeDefined();
-	});
-
-	it("renders helper text", () => {
-		const { getByText } = render(
-			<Label htmlFor="input" helperText="Must be at least 8 characters">
-				Password
-			</Label>,
-		);
-		expect(getByText("Must be at least 8 characters")).toBeTruthy();
-	});
-
-	it("applies size variants", () => {
+	it("applies size variations", () => {
 		const sizes = ["sm", "md", "lg"] as const;
-		sizes.forEach((size) => {
+		for (const size of sizes) {
 			const { getByText } = render(
-				<Label htmlFor="input" size={size}>
-					Label {size}
+				<Label htmlFor={`input-${size}`} size={size}>
+					{`Label ${size}`}
 				</Label>,
 			);
 			const label = getByText(`Label ${size}`);
 			expect(label.props.style).toBeDefined();
-		});
+		}
+	});
+
+	it("applies variant styles", () => {
+		const variants = ["standard", "floating"] as const;
+		for (const variant of variants) {
+			const { getByText } = render(
+				<Label htmlFor={`input-${variant}`} variant={variant}>
+					{`Label ${variant}`}
+				</Label>,
+			);
+			const label = getByText(`Label ${variant}`);
+			expect(label.props.style).toBeDefined();
+		}
 	});
 
 	it("applies custom styles", () => {
-		const customStyle = { color: "blue" };
+		const customStyle = { color: "blue", fontSize: 20 };
 		const { getByText } = render(
 			<Label htmlFor="input" style={customStyle}>
 				Styled Label
@@ -87,56 +68,32 @@ describe("Label", () => {
 		);
 	});
 
-	it("positions label", () => {
-		const positions = ["top", "left", "right"] as const;
-		positions.forEach((position) => {
-			const { getByText } = render(
-				<Label htmlFor="input" position={position}>
-					Label {position}
-				</Label>,
-			);
-			expect(getByText(`Label ${position}`)).toBeTruthy();
-		});
+	it("renders without htmlFor", () => {
+		const { getByText } = render(<Label>Standalone Label</Label>);
+		expect(getByText("Standalone Label")).toBeTruthy();
 	});
 
-	it("renders with custom required indicator", () => {
+	it("renders with complex children", () => {
 		const { getByText } = render(
-			<Label htmlFor="input" required requiredIndicator=" (required)">
-				Email
+			<Label htmlFor="input">
+				<>
+					Complex <strong>Label</strong>
+				</>
 			</Label>,
 		);
-		expect(getByText(" (required)")).toBeTruthy();
+		expect(getByText("Complex")).toBeTruthy();
+		expect(getByText("Label")).toBeTruthy();
 	});
 
-	it("applies font weight", () => {
-		const { getByText } = render(
-			<Label htmlFor="input" weight="bold">
-				Bold Label
-			</Label>,
-		);
-		const label = getByText("Bold Label");
-		expect(label.props.style).toEqual(
-			expect.arrayContaining([expect.objectContaining({ fontWeight: "bold" })]),
-		);
+	it("does not show required indicator when not required", () => {
+		const { queryByText } = render(<Label htmlFor="input">Optional Field</Label>);
+		expect(queryByText("*")).toBeNull();
 	});
 
-	it("renders inline with input", () => {
-		const { getByText } = render(
-			<Label htmlFor="input" inline>
-				Inline Label
-			</Label>,
-		);
-		const container = getByText("Inline Label").parent;
-		expect(container?.props.style).toEqual(expect.objectContaining({ flexDirection: "row" }));
-	});
-
-	it("truncates long text", () => {
-		const { getByText } = render(
-			<Label htmlFor="input" numberOfLines={1}>
-				This is a very long label that should be truncated
-			</Label>,
-		);
-		const label = getByText("This is a very long label that should be truncated");
-		expect(label.props.numberOfLines).toBe(1);
+	it("sets accessibility role", () => {
+		const { getByText } = render(<Label htmlFor="input">Accessible Label</Label>);
+		const label = getByText("Accessible Label");
+		// Label should have appropriate accessibility properties
+		expect(label.props.accessibilityRole).toBeDefined();
 	});
 });

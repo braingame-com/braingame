@@ -56,13 +56,14 @@ export const ActionList = ({
 	});
 
 	const role = selectable ? "listbox" : variant === "menu" ? "menu" : "list";
+	const accessibilityRole = role === "listbox" ? "list" : role === "menu" ? "menu" : "list";
 
 	return (
 		<View
-			accessibilityRole={role as any}
-			{...(Platform.OS === "web"
+			accessibilityRole={accessibilityRole as "list" | "menu"}
+			{...(Platform.OS === "web" && role !== "listbox"
 				? {
-						role: role as any,
+						role,
 						"aria-label": ariaLabel,
 						"aria-multiselectable": selectable,
 						"aria-orientation": "vertical" as const,

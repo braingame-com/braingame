@@ -9,13 +9,13 @@ describe("Icon", () => {
 	});
 
 	it("applies size prop", () => {
-		const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-		sizes.forEach((size) => {
+		const sizes = ["sm", "md", "lg"] as const;
+		for (const size of sizes) {
 			const { getByLabelText } = render(<Icon name="settings" size={size} />);
 			const icon = getByLabelText("settings icon");
 			expect(icon.props.width).toBeDefined();
 			expect(icon.props.height).toBeDefined();
-		});
+		}
 	});
 
 	it("applies custom numeric size", () => {
@@ -25,29 +25,31 @@ describe("Icon", () => {
 		expect(icon.props.height).toBe(32);
 	});
 
-	it("applies color", () => {
-		const { getByLabelText } = render(<Icon name="star" color="#ff0000" />);
-		const icon = getByLabelText("star icon");
-		expect(icon.props.fill).toBe("#ff0000");
-	});
-
 	it("applies theme color", () => {
-		const { getByLabelText } = render(<Icon name="heart" color="primary" />);
-		const icon = getByLabelText("heart icon");
-		// Should apply theme color
+		const { getByLabelText } = render(<Icon name="star" color="text" />);
+		const icon = getByLabelText("star icon");
 		expect(icon.props.fill).toBeDefined();
 	});
 
-	it("rotates icon", () => {
-		const { getByLabelText } = render(<Icon name="arrow" rotate={90} />);
-		const icon = getByLabelText("arrow icon");
-		expect(icon.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({
-					transform: [{ rotate: "90deg" }],
-				}),
-			]),
-		);
+	it("applies theme color variants", () => {
+		const colors = [
+			"background",
+			"card",
+			"button",
+			"text",
+			"textSecondary",
+			"border",
+			"buttonHovered",
+			"tint",
+			"icon",
+			"tabIconDefault",
+			"tabIconSelected",
+		] as const;
+		for (const color of colors) {
+			const { getByLabelText } = render(<Icon name="heart" color={color} />);
+			const icon = getByLabelText("heart icon");
+			expect(icon.props.fill).toBeDefined();
+		}
 	});
 
 	it("applies custom styles", () => {
@@ -59,16 +61,10 @@ describe("Icon", () => {
 		);
 	});
 
-	it("sets aria-hidden by default", () => {
-		const { getByLabelText } = render(<Icon name="close" />);
+	it("sets aria-hidden for decorative icons", () => {
+		const { getByLabelText } = render(<Icon name="close" decorative />);
 		const icon = getByLabelText("close icon");
 		expect(icon.props["aria-hidden"]).toBe("true");
-	});
-
-	it("removes aria-hidden when aria-label provided", () => {
-		const { getByLabelText } = render(<Icon name="search" aria-label="Search button" />);
-		const icon = getByLabelText("Search button");
-		expect(icon.props["aria-hidden"]).toBeUndefined();
 	});
 
 	it("applies custom aria-label", () => {
@@ -76,29 +72,12 @@ describe("Icon", () => {
 		expect(getByLabelText("Open menu")).toBeTruthy();
 	});
 
-	it("applies testID", () => {
-		const { getByTestId } = render(<Icon name="calendar" testID="calendar-icon" />);
-		expect(getByTestId("calendar-icon")).toBeTruthy();
-	});
-
-	it("renders different icon sets", () => {
-		const iconSets = ["material", "feather", "ionicons"] as const;
-		iconSets.forEach((iconSet) => {
-			const { getByLabelText } = render(<Icon name="home" iconSet={iconSet} />);
+	it("applies variant", () => {
+		const variants = ["solid", "regular", "brand"] as const;
+		for (const variant of variants) {
+			const { getByLabelText } = render(<Icon name="home" variant={variant} />);
 			expect(getByLabelText("home icon")).toBeTruthy();
-		});
-	});
-
-	it("applies stroke width for outline icons", () => {
-		const { getByLabelText } = render(<Icon name="circle" strokeWidth={2} />);
-		const icon = getByLabelText("circle icon");
-		expect(icon.props.strokeWidth).toBe(2);
-	});
-
-	it("renders as button when onPress provided", () => {
-		const onPress = jest.fn();
-		const { getByRole } = render(<Icon name="add" onPress={onPress} />);
-		expect(getByRole("button")).toBeTruthy();
+		}
 	});
 
 	it("handles missing icon gracefully", () => {

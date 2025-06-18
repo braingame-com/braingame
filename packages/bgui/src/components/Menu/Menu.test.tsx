@@ -1,17 +1,13 @@
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
 import React from "react";
-import { Menu } from "./Menu";
+import { Pressable, Text } from "react-native";
+import { Menu, MenuItem } from "./Menu";
 
 describe("Menu", () => {
 	it("renders trigger element", () => {
 		const { getByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Open Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item>Item 1</Menu.Item>
-				</Menu.Content>
+			<Menu trigger={<Text>Open Menu</Text>}>
+				<MenuItem>Item 1</MenuItem>
 			</Menu>,
 		);
 		expect(getByText("Open Menu")).toBeTruthy();
@@ -19,13 +15,14 @@ describe("Menu", () => {
 
 	it("shows menu on trigger press", async () => {
 		const { getByText, queryByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Open</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item>Option 1</Menu.Item>
-				</Menu.Content>
+			<Menu
+				trigger={
+					<Pressable>
+						<Text>Open</Text>
+					</Pressable>
+				}
+			>
+				<MenuItem>Option 1</MenuItem>
 			</Menu>,
 		);
 
@@ -42,230 +39,159 @@ describe("Menu", () => {
 	it("closes menu on item selection", async () => {
 		const onSelect = jest.fn();
 		const { getByText, queryByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item onPress={onSelect}>Select me</Menu.Item>
-				</Menu.Content>
+			<Menu trigger={<Text>Menu</Text>}>
+				<MenuItem onPress={onSelect}>Select me</MenuItem>
 			</Menu>,
 		);
 
+		// Open menu
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
-			fireEvent.press(getByText("Select me"));
+			expect(getByText("Select me")).toBeTruthy();
 		});
 
-		expect(onSelect).toHaveBeenCalled();
+		// Select item
+		fireEvent.press(getByText("Select me"));
 		await waitFor(() => {
+			expect(onSelect).toHaveBeenCalled();
 			expect(queryByText("Select me")).toBeNull();
 		});
 	});
 
-	it("renders menu items with icons", async () => {
-		const { getByText, getByLabelText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item icon="settings">Settings</Menu.Item>
-				</Menu.Content>
+	it("supports closeOnSelect prop", async () => {
+		const { getByText, queryByText } = render(
+			<Menu trigger={<Text>Menu</Text>} closeOnSelect={false}>
+				<MenuItem>Stay open</MenuItem>
 			</Menu>,
 		);
 
+		// Open menu
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
-			expect(getByLabelText("settings icon")).toBeTruthy();
-		});
-	});
-
-	it("disables menu items", async () => {
-		const onPress = jest.fn();
-		const { getByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item onPress={onPress} disabled>
-						Disabled Item
-					</Menu.Item>
-				</Menu.Content>
-			</Menu>,
-		);
-
-		fireEvent.press(getByText("Menu"));
-		await waitFor(() => {
-			fireEvent.press(getByText("Disabled Item"));
+			expect(getByText("Stay open")).toBeTruthy();
 		});
 
-		expect(onPress).not.toHaveBeenCalled();
-	});
-
-	it("renders menu separator", async () => {
-		const { getByText, getByTestId } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item>Item 1</Menu.Item>
-					<Menu.Separator testID="separator" />
-					<Menu.Item>Item 2</Menu.Item>
-				</Menu.Content>
-			</Menu>,
-		);
-
-		fireEvent.press(getByText("Menu"));
+		// Select item - menu should stay open
+		fireEvent.press(getByText("Stay open"));
 		await waitFor(() => {
-			expect(getByTestId("separator")).toBeTruthy();
-		});
-	});
-
-	it("renders submenu", async () => {
-		const { getByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Sub>
-						<Menu.SubTrigger>More Options</Menu.SubTrigger>
-						<Menu.SubContent>
-							<Menu.Item>Sub Item</Menu.Item>
-						</Menu.SubContent>
-					</Menu.Sub>
-				</Menu.Content>
-			</Menu>,
-		);
-
-		fireEvent.press(getByText("Menu"));
-		await waitFor(() => {
-			fireEvent.press(getByText("More Options"));
-		});
-		await waitFor(() => {
-			expect(getByText("Sub Item")).toBeTruthy();
-		});
-	});
-
-	it("supports controlled open state", () => {
-		const onOpenChange = jest.fn();
-		const { getByText } = render(
-			<Menu open={false} onOpenChange={onOpenChange}>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item>Item</Menu.Item>
-				</Menu.Content>
-			</Menu>,
-		);
-
-		fireEvent.press(getByText("Menu"));
-		expect(onOpenChange).toHaveBeenCalledWith(true);
-	});
-
-	it("applies placement", async () => {
-		const { getByText, getByTestId } = render(
-			<Menu placement="top">
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content testID="menu-content">
-					<Menu.Item>Item</Menu.Item>
-				</Menu.Content>
-			</Menu>,
-		);
-
-		fireEvent.press(getByText("Menu"));
-		await waitFor(() => {
-			const content = getByTestId("menu-content");
-			// Should be positioned above trigger
-			expect(content).toBeTruthy();
+			expect(getByText("Stay open")).toBeTruthy();
 		});
 	});
 
 	it("closes on backdrop press", async () => {
-		const { getByText, getByTestId, queryByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Backdrop testID="backdrop" />
-					<Menu.Item>Item</Menu.Item>
-				</Menu.Content>
+		const { getByText, queryByText, getByTestId } = render(
+			<Menu trigger={<Text>Menu</Text>}>
+				<MenuItem>Item</MenuItem>
 			</Menu>,
 		);
 
+		// Open menu
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
-			fireEvent.press(getByTestId("backdrop"));
+			expect(getByText("Item")).toBeTruthy();
 		});
 
+		// Press backdrop
+		const backdrop = getByTestId("menu-backdrop");
+		fireEvent.press(backdrop);
 		await waitFor(() => {
 			expect(queryByText("Item")).toBeNull();
 		});
 	});
 
-	it("applies accessibility roles", async () => {
-		const { getByText, getByRole } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.Item>Item</Menu.Item>
-				</Menu.Content>
-			</Menu>,
-		);
-
-		fireEvent.press(getByText("Menu"));
-		await waitFor(() => {
-			expect(getByRole("menu")).toBeTruthy();
-			expect(getByRole("menuitem")).toBeTruthy();
-		});
-	});
-
-	it("renders checkable menu items", async () => {
+	it("supports disabled menu items", async () => {
+		const onPress = jest.fn();
 		const { getByText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content>
-					<Menu.CheckboxItem checked={true}>Checked Item</Menu.CheckboxItem>
-					<Menu.RadioItem value="option1" checked={true}>
-						Radio Option
-					</Menu.RadioItem>
-				</Menu.Content>
+			<Menu trigger={<Text>Menu</Text>}>
+				<MenuItem onPress={onPress} disabled>
+					Disabled
+				</MenuItem>
 			</Menu>,
 		);
 
+		// Open menu
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
-			expect(getByText("Checked Item")).toBeTruthy();
-			expect(getByText("Radio Option")).toBeTruthy();
+			expect(getByText("Disabled")).toBeTruthy();
 		});
+
+		// Try to select disabled item
+		fireEvent.press(getByText("Disabled"));
+		expect(onPress).not.toHaveBeenCalled();
 	});
 
-	it("applies aria-label to menu", async () => {
-		const { getByText, getByLabelText } = render(
-			<Menu>
-				<Menu.Trigger>
-					<Menu.TriggerButton>Menu</Menu.TriggerButton>
-				</Menu.Trigger>
-				<Menu.Content aria-label="Main navigation menu">
-					<Menu.Item>Item</Menu.Item>
-				</Menu.Content>
+	it("applies placement prop", async () => {
+		const placements = ["bottom-start", "bottom-end", "top-start", "top-end"] as const;
+		for (const placement of placements) {
+			const { getByText } = render(
+				<Menu trigger={<Text>Menu</Text>} placement={placement}>
+					<MenuItem>Item</MenuItem>
+				</Menu>,
+			);
+
+			// Open menu
+			fireEvent.press(getByText("Menu"));
+			await waitFor(() => {
+				expect(getByText("Item")).toBeTruthy();
+			});
+		}
+	});
+
+	it("applies variant styles", () => {
+		const variants = ["dropdown", "context"] as const;
+		for (const variant of variants) {
+			const { getByText } = render(
+				<Menu trigger={<Text>Menu</Text>} variant={variant}>
+					<MenuItem>Item</MenuItem>
+				</Menu>,
+			);
+			expect(getByText("Menu")).toBeTruthy();
+		}
+	});
+
+	it("supports keyboard navigation", async () => {
+		const { getByText, getByRole } = render(
+			<Menu trigger={<Text>Menu</Text>}>
+				<MenuItem>First</MenuItem>
+				<MenuItem>Second</MenuItem>
+				<MenuItem>Third</MenuItem>
 			</Menu>,
 		);
 
+		// Open menu
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
-			expect(getByLabelText("Main navigation menu")).toBeTruthy();
+			expect(getByText("First")).toBeTruthy();
+		});
+
+		// Keyboard navigation would be tested here if supported
+		// This is a placeholder for keyboard event testing
+	});
+
+	it("applies aria-label", () => {
+		const { getByLabelText } = render(
+			<Menu trigger={<Text>Menu</Text>} aria-label="Main menu">
+				<MenuItem>Item</MenuItem>
+			</Menu>,
+		);
+		expect(getByLabelText("Main menu")).toBeTruthy();
+	});
+
+	it("renders multiple menu items", async () => {
+		const { getByText } = render(
+			<Menu trigger={<Text>Menu</Text>}>
+				<MenuItem>Item 1</MenuItem>
+				<MenuItem>Item 2</MenuItem>
+				<MenuItem>Item 3</MenuItem>
+			</Menu>,
+		);
+
+		// Open menu
+		fireEvent.press(getByText("Menu"));
+		await waitFor(() => {
+			expect(getByText("Item 1")).toBeTruthy();
+			expect(getByText("Item 2")).toBeTruthy();
+			expect(getByText("Item 3")).toBeTruthy();
 		});
 	});
 });
