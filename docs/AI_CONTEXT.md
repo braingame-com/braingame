@@ -15,6 +15,15 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 17-06-2025 - Design Token Audit
+- **Agent**: ChatGPT
+- **Tasks**: Catalog all design tokens used in `@brain-game/bgui`
+- **Completed**:
+  - Scanned components for `Colors` and `Tokens` references
+  - Generated `docs/TOKEN_USAGE.md`
+  - Updated `docs/TODO.md` with completion status
+- **Next Steps**: Integrate token report into design workflow
+
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
 - **Tasks**: Review and upgrade all project documentation to enterprise-grade standards.
@@ -30,16 +39,18 @@
   - Documentation should be "living" and continuously updated.
   - AI-specific documentation is critical for effective human-AI collaboration.
 - **Next Steps**: The repository's documentation is now considered enterprise-grade. Ready for next development phase.
-
-### 17-06-2025 - Component Docs Generation Attempt
+### 17-06-2025 - Component Documentation & Snippet Generation
 - **Agent**: ChatGPT
-- **Tasks**: Generate documentation pages for BGUI components using Storybook stories
+- **Tasks**: Generate documentation pages and usage snippets for BGUI components
 - **Completed**:
   - Added a components index page in the website
   - Created placeholder docs pages for all UI components
+  - Generated markdown files in `docs/components` for each component
+  - Created `docs/snippets/` folder with usage examples for all components
+  - Provided a login form sample using Button, TextInput and Checkbox
+  - Added TODO entry tracking documentation progress
   - No Storybook stories were found, so pages show only basic information
-- **Next Steps**: Implement Storybook and enhance docs with examples
-
+- **Next Steps**: Implement Storybook, enhance docs with examples, integrate snippets into Storybook docs
 ### 17-06-2025 - Enterprise-Grade BGUI Component Plan
 - **Agent**: Claude Sonnet 4
 - **Tasks**: Review and enhance BGUI component plan for enterprise standards
