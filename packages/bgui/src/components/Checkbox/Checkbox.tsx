@@ -1,8 +1,9 @@
-import { Tokens, useThemeColor } from "@braingame/utils";
+import { useThemeColor } from "@braingame/utils";
 import { memo, useCallback, useMemo } from "react";
 import { Pressable, View } from "react-native";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
+import { getCheckboxStyle, getContainerStyle, textStyle } from "./styles";
 import type { CheckboxProps } from "./types";
 
 const CheckboxComponent = ({
@@ -23,30 +24,12 @@ const CheckboxComponent = ({
 		onValueChange(!checked);
 	}, [disabled, checked, onValueChange]);
 
-	const containerStyle = useMemo(
-		() => ({
-			flexDirection: "row" as const,
-			alignItems: "center" as const,
-			opacity: disabled ? 0.5 : 1,
-		}),
-		[disabled],
-	);
+	const containerStyle = useMemo(() => getContainerStyle(disabled), [disabled]);
 
 	const checkboxStyle = useMemo(
-		() => ({
-			width: Tokens.l,
-			height: Tokens.l,
-			borderRadius: 4,
-			borderWidth: 1,
-			borderColor,
-			alignItems: "center" as const,
-			justifyContent: "center" as const,
-			backgroundColor: checked || indeterminate ? accent : bg,
-		}),
-		[borderColor, checked, indeterminate, accent, bg],
+		() => getCheckboxStyle(checked, indeterminate, borderColor, accent, bg),
+		[checked, indeterminate, borderColor, accent, bg],
 	);
-
-	const textStyle = useMemo(() => ({ marginLeft: Tokens.s }), []);
 
 	const iconName = indeterminate ? "minus" : "check";
 

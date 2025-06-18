@@ -1,7 +1,9 @@
-import { Colors, Tokens, useThemeColor } from "@braingame/utils";
-import { Platform, StyleSheet, View } from "react-native";
+import { useThemeColor } from "@braingame/utils";
+import { Platform, View } from "react-native";
 import { Text } from "../../../Text";
-import type { BadgeProps, BadgeVariant, ThemeColor } from "./types";
+import { getBackgroundColor, styles } from "./styles";
+import type { BadgeProps } from "./types";
+import { getAriaLabel } from "./utils";
 
 export const Badge = ({
 	count,
@@ -14,29 +16,16 @@ export const Badge = ({
 	const neutral = useThemeColor("border");
 	const backgroundColor = getBackgroundColor(variant, color, neutral);
 	const content = dot ? undefined : (text ?? (count != null ? String(count) : undefined));
-
-	const getAriaLabel = () => {
-		if (dot) return "Notification indicator";
-		if (variant === "notification" && count != null) {
-			return `${count} notification${count !== 1 ? "s" : ""}`;
-		}
-		if (variant === "status") {
-			return `Status: ${text || color}`;
-		}
-		if (count != null) {
-			return `Count: ${count}`;
-		}
-		return text || "Badge";
-	};
+	const ariaLabel = getAriaLabel(variant, dot, count, text, color);
 
 	return (
 		<View
 			style={[styles.base, dot && styles.dot, { backgroundColor }, style]}
 			accessibilityRole="text"
-			accessibilityLabel={getAriaLabel()}
+			accessibilityLabel={ariaLabel}
 			{...(Platform.OS === "web"
 				? {
-						"aria-label": getAriaLabel(),
+						"aria-label": ariaLabel,
 						"aria-live": variant === "notification" ? "polite" : undefined,
 						"aria-atomic": "true",
 					}
@@ -54,52 +43,3 @@ export const Badge = ({
 		</View>
 	);
 };
-
-const getBackgroundColor = (variant: BadgeVariant, color: ThemeColor, neutral: string) => {
-	if (variant === "notification") {
-		return Colors.universal.negative;
-	}
-
-	if (variant === "status" || variant === "count") {
-		return mapColor(color, neutral);
-	}
-
-	return mapColor(color, neutral);
-};
-
-const mapColor = (color: ThemeColor, neutral: string) => {
-	switch (color) {
-		case "primary":
-			return Colors.universal.primary;
-		case "secondary":
-			return Colors.universal.primaryHalfFaded;
-		case "success":
-			return Colors.universal.positive;
-		case "danger":
-			return Colors.universal.negative;
-		case "warning":
-			return Colors.universal.warn;
-		default:
-			return neutral;
-	}
-};
-
-const styles = StyleSheet.create({
-	base: {
-		minWidth: Tokens.m,
-		minHeight: Tokens.m,
-		paddingHorizontal: Tokens.xs,
-		borderRadius: Tokens.m,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	dot: {
-		width: Tokens.s,
-		height: Tokens.s,
-		paddingHorizontal: 0,
-	},
-	text: {
-		color: "#fff",
-		lineHeight: Tokens.m,
-	},
-});

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Image as RNImage, StyleSheet, Text, View } from "react-native";
 import { validateProps, validators } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { styles } from "./styles";
 import type { ImageProps } from "./types";
 
 const ImageComponent = ({
@@ -85,19 +86,7 @@ const ImageComponent = ({
 	);
 };
 
-const styles = StyleSheet.create({
-	responsive: {
-		width: "100%",
-	},
-	errorContainer: {
-		alignItems: "center",
-		justifyContent: "center",
-		backgroundColor: "#f5f5f5",
-		borderWidth: 1,
-		borderStyle: "dashed",
-		minHeight: 100,
-	},
-});
+// Styles moved to styles.ts
 
 // Export wrapped component
 export const Image = withErrorBoundary(ImageComponent);

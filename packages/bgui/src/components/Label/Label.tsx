@@ -1,13 +1,7 @@
-import { Tokens } from "@braingame/utils";
 import type React from "react";
-import { Platform, Text as RNText, type TextStyle } from "react-native";
+import { Platform, Text as RNText } from "react-native";
+import { getBaseStyle, getFloatingStyle, requiredStyle } from "./styles";
 import type { LabelProps } from "./types";
-
-const sizeMap: Record<NonNullable<LabelProps["size"]>, number> = {
-	sm: Tokens.s,
-	md: Tokens.m,
-	lg: Tokens.l,
-};
 
 export const Label = ({
 	children,
@@ -17,26 +11,16 @@ export const Label = ({
 	variant = "standard",
 	style,
 }: LabelProps) => {
-	const baseStyle: TextStyle = {
-		fontSize: sizeMap[size],
-	};
-
-	if (variant === "floating") {
-		Object.assign(baseStyle, {
-			position: "absolute" as const,
-			top: -Tokens.s,
-			left: Tokens.s,
-			pointerEvents: "none" as const,
-		});
-	}
+	const baseStyle = getBaseStyle(size);
+	const floatingStyle = variant === "floating" ? getFloatingStyle() : {};
 
 	if (Platform.OS === "web") {
 		return (
 			<label htmlFor={htmlFor} style={style as React.CSSProperties}>
-				<RNText style={baseStyle}>
+				<RNText style={[baseStyle, floatingStyle]}>
 					{children}
 					{required && (
-						<RNText accessibilityElementsHidden accessibilityRole="none" style={{ color: "red" }}>
+						<RNText accessibilityElementsHidden accessibilityRole="none" style={requiredStyle}>
 							*
 						</RNText>
 					)}
@@ -46,10 +30,13 @@ export const Label = ({
 	}
 
 	return (
-		<RNText style={[baseStyle, style]} nativeID={htmlFor ? `${htmlFor}-label` : undefined}>
+		<RNText
+			style={[baseStyle, floatingStyle, style]}
+			nativeID={htmlFor ? `${htmlFor}-label` : undefined}
+		>
 			{children}
 			{required && (
-				<RNText accessibilityElementsHidden accessibilityRole="none" style={{ color: "red" }}>
+				<RNText accessibilityElementsHidden accessibilityRole="none" style={requiredStyle}>
 					*
 				</RNText>
 			)}

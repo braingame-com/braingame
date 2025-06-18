@@ -1,20 +1,10 @@
 import { useEffect, useState } from "react";
-import { AccessibilityInfo, Pressable, StyleSheet } from "react-native";
-import { Colors } from "../../../../utils/constants/Colors";
-import { Tokens } from "../../../../utils/constants/Tokens";
+import { AccessibilityInfo, Pressable } from "react-native";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Text } from "../../../Text";
 import { View } from "../../../View";
+import { DEFAULT_DURATION, styles, typeColorMap } from "./styles";
 import type { ToastProps } from "./types";
-
-const DEFAULT_DURATION = 3000;
-
-const typeColorMap = {
-	success: Colors.universal.positive,
-	warning: Colors.universal.warn,
-	error: Colors.universal.negative,
-	info: Colors.universal.primary,
-};
 
 export const Toast = ({
 	message,
@@ -51,26 +41,3 @@ export const Toast = ({
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
-		paddingHorizontal: Tokens.m,
-		paddingVertical: Tokens.s,
-		borderRadius: Tokens.s,
-		margin: Tokens.s,
-	},
-	message: {
-		flex: 1,
-		marginRight: Tokens.s,
-	},
-	actionButton: {
-		paddingHorizontal: Tokens.s,
-		paddingVertical: Tokens.xs,
-	},
-	actionText: {
-		fontWeight: "600",
-	},
-});

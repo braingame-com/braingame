@@ -1,25 +1,10 @@
+import { useThemeColor } from "@braingame/utils";
 import React from "react";
 import { Image, Pressable, View } from "react-native";
-import { Tokens } from "../../../../utils/constants/Tokens";
-import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Text } from "../../../Text";
+import { getAvatarStyles } from "./styles";
 import type { AvatarProps } from "./types";
-
-const SIZE_MAP = {
-	small: Tokens.l,
-	medium: Tokens.xxl,
-	large: Tokens.xxxl,
-};
-
-const getInitials = (name?: string) => {
-	if (!name) return "";
-	return name
-		.split(" ")
-		.map((part) => part.charAt(0))
-		.join("")
-		.toUpperCase()
-		.slice(0, 2);
-};
+import { getInitials } from "./utils";
 
 export const Avatar = ({
 	src,
@@ -29,22 +14,13 @@ export const Avatar = ({
 	onPress,
 	style,
 }: AvatarProps) => {
-	const dimension = SIZE_MAP[size] ?? SIZE_MAP.medium;
-	const borderRadius = variant === "circle" ? dimension / 2 : Tokens.s;
 	const backgroundColor = useThemeColor("button");
+	const { containerStyle, imageStyle } = getAvatarStyles(size, variant);
+
 	const content = src ? (
-		<Image source={{ uri: src }} style={{ width: dimension, height: dimension, borderRadius }} />
+		<Image source={{ uri: src }} style={imageStyle} />
 	) : (
-		<View
-			style={{
-				width: dimension,
-				height: dimension,
-				borderRadius,
-				backgroundColor,
-				alignItems: "center",
-				justifyContent: "center",
-			}}
-		>
+		<View style={[containerStyle, { backgroundColor }]}>
 			<Text>{getInitials(name)}</Text>
 		</View>
 	);

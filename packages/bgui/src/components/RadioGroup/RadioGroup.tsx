@@ -1,4 +1,4 @@
-import { Tokens, useThemeColor } from "@braingame/utils";
+import { useThemeColor } from "@braingame/utils";
 import React, {
 	Children,
 	type ReactElement,
@@ -14,6 +14,7 @@ import React, {
 import type { KeyboardEvent } from "react";
 import type { NativeSyntheticEvent } from "react-native";
 import { Pressable, View } from "react-native";
+import { getItemStyles } from "./styles";
 import type { RadioGroupItemProps, RadioGroupProps } from "./types";
 
 interface ContextValue {
@@ -141,8 +142,7 @@ const RadioGroupItem = ({
 
 	const borderColor = useThemeColor("border");
 	const background = ctx?.variant === "card" ? useThemeColor("card") : "transparent";
-
-	const selectedStyle = ctx?.variant === "card" && isSelected ? { borderColor: borderColor } : {};
+	const itemStyles = ctx ? getItemStyles(ctx.variant, background, borderColor, isSelected) : [];
 
 	return (
 		<Pressable
@@ -154,18 +154,7 @@ const RadioGroupItem = ({
 			focusable
 			tabIndex={isSelected ? 0 : -1}
 			disabled={itemDisabled}
-			style={[
-				{
-					padding: Tokens.m,
-					borderWidth: ctx?.variant === "card" ? 1 : 0,
-					borderRadius: Tokens.s,
-					backgroundColor: background,
-					marginBottom: Tokens.xs,
-					alignItems: "flex-start",
-				},
-				selectedStyle,
-				style,
-			]}
+			style={[...itemStyles, style]}
 		>
 			{typeof children === "string" ? <>{children}</> : children}
 		</Pressable>

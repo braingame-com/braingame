@@ -1,26 +1,11 @@
-import { Colors, Tokens, buttonStyles } from "@braingame/utils";
+import { buttonStyles } from "@braingame/utils";
 import { memo, useCallback, useMemo, useState } from "react";
-import { ActivityIndicator, Pressable, Text, type View } from "react-native";
+import { ActivityIndicator, Pressable, Text } from "react-native";
 import { Icon } from "../../../Icon";
-import { validateProps, validators } from "../../utils/validation";
+import { validateProps } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
-import type { ButtonProps, ButtonVariant } from "./types";
-
-const VARIANT_COLORS: Record<ButtonVariant, { background: string; text: string }> = {
-	primary: { background: Colors.universal.primary, text: "#fff" },
-	secondary: { background: Colors.universal.primaryFaded, text: Colors.light.text },
-	ghost: { background: "transparent", text: Colors.light.text },
-	danger: { background: Colors.universal.negative, text: "#fff" },
-	icon: { background: "transparent", text: Colors.light.text },
-};
-
-// Memoize validation rules to avoid recreating on every render
-const validationRules = {
-	onPress: validators.required,
-	variant: validators.oneOf(["primary", "secondary", "ghost", "danger", "icon"] as const),
-	size: validators.oneOf(["sm", "md", "lg"] as const),
-	iconPosition: validators.oneOf(["left", "right"] as const),
-};
+import { VARIANT_COLORS, getPaddingForSize, validationRules } from "./styles";
+import type { ButtonProps } from "./types";
 
 /**
  * Button component for triggering actions in the app.
@@ -69,13 +54,7 @@ function ButtonComponent({
 	const { background, text } = VARIANT_COLORS[variant];
 
 	// Memoize padding calculations
-	const { paddingVertical, paddingHorizontal } = useMemo(
-		() => ({
-			paddingVertical: size === "lg" ? Tokens.m : size === "sm" ? Tokens.xs : Tokens.s,
-			paddingHorizontal: size === "lg" ? Tokens.xl : size === "sm" ? Tokens.s : Tokens.m,
-		}),
-		[size],
-	);
+	const { paddingVertical, paddingHorizontal } = useMemo(() => getPaddingForSize(size), [size]);
 
 	return (
 		<Pressable

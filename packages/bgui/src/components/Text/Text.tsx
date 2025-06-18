@@ -1,7 +1,7 @@
 import { Text as RNText } from "react-native";
-import { Colors } from "../../../../utils/constants/Colors";
 import { textStyles } from "../../../../utils/constants/styles";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
+import { baseTextStyle, getTextColor } from "./styles";
 import type { TextProps } from "./types";
 
 export const Text = ({
@@ -16,32 +16,13 @@ export const Text = ({
 	const baseColor = useThemeColor("text");
 	const secondaryColor = useThemeColor("textSecondary");
 
-	let resolvedColor = baseColor;
-	switch (color) {
-		case "primary":
-			resolvedColor = Colors.universal.primary;
-			break;
-		case "secondary":
-			resolvedColor = secondaryColor;
-			break;
-		case "danger":
-			resolvedColor = Colors.universal.negative;
-			break;
-		case "success":
-			resolvedColor = Colors.universal.positive;
-			break;
-		case "warning":
-			resolvedColor = Colors.universal.warn;
-			break;
-		default:
-			resolvedColor = baseColor;
-	}
+	const resolvedColor = getTextColor(color, baseColor, secondaryColor);
 
 	return (
 		<RNText
 			numberOfLines={numberOfLines}
 			style={[
-				{ color: resolvedColor, textAlign: align, fontFamily: "SohneBook" },
+				{ color: resolvedColor, textAlign: align, ...baseTextStyle },
 				variant === "h1" && textStyles.displayTitle,
 				variant === "h2" && textStyles.title,
 				variant === "h3" && textStyles.subtitle,

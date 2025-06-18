@@ -1,12 +1,7 @@
-import { Tokens, useThemeColor } from "@braingame/utils";
+import { useThemeColor } from "@braingame/utils";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { sizeMap } from "./styles";
 import type { IconProps } from "./types";
-
-const sizeMap = {
-	sm: Tokens.s,
-	md: Tokens.l,
-	lg: Tokens.xl,
-} as const;
 
 export function Icon({
 	name,

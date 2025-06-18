@@ -1,15 +1,9 @@
+import { textStyles } from "@braingame/utils";
 import { Link as ExpoLink } from "expo-router";
-import { Linking, Platform, Pressable, StyleSheet } from "react-native";
-import { Tokens } from "../../../../utils/constants/Tokens";
-import { textStyles } from "../../../../utils/constants/styles";
+import { Linking, Platform, Pressable } from "react-native";
 import { Text } from "../../../Text";
+import { styles } from "./styles";
 import type { LinkProps } from "./types";
-
-const styles = StyleSheet.create({
-	standalone: {
-		paddingVertical: Tokens.xs,
-	},
-});
 
 export const Link = ({
 	children,

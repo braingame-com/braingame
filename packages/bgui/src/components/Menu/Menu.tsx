@@ -8,9 +8,9 @@ import React, {
 	useState,
 } from "react";
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
-import { Tokens } from "../../../../utils/constants/Tokens";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Text } from "../../../Text";
+import { styles } from "./styles";
 import type { MenuItemProps, MenuProps } from "./types";
 
 interface MenuContextValue {
@@ -180,19 +180,3 @@ export const Menu = ({
 		</>
 	);
 };
-
-const styles = StyleSheet.create({
-	menu: {
-		minWidth: 160,
-		borderRadius: Tokens.xs,
-		paddingVertical: Tokens.xs,
-		shadowColor: "#000",
-		shadowOpacity: 0.1,
-		shadowRadius: 4,
-		elevation: 2,
-	},
-	item: {
-		paddingHorizontal: Tokens.m,
-		paddingVertical: Tokens.s,
-	},
-});

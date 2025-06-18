@@ -1,6 +1,7 @@
-import { Colors, Tokens, useThemeColor } from "@braingame/utils";
+import { useThemeColor } from "@braingame/utils";
 import { ReactNode, useId, useRef, useState } from "react";
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
+import { getTooltipBackgroundColor, getTooltipTextColor, styles } from "./styles";
 import type { TooltipProps } from "./types";
 
 export const Tooltip = ({
@@ -32,14 +33,10 @@ export const Tooltip = ({
 		}
 	};
 
-	const backgroundColor =
-		variant === "light"
-			? useThemeColor("card")
-			: variant === "info"
-				? Colors.universal.primary
-				: "rgba(0,0,0,0.85)";
-
-	const textColor = variant === "dark" ? "#fff" : useThemeColor("text");
+	const cardColor = useThemeColor("card");
+	const textColor = useThemeColor("text");
+	const backgroundColor = getTooltipBackgroundColor(variant, cardColor);
+	const resolvedTextColor = getTooltipTextColor(variant, textColor);
 
 	return (
 		<View style={styles.container}>
@@ -52,7 +49,7 @@ export const Tooltip = ({
 					? {
 							"aria-describedby": visible ? tooltipId : undefined,
 							tabIndex: 0,
-							onKeyDown: handleKeyDown as any,
+							onKeyDown: handleKeyDown as React.KeyboardEventHandler,
 						}
 					: {})}
 			>
@@ -74,7 +71,7 @@ export const Tooltip = ({
 					accessibilityLiveRegion="polite"
 				>
 					{typeof content === "string" ? (
-						<Text style={[styles.text, { color: textColor }]}>{content}</Text>
+						<Text style={[styles.text, { color: resolvedTextColor }]}>{content}</Text>
 					) : (
 						content
 					)}
@@ -83,39 +80,3 @@ export const Tooltip = ({
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		position: "relative",
-		alignSelf: "flex-start",
-	},
-	base: {
-		position: "absolute",
-		paddingHorizontal: Tokens.s,
-		paddingVertical: Tokens.xs,
-		borderRadius: Tokens.xs,
-		maxWidth: 200,
-		zIndex: 999,
-	},
-	text: {
-		fontSize: Tokens.s,
-	},
-	top: {
-		bottom: "100%",
-		marginBottom: Tokens.xs,
-	},
-	bottom: {
-		top: "100%",
-		marginTop: Tokens.xs,
-	},
-	left: {
-		right: "100%",
-		marginRight: Tokens.xs,
-	},
-	right: {
-		left: "100%",
-		marginLeft: Tokens.xs,
-	},
-});
-
-export default Tooltip;

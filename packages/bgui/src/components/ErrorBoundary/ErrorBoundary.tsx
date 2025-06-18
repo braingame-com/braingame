@@ -2,6 +2,7 @@ import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import { View } from "react-native";
 import { Text } from "../Text";
+import { errorContainerStyle, errorMessageStyle, errorTitleStyle } from "./styles";
 
 /**
  * Props for the ErrorBoundary component
@@ -96,20 +97,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 			// Default error UI
 			return (
 				<View
-					style={{
-						padding: 20,
-						backgroundColor: "#fee",
-						borderRadius: 8,
-						borderWidth: 1,
-						borderColor: "#fcc",
-					}}
+					style={errorContainerStyle}
 					accessibilityRole="alert"
 					accessibilityLabel="An error occurred"
 				>
-					<Text style={{ color: "#c00", fontWeight: "bold", marginBottom: 8 }}>
-						Something went wrong
-					</Text>
-					<Text style={{ color: "#600", fontSize: 12 }}>
+					<Text style={errorTitleStyle}>Something went wrong</Text>
+					<Text style={errorMessageStyle}>
 						{this.state.error?.message || "An unexpected error occurred"}
 					</Text>
 				</View>

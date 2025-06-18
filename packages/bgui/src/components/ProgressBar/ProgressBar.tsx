@@ -1,7 +1,8 @@
-import { Colors, Tokens, useThemeColor } from "@braingame/utils";
+import { Colors, useThemeColor } from "@braingame/utils";
 import { useEffect, useRef } from "react";
-import { Animated, Platform, StyleSheet, View } from "react-native";
+import { Animated, Platform, View } from "react-native";
 import Svg, { Circle } from "react-native-svg";
+import { getCircularProgressProps, styles } from "./styles";
 import type { ProgressBarProps } from "./types";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -32,9 +33,7 @@ export const ProgressBar = ({
 	}, [value, animated, progress]);
 
 	if (variant === "circular") {
-		const radius = size / 2;
-		const strokeWidth = Tokens.xs;
-		const circumference = 2 * Math.PI * (radius - strokeWidth / 2);
+		const { radius, strokeWidth, circumference } = getCircularProgressProps(size);
 		const strokeDashoffset = progress.interpolate({
 			inputRange: [0, 100],
 			outputRange: [circumference, 0],
@@ -113,14 +112,4 @@ export const ProgressBar = ({
 	);
 };
 
-const styles = StyleSheet.create({
-	track: {
-		width: "100%",
-		height: Tokens.s,
-		borderRadius: Tokens.s,
-		overflow: "hidden",
-	},
-	bar: {
-		height: "100%",
-	},
-});
+// Styles moved to styles.ts

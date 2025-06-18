@@ -1,9 +1,8 @@
-import { Colors, Tokens, useThemeColor } from "@braingame/utils";
+import { Colors, useThemeColor } from "@braingame/utils";
 import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, View } from "react-native";
+import { getSwitchDimensions, styles } from "./styles";
 import type { SwitchProps } from "./types";
-
-const PADDING = 2;
 
 export const Switch = ({
 	checked,
@@ -18,9 +17,7 @@ export const Switch = ({
 	const inactiveColor = useThemeColor("button");
 	const trackStyles = variant === "compact" ? styles.compactTrack : styles.track;
 	const knobStyles = variant === "compact" ? styles.compactKnob : styles.knob;
-	const width = variant === "compact" ? Tokens.xl : Tokens.xxl;
-	const knobSize = variant === "compact" ? Tokens.s : Tokens.m;
-	const translateX = width - knobSize - PADDING * 2;
+	const { width, translateX } = getSwitchDimensions(variant);
 
 	return (
 		<Pressable
@@ -56,27 +53,4 @@ export const Switch = ({
 	);
 };
 
-const styles = StyleSheet.create({
-	track: {
-		height: Tokens.l,
-		borderRadius: Tokens.l / 2,
-		padding: PADDING,
-		justifyContent: "center",
-	},
-	knob: {
-		width: Tokens.m,
-		height: Tokens.m,
-		borderRadius: Tokens.m / 2,
-	},
-	compactTrack: {
-		height: Tokens.m,
-		borderRadius: Tokens.m / 2,
-		padding: PADDING,
-		justifyContent: "center",
-	},
-	compactKnob: {
-		width: Tokens.s,
-		height: Tokens.s,
-		borderRadius: Tokens.s / 2,
-	},
-});
+// Styles moved to styles.ts
