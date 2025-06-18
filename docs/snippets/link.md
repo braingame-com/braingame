@@ -1,9 +1,5 @@
-# Link Usage
+# Link
 
 ```tsx
-import { Link } from '@brain-game/bgui';
-
-export function LinkExample() {
-  return <Link href="/about" text="About Us" />;
-}
+<Link href="/about">About</Link>
 ```

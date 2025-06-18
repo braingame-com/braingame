@@ -39,13 +39,15 @@
   - Documentation should be "living" and continuously updated.
   - AI-specific documentation is critical for effective human-AI collaboration.
 - **Next Steps**: The repository's documentation is now considered enterprise-grade. Ready for next development phase.
-### 17-06-2025 - Added BGUI Snippet Examples
+### 17-06-2025 - Component Prop Docs & BGUI Snippet Examples
 - **Agent**: ChatGPT
-- **Tasks**: Generate reusable code snippets for BGUI components
+- **Tasks**: Document BGUI component props and generate reusable code snippets
 - **Completed**:
+  - Generated markdown files in `docs/components` for each component
   - Created `docs/snippets/` folder with usage examples for all components
   - Provided a login form sample using Button, TextInput and Checkbox
-- **Next Steps**: Integrate snippets into Storybook docs
+  - Added TODO entry tracking documentation progress
+- **Next Steps**: Expand docs as components evolve, integrate snippets into Storybook docs
 ### 17-06-2025 - Enterprise-Grade BGUI Component Plan
 - **Agent**: Claude Sonnet 4
 - **Tasks**: Review and enhance BGUI component plan for enterprise standards
