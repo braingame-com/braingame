@@ -75,6 +75,15 @@
   - Added `docs/TEST_COVERAGE_REPORT.md` with checklist of missing tests
 - **Next Steps**: Write unit tests for each component
 
+### 17-06-2025 - BGUI Button Refactor
+- **Agent**: Codex
+- **Tasks**: Improve Button component accessibility and performance
+- **Completed**:
+  - Refactored `packages/bgui/Button` with memoized styles and hover handlers
+  - Added `accessibilityRole` and `accessibilityState`
+  - Updated TODO.md with task status
+- **Next Steps**: Expand refactoring to other components
+
 ### 17-06-2025 - Component Documentation & Snippet Generation
 - **Agent**: ChatGPT
 - **Tasks**: Generate documentation pages and usage snippets for BGUI components
