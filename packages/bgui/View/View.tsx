@@ -5,6 +5,9 @@ import { viewStyles } from "../../utils/constants/styles";
 import { useThemeColor } from "../../utils/hooks/useThemeColor";
 import type { ViewProps } from "./types";
 
+/**
+ * Theme-aware container component used throughout layouts.
+ */
 export const View = ({
 	type = "background",
 	style,
