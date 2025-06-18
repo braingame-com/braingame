@@ -23,9 +23,7 @@ describe("Text", () => {
 			const { getByText } = render(<Text size={size}>Size {size}</Text>);
 			const text = getByText(`Size ${size}`);
 			expect(text.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining({ fontSize: expect.any(Number) }),
-				]),
+				expect.arrayContaining([expect.objectContaining({ fontSize: expect.any(Number) })]),
 			);
 		});
 	});
@@ -36,9 +34,7 @@ describe("Text", () => {
 			const { getByText } = render(<Text weight={weight}>Weight {weight}</Text>);
 			const text = getByText(`Weight ${weight}`);
 			expect(text.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining({ fontWeight: expect.any(String) }),
-				]),
+				expect.arrayContaining([expect.objectContaining({ fontWeight: expect.any(String) })]),
 			);
 		});
 	});
@@ -49,9 +45,7 @@ describe("Text", () => {
 			const { getByText } = render(<Text align={align}>Align {align}</Text>);
 			const text = getByText(`Align ${align}`);
 			expect(text.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining({ textAlign: align }),
-				]),
+				expect.arrayContaining([expect.objectContaining({ textAlign: align })]),
 			);
 		});
 	});
@@ -69,9 +63,7 @@ describe("Text", () => {
 		const { getByText } = render(<Text color="#ff0000">Red text</Text>);
 		const text = getByText("Red text");
 		expect(text.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ color: "#ff0000" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ color: "#ff0000" })]),
 		);
 	});
 
@@ -91,9 +83,7 @@ describe("Text", () => {
 			const { getByText } = render(<Text transform={transform}>transform text</Text>);
 			const text = getByText("transform text");
 			expect(text.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining({ textTransform: transform }),
-				]),
+				expect.arrayContaining([expect.objectContaining({ textTransform: transform })]),
 			);
 		});
 	});
@@ -104,9 +94,7 @@ describe("Text", () => {
 			const { getByText } = render(<Text decoration={decoration}>Decorated</Text>);
 			const text = getByText("Decorated");
 			expect(text.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining({ textDecorationLine: decoration }),
-				]),
+				expect.arrayContaining([expect.objectContaining({ textDecorationLine: decoration })]),
 			);
 		});
 	});
@@ -115,9 +103,7 @@ describe("Text", () => {
 		const { getByText } = render(<Text italic>Italic text</Text>);
 		const text = getByText("Italic text");
 		expect(text.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ fontStyle: "italic" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ fontStyle: "italic" })]),
 		);
 	});
 
@@ -145,9 +131,7 @@ describe("Text", () => {
 		const { getByText } = render(<Text fontFamily="monospace">Code text</Text>);
 		const text = getByText("Code text");
 		expect(text.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ fontFamily: "monospace" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ fontFamily: "monospace" })]),
 		);
 	});
 
@@ -155,9 +139,7 @@ describe("Text", () => {
 		const { getByText } = render(<Text lineHeight={1.5}>Spaced text</Text>);
 		const text = getByText("Spaced text");
 		expect(text.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ lineHeight: expect.any(Number) }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ lineHeight: expect.any(Number) })]),
 		);
 	});
 

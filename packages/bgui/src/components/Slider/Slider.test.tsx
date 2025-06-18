@@ -4,9 +4,7 @@ import { Slider } from "./Slider";
 
 describe("Slider", () => {
 	it("renders with value", () => {
-		const { getByRole } = render(
-			<Slider value={50} onValueChange={() => {}} min={0} max={100} />,
-		);
+		const { getByRole } = render(<Slider value={50} onValueChange={() => {}} min={0} max={100} />);
 		const slider = getByRole("slider");
 		expect(slider.props.accessibilityValue.now).toBe(50);
 	});
@@ -16,7 +14,7 @@ describe("Slider", () => {
 		const { getByTestId } = render(
 			<Slider value={50} onValueChange={onValueChange} min={0} max={100} testID="slider" />,
 		);
-		
+
 		const slider = getByTestId("slider");
 		// Simulate drag gesture
 		fireEvent(slider, "responderMove", { nativeEvent: { locationX: 100 } });
@@ -28,7 +26,7 @@ describe("Slider", () => {
 		const { getByRole } = render(
 			<Slider value={50} onValueChange={onValueChange} min={10} max={90} />,
 		);
-		
+
 		const slider = getByRole("slider");
 		expect(slider.props.accessibilityValue.min).toBe(10);
 		expect(slider.props.accessibilityValue.max).toBe(90);
@@ -46,7 +44,7 @@ describe("Slider", () => {
 				testID="slider"
 			/>,
 		);
-		
+
 		const slider = getByTestId("slider");
 		fireEvent(slider, "responderMove", { nativeEvent: { locationX: 55 } });
 		// Should snap to nearest step (50 or 60)
@@ -65,7 +63,7 @@ describe("Slider", () => {
 				testID="slider"
 			/>,
 		);
-		
+
 		const slider = getByTestId("slider");
 		fireEvent(slider, "responderMove", { nativeEvent: { locationX: 100 } });
 		expect(onValueChange).not.toHaveBeenCalled();
@@ -80,7 +78,7 @@ describe("Slider", () => {
 		const { getByText } = render(
 			<Slider value={50} onValueChange={() => {}} min={0} max={100} marks={marks} />,
 		);
-		
+
 		expect(getByText("Min")).toBeTruthy();
 		expect(getByText("Mid")).toBeTruthy();
 		expect(getByText("Max")).toBeTruthy();
@@ -121,7 +119,7 @@ describe("Slider", () => {
 				testID="slider"
 			/>,
 		);
-		
+
 		const slider = getByTestId("slider");
 		expect(slider).toBeTruthy();
 	});
@@ -130,7 +128,7 @@ describe("Slider", () => {
 		const { getByRole } = render(
 			<Slider value={50} onValueChange={() => {}} min={0} max={100} orientation="vertical" />,
 		);
-		
+
 		const slider = getByRole("slider");
 		expect(slider.props["aria-orientation"]).toBe("vertical");
 	});
@@ -138,15 +136,9 @@ describe("Slider", () => {
 	it("supports range selection", () => {
 		const onValueChange = jest.fn();
 		const { getAllByRole } = render(
-			<Slider
-				value={[20, 80]}
-				onValueChange={onValueChange}
-				min={0}
-				max={100}
-				range
-			/>,
+			<Slider value={[20, 80]} onValueChange={onValueChange} min={0} max={100} range />,
 		);
-		
+
 		const sliders = getAllByRole("slider");
 		expect(sliders).toHaveLength(2);
 		expect(sliders[0].props.accessibilityValue.now).toBe(20);
@@ -167,24 +159,18 @@ describe("Slider", () => {
 				testID="slider"
 			/>,
 		);
-		
+
 		const slider = getByTestId("slider");
 		fireEvent(slider, "responderGrant");
 		expect(onSlidingStart).toHaveBeenCalledWith(50);
-		
+
 		fireEvent(slider, "responderRelease");
 		expect(onSlidingComplete).toHaveBeenCalledWith(50);
 	});
 
 	it("applies aria-label", () => {
 		const { getByLabelText } = render(
-			<Slider
-				value={50}
-				onValueChange={() => {}}
-				min={0}
-				max={100}
-				aria-label="Volume control"
-			/>,
+			<Slider value={50} onValueChange={() => {}} min={0} max={100} aria-label="Volume control" />,
 		);
 		expect(getByLabelText("Volume control")).toBeTruthy();
 	});
@@ -209,13 +195,7 @@ describe("Slider", () => {
 	it("supports custom thumb component", () => {
 		const CustomThumb = () => <div testID="custom-thumb" />;
 		const { getByTestId } = render(
-			<Slider
-				value={50}
-				onValueChange={() => {}}
-				min={0}
-				max={100}
-				renderThumb={CustomThumb}
-			/>,
+			<Slider value={50} onValueChange={() => {}} min={0} max={100} renderThumb={CustomThumb} />,
 		);
 		expect(getByTestId("custom-thumb")).toBeTruthy();
 	});

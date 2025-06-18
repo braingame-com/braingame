@@ -69,17 +69,17 @@ describe("ErrorBoundary", () => {
 				<ThrowError shouldThrow={true} />
 			</ErrorBoundary>,
 		);
-		
+
 		// Error should be displayed
 		expect(getByText("Something went wrong")).toBeTruthy();
-		
+
 		// Change reset keys
 		rerender(
 			<ErrorBoundary resetKeys={["key2"]}>
 				<ThrowError shouldThrow={false} />
 			</ErrorBoundary>,
 		);
-		
+
 		// Error should be cleared
 		expect(getByText("No error")).toBeTruthy();
 	});
@@ -91,14 +91,14 @@ describe("ErrorBoundary", () => {
 				<ThrowError shouldThrow={true} />
 			</ErrorBoundary>,
 		);
-		
+
 		// Change reset keys
 		rerender(
 			<ErrorBoundary resetKeys={["key2"]} onReset={onReset}>
 				<ThrowError shouldThrow={false} />
 			</ErrorBoundary>,
 		);
-		
+
 		expect(onReset).toHaveBeenCalled();
 	});
 
@@ -111,7 +111,7 @@ describe("ErrorBoundary", () => {
 				<Text>Outside boundary</Text>
 			</>,
 		);
-		
+
 		// Error UI should be shown inside boundary
 		expect(getByText("Something went wrong")).toBeTruthy();
 		// Content outside boundary should still render
@@ -122,14 +122,14 @@ describe("ErrorBoundary", () => {
 		const BadFallback = () => {
 			throw new Error("Fallback error");
 		};
-		
+
 		// This should not crash the app
 		const { getByText } = render(
 			<ErrorBoundary fallback={<BadFallback />}>
 				<ThrowError shouldThrow={true} />
 			</ErrorBoundary>,
 		);
-		
+
 		// Should show default error UI
 		expect(getByText("Something went wrong")).toBeTruthy();
 	});

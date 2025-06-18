@@ -5,11 +5,7 @@ import { Label } from "./Label";
 
 describe("Label", () => {
 	it("renders label text", () => {
-		const { getByText } = render(
-			<Label htmlFor="input-id">
-				Email Address
-			</Label>,
-		);
+		const { getByText } = render(<Label htmlFor="input-id">Email Address</Label>);
 		expect(getByText("Email Address")).toBeTruthy();
 	});
 
@@ -41,9 +37,7 @@ describe("Label", () => {
 		);
 		const label = getByText("Disabled Field");
 		expect(label.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ opacity: expect.any(Number) }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ opacity: expect.any(Number) })]),
 		);
 	});
 
@@ -122,9 +116,7 @@ describe("Label", () => {
 		);
 		const label = getByText("Bold Label");
 		expect(label.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ fontWeight: "bold" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ fontWeight: "bold" })]),
 		);
 	});
 
@@ -135,9 +127,7 @@ describe("Label", () => {
 			</Label>,
 		);
 		const container = getByText("Inline Label").parent;
-		expect(container?.props.style).toEqual(
-			expect.objectContaining({ flexDirection: "row" }),
-		);
+		expect(container?.props.style).toEqual(expect.objectContaining({ flexDirection: "row" }));
 	});
 
 	it("truncates long text", () => {

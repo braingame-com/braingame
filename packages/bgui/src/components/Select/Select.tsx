@@ -8,6 +8,38 @@ import { withErrorBoundary } from "../../utils/withErrorBoundary";
 import { SelectItem } from "./SelectItem";
 import type { SelectItemProps, SelectProps } from "./types";
 
+/**
+ * Select component for choosing from a list of options.
+ * Supports single and multiple selection, error states, and different display variants.
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <Select value={selected} onValueChange={setSelected}>
+ *   <Select.Item value="apple">Apple</Select.Item>
+ *   <Select.Item value="banana">Banana</Select.Item>
+ *   <Select.Item value="orange">Orange</Select.Item>
+ * </Select>
+ *
+ * // Multiple selection
+ * <Select value={selectedItems} onValueChange={setSelectedItems} multiple>
+ *   <Select.Item value="1">Option 1</Select.Item>
+ *   <Select.Item value="2">Option 2</Select.Item>
+ * </Select>
+ *
+ * // With error state
+ * <Select
+ *   value={value}
+ *   onValueChange={setValue}
+ *   error
+ *   errorMessage="Please select an option"
+ * >
+ *   <Select.Item value="1">Option 1</Select.Item>
+ * </Select>
+ * ```
+ *
+ * @component
+ */
 const SelectComponent = ({
 	children,
 	value,

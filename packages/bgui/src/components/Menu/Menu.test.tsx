@@ -28,10 +28,10 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		// Menu should be hidden initially
 		expect(queryByText("Option 1")).toBeNull();
-		
+
 		// Open menu
 		fireEvent.press(getByText("Open"));
 		await waitFor(() => {
@@ -51,12 +51,12 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			fireEvent.press(getByText("Select me"));
 		});
-		
+
 		expect(onSelect).toHaveBeenCalled();
 		await waitFor(() => {
 			expect(queryByText("Select me")).toBeNull();
@@ -74,7 +74,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			expect(getByLabelText("settings icon")).toBeTruthy();
@@ -95,12 +95,12 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			fireEvent.press(getByText("Disabled Item"));
 		});
-		
+
 		expect(onPress).not.toHaveBeenCalled();
 	});
 
@@ -117,7 +117,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			expect(getByTestId("separator")).toBeTruthy();
@@ -140,7 +140,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			fireEvent.press(getByText("More Options"));
@@ -162,7 +162,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		expect(onOpenChange).toHaveBeenCalledWith(true);
 	});
@@ -178,7 +178,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			const content = getByTestId("menu-content");
@@ -199,12 +199,12 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			fireEvent.press(getByTestId("backdrop"));
 		});
-		
+
 		await waitFor(() => {
 			expect(queryByText("Item")).toBeNull();
 		});
@@ -221,7 +221,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			expect(getByRole("menu")).toBeTruthy();
@@ -243,7 +243,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			expect(getByText("Checked Item")).toBeTruthy();
@@ -262,7 +262,7 @@ describe("Menu", () => {
 				</Menu.Content>
 			</Menu>,
 		);
-		
+
 		fireEvent.press(getByText("Menu"));
 		await waitFor(() => {
 			expect(getByLabelText("Main navigation menu")).toBeTruthy();

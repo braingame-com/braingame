@@ -1,5 +1,12 @@
-// Prop validation utilities for BGUI components
+/**
+ * Prop validation utilities for BGUI components.
+ * Provides runtime validation of component props in development.
+ */
 
+/**
+ * Custom error class for prop validation failures.
+ * Includes component and prop name for easier debugging.
+ */
 export class PropValidationError extends Error {
 	constructor(componentName: string, propName: string, message: string) {
 		super(`[${componentName}] Invalid prop '${propName}': ${message}`);
@@ -7,7 +14,15 @@ export class PropValidationError extends Error {
 	}
 }
 
+/**
+ * Collection of reusable prop validators.
+ * Each validator throws PropValidationError if validation fails.
+ */
 export const validators = {
+	/**
+	 * Validates that a prop value is not null or undefined.
+	 * @throws {PropValidationError} If value is null or undefined
+	 */
 	// biome-ignore lint/suspicious/noExplicitAny: Validator needs to accept any value type
 	required: (value: any, propName: string, componentName: string) => {
 		if (value == null) {

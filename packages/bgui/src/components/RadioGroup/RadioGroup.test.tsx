@@ -22,7 +22,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" />
 			</RadioGroup>,
 		);
-		
+
 		fireEvent.press(getByText("Option 2"));
 		expect(onValueChange).toHaveBeenCalledWith("option2");
 	});
@@ -34,7 +34,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" />
 			</RadioGroup>,
 		);
-		
+
 		const radios = getAllByRole("radio");
 		expect(radios[0].props.accessibilityState.checked).toBe(false);
 		expect(radios[1].props.accessibilityState.checked).toBe(true);
@@ -48,7 +48,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" disabled />
 			</RadioGroup>,
 		);
-		
+
 		fireEvent.press(getByText("Option 2"));
 		expect(onValueChange).not.toHaveBeenCalled();
 	});
@@ -61,7 +61,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" />
 			</RadioGroup>,
 		);
-		
+
 		fireEvent.press(getByText("Option 2"));
 		expect(onValueChange).not.toHaveBeenCalled();
 	});
@@ -69,11 +69,7 @@ describe("RadioGroup", () => {
 	it("renders with description", () => {
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={() => {}}>
-				<RadioGroup.Item
-					value="option1"
-					label="Option 1"
-					description="This is the first option"
-				/>
+				<RadioGroup.Item value="option1" label="Option 1" description="This is the first option" />
 			</RadioGroup>,
 		);
 		expect(getByText("This is the first option")).toBeTruthy();
@@ -86,7 +82,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" />
 			</RadioGroup>,
 		);
-		
+
 		const group = getByRole("radiogroup");
 		expect(group.props["aria-orientation"]).toBe("horizontal");
 	});
@@ -110,14 +106,19 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option1" label="Option 1" />
 			</RadioGroup>,
 		);
-		
+
 		const group = getByRole("radiogroup");
 		expect(group.props["aria-required"]).toBe(true);
 	});
 
 	it("shows error state", () => {
 		const { getByText } = render(
-			<RadioGroup value="option1" onValueChange={() => {}} error errorMessage="Please select an option">
+			<RadioGroup
+				value="option1"
+				onValueChange={() => {}}
+				error
+				errorMessage="Please select an option"
+			>
 				<RadioGroup.Item value="option1" label="Option 1" />
 			</RadioGroup>,
 		);
@@ -130,11 +131,9 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option1" label="Option 1" style={{ padding: 20 }} />
 			</RadioGroup>,
 		);
-		
+
 		const item = getByText("Option 1").parent;
-		expect(item?.props.style).toEqual(
-			expect.objectContaining({ padding: 20 }),
-		);
+		expect(item?.props.style).toEqual(expect.objectContaining({ padding: 20 }));
 	});
 
 	it("supports uncontrolled mode with defaultValue", () => {
@@ -145,7 +144,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" />
 			</RadioGroup>,
 		);
-		
+
 		fireEvent.press(getByText("Option 2"));
 		expect(onValueChange).toHaveBeenCalledWith("option2");
 	});
@@ -156,7 +155,7 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option1" label="Option 1" />
 			</RadioGroup>,
 		);
-		
+
 		const group = getByRole("radiogroup");
 		expect(group.props.accessibilityLabel).toBe("preferences");
 	});
@@ -182,9 +181,9 @@ describe("RadioGroup", () => {
 				<RadioGroup.Item value="option2" label="Option 2" />
 			</RadioGroup>,
 		);
-		
+
 		// Radio groups only allow one selection by design
 		const radios = getAllByRole("radio");
-		expect(radios.filter(r => r.props.accessibilityState.checked)).toHaveLength(1);
+		expect(radios.filter((r) => r.props.accessibilityState.checked)).toHaveLength(1);
 	});
 });

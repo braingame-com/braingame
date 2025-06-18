@@ -22,6 +22,27 @@ const validationRules = {
 	iconPosition: validators.oneOf(["left", "right"] as const),
 };
 
+/**
+ * Button component for triggering actions in the app.
+ *
+ * @example
+ * ```tsx
+ * // Basic button
+ * <Button onPress={() => console.log('Pressed!')}>Click me</Button>
+ *
+ * // Button with icon
+ * <Button icon="settings" onPress={handleSettings}>Settings</Button>
+ *
+ * // Loading state
+ * <Button loading onPress={handleSubmit}>Submit</Button>
+ *
+ * // Different variants
+ * <Button variant="danger" onPress={handleDelete}>Delete</Button>
+ * <Button variant="ghost" onPress={handleCancel}>Cancel</Button>
+ * ```
+ *
+ * @component
+ */
 function ButtonComponent({
 	children,
 	onPress,
@@ -91,4 +112,9 @@ function ButtonComponent({
 
 // Wrap with memo and error boundary for optimal performance
 const MemoizedButton = memo(ButtonComponent);
+
+/**
+ * Button component with error boundary and performance optimization.
+ * Supports multiple variants, sizes, icons, and loading states.
+ */
 export const Button = withErrorBoundary(MemoizedButton);

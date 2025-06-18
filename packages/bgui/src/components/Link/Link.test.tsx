@@ -40,9 +40,7 @@ describe("Link", () => {
 		const { getByText } = render(<Link href="#">Underlined</Link>);
 		const link = getByText("Underlined");
 		expect(link.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ textDecorationLine: "underline" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ textDecorationLine: "underline" })]),
 		);
 	});
 
@@ -54,9 +52,7 @@ describe("Link", () => {
 		);
 		const link = getByText("No underline");
 		expect(link.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ textDecorationLine: "none" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ textDecorationLine: "none" })]),
 		);
 	});
 

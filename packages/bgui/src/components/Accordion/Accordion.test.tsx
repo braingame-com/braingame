@@ -15,7 +15,7 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		expect(getByText("Section 1")).toBeTruthy();
 		expect(getByText("Section 2")).toBeTruthy();
 	});
@@ -28,10 +28,10 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		// Content should be hidden initially
 		expect(queryByText("Content 1")).toBeNull();
-		
+
 		// Click to expand
 		fireEvent.press(getByText("Section 1"));
 		expect(getByText("Content 1")).toBeTruthy();
@@ -45,10 +45,10 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		// Content should be visible initially
 		expect(getByText("Content 1")).toBeTruthy();
-		
+
 		// Click to collapse
 		fireEvent.press(getByText("Section 1"));
 		expect(queryByText("Content 1")).toBeNull();
@@ -65,11 +65,11 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		// Expand first item
 		fireEvent.press(getByText("Section 1"));
 		expect(getByText("Content 1")).toBeTruthy();
-		
+
 		// Expand second item - first should collapse
 		fireEvent.press(getByText("Section 2"));
 		expect(queryByText("Content 1")).toBeNull();
@@ -87,11 +87,11 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		// Expand both items
 		fireEvent.press(getByText("Section 1"));
 		fireEvent.press(getByText("Section 2"));
-		
+
 		// Both should be visible
 		expect(getByText("Content 1")).toBeTruthy();
 		expect(getByText("Content 2")).toBeTruthy();
@@ -109,7 +109,7 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		fireEvent.press(getByText("Section 2"));
 		expect(fn).toHaveBeenCalledWith("2");
 	});
@@ -126,7 +126,7 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		fireEvent.press(getByText("Section 2"));
 		expect(fn).toHaveBeenCalledWith(["1", "2"]);
 	});
@@ -142,7 +142,7 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		// Both should be visible by default
 		expect(getByText("Content 1")).toBeTruthy();
 		expect(getByText("Content 2")).toBeTruthy();
@@ -156,7 +156,7 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		const buttons = getAllByRole("button");
 		expect(buttons).toHaveLength(1);
 		expect(buttons[0].props.accessibilityState.expanded).toBe(false);
@@ -170,7 +170,7 @@ describe("Accordion", () => {
 				</Accordion.Item>
 			</Accordion>,
 		);
-		
+
 		fireEvent.press(getByText("Section 1"));
 		const buttons = getAllByRole("button");
 		expect(buttons[0].props.accessibilityState.expanded).toBe(true);

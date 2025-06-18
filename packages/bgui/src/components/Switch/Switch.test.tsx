@@ -61,11 +61,7 @@ describe("Switch", () => {
 
 	it("supports aria-describedby", () => {
 		const { getByRole } = render(
-			<Switch
-				checked={false}
-				onValueChange={() => {}}
-				aria-describedby="dark-mode-description"
-			/>,
+			<Switch checked={false} onValueChange={() => {}} aria-describedby="dark-mode-description" />,
 		);
 		const switchEl = getByRole("switch");
 		expect(switchEl.props["aria-describedby"]).toBe("dark-mode-description");

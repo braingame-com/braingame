@@ -59,9 +59,7 @@ describe("Spinner", () => {
 	it("applies variants", () => {
 		const variants = ["circular", "dots", "bars"] as const;
 		variants.forEach((variant) => {
-			const { getByTestId } = render(
-				<Spinner variant={variant} testID={`spinner-${variant}`} />,
-			);
+			const { getByTestId } = render(<Spinner variant={variant} testID={`spinner-${variant}`} />);
 			expect(getByTestId(`spinner-${variant}`)).toBeTruthy();
 		});
 	});

@@ -29,7 +29,7 @@ describe("Modal", () => {
 				<Text>Modal content</Text>
 			</Modal>,
 		);
-		
+
 		// Find the backdrop (first Pressable in the tree)
 		const backdrop = getByTestId("modal-backdrop");
 		fireEvent.press(backdrop);
@@ -43,7 +43,7 @@ describe("Modal", () => {
 				<Text>Modal content</Text>
 			</Modal>,
 		);
-		
+
 		const backdrop = getByTestId("modal-backdrop");
 		fireEvent.press(backdrop);
 		expect(fn).not.toHaveBeenCalled();
@@ -56,7 +56,7 @@ describe("Modal", () => {
 				<Text>Modal content</Text>
 			</Modal>,
 		);
-		
+
 		const backdrop = getByTestId("modal-backdrop");
 		fireEvent.press(backdrop);
 		expect(fn).not.toHaveBeenCalled();
@@ -68,12 +68,10 @@ describe("Modal", () => {
 				<Text>Small modal</Text>
 			</Modal>,
 		);
-		
+
 		const content = getByTestId("modal-content");
 		expect(content.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ width: 300 }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ width: 300 })]),
 		);
 	});
 
@@ -83,12 +81,10 @@ describe("Modal", () => {
 				<Text>Bottom sheet</Text>
 			</Modal>,
 		);
-		
+
 		const content = getByTestId("modal-content");
 		expect(content.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ marginTop: "auto" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ marginTop: "auto" })]),
 		);
 	});
 
@@ -98,7 +94,7 @@ describe("Modal", () => {
 				<Text>Settings</Text>
 			</Modal>,
 		);
-		
+
 		expect(getByLabelText("Settings dialog")).toBeTruthy();
 	});
 
@@ -109,7 +105,7 @@ describe("Modal", () => {
 				<Text>Modal content</Text>
 			</Modal>,
 		);
-		
+
 		// Get the RNModal component and trigger onRequestClose
 		const rnModal = UNSAFE_getByType(require("react-native").Modal);
 		rnModal.props.onRequestClose();
@@ -122,15 +118,15 @@ describe("Modal", () => {
 				<Text>Modal content</Text>
 			</Modal>,
 		);
-		
+
 		expect(queryByText("Modal content")).toBeNull();
-		
+
 		rerender(
 			<Modal visible={true} onClose={() => {}}>
 				<Text>Modal content</Text>
 			</Modal>,
 		);
-		
+
 		await waitFor(() => {
 			expect(queryByText("Modal content")).toBeTruthy();
 		});

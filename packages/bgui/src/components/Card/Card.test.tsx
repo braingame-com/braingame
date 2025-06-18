@@ -55,12 +55,12 @@ describe("Card", () => {
 			</Card>,
 		);
 		const card = getByTestId("card");
-		
+
 		// Trigger hover
 		fireEvent(card, "hoverIn");
 		// Card should have hover styles applied
 		expect(card.props.style).toBeDefined();
-		
+
 		fireEvent(card, "hoverOut");
 		// Hover styles should be removed
 		expect(card.props.style).toBeDefined();
@@ -73,11 +73,11 @@ describe("Card", () => {
 			</Card>,
 		);
 		const card = getByTestId("card");
-		
+
 		fireEvent(card, "focus");
 		// Should have focus styles
 		expect(card.props.style).toBeDefined();
-		
+
 		fireEvent(card, "blur");
 		// Focus styles should be removed
 		expect(card.props.style).toBeDefined();

@@ -24,19 +24,19 @@ describe("Tooltip", () => {
 				<Text>Hover target</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Hover target");
 		fireEvent(target, "hoverIn");
-		
+
 		// Advance timers past delay
 		act(() => {
 			jest.advanceTimersByTime(300);
 		});
-		
+
 		await waitFor(() => {
 			expect(getByText("Tooltip content")).toBeTruthy();
 		});
-		
+
 		jest.useRealTimers();
 	});
 
@@ -47,20 +47,20 @@ describe("Tooltip", () => {
 				<Text>Hover target</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Hover target");
 		fireEvent(target, "hoverIn");
-		
+
 		await waitFor(() => {
 			expect(getByText("Tooltip content")).toBeTruthy();
 		});
-		
+
 		fireEvent(target, "hoverOut");
-		
+
 		await waitFor(() => {
 			expect(queryByText("Tooltip content")).toBeNull();
 		});
-		
+
 		jest.useRealTimers();
 	});
 
@@ -71,18 +71,18 @@ describe("Tooltip", () => {
 				<Text>Focus target</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Focus target");
 		fireEvent(target, "focus");
-		
+
 		act(() => {
 			jest.advanceTimersByTime(300);
 		});
-		
+
 		await waitFor(() => {
 			expect(getByText("Focus tooltip")).toBeTruthy();
 		});
-		
+
 		jest.useRealTimers();
 	});
 
@@ -92,16 +92,16 @@ describe("Tooltip", () => {
 				<Text>Focus target</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Focus target");
 		fireEvent(target, "focus");
-		
+
 		await waitFor(() => {
 			expect(getByText("Focus tooltip")).toBeTruthy();
 		});
-		
+
 		fireEvent(target, "blur");
-		
+
 		await waitFor(() => {
 			expect(queryByText("Focus tooltip")).toBeNull();
 		});
@@ -114,25 +114,25 @@ describe("Tooltip", () => {
 				<Text>Hover me</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Hover me");
 		fireEvent(target, "hoverIn");
-		
+
 		// Not visible before delay
 		act(() => {
 			jest.advanceTimersByTime(500);
 		});
 		expect(queryByText("Delayed tooltip")).toBeNull();
-		
+
 		// Visible after delay
 		act(() => {
 			jest.advanceTimersByTime(500);
 		});
-		
+
 		await waitFor(() => {
 			expect(getByText("Delayed tooltip")).toBeTruthy();
 		});
-		
+
 		jest.useRealTimers();
 	});
 
@@ -143,24 +143,24 @@ describe("Tooltip", () => {
 				<Text>Quick hover</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Quick hover");
 		fireEvent(target, "hoverIn");
-		
+
 		// Hover out before delay
 		act(() => {
 			jest.advanceTimersByTime(250);
 		});
 		fireEvent(target, "hoverOut");
-		
+
 		// Advance past original delay
 		act(() => {
 			jest.advanceTimersByTime(300);
 		});
-		
+
 		// Tooltip should not appear
 		expect(queryByText("Cancelled tooltip")).toBeNull();
-		
+
 		jest.useRealTimers();
 	});
 
@@ -172,7 +172,7 @@ describe("Tooltip", () => {
 					<Text>Target</Text>
 				</Tooltip>,
 			);
-			
+
 			fireEvent(getByText("Target"), "hoverIn");
 			// Tooltip should be positioned according to placement
 			expect(getByText(`Tooltip ${placement}`)).toBeTruthy();
@@ -187,7 +187,7 @@ describe("Tooltip", () => {
 					<Text>Target</Text>
 				</Tooltip>,
 			);
-			
+
 			fireEvent(getByText("Target"), "hoverIn");
 			const tooltip = getByText(`${variant} tooltip`);
 			expect(tooltip.parent?.props.style).toBeDefined();
@@ -200,9 +200,9 @@ describe("Tooltip", () => {
 				<Text>Hover me</Text>
 			</Tooltip>,
 		);
-		
+
 		fireEvent(getByText("Hover me"), "hoverIn");
-		
+
 		await waitFor(() => {
 			expect(queryByText("Disabled tooltip")).toBeNull();
 		});
@@ -214,17 +214,17 @@ describe("Tooltip", () => {
 				<Text>Target</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Target");
 		fireEvent(target, "focus");
-		
+
 		await waitFor(() => {
 			expect(getByText("Escapable tooltip")).toBeTruthy();
 		});
-		
+
 		// Simulate escape key
 		fireEvent(target, "keyDown", { key: "Escape" });
-		
+
 		await waitFor(() => {
 			expect(queryByText("Escapable tooltip")).toBeNull();
 		});
@@ -236,10 +236,10 @@ describe("Tooltip", () => {
 				<Text>Described element</Text>
 			</Tooltip>,
 		);
-		
+
 		const target = getByText("Described element");
 		fireEvent(target, "hoverIn");
-		
+
 		await waitFor(() => {
 			expect(target.props["aria-describedby"]).toBeDefined();
 		});
@@ -259,9 +259,9 @@ describe("Tooltip", () => {
 				<Text>Hover me</Text>
 			</Tooltip>,
 		);
-		
+
 		fireEvent(getByText("Hover me"), "hoverIn");
-		
+
 		await waitFor(() => {
 			expect(getByText("Custom tooltip")).toBeTruthy();
 			expect(getByText("With multiple lines")).toBeTruthy();
@@ -274,9 +274,9 @@ describe("Tooltip", () => {
 				<Text>Target</Text>
 			</Tooltip>,
 		);
-		
+
 		fireEvent(getByText("Target"), "hoverIn");
-		
+
 		await waitFor(() => {
 			const tooltip = getByText("Offset tooltip");
 			// Tooltip should be positioned with offset
@@ -290,9 +290,9 @@ describe("Tooltip", () => {
 				<Text>Edge target</Text>
 			</Tooltip>,
 		);
-		
+
 		fireEvent(getByText("Edge target"), "hoverIn");
-		
+
 		await waitFor(() => {
 			const tooltip = getByText("Constrained tooltip");
 			// Tooltip should be repositioned if near viewport edge

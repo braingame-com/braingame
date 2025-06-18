@@ -83,9 +83,7 @@ describe("Divider", () => {
 	it("applies variant styles", () => {
 		const variants = ["solid", "dashed", "dotted"] as const;
 		variants.forEach((variant) => {
-			const { getByTestId } = render(
-				<Divider variant={variant} testID={`divider-${variant}`} />,
-			);
+			const { getByTestId } = render(<Divider variant={variant} testID={`divider-${variant}`} />);
 			const divider = getByTestId(`divider-${variant}`);
 			expect(divider.props.style).toBeDefined();
 		});

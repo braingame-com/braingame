@@ -43,7 +43,11 @@ export const Badge = ({
 				: {})}
 		>
 			{content && (
-				<Text type="small" style={styles.text} {...(Platform.OS === "web" ? { "aria-hidden": true } : {})}>
+				<Text
+					type="small"
+					style={styles.text}
+					{...(Platform.OS === "web" ? { "aria-hidden": true } : {})}
+				>
 					{content}
 				</Text>
 			)}

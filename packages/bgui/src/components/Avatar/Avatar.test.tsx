@@ -58,11 +58,11 @@ describe("Avatar", () => {
 		const { getByLabelText, getByText } = render(
 			<Avatar source={{ uri: "https://example.com/broken.jpg" }} name="Fallback Name" />,
 		);
-		
+
 		const image = getByLabelText("Fallback Name");
 		// Simulate error
 		image.props.onError?.();
-		
+
 		// Should show name fallback
 		expect(getByText("FN")).toBeTruthy();
 	});

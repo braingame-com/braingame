@@ -14,11 +14,7 @@ describe("Image", () => {
 	it("shows placeholder while loading", () => {
 		const placeholder = <Text>Loading...</Text>;
 		const { getByText } = render(
-			<Image
-				src="https://example.com/image.jpg"
-				alt="Test image"
-				placeholder={placeholder}
-			/>,
+			<Image src="https://example.com/image.jpg" alt="Test image" placeholder={placeholder} />,
 		);
 		expect(getByText("Loading...")).toBeTruthy();
 	});
@@ -28,10 +24,10 @@ describe("Image", () => {
 		const { getByLabelText } = render(
 			<Image src="https://example.com/image.jpg" alt="Test image" onLoad={onLoad} />,
 		);
-		
+
 		const image = getByLabelText("Test image");
 		fireEvent(image, "load");
-		
+
 		await waitFor(() => {
 			expect(onLoad).toHaveBeenCalled();
 		});
@@ -41,10 +37,10 @@ describe("Image", () => {
 		const { getByLabelText, getByText } = render(
 			<Image src="https://example.com/broken.jpg" alt="Broken image" />,
 		);
-		
+
 		const image = getByLabelText("Broken image");
 		fireEvent(image, "error");
-		
+
 		await waitFor(() => {
 			expect(getByText("Failed to load image")).toBeTruthy();
 			expect(getByLabelText("Failed to load image: Broken image")).toBeTruthy();
@@ -56,10 +52,10 @@ describe("Image", () => {
 		const { getByLabelText, getByText } = render(
 			<Image src="https://example.com/broken.jpg" alt="Broken image" fallback={fallback} />,
 		);
-		
+
 		const image = getByLabelText("Broken image");
 		fireEvent(image, "error");
-		
+
 		await waitFor(() => {
 			expect(getByText("Custom error")).toBeTruthy();
 		});
@@ -70,10 +66,10 @@ describe("Image", () => {
 		const { getByLabelText } = render(
 			<Image src="https://example.com/broken.jpg" alt="Broken image" onError={onError} />,
 		);
-		
+
 		const image = getByLabelText("Broken image");
 		fireEvent(image, "error");
-		
+
 		await waitFor(() => {
 			expect(onError).toHaveBeenCalled();
 		});
@@ -83,12 +79,10 @@ describe("Image", () => {
 		const { getByLabelText } = render(
 			<Image src="https://example.com/image.jpg" alt="Test image" aspectRatio={16 / 9} />,
 		);
-		
+
 		const container = getByLabelText("Test image").parent;
 		expect(container?.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ aspectRatio: 16 / 9 }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ aspectRatio: 16 / 9 })]),
 		);
 	});
 
@@ -96,12 +90,10 @@ describe("Image", () => {
 		const { getByLabelText } = render(
 			<Image src="https://example.com/image.jpg" alt="Test image" objectFit="contain" />,
 		);
-		
+
 		const image = getByLabelText("Test image");
 		expect(image.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ objectFit: "contain" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ objectFit: "contain" })]),
 		);
 	});
 
@@ -109,23 +101,21 @@ describe("Image", () => {
 		const { getByLabelText } = render(
 			<Image src="https://example.com/image.jpg" alt="Test image" variant="responsive" />,
 		);
-		
+
 		const container = getByLabelText("Test image").parent;
 		expect(container?.props.style).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ width: "100%" }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ width: "100%" })]),
 		);
 	});
 
 	it("validates required props", () => {
 		console.error = jest.fn();
-		
+
 		// Missing src
 		expect(() => {
 			render(<Image src="" alt="Test" />);
 		}).toThrow();
-		
+
 		// Missing alt
 		expect(() => {
 			render(<Image src="https://example.com/image.jpg" alt="" />);
@@ -135,16 +125,12 @@ describe("Image", () => {
 	it("hides placeholder after load", async () => {
 		const placeholder = <Text>Loading...</Text>;
 		const { getByLabelText, queryByText } = render(
-			<Image
-				src="https://example.com/image.jpg"
-				alt="Test image"
-				placeholder={placeholder}
-			/>,
+			<Image src="https://example.com/image.jpg" alt="Test image" placeholder={placeholder} />,
 		);
-		
+
 		const image = getByLabelText("Test image");
 		fireEvent(image, "load");
-		
+
 		await waitFor(() => {
 			expect(queryByText("Loading...")).toBeNull();
 		});

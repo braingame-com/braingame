@@ -51,11 +51,7 @@ describe("Checkbox", () => {
 
 	it("renders with aria-describedby", () => {
 		const { getByRole } = render(
-			<Checkbox
-				checked={false}
-				onValueChange={() => {}}
-				aria-describedby="terms-description"
-			/>,
+			<Checkbox checked={false} onValueChange={() => {}} aria-describedby="terms-description" />,
 		);
 		const checkbox = getByRole("checkbox");
 		expect(checkbox.props["aria-describedby"]).toBe("terms-description");

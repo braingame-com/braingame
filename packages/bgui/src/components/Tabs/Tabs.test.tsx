@@ -39,7 +39,7 @@ describe("Tabs", () => {
 				</Tabs.Panel>
 			</Tabs>,
 		);
-		
+
 		fireEvent.press(getByText("Tab 2"));
 		expect(queryByText("Panel 1")).toBeNull();
 		expect(getByText("Panel 2")).toBeTruthy();
@@ -55,7 +55,7 @@ describe("Tabs", () => {
 				</Tabs.List>
 			</Tabs>,
 		);
-		
+
 		fireEvent.press(getByText("Tab 2"));
 		expect(fn).toHaveBeenCalledWith("tab2");
 	});
@@ -66,11 +66,13 @@ describe("Tabs", () => {
 			<Tabs defaultValue="tab1" onValueChange={fn}>
 				<Tabs.List>
 					<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-					<Tabs.Tab value="tab2" disabled>Tab 2</Tabs.Tab>
+					<Tabs.Tab value="tab2" disabled>
+						Tab 2
+					</Tabs.Tab>
 				</Tabs.List>
 			</Tabs>,
 		);
-		
+
 		fireEvent.press(getByText("Tab 2"));
 		expect(fn).not.toHaveBeenCalled();
 	});
@@ -84,7 +86,7 @@ describe("Tabs", () => {
 				</Tabs.List>
 			</Tabs>,
 		);
-		
+
 		expect(getByRole("tablist")).toBeTruthy();
 		expect(getAllByRole("tab")).toHaveLength(2);
 	});
@@ -97,7 +99,7 @@ describe("Tabs", () => {
 				</Tabs.List>
 			</Tabs>,
 		);
-		
+
 		const tablist = getByRole("tablist");
 		// Variant is passed through context, so we just verify rendering
 		expect(tablist).toBeTruthy();
@@ -113,7 +115,7 @@ describe("Tabs", () => {
 				</Tabs.List>
 			</Tabs>,
 		);
-		
+
 		const tablist = getByRole("tablist");
 		// ScrollView wrapper will be applied when scrollable
 		expect(tablist).toBeTruthy();
@@ -128,7 +130,7 @@ describe("Tabs", () => {
 				</Tabs.List>
 			</Tabs>,
 		);
-		
+
 		const tabs = getAllByRole("tab");
 		expect(tabs[0].props.accessibilityState.selected).toBe(false);
 		expect(tabs[1].props.accessibilityState.selected).toBe(true);
@@ -149,7 +151,7 @@ describe("Tabs", () => {
 				</Tabs.Panel>
 			</Tabs>,
 		);
-		
+
 		// Only active panel should be rendered when lazy
 		expect(queryByText("Panel 1")).toBeTruthy();
 		expect(queryByText("Panel 2")).toBeNull();
