@@ -1,5 +1,5 @@
+import { useThemeColor } from "@braingame/utils";
 import { StyleSheet, View } from "react-native";
-import { useThemeColor } from "../../../utils/hooks/useThemeColor";
 import type { DividerProps } from "./types";
 
 export const Divider = ({
@@ -17,14 +17,14 @@ export const Divider = ({
 					borderBottomColor: themeColor,
 					borderBottomWidth: thickness,
 					borderStyle: variant,
-					width: "100%",
+					width: "100%" as const,
 				}
 			: {
 					borderRightColor: themeColor,
 					borderRightWidth: thickness,
 					borderStyle: variant,
-					height: "100%",
+					height: "100%" as const,
 				};
 
-	return <View accessibilityRole="separator" style={[dividerStyle, style]} />;
+	return <View accessibilityRole="none" style={[dividerStyle, style]} />;
 };

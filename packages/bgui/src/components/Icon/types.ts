@@ -1,4 +1,4 @@
-import type { Colors } from "@braingame/utils/constants/Colors";
+import type { Colors } from "@braingame/utils";
 import type { StyleProp, ViewStyle } from "react-native";
 
 export type IconVariant = "solid" | "regular" | "brand";

@@ -1,7 +1,7 @@
-import { Children, cloneElement, isValidElement, useRef, useState } from "react";
+import React, { Children, cloneElement, isValidElement, useRef, useState } from "react";
 import { View } from "react-native";
 import { ActionListItem } from "./ActionListItem";
-import type { ActionListProps } from "./types";
+import type { ActionListItemProps, ActionListProps } from "./types";
 
 export const ActionList = ({
 	children,
@@ -38,7 +38,9 @@ export const ActionList = ({
 		const typeInfo = child.type as { displayName?: string };
 		if (typeInfo.displayName === ActionListItem.displayName) {
 			const value = child.props.value ?? index.toString();
-			return cloneElement(child, {
+			// TypeScript workaround: cast to any to allow ref prop
+			// biome-ignore lint/suspicious/noExplicitAny: Required for ref prop in cloneElement
+			return React.cloneElement(child as React.ReactElement<any>, {
 				ref: (node: { focus?: () => void } | null) => {
 					itemRefs.current[index] = node;
 				},

@@ -1,5 +1,4 @@
-import { Tokens } from "@braingame/utils/constants/Tokens";
-import { useThemeColor } from "@braingame/utils/hooks/useThemeColor";
+import { Tokens, useThemeColor } from "@braingame/utils";
 import { Pressable } from "react-native";
 import { Text } from "../../../Text";
 import type { SelectItemProps } from "./types";

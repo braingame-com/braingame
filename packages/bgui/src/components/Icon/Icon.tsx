@@ -1,6 +1,5 @@
-import { Tokens } from "@braingame/utils/constants/Tokens";
-import { useThemeColor } from "@braingame/utils/hooks/useThemeColor";
-import { FA6Style, FontAwesome6 } from "@expo/vector-icons";
+import { Tokens, useThemeColor } from "@braingame/utils";
+import { FontAwesome6 } from "@expo/vector-icons";
 import type { IconProps } from "./types";
 
 const sizeMap = {
@@ -20,8 +19,8 @@ export function Icon({
 }: IconProps) {
 	const iconSize = typeof size === "number" ? size : sizeMap[size];
 	const iconColor = useThemeColor(color ?? "icon");
-	const fontFamily =
-		variant === "solid" ? FA6Style.solid : variant === "brand" ? FA6Style.brand : FA6Style.regular;
+	// FontAwesome6 handles variants internally via the 'name' prop
+	// No need to set fontFamily manually
 
 	return (
 		<FontAwesome6
@@ -31,7 +30,7 @@ export function Icon({
 			accessibilityElementsHidden={decorative}
 			accessibilityRole="image"
 			accessibilityLabel={decorative ? undefined : ariaLabel}
-			style={[{ fontFamily }, style]}
+			style={style}
 		/>
 	);
 }

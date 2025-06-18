@@ -1,9 +1,11 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
+import type { TextStyle } from "react-native";
+
 export interface LabelProps {
 	children: ReactNode;
 	htmlFor?: string;
 	required?: boolean;
 	size?: "sm" | "md" | "lg";
 	variant?: "standard" | "floating";
-	style?: CSSProperties;
+	style?: TextStyle;
 }

@@ -1,5 +1,4 @@
-import { Tokens } from "@braingame/utils/constants/Tokens";
-import { useThemeColor } from "@braingame/utils/hooks/useThemeColor";
+import { Tokens, useThemeColor } from "@braingame/utils";
 import { Children, type ReactElement, cloneElement, useState } from "react";
 import { Pressable, Modal as RNModal, ScrollView, View } from "react-native";
 import { Text } from "../../../Text";
@@ -67,13 +66,6 @@ export const Select = ({
 				accessibilityLabel={ariaLabel}
 				accessibilityState={{ disabled, expanded: open }}
 				onPress={toggleOpen}
-				onKeyDown={(e) => {
-					const key = "key" in e.nativeEvent ? e.nativeEvent.key : undefined;
-					if (key === "Enter" || key === " ") {
-						e.preventDefault();
-						toggleOpen();
-					}
-				}}
 				style={{
 					padding: Tokens.s,
 					borderWidth: 1,

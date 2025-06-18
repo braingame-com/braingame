@@ -1,8 +1,7 @@
-import { Tokens } from "@braingame/utils/constants/Tokens";
-import { useThemeColor } from "@braingame/utils/hooks/useThemeColor";
+import { Tokens, useThemeColor } from "@braingame/utils";
 import { Pressable, View } from "react-native";
-import { Icon } from "../../../Icon";
-import { Text } from "../../../Text";
+import { Icon } from "../Icon";
+import { Text } from "../Text";
 import type { CheckboxProps } from "./types";
 
 export const Checkbox = ({
@@ -23,7 +22,7 @@ export const Checkbox = ({
 		onValueChange(!checked);
 	};
 
-	const iconColor = bg;
+	// Icon color should contrast with the checked background
 
 	return (
 		<Pressable
@@ -47,7 +46,7 @@ export const Checkbox = ({
 				}}
 			>
 				{(checked || indeterminate) && (
-					<Icon name={indeterminate ? "minus" : "check"} size="sm" color={iconColor} />
+					<Icon name={indeterminate ? "minus" : "check"} size="sm" color="background" />
 				)}
 			</View>
 			{children && <Text style={{ marginLeft: Tokens.s }}>{children}</Text>}

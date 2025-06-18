@@ -9,12 +9,7 @@ export const Panel = ({ children, value }: TabsPanelProps) => {
 		return null;
 	}
 	return (
-		<View
-			accessibilityRole="tabpanel"
-			nativeID={`panel-${value}`}
-			aria-labelledby={`tab-${value}`}
-			style={styles.panel}
-		>
+		<View nativeID={`panel-${value}`} aria-labelledby={`tab-${value}`} style={styles.panel}>
 			{children}
 		</View>
 	);

@@ -2,7 +2,7 @@ import { Children, cloneElement, isValidElement, useRef } from "react";
 import { type NativeSyntheticEvent, ScrollView, View } from "react-native";
 import { useTabsContext } from "./context";
 import { styles } from "./styles";
-import type { TabsListProps } from "./types";
+import type { TabProps, TabsListProps } from "./types";
 
 export const List = ({ children }: TabsListProps) => {
 	const { scrollable } = useTabsContext();
@@ -26,8 +26,8 @@ export const List = ({ children }: TabsListProps) => {
 
 	const childrenWithRefs = Children.map(children, (child, index) => {
 		if (isValidElement(child)) {
-			return cloneElement(child, {
-				tabRef: (node: View) => {
+			return cloneElement(child as React.ReactElement<TabProps>, {
+				tabRef: (node: View | null) => {
 					tabRefs.current[index] = node;
 				},
 			});

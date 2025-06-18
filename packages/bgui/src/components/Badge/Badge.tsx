@@ -1,6 +1,4 @@
-import { Colors } from "@braingame/utils/constants/Colors";
-import { Tokens } from "@braingame/utils/constants/Tokens";
-import { useThemeColor } from "@braingame/utils/hooks/useThemeColor";
+import { Colors, Tokens, useThemeColor } from "@braingame/utils";
 import { StyleSheet, View } from "react-native";
 import { Text } from "../../../Text";
 import type { BadgeProps, BadgeVariant, ThemeColor } from "./types";

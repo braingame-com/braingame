@@ -1,4 +1,4 @@
-import { type ComponentRef, type KeyboardEvent, forwardRef } from "react";
+import { type ComponentRef, forwardRef } from "react";
 import { Pressable } from "react-native";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Icon } from "../../../Icon";
@@ -30,25 +30,6 @@ export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionL
 			}
 		};
 
-		const handleKeyDown = (e: KeyboardEvent) => {
-			const evt = e as unknown as {
-				nativeEvent?: { key?: string };
-				key?: string;
-				preventDefault?: () => void;
-			};
-			const key = evt.nativeEvent?.key || evt.key;
-			if (key === "Enter" || key === " ") {
-				evt.preventDefault?.();
-				handlePress();
-			} else if (key === "ArrowDown") {
-				evt.preventDefault?.();
-				onArrowNext?.();
-			} else if (key === "ArrowUp") {
-				evt.preventDefault?.();
-				onArrowPrev?.();
-			}
-		};
-
 		return (
 			<Pressable
 				ref={ref}
@@ -57,7 +38,6 @@ export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionL
 				aria-selected={selectable ? selected : undefined}
 				aria-disabled={disabled}
 				tabIndex={0}
-				onKeyDown={handleKeyDown}
 				onPress={handlePress}
 				disabled={disabled}
 				style={{

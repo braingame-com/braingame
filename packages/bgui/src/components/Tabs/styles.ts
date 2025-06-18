@@ -1,6 +1,5 @@
+import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
-import { Colors } from "../../../utils/constants/Colors";
-import { Tokens } from "../../../utils/constants/Tokens";
 
 export const styles = StyleSheet.create({
 	list: {

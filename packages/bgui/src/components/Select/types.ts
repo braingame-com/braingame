@@ -21,4 +21,6 @@ export interface SelectProps {
 export interface SelectItemProps {
 	value: string;
 	children: ReactNode;
+	selected?: boolean;
+	onSelect?: (value: string) => void;
 }

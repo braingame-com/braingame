@@ -1,4 +1,4 @@
-import { Tokens } from "@braingame/utils/constants/Tokens";
+import { Tokens } from "@braingame/utils";
 import type React from "react";
 import { Platform, Text as RNText, type TextStyle } from "react-native";
 import type { LabelProps } from "./types";

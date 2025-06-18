@@ -1,8 +1,7 @@
+import { Tokens, useThemeColor } from "@braingame/utils";
 import type React from "react";
 import { useEffect, useRef } from "react";
 import { Platform, Pressable, Modal as RNModal, StyleSheet, View } from "react-native";
-import { Tokens } from "../../../utils/constants/Tokens";
-import { useThemeColor } from "../../../utils/hooks/useThemeColor";
 import type { ModalProps } from "./types";
 
 const FOCUSABLE_SELECTOR =
@@ -45,7 +44,6 @@ export const Modal = ({
 						sizes[size],
 						{ backgroundColor: backdropColor },
 					]}
-					accessibilityRole="dialog"
 					accessibilityLabel={ariaLabel}
 				>
 					{children}

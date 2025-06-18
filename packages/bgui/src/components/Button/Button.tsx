@@ -1,9 +1,7 @@
+import { Colors, Tokens, buttonStyles } from "@braingame/utils";
 import { useState } from "react";
 import { ActivityIndicator, Pressable, Text, type View } from "react-native";
 import { Icon } from "../../../Icon";
-import { Colors } from "../../../utils/constants/Colors";
-import { Tokens } from "../../../utils/constants/Tokens";
-import { buttonStyles } from "../../../utils/constants/styles";
 import type { ButtonProps, ButtonVariant } from "./types";
 
 const VARIANT_COLORS: Record<ButtonVariant, { background: string; text: string }> = {
@@ -34,16 +32,6 @@ export function Button({
 	const paddingVertical = size === "lg" ? Tokens.m : size === "sm" ? Tokens.xs : Tokens.s;
 	const paddingHorizontal = size === "lg" ? Tokens.xl : size === "sm" ? Tokens.s : Tokens.m;
 
-	const handleKeyPress = (
-		e: React.KeyboardEvent<HTMLButtonElement> | React.KeyboardEvent<View>,
-	) => {
-		if (disabled) return;
-		if (e.nativeEvent.key === "Enter" || e.nativeEvent.key === " ") {
-			e.preventDefault();
-			onPress();
-		}
-	};
-
 	return (
 		<Pressable
 			accessibilityRole="button"
@@ -51,7 +39,6 @@ export function Button({
 			accessibilityHint={ariaDescribedBy}
 			disabled={disabled || loading}
 			onPress={onPress}
-			onKeyDown={handleKeyPress}
 			onHoverIn={() => setHovered(true)}
 			onHoverOut={() => setHovered(false)}
 			style={[

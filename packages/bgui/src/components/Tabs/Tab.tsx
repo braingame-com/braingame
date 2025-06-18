@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import { Pressable } from "react-native";
+import { Pressable, type View } from "react-native";
 import { Text } from "../../../Text";
 import { useTabsContext } from "./context";
 import { styles } from "./styles";
 import type { TabProps } from "./types";
 
-export const Tab = forwardRef<Pressable, TabProps>(function Tab(
+export const Tab = forwardRef<View, TabProps>(function Tab(
 	{ children, value, disabled, tabRef },
 	ref,
 ) {
