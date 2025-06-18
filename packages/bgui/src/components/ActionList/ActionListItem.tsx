@@ -1,11 +1,11 @@
-import { type ComponentRef, forwardRef } from "react";
+import { type ComponentRef, forwardRef, memo, useCallback, useMemo } from "react";
 import { Pressable } from "react-native";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Icon } from "../../../Icon";
 import { Text } from "../../../Text";
 import type { ActionListItemProps } from "./types";
 
-export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionListItemProps>(
+const ActionListItemComponent = forwardRef<ComponentRef<typeof Pressable>, ActionListItemProps>(
 	(
 		{
 			icon,
@@ -21,30 +21,49 @@ export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionL
 		},
 		ref,
 	) => {
-		const background = selected ? useThemeColor("buttonHovered") : "transparent";
+		const backgroundHovered = useThemeColor("buttonHovered");
+		const background = selected ? backgroundHovered : "transparent";
 
-		const handlePress = () => {
+		const handlePress = useCallback(() => {
 			onPress?.();
 			if (selectable) {
 				onSelect?.();
 			}
-		};
+		}, [onPress, selectable, onSelect]);
 
-		const handleKeyDown = (e: React.KeyboardEvent) => {
-			if (e.key === "Enter" || e.key === " ") {
-				e.preventDefault();
-				handlePress();
-			} else if (e.key === "ArrowDown") {
-				e.preventDefault();
-				onArrowNext?.();
-			} else if (e.key === "ArrowUp") {
-				e.preventDefault();
-				onArrowPrev?.();
-			}
-		};
+		const handleKeyDown = useCallback(
+			(e: React.KeyboardEvent) => {
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					handlePress();
+				} else if (e.key === "ArrowDown") {
+					e.preventDefault();
+					onArrowNext?.();
+				} else if (e.key === "ArrowUp") {
+					e.preventDefault();
+					onArrowPrev?.();
+				}
+			},
+			[handlePress, onArrowNext, onArrowPrev],
+		);
 
 		// Determine the appropriate role based on selectable state
 		const role = selectable ? "option" : "menuitem";
+
+		const itemStyle = useMemo(
+			() => ({
+				flexDirection: "row" as const,
+				alignItems: "center" as const,
+				padding: 8,
+				backgroundColor: background,
+				opacity: disabled ? 0.5 : 1,
+				cursor: disabled ? "not-allowed" : "pointer",
+			}),
+			[background, disabled],
+		);
+
+		const iconStyle = useMemo(() => ({ marginRight: 8 }), []);
+		const checkIconStyle = useMemo(() => ({ marginLeft: "auto" }), []);
 
 		return (
 			<Pressable
@@ -58,24 +77,20 @@ export const ActionListItem = forwardRef<ComponentRef<typeof Pressable>, ActionL
 				onPress={handlePress}
 				onKeyDown={handleKeyDown}
 				disabled={disabled}
-				style={{
-					flexDirection: "row",
-					alignItems: "center",
-					padding: 8,
-					backgroundColor: background,
-					opacity: disabled ? 0.5 : 1,
-					cursor: disabled ? "not-allowed" : "pointer",
-				}}
+				style={itemStyle}
 				{...rest}
 			>
-				{icon && <Icon name={icon} style={{ marginRight: 8 }} aria-hidden="true" />}
+				{icon && <Icon name={icon} style={iconStyle} aria-hidden="true" />}
 				<Text>{children}</Text>
 				{selectable && selected && (
-					<Icon name="check" style={{ marginLeft: "auto" }} aria-label="Selected" />
+					<Icon name="check" style={checkIconStyle} aria-label="Selected" />
 				)}
 			</Pressable>
 		);
 	},
 );
 
-ActionListItem.displayName = "ActionListItem";
+ActionListItemComponent.displayName = "ActionListItem";
+
+// Wrap with memo for optimal performance
+export const ActionListItem = memo(ActionListItemComponent);

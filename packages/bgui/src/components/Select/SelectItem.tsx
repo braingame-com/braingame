@@ -1,4 +1,5 @@
 import { Tokens, useThemeColor } from "@braingame/utils";
+import { memo, useCallback, useMemo } from "react";
 import { Pressable } from "react-native";
 import { Text } from "../../../Text";
 import type { SelectItemProps } from "./types";
@@ -8,21 +9,35 @@ export interface InternalSelectItemProps extends SelectItemProps {
 	onSelect?: (value: string) => void;
 }
 
-export const SelectItem = ({ value, children, selected, onSelect }: InternalSelectItemProps) => {
+const SelectItemComponent = ({ value, children, selected, onSelect }: InternalSelectItemProps) => {
 	const textColor = useThemeColor("text");
 	const selectedColor = useThemeColor("tint");
+
+	const handlePress = useCallback(() => {
+		onSelect?.(value);
+	}, [onSelect, value]);
+
+	const itemStyle = useMemo(
+		() => ({
+			padding: Tokens.s,
+			backgroundColor: selected ? `${selectedColor}33` : "transparent",
+		}),
+		[selected, selectedColor],
+	);
+
+	const textStyle = useMemo(() => ({ color: textColor }), [textColor]);
 
 	return (
 		<Pressable
 			accessibilityRole="menuitem"
 			accessibilityState={{ selected }}
-			onPress={() => onSelect?.(value)}
-			style={{
-				padding: Tokens.s,
-				backgroundColor: selected ? `${selectedColor}33` : "transparent",
-			}}
+			onPress={handlePress}
+			style={itemStyle}
 		>
-			<Text style={{ color: textColor }}>{children}</Text>
+			<Text style={textStyle}>{children}</Text>
 		</Pressable>
 	);
 };
+
+// Wrap with memo for optimal performance in lists
+export const SelectItem = memo(SelectItemComponent);

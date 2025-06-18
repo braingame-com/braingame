@@ -1,10 +1,11 @@
 import { Tokens, useThemeColor } from "@braingame/utils";
+import { memo, useCallback, useMemo } from "react";
 import { Pressable, View } from "react-native";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
 import type { CheckboxProps } from "./types";
 
-export const Checkbox = ({
+const CheckboxComponent = ({
 	checked,
 	onValueChange,
 	children,
@@ -17,12 +18,37 @@ export const Checkbox = ({
 	const bg = useThemeColor("background");
 	const accent = useThemeColor("text");
 
-	const handlePress = () => {
+	const handlePress = useCallback(() => {
 		if (disabled) return;
 		onValueChange(!checked);
-	};
+	}, [disabled, checked, onValueChange]);
 
-	// Icon color should contrast with the checked background
+	const containerStyle = useMemo(
+		() => ({
+			flexDirection: "row" as const,
+			alignItems: "center" as const,
+			opacity: disabled ? 0.5 : 1,
+		}),
+		[disabled],
+	);
+
+	const checkboxStyle = useMemo(
+		() => ({
+			width: Tokens.l,
+			height: Tokens.l,
+			borderRadius: 4,
+			borderWidth: 1,
+			borderColor,
+			alignItems: "center" as const,
+			justifyContent: "center" as const,
+			backgroundColor: checked || indeterminate ? accent : bg,
+		}),
+		[borderColor, checked, indeterminate, accent, bg],
+	);
+
+	const textStyle = useMemo(() => ({ marginLeft: Tokens.s }), []);
+
+	const iconName = indeterminate ? "minus" : "check";
 
 	return (
 		<Pressable
@@ -31,25 +57,15 @@ export const Checkbox = ({
 			accessibilityState={{ checked: indeterminate ? "mixed" : checked, disabled }}
 			accessibilityLabel={ariaLabel}
 			{...(ariaDescribedBy ? { "aria-describedby": ariaDescribedBy } : {})}
-			style={{ flexDirection: "row", alignItems: "center", opacity: disabled ? 0.5 : 1 }}
+			style={containerStyle}
 		>
-			<View
-				style={{
-					width: Tokens.l,
-					height: Tokens.l,
-					borderRadius: 4,
-					borderWidth: 1,
-					borderColor,
-					alignItems: "center",
-					justifyContent: "center",
-					backgroundColor: checked || indeterminate ? accent : bg,
-				}}
-			>
-				{(checked || indeterminate) && (
-					<Icon name={indeterminate ? "minus" : "check"} size="sm" color="background" />
-				)}
+			<View style={checkboxStyle}>
+				{(checked || indeterminate) && <Icon name={iconName} size="sm" color="background" />}
 			</View>
-			{children && <Text style={{ marginLeft: Tokens.s }}>{children}</Text>}
+			{children && <Text style={textStyle}>{children}</Text>}
 		</Pressable>
 	);
 };
+
+// Wrap with memo for optimal performance
+export const Checkbox = memo(CheckboxComponent);

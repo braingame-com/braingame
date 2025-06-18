@@ -1,5 +1,5 @@
 import { Colors, Tokens, buttonStyles } from "@braingame/utils";
-import { useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, Pressable, Text, type View } from "react-native";
 import { Icon } from "../../../Icon";
 import { validateProps, validators } from "../../utils/validation";
@@ -12,6 +12,14 @@ const VARIANT_COLORS: Record<ButtonVariant, { background: string; text: string }
 	ghost: { background: "transparent", text: Colors.light.text },
 	danger: { background: Colors.universal.negative, text: "#fff" },
 	icon: { background: "transparent", text: Colors.light.text },
+};
+
+// Memoize validation rules to avoid recreating on every render
+const validationRules = {
+	onPress: validators.required,
+	variant: validators.oneOf(["primary", "secondary", "ghost", "danger", "icon"] as const),
+	size: validators.oneOf(["sm", "md", "lg"] as const),
+	iconPosition: validators.oneOf(["left", "right"] as const),
 };
 
 function ButtonComponent({
@@ -27,24 +35,26 @@ function ButtonComponent({
 	"aria-label": ariaLabel,
 	"aria-describedby": ariaDescribedBy,
 }: ButtonProps) {
-	// Validate props
-	validateProps(
-		{ onPress, variant, size, iconPosition },
-		{
-			onPress: validators.required,
-			variant: validators.oneOf(["primary", "secondary", "ghost", "danger", "icon"] as const),
-			size: validators.oneOf(["sm", "md", "lg"] as const),
-			iconPosition: validators.oneOf(["left", "right"] as const),
-		},
-		"Button",
-	);
+	// Validate props only in development
+	if (__DEV__) {
+		validateProps({ onPress, variant, size, iconPosition }, validationRules, "Button");
+	}
 
 	const [hovered, setHovered] = useState(false);
 
+	const handleHoverIn = useCallback(() => setHovered(true), []);
+	const handleHoverOut = useCallback(() => setHovered(false), []);
+
 	const { background, text } = VARIANT_COLORS[variant];
 
-	const paddingVertical = size === "lg" ? Tokens.m : size === "sm" ? Tokens.xs : Tokens.s;
-	const paddingHorizontal = size === "lg" ? Tokens.xl : size === "sm" ? Tokens.s : Tokens.m;
+	// Memoize padding calculations
+	const { paddingVertical, paddingHorizontal } = useMemo(
+		() => ({
+			paddingVertical: size === "lg" ? Tokens.m : size === "sm" ? Tokens.xs : Tokens.s,
+			paddingHorizontal: size === "lg" ? Tokens.xl : size === "sm" ? Tokens.s : Tokens.m,
+		}),
+		[size],
+	);
 
 	return (
 		<Pressable
@@ -53,8 +63,8 @@ function ButtonComponent({
 			accessibilityHint={ariaDescribedBy}
 			disabled={disabled || loading}
 			onPress={onPress}
-			onHoverIn={() => setHovered(true)}
-			onHoverOut={() => setHovered(false)}
+			onHoverIn={handleHoverIn}
+			onHoverOut={handleHoverOut}
 			style={[
 				variant === "icon" ? buttonStyles.iconButton : buttonStyles.button,
 				{
@@ -79,5 +89,6 @@ function ButtonComponent({
 	);
 }
 
-// Export wrapped component
-export const Button = withErrorBoundary(ButtonComponent);
+// Wrap with memo and error boundary for optimal performance
+const MemoizedButton = memo(ButtonComponent);
+export const Button = withErrorBoundary(MemoizedButton);
