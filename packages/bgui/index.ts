@@ -25,6 +25,6 @@ export type { PageWrapperProps } from "./PageWrapper/types";
 export type { TextInputProps } from "./TextInput/types";
 export type { ErrorBoundaryProps, ErrorInfo } from "./ErrorBoundary/types";
 export type { ProgressBarProps } from "./src/components/ProgressBar/types";
-export type { RadioGroupProps, RadioGroupItemProps } from "./src/components/RadioGroup";  
+export type { RadioGroupProps, RadioGroupItemProps } from "./src/components/RadioGroup";
 export type { SpinnerProps } from "./src/components/Spinner/types";
 export type { MenuProps, MenuItemProps } from "./src/components/Menu/types";
