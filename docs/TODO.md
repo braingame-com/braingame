@@ -71,6 +71,9 @@
   - [ ] Configure performance monitoring
   - Status: Not started
 
+- [x] Refactor BGUI Button component for readability, performance, and a11y
+  - Status: Completed @ 17-06-2025
+
 ## ✅ Completed
 - [x] Initial architecture assessment
   - Identified strengths and gaps

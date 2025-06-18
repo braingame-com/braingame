@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Pressable } from "react-native";
+import { useCallback, useMemo, useState } from "react";
+import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { buttonStyles } from "../../utils/constants/styles";
 import { useThemeColor } from "../../utils/hooks/useThemeColor";
 import { Icon } from "../Icon";
@@ -7,22 +7,34 @@ import { Text } from "../Text";
 import type { ButtonProps } from "./types";
 
 export const Button = ({ text, icon, iconColor, iconType, onPress, disabled }: ButtonProps) => {
-	const backgroundColor = useThemeColor("button");
-	const backgroundColorHovered = useThemeColor("buttonHovered");
-	const [isHovered, setIsHovered] = useState(false);
+        const baseBackgroundColor = useThemeColor("button");
+        const hoverBackgroundColor = useThemeColor("buttonHovered");
+        const [isHovered, setIsHovered] = useState(false);
+
+        const handleHoverIn = useCallback(() => setIsHovered(true), []);
+        const handleHoverOut = useCallback(() => setIsHovered(false), []);
+
+        const pressableStyle: StyleProp<ViewStyle> = useMemo(
+                () => [
+                        icon && !text ? buttonStyles.iconButton : buttonStyles.button,
+                        {
+                                backgroundColor: isHovered ? baseBackgroundColor : hoverBackgroundColor,
+                                opacity: disabled ? 0.5 : 1,
+                        },
+                ],
+                [icon, text, isHovered, baseBackgroundColor, hoverBackgroundColor, disabled],
+        );
 
 	return (
-		<Pressable
-			onPress={onPress}
-			style={{
-				...(icon && !text ? buttonStyles.iconButton : buttonStyles.button),
-				backgroundColor: isHovered ? backgroundColor : backgroundColorHovered,
-				opacity: disabled ? 0.5 : undefined,
-			}}
-			disabled={disabled}
-			onHoverIn={() => setIsHovered(true)}
-			onHoverOut={() => setIsHovered(false)}
-		>
+                <Pressable
+                        accessibilityRole="button"
+                        accessibilityState={{ disabled }}
+                        onPress={onPress}
+                        style={pressableStyle}
+                        disabled={disabled}
+                        onHoverIn={handleHoverIn}
+                        onHoverOut={handleHoverOut}
+                >
 			{text && <Text>{text}</Text>}
 			{icon && <Icon name={icon} color={iconColor} type={iconType} />}
 		</Pressable>
