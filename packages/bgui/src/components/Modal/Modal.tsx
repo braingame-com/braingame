@@ -45,8 +45,7 @@ export const Modal = ({
 						{ backgroundColor: backdropColor },
 					]}
 					accessibilityLabel={ariaLabel}
-					accessibilityRole="dialog"
-					accessibilityModal
+					accessibilityRole="none"
 					{...(Platform.OS === "web"
 						? {
 								role: "dialog",

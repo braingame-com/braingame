@@ -136,17 +136,6 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 		}
 	};
 
-	const webProps =
-		Platform.OS === "web"
-			? {
-					onKeyDown: handleKeyDown,
-					tabIndex: 0,
-					role: "button",
-					"aria-expanded": expandedState,
-					"aria-controls": `accordion-content-${val}`,
-				}
-			: {};
-
 	return (
 		<View>
 			<Pressable
@@ -156,6 +145,15 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 				ref={ref}
 				onFocus={() => setIsFocused(true)}
 				onBlur={() => setIsFocused(false)}
+				{...(Platform.OS === "web"
+					? {
+							onKeyDown: handleKeyDown,
+							tabIndex: 0,
+							role: "button" as const,
+							"aria-expanded": expandedState,
+							"aria-controls": `accordion-content-${val}`,
+						}
+					: {})}
 				style={{
 					padding: Tokens.m,
 					borderRadius: Tokens.xs,
@@ -169,7 +167,6 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 							}
 						: {}),
 				}}
-				{...webProps}
 			>
 				{typeof title === "string" ? <Text>{title}</Text> : title}
 			</Pressable>

@@ -1,5 +1,5 @@
 import { type ComponentRef, forwardRef, memo, useCallback, useMemo } from "react";
-import { Pressable } from "react-native";
+import { Platform, Pressable } from "react-native";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Icon } from "../../../Icon";
 import { Text } from "../../../Text";
@@ -57,18 +57,18 @@ const ActionListItemComponent = forwardRef<ComponentRef<typeof Pressable>, Actio
 				padding: 8,
 				backgroundColor: background,
 				opacity: disabled ? 0.5 : 1,
-				cursor: disabled ? "not-allowed" : "pointer",
+				...(Platform.OS === "web" ? { cursor: (disabled ? "not-allowed" : "pointer") as any } : {}),
 			}),
 			[background, disabled],
 		);
 
 		const iconStyle = useMemo(() => ({ marginRight: 8 }), []);
-		const checkIconStyle = useMemo(() => ({ marginLeft: "auto" }), []);
+		const checkIconStyle = useMemo(() => ({ marginLeft: "auto" as const }), []);
 
 		return (
 			<Pressable
 				ref={ref}
-				accessibilityRole={role}
+				accessibilityRole={selectable ? "radio" : "menuitem"}
 				role={role}
 				aria-selected={selectable ? selected : undefined}
 				aria-disabled={disabled}

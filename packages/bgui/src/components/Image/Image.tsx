@@ -46,7 +46,7 @@ const ImageComponent = ({
 					{ borderColor },
 					style,
 				]}
-				accessibilityRole="img"
+				accessibilityRole="image"
 				accessibilityLabel={`Failed to load image: ${alt}`}
 			>
 				<Text style={{ color: borderColor, fontSize: 12 }}>Failed to load image</Text>
@@ -56,12 +56,12 @@ const ImageComponent = ({
 
 	const handleLoad = () => {
 		setLoaded(true);
-		onLoad?.();
+		if (onLoad) onLoad({ nativeEvent: {} } as any);
 	};
 
 	const handleError = () => {
 		setError(true);
-		onError?.();
+		if (onError) onError({ nativeEvent: { error: "Failed to load image" } } as any);
 	};
 
 	return (

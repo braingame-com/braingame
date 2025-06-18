@@ -1,4 +1,4 @@
-import { Tokens, useThemeColor } from "@braingame/utils";
+import { Colors, Tokens, useThemeColor } from "@braingame/utils";
 import { Children, type ReactElement, cloneElement, useEffect, useRef, useState } from "react";
 import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
 import { Text } from "../../../Text";
@@ -69,10 +69,11 @@ const SelectComponent = ({
 		</ScrollView>
 	);
 
-	const borderColor = useThemeColor(error ? "error" : "border");
+	const borderColorDefault = useThemeColor("border");
 	const background = useThemeColor("background");
 	const textColor = useThemeColor(disabled ? "textSecondary" : "text");
-	const errorColor = useThemeColor("error");
+	const errorColor = Colors.universal.negative;
+	const borderColor = error ? errorColor : borderColorDefault;
 
 	const label = selectedValues.length > 0 ? selectedValues.join(", ") : placeholder;
 
@@ -82,7 +83,7 @@ const SelectComponent = ({
 				accessibilityRole="button"
 				accessibilityLabel={ariaLabel}
 				accessibilityState={{ disabled, expanded: open }}
-				accessibilityInvalid={ariaInvalid}
+				{...(Platform.OS === "web" ? { "aria-invalid": ariaInvalid } : {})}
 				onPress={toggleOpen}
 				style={{
 					padding: Tokens.s,

@@ -1,5 +1,5 @@
 import React, { Children, cloneElement, isValidElement, useRef, useState } from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { ActionListItem } from "./ActionListItem";
 import type { ActionListItemProps, ActionListProps } from "./types";
 
@@ -59,11 +59,15 @@ export const ActionList = ({
 
 	return (
 		<View
-			accessibilityRole={role}
-			role={role}
-			aria-label={ariaLabel}
-			aria-multiselectable={selectable}
-			aria-orientation="vertical"
+			accessibilityRole={role as any}
+			{...(Platform.OS === "web"
+				? {
+						role: role as any,
+						"aria-label": ariaLabel,
+						"aria-multiselectable": selectable,
+						"aria-orientation": "vertical" as const,
+					}
+				: {})}
 		>
 			{enhancedChildren}
 		</View>

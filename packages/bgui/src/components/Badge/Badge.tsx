@@ -1,5 +1,5 @@
 import { Colors, Tokens, useThemeColor } from "@braingame/utils";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { Text } from "../../../Text";
 import type { BadgeProps, BadgeVariant, ThemeColor } from "./types";
 
@@ -34,12 +34,16 @@ export const Badge = ({
 			style={[styles.base, dot && styles.dot, { backgroundColor }, style]}
 			accessibilityRole="text"
 			accessibilityLabel={getAriaLabel()}
-			aria-label={getAriaLabel()}
-			aria-live={variant === "notification" ? "polite" : undefined}
-			aria-atomic="true"
+			{...(Platform.OS === "web"
+				? {
+						"aria-label": getAriaLabel(),
+						"aria-live": variant === "notification" ? "polite" : undefined,
+						"aria-atomic": "true",
+					}
+				: {})}
 		>
 			{content && (
-				<Text type="small" style={styles.text} aria-hidden="true">
+				<Text type="small" style={styles.text} {...(Platform.OS === "web" ? { "aria-hidden": true } : {})}>
 					{content}
 				</Text>
 			)}

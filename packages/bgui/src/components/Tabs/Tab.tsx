@@ -31,18 +31,19 @@ const TabComponent = forwardRef<View, TabProps>(function Tab(
 	);
 
 	const tabStyle = useMemo(() => {
-		const styleArray = [styles.tab];
+		const baseStyle = styles.tab;
+		const additionalStyles: any[] = [];
 
 		if (variant === "pills") {
-			styleArray.push(styles.pill);
-			if (isActive) styleArray.push(styles.pillActive);
+			additionalStyles.push(styles.pill);
+			if (isActive) additionalStyles.push(styles.pillActive);
 		} else if (variant === "line" && isActive) {
-			styleArray.push(styles.lineActive);
+			additionalStyles.push(styles.lineActive);
 		} else if (variant === "enclosed" && isActive) {
-			styleArray.push(styles.enclosedActive);
+			additionalStyles.push(styles.enclosedActive);
 		}
 
-		return styleArray;
+		return [baseStyle, ...additionalStyles];
 	}, [variant, isActive]);
 
 	const accessibilityLabel = useMemo(

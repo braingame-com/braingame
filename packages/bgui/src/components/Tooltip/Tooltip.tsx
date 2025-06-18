@@ -48,24 +48,30 @@ export const Tooltip = ({
 				onHoverOut={hide}
 				onFocus={show}
 				onBlur={hide}
-				onKeyDown={handleKeyDown}
-				{...(Platform.OS === "web" && {
-					"aria-describedby": visible ? tooltipId : undefined,
-					tabIndex: 0,
-				})}
+				{...(Platform.OS === "web"
+					? {
+							"aria-describedby": visible ? tooltipId : undefined,
+							tabIndex: 0,
+							onKeyDown: handleKeyDown as any,
+						}
+					: {})}
 			>
 				{children}
 			</Pressable>
 			{visible && (
 				<View
 					nativeID={tooltipId}
-					id={tooltipId}
-					role="tooltip"
+					{...(Platform.OS === "web"
+						? {
+								id: tooltipId,
+								role: "tooltip",
+								"aria-live": "polite",
+								"aria-hidden": !visible,
+							}
+						: {})}
 					style={[styles.base, styles[placement], { backgroundColor }]}
 					accessibilityRole="text"
 					accessibilityLiveRegion="polite"
-					aria-live="polite"
-					aria-hidden={!visible}
 				>
 					{typeof content === "string" ? (
 						<Text style={[styles.text, { color: textColor }]}>{content}</Text>

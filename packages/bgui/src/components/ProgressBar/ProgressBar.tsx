@@ -1,6 +1,6 @@
 import { Colors, Tokens, useThemeColor } from "@braingame/utils";
 import { useEffect, useRef } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { Animated, Platform, StyleSheet, View } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { ProgressBarProps } from "./types";
 
@@ -56,7 +56,7 @@ export const ProgressBar = ({
 				aria-valuenow={value}
 				role="progressbar"
 			>
-				<Svg width={size} height={size} aria-hidden="true">
+				<Svg width={size} height={size} {...(Platform.OS === "web" ? { "aria-hidden": true } : {})}>
 					<Circle
 						cx={radius}
 						cy={radius}
@@ -107,7 +107,7 @@ export const ProgressBar = ({
 			<Animated.View
 				testID="progress-bar-inner"
 				style={[styles.bar, { backgroundColor: progressColor, width }]}
-				aria-hidden="true"
+				{...(Platform.OS === "web" ? { "aria-hidden": true } : {})}
 			/>
 		</View>
 	);
