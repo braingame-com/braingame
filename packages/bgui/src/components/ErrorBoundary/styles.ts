@@ -1,27 +1,29 @@
+import { Colors, Tokens } from "@braingame/utils";
+
 /**
  * Default error UI styles for ErrorBoundary
  */
 export const errorContainerStyle = {
-	padding: 20,
-	backgroundColor: "#fee",
-	borderRadius: 8,
+	padding: Tokens.l,
+	backgroundColor: Colors.universal.negativeFaded,
+	borderRadius: Tokens.s,
 	borderWidth: 1,
-	borderColor: "#fcc",
+	borderColor: Colors.universal.negative,
 };
 
 /**
  * Error title text styles
  */
 export const errorTitleStyle = {
-	color: "#c00",
+	color: Colors.universal.negative,
 	fontWeight: "bold" as const,
-	marginBottom: 8,
+	marginBottom: Tokens.s,
 };
 
 /**
  * Error message text styles
  */
 export const errorMessageStyle = {
-	color: "#600",
-	fontSize: 12,
+	color: Colors.universal.negative,
+	fontSize: Tokens.s,
 };

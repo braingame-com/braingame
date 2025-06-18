@@ -1,12 +1,12 @@
-import type { Tokens } from "@braingame/utils";
+import { Tokens } from "@braingame/utils";
 
 /**
- * Size mapping for Avatar component
+ * Size mapping for Avatar component - using proper tokens
  */
 export const SIZE_MAP = {
-	small: 24, // Tokens.l
-	medium: 48, // Tokens.xxl
-	large: 72, // Tokens.xxxl
+	small: Tokens.xl, // 24
+	medium: Tokens.xxxl, // 48
+	large: Tokens.xxxxl, // 72
 };
 
 /**
@@ -14,7 +14,7 @@ export const SIZE_MAP = {
  */
 export const getAvatarStyles = (size: keyof typeof SIZE_MAP, variant: "circle" | "square") => {
 	const dimension = SIZE_MAP[size];
-	const borderRadius = variant === "circle" ? dimension / 2 : 8; // Tokens.s
+	const borderRadius = variant === "circle" ? dimension / 2 : Tokens.s;
 
 	return {
 		dimension,

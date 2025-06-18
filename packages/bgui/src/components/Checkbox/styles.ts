@@ -1,4 +1,4 @@
-import { Tokens } from "@braingame/utils";
+import { Opacity, Tokens } from "@braingame/utils";
 
 /**
  * Calculate container style for checkbox
@@ -6,7 +6,7 @@ import { Tokens } from "@braingame/utils";
 export const getContainerStyle = (disabled?: boolean) => ({
 	flexDirection: "row" as const,
 	alignItems: "center" as const,
-	opacity: disabled ? 0.5 : 1,
+	opacity: disabled ? Opacity.disabled : 1,
 });
 
 /**
@@ -21,7 +21,7 @@ export const getCheckboxStyle = (
 ) => ({
 	width: Tokens.l,
 	height: Tokens.l,
-	borderRadius: 4,
+	borderRadius: Tokens.xxs,
 	borderWidth: 1,
 	borderColor,
 	alignItems: "center" as const,

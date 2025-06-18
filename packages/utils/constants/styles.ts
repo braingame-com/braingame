@@ -80,7 +80,7 @@ export const textStyles = StyleSheet.create({
 	},
 	small: {
 		fontSize: Tokens.s,
-		opacity: 0.5,
+		opacity: 0.5, // Keep as-is - part of base system
 	},
 	link: {
 		fontSize: Tokens.m,

@@ -1,3 +1,4 @@
+import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
 
 /**
@@ -10,10 +11,12 @@ export const styles = StyleSheet.create({
 	errorContainer: {
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundColor: "#f5f5f5",
+		backgroundColor: Colors.universal.primaryFaded,
 		borderWidth: 1,
 		borderStyle: "dashed",
-		minHeight: 100,
+		minHeight: Tokens.xxxxl + Tokens.xl, // 96px (72 + 24)
+		borderRadius: Tokens.s,
+		borderColor: Colors.universal.primary,
 	},
 });
 

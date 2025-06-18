@@ -1,7 +1,7 @@
 import { Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
 
-const PADDING = 2;
+const PADDING = Tokens.xxxs; // 2px
 
 /**
  * StyleSheet for Switch component

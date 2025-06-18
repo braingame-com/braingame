@@ -12,4 +12,16 @@ export const Tokens = {
 	xl: 24, // 1.5rem
 	xxl: 32, // 2rem
 	xxxl: 48, // 3rem
+	xxxxl: 72, // 4.5rem
+};
+
+/**
+ * Consistent opacity values for UI states
+ */
+export const Opacity = {
+	disabled: 0.5,
+	hover: 0.9,
+	pressed: 0.8,
+	shadow: 0.1,
+	overlay: 0.7,
 };

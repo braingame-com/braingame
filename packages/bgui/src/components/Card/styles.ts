@@ -1,4 +1,4 @@
-import { Tokens } from "@braingame/utils";
+import { Opacity, Tokens } from "@braingame/utils";
 import { Platform, type ViewStyle } from "react-native";
 
 /**
@@ -40,5 +40,5 @@ export const getBaseCardStyle = (
  * Get interactive card styles
  */
 export const getInteractiveCardStyle = (isHovered: boolean): ViewStyle => ({
-	...(isHovered && Platform.OS === "web" ? { opacity: 0.9, cursor: "pointer" } : {}),
+	...(isHovered && Platform.OS === "web" ? { opacity: Opacity.hover, cursor: "pointer" } : {}),
 });

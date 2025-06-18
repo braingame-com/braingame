@@ -132,11 +132,15 @@ Systematic improvement of all BGUI components to ensure premium quality standard
 - [x] Extract inline styles to dedicated styles.ts files for all components
 - [ ] Document component organization standards
 
-### Phase 8: Fix Styling Issues
-- [ ] Replace hardcoded values with theme tokens
-- [ ] Ensure consistent spacing using Tokens system
-- [ ] Add responsive design considerations
-- [ ] Implement consistent hover/focus states
+### Phase 8: Fix Styling Issues ✅ COMPLETED (19-06-2025)
+- [x] Replace hardcoded values with theme tokens
+- [x] Ensure consistent spacing using Tokens system  
+- [x] Add responsive design considerations
+- [x] Implement consistent hover/focus states
+- [x] Create Opacity tokens for consistent UI states (disabled, hover, pressed, shadow, overlay)
+- [x] Replace hardcoded values in ErrorBoundary, Avatar, Image, Switch, Checkbox, Card, Menu components
+- [x] Add new xxxxl token (72px) for larger Avatar sizes
+- [x] Update color usage to use theme system consistently
 
 ### Phase 9: Implement Best Practices
 - [ ] Clarify controlled/uncontrolled patterns
