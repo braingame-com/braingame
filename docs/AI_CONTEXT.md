@@ -1,6 +1,6 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 18-06-2025
+> **Last Updated**: 17-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
@@ -14,6 +14,14 @@
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 17-06-2025 - Added BGUI usage snippets
+- **Agent**: ChatGPT
+- **Tasks**: Provide code snippets for each BGUI component
+- **Completed**:
+  - Created `docs/snippets` with examples for all components
+  - Added a login form example using Button, TextInput and Checkbox
+- **Next Steps**: Integrate snippets into broader documentation
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
