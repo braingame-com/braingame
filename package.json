@@ -46,6 +46,7 @@
 		"husky": "^9.1.7",
 		"lint-staged": "^16.1.2",
 		"secretlint": "^10.1.0",
+		"ts-morph": "^26.0.0",
 		"turbo": "^2.3.3",
 		"typescript": "^5.3.3"
 	},
@@ -54,6 +55,9 @@
 		"pnpm": ">=9"
 	},
 	"lint-staged": {
-		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
+		"**/*.{ts,tsx,js,jsx}": [
+			"biome check --fix",
+			"biome format --write"
+		]
 	}
 }
