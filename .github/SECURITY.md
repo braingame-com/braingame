@@ -1,75 +1,77 @@
 # Security Policy
 
-## Supported Versions
+The Brain Game team takes security seriously. We appreciate the help of the security community in keeping our applications and users safe.
 
-We actively support the following versions of Brain Game:
+---
 
-| Version | Supported          |
-| ------- | ------------------ |
-| Latest  | :white_check_mark: |
-| < Latest| :x:                |
+## 🛡️ Supported Versions
+We provide security updates for the **latest released version** of our applications and packages. We encourage all users to stay on the most recent version.
 
-## Reporting a Vulnerability
+| Version | Supported |
+|---------|-----------|
+| Latest  | ✅ Yes |
+| < Latest| ❌ No |
 
-We take security seriously. If you discover a security vulnerability, please follow these steps:
+---
 
-### 1. **Do NOT** create a public GitHub issue
-Security vulnerabilities should be reported privately to protect users.
+## 🔐 Reporting a Vulnerability
+If you discover a security vulnerability, please report it to us privately. **Do NOT create a public GitHub issue.**
 
-### 2. **Contact us directly**
-- **Email:** [Add your security contact email here]
-- **Subject:** `[SECURITY] Brain Game Vulnerability Report`
+### 1. Contact Us Directly
+- **Email:** `hello@braingame.dev`
+- **Subject:** `[SECURITY] Vulnerability Report: <Brief Description>`
 
-### 3. **Include the following information:**
-- Description of the vulnerability
-- Steps to reproduce the issue
-- Potential impact and severity
-- Any suggested fixes or mitigations
-- Your contact information (optional, but helpful for follow-up)
+### 2. Provide Detailed Information
+Your report should include:
+- **Clear description** of the vulnerability
+- **Component or URL** where the vulnerability exists
+- **Step-by-step instructions** to reproduce the issue
+- **Potential impact** and severity assessment
+- **Suggested mitigations** (if applicable)
+- **Your contact information** (optional, but helpful for follow-up)
 
-### 4. **What to expect:**
-- **Acknowledgment:** We'll acknowledge receipt within 48 hours
-- **Initial Assessment:** We'll provide an initial assessment within 5 business days
-- **Updates:** We'll keep you informed of our progress
-- **Resolution:** We'll work to resolve critical issues as quickly as possible
-- **Credit:** With your permission, we'll credit you in our security advisories
+### 3. What to Expect
+- **Acknowledgment:** We will acknowledge your report within 48 hours
+- **Investigation:** We will work with you to understand and verify the issue
+- **Resolution:** We aim to patch critical vulnerabilities within 7 days
+- **Credit:** We will give you credit for your discovery after the vulnerability has been patched (unless you prefer to remain anonymous)
 
-## Security Best Practices
+---
 
-### For Contributors
-- Keep dependencies up to date
-- Follow secure coding practices
-- Never commit secrets, API keys, or sensitive data
-- Use environment variables for configuration
-- Validate all user inputs
-- Follow the principle of least privilege
+## 🏃 Response Process
+1. **Triage:** Assess the severity and impact of the vulnerability
+2. **Fix:** Develop and test a patch
+3. **Release:** Deploy the fix to all affected versions
+4. **Disclose:** Publish a security advisory after the fix is deployed
+5. **Credit:** Thank the reporter (with permission)
 
-### For Users
-- Keep the app updated to the latest version
-- Report suspicious behavior or potential security issues
-- Use strong authentication methods when available
+---
 
-## Scope
+## 🚨 Security Best Practices for Contributors
+When contributing to Brain Game:
+- **Never commit secrets** (API keys, tokens, passwords)
+- **Use environment variables** for sensitive configuration
+- **Run security checks** before submitting PRs
+- **Follow OWASP guidelines** for web security
+- **Validate all inputs** in your code
+- **Use secure dependencies** and keep them updated
 
-This security policy applies to:
-- The main Brain Game application
-- Official Brain Game repositories
-- Brain Game infrastructure and services
+---
 
-## Out of Scope
-- Third-party dependencies (report to their respective maintainers)
-- Issues in development/testing environments
-- Social engineering attacks
+## 🔍 Security Tools
+We use the following tools to maintain security:
+- **secretlint:** Pre-commit hook to prevent secrets in code
+- **Dependabot:** Automated dependency updates
+- **CodeQL:** GitHub's semantic code analysis
+- **npm audit:** Regular dependency vulnerability scans
 
-## Security Updates
+---
 
-Security updates will be:
-- Released as soon as possible after verification
-- Announced through our official channels
-- Documented in our changelog with appropriate severity levels
+## 📚 Additional Resources
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/)
+- [React Native Security Guide](https://reactnative.dev/docs/security)
 
-## Questions?
+---
 
-If you have questions about this security policy, please contact us at [Add contact email].
-
-Thank you for helping keep Brain Game secure! 
+Thank you for helping keep Brain Game secure! 🔒

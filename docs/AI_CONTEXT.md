@@ -15,6 +15,38 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 18-06-2025 - Repository Cleanup and Documentation Consolidation
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Address feedback about duplicate files, unused exports, and fragmented documentation
+- **Completed**:
+  - Consolidated duplicate AI context files (merged agents_context.md into docs/AI_CONTEXT.md)
+  - Consolidated duplicate documentation files (CONTRIBUTING.md and SECURITY.md now only in .github/)
+  - Fixed duplicate BGUI components structure (removed duplicates in root, all components now in src/components)
+  - Removed unused exports (env.ts from utils, TextInput from bgui, deleted UNUSED_EXPORTS.md)
+  - Consolidated documentation structure (main README now references docs/README.md as documentation hub)
+  - Updated all export paths in packages/bgui/index.ts
+- **Key Decisions**:
+  - .github/ is the canonical location for CONTRIBUTING.md and SECURITY.md
+  - All BGUI components should be in src/components folder structure
+  - docs/README.md serves as the documentation index
+- **Next Steps**: Repository is now cleaner and more organized
+
+### 18-06-2025 - Fix TypeScript Issues in BGUI Components
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Fix all TypeScript errors in BGUI components
+- **Completed**:
+  - Removed all 'any' types from Accordion, List, RadioGroup components
+  - Added error handling props to all form components (Checkbox, RadioGroup, Select, Switch, Slider)
+  - Standardized prop naming (changed Switch from `value` to `checked`)
+  - Added missing style props for consistency
+  - Fixed import paths for @braingame/utils
+  - Resolved TypeScript compilation errors in RadioGroup, TextInput
+- **Key Decisions**:
+  - Standardized on `checked` for boolean state props
+  - Added comprehensive error handling props to all form components
+  - Separated TextInput container style from input style for proper typing
+- **Next Steps**: Continue with Phase 2 improvements
+
 ### 18-06-2025 - Implement Badge Component
 - **Agent**: ChatGPT
 - **Tasks**: Implement Badge component with count, dot, status, and color variants.

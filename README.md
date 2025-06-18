@@ -17,7 +17,7 @@ This monorepo contains the code for all Brain Game applications, websites, and s
 
 To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
-For a high-level overview of the project's structure, goals, and technical decisions, please see our **[Architecture Documentation](./docs/ARCHITECTURE.md)**.
+For complete documentation including architecture, coding standards, and contribution guides, visit our **[Documentation Hub](./docs/README.md)**.
 
 ---
 
