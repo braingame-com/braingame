@@ -15,6 +15,15 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 17-06-2025 - Added Spinner Component
+- **Agent**: ChatGPT
+- **Tasks**: Implement Spinner UI component with accessibility support
+- **Completed**:
+  - Created Spinner with inline and overlay variants
+  - Added ARIA attributes for screen readers
+  - Exported Spinner from BGUI package
+- **Next Steps**: Write unit tests and Storybook examples
+
 ### 17-06-2025 - Added BGUI usage snippets
 - **Agent**: ChatGPT
 - **Tasks**: Provide code snippets for each BGUI component
@@ -31,6 +40,7 @@
   - Generated `docs/TOKEN_USAGE.md`
   - Updated `docs/TODO.md` with completion status
 - **Next Steps**: Integrate token report into design workflow
+>>>>>>> main
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
