@@ -1,6 +1,6 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 17-06-2025
+> **Last Updated**: 18-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
@@ -14,6 +14,14 @@
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 18-06-2025 - Implement Badge Component
+- **Agent**: ChatGPT
+- **Tasks**: Implement Badge component with count, dot, status, and color variants.
+- **Completed**:
+  - Added `Badge` component in `packages/bgui/src/components/Badge`.
+  - Included variant and color support.
+- **Next Steps**: Add tests and Storybook examples.
 
 ### 17-06-2025 - Codex Secret Scanner
 - **Agent**: ChatGPT
@@ -49,6 +57,7 @@
   - Generated `docs/TOKEN_USAGE.md`
   - Updated `docs/TODO.md` with completion status
 - **Next Steps**: Integrate token report into design workflow
+>>>>>>> main
 >>>>>>> main
 >>>>>>> main
 
