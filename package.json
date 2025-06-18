@@ -33,8 +33,9 @@
 		"workspace:prune": "turbo prune",
 		"secrets:scan": "secretlint .",
 		"secrets:check": "secretlint --no-color .",
-		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
-		"precommit": "lint-staged && pnpm secrets:check && pnpm test",
+                "quality": "turbo lint typecheck test",
+                "ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
+                "precommit": "lint-staged && pnpm secrets:check && pnpm quality",
 		"storybook": "echo 'Storybook is not yet implemented'"
 	},
 	"devDependencies": {
