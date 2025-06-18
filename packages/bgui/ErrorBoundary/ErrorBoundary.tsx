@@ -4,6 +4,11 @@ import { Text } from "../Text";
 import { View } from "../View";
 import type { ErrorBoundaryProps, ErrorBoundaryState, ErrorInfo } from "./types";
 
+/**
+ * React component that captures rendering errors in its child tree.
+ *
+ * Use this around critical areas to prevent the entire app from crashing.
+ */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	private resetTimeoutId: number | null = null;
 

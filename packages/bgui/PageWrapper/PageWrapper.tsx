@@ -3,6 +3,9 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "../View";
 import type { PageWrapperProps } from "./types";
 
+/**
+ * Provides safe area padding and base layout for each page.
+ */
 export const PageWrapper = ({ children }: PageWrapperProps) => {
 	return (
 		<SafeAreaProvider>

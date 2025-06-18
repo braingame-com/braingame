@@ -1,6 +1,6 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 18-06-2025
+> **Last Updated**: 17-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
@@ -14,6 +14,43 @@
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 17-06-2025 - Codex Secret Scanner
+- **Agent**: ChatGPT
+- **Tasks**: Implement script to detect hardcoded secrets
+- **Completed**:
+  - Created `scripts/scan-secrets.ts`
+  - Added `secrets:codex` npm script
+  - Updated TODO with new entry
+- **Next Steps**: Integrate scanner into CI pipeline
+
+### 17-06-2025 - Added Spinner Component
+- **Agent**: ChatGPT
+- **Tasks**: Implement Spinner UI component with accessibility support
+- **Completed**:
+  - Created Spinner with inline and overlay variants
+  - Added ARIA attributes for screen readers
+  - Exported Spinner from BGUI package
+- **Next Steps**: Write unit tests and Storybook examples
+
+### 17-06-2025 - Added BGUI usage snippets
+- **Agent**: ChatGPT
+- **Tasks**: Provide code snippets for each BGUI component
+- **Completed**:
+  - Created `docs/snippets` with examples for all components
+  - Added a login form example using Button, TextInput and Checkbox
+- **Next Steps**: Integrate snippets into broader documentation
+
+### 17-06-2025 - Design Token Audit
+- **Agent**: ChatGPT
+- **Tasks**: Catalog all design tokens used in `@brain-game/bgui`
+- **Completed**:
+  - Scanned components for `Colors` and `Tokens` references
+  - Generated `docs/TOKEN_USAGE.md`
+  - Updated `docs/TODO.md` with completion status
+- **Next Steps**: Integrate token report into design workflow
+>>>>>>> main
+>>>>>>> main
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
@@ -30,6 +67,13 @@
   - Documentation should be "living" and continuously updated.
   - AI-specific documentation is critical for effective human-AI collaboration.
 - **Next Steps**: The repository's documentation is now considered enterprise-grade. Ready for next development phase.
+### 17-06-2025 - Test Coverage Analysis
+- **Agent**: Codex
+- **Tasks**: Generate coverage report for `packages/bgui`
+- **Completed**:
+  - Ran `pnpm test --filter @braingame/bgui -- --coverage` (0% coverage, no tests)
+  - Added `docs/TEST_COVERAGE_REPORT.md` with checklist of missing tests
+- **Next Steps**: Write unit tests for each component
 
 ### 17-06-2025 - BGUI Button Refactor
 - **Agent**: Codex
@@ -40,6 +84,18 @@
   - Updated TODO.md with task status
 - **Next Steps**: Expand refactoring to other components
 
+### 17-06-2025 - Component Documentation & Snippet Generation
+- **Agent**: ChatGPT
+- **Tasks**: Generate documentation pages and usage snippets for BGUI components
+- **Completed**:
+  - Added a components index page in the website
+  - Created placeholder docs pages for all UI components
+  - Generated markdown files in `docs/components` for each component
+  - Created `docs/snippets/` folder with usage examples for all components
+  - Provided a login form sample using Button, TextInput and Checkbox
+  - Added TODO entry tracking documentation progress
+  - No Storybook stories were found, so pages show only basic information
+- **Next Steps**: Implement Storybook, enhance docs with examples, integrate snippets into Storybook docs
 ### 17-06-2025 - Enterprise-Grade BGUI Component Plan
 - **Agent**: Claude Sonnet 4
 - **Tasks**: Review and enhance BGUI component plan for enterprise standards
