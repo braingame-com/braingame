@@ -1,6 +1,6 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 18-06-2025
+> **Last Updated**: 17-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
@@ -14,6 +14,15 @@
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 17-06-2025 - Codex Secret Scanner
+- **Agent**: ChatGPT
+- **Tasks**: Implement script to detect hardcoded secrets
+- **Completed**:
+  - Created `scripts/scan-secrets.ts`
+  - Added `secrets:codex` npm script
+  - Updated TODO with new entry
+- **Next Steps**: Integrate scanner into CI pipeline
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
