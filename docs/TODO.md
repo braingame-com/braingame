@@ -59,6 +59,10 @@
   - [ ] Add visual testing
   - Status: Completed planning - comprehensive `docs/BGUI_COMPONENT_PLAN.md` with 28 enterprise-grade components, accessibility specs, and implementation roadmap
 
+- [ ] Component Prop Docs
+  - [ ] Document props for each BGUI component
+  - Status: in_progress (17-06-2025)
+
 - [ ] Environment Management
   - [ ] Create `.env.example` files (in progress)
   - [ ] Add validation with zod
