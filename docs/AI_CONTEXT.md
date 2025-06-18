@@ -15,6 +15,16 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 17-06-2025 - Breadcrumb Component Implementation
+- **Agent**: Codex
+- **Tasks**: Build Breadcrumb component with accessibility support
+- **Completed**:
+  - Created `Breadcrumb` and `BreadcrumbItem` in `packages/bgui/src/components/Breadcrumb`
+  - Added compact variant, separator prop, and keyboard-friendly navigation
+  - Wrote initial unit tests
+  - Updated TODO status
+- **Next Steps**: Integrate into apps and expand Storybook examples
+
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
 - **Tasks**: Review and upgrade all project documentation to enterprise-grade standards.

@@ -2,12 +2,13 @@ module.exports = {
 	testEnvironment: "jsdom",
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
 	transform: {
-		"^.+\\.(ts|tsx)$": [
-			"ts-jest",
-			{
-				useESM: true,
-			},
-		],
+                "^.+\\.(ts|tsx)$": [
+                        "ts-jest",
+                        {
+                                useESM: true,
+                                tsconfig: "<rootDir>/tsconfig.jest.json",
+                        },
+                ],
 		"^.+\\.(js|jsx)$": "babel-jest",
 	},
 	transformIgnorePatterns: ["node_modules/(?!(react-native|@react-native|react-native-.*)/)"],

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "types": ["jest"],
+    "paths": {
+      "@braingame/bgui": ["../../packages/bgui"],
+      "@braingame/utils": ["../../packages/utils"],
+      "@braingame/config": ["../../packages/config"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}

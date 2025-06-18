@@ -71,6 +71,11 @@
   - [ ] Configure performance monitoring
   - Status: Not started
 
+- [ ] Implement Breadcrumb component (17-06-2025)
+  - [ ] Create component as per `docs/BGUI_COMPONENT_PLAN.md`
+  - [ ] Add unit tests
+  - Status: in_progress - component development started
+
 ## ✅ Completed
 - [x] Initial architecture assessment
   - Identified strengths and gaps
