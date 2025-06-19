@@ -209,4 +209,4 @@ Systematic improvement of all BGUI components to ensure premium quality standard
 ## 🔗 Quick Links
 - Architecture: [ARCHITECTURE.md](./ARCHITECTURE.md)
 - AI Context: [CLAUDE.md](./CLAUDE.md)
-- Security: [SECURITY.md](./SECURITY.md)
+- Security: [SECURITY.md](../.github/SECURITY.md)

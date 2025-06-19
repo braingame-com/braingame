@@ -2,6 +2,8 @@
 
 This document outlines the proposed set of enterprise‑grade components for the Brain Game UI library (`@brain-game/bgui`). Each component lists the key props and supported variants to ensure a consistent developer experience across web and native platforms.
 
+> **Implementation Status**: 25 of 28 components implemented. Missing: Alert, Breadcrumb, and TextInput (apps use React Native's built-in TextInput).
+
 ## Design Principles
 
 ### API Consistency

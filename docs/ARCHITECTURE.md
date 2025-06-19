@@ -52,8 +52,7 @@ braingame/
 │   └── config/            # ESLint / Biome / TS presets
 │
 ├── docs/                  # ← You are here
-│   ├── adr/               # Architecture Decision Records
-│   └── runbooks/          # Ops playbooks, etc.
+│   └── snippets/          # Code snippets for BGUI components
 │
 ├── .github/workflows/     # CI / CD
 ├── firebase.json
@@ -134,7 +133,7 @@ All AI agents **MUST**:
 
 - Secrets only in CI secret manager; scanned via TruffleHog pre‑commit.  
 - Dependabot weekly updates for npm + GH Actions.  
-- Disclosure policy in `SECURITY.md`.
+- Disclosure policy in [SECURITY.md](../.github/SECURITY.md).
 
 ---
 
