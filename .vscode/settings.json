@@ -20,13 +20,9 @@
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"files.associations": {
-		"*.css": "tailwindcss"
-	},
 	"editor.quickSuggestions": {
 		"strings": true
 	},
-	"tailwindCSS.experimental.configFile": "./apps/website/tailwind.config.ts",
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true
 }

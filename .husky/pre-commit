@@ -1,21 +1,2 @@
 #!/usr/bin/env sh
-
-echo "🚀 ENTERPRISE QUALITY GATES: Running pre-commit checks..."
-
-echo "🔐 Scanning for secrets..."
-pnpm secrets:check
-
-echo "🔍 Running linter..."
-pnpm lint
-
-echo "🔍 Running typecheck..."
-pnpm typecheck
-
-echo "✨ Running lint-staged..."
-npx lint-staged
-
-echo "🧪 Running tests..."
-pnpm test
-
-echo "✅ All quality gates passed! Enterprise-grade commit approved."
-
+./scripts/pre-commit.sh

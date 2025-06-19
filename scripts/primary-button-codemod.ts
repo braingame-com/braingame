@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 
-import path from "path";
+import path from "node:path";
 import { globSync } from "glob";
 import { Node, Project } from "ts-morph";
 
@@ -24,7 +24,9 @@ function run() {
 
 	const project = new Project({ tsConfigFilePath: path.join(process.cwd(), "tsconfig.json") });
 
-	files.forEach((file) => project.addSourceFileAtPath(file));
+	for (const file of files) {
+		project.addSourceFileAtPath(file);
+	}
 
 	for (const sourceFile of project.getSourceFiles()) {
 		let modified = false;

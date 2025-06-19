@@ -2,9 +2,6 @@
 	"recommendations": [
 		"biomejs.biome",
 		"expo.vscode-expo-tools",
-		"bradlc.vscode-tailwindcss",
-		"dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode",
 		"firsttris.vscode-jest-runner",
 		"github.vscode-pull-request-github"
 	]

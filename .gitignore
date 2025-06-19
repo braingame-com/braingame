@@ -5,6 +5,8 @@ node_modules/
 
 # Expo
 apps/**/.expo/
+**/.expo/
+.expo/
 dist/
 web-build/
 expo-env.d.ts
@@ -37,3 +39,7 @@ yarn-error.*
 
 # turborepo
 .turbo
+
+# Next.js
+.next/
+**/.next/

@@ -5,12 +5,13 @@ import type {
 	PanGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
 import { runOnJS, useSharedValue, withSpring } from "react-native-reanimated";
-import type { DraggableTaskHandlersProps } from "../constants/types";
 
 export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 	const [taskOrder, setTaskOrder] = useState(initialTasks);
 	const [targetIndex, setTargetIndex] = useState<number | null>(null);
 	const initialIndex = useSharedValue(0);
+	const translateY = useSharedValue(0);
+	const isDragging = useSharedValue(false);
 
 	const swapTasks = (fromIndex: number, toIndex: number) => {
 		// Allow moving to the end, but prevent invalid indices
@@ -29,8 +30,6 @@ export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 	// Gesture event for dragging
 	const getGestureHandlers = (index: number) => {
 		initialIndex.value = index;
-		const translateY = useSharedValue(0);
-		const isDragging = useSharedValue(false);
 
 		const onGestureEvent = (event: PanGestureHandlerGestureEvent) => {
 			translateY.value = event.nativeEvent.translationY;

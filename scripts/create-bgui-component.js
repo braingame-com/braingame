@@ -2,8 +2,8 @@
 /**
  * CLI to scaffold a new BGUI component with boilerplate files.
  */
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const [, , rawName] = process.argv;
 
@@ -33,35 +33,9 @@ const files = {
 	"index.tsx":
 		`export { ${componentName} } from './${componentName}';\n` +
 		`export type { ${componentName}Props } from './${componentName}';\n`,
-	[`${componentName}.tsx`]:
-		`import type { ReactNode } from 'react';\n` +
-		`import { View } from 'react-native';\n\n` +
-		`export interface ${componentName}Props {\n` +
-		`  children?: ReactNode;\n` +
-		`}\n\n` +
-		`export const ${componentName} = ({ children }: ${componentName}Props) => {\n` +
-		`  return <View>{children}</View>;\n` +
-		`};\n`,
-	[`${componentName}.test.tsx`]:
-		`import { render } from '@testing-library/react-native';\n` +
-		`import { ${componentName} } from './${componentName}';\n\n` +
-		`describe('${componentName}', () => {\n` +
-		`  it('renders children', () => {\n` +
-		`    const { getByText } = render(<${componentName}>Hello</${componentName}>);\n` +
-		`    expect(getByText('Hello')).toBeTruthy();\n` +
-		`  });\n` +
-		`});\n`,
-	[`${componentName}.stories.tsx`]:
-		`import type { Meta, StoryObj } from '@storybook/react';\n` +
-		`import { ${componentName} } from './${componentName}';\n\n` +
-		`const meta: Meta<typeof ${componentName}> = {\n` +
-		`  title: 'BGUI/${componentName}',\n` +
-		`  component: ${componentName},\n` +
-		`};\n\n` +
-		`export default meta;\n` +
-		`export const Default: StoryObj<typeof ${componentName}> = {\n` +
-		`  args: { children: 'Example' },\n` +
-		`};\n`,
+	[`${componentName}.tsx`]: `import type { ReactNode } from 'react';\nimport { View } from 'react-native';\n\nexport interface ${componentName}Props {\n  children?: ReactNode;\n}\n\nexport const ${componentName} = ({ children }: ${componentName}Props) => {\n  return <View>{children}</View>;\n};\n`,
+	[`${componentName}.test.tsx`]: `import { render } from '@testing-library/react-native';\nimport { ${componentName} } from './${componentName}';\n\ndescribe('${componentName}', () => {\n  it('renders children', () => {\n    const { getByText } = render(<${componentName}>Hello</${componentName}>);\n    expect(getByText('Hello')).toBeTruthy();\n  });\n});\n`,
+	[`${componentName}.stories.tsx`]: `import type { Meta, StoryObj } from '@storybook/react';\nimport { ${componentName} } from './${componentName}';\n\nconst meta: Meta<typeof ${componentName}> = {\n  title: 'BGUI/${componentName}',\n  component: ${componentName},\n};\n\nexport default meta;\nexport const Default: StoryObj<typeof ${componentName}> = {\n  args: { children: 'Example' },\n};\n`,
 	"README.md": `# ${componentName}\n\nBoilerplate for the ${componentName} component.\n`,
 };
 

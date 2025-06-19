@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
-import React, { act } from "react";
+import { act } from "react";
 import { Text, View } from "react-native";
 import { Tooltip } from "./Tooltip";
 

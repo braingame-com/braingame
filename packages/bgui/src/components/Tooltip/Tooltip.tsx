@@ -1,5 +1,5 @@
 import { useThemeColor } from "@braingame/utils";
-import { ReactNode, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import { getTooltipBackgroundColor, getTooltipTextColor, styles } from "./styles";
 import type { TooltipProps } from "./types";
@@ -13,7 +13,7 @@ export const Tooltip = ({
 	disabled = false,
 }: TooltipProps) => {
 	const [visible, setVisible] = useState(false);
-	const timeoutRef = useRef<number>();
+	const timeoutRef = useRef<number | undefined>(undefined);
 	const tooltipId = useId();
 
 	const show = () => {

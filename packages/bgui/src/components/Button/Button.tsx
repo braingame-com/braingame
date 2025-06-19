@@ -5,7 +5,7 @@ import { Icon } from "../../../Icon";
 import { useInteractiveState } from "../../hooks";
 import { validateProps } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
-import { VARIANT_COLORS, getPaddingForSize, validationRules } from "./styles";
+import { getPaddingForSize, VARIANT_COLORS, validationRules } from "./styles";
 import type { ButtonProps } from "./types";
 
 /**

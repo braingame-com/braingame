@@ -10,7 +10,8 @@ export const Divider = ({
 	variant = "solid",
 	style,
 }: DividerProps) => {
-	const themeColor = color ?? useThemeColor("border");
+	const themeBorderColor = useThemeColor("border");
+	const themeColor = color ?? themeBorderColor;
 	const dividerStyle = getDividerStyle(orientation, themeColor, thickness, variant);
 
 	return <View accessibilityRole="none" style={[dividerStyle, style]} />;

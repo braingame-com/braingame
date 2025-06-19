@@ -9,7 +9,7 @@ export const List = ({ children }: TabsListProps) => {
 	const containerRef = useRef<ScrollView | View | null>(null);
 	const tabRefs = useRef<(View | null)[]>([]);
 
-	const handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
+	const _handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
 		const key = e.nativeEvent.key;
 		const currentIndex = tabRefs.current.findIndex(
 			(ref) => ref && ref === (e.target as unknown as View),

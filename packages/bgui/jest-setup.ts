@@ -1,4 +1,4 @@
-import "@testing-library/react-native/extend-expect";
+import "@testing-library/jest-dom";
 
 // Declare global __DEV__ variable
 declare global {
@@ -9,15 +9,13 @@ declare global {
 	}
 }
 
-// Mock React Native modules
-jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
-
-// Mock Platform for tests
-jest.mock("react-native/Libraries/Utilities/Platform", () => ({
-	OS: "ios",
-	select: jest.fn((obj) => obj.ios),
-}));
-
 // Set up global mocks
 // @ts-expect-error - Adding __DEV__ to global for testing
 global.__DEV__ = true;
+
+// Mock console methods to reduce noise in tests
+global.console = {
+	...console,
+	warn: jest.fn(),
+	error: jest.fn(),
+};

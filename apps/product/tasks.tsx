@@ -1,15 +1,14 @@
-import { Button, PageWrapper, Text, View } from "@braingame/bgui";
-import { Icon } from "@braingame/bgui";
+import { Button, Icon, PageWrapper, Text, View } from "@braingame/bgui";
+import type { DraggableTaskItemProps } from "@braingame/utils";
 import {
-	Tokens,
 	getTaskInputWrapperColor,
 	handleSlashKeyPress,
 	styles,
+	Tokens,
 	useDraggableTaskHandlers,
 	useTaskInput,
 	useThemeColor,
 } from "@braingame/utils";
-import type { DraggableTaskItemProps } from "@braingame/utils";
 import {
 	type Dispatch,
 	type ReactNode,
@@ -51,7 +50,7 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 
 	// Slash key focus effect
 	useEffect(() => {
-		const onKeyDown = (e: KeyboardEvent) => handleSlashKeyPress(e, inputRef);
+		const onKeyDown = (e: KeyboardEvent) => handleSlashKeyPress(e, inputRef as any);
 
 		document.addEventListener("keydown", onKeyDown);
 
@@ -61,7 +60,7 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 	return (
 		<TaskInputWrapper inputError={inputError} isFocused={isFocused}>
 			<View style={{ padding: Tokens.xs, borderRadius: Tokens.xs }} border>
-				<Icon name="slash" color={colorSecondary} type="fas" />
+				<Icon name="slash" color="textSecondary" />
 			</View>
 
 			<TextInput
@@ -86,10 +85,10 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 
 			<Button
 				icon="plus"
-				iconColor={colorSecondary}
-				iconType="fas"
+				variant="icon"
 				onPress={() => handleTaskInput()}
 				disabled={!inputValue}
+				aria-label="Add task"
 			/>
 		</TaskInputWrapper>
 	);
@@ -99,7 +98,11 @@ const TaskInputWrapper = ({
 	inputError,
 	isFocused,
 	children,
-}: { inputError: boolean; isFocused: boolean; children: ReactNode }) => {
+}: {
+	inputError: boolean;
+	isFocused: boolean;
+	children: ReactNode;
+}) => {
 	const borderColor = getTaskInputWrapperColor(inputError, isFocused);
 
 	return (
@@ -144,7 +147,7 @@ export const DraggableTaskItem = ({
 	translateY,
 	isDragging,
 	targetIndex,
-	itemHeight,
+	itemHeight: _itemHeight,
 }: DraggableTaskItemProps) => {
 	const animatedStyle = useAnimatedStyle(() => ({
 		transform: [{ translateY: translateY.value }, { rotate: isDragging.value ? "1deg" : "0deg" }],
@@ -175,8 +178,8 @@ export const DraggableTaskItem = ({
 			{/* Draggable Task */}
 			{shouldRenderOriginal && (
 				<PanGestureHandler
-					onGestureEvent={onGestureEvent}
-					onHandlerStateChange={onHandlerStateChange}
+					onGestureEvent={onGestureEvent as any}
+					onHandlerStateChange={onHandlerStateChange as any}
 				>
 					<Animated.View style={animatedStyle}>
 						<TaskItem text={text} />

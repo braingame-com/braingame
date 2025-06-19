@@ -5,7 +5,7 @@ import Svg, { Circle } from "react-native-svg";
 import { getCircularProgressProps, styles } from "./styles";
 import type { ProgressBarProps } from "./types";
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const AnimatedCircle = Animated.createAnimatedComponent(Circle as any);
 
 export const ProgressBar = ({
 	value,
@@ -17,7 +17,8 @@ export const ProgressBar = ({
 	style,
 }: ProgressBarProps) => {
 	const progressColor = color ?? Colors.universal.primary;
-	const trackColor = backgroundColor ?? useThemeColor("border");
+	const themeBorderColor = useThemeColor("border");
+	const trackColor = backgroundColor ?? themeBorderColor;
 	const progress = useRef(new Animated.Value(value)).current;
 
 	useEffect(() => {

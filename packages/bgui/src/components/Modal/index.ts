@@ -3,8 +3,8 @@ import { ModalFooter } from "./ModalFooter";
 import { ModalHeader } from "./ModalHeader";
 
 export { Modal } from "./Modal";
-export { ModalHeader } from "./ModalHeader";
 export { ModalFooter } from "./ModalFooter";
+export { ModalHeader } from "./ModalHeader";
 export type { ModalProps } from "./types";
 
 // Create compound component

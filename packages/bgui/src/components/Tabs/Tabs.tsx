@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
+import { TabsContext } from "./context";
 import { List } from "./List";
 import { Panel } from "./Panel";
 import { Panels } from "./Panels";
 import { Tab } from "./Tab";
-import { TabsContext } from "./context";
 import type { TabsProps } from "./types";
 
 function TabsBase({

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { PanResponder, View } from "react-native";
-import { THUMB_SIZE, TRACK_HEIGHT, styles } from "./styles";
+import { styles } from "./styles";
 import type { SliderProps } from "./types";
 
 export const Slider = ({

@@ -1,5 +1,4 @@
 import { fireEvent, render } from "@testing-library/react-native";
-import React from "react";
 import { Link } from "./Link";
 
 describe("Link", () => {
@@ -126,9 +125,7 @@ describe("Link", () => {
 	it("renders with complex children", () => {
 		const { getByText } = render(
 			<Link href="#">
-				<>
-					Go to <strong>page</strong>
-				</>
+				Go to <strong>page</strong>
 			</Link>,
 		);
 		expect(getByText("Go to")).toBeTruthy();

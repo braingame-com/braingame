@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Platform, View as RNView } from "react-native";
-import { Tokens } from "../../utils/constants/Tokens";
 import { viewStyles } from "../../utils/constants/styles";
+import { Tokens } from "../../utils/constants/Tokens";
 import { useThemeColor } from "../../utils/hooks/useThemeColor";
 import type { ViewProps } from "./types";
 
@@ -19,9 +19,8 @@ export const View = ({
 	...rest
 }: ViewProps) => {
 	const [isHovered, setIsHovered] = useState(false);
-	const backgroundColor = transparent
-		? "transparent"
-		: useThemeColor(type.includes("card") ? "card" : "background");
+	const themeBackgroundColor = useThemeColor(type.includes("card") ? "card" : "background");
+	const backgroundColor = transparent ? "transparent" : themeBackgroundColor;
 	const borderColor = getBorderColor(border, hoverable, isHovered);
 
 	return (

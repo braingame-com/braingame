@@ -1,5 +1,5 @@
 import { Colors, Tokens, useThemeColor } from "@braingame/utils";
-import { Children, type ReactElement, cloneElement, useEffect, useRef, useState } from "react";
+import { Children, cloneElement, type ReactElement, useState } from "react";
 import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
 import { Text } from "../../../Text";
 import { View as BView } from "../../../View";
@@ -45,7 +45,7 @@ const SelectComponent = ({
 	value,
 	onValueChange,
 	placeholder = "Select...",
-	searchable,
+	searchable: _searchable,
 	multiple,
 	disabled,
 	error,

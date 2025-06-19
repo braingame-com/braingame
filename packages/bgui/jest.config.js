@@ -1,6 +1,5 @@
 module.exports = {
-	preset: "@testing-library/react-native",
-	testEnvironment: "node",
+	testEnvironment: "jsdom",
 	setupFilesAfterEnv: ["<rootDir>/jest-setup.ts"],
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
 	transform: {
@@ -8,15 +7,15 @@ module.exports = {
 			"ts-jest",
 			{
 				tsconfig: {
-					jsx: "react",
+					jsx: "react-jsx",
 				},
 			},
 		],
+		"^.+\\.(js|jsx)$": "babel-jest",
 	},
-	transformIgnorePatterns: [
-		"node_modules/(?!(react-native|@react-native|react-native-.*|@braingame)/)",
-	],
+	transformIgnorePatterns: ["node_modules/(?!(@testing-library|@braingame)/)"],
 	moduleNameMapper: {
+		"^react-native$": "react-native-web",
 		"^@braingame/utils$": "<rootDir>/../utils/index.ts",
 		"^@braingame/utils/(.*)$": "<rootDir>/../utils/$1",
 	},

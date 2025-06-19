@@ -1,6 +1,3 @@
-import { StyleSheet } from "react-native";
-import type { DividerProps } from "./types";
-
 /**
  * Get divider styles based on orientation and properties
  */

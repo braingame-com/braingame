@@ -10,7 +10,8 @@ import type { IconProps } from "./types";
  */
 export const Icon = ({ name, size = "secondary", color, type = "fas", style }: IconProps) => {
 	const iconSize = getIconSize(size);
-	const iconColor = color ?? useThemeColor("icon");
+	const themeIconColor = useThemeColor("icon");
+	const iconColor = color ?? themeIconColor;
 
 	return (
 		<FontAwesome6

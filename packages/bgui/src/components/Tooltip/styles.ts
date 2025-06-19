@@ -1,4 +1,4 @@
-import { Colors, Tokens, useThemeColor } from "@braingame/utils";
+import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
 
 /**

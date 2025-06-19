@@ -8,7 +8,10 @@ import { Tabs } from "./Tabs";
 const ControlledTabs = ({
 	initialValue = "tab1",
 	children,
-}: { initialValue?: string; children: React.ReactNode }) => {
+}: {
+	initialValue?: string;
+	children: React.ReactNode;
+}) => {
 	const [activeTab, setActiveTab] = useState(initialValue);
 	return (
 		<Tabs activeTab={activeTab} onValueChange={setActiveTab}>

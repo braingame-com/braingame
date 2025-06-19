@@ -1,5 +1,4 @@
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
-import React from "react";
 import { Pressable, Text } from "react-native";
 import { Menu, MenuItem } from "./Menu";
 
@@ -59,7 +58,7 @@ describe("Menu", () => {
 	});
 
 	it("supports closeOnSelect prop", async () => {
-		const { getByText, queryByText } = render(
+		const { getByText } = render(
 			<Menu trigger={<Text>Menu</Text>} closeOnSelect={false}>
 				<MenuItem>Stay open</MenuItem>
 			</Menu>,
@@ -150,7 +149,7 @@ describe("Menu", () => {
 	});
 
 	it("supports keyboard navigation", async () => {
-		const { getByText, getByRole } = render(
+		const { getByText } = render(
 			<Menu trigger={<Text>Menu</Text>}>
 				<MenuItem>First</MenuItem>
 				<MenuItem>Second</MenuItem>

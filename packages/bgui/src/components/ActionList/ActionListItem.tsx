@@ -1,5 +1,5 @@
 import { type ComponentRef, forwardRef, memo, useCallback, useMemo } from "react";
-import { Platform, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Icon } from "../../../Icon";
 import { Text } from "../../../Text";

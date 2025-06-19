@@ -61,7 +61,7 @@ export const Modal = ({
 	);
 };
 
-const useFocusTrap = (active: boolean, ref: React.RefObject<View>, onClose: () => void) => {
+const useFocusTrap = (active: boolean, ref: React.RefObject<View | null>, onClose: () => void) => {
 	useEffect(() => {
 		if (!active || Platform.OS !== "web") return;
 

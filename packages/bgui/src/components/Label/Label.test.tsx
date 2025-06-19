@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react-native";
-import React from "react";
 import { TextInput } from "react-native";
 import { Label } from "./Label";
 
@@ -10,7 +9,7 @@ describe("Label", () => {
 	});
 
 	it("associates with input via htmlFor", () => {
-		const { getByText, getByTestId } = render(
+		const { getByText } = render(
 			<>
 				<Label htmlFor="email-input">Email</Label>
 				<TextInput testID="email-input" nativeID="email-input" />
@@ -76,9 +75,7 @@ describe("Label", () => {
 	it("renders with complex children", () => {
 		const { getByText } = render(
 			<Label htmlFor="input">
-				<>
-					Complex <strong>Label</strong>
-				</>
+				Complex <strong>Label</strong>
 			</Label>,
 		);
 		expect(getByText("Complex")).toBeTruthy();

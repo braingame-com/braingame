@@ -4,7 +4,8 @@ import { SIZE_MAP, styles } from "./styles";
 import type { SpinnerProps } from "./types";
 
 export const Spinner = ({ size = "md", color, variant = "inline", ariaLabel }: SpinnerProps) => {
-	const spinnerColor = color ?? useThemeColor("icon");
+	const themeIconColor = useThemeColor("icon");
+	const spinnerColor = color ?? themeIconColor;
 	const indicatorSize = SIZE_MAP[size];
 
 	const indicator = (

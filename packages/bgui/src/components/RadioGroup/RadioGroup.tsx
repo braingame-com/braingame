@@ -2,16 +2,15 @@ import { useThemeColor } from "@braingame/utils";
 import type React from "react";
 import {
 	Children,
-	type ReactElement,
 	cloneElement,
 	createContext,
 	isValidElement,
+	type ReactElement,
 	useCallback,
 	useContext,
 	useEffect,
 	useRef,
 } from "react";
-import type { KeyboardEvent } from "react";
 import type { NativeSyntheticEvent } from "react-native";
 import { Pressable, View } from "react-native";
 import { useControlledState, useFocusManagement } from "../../hooks";
@@ -23,7 +22,7 @@ interface ContextValue {
 	disabled?: boolean;
 	variant: "standard" | "card";
 	onSelect: (value: string) => void;
-	register: (index: number, ref: React.RefObject<View>) => void;
+	register: (index: number, ref: React.RefObject<View | null>) => void;
 	focus: (index: number) => void;
 	count: number;
 }
@@ -98,7 +97,7 @@ const RadioGroupItem = ({
 		}
 	}, [itemDisabled, ctx, value]);
 
-	const handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
+	const _handleKeyDown = (e: NativeSyntheticEvent<{ key: string }>) => {
 		if (!ctx || typeof index !== "number") return;
 		const key = e.nativeEvent.key;
 		if (key === " " || key === "Enter") {
@@ -114,7 +113,8 @@ const RadioGroupItem = ({
 	};
 
 	const borderColor = useThemeColor("border");
-	const background = ctx?.variant === "card" ? useThemeColor("card") : "transparent";
+	const cardThemeColor = useThemeColor("card");
+	const background = ctx?.variant === "card" ? cardThemeColor : "transparent";
 	const itemStyles = ctx ? getItemStyles(ctx.variant, background, borderColor, isSelected) : [];
 
 	return (
@@ -129,10 +129,10 @@ const RadioGroupItem = ({
 			disabled={itemDisabled}
 			style={[...itemStyles, style]}
 		>
-			{typeof children === "string" ? <>{children}</> : children}
+			{typeof children === "string" ? children : children}
 		</Pressable>
 	);
 };
 
 export const RadioGroup = Object.assign(RadioGroupRoot, { Item: RadioGroupItem });
-export type { RadioGroupProps, RadioGroupItemProps } from "./types";
+export type { RadioGroupItemProps, RadioGroupProps } from "./types";

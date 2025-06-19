@@ -1,16 +1,15 @@
 import { Tokens, useThemeColor } from "@braingame/utils";
 import type React from "react";
 import {
-	type ReactNode,
 	createContext,
+	type ReactNode,
 	useCallback,
 	useContext,
 	useEffect,
 	useRef,
 	useState,
 } from "react";
-import { type NativeSyntheticEvent, Platform, Pressable, Text, View } from "react-native";
-import { validateProps, validators } from "../../utils/validation";
+import { Platform, Pressable, Text, View } from "react-native";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
 
 export interface AccordionProps {
@@ -53,11 +52,11 @@ const AccordionComponent = ({
 
 	const itemRefs = useRef<React.RefObject<View>[]>([]);
 
-	const register = useCallback((ref: React.RefObject<View>) => {
-		itemRefs.current.push(ref);
+	const register = useCallback((ref: React.RefObject<View | null>) => {
+		itemRefs.current.push(ref as React.RefObject<View>);
 	}, []);
 
-	const focusItem = useCallback((index: number) => {
+	const _focusItem = useCallback((index: number) => {
 		const ref = itemRefs.current[index];
 		ref?.current?.focus?.();
 	}, []);
@@ -109,7 +108,7 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 	const borderColor = useThemeColor("border");
 
 	useEffect(() => {
-		register(ref);
+		register(ref as React.RefObject<View>);
 		indexRef.current = refs.length - 1;
 	}, [register, refs.length]);
 

@@ -8,14 +8,12 @@ export default function Index() {
 			<Stack.Screen
 				options={{
 					title: "",
-					headerLeft: () => (
-						<Icon name="brain-game" size="secondary" style={{ marginLeft: Tokens.m }} />
-					),
+					headerLeft: () => <Icon name="brain-game" size="md" style={{ marginLeft: Tokens.m }} />,
 				}}
 			/>
 			<PageWrapper>
-				<Text type="display">Dashboard</Text>
-				<Link text="Tasks" href="/tasks" />
+				<Text variant="h1">Dashboard</Text>
+				<Link href="/tasks">Tasks</Link>
 			</PageWrapper>
 		</>
 	);

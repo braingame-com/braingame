@@ -5,7 +5,7 @@ import type { IconProps } from "./types";
 
 export function Icon({
 	name,
-	variant = "regular",
+	variant: _variant = "regular",
 	size = "md",
 	color,
 	decorative = false,

@@ -48,7 +48,7 @@ export const MenuItem = ({ children, onPress, disabled }: MenuItemProps) => {
 export const Menu = ({
 	trigger,
 	children,
-	placement = "bottom-start",
+	placement: _placement = "bottom-start",
 	variant = "dropdown",
 	closeOnSelect = true,
 	"aria-label": ariaLabel,
@@ -143,7 +143,7 @@ export const Menu = ({
 	const menuId = useRef(`menu-${Math.random().toString(36).slice(2)}`).current;
 
 	const triggerElement = React.isValidElement(trigger)
-		? cloneElement(trigger as React.ReactElement, {
+		? cloneElement(trigger as React.ReactElement<any>, {
 				onPress: variant === "dropdown" ? open : undefined,
 				onContextMenu: variant === "context" ? open : undefined,
 				"aria-haspopup": "menu",

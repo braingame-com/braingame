@@ -1,8 +1,8 @@
 export { ActionList } from "./ActionList";
-export { ActionListItem } from "./ActionListItem";
 export { ActionListDivider } from "./ActionListDivider";
+export { ActionListItem } from "./ActionListItem";
 export type {
-	ActionListProps,
-	ActionListItemProps,
 	ActionListDividerProps,
+	ActionListItemProps,
+	ActionListProps,
 } from "./types";

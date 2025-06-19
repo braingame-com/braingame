@@ -1,5 +1,4 @@
 import { Colors, useThemeColor } from "@braingame/utils";
-import React from "react";
 import { Pressable, View } from "react-native";
 import { getSwitchDimensions, styles } from "./styles";
 import type { SwitchProps } from "./types";

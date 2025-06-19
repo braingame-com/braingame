@@ -30,7 +30,7 @@ interface FocusableElement {
  * ```
  */
 export function useFocusManagement(itemCount: number) {
-	const itemRefs = useRef<Array<React.RefObject<FocusableElement> | null>>([]);
+	const itemRefs = useRef<Array<React.RefObject<FocusableElement | null> | null>>([]);
 
 	// Ensure we have refs for all items
 	while (itemRefs.current.length < itemCount) {
@@ -38,7 +38,7 @@ export function useFocusManagement(itemCount: number) {
 	}
 
 	const register = useCallback(
-		(index: number, ref: React.RefObject<FocusableElement> | FocusableElement | null) => {
+		(index: number, ref: React.RefObject<FocusableElement | null> | FocusableElement | null) => {
 			if (ref && typeof ref === "object" && "current" in ref) {
 				itemRefs.current[index] = ref;
 			} else if (ref && typeof ref === "object" && "focus" in ref) {
