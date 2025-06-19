@@ -1,6 +1,6 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 18-06-2025
+> **Last Updated**: 19-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
@@ -14,6 +14,23 @@
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 19-06-2025 - Complete Lint and Type Error Resolution
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Fix all Biome lint errors and TypeScript type errors across the entire monorepo
+- **Completed**:
+  - Fixed all Biome lint errors in all packages
+  - Resolved .expo and .next directory linting issues
+  - Fixed all TypeScript errors in BGUI package (RefObject types, React.ReactNode compatibility, etc.)
+  - Fixed all TypeScript errors in product app (component prop mismatches, version conflicts)
+  - Created comprehensive WORK_SESSION_2025-06-19.md with detailed learnings
+  - Improved pre-commit messaging for clear, actionable feedback
+- **Key Learnings**:
+  - Biome v2 doesn't support `ignore` in files section - use .biomeignore or modify lint scripts
+  - React 18 vs 19 have different ReactNode types (bigint support)
+  - Generated files (.expo, .next) need special handling to exclude from linting
+  - Component APIs must be checked carefully - common prop naming mistakes
+- **Next Steps**: All packages now pass linting and type checking
 
 ### 18-06-2025 - Code Smell Cleanup and Documentation Updates
 - **Agent**: Claude (Opus 4)
@@ -268,6 +285,7 @@
 - [ ] Update `TODO.md` with completion status and date.
 - [ ] Add a new session summary to this file (`AI_CONTEXT.md`).
 - [ ] Run `pnpm lint` and `pnpm test` on all changes.
+- [ ] Create a detailed work session document in `docs/work-sessions/YYYY-MM-DD-brief-description.md` with learnings, patterns, and solutions discovered.
 
 ---
 

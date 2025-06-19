@@ -32,6 +32,25 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 
 ---
 
+## Work Session Documentation Requirements
+
+**All agents MUST create a work session document at the end of each session:**
+
+1. **Location:** `docs/work-sessions/YYYY-MM-DD-brief-description.md`
+2. **Required Content:**
+   - Session metadata (date, agent name/model, objectives)
+   - Complete list of tasks accomplished
+   - Key learnings and technical discoveries
+   - Code examples demonstrating solutions
+   - Problems encountered and how they were solved
+   - Recommendations for future sessions
+3. **Purpose:** Knowledge preservation and continuous learning
+4. **Reference:** See `docs/work-sessions/README.md` for template
+
+This is not optional - it ensures knowledge transfer between sessions and agents.
+
+---
+
 ## Adding a New Agent
 
 1. **Document:** Add the agent's purpose, scope, and configuration to this file.

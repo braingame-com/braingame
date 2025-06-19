@@ -21,6 +21,7 @@ Follow these steps for every development task.
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
 2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
 3.  **Summarize:** Add a session summary to `AI_CONTEXT.md`.
+4.  **Document Session:** Create a detailed work session file in `docs/work-sessions/` using the format `YYYY-MM-DD-brief-description.md` with key learnings, solutions, and patterns discovered.
 
 ---
 
@@ -42,7 +43,25 @@ Follow these steps for every development task.
 
 ---
 
-## 4. Common Commands
+## 4. Work Session Documentation
+
+**IMPORTANT:** At the end of each work session, create a comprehensive session document in `docs/work-sessions/`:
+
+- **Filename Format:** `YYYY-MM-DD-brief-description.md`
+- **Include:**
+  - Session metadata (date, agent, objectives)
+  - Detailed list of work completed
+  - Key learnings and discoveries
+  - Code examples and patterns
+  - Solutions to complex problems
+  - Recommendations for future work
+- **Purpose:** Preserve knowledge, document solutions, and help future agents understand project evolution
+
+See `docs/work-sessions/README.md` for detailed guidelines.
+
+---
+
+## 5. Common Commands
 
 ### Core Development
 ```bash

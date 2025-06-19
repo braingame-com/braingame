@@ -33,6 +33,13 @@
 |---|---|
 | [`snippets/`](./snippets) | Ready-to-use code snippets for each BGUI component. |
 
+## 📝 Work Sessions
+*Detailed session notes from AI agents with learnings and solutions.*
+
+| Document | Description |
+|---|---|
+| [`work-sessions/`](./work-sessions) | Comprehensive session documentation with technical discoveries and patterns. |
+
 ---
 
 ## 📈 Project Management & Strategy
