@@ -1,10 +1,10 @@
 import { buttonStyles } from "@braingame/utils";
 import { memo, useMemo } from "react";
 import { ActivityIndicator, Pressable, Text } from "react-native";
-import { Icon } from "../../../Icon";
 import { useInteractiveState } from "../../hooks";
 import { validateProps } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { Icon } from "../Icon";
 import { getPaddingForSize, VARIANT_COLORS, validationRules } from "./styles";
 import type { ButtonProps } from "./types";
 

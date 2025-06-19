@@ -1,0 +1,38 @@
+// Mock for react-native-gesture-handler
+module.exports = {
+	Swipeable: "View",
+	DrawerLayout: "View",
+	State: {
+		UNDETERMINED: 0,
+		FAILED: 1,
+		BEGAN: 2,
+		CANCELLED: 3,
+		ACTIVE: 4,
+		END: 5,
+	},
+	PanGestureHandler: "View",
+	PinchGestureHandler: "View",
+	RotationGestureHandler: "View",
+	LongPressGestureHandler: "View",
+	TapGestureHandler: "View",
+	FlingGestureHandler: "View",
+	ForceTouchGestureHandler: "View",
+	NativeViewGestureHandler: "View",
+	createNativeWrapper: (component) => component,
+	gestureHandlerRootHOC: (component) => component,
+	Directions: {
+		RIGHT: 1,
+		LEFT: 2,
+		UP: 4,
+		DOWN: 8,
+	},
+	// Event types
+	GestureHandlerGestureEvent: {},
+	PanGestureHandlerGestureEvent: {},
+	TapGestureHandlerGestureEvent: {},
+	LongPressGestureHandlerGestureEvent: {},
+	PinchGestureHandlerGestureEvent: {},
+	RotationGestureHandlerGestureEvent: {},
+	FlingGestureHandlerGestureEvent: {},
+	ForceTouchGestureHandlerGestureEvent: {},
+};

@@ -7,7 +7,9 @@
 	"scripts": {
 		"dev": "echo 'BGUI components ready for development'",
 		"build": "tsc",
-		"test": "echo 'Tests temporarily disabled due to React Native Web compatibility issues'",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage",
 		"lint": "biome check --fix",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist"
@@ -17,9 +19,22 @@
 		"react-native": "0.76.3"
 	},
 	"devDependencies": {
-		"@types/react": "~19.1.8",
+		"@babel/plugin-transform-private-methods": "^7.27.1",
+		"@babel/preset-env": "^7.27.2",
+		"@babel/preset-flow": "^7.27.1",
+		"@babel/preset-react": "^7.27.1",
+		"@babel/preset-typescript": "^7.27.1",
+		"@react-native/babel-preset": "^0.80.0",
+		"@testing-library/jest-native": "^5.4.3",
 		"@testing-library/react-native": "^13.2.0",
+		"@types/react": "~19.1.8",
+		"babel-jest": "^30.0.2",
 		"jest": "^30.0.0",
+		"jest-environment-jsdom": "^30.0.2",
+		"jest-expo": "~53.0.7",
+		"metro-react-native-babel-preset": "^0.77.0",
+		"react-native-web": "~0.20.0",
+		"react-test-renderer": "19.1.0",
 		"ts-jest": "^29.1.1",
 		"typescript": "^5.3.3"
 	},
