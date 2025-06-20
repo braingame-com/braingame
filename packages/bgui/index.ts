@@ -16,6 +16,8 @@ export { Icon } from "./src/components/Icon";
 export { Image } from "./src/components/Image";
 export { Label } from "./src/components/Label";
 export { Link } from "./src/components/Link";
+export { Alert } from "./src/components/Alert";
+export { Breadcrumb, BreadcrumbItem } from "./src/components/Breadcrumb";
 export { Menu, MenuItem } from "./src/components/Menu";
 export { Modal, ModalFooter, ModalHeader } from "./src/components/Modal";
 export { ProgressBar } from "./src/components/ProgressBar";
@@ -26,12 +28,11 @@ export { Spinner } from "./src/components/Spinner";
 export { Switch } from "./src/components/Switch";
 export { Tabs } from "./src/components/Tabs";
 export { Text } from "./src/components/Text";
+export { TextInput } from "./src/components/TextInput";
 export { Toast } from "./src/components/Toast";
 export { Tooltip } from "./src/components/Tooltip";
 // Core Layout Components
 export { View } from "./View";
-
-// Note: TextInput removed - apps use React Native's built-in TextInput
 
 export type { PageWrapperProps } from "./PageWrapper/types";
 export type { AccordionProps } from "./src/components/Accordion";
@@ -47,6 +48,8 @@ export type { IconProps } from "./src/components/Icon/types";
 export type { ImageProps } from "./src/components/Image/types";
 export type { LabelProps } from "./src/components/Label/types";
 export type { LinkProps } from "./src/components/Link/types";
+export type { AlertProps, AlertType, AlertVariant } from "./src/components/Alert";
+export type { BreadcrumbProps, BreadcrumbItemProps } from "./src/components/Breadcrumb";
 export type { MenuItemProps, MenuProps } from "./src/components/Menu/types";
 export type { ModalProps } from "./src/components/Modal/types";
 export type { ProgressBarProps } from "./src/components/ProgressBar/types";
@@ -57,6 +60,7 @@ export type { SpinnerProps } from "./src/components/Spinner/types";
 export type { SwitchProps } from "./src/components/Switch/types";
 export type { TabProps, TabsPanelProps, TabsProps } from "./src/components/Tabs/types";
 export type { TextProps } from "./src/components/Text/types";
+export type { TextInputProps } from "./src/components/TextInput/types";
 export type { ToastProps } from "./src/components/Toast/types";
 export type { TooltipProps } from "./src/components/Tooltip/types";
 // Constants

@@ -128,6 +128,8 @@
   - [ ] Document props for each BGUI component
   - Status: in_progress (17-06-2025)
 
+- [x] Implement remaining BGUI components (Alert, Breadcrumb, TextInput) - 20-06-2025
+
 - [ ] Environment Management
   - [ ] Create `.env.example` files (in progress)
   - [ ] Add validation with zod

@@ -23,6 +23,16 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 20-06-2025 - Added Alert, Breadcrumb and TextInput Components
+- **Agent**: ChatGPT
+- **Tasks**: Implement missing BGUI components and update documentation
+- **Completed**:
+  - Created `Alert`, `Breadcrumb`, and `TextInput` components with types, styles and tests
+  - Exported new components from `@braingame/bgui`
+  - Added prop documentation for each component
+  - Updated TODO tracker and work session notes
+- **Next Steps**: Review component APIs and expand test coverage
+
 ### 20-06-2025 - Preflight Documentation Update
 - **Agent**: ChatGPT (Codex)
 - **Tasks**: Document requirement to run `pnpm install` before lint or test, add `preflight` script
