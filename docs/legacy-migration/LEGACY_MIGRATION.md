@@ -11,13 +11,34 @@
 
 **For AI Agents working on migration tasks:**
 
+### Branch & PR Strategy:
+The migration epic is organized into **separate branches and PRs** for better context and incremental merging:
+
+```bash
+# Weekly migration branches (from main)
+feature/migration-week1-typography-lexend     # Typography & Design Tokens
+feature/migration-week2-mindset-training      # Core Mindset Training Features  
+feature/migration-week3-advanced-features     # Advanced Features & Content
+feature/migration-week4-enhancement-polish    # Enhancement & Polish
+```
+
+**Benefits:**
+- ✅ **Focused code review** - Each PR has clear scope and context
+- ✅ **Incremental merging** - Can merge Week 1 while working on Week 2
+- ✅ **Better git history** - Clean separation of different migration phases
+- ✅ **Easier rollback** - Can revert specific weeks if needed
+- ✅ **Parallel work** - Human can review/test while AI continues next phase
+
 ### Step-by-Step Process:
-1. **📋 Analyze** - Examine both legacy projects for the specific task
-2. **💭 Propose** - Present detailed approach and ask human for approval
-3. **⚡ Execute** - Only proceed after explicit human approval
-4. **📝 Document** - Create migration log in `/docs/legacy-migration/logs/`
-5. **👀 Review** - Ask human to review completed work
-6. **💾 Commit** - Only commit after human approval with clear message
+1. **🌳 Branch** - Create weekly feature branch from main for focused scope
+2. **📋 Analyze** - Examine both legacy projects for the specific week's tasks
+3. **💭 Propose** - Present detailed approach and ask human for approval
+4. **⚡ Execute** - Only proceed after explicit human approval
+5. **📝 Document** - Create migration log in `/docs/legacy-migration/logs/`
+6. **👀 Review** - Ask human to review completed work
+7. **💾 Commit** - Only commit after human approval with clear message
+8. **🔀 PR** - Create focused PR for the week's work, get approval, merge
+9. **➡️ Next** - Move to next week's branch and repeat
 
 ### Migration Log Format:
 Each task should create a numbered log file: `001-task-name.md`
