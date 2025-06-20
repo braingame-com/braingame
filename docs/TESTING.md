@@ -1,7 +1,7 @@
 # Testing Strategy
 
 > **Single source of truth** for all testing conventions in the Brain Game monorepo.  
-> Last Updated: 21 June 2024
+> Last Updated: 21-06-2024
 
 This document outlines the official testing stack and philosophy. All new code **must** adhere to these standards to ensure stability, maintainability, and quality.
 
