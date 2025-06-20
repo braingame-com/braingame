@@ -101,6 +101,9 @@ importers:
       '@react-native-async-storage/async-storage':
         specifier: ^2.2.0
         version: 2.2.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))
+      '@react-native-community/netinfo':
+        specifier: ^11.4.1
+        version: 11.4.1(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))
       '@react-navigation/bottom-tabs':
         specifier: ^7.0.0
         version: 7.3.15(@react-navigation/native@7.1.11(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.4.1(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-screens@4.11.1(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
@@ -113,6 +116,9 @@ importers:
       expo-blur:
         specifier: ~14.1.5
         version: 14.1.5(expo@53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      expo-clipboard:
+        specifier: ^7.1.4
+        version: 7.1.4(expo@53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       expo-constants:
         specifier: ~17.1.6
         version: 17.1.6(expo@53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))
@@ -1877,6 +1883,11 @@ packages:
     resolution: {integrity: sha512-gvRvjR5JAaUZF8tv2Kcq/Gbt3JHwbKFYfmb445rhOj6NUMx3qPLixmDx5pZAyb9at1bYvJ4/eTUipU5aki45xw==}
     peerDependencies:
       react-native: ^0.0.0-0 || >=0.65 <1.0
+
+  '@react-native-community/netinfo@11.4.1':
+    resolution: {integrity: sha512-B0BYAkghz3Q2V09BF88RA601XursIEA111tnc2JOaN7axJWmNefmfjZqw/KdSxKZp7CZUuPpjBmz/WCR9uaHYg==}
+    peerDependencies:
+      react-native: '>=0.59'
 
   '@react-native/assets-registry@0.76.3':
     resolution: {integrity: sha512-7Fnc3lzCFFpnoyL1egua6d/qUp0KiIpeSLbfOMln4nI2g2BMzyFHdPjJnpLV2NehmS0omOOkrfRqK5u1F/MXzA==}
@@ -3812,6 +3823,13 @@ packages:
 
   expo-blur@14.1.5:
     resolution: {integrity: sha512-CCLJHxN4eoAl06ESKT3CbMasJ98WsjF9ZQEJnuxtDb9ffrYbZ+g9ru84fukjNUOTtc8A8yXE5z8NgY1l0OMrmQ==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+
+  expo-clipboard@7.1.4:
+    resolution: {integrity: sha512-NHhfKnrzb4o0PacUKD93ByadU0JmPBoFTFYbbFJZ9OAX6SImpSqG5gfrMUR3vVj4Qx9f1LpMcdAv5lBzv868ow==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -9245,6 +9263,10 @@ snapshots:
       merge-options: 3.0.4
       react-native: 0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
 
+  '@react-native-community/netinfo@11.4.1(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))':
+    dependencies:
+      react-native: 0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
+
   '@react-native/assets-registry@0.76.3': {}
 
   '@react-native/assets-registry@0.80.0': {}
@@ -11773,6 +11795,12 @@ snapshots:
       - supports-color
 
   expo-blur@14.1.5(expo@53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      expo: 53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
+
+  expo-clipboard@7.1.4(expo@53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
     dependencies:
       expo: 53.0.11(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)))(react-native-webview@13.15.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
