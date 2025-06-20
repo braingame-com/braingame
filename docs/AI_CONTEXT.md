@@ -23,6 +23,20 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 20-06-2025 - Husky Pre-commit Hook Update
+- **Agent**: ChatGPT (GPT-4)
+- **Tasks**: Updated utils package pre-commit hook to run `pnpm test` for consistency.
+- **Outcome**: Pre-commit now leverages pnpm workspace scripts.
+
+### 20-06-2025 - BGUI Coverage Improvements
+- **Agent**: ChatGPT
+- **Tasks**: Add Jest tests for PageWrapper and View components and configure coverage reporting
+- **Completed**:
+  - Created `PageWrapper.test.tsx` and `View.test.tsx`
+  - Updated Jest config to include root components
+  - Attempted to run coverage via Jest (tests failing due to React Native dependencies)
+- **Next Steps**: Investigate React Native Jest compatibility to enable full test suite
+
 ### 20-06-2025 - Added Alert, Breadcrumb and TextInput Components
 - **Agent**: ChatGPT
 - **Tasks**: Implement missing BGUI components and update documentation
@@ -32,6 +46,16 @@
   - Added prop documentation for each component
   - Updated TODO tracker and work session notes
 - **Next Steps**: Review component APIs and expand test coverage
+
+### 20-06-2025 - Storybook Setup for BGUI
+- **Agent**: ChatGPT
+- **Tasks**: Configure Storybook and update documentation
+- **Completed**:
+  - Added `.storybook` with `main.ts` and `preview.ts` in `packages/bgui`
+  - Replaced placeholder script with `storybook dev` command
+  - Documented Storybook usage in `DEVELOPMENT.md` and `ARCHITECTURE.md`
+  - Updated TODO to mark Storybook setup complete
+- **Next Steps**: Write component stories and enable visual testing
 
 ### 20-06-2025 - Preflight Documentation Update
 - **Agent**: ChatGPT (Codex)
