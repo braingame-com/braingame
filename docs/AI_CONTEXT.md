@@ -118,7 +118,7 @@
   - Resolved .expo and .next directory linting issues
   - Fixed all TypeScript errors in BGUI package (RefObject types, React.ReactNode compatibility, etc.)
   - Fixed all TypeScript errors in product app (component prop mismatches, version conflicts)
-  - Created comprehensive WORK_SESSION_2025-06-19.md with detailed learnings
+  - Created comprehensive work-sessions/2025-06-19-lint-and-type-fixes.md with detailed learnings
   - Improved pre-commit messaging for clear, actionable feedback
 - **Key Learnings**:
   - Biome v2 doesn't support `ignore` in files section - use .biomeignore or modify lint scripts
