@@ -38,7 +38,20 @@ Common infra: pnpm workspaces, Biome lint/format, Jest tests, Turbo task graph.
 
 ---
 
-## 3. Folder layout (authoritative)
+## 3. State & Data Management
+
+To ensure a scalable, maintainable, and predictable application, we enforce a strict separation between client-side UI state and server-side cache state.
+
+| Area           | Decision                | Rationale                                                                                                                                                                                                                                   |
+| -------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Client State** | **Redux Toolkit (RTK)** | For managing global UI state. RTK provides a centralized store, predictable state transitions, and robust debugging tools. Its structured nature is essential for the anticipated complexity of the application, ensuring long-term maintainability. |
+| **Server State** | **TanStack Query**      | For all interactions with our Firebase backend. It is not a general data-fetching library; it is a *server state management* tool. It handles caching, refetching, and synchronization automatically, keeping our Redux store clean and free of stale server data.   |
+
+**Key Principle:** The Redux store **must never** contain raw server-side data. It should only hold client-side state, such as UI settings, session information, or identifiers that `TanStack Query` can use to fetch the actual data. All data fetched from Firebase must be managed by TanStack Query.
+
+---
+
+## 4. Folder layout (authoritative)
 
 ```text
 braingame/
@@ -67,7 +80,7 @@ braingame/
 
 ---
 
-## 4. Build & dev workflow
+## 5. Build & dev workflow
 
 | Task | Command |
 |------|---------|
@@ -90,7 +103,7 @@ build -> transpile -> test -> typecheck -> package
 
 ---
 
-## 5. CI / CD pipeline (GitHub Actions)
+## 6. CI / CD pipeline (GitHub Actions)
 
 1. **lint** → Biome, dep‑graph check  
 2. **test** → unit & e2e (Playwright, Maestro)  
@@ -100,7 +113,7 @@ build -> transpile -> test -> typecheck -> package
 
 ---
 
-## 6. Environments
+## 7. Environments
 
 | Env | URL | Notes |
 |-----|-----|-------|
@@ -110,7 +123,7 @@ build -> transpile -> test -> typecheck -> package
 
 ---
 
-## 7. Task Management & AI Coordination
+## 8. Task Management & AI Coordination
 
 Key files for task tracking and AI agent coordination:
 
@@ -129,7 +142,7 @@ All AI agents **MUST**:
 
 ---
 
-## 8. Security & compliance
+## 9. Security & compliance
 
 - Secrets only in CI secret manager; scanned via TruffleHog pre‑commit.  
 - Dependabot weekly updates for npm + GH Actions.  
@@ -137,7 +150,7 @@ All AI agents **MUST**:
 
 ---
 
-## 9. Extension points
+## 10. Extension points
 
 - **Add platform**: create `apps/desktop` (Electron/Tauri) – same folder contract.  
 - **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.  
