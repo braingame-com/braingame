@@ -106,9 +106,9 @@ const useFocusTrap = (active: boolean, ref: React.RefObject<View | null>, onClos
 };
 
 const sizes = StyleSheet.create({
-	sm: { width: 300 }, // Keep for responsiveness
-	md: { width: 480 }, // Keep for responsiveness
-	lg: { width: 720 }, // Keep for responsiveness
+	sm: { width: Tokens.l * 15 },
+	md: { width: Tokens.xl * 20 },
+	lg: { width: Tokens.xxxxl * 10 },
 	fullscreen: { flex: 1, width: "100%" },
 });
 
