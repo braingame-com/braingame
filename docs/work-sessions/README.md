@@ -10,9 +10,9 @@ YYYY-MM-DD-brief-description.md
 ```
 
 Examples:
+- `2025-06-20-legacy-migration-completion.md`
+- `2025-06-20-week3-features-worktree-crisis.md`
 - `2025-06-19-lint-and-type-fixes.md`
-- `2025-06-20-component-testing.md`
-- `2025-06-21-performance-optimization.md`
 
 ## What to Include in Session Notes
 
@@ -55,4 +55,9 @@ Each session document should contain:
 
 ## Index of Sessions
 
-- [2025-06-19: Lint and Type Fixes](./2025-06-19-lint-and-type-fixes.md) - Complete resolution of all Biome lint errors and TypeScript type errors across the monorepo
+- [2025-06-20: Legacy Migration Completion & PR Merging Marathon](./2025-06-20-legacy-migration-completion.md) - Final merge of migration pull requests
+- [2025-06-20: Week 3 Features & Worktree Crisis](./2025-06-20-week3-features-worktree-crisis.md) - Advanced features implementation and worktree recovery
+- [2025-06-19: Lint and Type Fixes](./2025-06-19-lint-and-type-fixes.md) - Resolved all Biome lint errors and TypeScript issues
+- [2025-01-20: Week 3 Advanced Features](./2025-01-20-week3-advanced-features.md) - Implemented advanced migration features
+- [2025-01-20: Code Quality Improvements](./2025-01-20-code-quality-improvements.md) - Cleanup of code style and performance
+- [2025-01-19: BGUI Testing Infrastructure Setup](./2025-01-19-bgui-testing-setup.md) - Established React Native testing library
