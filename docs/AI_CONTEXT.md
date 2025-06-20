@@ -23,6 +23,17 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 20-06-2025 - Preflight Documentation Update
+- **Agent**: ChatGPT (Codex)
+- **Tasks**: Document requirement to run `pnpm install` before lint or test, add `preflight` script
+- **Completed**:
+  - Updated `docs/DEVELOPMENT.md` with dependency note
+  - Added preflight instructions to `README.md`
+  - Introduced `preflight` script in `package.json`
+  - Marked task complete in `docs/TODO.md`
+  - Created work session document
+- **Next Steps**: Consider automating additional environment checks
+
 ### 20-06-2025 - Legacy Migration Completion & PR Merging Marathon
 - **Agent**: Claude (Opus 4)
 - **Tasks**: Merge all 7 pending PRs and complete the 4-week legacy migration

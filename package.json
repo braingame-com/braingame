@@ -34,6 +34,7 @@
 		"secrets:scan": "secretlint .",
 		"secrets:check": "secretlint --no-color .",
 		"quality": "turbo lint typecheck test",
+		"preflight": "pnpm install",
 		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
 		"precommit": "lint-staged && pnpm secrets:check && pnpm quality",
 		"storybook": "echo 'Storybook is not yet implemented'",
@@ -66,6 +67,9 @@
 		"pnpm": ">=9"
 	},
 	"lint-staged": {
-		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
+		"**/*.{ts,tsx,js,jsx}": [
+			"biome check --fix",
+			"biome format --write"
+		]
 	}
 }

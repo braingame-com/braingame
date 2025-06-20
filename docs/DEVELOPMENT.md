@@ -33,6 +33,10 @@ Follow these steps exactly to ensure a clean setup.
   pnpm install
   ```
 
+> **Important**: The lint (`pnpm lint`) and test (`pnpm test`) scripts require
+> all dependencies to be installed. Run `pnpm install` first whenever you clone
+> or pull new changes, otherwise these tasks may fail.
+
 - [ ] **3. Set Up Environment Variables:**
   - [ ] Copy the example env files. They are git-ignored.
     ```bash
