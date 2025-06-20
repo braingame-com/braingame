@@ -1,0 +1,132 @@
+{
+  "appStore": {
+    "name": "Brain Game",
+    "subtitle": "Master Your Mind",
+    "description": {
+      "short": "Master mindfulness through science-backed techniques and personalized brain training exercises",
+      "full": "Brain Game is your personal mindfulness companion, designed to help you develop mental clarity, emotional resilience, and peak cognitive performance through scientifically-proven techniques.\n\n🧠 PERSONALIZED BRAIN TRAINING\n• Adaptive exercises that evolve with your progress\n• Science-backed mindfulness techniques\n• Customized training programs based on your goals\n\n🎯 COMPREHENSIVE MINDSET LIBRARY\n• Guided meditations for every situation\n• Expert-led breathing exercises\n• Focus enhancement techniques\n• Stress reduction protocols\n\n📊 TRACK YOUR PROGRESS\n• Detailed analytics and insights\n• Streak tracking and achievements\n• Progress visualization\n• Personalized recommendations\n\n🌟 KEY FEATURES\n• Daily mindfulness challenges\n• Offline mode for practice anywhere\n• Dark mode for comfortable evening sessions\n• Accessibility features for all users\n• Privacy-focused design\n\n🔒 YOUR PRIVACY MATTERS\n• No ads, ever\n• Your data stays on your device\n• Optional anonymous analytics\n• Full control over your information\n\nWhether you're looking to reduce stress, improve focus, or develop a consistent mindfulness practice, Brain Game provides the tools and guidance you need to succeed.\n\nJoin thousands of users who have transformed their mental well-being with Brain Game. Start your journey to a calmer, more focused mind today!"
+    },
+    "keywords": [
+      "mindfulness",
+      "meditation",
+      "brain training",
+      "mental health",
+      "focus",
+      "concentration",
+      "stress relief",
+      "breathing exercises",
+      "wellness",
+      "productivity",
+      "cognitive training",
+      "mental fitness",
+      "relaxation",
+      "mindset",
+      "personal development"
+    ],
+    "category": "Health & Fitness",
+    "secondaryCategory": "Education",
+    "contentRating": "4+",
+    "copyright": "© 2024 Brain Game. All rights reserved.",
+    "supportUrl": "https://braingame.dev/support",
+    "marketingUrl": "https://braingame.dev",
+    "privacyUrl": "https://braingame.dev/privacy"
+  },
+  "googlePlay": {
+    "name": "Brain Game",
+    "shortDescription": "Master mindfulness with personalized brain training exercises",
+    "fullDescription": "Brain Game is your personal mindfulness companion, designed to help you develop mental clarity, emotional resilience, and peak cognitive performance through scientifically-proven techniques.\n\n<b>🧠 PERSONALIZED BRAIN TRAINING</b>\n• Adaptive exercises that evolve with your progress\n• Science-backed mindfulness techniques\n• Customized training programs based on your goals\n\n<b>🎯 COMPREHENSIVE MINDSET LIBRARY</b>\n• Guided meditations for every situation\n• Expert-led breathing exercises\n• Focus enhancement techniques\n• Stress reduction protocols\n\n<b>📊 TRACK YOUR PROGRESS</b>\n• Detailed analytics and insights\n• Streak tracking and achievements\n• Progress visualization\n• Personalized recommendations\n\n<b>🌟 KEY FEATURES</b>\n• Daily mindfulness challenges\n• Offline mode for practice anywhere\n• Dark mode for comfortable evening sessions\n• Accessibility features for all users\n• Privacy-focused design\n\n<b>🔒 YOUR PRIVACY MATTERS</b>\n• No ads, ever\n• Your data stays on your device\n• Optional anonymous analytics\n• Full control over your information\n\nWhether you're looking to reduce stress, improve focus, or develop a consistent mindfulness practice, Brain Game provides the tools and guidance you need to succeed.\n\nJoin thousands of users who have transformed their mental well-being with Brain Game. Start your journey to a calmer, more focused mind today!",
+    "category": "HEALTH_AND_FITNESS",
+    "contentRating": "Everyone",
+    "email": "support@braingame.dev",
+    "website": "https://braingame.dev",
+    "privacy": "https://braingame.dev/privacy"
+  },
+  "screenshots": {
+    "ios": {
+      "iPhone": [
+        {
+          "filename": "iphone-1-dashboard.png",
+          "caption": "Your personalized mindfulness dashboard"
+        },
+        {
+          "filename": "iphone-2-mindsets.png",
+          "caption": "Comprehensive library of guided exercises"
+        },
+        {
+          "filename": "iphone-3-progress.png",
+          "caption": "Track your mindfulness journey"
+        },
+        {
+          "filename": "iphone-4-settings.png",
+          "caption": "Customize your experience"
+        },
+        {
+          "filename": "iphone-5-dark.png",
+          "caption": "Beautiful dark mode for evening sessions"
+        }
+      ],
+      "iPad": [
+        {
+          "filename": "ipad-1-dashboard.png",
+          "caption": "Optimized for iPad"
+        },
+        {
+          "filename": "ipad-2-split.png",
+          "caption": "Multitasking support"
+        }
+      ]
+    },
+    "android": {
+      "phone": [
+        {
+          "filename": "android-1-dashboard.png",
+          "caption": "Your personalized mindfulness dashboard"
+        },
+        {
+          "filename": "android-2-mindsets.png",
+          "caption": "Comprehensive library of guided exercises"
+        },
+        {
+          "filename": "android-3-progress.png",
+          "caption": "Track your mindfulness journey"
+        },
+        {
+          "filename": "android-4-settings.png",
+          "caption": "Customize your experience"
+        },
+        {
+          "filename": "android-5-dark.png",
+          "caption": "Beautiful dark mode for evening sessions"
+        }
+      ],
+      "tablet": [
+        {
+          "filename": "tablet-1-dashboard.png",
+          "caption": "Optimized for tablets"
+        },
+        {
+          "filename": "tablet-2-landscape.png",
+          "caption": "Landscape mode support"
+        }
+      ]
+    }
+  },
+  "releaseNotes": {
+    "1.0.0": {
+      "en": "Initial release of Brain Game! Features include:\n• Personalized mindfulness exercises\n• Progress tracking and analytics\n• Beautiful dark mode\n• Accessibility support\n• Privacy-focused design"
+    }
+  },
+  "contactInfo": {
+    "firstName": "Brain Game",
+    "lastName": "Team",
+    "email": "contact@braingame.dev",
+    "phone": "+1 (555) 123-4567",
+    "address": {
+      "street": "123 Mindfulness Way",
+      "city": "San Francisco",
+      "state": "CA",
+      "postalCode": "94105",
+      "country": "United States"
+    }
+  }
+}
