@@ -1,9 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
-import { Text } from '@braingame/bgui';
-import { Audio, AVPlaybackStatus } from 'expo-av';
-import { mindsetStyles } from '../styles';
-import { SAM_OVENS_AFFIRMATIONS, PERSONAL_AFFIRMATIONS, AFFIRMATIONS_ATTRIBUTION, PERSONAL_SIGNATURE } from '../constants/affirmations';
+import { Text } from "@braingame/bgui";
+import { Audio, type AVPlaybackStatus } from "expo-av";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import {
+	AFFIRMATIONS_ATTRIBUTION,
+	PERSONAL_AFFIRMATIONS,
+	PERSONAL_SIGNATURE,
+	SAM_OVENS_AFFIRMATIONS,
+} from "../constants/affirmations";
+import { mindsetStyles } from "../styles";
 
 interface AffirmationsProps {
 	onComplete: () => void;
@@ -26,7 +32,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 	 */
 	useEffect(() => {
 		loadAudio();
-		
+
 		// Cleanup on unmount
 		return () => {
 			if (sound) {
@@ -42,16 +48,16 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		try {
 			setIsLoading(true);
 			const { sound: audioSound } = await Audio.Sound.createAsync(
-				require('../../../assets/audio/affirmations-with-music.mp3'),
-				{ shouldPlay: false }
+				require("../../../assets/audio/affirmations-with-music.mp3"),
+				{ shouldPlay: false },
 			);
 			setSound(audioSound);
-			
+
 			// Set up playback status listener
 			audioSound.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
 				if (status.isLoaded) {
 					setIsPlaying(status.isPlaying);
-					
+
 					// Mark as complete when audio finishes
 					if (status.didJustFinish) {
 						onComplete();
@@ -59,7 +65,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				}
 			});
 		} catch (error) {
-			console.error('Error loading audio:', error);
+			console.error("Error loading audio:", error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -81,7 +87,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				}
 			}
 		} catch (error) {
-			console.error('Error toggling playback:', error);
+			console.error("Error toggling playback:", error);
 		}
 	};
 
@@ -90,7 +96,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 	 */
 	const handleModeToggle = (mode: boolean) => {
 		setShowAudio(mode);
-		
+
 		// If switching to text mode and audio is playing, pause it
 		if (!mode && isPlaying) {
 			togglePlayback();
@@ -111,13 +117,13 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				<Text variant="title" style={mindsetStyles.cardTitle}>
 					🎯 Affirmations
 				</Text>
-				<View style={[
-					mindsetStyles.statusBadge,
-					completed ? mindsetStyles.statusCompleted : mindsetStyles.statusPending
-				]}>
-					<Text style={mindsetStyles.statusText}>
-						{completed ? '✓ Done' : 'To do'}
-					</Text>
+				<View
+					style={[
+						mindsetStyles.statusBadge,
+						completed ? mindsetStyles.statusCompleted : mindsetStyles.statusPending,
+					]}
+				>
+					<Text style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Text>
 				</View>
 			</View>
 
@@ -126,16 +132,18 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 			</Text>
 
 			{/* Audio/Text Toggle Buttons */}
-			<View style={{ 
-				flexDirection: 'row', 
-				marginBottom: 24,
-				backgroundColor: '#303040',
-				borderRadius: 8,
-				padding: 4,
-			}}>
+			<View
+				style={{
+					flexDirection: "row",
+					marginBottom: 24,
+					backgroundColor: "#303040",
+					borderRadius: 8,
+					padding: 4,
+				}}
+			>
 				{[
-					{ label: 'Audio', value: true },
-					{ label: 'Text', value: false }
+					{ label: "Audio", value: true },
+					{ label: "Text", value: false },
 				].map((option) => (
 					<TouchableOpacity
 						key={option.label}
@@ -145,15 +153,17 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							paddingVertical: 12,
 							paddingHorizontal: 16,
 							borderRadius: 6,
-							alignItems: 'center',
-							backgroundColor: showAudio === option.value ? '#007fff' : 'transparent',
+							alignItems: "center",
+							backgroundColor: showAudio === option.value ? "#007fff" : "transparent",
 						}}
 					>
-						<Text style={{
-							color: '#fff',
-							fontWeight: '600',
-							fontFamily: 'LexendSemiBold',
-						}}>
+						<Text
+							style={{
+								color: "#fff",
+								fontWeight: "600",
+								fontFamily: "LexendSemiBold",
+							}}
+						>
 							{option.label}
 						</Text>
 					</TouchableOpacity>
@@ -162,30 +172,32 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 
 			{/* Audio Mode */}
 			{showAudio ? (
-				<View style={{ alignItems: 'center' }}>
+				<View style={{ alignItems: "center" }}>
 					{isLoading ? (
-						<Text style={{ color: '#aaa', marginBottom: 20 }}>Loading audio...</Text>
+						<Text style={{ color: "#aaa", marginBottom: 20 }}>Loading audio...</Text>
 					) : (
 						<>
 							<TouchableOpacity
 								onPress={togglePlayback}
 								style={[
 									mindsetStyles.button,
-									{ marginBottom: 20, backgroundColor: isPlaying ? '#ff6d00' : '#00a550' }
+									{ marginBottom: 20, backgroundColor: isPlaying ? "#ff6d00" : "#00a550" },
 								]}
 								disabled={!sound}
 							>
 								<Text style={mindsetStyles.buttonText}>
-									{isPlaying ? '⏸️ Pause' : '▶️ Play Affirmations'}
+									{isPlaying ? "⏸️ Pause" : "▶️ Play Affirmations"}
 								</Text>
 							</TouchableOpacity>
 
-							<Text style={{
-								color: '#aaa',
-								fontSize: 14,
-								textAlign: 'center',
-								fontFamily: 'LexendRegular',
-							}}>
+							<Text
+								style={{
+									color: "#aaa",
+									fontSize: 14,
+									textAlign: "center",
+									fontFamily: "LexendRegular",
+								}}
+							>
 								Listen to the complete Sam Ovens affirmations with background music
 							</Text>
 						</>
@@ -196,78 +208,92 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				<ScrollView showsVerticalScrollIndicator={false}>
 					{/* Sam Ovens Affirmations */}
 					<View style={{ marginBottom: 32 }}>
-						<Text style={{
-							fontSize: 48,
-							color: '#aaa',
-							textAlign: 'left',
-							lineHeight: 48,
-							marginBottom: 16,
-						}}>
+						<Text
+							style={{
+								fontSize: 48,
+								color: "#aaa",
+								textAlign: "left",
+								lineHeight: 48,
+								marginBottom: 16,
+							}}
+						>
 							"
 						</Text>
 
-						<Text style={{
-							fontSize: 16,
-							color: '#fff',
-							lineHeight: 24,
-							fontFamily: 'LexendRegular',
-							marginBottom: 16,
-						}}>
+						<Text
+							style={{
+								fontSize: 16,
+								color: "#fff",
+								lineHeight: 24,
+								fontFamily: "LexendRegular",
+								marginBottom: 16,
+							}}
+						>
 							{SAM_OVENS_AFFIRMATIONS}
 						</Text>
 
-						<Text style={{
-							fontSize: 48,
-							color: '#aaa',
-							textAlign: 'right',
-							lineHeight: 48,
-							marginBottom: 8,
-						}}>
+						<Text
+							style={{
+								fontSize: 48,
+								color: "#aaa",
+								textAlign: "right",
+								lineHeight: 48,
+								marginBottom: 8,
+							}}
+						>
 							"
 						</Text>
 
-						<Text style={{
-							fontSize: 14,
-							color: '#aaa',
-							textAlign: 'right',
-							fontFamily: 'LexendRegular',
-							marginBottom: 32,
-						}}>
+						<Text
+							style={{
+								fontSize: 14,
+								color: "#aaa",
+								textAlign: "right",
+								fontFamily: "LexendRegular",
+								marginBottom: 32,
+							}}
+						>
 							{AFFIRMATIONS_ATTRIBUTION}
 						</Text>
 					</View>
 
 					{/* Personal Affirmations */}
 					<View style={mindsetStyles.divider} />
-					
+
 					<View style={{ marginTop: 32, marginBottom: 32 }}>
-						<Text style={{
-							fontSize: 18,
-							color: '#fff',
-							fontWeight: '600',
-							fontFamily: 'LexendSemiBold',
-							marginBottom: 16,
-						}}>
+						<Text
+							style={{
+								fontSize: 18,
+								color: "#fff",
+								fontWeight: "600",
+								fontFamily: "LexendSemiBold",
+								marginBottom: 16,
+							}}
+						>
 							Personal Affirmations
 						</Text>
 
-						<Text style={{
-							fontSize: 16,
-							color: '#fff',
-							lineHeight: 24,
-							fontFamily: 'LexendRegular',
-							marginBottom: 24,
-						}}>
+						<Text
+							style={{
+								fontSize: 16,
+								color: "#fff",
+								lineHeight: 24,
+								fontFamily: "LexendRegular",
+								marginBottom: 24,
+							}}
+						>
 							{PERSONAL_AFFIRMATIONS}
 						</Text>
 
-						<Text style={{
-							fontSize: 14,
-							color: '#aaa',
-							textAlign: 'right',
-							fontFamily: 'LexendRegular',
-							fontStyle: 'italic',
-						}}>
+						<Text
+							style={{
+								fontSize: 14,
+								color: "#aaa",
+								textAlign: "right",
+								fontFamily: "LexendRegular",
+								fontStyle: "italic",
+							}}
+						>
 							{PERSONAL_SIGNATURE}
 						</Text>
 					</View>
@@ -275,11 +301,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 					{/* Mark Complete Button */}
 					<TouchableOpacity
 						onPress={handleTextComplete}
-						style={[mindsetStyles.button, { backgroundColor: '#00a550' }]}
+						style={[mindsetStyles.button, { backgroundColor: "#00a550" }]}
 					>
-						<Text style={mindsetStyles.buttonText}>
-							✓ Mark Complete
-						</Text>
+						<Text style={mindsetStyles.buttonText}>✓ Mark Complete</Text>
 					</TouchableOpacity>
 				</ScrollView>
 			)}

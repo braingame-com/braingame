@@ -1,6 +1,11 @@
+import { useThemeColor } from "@braingame/utils";
 import { Text as RNText } from "react-native";
+<<<<<<< HEAD
+import { getFontFamily, getTextColor, getVariantWeight, textVariantStyles } from "./styles";
+=======
 import { useThemeColor } from "@braingame/utils";
 import { getTextColor, getFontFamily, textVariantStyles, getVariantWeight } from "./styles";
+>>>>>>> main
 import type { TextProps } from "./types";
 
 /**
@@ -24,9 +29,16 @@ export const Text = ({
 	const resolvedColor = getTextColor(color, baseColor, secondaryColor);
 	const fontWeight = getVariantWeight(variant);
 	const fontFamily = getFontFamily(mono, fontWeight);
+<<<<<<< HEAD
+
+	// Get variant style, fallback to body if variant doesn't exist
+	const variantStyle =
+		textVariantStyles[variant as keyof typeof textVariantStyles] || textVariantStyles.body;
+=======
 	
 	// Get variant style, fallback to body if variant doesn't exist
 	const variantStyle = textVariantStyles[variant as keyof typeof textVariantStyles] || textVariantStyles.body;
+>>>>>>> main
 
 	return (
 		<RNText

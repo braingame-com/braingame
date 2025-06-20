@@ -16,7 +16,7 @@ export interface JournalEntry {
 export interface PerformanceMetric {
 	key: string;
 	value: string | boolean;
-	type: 'checkbox' | 'text';
+	type: "checkbox" | "text";
 }
 
 export interface CompletionState {
@@ -39,7 +39,7 @@ export interface MindsetSection {
  * Button states for async operations
  * Matches dev-dil Button component behavior
  */
-export type ButtonState = 'idle' | 'loading' | 'success' | 'error';
+export type ButtonState = "idle" | "loading" | "success" | "error";
 
 /**
  * Firebase Cloud Function response format
