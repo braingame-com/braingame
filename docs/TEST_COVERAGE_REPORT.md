@@ -1,18 +1,35 @@
 # Test Coverage Report
 
-> **Last Updated:** 17-06-2025
+> **Last Updated:** 20-06-2025
 
-The `packages/bgui` package currently has no automated tests. Running `pnpm test --filter @braingame/bgui -- --coverage` yields 0% coverage for all files.
+The `packages/bgui` package now includes unit tests for most components. However, running `pnpm test --filter @braingame/bgui -- --coverage` currently fails due to environment issues, so coverage numbers are unavailable.
 
-## Components Lacking Tests
+## Components With Tests
 
-- [ ] Button
-- [ ] ErrorBoundary
-- [ ] Icon
-- [ ] Link
-- [ ] PageWrapper
-- [ ] Text
-- [ ] TextInput
-- [ ] View
+- Accordion
+- ActionList
+- Avatar
+- Badge
+- Button
+- Card
+- Checkbox
+- Divider
+- ErrorBoundary
+- Icon
+- Image
+- Label
+- Link
+- Menu
+- Modal
+- ProgressBar
+- RadioGroup
+- Select
+- Slider
+- Spinner
+- Switch
+- Tabs
+- Text
+- Toast
+- Tooltip
 
-_All components require unit tests to achieve the 90% coverage goal._
+_Coverage generation will resume once the test environment is fully operational._
