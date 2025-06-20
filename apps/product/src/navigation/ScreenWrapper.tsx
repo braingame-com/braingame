@@ -1,16 +1,16 @@
-import React from 'react';
-import { ErrorBoundary, NetworkErrorBoundary } from '../components/ErrorBoundary';
-import { AccessibilityProvider } from '../contexts/AccessibilityContext';
-import { setupGlobalErrorHandlers } from '../services/ErrorService';
+import type React from "react";
+import { ErrorBoundary, NetworkErrorBoundary } from "../components/ErrorBoundary";
+import { AccessibilityProvider } from "../contexts/AccessibilityContext";
+import { setupGlobalErrorHandlers } from "../services/ErrorService";
 
 // Setup global error handlers once
 if (!__DEV__) {
-  setupGlobalErrorHandlers();
+	setupGlobalErrorHandlers();
 }
 
 interface ScreenWrapperProps {
-  children: React.ReactNode;
-  screenName: string;
+	children: React.ReactNode;
+	screenName: string;
 }
 
 /**
@@ -21,35 +21,33 @@ interface ScreenWrapperProps {
  * - Performance monitoring
  */
 export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({ children, screenName }) => {
-  return (
-    <ErrorBoundary
-      level="screen"
-      showDetails={__DEV__}
-      onError={(error, errorInfo) => {
-        console.error(`Screen Error in ${screenName}:`, error, errorInfo);
-      }}
-    >
-      <NetworkErrorBoundary showOfflineUI={true}>
-        {children}
-      </NetworkErrorBoundary>
-    </ErrorBoundary>
-  );
+	return (
+		<ErrorBoundary
+			level="screen"
+			showDetails={__DEV__}
+			onError={(error, errorInfo) => {
+				console.error(`Screen Error in ${screenName}:`, error, errorInfo);
+			}}
+		>
+			<NetworkErrorBoundary showOfflineUI={true}>{children}</NetworkErrorBoundary>
+		</ErrorBoundary>
+	);
 };
 
 /**
  * HOC to wrap screens with all necessary providers and boundaries
  */
 export function withScreenWrapper<P extends object>(
-  Screen: React.ComponentType<P>,
-  screenName?: string
+	Screen: React.ComponentType<P>,
+	screenName?: string,
 ): React.ComponentType<P> {
-  const WrappedScreen = (props: P) => (
-    <ScreenWrapper screenName={screenName || Screen.displayName || Screen.name || 'Unknown'}>
-      <Screen {...props} />
-    </ScreenWrapper>
-  );
+	const WrappedScreen = (props: P) => (
+		<ScreenWrapper screenName={screenName || Screen.displayName || Screen.name || "Unknown"}>
+			<Screen {...props} />
+		</ScreenWrapper>
+	);
 
-  WrappedScreen.displayName = `ScreenWrapper(${Screen.displayName || Screen.name || 'Screen'})`;
+	WrappedScreen.displayName = `ScreenWrapper(${Screen.displayName || Screen.name || "Screen"})`;
 
-  return WrappedScreen;
+	return WrappedScreen;
 }

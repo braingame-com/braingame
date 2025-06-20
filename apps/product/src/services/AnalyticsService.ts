@@ -1,443 +1,426 @@
-import { Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Device from 'expo-device';
-import * as Application from 'expo-application';
-import { captureException } from './ErrorService';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Application from "expo-application";
+import * as Device from "expo-device";
+import { Platform } from "react-native";
+import { captureException } from "./ErrorService";
 
 // Event types
-export type EventName = 
-  // Navigation events
-  | 'screen_view'
-  | 'tab_switch'
-  | 'navigation_error'
-  
-  // User actions
-  | 'button_click'
-  | 'form_submit'
-  | 'search'
-  | 'filter_apply'
-  | 'share'
-  | 'scroll'
-  
-  // Content engagement
-  | 'video_play'
-  | 'video_pause'
-  | 'video_complete'
-  | 'video_error'
-  | 'content_view'
-  | 'content_save'
-  | 'content_share'
-  
-  // Feature usage
-  | 'mindset_start'
-  | 'mindset_complete'
-  | 'affirmation_play'
-  | 'vision_update'
-  | 'goal_create'
-  | 'goal_complete'
-  
-  // Performance
-  | 'app_launch'
-  | 'screen_load_time'
-  | 'api_call_time'
-  | 'crash'
-  | 'error'
-  
-  // Monetization
-  | 'purchase_start'
-  | 'purchase_complete'
-  | 'purchase_cancel'
-  | 'subscription_start'
-  | 'subscription_cancel'
-  
-  // Settings
-  | 'settings_change'
-  | 'theme_change'
-  | 'accessibility_change'
-  | 'notification_toggle';
+export type EventName =
+	// Navigation events
+	| "screen_view"
+	| "tab_switch"
+	| "navigation_error"
+
+	// User actions
+	| "button_click"
+	| "form_submit"
+	| "search"
+	| "filter_apply"
+	| "share"
+	| "scroll"
+
+	// Content engagement
+	| "video_play"
+	| "video_pause"
+	| "video_complete"
+	| "video_error"
+	| "content_view"
+	| "content_save"
+	| "content_share"
+
+	// Feature usage
+	| "mindset_start"
+	| "mindset_complete"
+	| "affirmation_play"
+	| "vision_update"
+	| "goal_create"
+	| "goal_complete"
+
+	// Performance
+	| "app_launch"
+	| "screen_load_time"
+	| "api_call_time"
+	| "crash"
+	| "error"
+
+	// Monetization
+	| "purchase_start"
+	| "purchase_complete"
+	| "purchase_cancel"
+	| "subscription_start"
+	| "subscription_cancel"
+
+	// Settings
+	| "settings_change"
+	| "theme_change"
+	| "accessibility_change"
+	| "notification_toggle";
 
 interface EventProperties {
-  [key: string]: string | number | boolean | null | undefined;
+	[key: string]: string | number | boolean | null | undefined;
 }
 
 interface UserProperties {
-  userId?: string;
-  email?: string;
-  name?: string;
-  createdAt?: string;
-  subscriptionStatus?: 'free' | 'trial' | 'premium' | 'expired';
-  themeName?: string;
-  accessibilityEnabled?: boolean;
-  notificationsEnabled?: boolean;
-  [key: string]: any;
+	userId?: string;
+	email?: string;
+	name?: string;
+	createdAt?: string;
+	subscriptionStatus?: "free" | "trial" | "premium" | "expired";
+	themeName?: string;
+	accessibilityEnabled?: boolean;
+	notificationsEnabled?: boolean;
+	[key: string]: any;
 }
 
 interface SuperProperties {
-  platform: string;
-  platformVersion: string;
-  appVersion: string;
-  buildVersion: string;
-  deviceModel?: string;
-  deviceManufacturer?: string;
-  deviceName?: string;
-  isDevice: boolean;
-  sessionId: string;
-  [key: string]: any;
+	platform: string;
+	platformVersion: string;
+	appVersion: string;
+	buildVersion: string;
+	deviceModel?: string;
+	deviceManufacturer?: string;
+	deviceName?: string;
+	isDevice: boolean;
+	sessionId: string;
+	[key: string]: any;
 }
 
 interface AnalyticsProvider {
-  init(apiKey: string): Promise<void>;
-  identify(userId: string, properties?: UserProperties): Promise<void>;
-  track(event: EventName, properties?: EventProperties): Promise<void>;
-  setUserProperties(properties: UserProperties): Promise<void>;
-  setSuperProperties(properties: SuperProperties): Promise<void>;
-  reset(): Promise<void>;
-  flush(): Promise<void>;
+	init(apiKey: string): Promise<void>;
+	identify(userId: string, properties?: UserProperties): Promise<void>;
+	track(event: EventName, properties?: EventProperties): Promise<void>;
+	setUserProperties(properties: UserProperties): Promise<void>;
+	setSuperProperties(properties: SuperProperties): Promise<void>;
+	reset(): Promise<void>;
+	flush(): Promise<void>;
 }
 
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
-  private logs: any[] = [];
+	private logs: any[] = [];
 
-  async init(apiKey: string) {
-    console.log('[MockAnalytics] Initialized with key:', apiKey.substring(0, 8) + '...');
-  }
+	async init(apiKey: string) {
+		console.log("[MockAnalytics] Initialized with key:", apiKey.substring(0, 8) + "...");
+	}
 
-  async identify(userId: string, properties?: UserProperties) {
-    const log = { type: 'identify', userId, properties, timestamp: new Date() };
-    this.logs.push(log);
-    console.log('[MockAnalytics] Identify:', log);
-  }
+	async identify(userId: string, properties?: UserProperties) {
+		const log = { type: "identify", userId, properties, timestamp: new Date() };
+		this.logs.push(log);
+		console.log("[MockAnalytics] Identify:", log);
+	}
 
-  async track(event: EventName, properties?: EventProperties) {
-    const log = { type: 'track', event, properties, timestamp: new Date() };
-    this.logs.push(log);
-    console.log('[MockAnalytics] Track:', log);
-  }
+	async track(event: EventName, properties?: EventProperties) {
+		const log = { type: "track", event, properties, timestamp: new Date() };
+		this.logs.push(log);
+		console.log("[MockAnalytics] Track:", log);
+	}
 
-  async setUserProperties(properties: UserProperties) {
-    console.log('[MockAnalytics] Set User Properties:', properties);
-  }
+	async setUserProperties(properties: UserProperties) {
+		console.log("[MockAnalytics] Set User Properties:", properties);
+	}
 
-  async setSuperProperties(properties: SuperProperties) {
-    console.log('[MockAnalytics] Set Super Properties:', properties);
-  }
+	async setSuperProperties(properties: SuperProperties) {
+		console.log("[MockAnalytics] Set Super Properties:", properties);
+	}
 
-  async reset() {
-    this.logs = [];
-    console.log('[MockAnalytics] Reset');
-  }
+	async reset() {
+		this.logs = [];
+		console.log("[MockAnalytics] Reset");
+	}
 
-  async flush() {
-    console.log('[MockAnalytics] Flush - Total events:', this.logs.length);
-  }
+	async flush() {
+		console.log("[MockAnalytics] Flush - Total events:", this.logs.length);
+	}
 }
 
 // Main Analytics Service
 class AnalyticsService {
-  private static instance: AnalyticsService;
-  private providers: AnalyticsProvider[] = [];
-  private superProperties: SuperProperties;
-  private userProperties: UserProperties = {};
-  private sessionId: string;
-  private eventQueue: Array<{ event: EventName; properties?: EventProperties }> = [];
-  private isInitialized = false;
-  private isEnabled = true;
-  private debugMode = __DEV__;
+	private static instance: AnalyticsService;
+	private providers: AnalyticsProvider[] = [];
+	private superProperties: SuperProperties;
+	private userProperties: UserProperties = {};
+	private sessionId: string;
+	private eventQueue: Array<{ event: EventName; properties?: EventProperties }> = [];
+	private isInitialized = false;
+	private isEnabled = true;
+	private debugMode = __DEV__;
 
-  private constructor() {
-    this.sessionId = this.generateSessionId();
-    this.superProperties = this.generateSuperProperties();
-  }
+	private constructor() {
+		this.sessionId = this.generateSessionId();
+		this.superProperties = this.generateSuperProperties();
+	}
 
-  static getInstance(): AnalyticsService {
-    if (!AnalyticsService.instance) {
-      AnalyticsService.instance = new AnalyticsService();
-    }
-    return AnalyticsService.instance;
-  }
+	static getInstance(): AnalyticsService {
+		if (!AnalyticsService.instance) {
+			AnalyticsService.instance = new AnalyticsService();
+		}
+		return AnalyticsService.instance;
+	}
 
-  private generateSessionId(): string {
-    return `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  }
+	private generateSessionId(): string {
+		return `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+	}
 
-  private generateSuperProperties(): SuperProperties {
-    return {
-      platform: Platform.OS,
-      platformVersion: Platform.Version?.toString() || 'unknown',
-      appVersion: Application.nativeApplicationVersion || '1.0.0',
-      buildVersion: Application.nativeBuildVersion || '1',
-      deviceModel: Device.modelName || undefined,
-      deviceManufacturer: Device.manufacturer || undefined,
-      deviceName: Device.deviceName || undefined,
-      isDevice: Device.isDevice ?? true,
-      sessionId: this.sessionId,
-    };
-  }
+	private generateSuperProperties(): SuperProperties {
+		return {
+			platform: Platform.OS,
+			platformVersion: Platform.Version?.toString() || "unknown",
+			appVersion: Application.nativeApplicationVersion || "1.0.0",
+			buildVersion: Application.nativeBuildVersion || "1",
+			deviceModel: Device.modelName || undefined,
+			deviceManufacturer: Device.manufacturer || undefined,
+			deviceName: Device.deviceName || undefined,
+			isDevice: Device.isDevice ?? true,
+			sessionId: this.sessionId,
+		};
+	}
 
-  async initialize() {
-    try {
-      // Check if analytics is enabled
-      const enabled = await AsyncStorage.getItem('@braingame/analytics_enabled');
-      this.isEnabled = enabled !== 'false';
+	async initialize() {
+		try {
+			// Check if analytics is enabled
+			const enabled = await AsyncStorage.getItem("@braingame/analytics_enabled");
+			this.isEnabled = enabled !== "false";
 
-      if (!this.isEnabled) {
-        console.log('Analytics disabled by user preference');
-        return;
-      }
+			if (!this.isEnabled) {
+				console.log("Analytics disabled by user preference");
+				return;
+			}
 
-      // Initialize providers based on environment
-      if (__DEV__) {
-        // Use mock provider in development
-        const mockProvider = new MockAnalyticsProvider();
-        await mockProvider.init('mock-api-key');
-        this.providers.push(mockProvider);
-      } else {
-        // Initialize real providers in production
-        // Example: Mixpanel
-        // const mixpanel = new MixpanelProvider();
-        // await mixpanel.init(process.env.MIXPANEL_TOKEN);
-        // this.providers.push(mixpanel);
+			// Initialize providers based on environment
+			if (__DEV__) {
+				// Use mock provider in development
+				const mockProvider = new MockAnalyticsProvider();
+				await mockProvider.init("mock-api-key");
+				this.providers.push(mockProvider);
+			} else {
+				// Initialize real providers in production
+				// Example: Mixpanel
+				// const mixpanel = new MixpanelProvider();
+				// await mixpanel.init(process.env.MIXPANEL_TOKEN);
+				// this.providers.push(mixpanel);
+				// Example: Amplitude
+				// const amplitude = new AmplitudeProvider();
+				// await amplitude.init(process.env.AMPLITUDE_API_KEY);
+				// this.providers.push(amplitude);
+			}
 
-        // Example: Amplitude
-        // const amplitude = new AmplitudeProvider();
-        // await amplitude.init(process.env.AMPLITUDE_API_KEY);
-        // this.providers.push(amplitude);
-      }
+			// Set super properties on all providers
+			await Promise.all(
+				this.providers.map((provider) => provider.setSuperProperties(this.superProperties)),
+			);
 
-      // Set super properties on all providers
-      await Promise.all(
-        this.providers.map(provider => 
-          provider.setSuperProperties(this.superProperties)
-        )
-      );
+			// Process queued events
+			await this.processEventQueue();
 
-      // Process queued events
-      await this.processEventQueue();
+			this.isInitialized = true;
 
-      this.isInitialized = true;
-      
-      // Track app launch
-      this.track('app_launch', {
-        launch_type: 'cold',
-        time_since_last_launch: await this.getTimeSinceLastLaunch(),
-      });
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_initialization',
-      });
-    }
-  }
+			// Track app launch
+			this.track("app_launch", {
+				launch_type: "cold",
+				time_since_last_launch: await this.getTimeSinceLastLaunch(),
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_initialization",
+			});
+		}
+	}
 
-  private async getTimeSinceLastLaunch(): Promise<number | null> {
-    try {
-      const lastLaunch = await AsyncStorage.getItem('@braingame/last_launch');
-      if (lastLaunch) {
-        return Date.now() - parseInt(lastLaunch, 10);
-      }
-    } catch {}
-    return null;
-  }
+	private async getTimeSinceLastLaunch(): Promise<number | null> {
+		try {
+			const lastLaunch = await AsyncStorage.getItem("@braingame/last_launch");
+			if (lastLaunch) {
+				return Date.now() - parseInt(lastLaunch, 10);
+			}
+		} catch {}
+		return null;
+	}
 
-  async identify(userId: string, properties?: UserProperties) {
-    if (!this.isEnabled) return;
+	async identify(userId: string, properties?: UserProperties) {
+		if (!this.isEnabled) return;
 
-    this.userProperties = {
-      ...this.userProperties,
-      ...properties,
-      userId,
-    };
+		this.userProperties = {
+			...this.userProperties,
+			...properties,
+			userId,
+		};
 
-    if (!this.isInitialized) {
-      // Queue for later if not initialized
-      return;
-    }
+		if (!this.isInitialized) {
+			// Queue for later if not initialized
+			return;
+		}
 
-    try {
-      await Promise.all(
-        this.providers.map(provider => 
-          provider.identify(userId, this.userProperties)
-        )
-      );
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_identify',
-        userId,
-      });
-    }
-  }
+		try {
+			await Promise.all(
+				this.providers.map((provider) => provider.identify(userId, this.userProperties)),
+			);
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_identify",
+				userId,
+			});
+		}
+	}
 
-  async track(event: EventName, properties?: EventProperties) {
-    if (!this.isEnabled) return;
+	async track(event: EventName, properties?: EventProperties) {
+		if (!this.isEnabled) return;
 
-    if (this.debugMode) {
-      console.log(`[Analytics] ${event}`, properties);
-    }
+		if (this.debugMode) {
+			console.log(`[Analytics] ${event}`, properties);
+		}
 
-    if (!this.isInitialized) {
-      // Queue event for later
-      this.eventQueue.push({ event, properties });
-      return;
-    }
+		if (!this.isInitialized) {
+			// Queue event for later
+			this.eventQueue.push({ event, properties });
+			return;
+		}
 
-    try {
-      const enrichedProperties = {
-        ...properties,
-        timestamp: new Date().toISOString(),
-        session_id: this.sessionId,
-      };
+		try {
+			const enrichedProperties = {
+				...properties,
+				timestamp: new Date().toISOString(),
+				session_id: this.sessionId,
+			};
 
-      await Promise.all(
-        this.providers.map(provider => 
-          provider.track(event, enrichedProperties)
-        )
-      );
+			await Promise.all(
+				this.providers.map((provider) => provider.track(event, enrichedProperties)),
+			);
 
-      // Store last launch time
-      if (event === 'app_launch') {
-        await AsyncStorage.setItem('@braingame/last_launch', Date.now().toString());
-      }
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_track',
-        event,
-      });
-    }
-  }
+			// Store last launch time
+			if (event === "app_launch") {
+				await AsyncStorage.setItem("@braingame/last_launch", Date.now().toString());
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track",
+				event,
+			});
+		}
+	}
 
-  async setUserProperty(key: string, value: any) {
-    if (!this.isEnabled) return;
+	async setUserProperty(key: string, value: any) {
+		if (!this.isEnabled) return;
 
-    this.userProperties[key] = value;
+		this.userProperties[key] = value;
 
-    if (!this.isInitialized) return;
+		if (!this.isInitialized) return;
 
-    try {
-      await Promise.all(
-        this.providers.map(provider => 
-          provider.setUserProperties({ [key]: value })
-        )
-      );
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_set_user_property',
-        key,
-      });
-    }
-  }
+		try {
+			await Promise.all(
+				this.providers.map((provider) => provider.setUserProperties({ [key]: value })),
+			);
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_set_user_property",
+				key,
+			});
+		}
+	}
 
-  async setUserProperties(properties: UserProperties) {
-    if (!this.isEnabled) return;
+	async setUserProperties(properties: UserProperties) {
+		if (!this.isEnabled) return;
 
-    this.userProperties = {
-      ...this.userProperties,
-      ...properties,
-    };
+		this.userProperties = {
+			...this.userProperties,
+			...properties,
+		};
 
-    if (!this.isInitialized) return;
+		if (!this.isInitialized) return;
 
-    try {
-      await Promise.all(
-        this.providers.map(provider => 
-          provider.setUserProperties(properties)
-        )
-      );
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_set_user_properties',
-      });
-    }
-  }
+		try {
+			await Promise.all(this.providers.map((provider) => provider.setUserProperties(properties)));
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_set_user_properties",
+			});
+		}
+	}
 
-  async reset() {
-    try {
-      await Promise.all(
-        this.providers.map(provider => provider.reset())
-      );
-      
-      this.userProperties = {};
-      this.sessionId = this.generateSessionId();
-      this.superProperties.sessionId = this.sessionId;
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_reset',
-      });
-    }
-  }
+	async reset() {
+		try {
+			await Promise.all(this.providers.map((provider) => provider.reset()));
 
-  async flush() {
-    if (!this.isInitialized) return;
+			this.userProperties = {};
+			this.sessionId = this.generateSessionId();
+			this.superProperties.sessionId = this.sessionId;
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_reset",
+			});
+		}
+	}
 
-    try {
-      await Promise.all(
-        this.providers.map(provider => provider.flush())
-      );
-    } catch (error) {
-      captureException(error as Error, {
-        context: 'analytics_flush',
-      });
-    }
-  }
+	async flush() {
+		if (!this.isInitialized) return;
 
-  async setEnabled(enabled: boolean) {
-    this.isEnabled = enabled;
-    await AsyncStorage.setItem('@braingame/analytics_enabled', enabled.toString());
-    
-    if (!enabled) {
-      await this.reset();
-    }
-  }
+		try {
+			await Promise.all(this.providers.map((provider) => provider.flush()));
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_flush",
+			});
+		}
+	}
 
-  isAnalyticsEnabled(): boolean {
-    return this.isEnabled;
-  }
+	async setEnabled(enabled: boolean) {
+		this.isEnabled = enabled;
+		await AsyncStorage.setItem("@braingame/analytics_enabled", enabled.toString());
 
-  private async processEventQueue() {
-    if (this.eventQueue.length === 0) return;
+		if (!enabled) {
+			await this.reset();
+		}
+	}
 
-    const events = [...this.eventQueue];
-    this.eventQueue = [];
+	isAnalyticsEnabled(): boolean {
+		return this.isEnabled;
+	}
 
-    for (const { event, properties } of events) {
-      await this.track(event, properties);
-    }
-  }
+	private async processEventQueue() {
+		if (this.eventQueue.length === 0) return;
 
-  // Screen tracking helper
-  trackScreen(screenName: string, properties?: EventProperties) {
-    this.track('screen_view', {
-      screen_name: screenName,
-      ...properties,
-    });
-  }
+		const events = [...this.eventQueue];
+		this.eventQueue = [];
 
-  // Performance tracking helpers
-  startTimer(timerId: string): () => void {
-    const startTime = Date.now();
-    
-    return () => {
-      const duration = Date.now() - startTime;
-      return duration;
-    };
-  }
+		for (const { event, properties } of events) {
+			await this.track(event, properties);
+		}
+	}
 
-  trackTiming(category: string, timingVar: string, duration: number, label?: string) {
-    this.track('screen_load_time', {
-      category,
-      timing_var: timingVar,
-      duration,
-      label,
-    });
-  }
+	// Screen tracking helper
+	trackScreen(screenName: string, properties?: EventProperties) {
+		this.track("screen_view", {
+			screen_name: screenName,
+			...properties,
+		});
+	}
 
-  // Error tracking helper
-  trackError(error: Error, fatal: boolean = false) {
-    this.track('error', {
-      error_message: error.message,
-      error_stack: error.stack,
-      fatal,
-    });
-  }
+	// Performance tracking helpers
+	startTimer(timerId: string): () => void {
+		const startTime = Date.now();
+
+		return () => {
+			const duration = Date.now() - startTime;
+			return duration;
+		};
+	}
+
+	trackTiming(category: string, timingVar: string, duration: number, label?: string) {
+		this.track("screen_load_time", {
+			category,
+			timing_var: timingVar,
+			duration,
+			label,
+		});
+	}
+
+	// Error tracking helper
+	trackError(error: Error, fatal: boolean = false) {
+		this.track("error", {
+			error_message: error.message,
+			error_stack: error.stack,
+			fatal,
+		});
+	}
 }
 
 // Export singleton instance
@@ -445,25 +428,26 @@ export const analytics = AnalyticsService.getInstance();
 
 // Export convenience functions
 export const trackEvent = (event: EventName, properties?: EventProperties) =>
-  analytics.track(event, properties);
+	analytics.track(event, properties);
 
 export const trackScreen = (screenName: string, properties?: EventProperties) =>
-  analytics.trackScreen(screenName, properties);
+	analytics.trackScreen(screenName, properties);
 
 export const identifyUser = (userId: string, properties?: UserProperties) =>
-  analytics.identify(userId, properties);
+	analytics.identify(userId, properties);
 
-export const setUserProperty = (key: string, value: any) =>
-  analytics.setUserProperty(key, value);
+export const setUserProperty = (key: string, value: any) => analytics.setUserProperty(key, value);
 
 export const setUserProperties = (properties: UserProperties) =>
-  analytics.setUserProperties(properties);
+	analytics.setUserProperties(properties);
 
-export const trackTiming = (category: string, timingVar: string, duration: number, label?: string) =>
-  analytics.trackTiming(category, timingVar, duration, label);
+export const trackTiming = (
+	category: string,
+	timingVar: string,
+	duration: number,
+	label?: string,
+) => analytics.trackTiming(category, timingVar, duration, label);
 
-export const resetAnalytics = () =>
-  analytics.reset();
+export const resetAnalytics = () => analytics.reset();
 
-export const flushAnalytics = () =>
-  analytics.flush();
+export const flushAnalytics = () => analytics.flush();

@@ -1,20 +1,20 @@
 import { Text } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
-import { useCallback, useMemo, useRef, useEffect } from "react";
-import { FlatList, TouchableOpacity, View, AccessibilityInfo } from "react-native";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import { AccessibilityInfo, FlatList, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import type { DashboardStackScreenProps } from "../../navigation/types";
-import { listOptimizations, withMemo } from "../../utils/performance";
-import { 
-  getAccessibilityProps, 
-  getAccessibilityState,
-  getListItemLabel,
-  getProgressLabel,
-  announceForAccessibility,
-  a11yLabels 
-} from "../../utils/accessibility";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
+import type { DashboardStackScreenProps } from "../../navigation/types";
+import {
+	a11yLabels,
+	announceForAccessibility,
+	getAccessibilityProps,
+	getAccessibilityState,
+	getListItemLabel,
+	getProgressLabel,
+} from "../../utils/accessibility";
+import { listOptimizations, withMemo } from "../../utils/performance";
 import { dashboardStyles } from "./styles";
 
 type Props = DashboardStackScreenProps<"DashboardHome">;
@@ -45,12 +45,9 @@ const StatCard = withMemo<{ item: StatItem; index: number; total: number }>(
 	({ item, index, total }) => {
 		const label = `${item.label}: ${item.value}`;
 		const hint = getListItemLabel(item.label, index, total);
-		
+
 		return (
-			<View 
-				style={dashboardStyles.statCard}
-				{...getAccessibilityProps(label, hint, 'text')}
-			>
+			<View style={dashboardStyles.statCard} {...getAccessibilityProps(label, hint, "text")}>
 				<Text style={dashboardStyles.statValue} importantForAccessibility="no">
 					{item.value}
 				</Text>
@@ -68,12 +65,12 @@ const ActionCard = withMemo<{ item: ActionItem; index: number; total: number }>(
 	({ item, index, total }) => {
 		const label = item.title;
 		const hint = `${item.description}. ${getListItemLabel(item.title, index, total)}. Double tap to activate`;
-		
+
 		return (
-			<TouchableOpacity 
-				style={dashboardStyles.actionCard} 
+			<TouchableOpacity
+				style={dashboardStyles.actionCard}
 				onPress={item.onPress}
-				{...getAccessibilityProps(label, hint, 'button')}
+				{...getAccessibilityProps(label, hint, "button")}
 			>
 				<Text style={dashboardStyles.actionIcon} importantForAccessibility="no">
 					{item.icon}
@@ -96,34 +93,36 @@ const ActionCard = withMemo<{ item: ActionItem; index: number; total: number }>(
 );
 
 // Accessible Activity Card
-const ActivityCard = withMemo<{ item: ActivityItem; onPress: (id: string) => void; index: number; total: number }>(
-	({ item, onPress, index, total }) => {
-		const label = `Completed ${item.task}, ${item.time}`;
-		const hint = `${getListItemLabel(item.task, index, total)}. Double tap to view details`;
-		
-		return (
-			<TouchableOpacity
-				style={dashboardStyles.activityItem}
-				onPress={() => onPress(item.id)}
-				{...getAccessibilityProps(label, hint, 'button')}
-			>
-				<View style={dashboardStyles.activityDot} />
-				<Text style={dashboardStyles.activityText} importantForAccessibility="no">
-					Completed {item.task}
-				</Text>
-				<Text style={dashboardStyles.activityTime} importantForAccessibility="no">
-					{item.time}
-				</Text>
-			</TouchableOpacity>
-		);
-	},
-	"ActivityCard",
-);
+const ActivityCard = withMemo<{
+	item: ActivityItem;
+	onPress: (id: string) => void;
+	index: number;
+	total: number;
+}>(({ item, onPress, index, total }) => {
+	const label = `Completed ${item.task}, ${item.time}`;
+	const hint = `${getListItemLabel(item.task, index, total)}. Double tap to view details`;
+
+	return (
+		<TouchableOpacity
+			style={dashboardStyles.activityItem}
+			onPress={() => onPress(item.id)}
+			{...getAccessibilityProps(label, hint, "button")}
+		>
+			<View style={dashboardStyles.activityDot} />
+			<Text style={dashboardStyles.activityText} importantForAccessibility="no">
+				Completed {item.task}
+			</Text>
+			<Text style={dashboardStyles.activityTime} importantForAccessibility="no">
+				{item.time}
+			</Text>
+		</TouchableOpacity>
+	);
+}, "ActivityCard");
 
 // Accessible Header component
 const DashboardHeader = withMemo(() => {
 	const headerRef = useRef(null);
-	
+
 	// Focus on header when screen loads for screen readers
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -133,13 +132,13 @@ const DashboardHeader = withMemo(() => {
 		}, 100);
 		return () => clearTimeout(timer);
 	}, []);
-	
+
 	return (
 		<View style={dashboardStyles.header}>
-			<Text 
+			<Text
 				ref={headerRef}
 				style={dashboardStyles.title}
-				{...getAccessibilityProps('Dashboard', 'Your productivity hub', 'header')}
+				{...getAccessibilityProps("Dashboard", "Your productivity hub", "header")}
 			>
 				Dashboard
 			</Text>
@@ -153,9 +152,9 @@ const DashboardHeader = withMemo(() => {
 // Accessible Section header component
 const SectionHeader = withMemo<{ title: string }>(
 	({ title }) => (
-		<Text 
+		<Text
 			style={dashboardStyles.sectionTitle}
-			{...getAccessibilityProps(title, undefined, 'header')}
+			{...getAccessibilityProps(title, undefined, "header")}
 		>
 			{title}
 		</Text>
@@ -225,24 +224,19 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 		({ item, index }: { item: StatItem; index: number }) => (
 			<StatCard item={item} index={index} total={stats.length} />
 		),
-		[stats.length]
+		[stats.length],
 	);
 
 	const renderAction = useCallback(
 		({ item, index }: { item: ActionItem; index: number }) => (
 			<ActionCard item={item} index={index} total={actions.length} />
 		),
-		[actions.length]
+		[actions.length],
 	);
 
 	const renderActivity = useCallback(
 		({ item, index }: { item: ActivityItem; index: number }) => (
-			<ActivityCard 
-				item={item} 
-				onPress={handleTaskPress} 
-				index={index} 
-				total={activities.length} 
-			/>
+			<ActivityCard item={item} onPress={handleTaskPress} index={index} total={activities.length} />
 		),
 		[handleTaskPress, activities.length],
 	);
@@ -275,7 +269,7 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 							keyExtractor={listOptimizations.keyExtractor}
 							style={dashboardStyles.statsContainer}
 							showsHorizontalScrollIndicator={false}
-							{...getAccessibilityProps('Statistics', 'Your daily statistics')}
+							{...getAccessibilityProps("Statistics", "Your daily statistics")}
 							{...listOptimizations.performanceConfig}
 						/>
 					);
@@ -293,7 +287,7 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 								renderItem={renderAction}
 								keyExtractor={listOptimizations.keyExtractor}
 								scrollEnabled={false}
-								{...getAccessibilityProps('Quick actions', 'Available actions you can take')}
+								{...getAccessibilityProps("Quick actions", "Available actions you can take")}
 								{...listOptimizations.performanceConfig}
 							/>
 						</View>
@@ -306,7 +300,7 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 								renderItem={renderActivity}
 								keyExtractor={listOptimizations.keyExtractor}
 								scrollEnabled={false}
-								{...getAccessibilityProps('Recent activity', 'Your recently completed tasks')}
+								{...getAccessibilityProps("Recent activity", "Your recently completed tasks")}
 								{...listOptimizations.performanceConfig}
 							/>
 						</View>
@@ -320,19 +314,19 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 
 	// Announce screen change
 	useEffect(() => {
-		announce('Dashboard loaded');
+		announce("Dashboard loaded");
 		const progress = getProgressLabel(
-			Object.values(activities).filter(a => a.task.includes('completed')).length,
+			Object.values(activities).filter((a) => a.task.includes("completed")).length,
 			stats[0].value,
-			'tasks'
+			"tasks",
 		);
 		announce(progress);
 	}, [announce, activities, stats]);
 
 	return (
-		<SafeAreaView 
+		<SafeAreaView
 			style={dashboardStyles.container}
-			{...getAccessibilityProps('Dashboard', 'Your productivity dashboard')}
+			{...getAccessibilityProps("Dashboard", "Your productivity dashboard")}
 		>
 			<FlatList
 				data={sections}

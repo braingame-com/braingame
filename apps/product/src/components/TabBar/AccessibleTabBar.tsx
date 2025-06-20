@@ -1,15 +1,15 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import React, { useCallback, useMemo } from "react";
-import { View, TouchableOpacity, Text, AccessibilityInfo } from "react-native";
-import Animated, {
-	useAnimatedStyle,
-	useSharedValue,
-	withSpring,
-} from "react-native-reanimated";
+import { AccessibilityInfo, Text, TouchableOpacity, View } from "react-native";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useTheme } from "../../theme/ThemeContext";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
-import { getAccessibilityProps, getAccessibilityState, a11yLabels } from "../../utils/accessibility";
+import { useTheme } from "../../theme/ThemeContext";
+import {
+	a11yLabels,
+	getAccessibilityProps,
+	getAccessibilityState,
+} from "../../utils/accessibility";
 import { withMemo } from "../../utils/performance";
 import { tabBarStyles } from "./styles";
 
@@ -22,28 +22,28 @@ interface TabConfig {
 
 const tabConfigs: Record<string, TabConfig> = {
 	Dashboard: {
-		name: 'Dashboard',
-		label: 'Dashboard',
-		icon: '🏠',
-		accessibilityHint: 'Navigate to your dashboard',
+		name: "Dashboard",
+		label: "Dashboard",
+		icon: "🏠",
+		accessibilityHint: "Navigate to your dashboard",
 	},
 	Videos: {
-		name: 'Videos',
-		label: 'Videos',
-		icon: '🎥',
-		accessibilityHint: 'Browse and watch videos',
+		name: "Videos",
+		label: "Videos",
+		icon: "🎥",
+		accessibilityHint: "Browse and watch videos",
 	},
 	Analytics: {
-		name: 'Analytics',
-		label: 'Analytics',
-		icon: '📊',
-		accessibilityHint: 'View your analytics and progress',
+		name: "Analytics",
+		label: "Analytics",
+		icon: "📊",
+		accessibilityHint: "View your analytics and progress",
 	},
 	Settings: {
-		name: 'Settings',
-		label: 'Settings',
-		icon: '⚙️',
-		accessibilityHint: 'Adjust app settings and preferences',
+		name: "Settings",
+		label: "Settings",
+		icon: "⚙️",
+		accessibilityHint: "Adjust app settings and preferences",
 	},
 };
 
@@ -58,11 +58,11 @@ const TabItem = withMemo<{
 	const { theme } = useTheme();
 	const { reduceMotionEnabled, announce } = useAccessibility();
 	const scaleValue = useSharedValue(focused ? 1.1 : 1);
-	
+
 	const config = tabConfigs[route.name] || {
 		name: route.name,
 		label: route.name,
-		icon: '📄',
+		icon: "📄",
 		accessibilityHint: `Navigate to ${route.name}`,
 	};
 
@@ -86,26 +86,19 @@ const TabItem = withMemo<{
 	}, [onPress, config.label, announce]);
 
 	const accessibilityProps = {
-		...getAccessibilityProps(
-			config.label,
-			config.accessibilityHint,
-			'tab'
-		),
+		...getAccessibilityProps(config.label, config.accessibilityHint, "tab"),
 		...getAccessibilityState({
 			selected: focused,
 		}),
 		accessibilityElementsHidden: false,
-		importantForAccessibility: 'yes' as const,
+		importantForAccessibility: "yes" as const,
 	};
 
 	return (
 		<TouchableOpacity
 			onPress={handlePress}
 			onLongPress={onLongPress}
-			style={[
-				tabBarStyles.tab,
-				focused && tabBarStyles.activeTab,
-			]}
+			style={[tabBarStyles.tab, focused && tabBarStyles.activeTab]}
 			{...accessibilityProps}
 		>
 			<Animated.View style={[tabBarStyles.tabContent, animatedStyle]}>
@@ -135,7 +128,7 @@ const TabItem = withMemo<{
 			</Animated.View>
 		</TouchableOpacity>
 	);
-}, 'TabItem');
+}, "TabItem");
 
 export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	state,
@@ -145,11 +138,11 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	const { theme } = useTheme();
 	const { keyboardNavigation } = useAccessibility();
 	const insets = useSafeAreaInsets();
-	
+
 	// Focus management for keyboard navigation
-	const tabRefs = useMemo(() => 
-		state.routes.map(() => React.createRef<TouchableOpacity>()),
-		[state.routes]
+	const tabRefs = useMemo(
+		() => state.routes.map(() => React.createRef<TouchableOpacity>()),
+		[state.routes],
 	);
 
 	// Handle keyboard navigation
@@ -161,25 +154,25 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 			const currentIndex = state.index;
 
 			switch (key) {
-				case 'ArrowLeft':
-				case 'ArrowUp':
+				case "ArrowLeft":
+				case "ArrowUp":
 					if (currentIndex > 0) {
 						navigation.navigate(state.routes[currentIndex - 1].name);
 						tabRefs[currentIndex - 1].current?.focus();
 					}
 					break;
-				case 'ArrowRight':
-				case 'ArrowDown':
+				case "ArrowRight":
+				case "ArrowDown":
 					if (currentIndex < state.routes.length - 1) {
 						navigation.navigate(state.routes[currentIndex + 1].name);
 						tabRefs[currentIndex + 1].current?.focus();
 					}
 					break;
-				case 'Home':
+				case "Home":
 					navigation.navigate(state.routes[0].name);
 					tabRefs[0].current?.focus();
 					break;
-				case 'End':
+				case "End":
 					navigation.navigate(state.routes[state.routes.length - 1].name);
 					tabRefs[state.routes.length - 1].current?.focus();
 					break;
@@ -188,7 +181,7 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 
 		// Add keyboard listener
 		const subscription = { remove: () => {} }; // Placeholder for actual keyboard listener
-		
+
 		return () => subscription.remove();
 	}, [keyboardNavigation, navigation, state, tabRefs]);
 

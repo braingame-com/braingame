@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { View, TouchableOpacity, ScrollView, FlatList } from 'react-native';
-import { trackEvent, type EventName, type EventProperties } from '../../services/AnalyticsService';
+import type React from 'react';
+import { useEffect, useRef } from 'react';
+import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
 import { useAnalyticsEvent } from '../../hooks/useAnalytics';
+import { type EventName, type EventProperties, trackEvent } from '../../services/AnalyticsService';
 
 interface TrackableProps {
   eventName: EventName;
