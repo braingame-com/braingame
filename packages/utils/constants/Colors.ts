@@ -42,4 +42,6 @@ export const Colors = {
 		negativeHalfFaded: "rgba(240, 97, 109, .4)",
 		negativeFaded: "rgba(240, 97, 109, .2)",
 	},
-};
+} as const;
+
+export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
