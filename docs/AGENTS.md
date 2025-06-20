@@ -6,6 +6,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 > 1. `docs/ARCHITECTURE.md`
 > 2. `docs/AI_CONTEXT.md`
 > 3. `docs/CLAUDE.md`
+> 4. `docs/legacy-migration/LEGACY_MIGRATION.md` (for migration work)
 
 ---
 
