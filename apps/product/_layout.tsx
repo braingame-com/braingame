@@ -24,7 +24,7 @@ export default function RootLayout() {
 			<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
 				<Stack
 					screenOptions={{
-						headerTitleStyle: { fontFamily: "SohneBook" },
+						headerTitleStyle: { fontFamily: "LexendRegular" },
 						headerShown: false,
 					}}
 				/>
