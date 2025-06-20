@@ -4,8 +4,8 @@
 Week 3 focused on implementing advanced features from the legacy projects (bg1 and dev-dil) into the braingame monorepo. This included enterprise-grade implementations of video integration, data visualization, animations, cloud functions, navigation patterns, and theming.
 
 ## Implementation Timeline
-- **Start Date**: January 20, 2025
-- **Completion Date**: January 20, 2025
+- **Start Date**: 20-01-2025
+- **Completion Date**: 20-01-2025
 - **Total Components Created**: 70+
 - **Total Lines of Code**: ~8,000+
 
