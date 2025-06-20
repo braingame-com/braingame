@@ -5,7 +5,7 @@ import { useInteractiveState } from "../../hooks";
 import { validateProps } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
 import { Icon } from "../Icon";
-import { getPaddingForSize, VARIANT_COLORS, validationRules } from "./styles";
+import { getPaddingForSize, VARIANT_COLORS, VARIANT_ICON_COLORS, validationRules } from "./styles";
 import type { ButtonProps } from "./types";
 
 /**
@@ -50,6 +50,7 @@ function ButtonComponent({
 	const { isHovered, handleHoverIn, handleHoverOut } = useInteractiveState();
 
 	const { background, text } = VARIANT_COLORS[variant];
+	const iconColor = VARIANT_ICON_COLORS[variant];
 
 	// Memoize padding calculations
 	const { paddingVertical, paddingHorizontal } = useMemo(() => getPaddingForSize(size), [size]);
@@ -79,7 +80,7 @@ function ButtonComponent({
 				<ActivityIndicator color={text} />
 			) : (
 				<>
-					{icon && <Icon name={icon} color={text} />}
+					{icon && <Icon name={icon} color={iconColor} />}
 					{variant !== "icon" && children && <Text style={{ color: text }}>{children}</Text>}
 				</>
 			)}

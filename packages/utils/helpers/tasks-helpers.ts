@@ -1,7 +1,10 @@
 import type { TextInput } from "react-native";
+import { Platform } from "react-native";
 import { Colors } from "../constants/Colors";
 
 export const handleSlashKeyPress = (e: KeyboardEvent, inputRef: React.RefObject<TextInput>) => {
+	if (Platform.OS !== "web") return;
+
 	if (e.key === "/") {
 		e.preventDefault();
 		inputRef.current?.focus();

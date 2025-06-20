@@ -17,9 +17,10 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { TextInput } from "react-native";
+import { Platform, TextInput } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { taskStyles } from "./styles";
 
 export default function Tasks() {
 	const [taskList, setTaskList] = useState([
@@ -50,6 +51,8 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 
 	// Slash key focus effect
 	useEffect(() => {
+		if (Platform.OS !== "web") return;
+
 		const onKeyDown = (e: KeyboardEvent) => handleSlashKeyPress(e, inputRef as any);
 
 		document.addEventListener("keydown", onKeyDown);
@@ -59,7 +62,7 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 
 	return (
 		<TaskInputWrapper inputError={inputError} isFocused={isFocused}>
-			<View style={{ padding: Tokens.xs, borderRadius: Tokens.xs }} border>
+			<View style={taskStyles.iconContainer} border>
 				<Icon name="slash" color="textSecondary" />
 			</View>
 
@@ -75,12 +78,7 @@ const TaskInput = ({ setTaskList }: { setTaskList: Dispatch<SetStateAction<strin
 					setIsFocused(false);
 					setInputError(false);
 				}}
-				style={{
-					...styles.textInput,
-					color,
-					outline: "none",
-					marginHorizontal: Tokens.m,
-				}}
+				style={[styles.textInput, taskStyles.textInput, { color, outline: "none" }]}
 			/>
 
 			<Button
@@ -116,7 +114,7 @@ const TasksList = ({ tasks }: { tasks: string[] }) => {
 	const { taskOrder, targetIndex, getGestureHandlers } = useDraggableTaskHandlers(tasks);
 
 	return (
-		<View style={{ paddingVertical: 0 }}>
+		<View style={taskStyles.tasksList}>
 			{taskOrder.map((task, index) => {
 				const { onGestureEvent, onHandlerStateChange, translateY, isDragging } =
 					getGestureHandlers(index);
@@ -163,14 +161,7 @@ export const DraggableTaskItem = ({
 		<>
 			{/* Render the placeholder box */}
 			{targetIndex === index && (
-				<View
-					style={{
-						backgroundColor: "#303030",
-						marginTop: Tokens.m,
-						borderRadius: Tokens.s,
-						opacity: 0.5,
-					}}
-				>
+				<View style={taskStyles.placeholderBox}>
 					<Text> </Text>
 				</View>
 			)}
@@ -192,16 +183,7 @@ export const DraggableTaskItem = ({
 
 const TaskItem = ({ text }: { text: string }) => {
 	return (
-		<View
-			type="mini-card"
-			style={{
-				...styles.flexRow,
-				marginTop: Tokens.m,
-			}}
-			border
-			hoverable
-			grabbable
-		>
+		<View type="mini-card" style={[styles.flexRow, taskStyles.taskItem]} border hoverable grabbable>
 			<Text>{text}</Text>
 		</View>
 	);

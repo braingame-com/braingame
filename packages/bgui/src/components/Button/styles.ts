@@ -1,5 +1,6 @@
 import { Colors, Tokens } from "@braingame/utils";
 import { validators } from "../../utils/validation";
+import type { ThemeColor } from "../Icon/types";
 import type { ButtonVariant } from "./types";
 
 /**
@@ -11,6 +12,17 @@ export const VARIANT_COLORS: Record<ButtonVariant, { background: string; text: s
 	ghost: { background: "transparent", text: Colors.light.text },
 	danger: { background: Colors.universal.negative, text: "#fff" },
 	icon: { background: "transparent", text: Colors.light.text },
+};
+
+/**
+ * Icon color mapping for each button variant
+ */
+export const VARIANT_ICON_COLORS: Record<ButtonVariant, ThemeColor> = {
+	primary: "background",
+	secondary: "text",
+	ghost: "text",
+	danger: "background",
+	icon: "text",
 };
 
 /**
