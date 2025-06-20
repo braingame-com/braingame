@@ -59,6 +59,8 @@ export type { TabProps, TabsPanelProps, TabsProps } from "./src/components/Tabs/
 export type { TextProps } from "./src/components/Text/types";
 export type { ToastProps } from "./src/components/Toast/types";
 export type { TooltipProps } from "./src/components/Tooltip/types";
+// Constants
+export { Fonts } from "./src/constants/Fonts";
 // Hooks
 export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
 // Utils

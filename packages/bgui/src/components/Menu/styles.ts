@@ -1,10 +1,15 @@
 import { BorderRadius, Shadows, Tokens } from "@braingame/utils";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextStyle, type ViewStyle } from "react-native";
+
+interface MenuStyles {
+	menu: ViewStyle;
+	item: ViewStyle;
+}
 
 /**
  * StyleSheet for Menu component
  */
-export const styles = StyleSheet.create({
+export const styles: MenuStyles = StyleSheet.create<MenuStyles>({
 	menu: {
 		minWidth: 160, // Keep fixed for UI consistency
 		borderRadius: BorderRadius.sm,

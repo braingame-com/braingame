@@ -2,10 +2,12 @@
 
 This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
-> **Primary Directive:** Before generating code, tests, or docs, all agents **MUST** first read and understand:
-> 1. `docs/ARCHITECTURE.md`
-> 2. `docs/AI_CONTEXT.md`
-> 3. `docs/CLAUDE.md`
+> **Primary Directive:** Before generating code, tests, or docs, all agents **MUST** first:
+> 1. **Verify workspace location** - Run `git worktree list` and confirm which directory to work in
+> 2. **Read and understand:**
+>    - `docs/ARCHITECTURE.md`
+>    - `docs/AI_CONTEXT.md`
+>    - `docs/CLAUDE.md`
 
 ---
 
@@ -22,6 +24,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 
 ## Core Principles & Guardrails
 
+- **Workspace Isolation:** Always verify which git worktree you're working in. Production work happens in the main `braingame/` directory, experimental/AI work happens in `braingame-claude-sandbox/`. When in doubt, ask.
 - **Human Review is Mandatory:** All agent-generated code must be reviewed and approved by a human maintainer before merging.
 - **Read-Only by Default:** Agents should operate with the minimum necessary permissions. Write access is a privilege, gated by CI checks.
 - **Secure by Design:** Credentials and secrets must be stored in the CI provider's secret manager, never in the repository.

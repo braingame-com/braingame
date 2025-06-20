@@ -51,12 +51,9 @@
 		"@changesets/cli": "^2.27.1",
 		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
 		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
-		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "^14.6.1",
-		"babel-jest": "^30.0.2",
 		"husky": "^9.1.7",
-		"jsdom": "^26.1.0",
 		"lint-staged": "^16.1.2",
 		"react-native-web": "~0.20.0",
 		"secretlint": "^10.1.0",
@@ -69,9 +66,6 @@
 		"pnpm": ">=9"
 	},
 	"lint-staged": {
-		"**/*.{ts,tsx,js,jsx}": [
-			"biome check --fix",
-			"biome format --write"
-		]
+		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
 	}
 }
