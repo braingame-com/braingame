@@ -7,9 +7,10 @@
 
 ## 1. Current Focus
 1. ✅ Legacy migration from bg1 and dev-dil projects (ALL 4 WEEKS COMPLETE)
-2. Production deployment preparation
-3. Worktree management documentation and tooling
-4. Performance baseline establishment
+2. 🐛 **CRITICAL**: Fix hidden bugs discovered in code analysis
+3. Production deployment preparation
+4. Worktree management documentation and tooling
+5. Performance baseline establishment
 
 ## ⚠️ Critical Workspace Information
 **This repository uses git worktrees for isolation:**
@@ -22,6 +23,31 @@
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 20-01-2025 - Hidden Bugs Analysis
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Find hidden bugs in the codebase
+- **Completed**:
+  - Performed comprehensive code analysis across all packages
+  - Found 10 categories of bugs with multiple instances each
+  - Created detailed bug report in `docs/work-sessions/hidden-bugs-analysis.md`
+  - Updated TODO.md with critical bug fixes section
+- **Critical Findings**:
+  - **Memory Leaks**: Multiple setTimeout/setInterval without cleanup
+  - **Event Listeners**: Several addEventListener calls without removeEventListener
+  - **Console Statements**: 25+ console.log/error statements in production code
+  - **Missing Error Handling**: Async functions without try-catch blocks
+  - **Race Conditions**: Component unmount issues with async operations
+  - **Hardcoded Values**: App version and other constants that should be dynamic
+- **Immediate Actions Required**:
+  - Fix all timer cleanups (add return statements to useEffect)
+  - Fix all event listener cleanups
+  - Replace console statements with proper logging
+  - Add error boundaries to critical components
+- **Documentation Created**:
+  - hidden-bugs-analysis.md: Complete bug report with examples and fixes
+  - Updated TODO.md with prioritized bug fix tasks
+- **Next Steps**: Start fixing critical memory leaks immediately
 
 ### 20-06-2025 - Legacy Migration Completion & PR Merging Marathon
 - **Agent**: Claude (Opus 4)
