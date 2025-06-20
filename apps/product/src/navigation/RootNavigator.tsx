@@ -6,6 +6,7 @@ import { AuthNavigator } from "./AuthNavigator";
 import { linking } from "./DeepLinkingConfig";
 import { DrawerNavigator } from "./DrawerNavigator";
 import { isReadyRef, navigationRef } from "./NavigationService";
+import { ThemeProvider } from "../theme";
 import type { RootStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -37,16 +38,18 @@ export const RootNavigator: React.FC = () => {
 	}, []);
 
 	return (
-		<AuthProvider>
-			<NavigationContainer
-				ref={navigationRef}
-				onReady={() => {
-					isReadyRef.current = true;
-				}}
-				linking={linking}
-			>
-				<RootStack />
-			</NavigationContainer>
-		</AuthProvider>
+		<ThemeProvider>
+			<AuthProvider>
+				<NavigationContainer
+					ref={navigationRef}
+					onReady={() => {
+						isReadyRef.current = true;
+					}}
+					linking={linking}
+				>
+					<RootStack />
+				</NavigationContainer>
+			</AuthProvider>
+		</ThemeProvider>
 	);
 };
