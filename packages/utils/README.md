@@ -54,6 +54,9 @@ function MyComponent() {
 - **useDisclosure** - Manage open/close state
 - **useTaskInput** - Task input handling
 - **useDraggableTaskHandlers** - Drag and drop for tasks
+- **useControlledState** - Handle controlled/uncontrolled component patterns
+- **useFocusManagement** - Keyboard navigation and focus utilities
+- **useInteractiveState** - Manage hover/focus/pressed states
 
 ### Helpers
 - **getIconSize** - Convert icon size names to pixel values
@@ -83,6 +86,13 @@ Typography.fontFamily.sans
 Typography.fontFamily.mono
 Typography.fontSize.xs through xl
 Typography.fontWeight.normal/medium/bold
+
+// Opacity values
+Opacity.disabled    // 0.5
+Opacity.hover      // 0.9  
+Opacity.pressed    // 0.8
+Opacity.shadow     // 0.1
+Opacity.overlay    // 0.7
 ```
 
 ## 🧪 Testing
