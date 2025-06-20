@@ -1,7 +1,7 @@
 /**
  * Font loading configuration for Expo
- * Lexend variable font supports weights 100-900
- * TestSöhne fonts kept for backward compatibility during migration
+ * Lexend variable font (primary): supports weights 100-900
+ * Roboto Mono (monospace): Google's excellent monospace font
  */
 export const Fonts = {
 	// Lexend variable font - primary font family (weights 100-900)
@@ -11,13 +11,7 @@ export const Fonts = {
 	LexendSemiBold: require("../assets/fonts/Lexend-VariableFont_wght.ttf"),
 	LexendBold: require("../assets/fonts/Lexend-VariableFont_wght.ttf"),
 	
-	// TestSöhne fonts - legacy support (will be phased out)
-	SohneHalfFat: require("../assets/fonts/TestSohne/TestSohne-Halbfett.otf"),
-	SohneStrong: require("../assets/fonts/TestSohne/TestSohne-Kraftig.otf"),
-	SohneBook: require("../assets/fonts/TestSohne/TestSohne-Buch.otf"),
-	SohneLight: require("../assets/fonts/TestSohne/TestSohne-Leicht.otf"),
-	SohneMonoHalfFat: require("../assets/fonts/TestSohneMono/TestSohneMono-Halbfett.otf"),
-	SohneMonoStrong: require("../assets/fonts/TestSohneMono/TestSohneMono-Kraftig.otf"),
-	SohneMonoBook: require("../assets/fonts/TestSohneMono/TestSohneMono-Buch.otf"),
-	SohneMonoLight: require("../assets/fonts/TestSohneMono/TestSohneMono-Leicht.otf"),
+	// Roboto Mono - monospace font family
+	RobotoMonoRegular: "Roboto Mono", // Using system font
+	RobotoMonoBold: "Roboto Mono",    // Bold variant handled via fontWeight
 };
