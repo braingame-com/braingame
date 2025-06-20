@@ -2,8 +2,8 @@
 	"name": "@braingame/utils",
 	"version": "1.0.0",
 	"description": "Brain Game utilities - shared helpers, hooks, and constants",
-	"main": "index.js",
-	"types": "index.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
 		"dev": "echo 'Utils ready for development'",
 		"build": "tsc",

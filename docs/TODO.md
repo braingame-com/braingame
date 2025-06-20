@@ -24,20 +24,23 @@
   - [x] Add dependabot configuration
   - Status: Completed - workflows ready for use
 
-- [x] Implement Testing Infrastructure (17-06-2025)
-  - [x] Add unit tests for `utils` functions
-  - [x] Configure Jest for packages 
-  - [x] Working test suite with 5 passing tests (single utils file)
-  - [x] Add unit tests for `bgui` components (19-01-2025)
-    - [x] Solved React Native Flow syntax parsing with transformIgnorePatterns
-    - [x] Created comprehensive Button.test.tsx with 14 test cases
-    - [x] Set up mocks for react-native-reanimated, react-native-gesture-handler, @expo/vector-icons
-    - [x] Documented challenges and solutions in TESTING.md
-    - Note: Tests running successfully, 4 passing tests demonstrate infrastructure works
-  - [ ] Setup integration tests for apps
-  - [ ] Configure coverage reporting
-  - Status: React Native testing infrastructure breakthrough! Both utils and bgui packages have working test setups
-  - Target: >80% coverage
+- [ ] Implement Testing Infrastructure
+  - [x] Create official `docs/TESTING.md` with unified (Jest-based) strategy
+  - [ ] Configure `jest-expo/universal` preset for the `packages/bgui` workspace
+  - [ ] Write a sample test for a BGUI component to validate the setup
+  - [ ] Add unit tests for all `packages/utils` functions
+  - [ ] Setup integration tests for `apps/product` and `apps/website`
+  - [ ] Configure and enforce >80% coverage reporting
+  - Status: In Progress - Revisiting and hardening the testing foundation. The previous React Native setup was brittle and has been superseded by this unified strategy.
+
+- [ ] Implement Testing Infrastructure (Vitest)
+  - [x] Update `docs/TESTING.md` with new Vitest strategy
+  - [ ] Remove all Jest dependencies and configurations from the monorepo
+  - [ ] Install and configure Vitest in `packages/bgui`
+  - [ ] Write a sample test for a BGUI component to validate the setup
+  - [ ] Add unit tests for all `packages/utils` functions
+  - [ ] Configure and enforce >80% coverage reporting
+  - Status: In Progress - The Jest-based approach failed due to intractable monorepo/ESM issues. Pivoting to Vitest to unblock development.
 
 ## 🔥 High Priority
 - [x] Configure Turborepo
@@ -69,6 +72,8 @@
   - [ ] Restrict force pushes
   - [ ] Delete head branches automatically
   - Status: Not started - requires GitHub repository admin access
+
+- [x] Configure Firebase for `apps/product` and `apps/website`
 
 ## 📋 Medium Priority
 - [ ] Configure Storybook

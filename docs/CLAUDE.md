@@ -8,9 +8,14 @@
 Follow these steps for every development task.
 
 **Phase 1: Setup & Pre-flight**
-1.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
-2.  **Consult Docs:** Read `ARCHITECTURE.md` and `AI_CONTEXT.md` to refresh context.
-3.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
+1.  **Workspace Check:** ALWAYS run `git worktree list` and confirm location before starting
+    - `braingame/` - Main production repo for final commits and releases
+    - `braingame-claude-sandbox/` - Isolated workspace for AI development work
+    - If uncertain which to use, STOP and ask the user
+2.  **Location Verification:** Run `pwd && git branch --show-current` to confirm you're in the right place
+3.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
+4.  **Consult Docs:** Read `ARCHITECTURE.md` and `AI_CONTEXT.md` to refresh context.
+5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
 **Phase 2: Development & Implementation**
 1.  **Code:** Implement the required changes, following the guidelines below.
