@@ -55,6 +55,8 @@ Each session document should contain:
 
 ## Index of Sessions
 
+- [2025-06-21: Corrupted PR Cleanup](./2025-06-21-corrupted-pr-cleanup.md) - Identified and closed 5 corrupted PRs with 200+ unintended files each
+- [2025-06-20: Storybook Setup](./2025-06-20-storybook-setup.md) - Added Storybook configuration and documentation
 - [2025-06-20: Legacy Migration Completion & PR Merging Marathon](./2025-06-20-legacy-migration-completion.md) - Final merge of migration pull requests
 - [2025-06-20: Week 3 Features & Worktree Crisis](./2025-06-20-week3-features-worktree-crisis.md) - Advanced features implementation and worktree recovery
 - [2025-06-20: Added Snippets Directory](./2025-06-20-snippets-directory.md) - Example snippets for Button and Card components

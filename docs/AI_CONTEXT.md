@@ -33,6 +33,16 @@
   - Updated TODO tracker and work session notes
 - **Next Steps**: Review component APIs and expand test coverage
 
+### 20-06-2025 - Storybook Setup for BGUI
+- **Agent**: ChatGPT
+- **Tasks**: Configure Storybook and update documentation
+- **Completed**:
+  - Added `.storybook` with `main.ts` and `preview.ts` in `packages/bgui`
+  - Replaced placeholder script with `storybook dev` command
+  - Documented Storybook usage in `DEVELOPMENT.md` and `ARCHITECTURE.md`
+  - Updated TODO to mark Storybook setup complete
+- **Next Steps**: Write component stories and enable visual testing
+
 ### 20-06-2025 - Preflight Documentation Update
 - **Agent**: ChatGPT (Codex)
 - **Tasks**: Document requirement to run `pnpm install` before lint or test, add `preflight` script

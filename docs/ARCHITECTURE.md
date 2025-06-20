@@ -95,7 +95,7 @@ braingame/
 | Dev Next only | `pnpm dev --filter website` |
 | Lint / format | `pnpm lint` (Biome) |
 | Unit tests | `pnpm test` (Jest) |
-| Storybook | `pnpm storybook` (placeholder) |
+| Storybook | `pnpm storybook` |
 | Prod build | `pnpm build` (Turbo graph) |
 
 Turbo pipelines (defined in `turbo.json`):
