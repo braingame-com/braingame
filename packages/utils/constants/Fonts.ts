@@ -10,8 +10,8 @@ export const Fonts = {
 	LexendMedium: require("../assets/fonts/Lexend-VariableFont_wght.ttf"),
 	LexendSemiBold: require("../assets/fonts/Lexend-VariableFont_wght.ttf"),
 	LexendBold: require("../assets/fonts/Lexend-VariableFont_wght.ttf"),
-	
+
 	// Roboto Mono - monospace font family
 	RobotoMonoRegular: "Roboto Mono", // Using system font
-	RobotoMonoBold: "Roboto Mono",    // Bold variant handled via fontWeight
+	RobotoMonoBold: "Roboto Mono", // Bold variant handled via fontWeight
 };

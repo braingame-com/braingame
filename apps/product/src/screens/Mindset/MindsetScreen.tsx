@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { View, ScrollView, SafeAreaView } from 'react-native';
-import { Text } from '@braingame/bgui';
-import { mindsetStyles } from './styles';
-import { VisionGoals } from './components/VisionGoals';
-import { Affirmations } from './components/Affirmations';
-import type { CompletionState } from './types';
+import { Text } from "@braingame/bgui";
+import type React from "react";
+import { useState } from "react";
+import { SafeAreaView, ScrollView, View } from "react-native";
+import { Affirmations } from "./components/Affirmations";
+import { VisionGoals } from "./components/VisionGoals";
+import { mindsetStyles } from "./styles";
+import type { CompletionState } from "./types";
 
 /**
  * Main Mindset Training Screen
@@ -21,27 +22,27 @@ export const MindsetScreen: React.FC = () => {
 		journal: false,
 		performance: false,
 	});
-	
+
 	/**
 	 * Calculate completion progress
 	 */
 	const completedCount = Object.values(completionState).filter(Boolean).length;
 	const totalCount = Object.keys(completionState).length;
 	const isAllComplete = completedCount === totalCount;
-	
+
 	/**
 	 * Handle section completion
 	 */
 	const handleSectionComplete = (section: keyof CompletionState) => {
-		setCompletionState(prev => ({
+		setCompletionState((prev) => ({
 			...prev,
-			[section]: true
+			[section]: true,
 		}));
 	};
-	
+
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: '#101020' }}>
-			<ScrollView 
+		<SafeAreaView style={{ flex: 1, backgroundColor: "#101020" }}>
+			<ScrollView
 				style={mindsetStyles.container}
 				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{ paddingBottom: 40 }}
@@ -49,45 +50,48 @@ export const MindsetScreen: React.FC = () => {
 				<View style={mindsetStyles.pageWidth}>
 					{/* Header */}
 					<View style={{ marginBottom: 32 }}>
-						<Text variant="displayTitle" style={{ textAlign: 'center', marginBottom: 8 }}>
+						<Text variant="displayTitle" style={{ textAlign: "center", marginBottom: 8 }}>
 							🧠 Mindset Training
 						</Text>
-						
+
 						{/* Completion Counter */}
 						<Text style={mindsetStyles.completionCounter}>
-							{isAllComplete ? '✅ All Complete!' : `${completedCount}/${totalCount} Completed`}
+							{isAllComplete ? "✅ All Complete!" : `${completedCount}/${totalCount} Completed`}
 						</Text>
-						
-						<Text variant="subtitle" style={{ 
-							textAlign: 'center', 
-							color: '#aaa',
-							marginBottom: 16 
-						}}>
+
+						<Text
+							variant="subtitle"
+							style={{
+								textAlign: "center",
+								color: "#aaa",
+								marginBottom: 16,
+							}}
+						>
 							Daily practices for mindset mastery and personal excellence
 						</Text>
 					</View>
-					
+
 					{/* Vision & Goals Section */}
 					<VisionGoals
-						onComplete={() => handleSectionComplete('vision')}
+						onComplete={() => handleSectionComplete("vision")}
 						completed={completionState.vision}
 					/>
-					
+
 					{/* Affirmations Section */}
 					<Affirmations
-						onComplete={() => handleSectionComplete('affirmations')}
+						onComplete={() => handleSectionComplete("affirmations")}
 						completed={completionState.affirmations}
 					/>
-					
+
 					<View style={mindsetStyles.card}>
 						<Text variant="title" style={mindsetStyles.cardTitle}>
-							💭 Reminders  
+							💭 Reminders
 						</Text>
 						<Text style={mindsetStyles.cardDescription}>
 							Coming next: 9 core philosophical principles
 						</Text>
 					</View>
-					
+
 					<View style={mindsetStyles.card}>
 						<Text variant="title" style={mindsetStyles.cardTitle}>
 							🖼️ Visual Inspiration
@@ -96,7 +100,7 @@ export const MindsetScreen: React.FC = () => {
 							Coming next: 75+ motivational images slideshow
 						</Text>
 					</View>
-					
+
 					<View style={mindsetStyles.card}>
 						<Text variant="title" style={mindsetStyles.cardTitle}>
 							📝 Journal
@@ -105,7 +109,7 @@ export const MindsetScreen: React.FC = () => {
 							Coming next: Dreams and after action reports
 						</Text>
 					</View>
-					
+
 					<View style={mindsetStyles.card}>
 						<Text variant="title" style={mindsetStyles.cardTitle}>
 							📊 Performance
