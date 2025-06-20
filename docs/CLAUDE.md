@@ -70,6 +70,19 @@ The dedicated AI agent worktree is located at: `/Users/jordancrow-stewart/Deskto
 
 **Always work from this worktree, never from the main repository directory.**
 
+### GitHub Account Setup (CRITICAL)
+**⚠️ MANDATORY FIRST STEP:** Always ensure you're using the correct GitHub account for braingame:
+
+```bash
+# Switch to the correct GitHub account for braingame project
+gh auth switch --user jcs180
+
+# Verify you're using the right account
+gh auth status
+```
+
+**Why this matters:** The braingame repository requires the `jcs180` account, not `jcs-rca`. Always run this before any git operations to avoid permission errors.
+
 ### Workflow for AI Agents
 1. **Start Here:** Always begin work in `/Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox`
 2. **Create Branch:** Create feature branches from this worktree for specific tasks
