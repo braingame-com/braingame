@@ -22,6 +22,12 @@ Brain Game ships **three enterprise-grade artefacts** from one professionally-ma
 
 Common infra: pnpm workspaces, Biome lint/format, Jest tests, Turbo task graph.
 
+### Development Worktrees
+This repository uses git worktrees for workspace isolation:
+- **Main worktree** (`braingame/`): Production code, final commits, releases
+- **Claude sandbox** (`braingame-claude-sandbox/`): AI agent development work, experiments, prototyping
+- **Rule**: All agents must verify their workspace location with `git worktree list` before starting work
+
 ---
 
 ## 2. Key decisions snapshot
@@ -70,7 +76,7 @@ braingame/
 ├── .github/workflows/     # CI / CD
 ├── firebase.json
 ├── .firebaserc
-├── turborepo.json
+├── turbo.json
 ├── pnpm-workspace.yaml
 └── package.json
 ```
@@ -92,7 +98,7 @@ braingame/
 | Storybook | `pnpm storybook` (placeholder) |
 | Prod build | `pnpm build` (Turbo graph) |
 
-Turbo pipelines (defined in `turborepo.json`):
+Turbo pipelines (defined in `turbo.json`):
 
 ```
 dev   -> transpile            (no cache)

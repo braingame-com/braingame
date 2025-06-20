@@ -11,6 +11,13 @@
 3. Performance optimizations and accessibility improvements
 4. App store preparation and final polishing
 
+## ⚠️ Critical Workspace Information
+**This repository uses git worktrees for isolation:**
+- **Main worktree** (`braingame/`): Production work, final commits
+- **Claude sandbox** (`braingame-claude-sandbox/`): AI development work
+- **ALWAYS run `git worktree list` before starting work**
+- **ALWAYS ask user which worktree to use if uncertain**
+
 ---
 
 ## 2. Session Summaries
@@ -171,9 +178,6 @@
   - Generated `docs/TOKEN_USAGE.md`
   - Updated `docs/TODO.md` with completion status
 - **Next Steps**: Integrate token report into design workflow
->>>>>>> main
->>>>>>> main
->>>>>>> main
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
