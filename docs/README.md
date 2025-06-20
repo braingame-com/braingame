@@ -12,6 +12,7 @@
 | [`DEVELOPMENT.md`](./DEVELOPMENT.md) | **Start here.** A step-by-step guide to setting up your local environment. |
 | [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | The official guide to contributing, including our PR and review process. |
 | [`CLAUDE.md`](./CLAUDE.md) | A tactical cheatsheet with commands and workflows for AI agents. |
+| [`WORKTREES.md`](./WORKTREES.md) | **CRITICAL:** Git worktree management to prevent workspace contamination. |
 
 ---
 
