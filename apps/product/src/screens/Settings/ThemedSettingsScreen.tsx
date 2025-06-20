@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { ScrollView, Switch, TouchableOpacity, View } from 'react-native';
+import type React from "react";
+import { useState } from "react";
+import { ScrollView, Switch, TouchableOpacity, View } from "react-native";
+import type { Theme } from "../../theme";
 import {
-	ThemedScreen,
-	ThemedView,
-	ThemedText,
 	ThemedCard,
+	ThemedScreen,
+	ThemedText,
+	ThemedView,
+	ThemeSelector,
+	ThemeToggle,
 	useTheme,
 	useThemedStyles,
-	ThemeToggle,
-	ThemeSelector,
-} from '../../theme';
-import type { Theme } from '../../theme';
+} from "../../theme";
 
 export const ThemedSettingsScreen: React.FC = () => {
 	const { theme } = useTheme();
@@ -22,71 +23,71 @@ export const ThemedSettingsScreen: React.FC = () => {
 
 	const settingsSections = [
 		{
-			title: 'Appearance',
+			title: "Appearance",
 			items: [
 				{
-					icon: '🎨',
-					title: 'Theme',
-					description: 'Customize colors and appearance',
+					icon: "🎨",
+					title: "Theme",
+					description: "Customize colors and appearance",
 					action: () => setThemeSelectorVisible(true),
 				},
 				{
-					icon: '🌓',
-					title: 'Quick Theme Toggle',
-					description: 'Switch between light and dark',
+					icon: "🌓",
+					title: "Quick Theme Toggle",
+					description: "Switch between light and dark",
 					customRight: <ThemeToggle />,
 				},
 			],
 		},
 		{
-			title: 'Preferences',
+			title: "Preferences",
 			items: [
 				{
-					icon: '🔔',
-					title: 'Notifications',
-					description: 'Receive alerts and reminders',
+					icon: "🔔",
+					title: "Notifications",
+					description: "Receive alerts and reminders",
 					toggle: notifications,
 					onToggle: setNotifications,
 				},
 				{
-					icon: '📊',
-					title: 'Analytics',
-					description: 'Help us improve with usage data',
+					icon: "📊",
+					title: "Analytics",
+					description: "Help us improve with usage data",
 					toggle: analytics,
 					onToggle: setAnalytics,
 				},
 				{
-					icon: '🔐',
-					title: 'Biometric Login',
-					description: 'Use Face ID or Touch ID',
+					icon: "🔐",
+					title: "Biometric Login",
+					description: "Use Face ID or Touch ID",
 					toggle: biometrics,
 					onToggle: setBiometrics,
 				},
 			],
 		},
 		{
-			title: 'About',
+			title: "About",
 			items: [
 				{
-					icon: '📱',
-					title: 'Version',
-					description: '1.0.0 (Build 100)',
+					icon: "📱",
+					title: "Version",
+					description: "1.0.0 (Build 100)",
 					showArrow: false,
 				},
 				{
-					icon: '📄',
-					title: 'Terms of Service',
-					description: 'Legal terms and conditions',
+					icon: "📄",
+					title: "Terms of Service",
+					description: "Legal terms and conditions",
 				},
 				{
-					icon: '🔒',
-					title: 'Privacy Policy',
-					description: 'How we protect your data',
+					icon: "🔒",
+					title: "Privacy Policy",
+					description: "How we protect your data",
 				},
 				{
-					icon: '💬',
-					title: 'Support',
-					description: 'Get help and contact us',
+					icon: "💬",
+					title: "Support",
+					description: "Get help and contact us",
 				},
 			],
 		},
@@ -100,21 +101,13 @@ export const ThemedSettingsScreen: React.FC = () => {
 				</ThemedText>
 			</ThemedView>
 
-			<ScrollView
-				style={styles.content}
-				showsVerticalScrollIndicator={false}
-			>
+			<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 				{settingsSections.map((section, sectionIndex) => (
 					<View key={sectionIndex} style={styles.section}>
-						<ThemedText
-							size="sm"
-							variant="secondary"
-							weight="semibold"
-							style={styles.sectionTitle}
-						>
+						<ThemedText size="sm" variant="secondary" weight="semibold" style={styles.sectionTitle}>
 							{section.title.toUpperCase()}
 						</ThemedText>
-						
+
 						<ThemedCard elevation="low" padding="none">
 							{section.items.map((item, itemIndex) => (
 								<TouchableOpacity
@@ -137,7 +130,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 											</ThemedText>
 										</View>
 									</View>
-									
+
 									{item.customRight ? (
 										item.customRight
 									) : item.toggle !== undefined ? (
@@ -161,15 +154,10 @@ export const ThemedSettingsScreen: React.FC = () => {
 
 				{/* Danger Zone */}
 				<View style={[styles.section, { marginBottom: 40 }]}>
-					<ThemedText
-						size="sm"
-						variant="secondary"
-						weight="semibold"
-						style={styles.sectionTitle}
-					>
+					<ThemedText size="sm" variant="secondary" weight="semibold" style={styles.sectionTitle}>
 						DANGER ZONE
 					</ThemedText>
-					
+
 					<ThemedCard elevation="low">
 						<TouchableOpacity style={styles.dangerItem}>
 							<ThemedText size="md" variant="error" weight="medium">
@@ -179,7 +167,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 								Free up storage space
 							</ThemedText>
 						</TouchableOpacity>
-						
+
 						<TouchableOpacity style={[styles.dangerItem, styles.lastItem]}>
 							<ThemedText size="md" variant="error" weight="medium">
 								Delete Account
@@ -219,9 +207,9 @@ const createStyles = (theme: Theme) => ({
 		marginBottom: 8,
 	},
 	settingItem: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
 		paddingHorizontal: 16,
 		paddingVertical: 12,
 		borderBottomWidth: 1,
@@ -231,8 +219,8 @@ const createStyles = (theme: Theme) => ({
 		borderBottomWidth: 0,
 	},
 	settingLeft: {
-		flexDirection: 'row',
-		alignItems: 'center',
+		flexDirection: "row",
+		alignItems: "center",
 		flex: 1,
 	},
 	settingContent: {

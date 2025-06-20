@@ -1,22 +1,12 @@
-import React, { useState } from 'react';
-import {
-	View,
-	TouchableOpacity,
-	ScrollView,
-	StyleSheet,
-	Dimensions,
-	Modal,
-} from 'react-native';
-import Animated, {
-	useAnimatedStyle,
-	withSpring,
-	useSharedValue,
-} from 'react-native-reanimated';
-import { useTheme } from '../ThemeContext';
-import { ThemedView, ThemedText, ThemedButton, ThemedCard } from './ThemedComponents';
-import type { ThemeMode, ColorScheme } from '../types';
+import type React from "react";
+import { useState } from "react";
+import { Dimensions, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import { useTheme } from "../ThemeContext";
+import type { ColorScheme, ThemeMode } from "../types";
+import { ThemedButton, ThemedCard, ThemedText, ThemedView } from "./ThemedComponents";
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 interface ThemeSelectorProps {
 	visible: boolean;
@@ -25,13 +15,13 @@ interface ThemeSelectorProps {
 
 export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }) => {
 	const { theme, themeMode, colorScheme, setThemeMode, setColorScheme } = useTheme();
-	const [selectedTab, setSelectedTab] = useState<'mode' | 'color'>('mode');
+	const [selectedTab, setSelectedTab] = useState<"mode" | "color">("mode");
 
 	const tabIndicatorPosition = useSharedValue(0);
 
-	const handleTabChange = (tab: 'mode' | 'color') => {
+	const handleTabChange = (tab: "mode" | "color") => {
 		setSelectedTab(tab);
-		tabIndicatorPosition.value = withSpring(tab === 'mode' ? 0 : 1);
+		tabIndicatorPosition.value = withSpring(tab === "mode" ? 0 : 1);
 	};
 
 	const animatedIndicatorStyle = useAnimatedStyle(() => {
@@ -45,26 +35,21 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 	});
 
 	const themeModes: { mode: ThemeMode; label: string; icon: string }[] = [
-		{ mode: 'light', label: 'Light', icon: '☀️' },
-		{ mode: 'dark', label: 'Dark', icon: '🌙' },
-		{ mode: 'system', label: 'System', icon: '📱' },
+		{ mode: "light", label: "Light", icon: "☀️" },
+		{ mode: "dark", label: "Dark", icon: "🌙" },
+		{ mode: "system", label: "System", icon: "📱" },
 	];
 
 	const colorSchemes: { scheme: ColorScheme; label: string; colors: string[] }[] = [
-		{ scheme: 'default', label: 'Default', colors: ['#007fff', '#4da3ff', '#0059b3'] },
-		{ scheme: 'ocean', label: 'Ocean', colors: ['#006994', '#00838f', '#00acc1'] },
-		{ scheme: 'forest', label: 'Forest', colors: ['#2e7d32', '#558b2f', '#8bc34a'] },
-		{ scheme: 'sunset', label: 'Sunset', colors: ['#ff6f00', '#f57c00', '#ff5722'] },
-		{ scheme: 'midnight', label: 'Midnight', colors: ['#3f51b5', '#7c4dff', '#536dfe'] },
+		{ scheme: "default", label: "Default", colors: ["#007fff", "#4da3ff", "#0059b3"] },
+		{ scheme: "ocean", label: "Ocean", colors: ["#006994", "#00838f", "#00acc1"] },
+		{ scheme: "forest", label: "Forest", colors: ["#2e7d32", "#558b2f", "#8bc34a"] },
+		{ scheme: "sunset", label: "Sunset", colors: ["#ff6f00", "#f57c00", "#ff5722"] },
+		{ scheme: "midnight", label: "Midnight", colors: ["#3f51b5", "#7c4dff", "#536dfe"] },
 	];
 
 	return (
-		<Modal
-			visible={visible}
-			animationType="slide"
-			transparent
-			onRequestClose={onClose}
-		>
+		<Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
 			<View style={styles.modalOverlay}>
 				<ThemedView variant="surface" style={styles.modalContent}>
 					{/* Header */}
@@ -79,24 +64,18 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 
 					{/* Tab Selector */}
 					<View style={styles.tabContainer}>
-						<TouchableOpacity
-							style={styles.tab}
-							onPress={() => handleTabChange('mode')}
-						>
+						<TouchableOpacity style={styles.tab} onPress={() => handleTabChange("mode")}>
 							<ThemedText
-								variant={selectedTab === 'mode' ? 'primary' : 'secondary'}
-								weight={selectedTab === 'mode' ? 'semibold' : 'regular'}
+								variant={selectedTab === "mode" ? "primary" : "secondary"}
+								weight={selectedTab === "mode" ? "semibold" : "regular"}
 							>
 								Theme Mode
 							</ThemedText>
 						</TouchableOpacity>
-						<TouchableOpacity
-							style={styles.tab}
-							onPress={() => handleTabChange('color')}
-						>
+						<TouchableOpacity style={styles.tab} onPress={() => handleTabChange("color")}>
 							<ThemedText
-								variant={selectedTab === 'color' ? 'primary' : 'secondary'}
-								weight={selectedTab === 'color' ? 'semibold' : 'regular'}
+								variant={selectedTab === "color" ? "primary" : "secondary"}
+								weight={selectedTab === "color" ? "semibold" : "regular"}
 							>
 								Color Scheme
 							</ThemedText>
@@ -111,11 +90,8 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 					</View>
 
 					{/* Content */}
-					<ScrollView
-						style={styles.content}
-						showsVerticalScrollIndicator={false}
-					>
-						{selectedTab === 'mode' ? (
+					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+						{selectedTab === "mode" ? (
 							<View style={styles.optionGrid}>
 								{themeModes.map((item) => (
 									<TouchableOpacity
@@ -129,15 +105,11 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 										]}
 										onPress={() => setThemeMode(item.mode)}
 									>
-										<ThemedCard
-											elevation="low"
-											padding="medium"
-											style={styles.modeCard}
-										>
+										<ThemedCard elevation="low" padding="medium" style={styles.modeCard}>
 											<ThemedText size="4xl">{item.icon}</ThemedText>
 											<ThemedText
 												size="md"
-												weight={themeMode === item.mode ? 'semibold' : 'regular'}
+												weight={themeMode === item.mode ? "semibold" : "regular"}
 												style={{ marginTop: 8 }}
 											>
 												{item.label}
@@ -160,25 +132,18 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 										]}
 										onPress={() => setColorScheme(item.scheme)}
 									>
-										<ThemedCard
-											elevation="low"
-											padding="medium"
-											style={styles.colorCard}
-										>
+										<ThemedCard elevation="low" padding="medium" style={styles.colorCard}>
 											<View style={styles.colorPreview}>
 												{item.colors.map((color, index) => (
 													<View
 														key={index}
-														style={[
-															styles.colorSwatch,
-															{ backgroundColor: color },
-														]}
+														style={[styles.colorSwatch, { backgroundColor: color }]}
 													/>
 												))}
 											</View>
 											<ThemedText
 												size="md"
-												weight={colorScheme === item.scheme ? 'semibold' : 'regular'}
+												weight={colorScheme === item.scheme ? "semibold" : "regular"}
 												style={{ marginTop: 12 }}
 											>
 												{item.label}
@@ -192,12 +157,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 
 					{/* Footer */}
 					<View style={styles.footer}>
-						<ThemedButton
-							variant="primary"
-							size="large"
-							fullWidth
-							onPress={onClose}
-						>
+						<ThemedButton variant="primary" size="large" fullWidth onPress={onClose}>
 							Done
 						</ThemedButton>
 					</View>
@@ -226,9 +186,7 @@ export const ThemeToggle: React.FC = () => {
 	return (
 		<TouchableOpacity onPress={handleToggle} style={styles.themeToggle}>
 			<Animated.View style={animatedStyle}>
-				<ThemedText size="xl">
-					{themeMode === 'dark' ? '🌙' : '☀️'}
-				</ThemedText>
+				<ThemedText size="xl">{themeMode === "dark" ? "🌙" : "☀️"}</ThemedText>
 			</Animated.View>
 		</TouchableOpacity>
 	);
@@ -237,35 +195,35 @@ export const ThemeToggle: React.FC = () => {
 const styles = StyleSheet.create({
 	modalOverlay: {
 		flex: 1,
-		backgroundColor: 'rgba(0, 0, 0, 0.5)',
-		justifyContent: 'flex-end',
+		backgroundColor: "rgba(0, 0, 0, 0.5)",
+		justifyContent: "flex-end",
 	},
 	modalContent: {
 		borderTopLeftRadius: 24,
 		borderTopRightRadius: 24,
 		paddingTop: 24,
-		maxHeight: '80%',
+		maxHeight: "80%",
 	},
 	header: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
 		paddingHorizontal: 20,
 		marginBottom: 24,
 	},
 	tabContainer: {
-		flexDirection: 'row',
+		flexDirection: "row",
 		marginHorizontal: 20,
 		marginBottom: 20,
-		position: 'relative',
+		position: "relative",
 	},
 	tab: {
 		flex: 1,
 		paddingVertical: 12,
-		alignItems: 'center',
+		alignItems: "center",
 	},
 	tabIndicator: {
-		position: 'absolute',
+		position: "absolute",
 		bottom: 0,
 		left: 0,
 		width: (SCREEN_WIDTH - 40) / 2,
@@ -277,18 +235,18 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 	},
 	optionGrid: {
-		flexDirection: 'row',
-		flexWrap: 'wrap',
+		flexDirection: "row",
+		flexWrap: "wrap",
 		gap: 12,
 		paddingBottom: 20,
 	},
 	modeOption: {
 		width: (SCREEN_WIDTH - 64) / 3,
 		borderRadius: 12,
-		overflow: 'hidden',
+		overflow: "hidden",
 	},
 	modeCard: {
-		alignItems: 'center',
+		alignItems: "center",
 		paddingVertical: 20,
 	},
 	colorList: {
@@ -297,14 +255,14 @@ const styles = StyleSheet.create({
 	},
 	colorOption: {
 		borderRadius: 12,
-		overflow: 'hidden',
+		overflow: "hidden",
 	},
 	colorCard: {
-		flexDirection: 'row',
-		alignItems: 'center',
+		flexDirection: "row",
+		alignItems: "center",
 	},
 	colorPreview: {
-		flexDirection: 'row',
+		flexDirection: "row",
 		gap: 8,
 	},
 	colorSwatch: {

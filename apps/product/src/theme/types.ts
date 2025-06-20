@@ -21,28 +21,28 @@ export interface ThemeColors {
 	background: string;
 	surface: string;
 	surfaceVariant: string;
-	
+
 	// Text colors
 	text: string;
 	textSecondary: string;
 	textDisabled: string;
-	
+
 	// UI colors
 	border: string;
 	borderLight: string;
 	divider: string;
-	
+
 	// Status colors
 	success: string;
 	warning: string;
 	error: string;
 	info: string;
-	
+
 	// Semantic colors
 	onBackground: string;
 	onSurface: string;
 	onError: string;
-	
+
 	// Shadow colors
 	shadow: string;
 	shadowLight: string;
@@ -58,7 +58,7 @@ export interface ThemeSizes {
 	fontSize2XL: number;
 	fontSize3XL: number;
 	fontSize4XL: number;
-	
+
 	// Spacing
 	spacingXS: number;
 	spacingSM: number;
@@ -67,7 +67,7 @@ export interface ThemeSizes {
 	spacingXL: number;
 	spacing2XL: number;
 	spacing3XL: number;
-	
+
 	// Border radius
 	radiusXS: number;
 	radiusSM: number;
@@ -75,7 +75,7 @@ export interface ThemeSizes {
 	radiusLG: number;
 	radiusXL: number;
 	radiusFull: number;
-	
+
 	// Icon sizes
 	iconSM: number;
 	iconMD: number;
@@ -88,7 +88,7 @@ export interface ThemeAnimation {
 	durationFast: number;
 	durationNormal: number;
 	durationSlow: number;
-	
+
 	// Easing
 	easeIn: string;
 	easeOut: string;
@@ -102,7 +102,7 @@ export interface Theme {
 	colors: ThemeColors;
 	sizes: ThemeSizes;
 	animation: ThemeAnimation;
-	
+
 	// Component specific theming
 	components: {
 		button: {
@@ -148,5 +148,5 @@ export interface Theme {
 	};
 }
 
-export type ThemeMode = 'light' | 'dark' | 'system';
-export type ColorScheme = 'default' | 'ocean' | 'forest' | 'sunset' | 'midnight';
+export type ThemeMode = "light" | "dark" | "system";
+export type ColorScheme = "default" | "ocean" | "forest" | "sunset" | "midnight";

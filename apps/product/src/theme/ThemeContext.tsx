@@ -1,15 +1,16 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Appearance, useColorScheme } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import type React from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import { Appearance, useColorScheme } from "react-native";
 import Animated, {
-	useSharedValue,
-	useAnimatedStyle,
-	withTiming,
 	interpolateColor,
 	runOnJS,
-} from 'react-native-reanimated';
-import { createTheme } from './themes';
-import type { Theme, ThemeMode, ColorScheme } from './types';
+	useAnimatedStyle,
+	useSharedValue,
+	withTiming,
+} from "react-native-reanimated";
+import { createTheme } from "./themes";
+import type { ColorScheme, Theme, ThemeMode } from "./types";
 
 interface ThemeContextType {
 	theme: Theme;
@@ -23,20 +24,20 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = '@braingame/theme';
-const COLOR_SCHEME_STORAGE_KEY = '@braingame/colorScheme';
+const THEME_STORAGE_KEY = "@braingame/theme";
+const COLOR_SCHEME_STORAGE_KEY = "@braingame/colorScheme";
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const systemColorScheme = useColorScheme();
-	const [themeMode, setThemeModeState] = useState<ThemeMode>('system');
-	const [colorScheme, setColorSchemeState] = useState<ColorScheme>('default');
+	const [themeMode, setThemeModeState] = useState<ThemeMode>("system");
+	const [colorScheme, setColorSchemeState] = useState<ColorScheme>("default");
 	const [isTransitioning, setIsTransitioning] = useState(false);
-	
+
 	// Animation values
 	const transitionProgress = useSharedValue(0);
-	
+
 	// Determine actual theme based on mode
-	const isDark = themeMode === 'dark' || (themeMode === 'system' && systemColorScheme === 'dark');
+	const isDark = themeMode === "dark" || (themeMode === "system" && systemColorScheme === "dark");
 	const theme = createTheme(isDark, colorScheme);
 
 	// Load saved preferences
@@ -55,7 +56,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
 	// Update theme when system color scheme changes
 	useEffect(() => {
-		if (themeMode === 'system') {
+		if (themeMode === "system") {
 			// Trigger re-render when system theme changes
 		}
 	}, [systemColorScheme, themeMode]);
@@ -74,7 +75,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 				setColorSchemeState(savedColorScheme as ColorScheme);
 			}
 		} catch (error) {
-			console.error('Error loading theme preferences:', error);
+			console.error("Error loading theme preferences:", error);
 		}
 	};
 
@@ -103,7 +104,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 	};
 
 	const toggleTheme = () => {
-		const newMode = isDark ? 'light' : 'dark';
+		const newMode = isDark ? "light" : "dark";
 		setThemeMode(newMode);
 	};
 
@@ -127,7 +128,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 export const useTheme = () => {
 	const context = useContext(ThemeContext);
 	if (context === undefined) {
-		throw new Error('useTheme must be used within a ThemeProvider');
+		throw new Error("useTheme must be used within a ThemeProvider");
 	}
 	return context;
 };
@@ -148,7 +149,7 @@ export const useAnimatedTheme = () => {
 			backgroundColor: interpolateColor(
 				animationProgress.value,
 				[0, 1],
-				[theme.colors.background, theme.colors.surface]
+				[theme.colors.background, theme.colors.surface],
 			),
 		};
 	});
@@ -158,7 +159,7 @@ export const useAnimatedTheme = () => {
 			backgroundColor: interpolateColor(
 				animationProgress.value,
 				[0, 1],
-				[theme.colors.surface, theme.colors.surfaceVariant]
+				[theme.colors.surface, theme.colors.surfaceVariant],
 			),
 		};
 	});
@@ -168,7 +169,7 @@ export const useAnimatedTheme = () => {
 			color: interpolateColor(
 				animationProgress.value,
 				[0, 1],
-				[theme.colors.text, theme.colors.textSecondary]
+				[theme.colors.text, theme.colors.textSecondary],
 			),
 		};
 	});

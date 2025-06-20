@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import type React from "react";
+import { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import Animated, {
-	useSharedValue,
-	useAnimatedStyle,
-	withTiming,
-	interpolate,
 	Extrapolate,
-} from 'react-native-reanimated';
-import { useTheme } from '../ThemeContext';
+	interpolate,
+	useAnimatedStyle,
+	useSharedValue,
+	withTiming,
+} from "react-native-reanimated";
+import { useTheme } from "../ThemeContext";
 
 interface ThemeTransitionProps {
 	children: React.ReactNode;
@@ -25,7 +26,7 @@ export const ThemeTransition: React.FC<ThemeTransitionProps> = ({ children }) =>
 				// Fade back in and scale up
 				fadeValue.value = withTiming(1, { duration: 150 });
 			});
-			
+
 			scaleValue.value = withTiming(0.95, { duration: 150 }, () => {
 				scaleValue.value = withTiming(1, { duration: 150 });
 			});
@@ -39,11 +40,7 @@ export const ThemeTransition: React.FC<ThemeTransitionProps> = ({ children }) =>
 		};
 	});
 
-	return (
-		<Animated.View style={[styles.container, animatedStyle]}>
-			{children}
-		</Animated.View>
-	);
+	return <Animated.View style={[styles.container, animatedStyle]}>{children}</Animated.View>;
 };
 
 // Smooth color transition component
@@ -63,14 +60,14 @@ export const ColorTransition: React.FC<ColorTransitionProps> = ({ color, childre
 };
 
 // Theme-aware status bar
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 
 export const ThemedStatusBar: React.FC = () => {
 	const { theme } = useTheme();
-	
+
 	return (
 		<StatusBar
-			style={theme.isDark ? 'light' : 'dark'}
+			style={theme.isDark ? "light" : "dark"}
 			backgroundColor={theme.colors.background}
 			animated
 		/>
@@ -80,30 +77,25 @@ export const ThemedStatusBar: React.FC = () => {
 // Screen transition wrapper with theme awareness
 interface ThemedScreenProps {
 	children: React.ReactNode;
-	variant?: 'background' | 'surface';
-	edges?: Array<'top' | 'right' | 'bottom' | 'left'>;
+	variant?: "background" | "surface";
+	edges?: Array<"top" | "right" | "bottom" | "left">;
 }
 
 export const ThemedScreen: React.FC<ThemedScreenProps> = ({
 	children,
-	variant = 'background',
-	edges = ['top'],
+	variant = "background",
+	edges = ["top"],
 }) => {
 	const { theme } = useTheme();
-	const { SafeAreaView } = require('react-native-safe-area-context');
-	
-	const backgroundColor = variant === 'surface' ? theme.colors.surface : theme.colors.background;
-	
+	const { SafeAreaView } = require("react-native-safe-area-context");
+
+	const backgroundColor = variant === "surface" ? theme.colors.surface : theme.colors.background;
+
 	return (
 		<>
 			<ThemedStatusBar />
-			<SafeAreaView 
-				style={[styles.screen, { backgroundColor }]} 
-				edges={edges}
-			>
-				<ThemeTransition>
-					{children}
-				</ThemeTransition>
+			<SafeAreaView style={[styles.screen, { backgroundColor }]} edges={edges}>
+				<ThemeTransition>{children}</ThemeTransition>
 			</SafeAreaView>
 		</>
 	);

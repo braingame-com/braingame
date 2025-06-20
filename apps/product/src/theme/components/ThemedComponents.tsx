@@ -1,35 +1,35 @@
-import React from 'react';
+import React from "react";
 import {
-	View as RNView,
-	Text as RNText,
-	TouchableOpacity as RNTouchableOpacity,
-	TextInput as RNTextInput,
 	ScrollView as RNScrollView,
-	StyleSheet,
-	ViewStyle,
-	TextStyle,
-	TextInputProps,
-	TouchableOpacityProps,
-	ViewProps,
-	TextProps,
+	Text as RNText,
+	TextInput as RNTextInput,
+	TouchableOpacity as RNTouchableOpacity,
+	View as RNView,
 	ScrollViewProps,
-} from 'react-native';
+	StyleSheet,
+	type TextInputProps,
+	type TextProps,
+	type TextStyle,
+	type TouchableOpacityProps,
+	type ViewProps,
+	type ViewStyle,
+} from "react-native";
 import Animated, {
-	useAnimatedStyle,
 	interpolateColor,
+	useAnimatedStyle,
 	useSharedValue,
 	withTiming,
-} from 'react-native-reanimated';
-import { useTheme } from '../ThemeContext';
+} from "react-native-reanimated";
+import { useTheme } from "../ThemeContext";
 
 // Themed View Component
 interface ThemedViewProps extends ViewProps {
-	variant?: 'background' | 'surface' | 'card';
+	variant?: "background" | "surface" | "card";
 	animated?: boolean;
 }
 
 export const ThemedView: React.FC<ThemedViewProps> = ({
-	variant = 'background',
+	variant = "background",
 	animated = false,
 	style,
 	children,
@@ -39,9 +39,9 @@ export const ThemedView: React.FC<ThemedViewProps> = ({
 
 	const getBackgroundColor = () => {
 		switch (variant) {
-			case 'surface':
+			case "surface":
 				return theme.colors.surface;
-			case 'card':
+			case "card":
 				return theme.components.card.background;
 			default:
 				return theme.colors.background;
@@ -70,16 +70,16 @@ export const ThemedView: React.FC<ThemedViewProps> = ({
 
 // Themed Text Component
 interface ThemedTextProps extends TextProps {
-	variant?: 'primary' | 'secondary' | 'disabled' | 'error' | 'success';
-	size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-	weight?: 'regular' | 'medium' | 'semibold' | 'bold';
+	variant?: "primary" | "secondary" | "disabled" | "error" | "success";
+	size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+	weight?: "regular" | "medium" | "semibold" | "bold";
 	animated?: boolean;
 }
 
 export const ThemedText: React.FC<ThemedTextProps> = ({
-	variant = 'primary',
-	size = 'md',
-	weight = 'regular',
+	variant = "primary",
+	size = "md",
+	weight = "regular",
 	animated = false,
 	style,
 	children,
@@ -89,13 +89,13 @@ export const ThemedText: React.FC<ThemedTextProps> = ({
 
 	const getTextColor = () => {
 		switch (variant) {
-			case 'secondary':
+			case "secondary":
 				return theme.colors.textSecondary;
-			case 'disabled':
+			case "disabled":
 				return theme.colors.textDisabled;
-			case 'error':
+			case "error":
 				return theme.colors.error;
-			case 'success':
+			case "success":
 				return theme.colors.success;
 			default:
 				return theme.colors.text;
@@ -109,19 +109,19 @@ export const ThemedText: React.FC<ThemedTextProps> = ({
 			md: theme.sizes.fontSizeMD,
 			lg: theme.sizes.fontSizeLG,
 			xl: theme.sizes.fontSizeXL,
-			'2xl': theme.sizes.fontSize2XL,
-			'3xl': theme.sizes.fontSize3XL,
-			'4xl': theme.sizes.fontSize4XL,
+			"2xl": theme.sizes.fontSize2XL,
+			"3xl": theme.sizes.fontSize3XL,
+			"4xl": theme.sizes.fontSize4XL,
 		};
 		return sizeMap[size];
 	};
 
 	const getFontWeight = () => {
 		const weightMap = {
-			regular: '400' as const,
-			medium: '500' as const,
-			semibold: '600' as const,
-			bold: '700' as const,
+			regular: "400" as const,
+			medium: "500" as const,
+			semibold: "600" as const,
+			bold: "700" as const,
 		};
 		return weightMap[weight];
 	};
@@ -151,15 +151,15 @@ export const ThemedText: React.FC<ThemedTextProps> = ({
 
 // Themed Button Component
 interface ThemedButtonProps extends TouchableOpacityProps {
-	variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-	size?: 'small' | 'medium' | 'large';
+	variant?: "primary" | "secondary" | "outline" | "ghost";
+	size?: "small" | "medium" | "large";
 	fullWidth?: boolean;
 	children: React.ReactNode;
 }
 
 export const ThemedButton: React.FC<ThemedButtonProps> = ({
-	variant = 'primary',
-	size = 'medium',
+	variant = "primary",
+	size = "medium",
 	fullWidth = false,
 	disabled = false,
 	style,
@@ -186,12 +186,12 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
 
 	const getSizeStyles = (): ViewStyle => {
 		switch (size) {
-			case 'small':
+			case "small":
 				return {
 					paddingVertical: theme.sizes.spacingSM,
 					paddingHorizontal: theme.sizes.spacingMD,
 				};
-			case 'large':
+			case "large":
 				return {
 					paddingVertical: theme.sizes.spacingMD,
 					paddingHorizontal: theme.sizes.spacingLG,
@@ -215,10 +215,10 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
 
 	const buttonStyle: ViewStyle = {
 		borderRadius: theme.sizes.radiusMD,
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 		opacity: disabled ? 0.6 : 1,
-		width: fullWidth ? '100%' : undefined,
+		width: fullWidth ? "100%" : undefined,
 		...getSizeStyles(),
 		...getVariantStyles(),
 		...(style as ViewStyle),
@@ -235,9 +235,9 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
 			{...props}
 		>
 			<Animated.View style={[buttonStyle, animatedStyle]}>
-				{typeof children === 'string' ? (
+				{typeof children === "string" ? (
 					<ThemedText
-						size={size === 'small' ? 'sm' : size === 'large' ? 'lg' : 'md'}
+						size={size === "small" ? "sm" : size === "large" ? "lg" : "md"}
 						weight="semibold"
 						style={{ color: textColor }}
 					>
@@ -253,13 +253,13 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
 
 // Themed Input Component
 interface ThemedInputProps extends TextInputProps {
-	variant?: 'default' | 'filled' | 'outline';
+	variant?: "default" | "filled" | "outline";
 	error?: boolean;
 	label?: string;
 }
 
 export const ThemedInput: React.FC<ThemedInputProps> = ({
-	variant = 'default',
+	variant = "default",
 	error = false,
 	label,
 	style,
@@ -274,14 +274,14 @@ export const ThemedInput: React.FC<ThemedInputProps> = ({
 		borderColor: error
 			? theme.colors.error
 			: isFocused
-			? theme.components.input.borderFocus
-			: theme.components.input.border,
+				? theme.components.input.borderFocus
+				: theme.components.input.border,
 		borderRadius: theme.sizes.radiusMD,
 		paddingVertical: theme.sizes.spacingSM + 4,
 		paddingHorizontal: theme.sizes.spacingMD,
 		fontSize: theme.sizes.fontSizeMD,
 		color: theme.components.input.text,
-		fontFamily: 'LexendRegular',
+		fontFamily: "LexendRegular",
 		...(style as TextStyle),
 	};
 
@@ -289,7 +289,7 @@ export const ThemedInput: React.FC<ThemedInputProps> = ({
 		<RNView>
 			{label && (
 				<ThemedText
-					variant={error ? 'error' : 'secondary'}
+					variant={error ? "error" : "secondary"}
 					size="sm"
 					weight="medium"
 					style={{ marginBottom: theme.sizes.spacingXS }}
@@ -310,14 +310,14 @@ export const ThemedInput: React.FC<ThemedInputProps> = ({
 
 // Themed Card Component
 interface ThemedCardProps extends ViewProps {
-	elevation?: 'none' | 'low' | 'medium' | 'high';
-	padding?: 'none' | 'small' | 'medium' | 'large';
+	elevation?: "none" | "low" | "medium" | "high";
+	padding?: "none" | "small" | "medium" | "large";
 	onPress?: () => void;
 }
 
 export const ThemedCard: React.FC<ThemedCardProps> = ({
-	elevation = 'low',
-	padding = 'medium',
+	elevation = "low",
+	padding = "medium",
 	onPress,
 	style,
 	children,
