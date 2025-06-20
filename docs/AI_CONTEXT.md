@@ -171,9 +171,6 @@
   - Generated `docs/TOKEN_USAGE.md`
   - Updated `docs/TODO.md` with completion status
 - **Next Steps**: Integrate token report into design workflow
->>>>>>> main
->>>>>>> main
->>>>>>> main
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet

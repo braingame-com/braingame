@@ -76,7 +76,7 @@ braingame/
 ├── .github/workflows/     # CI / CD
 ├── firebase.json
 ├── .firebaserc
-├── turborepo.json
+├── turbo.json
 ├── pnpm-workspace.yaml
 └── package.json
 ```
@@ -98,7 +98,7 @@ braingame/
 | Storybook | `pnpm storybook` (placeholder) |
 | Prod build | `pnpm build` (Turbo graph) |
 
-Turbo pipelines (defined in `turborepo.json`):
+Turbo pipelines (defined in `turbo.json`):
 
 ```
 dev   -> transpile            (no cache)
