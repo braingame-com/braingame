@@ -140,6 +140,11 @@
   - [ ] Configure performance monitoring
   - Status: Not started
 
+- [x] Preflight Docs
+  - [x] Clarify that lint and test require `pnpm install`
+  - [x] Add optional `preflight` script
+  - Status: Completed @ 20-06-2025
+
 - [x] Refactor BGUI Button component for readability, performance, and a11y
   - Status: Completed @ 17-06-2025
 
