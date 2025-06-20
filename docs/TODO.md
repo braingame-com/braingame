@@ -33,6 +33,15 @@
   - [ ] Configure and enforce >80% coverage reporting
   - Status: In Progress - Revisiting and hardening the testing foundation. The previous React Native setup was brittle and has been superseded by this unified strategy.
 
+- [ ] Implement Testing Infrastructure (Vitest)
+  - [x] Update `docs/TESTING.md` with new Vitest strategy
+  - [ ] Remove all Jest dependencies and configurations from the monorepo
+  - [ ] Install and configure Vitest in `packages/bgui`
+  - [ ] Write a sample test for a BGUI component to validate the setup
+  - [ ] Add unit tests for all `packages/utils` functions
+  - [ ] Configure and enforce >80% coverage reporting
+  - Status: In Progress - The Jest-based approach failed due to intractable monorepo/ESM issues. Pivoting to Vitest to unblock development.
+
 ## 🔥 High Priority
 - [x] Configure Turborepo
   - [x] Create `turbo.json` with pipeline definitions
@@ -63,6 +72,8 @@
   - [ ] Restrict force pushes
   - [ ] Delete head branches automatically
   - Status: Not started - requires GitHub repository admin access
+
+- [x] Configure Firebase for `apps/product` and `apps/website`
 
 ## 📋 Medium Priority
 - [ ] Configure Storybook
