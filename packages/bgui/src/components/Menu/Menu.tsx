@@ -8,8 +8,9 @@ import React, {
 	useState,
 } from "react";
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
-import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
-import { Text } from "../../../Text";
+import { useThemeColor } from "@braingame/utils";
+import { Text } from "../Text";
+import { Icon } from "../Icon";
 import { styles } from "./styles";
 import type { MenuItemProps, MenuProps } from "./types";
 
