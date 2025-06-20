@@ -286,7 +286,7 @@ When using AI assistants (like Claude):
 - **Documentation**: Check `/docs` folder
 - **Architecture**: See `docs/ARCHITECTURE.md`
 - **Task Tracking**: See `TODO.md`
-- **Security**: See `SECURITY.md`
+- **Security**: See `../.github/SECURITY.md`
 
 ## VS Code Extensions
 

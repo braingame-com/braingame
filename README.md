@@ -52,7 +52,7 @@ A key part of our workflow is our task management system. See what we're working
 
 ## 🛡️ Security
 
-Security is a top priority. Please see our **[Security Policy](./SECURITY.md)** for details on our supported versions and how to report vulnerabilities.
+Security is a top priority. Please see our **[Security Policy](.github/SECURITY.md)** for details on our supported versions and how to report vulnerabilities.
 
 ## 📄 License
 
