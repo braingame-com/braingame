@@ -302,4 +302,8 @@ cp /tmp/testing-backup/* original-locations/
 **✅ Future Protection**: Multiple layers of agent guidance updated  
 **✅ Knowledge Preserved**: Detailed incident analysis and recovery procedures documented
 
+<<<<<<< HEAD
 **Key Takeaway**: Documentation gaps + process violations = chaos. Both must be addressed to prevent recurrence.
+=======
+**Key Takeaway**: Documentation gaps + process violations = chaos. Both must be addressed to prevent recurrence.
+>>>>>>> 2a9b8ef (docs: add comprehensive worktree isolation documentation)
