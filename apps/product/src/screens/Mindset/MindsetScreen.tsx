@@ -3,6 +3,7 @@ import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Text } from '@braingame/bgui';
 import { mindsetStyles } from './styles';
 import { VisionGoals } from './components/VisionGoals';
+import { Affirmations } from './components/Affirmations';
 import type { CompletionState } from './types';
 
 /**
@@ -72,15 +73,11 @@ export const MindsetScreen: React.FC = () => {
 						completed={completionState.vision}
 					/>
 					
-					{/* Placeholder sections for other components */}
-					<View style={mindsetStyles.card}>
-						<Text variant="title" style={mindsetStyles.cardTitle}>
-							🎯 Affirmations
-						</Text>
-						<Text style={mindsetStyles.cardDescription}>
-							Coming next: Sam Ovens success affirmations with audio support
-						</Text>
-					</View>
+					{/* Affirmations Section */}
+					<Affirmations
+						onComplete={() => handleSectionComplete('affirmations')}
+						completed={completionState.affirmations}
+					/>
 					
 					<View style={mindsetStyles.card}>
 						<Text variant="title" style={mindsetStyles.cardTitle}>

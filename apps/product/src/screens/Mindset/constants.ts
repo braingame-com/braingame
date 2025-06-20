@@ -87,3 +87,6 @@ export const MINDSET_SECTIONS = [
 		description: 'Daily metrics and habit tracking'
 	}
 ];
+
+// Export affirmations content
+export * from './constants/affirmations';
