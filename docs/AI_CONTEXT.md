@@ -1,20 +1,47 @@
 # AI Context - Brain Game
 
-> **Last Updated**: 19-06-2025
+> **Last Updated**: 20-06-2025
 > A tactical dashboard for AI agents to maintain momentum and context.
 
 ---
 
 ## 1. Current Focus
-1. Making the project enterprise-ready
-2. Setting up testing infrastructure for BGUI components
-3. Resolving React Native testing compatibility issues
-4. Implementing missing Turborepo configuration
+1. Advanced Week 3 feature implementation (YouTube integration, analytics, animations, Firebase cloud)
+2. Advanced navigation patterns and authentication flows
+3. Ensuring proper worktree isolation and documentation
+4. Making the project enterprise-ready
+
+## ⚠️ Critical Workspace Information
+**This repository uses git worktrees for isolation:**
+- **Main worktree** (`braingame/`): Production work, final commits
+- **Claude sandbox** (`braingame-claude-sandbox/`): AI development work
+- **ALWAYS run `git worktree list` before starting work**
+- **ALWAYS ask user which worktree to use if uncertain**
 
 ---
 
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
+
+### 20-06-2025 - Week 3 Advanced Features & Worktree Crisis Resolution
+- **Agent**: Claude (Sonnet 4)
+- **Duration**: ~2 hours
+- **Tasks**: Week 3 advanced features implementation and emergency worktree contamination cleanup
+- **Major Incident**: Agent started working in main production repo instead of claude-sandbox
+  - **Root Cause**: No worktree documentation + agent ignored existing workflow docs
+  - **Impact**: Mixed Week 3 features with user's testing migration work
+  - **Resolution**: Surgical git separation, preserved all work, restored proper isolation
+  - **Prevention**: Added comprehensive worktree documentation to all agent docs
+- **Completed**:
+  - YouTube video integration with search, grid layout, custom player
+  - Advanced data visualization with interactive charts and analytics  
+  - Sophisticated animation systems (scroll-based, carousel, loading animations)
+  - Firebase Functions cloud integration with retry logic and Google Sheets
+  - Navigation types and authentication context foundations
+  - Mindset screen components and constants (committed properly)
+  - Comprehensive worktree documentation across CLAUDE.md, AGENTS.md, ARCHITECTURE.md
+- **Key Learning**: **ALWAYS verify workspace location before starting any work**
+- **Documentation**: Detailed work session created with incident analysis and prevention measures
 
 ### 19-01-2025 - BGUI Testing Infrastructure Setup
 - **Agent**: Claude (Opus 4)
