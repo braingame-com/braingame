@@ -14,7 +14,7 @@ Follow these steps for every development task.
     - If uncertain which to use, STOP and ask the user
 2.  **Location Verification:** Run `pwd && git branch --show-current` to confirm you're in the right place
 3.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
-4.  **Consult Docs:** Read `ARCHITECTURE.md` and `AI_CONTEXT.md` to refresh context.
+4.  **Consult Docs:** Read `ARCHITECTURE.md` and `LESSONS.md` to refresh context.
 5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
 **Phase 2: Development & Implementation**
@@ -25,8 +25,6 @@ Follow these steps for every development task.
 **Phase 3: Completion & Handoff**
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
 2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
-3.  **Summarize:** Add a session summary to `AI_CONTEXT.md`.
-4.  **Document Session:** Create a detailed work session file in `docs/work-sessions/` using the format `YYYY-MM-DD-brief-description.md` with key learnings, solutions, and patterns discovered.
 
 ---
 
@@ -43,30 +41,12 @@ Follow these steps for every development task.
 
 ## 3. Administrative Guidelines
 
-- **Date Format:** All dates in documentation (`TODO.md`, `AI_CONTEXT.md`, etc.) **MUST** use the `DD-MM-YYYY` format.
+- **Date Format:** All dates in documentation (`TODO.md`, etc.) **MUST** use the `DD-MM-YYYY` format.
 - **Accurate Dating:** Ensure the current, correct date is used. Time-traveling agents will be decommissioned.
 
 ---
 
-## 4. Work Session Documentation
-
-**IMPORTANT:** At the end of each work session, create a comprehensive session document in `docs/work-sessions/`:
-
-- **Filename Format:** `YYYY-MM-DD-brief-description.md`
-- **Include:**
-  - Session metadata (date, agent, objectives)
-  - Detailed list of work completed
-  - Key learnings and discoveries
-  - Code examples and patterns
-  - Solutions to complex problems
-  - Recommendations for future work
-- **Purpose:** Preserve knowledge, document solutions, and help future agents understand project evolution
-
-See `docs/work-sessions/README.md` for detailed guidelines.
-
----
-
-## 5. Git Worktree Usage (MANDATORY for AI Agents)
+## 4. Git Worktree Usage (MANDATORY for AI Agents)
 
 **⚠️ CRITICAL:** All AI agents MUST use the dedicated worktree for development to avoid conflicts with human work.
 
@@ -121,7 +101,7 @@ gh pr create --title "Your PR Title" --body "Description"
 
 ---
 
-## 6. Common Commands
+## 5. Common Commands
 
 ### Core Development
 ```bash
