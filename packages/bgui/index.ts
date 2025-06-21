@@ -1,7 +1,7 @@
 // ENTERPRISE-GRADE UI KIT EXPORTS
 // Brain Game UI components built for scale and maintainability
 
-export { PageWrapper } from "./PageWrapper";
+export { PageWrapper } from "./src/components/PageWrapper";
 // All Components from src/components (Enterprise folder-per-component structure)
 export { Accordion } from "./src/components/Accordion";
 export { ActionList, ActionListDivider, ActionListItem } from "./src/components/ActionList";
@@ -11,7 +11,7 @@ export { Button } from "./src/components/Button";
 export { Card } from "./src/components/Card";
 export { Checkbox } from "./src/components/Checkbox";
 export { Divider } from "./src/components/Divider";
-export { ErrorBoundary } from "./src/components/ErrorBoundary";
+export { SimpleErrorBoundary } from "./src/components/SimpleErrorBoundary";
 export { Icon } from "./src/components/Icon";
 export { Image } from "./src/components/Image";
 export { Label } from "./src/components/Label";
@@ -32,9 +32,9 @@ export { TextInput } from "./src/components/TextInput";
 export { Toast } from "./src/components/Toast";
 export { Tooltip } from "./src/components/Tooltip";
 // Core Layout Components
-export { View } from "./View";
+export { View } from "./src/components/View";
 
-export type { PageWrapperProps } from "./PageWrapper/types";
+export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export type { AccordionProps } from "./src/components/Accordion";
 export type { ActionListItemProps, ActionListProps } from "./src/components/ActionList/types";
 export type { AvatarProps } from "./src/components/Avatar/types";
@@ -70,4 +70,4 @@ export { useControlledState, useFocusManagement, useInteractiveState } from "./s
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";
 // Type Exports (Enterprise TypeScript interfaces)
-export type { ViewProps } from "./View/types";
+export type { ViewProps } from "./src/components/View/types";

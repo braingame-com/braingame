@@ -5,9 +5,9 @@ import { Text } from "../Text";
 import { errorContainerStyle, errorMessageStyle, errorTitleStyle } from "./styles";
 
 /**
- * Props for the ErrorBoundary component
+ * Props for the SimpleErrorBoundary component
  */
-interface ErrorBoundaryProps {
+interface SimpleErrorBoundaryProps {
 	/**
 	 * Child components to render and protect from errors.
 	 */
@@ -29,9 +29,9 @@ interface ErrorBoundaryProps {
 }
 
 /**
- * Internal state for the ErrorBoundary component
+ * Internal state for the SimpleErrorBoundary component
  */
-interface ErrorBoundaryState {
+interface SimpleErrorBoundaryState {
 	/**
 	 * Whether an error has been caught
 	 */
@@ -44,44 +44,46 @@ interface ErrorBoundaryState {
 }
 
 /**
- * Error boundary component that catches JavaScript errors in child components.
- * Prevents the entire app from crashing and displays a fallback UI.
+ * Simple error boundary component that catches JavaScript errors in child components.
+ * Provides basic error handling with minimal UI. For advanced features like
+ * clipboard support and error reporting, use the ErrorBoundary component
+ * from the product app.
  *
  * @example
  * ```tsx
  * // Basic usage
- * <ErrorBoundary>
+ * <SimpleErrorBoundary>
  *   <MyComponent />
- * </ErrorBoundary>
+ * </SimpleErrorBoundary>
  *
  * // With custom fallback
- * <ErrorBoundary fallback={<ErrorFallback />}>
+ * <SimpleErrorBoundary fallback={<ErrorFallback />}>
  *   <MyComponent />
- * </ErrorBoundary>
+ * </SimpleErrorBoundary>
  *
  * // With error logging
- * <ErrorBoundary onError={(error, errorInfo) => {
+ * <SimpleErrorBoundary onError={(error, errorInfo) => {
  *   logErrorToService(error, errorInfo);
  * }}>
  *   <MyComponent />
- * </ErrorBoundary>
+ * </SimpleErrorBoundary>
  * ```
  *
  * @component
  */
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-	constructor(props: ErrorBoundaryProps) {
+export class SimpleErrorBoundary extends Component<SimpleErrorBoundaryProps, SimpleErrorBoundaryState> {
+	constructor(props: SimpleErrorBoundaryProps) {
 		super(props);
 		this.state = { hasError: false, error: null };
 	}
 
-	static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+	static getDerivedStateFromError(error: Error): SimpleErrorBoundaryState {
 		return { hasError: true, error };
 	}
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		// Log error to error reporting service
-		console.error("ErrorBoundary caught an error:", error, errorInfo);
+		console.error("SimpleErrorBoundary caught an error:", error, errorInfo);
 
 		// Call custom error handler if provided
 		this.props.onError?.(error, errorInfo);
