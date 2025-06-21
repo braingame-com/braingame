@@ -1,8 +1,49 @@
 "use client";
 
+import { useState } from "react";
 import styles from "./page.module.css";
+import { submitEmail, validateEmail } from "../lib/emailService";
 
 export default function HomePage() {
+	const [email, setEmail] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitMessage, setSubmitMessage] = useState("");
+	const [isSuccess, setIsSuccess] = useState(false);
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		
+		if (!email.trim()) {
+			setSubmitMessage("Please enter your email address");
+			setIsSuccess(false);
+			return;
+		}
+
+		if (!validateEmail(email)) {
+			setSubmitMessage("Please enter a valid email address");
+			setIsSuccess(false);
+			return;
+		}
+
+		setIsSubmitting(true);
+		setSubmitMessage("");
+
+		try {
+			const result = await submitEmail(email);
+			setSubmitMessage(result.message);
+			setIsSuccess(result.success);
+			
+			if (result.success) {
+				setEmail("");
+			}
+		} catch (error) {
+			setSubmitMessage("Something went wrong. Please try again.");
+			setIsSuccess(false);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
+
 	return (
 		<div className={styles.container}>
 			<main className={styles.main}>
@@ -28,10 +69,39 @@ export default function HomePage() {
 						</p>
 					</div>
 
+					{/* Email Signup Form */}
+					<form onSubmit={handleSubmit} className={styles.emailForm}>
+						<p className={styles.emailFormTitle}>
+							Subscribe to be alerted when we go live
+						</p>
+						
+						<div className={styles.emailInputContainer}>
+							<input
+								type="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder="Enter your email"
+								className={styles.emailInput}
+								disabled={isSubmitting}
+								autoComplete="email"
+							/>
+							<button
+								type="submit"
+								className={styles.emailSubmitButton}
+								disabled={isSubmitting || !email.trim()}
+							>
+								{isSubmitting ? "..." : "Join"}
+							</button>
+						</div>
+
+						{submitMessage && (
+							<p className={`${styles.submitMessage} ${isSuccess ? styles.success : styles.error}`}>
+								{submitMessage}
+							</p>
+						)}
+					</form>
+
 					<div className={styles.buttonContainer}>
-						<a href="/docs" className={styles.primaryButton}>
-							View Docs
-						</a>
 						<a
 							href="https://github.com/braingame-com/braingame"
 							target="_blank"

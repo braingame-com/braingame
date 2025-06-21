@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Email signups collection - allow writes from website, no reads
+    match /email_signups/{document} {
+      // Allow anyone to create email signups (from website form)
+      allow create: if isValidEmailSignup(resource.data);
+      
+      // No reads allowed - emails are private data
+      allow read: if false;
+      
+      // No updates or deletes from client side
+      allow update, delete: if false;
+    }
+    
+    // Helper function to validate email signup data
+    function isValidEmailSignup(data) {
+      return data.keys().hasAll(['email', 'timestamp', 'source']) &&
+             data.keys().hasOnly(['email', 'timestamp', 'source', 'userAgent']) &&
+             data.email is string &&
+             data.email.matches('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$') &&
+             data.source == 'website_homepage' &&
+             data.timestamp is timestamp;
+    }
+    
+    // Deny access to all other documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

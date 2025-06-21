@@ -1,7 +1,17 @@
 {
-	"extends": "../../packages/config/tsconfig.base.json",
 	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
 		"jsx": "preserve",
+		"incremental": true,
 		"plugins": [
 			{
 				"name": "next"
@@ -13,9 +23,7 @@
 			"@braingame/config": ["../../packages/config"],
 			"@/*": ["./src/*"]
 		},
-		"incremental": true,
-		"module": "esnext",
-		"isolatedModules": true
+		"target": "ES2017"
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
