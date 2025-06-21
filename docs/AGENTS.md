@@ -1,8 +1,8 @@
 # AGENTS.md
 
-This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
+This document defines the roles, usage, and guardrails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
-> **Primary Directive:** Before generating code, tests, or docs, all agents **MUST** first:
+> **Primary Directive:** Before generating code, tests, or docs, all agents **MUST** first (yes, this means you, Claude):
 > 1. **Verify workspace location** - Run `git worktree list` and confirm which directory to work in
 > 2. **Read and understand:**
 >    - `docs/ARCHITECTURE.md`
@@ -20,7 +20,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 | **Development Assistant** | Code generation, refactoring, dependency upgrades | GitHub Copilot, Cursor, bespoke scripts |
 | **Testing Agent** | Generate & run unit/e2e tests, report coverage | Jest, Playwright, Maestro |
 | **CI/CD Bot** | Build, lint, test, deploy, publish packages | GitHub Actions, Changesets |
-| **In‑App Agents** | End‑user features (e.g. adaptive coaching) | OpenAI SDKs, Firebase Functions |
+| **In-App Agents** | End-user features (e.g. adaptive coaching) | OpenAI SDKs, Firebase Functions |
 
 ---
 

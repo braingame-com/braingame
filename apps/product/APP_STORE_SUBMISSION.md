@@ -180,6 +180,18 @@ npm run android
    - Fix issues and resubmit
    - Respond to review team if needed
 
+## Post-Rejection Comeback Strategy
+
+Don't panic! App Store rejections happen to the best of us. Here's your game plan:
+
+1. **Read the rejection carefully** - Sometimes they're actually helpful (shocking, we know)
+2. **Fix the specific issues** - Don't try to argue with a robot, just fix it
+3. **Add a polite response** - "Thank you for your feedback" works better than what you're really thinking
+4. **Resubmit with confidence** - Third time's the charm (or fourth... or fifth...)
+5. **Have chocolate ready** - For either celebration or consolation
+
+Remember: Even Flappy Bird got rejected at first (probably).
+
 ## Support
 
 - EAS Documentation: https://docs.expo.dev/eas/

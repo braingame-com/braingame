@@ -184,10 +184,10 @@ git pull origin claude-sandbox
 
 | Mistake | Consequence | Prevention |
 |---------|-------------|------------|
-| Working in wrong worktree | Production contamination | Run pre-flight check |
-| Mixing experimental/production | Unstable codebase | Keep strict separation |
-| Not documenting worktree | Lost context | Add to work session notes |
-| Committing to wrong branch | Git history pollution | Check branch before commit |
+| Working in wrong worktree | Production contamination (and possibly your job) | Run pre-flight check |
+| Mixing experimental/production | Unstable codebase (and unstable employment) | Keep strict separation |
+| Not documenting worktree | Lost context (and lost credibility) | Add to work session notes |
+| Committing to wrong branch | Git history pollution (and git blame pointing at you) | Check branch before commit |
 
 ---
 

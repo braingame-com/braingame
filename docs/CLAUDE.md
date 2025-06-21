@@ -4,6 +4,18 @@
 
 ---
 
+## 📋 TL;DR - The 30-Second Version
+
+1. **Check your workspace**: `git worktree list` (production != experiments)
+2. **Read the docs**: TODO.md → ARCHITECTURE.md → This file
+3. **Code in TypeScript**: No exceptions, no `any` types
+4. **Run before committing**: `pnpm lint && pnpm test`
+5. **Update TODO.md**: Mark tasks as you work on them
+
+*That's it. Now go build something awesome.*
+
+---
+
 ## 1. Golden Path Workflow
 Follow these steps for every development task.
 
@@ -144,3 +156,19 @@ pnpm --filter product android
 # Start the Expo app in a web browser
 pnpm --filter product web
 ```
+
+---
+
+## 6. Common Gotchas (Learn from Our Pain)
+
+| What You Did | What Happened | The Fix |
+|--------------|---------------|----------|
+| Forgot to run `pnpm install` | "Module not found" errors everywhere | Run `pnpm install` (yes, really) |
+| Used `npm` instead of `pnpm` | Created a rogue `package-lock.json` | Delete it and use `pnpm`, as the gods intended |
+| Worked in wrong worktree | Mixed experimental code with production | Check `git worktree list` - your career depends on it |
+| Used `any` type in TypeScript | The linter rejected your soul | Use proper types, TypeScript is your friend |
+| Committed without linting | Pre-commit hook said "nope" | `pnpm lint` before commit, always |
+| Forgot to update TODO.md | Lost track of what you did | Update as you go, not at the end |
+| Hardcoded values instead of tokens | Design system gods are angry | Use `Tokens.m`, not `16px` |
+
+**Remember**: If something seems too hard, you're probably doing it wrong. Check the docs, use the patterns, and when in doubt - ask!

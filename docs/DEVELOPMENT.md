@@ -131,129 +131,9 @@ These are listed in `.vscode/extensions.json` and should be automatically recomm
 - **GitLens:** For powerful Git history and blame features.
 - **Conventional Commits:** For help writing valid commit messages.
 
-## Project Structure
+---
 
-```
-braingame/
-├── apps/                    # Deployable applications
-│   ├── product/            # Expo universal app (iOS/Android/Web)
-│   └── website/            # Next.js marketing site
-├── packages/               # Shared packages
-│   ├── bgui/              # UI component library
-│   ├── utils/             # Shared utilities
-│   └── config/            # Shared configurations
-├── docs/                   # Documentation
-└── .github/               # GitHub Actions workflows
-```
-
-## Development Workflow
-
-### 1. Running Applications
-
-```bash
-# Run all apps in development
-pnpm dev
-
-# Run specific app
-pnpm dev --filter product  # Expo app
-pnpm dev --filter website  # Next.js site
-
-# Platform-specific commands (Expo)
-pnpm --filter product ios
-pnpm --filter product android
-pnpm --filter product web
-```
-
-### 2. Working with Components
-
-```bash
-# Start Storybook for component development
-pnpm storybook
-
-# Create a new component in bgui
-cd packages/bgui/src
-mkdir MyComponent
-# Create MyComponent.tsx, MyComponent.stories.tsx, etc.
-```
-
-### 3. Testing
-
-```bash
-# Run all tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run tests with coverage (not yet implemented)
-pnpm test:coverage
-
-# Run tests for specific package
-pnpm test --filter bgui
-```
-
-### 4. Code Quality
-
-```bash
-# Run linting and formatting
-pnpm lint
-
-# Type checking (not yet implemented)
-pnpm typecheck
-
-# Clean all build artifacts
-pnpm clean
-```
-
-## Git Workflow
-
-1. **Create a feature branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make your changes**
-   - Follow existing code patterns
-   - Update tests if needed
-   - Run `pnpm lint` before committing
-
-3. **Commit with conventional commits**
-   ```bash
-   git commit -m "feat: add new component"
-   git commit -m "fix: resolve navigation issue"
-   git commit -m "docs: update README"
-   ```
-
-4. **Push and create PR**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-## Adding Dependencies
-
-```bash
-# Add to root workspace
-pnpm add -w turbo
-
-# Add to specific app/package
-pnpm add react-query --filter product
-pnpm add -D @types/node --filter website
-
-# Add to all workspaces
-pnpm add typescript -r
-```
-
-## Environment Variables
-
-1. Copy example files:
-   ```bash
-   cp apps/product/.env.example apps/product/.env.local
-   cp apps/website/.env.example apps/website/.env.local
-   ```
-
-2. Fill in required values (see each `.env.example` for details)
-
-## Troubleshooting
+## 8. Troubleshooting
 
 ### Common Issues
 
@@ -278,33 +158,33 @@ cd apps/product
 npx expo start -c
 ```
 
-## AI Development
+**Issue**: "Module not found" errors
+- Solution: Run `pnpm install` - dependencies need to be installed first
+
+**Issue**: Pre-commit hook failures
+- Solution: Run `pnpm lint` to see and fix formatting issues before committing
+
+---
+
+## 9. AI Development
 
 When using AI assistants (like Claude):
 1. Point them to `CLAUDE.md` for project-specific instructions
 2. Check `TODO.md` for current priorities
 3. Review `LESSONS.md` for technical patterns and solutions
+4. Ensure they understand the worktree structure to avoid contamination
 
-## Getting Help
+---
 
-- **Documentation**: Check `/docs` folder
-- **Architecture**: See `docs/ARCHITECTURE.md`
-- **Task Tracking**: See `TODO.md`
-- **Security**: See `../.github/SECURITY.md`
+## 10. Getting Help
 
-## VS Code Extensions
+- **Documentation**: Check `/docs` folder for comprehensive guides
+- **Architecture**: See `docs/ARCHITECTURE.md` for system design
+- **Task Tracking**: See `TODO.md` for current work items
+- **Security**: See `.github/SECURITY.md` for vulnerability reporting
+- **Brand Guidelines**: See `docs/BRAND.md` for voice and tone
+- **Email**: `hello@braingame.dev` for general inquiries
 
-Recommended extensions (auto-installed via `.vscode/extensions.json`):
-- Biome (formatting/linting)
-- Expo Tools
-- Tailwind CSS IntelliSense
+---
 
-## Next Steps
-
-1. Explore the codebase structure
-2. Run the development servers
-3. Check `TODO.md` for good first issues
-4. Read `docs/ARCHITECTURE.md` for system design
-5. Join our Discord/Slack for questions
-
-Happy coding! 🚀
+Happy coding! May your builds be green and your tests pass on the first try. 🚀

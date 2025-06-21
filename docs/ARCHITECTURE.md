@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178c6?style=flat-square&logo=typescript)
 ![React Native](https://img.shields.io/badge/platform-cross--platform-61dafb?style=flat-square&logo=react)
 
-> **Single‑source of truth** for Brain Game's technical blueprint.  
+> **Single-source of truth** for Brain Game's technical blueprint.  
 > All agents and humans **must** follow the conventions laid out here.
 
 ---
@@ -16,9 +16,9 @@ Brain Game ships **three enterprise-grade artefacts** from one professionally-ma
 
 | Layer | Tech | Output / Domain |
 |-------|------|-----------------|
-| **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.braingame.dev` (Web), App/Play Store (Native) |
+| **Universal client** | Expo + React Native (+ `react-native-web`) | `app.braingame.dev` (Web), App/Play Store (Native) |
 | **Marketing & Docs** | Next.js (in `apps/website`) | `www.braingame.dev` |
-| **UI Kit** | `packages/bgui` – sharable RN components | npm: `@brain-game/bgui` |
+| **UI Kit** | `packages/bgui` - sharable RN components | npm: `@brain-game/bgui` |
 
 Common infra: pnpm workspaces, Biome lint/format, Jest tests, Turbo task graph.
 
@@ -37,8 +37,8 @@ This repository uses git worktrees for workspace isolation:
 | **Repo style** | Single **Turborepo** monorepo | Atomic commits & shared cache |
 | **Workspaces** | `apps/*`, `packages/*` | Clear separation deployable vs library |
 | **Docs rendering** | Docs live **inside Next.js** using BGUI components | Brand cohesion, no MDX styling drift |
-| **Component Dev** | **Storybook** is first‑class | Critical for developing, testing & documenting BGUI |
-| **Hosting** | **Firebase Hosting multi‑site** (`www` & `app` targets) | Simple CDN, same auth/config |
+| **Component Dev** | **Storybook** is first-class | Critical for developing, testing & documenting BGUI |
+| **Hosting** | **Firebase Hosting multi-site** (`www` & `app` targets) | Simple CDN, same auth/config |
 | **Caching** | Local + optional **Vercel remote cache** | Fast CI across PRs |
 | **Secrets** | `.env` (local), CI secret manager (prod) | Never commit credentials |
 
@@ -111,7 +111,7 @@ build -> transpile -> test -> typecheck -> package
 
 ## 6. CI / CD pipeline (GitHub Actions)
 
-1. **lint** → Biome, dep‑graph check  
+1. **lint** → Biome, dep-graph check  
 2. **test** → unit & e2e (Playwright, Maestro)  
 3. **build** → Turbo cache; upload artifacts  
 4. **preview deploy** → Vercel (web) & Expo EAS (app)  
@@ -150,7 +150,7 @@ All AI agents **MUST**:
 
 ## 9. Security & compliance
 
-- Secrets only in CI secret manager; scanned via TruffleHog pre‑commit.  
+- Secrets only in CI secret manager; scanned via TruffleHog pre-commit.  
 - Dependabot weekly updates for npm + GH Actions.  
 - Disclosure policy in [SECURITY.md](../.github/SECURITY.md).
 
