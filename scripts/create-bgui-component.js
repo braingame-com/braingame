@@ -4,18 +4,19 @@
  */
 const fs = require("node:fs");
 const path = require("node:path");
+const { error, success, info } = require("./utils/console");
 
 const [, , rawName] = process.argv;
 
 if (!rawName) {
-	console.error("Usage: pnpm bgui:scaffold <ComponentName>");
+	error("Usage: pnpm bgui:scaffold <ComponentName>");
 	process.exit(1);
 }
 
 const componentName = rawName.trim();
 const pascalCasePattern = /^[A-Z][A-Za-z0-9]*$/;
 if (!pascalCasePattern.test(componentName)) {
-	console.error("Component name must be in PascalCase, e.g. MyComponent");
+	error("Component name must be in PascalCase, e.g. MyComponent");
 	process.exit(1);
 }
 
@@ -23,7 +24,7 @@ const rootDir = path.resolve(__dirname, "..");
 const componentDir = path.join(rootDir, "packages", "bgui", componentName);
 
 if (fs.existsSync(componentDir)) {
-	console.error(`Component ${componentName} already exists at ${componentDir}`);
+	error(`Component ${componentName} already exists at ${componentDir}`);
 	process.exit(1);
 }
 
@@ -43,4 +44,4 @@ for (const [fileName, content] of Object.entries(files)) {
 	fs.writeFileSync(path.join(componentDir, fileName), content, "utf8");
 }
 
-console.log(`Scaffolded ${componentName} at packages/bgui/${componentName}`);
+success(`Scaffolded ${componentName} at packages/bgui/${componentName}`);
