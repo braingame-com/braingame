@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
 import { Link } from "../Link";
 import { styles } from "./styles";
 import type { BreadcrumbItemProps, BreadcrumbProps } from "./types";
