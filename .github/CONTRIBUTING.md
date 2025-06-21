@@ -25,15 +25,52 @@ To ensure a smooth process, please follow these steps:
 4.  **Commit your work** using the [Conventional Commits](https://www.conventionalcommits.org/) standard. This is mandatory for our automated release process.
 
 **Step 4: Submit Your Pull Request**
-1.  **Run local checks:** Before pushing, ensure all checks pass locally: `pnpm lint && pnpm test`.
+1.  **Run mandatory quality checks:** Before pushing, ALL of these must pass:
+    ```bash
+    pnpm lint      # Must be 0 errors, 0 warnings
+    pnpm typecheck # Must be 0 errors  
+    pnpm test      # All tests must pass
+    ```
 2.  **Push** your feature branch to your fork.
 3.  **Open a Pull Request** against the `main` branch of the Brain Game repository.
-4.  **Complete the PR template** with all required information.
+4.  **Complete the quality checklist** (see Quality Standards section above).
 5.  **Respond to feedback** from maintainers and make any requested changes.
 
 ---
 
-## 📏 Coding Standards
+## 📏 Quality Standards (ZERO TOLERANCE)
+
+**⚠️ CRITICAL:** We maintain a zero-tolerance policy for code quality issues. Every contribution must meet these standards before merge.
+
+### Mandatory Quality Checks
+Before submitting any PR, ALL of the following must pass:
+
+- [ ] `pnpm lint` exits with **0 errors, 0 warnings**
+- [ ] `pnpm typecheck` exits with **0 errors**
+- [ ] All pre-commit hooks pass without using `--no-verify`
+- [ ] No `any` types in public APIs
+- [ ] No `@ts-expect-error` or `biome-ignore` directives
+- [ ] No technical debt introduction
+
+### Banned Code Smells
+
+| ❌ Banned Practice | Example | ✅ Correct Approach |
+|-------------------|---------|-------------------|
+| Double casting | `foo as unknown as Bar` | Create proper interface or generic |
+| Hardcoded bin paths | `../../node_modules/.bin/tsc` | Use `pnpm exec tsc` |
+| Blanket any types | `type Status = any` | Create minimal interface |
+| Bypassing hooks | `git commit --no-verify` | Fix the underlying issue |
+| Suppressing errors | `// @ts-expect-error` | Use proper TypeScript types |
+| Deleting code to silence errors | Removing logic | Fix the type/lint issue |
+
+### Emergency Override Procedures
+Only **3 scenarios** allow bypassing quality checks (all require lead approval + ticket):
+
+1. **Broken third-party release** with documented upstream issue
+2. **Security hot-patch** during Sev-1 outage
+3. **Repository bootstrapping** (first commit only)
+
+**All other situations:** Fix the code to meet quality standards.
 
 ### Code Style
 - **Language:** All code must be TypeScript.
