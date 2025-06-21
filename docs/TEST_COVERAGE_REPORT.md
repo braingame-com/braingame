@@ -2,7 +2,12 @@
 
 > **Last Updated:** 20-06-2025
 
-The `packages/bgui` package now includes unit tests for most components. However, running `pnpm test --filter @braingame/bgui -- --coverage` currently fails due to environment issues, so coverage numbers are unavailable.
+Running `pnpm test --filter @braingame/bgui -- --coverage` currently completes with failing tests and reports roughly **2%** overall coverage:
+
+- Statements: 1.88%
+- Branches: 1.12%
+- Functions: 2.31%
+- Lines: 1.87%
 
 ## Components With Tests
 
@@ -21,6 +26,7 @@ The `packages/bgui` package now includes unit tests for most components. However
 - Link
 - Menu
 - Modal
+- PageWrapper
 - ProgressBar
 - RadioGroup
 - Select
@@ -31,5 +37,6 @@ The `packages/bgui` package now includes unit tests for most components. However
 - Text
 - Toast
 - Tooltip
+- View
 
-_Coverage generation will resume once the test environment is fully operational._
+A suite of tests now exists for many BGUI components, but most are failing. Additional work is required to stabilize the tests and raise coverage toward the 90% goal.
