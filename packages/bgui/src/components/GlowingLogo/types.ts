@@ -1,6 +1,6 @@
 import type { ViewProps } from "react-native";
 
-export interface GlowingLogoProps extends Omit<ViewProps, "style"> {
+export interface GlowingLogoProps extends ViewProps {
 	size?: number;
 	glowColor?: string;
 	glowIntensity?: "low" | "medium" | "high";

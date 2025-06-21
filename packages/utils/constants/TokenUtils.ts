@@ -146,14 +146,20 @@ export function combineShadows(...shadows: Array<keyof typeof Shadows>) {
 
 	for (const shadow of shadows) {
 		const shadowStyle = Shadows[shadow];
-		combined.elevation = Math.max(combined.elevation, shadowStyle.elevation || 0);
-		combined.shadowColor = shadowStyle.shadowColor || combined.shadowColor;
+		combined.elevation = Math.max(combined.elevation, (shadowStyle.elevation as number) || 0);
+		combined.shadowColor = (shadowStyle.shadowColor || combined.shadowColor) as string;
 		combined.shadowOffset = {
 			width: combined.shadowOffset.width + (shadowStyle.shadowOffset?.width || 0),
 			height: combined.shadowOffset.height + (shadowStyle.shadowOffset?.height || 0),
 		};
-		combined.shadowOpacity = Math.max(combined.shadowOpacity, shadowStyle.shadowOpacity || 0);
-		combined.shadowRadius = Math.max(combined.shadowRadius, shadowStyle.shadowRadius || 0);
+		combined.shadowOpacity = Math.max(
+			combined.shadowOpacity,
+			(shadowStyle.shadowOpacity as number) || 0,
+		);
+		combined.shadowRadius = Math.max(
+			combined.shadowRadius,
+			(shadowStyle.shadowRadius as number) || 0,
+		);
 	}
 
 	return combined;

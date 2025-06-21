@@ -387,6 +387,9 @@ importers:
       ts-jest:
         specifier: ^29.1.1
         version: 29.4.0(@babel/core@7.27.4)(@jest/transform@30.0.2)(@jest/types@30.0.1)(babel-jest@30.0.2(@babel/core@7.27.4))(esbuild@0.25.5)(jest-util@30.0.2)(jest@30.0.2(@types/node@24.0.3)(esbuild-register@3.6.0(esbuild@0.25.5)))(typescript@5.8.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.8.3
 
 packages:
 

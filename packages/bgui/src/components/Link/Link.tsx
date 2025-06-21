@@ -30,12 +30,12 @@ export const Link = ({
 		}
 	};
 
-	const text = <Text type="link">{children}</Text>;
+	const text = <Text>{children}</Text>;
 	const style = [textStyles.link, variant === "standalone" && styles.standalone];
 
 	if (href && !external && Platform.OS === "web") {
 		return (
-			<ExpoLink href={href} aria-label={label} style={style} {...rest}>
+			<ExpoLink href={href} aria-label={label} style={style}>
 				{children}
 			</ExpoLink>
 		);

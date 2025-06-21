@@ -1,4 +1,5 @@
 import { getPaddingForSize, VARIANT_COLORS, validationRules } from "./styles";
+import type { ButtonSize } from "./types";
 
 describe("Button Styles", () => {
 	describe("getPaddingForSize", () => {

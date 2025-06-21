@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
-import { ErrorBoundary } from "./ErrorBoundary";
+import { SimpleErrorBoundary as ErrorBoundary } from "./SimpleErrorBoundary";
 
 // Component that throws an error
 const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {

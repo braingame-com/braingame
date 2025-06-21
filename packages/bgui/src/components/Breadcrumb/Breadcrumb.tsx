@@ -22,7 +22,7 @@ export function Breadcrumb({
 	}
 
 	return (
-		<View accessibilityRole="navigation" style={[styles.container, style]}>
+		<View style={[styles.container, style]}>
 			{displayItems.map((child, index) => (
 				<View
 					key={child === "..." ? "ellipsis" : `breadcrumb-${index}`}

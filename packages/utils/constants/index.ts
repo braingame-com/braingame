@@ -1,7 +1,4 @@
 // Constants exports
-
-// Re-export Fonts from bgui for convenience
-export { Fonts } from "@braingame/bgui";
 export * from "./Animation";
 export * from "./BorderRadius";
 export * from "./Colors";

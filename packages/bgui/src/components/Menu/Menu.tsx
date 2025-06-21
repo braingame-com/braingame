@@ -144,7 +144,14 @@ export const Menu = ({
 
 	const triggerElement = React.isValidElement(trigger)
 		? cloneElement(
-				trigger as React.ReactElement<{ onPress?: () => void; onContextMenu?: () => void }>,
+				trigger as React.ReactElement<{
+					onPress?: () => void;
+					onContextMenu?: () => void;
+					"aria-haspopup"?: string;
+					"aria-expanded"?: boolean;
+					"aria-controls"?: string;
+					id?: string;
+				}>,
 				{
 					onPress: variant === "dropdown" ? open : undefined,
 					onContextMenu: variant === "context" ? open : undefined,
