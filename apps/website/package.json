@@ -8,7 +8,9 @@
 		"start": "next start",
 		"lint": "biome check --fix --files-ignore-unknown=true src app",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf .next"
+		"clean": "rm -rf .next",
+		"env:validate": "node scripts/validate-env.js",
+		"env:check": "node scripts/validate-env.js"
 	},
 	"dependencies": {
 		"@braingame/bgui": "workspace:*",

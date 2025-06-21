@@ -1,9 +1,9 @@
 import type { Href } from "expo-router";
 import type {
-	StyleProp,
 	TextProps as RNTextProps,
-	TextStyle,
 	ViewProps as RNViewProps,
+	StyleProp,
+	TextStyle,
 	ViewStyle,
 } from "react-native";
 import type {

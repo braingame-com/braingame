@@ -71,7 +71,10 @@ interface SimpleErrorBoundaryState {
  *
  * @component
  */
-export class SimpleErrorBoundary extends Component<SimpleErrorBoundaryProps, SimpleErrorBoundaryState> {
+export class SimpleErrorBoundary extends Component<
+	SimpleErrorBoundaryProps,
+	SimpleErrorBoundaryState
+> {
 	constructor(props: SimpleErrorBoundaryProps) {
 		super(props);
 		this.state = { hasError: false, error: null };

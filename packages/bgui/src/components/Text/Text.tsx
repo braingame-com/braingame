@@ -27,7 +27,8 @@ export const Text = ({
 	const fontFamily = getFontFamily(mono, fontWeight);
 
 	// Get variant style, fallback to body if variant doesn't exist
-	const variantStyle = textVariantStyles[variant as keyof typeof textVariantStyles] || textVariantStyles.body;
+	const variantStyle =
+		textVariantStyles[variant as keyof typeof textVariantStyles] || textVariantStyles.body;
 
 	return (
 		<RNText
