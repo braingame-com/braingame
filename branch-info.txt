@@ -1,1 +1,1 @@
-Current branch: claude-sandbox
+Current branch: claude-sandbox-1
