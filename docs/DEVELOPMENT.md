@@ -118,7 +118,7 @@ This repo is heavily documented. Before asking a question, check these files:
 | `docs/BGUI_COMPONENT_PLAN.md` | **UI Components:** The plan and API for our component library. |
 | `docs/CODING_STYLE.md` | **Code Quality:** Specific rules for writing clean, maintainable code. |
 | `docs/BRAND.md` | **Brand Identity:** How to use our name, voice, and tone. |
-| `docs/AI_CONTEXT.md` | **AI Collaboration:** The tactical dashboard for AI agents. |
+| `docs/LESSONS.md` | **Knowledge Base:** Technical learnings and patterns from development. |
 | `TODO.md` | **Task Tracker:** The list of current and upcoming work. |
 
 ---
@@ -283,7 +283,7 @@ npx expo start -c
 When using AI assistants (like Claude):
 1. Point them to `CLAUDE.md` for project-specific instructions
 2. Check `TODO.md` for current priorities
-3. Review `AI_CONTEXT.md` for project state
+3. Review `LESSONS.md` for technical patterns and solutions
 
 ## Getting Help
 

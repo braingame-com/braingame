@@ -12,6 +12,7 @@
 | [`DEVELOPMENT.md`](./DEVELOPMENT.md) | **Start here.** A step-by-step guide to setting up your local environment. |
 | [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | The official guide to contributing, including our PR and review process. |
 | [`CLAUDE.md`](./CLAUDE.md) | A tactical cheatsheet with commands and workflows for AI agents. |
+| [`WORKTREES.md`](./WORKTREES.md) | **CRITICAL:** Git worktree management to prevent workspace contamination. |
 
 ---
 
@@ -34,13 +35,6 @@
 |---|---|
 | [`snippets/`](./snippets) | Ready-to-use code snippets for each BGUI component. |
 
-## 📝 Work Sessions
-*Detailed session notes from AI agents with learnings and solutions.*
-
-| Document | Description |
-|---|---|
-| [`work-sessions/`](./work-sessions) | Comprehensive session documentation with technical discoveries and patterns. |
-
 ---
 
 ## 📈 Project Management & Strategy
@@ -50,7 +44,7 @@
 |---|---|
 | [`TODO.md`](./TODO.md) | The official task tracker for all ongoing and upcoming work. |
 | [`QUALITY_ROADMAP.md`](./QUALITY_ROADMAP.md) | The strategic roadmap for all engineering quality initiatives. |
-| [`AI_CONTEXT.md`](./AI_CONTEXT.md) | A tactical dashboard for AI agents, including session summaries. |
+| [`LESSONS.md`](./LESSONS.md) | Consolidated technical learnings, patterns, and solutions from development. |
 | [`AGENTS.md`](./AGENTS.md) | The high-level policy document defining roles for AI agents. |
 
 ---
