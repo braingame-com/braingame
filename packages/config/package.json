@@ -11,7 +11,11 @@
 		"test": "echo 'No tests for config'",
 		"clean": "echo 'No cleanup needed for config'"
 	},
-	"files": ["*.json", "*.js", "*.ts"],
+	"files": [
+		"*.json",
+		"*.js",
+		"*.ts"
+	],
 	"publishConfig": {
 		"access": "public"
 	}

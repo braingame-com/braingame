@@ -38,14 +38,37 @@
   - [ ] SSL certificates and domain configuration
   - Status: Next phase after migration completion
 
-- [ ] Implement Testing Infrastructure (Vitest) 🔥 IN PROGRESS
+- [x] Setup CI/CD Pipeline
+  - [x] Create `.github/workflows/ci.yml`
+  - [x] Add build, test, lint jobs
+  - [x] Configure Turborepo caching
+  - [x] Add dependabot configuration
+  - Status: Completed - workflows ready for use
+
+- [x] Implement Testing Infrastructure (17-06-2025)
+  - [x] Add unit tests for `utils` functions
+  - [x] Configure Jest for packages 
+  - [x] Working test suite with 5 passing tests (single utils file)
+  - [x] Add unit tests for `bgui` components (19-01-2025)
+    - [x] Solved React Native Flow syntax parsing with transformIgnorePatterns
+    - [x] Created comprehensive Button.test.tsx with 14 test cases
+    - [x] Set up mocks for react-native-reanimated, react-native-gesture-handler, @expo/vector-icons
+    - [x] Documented challenges and solutions in TESTING.md
+    - [x] Added tests for PageWrapper and View components (20-06-2025)
+    - Note: Tests running successfully, multiple passing tests demonstrate infrastructure works
+  - [ ] Setup integration tests for apps
+  - [x] Configure coverage reporting (20-06-2025)
+  - Status: React Native testing infrastructure breakthrough! Both utils and bgui packages have working test setups
+  - Target: >80% coverage
+
+- [ ] Implement Testing Infrastructure (Vitest) 🔥 NEXT PHASE
   - [x] Update `docs/TESTING.md` with new Vitest strategy
   - [ ] Remove all Jest dependencies and configurations from the monorepo
   - [ ] Install and configure Vitest in `packages/bgui`
   - [ ] Write a sample test for a BGUI component to validate the setup
   - [ ] Add unit tests for all `packages/utils` functions
   - [ ] Configure and enforce >80% coverage reporting
-  - Status: In Progress - Pivoted to Vitest due to Jest/ESM issues. Critical for quality assurance.
+  - Status: Planning complete - Pivoted to Vitest due to Jest/ESM issues. Critical for quality assurance.
 
 ## 🔥 High Priority
 
@@ -75,13 +98,19 @@
   - Status: Not started - requires GitHub repository admin access
 
 ## 📋 Medium Priority
-
-- [ ] Configure Storybook
-  - [ ] Setup for `bgui` package
+- [x] Configure Storybook (20-06-2025)
+  - [x] Setup for `bgui` package (20-06-2025)
+  - [x] Document components (17-06-2025)
   - [ ] Create stories for all 25 components
   - [ ] Add visual testing with Chromatic
   - [ ] Deploy to GitHub Pages
-  - Status: Planning complete, implementation pending
+  - Status: Storybook configured for component development (20-06-2025)
+
+- [ ] Component Prop Docs
+  - [ ] Document props for each BGUI component
+  - Status: in_progress (17-06-2025)
+
+- [x] Implement remaining BGUI components (Alert, Breadcrumb, TextInput) - 20-06-2025
 
 - [ ] Environment Management
   - [ ] Create `.env.example` files for all apps
@@ -96,6 +125,14 @@
   - [ ] Configure performance monitoring
   - [ ] Set up alerting rules
   - Status: Not started
+
+- [x] Preflight Docs
+  - [x] Clarify that lint and test require `pnpm install`
+  - [x] Add optional `preflight` script
+  - Status: Completed @ 20-06-2025
+
+- [x] Refactor BGUI Button component for readability, performance, and a11y
+  - Status: Completed @ 17-06-2025
 
 - [ ] API Documentation
   - [ ] Create OpenAPI spec for backend
@@ -135,7 +172,7 @@
   - [x] Add comprehensive workspace contamination prevention guide
   - Status: Completed @ 20-01-2025 - Critical documentation added
 
-- [x] Legacy Migration Epic (20-01-2025)
+- [x] Legacy Migration Epic (20-06-2025)
   - Successfully migrated all valuable assets from `bg1` and `dev-dil`
   - Created 70+ new components with enterprise-grade quality
   - Preserved months of development work while improving implementation

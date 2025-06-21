@@ -18,6 +18,12 @@ This monorepo contains the code for all Brain Game applications, websites, and s
 
 To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
+Before running any lint or test commands, make sure your dependencies are installed:
+
+```bash
+pnpm install    # or pnpm run preflight
+```
+
 For complete documentation including architecture, coding standards, and contribution guides, visit our **[Documentation Hub](./docs/README.md)**.
 
 ---
@@ -106,7 +112,7 @@ A key part of our workflow is our task management system. See what we're working
 
 ## 🛡️ Security
 
-Security is a top priority. Please see our **[Security Policy](./SECURITY.md)** for details on our supported versions and how to report vulnerabilities.
+Security is a top priority. Please see our **[Security Policy](.github/SECURITY.md)** for details on our supported versions and how to report vulnerabilities.
 
 ## 📄 License
 

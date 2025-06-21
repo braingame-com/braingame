@@ -25,6 +25,7 @@
 | [`CODING_STYLE.md`](./CODING_STYLE.md) | The definitive guide to writing clean, maintainable code in this repository. |
 | [`BRAND.md`](./BRAND.md) | The official brand book defining our voice, tone, and brand assets. |
 | [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | The detailed API and specification for our BGUI component library. |
+| [`COMPONENT_ORGANIZATION.md`](./COMPONENT_ORGANIZATION.md) | Folder structure and naming conventions. |
 | [`SECURITY.md`](../.github/SECURITY.md) | Our security policy, including how to report vulnerabilities. |
 
 ## 📚 Component Snippets

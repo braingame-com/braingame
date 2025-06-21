@@ -146,4 +146,3 @@ The Text component automatically responds to theme changes:
 - [`Label`](./Label.md) - Specialized Text for form fields
 - [`Link`](./Link.md) - Text with navigation behavior
 - [`View`](./View.md) - For layout and non-text content
-

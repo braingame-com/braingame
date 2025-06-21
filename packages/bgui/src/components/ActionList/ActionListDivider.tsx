@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
+import { useThemeColor } from "@braingame/utils";
 import type { ActionListDividerProps } from "./types";
 
 export const ActionListDivider = (_props: ActionListDividerProps) => {

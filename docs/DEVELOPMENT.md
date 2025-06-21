@@ -33,6 +33,10 @@ Follow these steps exactly to ensure a clean setup.
   pnpm install
   ```
 
+> **Important**: The lint (`pnpm lint`) and test (`pnpm test`) scripts require
+> all dependencies to be installed. Run `pnpm install` first whenever you clone
+> or pull new changes, otherwise these tasks may fail.
+
 - [ ] **3. Set Up Environment Variables:**
   - [ ] Copy the example env files. They are git-ignored.
     ```bash
@@ -163,7 +167,7 @@ pnpm --filter product web
 ### 2. Working with Components
 
 ```bash
-# Start Storybook for component development (placeholder)
+# Start Storybook for component development
 pnpm storybook
 
 # Create a new component in bgui
@@ -286,7 +290,7 @@ When using AI assistants (like Claude):
 - **Documentation**: Check `/docs` folder
 - **Architecture**: See `docs/ARCHITECTURE.md`
 - **Task Tracking**: See `TODO.md`
-- **Security**: See `SECURITY.md`
+- **Security**: See `../.github/SECURITY.md`
 
 ## VS Code Extensions
 
