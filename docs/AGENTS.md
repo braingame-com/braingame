@@ -6,9 +6,10 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 > 1. **Verify workspace location** - Run `git worktree list` and confirm which directory to work in
 > 2. **Read and understand:**
 >    - `docs/ARCHITECTURE.md`
+>    - `docs/AI_CONTEXT.md`
 >    - `docs/LESSONS.md`
 >    - `docs/CLAUDE.md`
-    - `docs/legacy-migration/LEGACY_MIGRATION.md` (for migration work)
+>    - `docs/legacy-migration/LEGACY_MIGRATION.md` (for migration work)
 
 ---
 
