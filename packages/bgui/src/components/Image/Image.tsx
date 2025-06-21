@@ -1,4 +1,4 @@
-import { useThemeColor } from "@braingame/utils";
+import { Typography, useThemeColor } from "@braingame/utils";
 import { useState } from "react";
 import { Image as RNImage, StyleSheet, Text, View } from "react-native";
 import { validateProps, validators } from "../../utils/validation";
@@ -50,7 +50,9 @@ const ImageComponent = ({
 				accessibilityRole="image"
 				accessibilityLabel={`Failed to load image: ${alt}`}
 			>
-				<Text style={{ color: borderColor, fontSize: 12 }}>Failed to load image</Text>
+				<Text style={{ color: borderColor, fontSize: Typography.fontSize.xs }}>
+					Failed to load image
+				</Text>
 			</View>
 		);
 	}

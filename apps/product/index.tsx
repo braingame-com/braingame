@@ -14,6 +14,7 @@ export default function Index() {
 			<PageWrapper>
 				<Text variant="h1">Dashboard</Text>
 				<Link href="/tasks">Tasks</Link>
+				<Link href="/mindset">🧠 Mindset Training</Link>
 			</PageWrapper>
 		</>
 	);
