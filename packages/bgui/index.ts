@@ -32,9 +32,9 @@ export { TextInput } from "./src/components/TextInput";
 export { Toast } from "./src/components/Toast";
 export { Tooltip } from "./src/components/Tooltip";
 // Core Layout Components
-export { View } from "./View";
+export { View } from "./src/components/View";
 
-export type { PageWrapperProps } from "./PageWrapper/types";
+export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export type { AccordionProps } from "./src/components/Accordion";
 export type { ActionListItemProps, ActionListProps } from "./src/components/ActionList/types";
 export type { AvatarProps } from "./src/components/Avatar/types";
@@ -70,4 +70,4 @@ export { useControlledState, useFocusManagement, useInteractiveState } from "./s
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";
 // Type Exports (Enterprise TypeScript interfaces)
-export type { ViewProps } from "./View/types";
+export type { ViewProps } from "./src/components/View/types";
