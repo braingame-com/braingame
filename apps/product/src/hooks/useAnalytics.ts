@@ -98,7 +98,7 @@ export const useFormTracking = (formName: string) => {
 	}, []);
 
 	const trackFormSubmit = useCallback(
-		(success: boolean, errors?: Record<string, any>) => {
+		(success: boolean, errors?: Record<string, unknown>) => {
 			const duration = startTime.current ? Date.now() - startTime.current : null;
 
 			track("form_submit", {
@@ -208,7 +208,7 @@ export const useSearchTracking = () => {
 	}, []);
 
 	const trackSearch = useCallback(
-		(query: string, resultCount: number, filters?: any) => {
+		(query: string, resultCount: number, filters?: Record<string, unknown>) => {
 			const duration = searchStartTime.current ? Date.now() - searchStartTime.current : null;
 
 			track("search", {

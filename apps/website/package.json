@@ -6,7 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "biome check --fix --files-ignore-unknown=true src app",
+		"lint": "biome check --fix --vcs-root=../.. --files-ignore-unknown=true src",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf .next",
 		"validate:env": "node scripts/validate-env.js"

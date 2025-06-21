@@ -90,7 +90,7 @@ export const DrawerNavigator: React.FC = () => {
 				component={TabNavigator}
 				options={{
 					drawerLabel: "Home",
-					drawerIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🏠</Text>,
+					drawerIcon: ({ color: _color }) => <Text style={{ fontSize: 20 }}>🏠</Text>,
 				}}
 			/>
 			<Drawer.Screen
@@ -98,7 +98,7 @@ export const DrawerNavigator: React.FC = () => {
 				component={SettingsScreen}
 				options={{
 					drawerLabel: "Settings",
-					drawerIcon: ({ color }) => <Text style={{ fontSize: 20 }}>⚙️</Text>,
+					drawerIcon: ({ color: _color }) => <Text style={{ fontSize: 20 }}>⚙️</Text>,
 					headerShown: true,
 					headerTitle: "Settings",
 				}}

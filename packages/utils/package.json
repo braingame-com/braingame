@@ -8,7 +8,7 @@
 		"dev": "echo 'Utils ready for development'",
 		"build": "tsc",
 		"test": "jest",
-		"lint": "biome check --fix",
+		"lint": "biome check --fix --vcs-root=../..",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist"
 	},

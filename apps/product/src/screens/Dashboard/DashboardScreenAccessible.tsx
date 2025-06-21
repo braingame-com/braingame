@@ -161,7 +161,7 @@ const SectionHeader = withMemo<{ title: string }>(
 
 export const DashboardScreenAccessible: React.FC<Props> = () => {
 	const navigation = useNavigation<Props["navigation"]>();
-	const { announce, fontSize } = useAccessibility();
+	const { announce } = useAccessibility();
 
 	// Memoized data
 	const stats = useMemo<StatItem[]>(
@@ -273,7 +273,7 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 				case "section-header":
 					return (
 						<View style={dashboardStyles.section}>
-							<SectionHeader title={item.title!} />
+							<SectionHeader title={item.title || ""} />
 						</View>
 					);
 				case "actions":

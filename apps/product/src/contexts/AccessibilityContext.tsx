@@ -74,7 +74,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	// Listen to system accessibility changes
 	useEffect(() => {
-		const subscriptions: any[] = [];
+		const subscriptions: { remove: () => void }[] = [];
 
 		// Screen reader
 		const screenReaderChangedSubscription = AccessibilityInfo.addEventListener(

@@ -1,9 +1,11 @@
 import React, { useCallback, useMemo } from "react";
 import {
+	type NativeSyntheticEvent,
 	Text as RNText,
 	TextInput as RNTextInput,
 	TouchableOpacity as RNTouchableOpacity,
 	View as RNView,
+	type TextInputFocusEventData,
 	type TextInputProps,
 	type TextProps,
 	type TextStyle,
@@ -12,7 +14,7 @@ import {
 	type ViewStyle,
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { withMemo } from "../../utils/performance";
+import { withMemo } from "../../utils/withMemo";
 import { useTheme } from "../ThemeContext";
 
 // Themed View Component
@@ -21,8 +23,8 @@ interface ThemedViewProps extends ViewProps {
 	animated?: boolean;
 }
 
-export const ThemedView = withMemo<ThemedViewProps>(
-	({ variant = "background", animated = false, style, children, ...props }) => {
+export const ThemedView: React.FC<ThemedViewProps> = withMemo(
+	({ variant = "background", animated = false, style, children, ...props }: ThemedViewProps) => {
 		const { theme } = useTheme();
 
 		const backgroundColor = useMemo(() => {
@@ -69,7 +71,7 @@ interface ThemedTextProps extends TextProps {
 	animated?: boolean;
 }
 
-export const ThemedText = withMemo<ThemedTextProps>(
+export const ThemedText: React.FC<ThemedTextProps> = withMemo(
 	({
 		variant = "primary",
 		size = "md",
@@ -78,7 +80,7 @@ export const ThemedText = withMemo<ThemedTextProps>(
 		style,
 		children,
 		...props
-	}) => {
+	}: ThemedTextProps) => {
 		const { theme } = useTheme();
 
 		const textStyle = useMemo<TextStyle>(() => {
@@ -142,7 +144,7 @@ interface ThemedButtonProps extends TouchableOpacityProps {
 	children: React.ReactNode;
 }
 
-export const ThemedButton = withMemo<ThemedButtonProps>(
+export const ThemedButton: React.FC<ThemedButtonProps> = withMemo(
 	({
 		variant = "primary",
 		size = "medium",
@@ -152,7 +154,7 @@ export const ThemedButton = withMemo<ThemedButtonProps>(
 		children,
 		onPress,
 		...props
-	}) => {
+	}: ThemedButtonProps) => {
 		const { theme } = useTheme();
 		const scaleValue = useSharedValue(1);
 
@@ -233,13 +235,21 @@ interface ThemedInputProps extends TextInputProps {
 	label?: string;
 }
 
-export const ThemedInput = withMemo<ThemedInputProps>(
-	({ variant = "default", error = false, label, style, onFocus, onBlur, ...props }) => {
+export const ThemedInput: React.FC<ThemedInputProps> = withMemo(
+	({
+		variant = "default",
+		error = false,
+		label,
+		style,
+		onFocus,
+		onBlur,
+		...props
+	}: ThemedInputProps) => {
 		const { theme } = useTheme();
 		const [isFocused, setIsFocused] = React.useState(false);
 
 		const handleFocus = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(true);
 				onFocus?.(e);
 			},
@@ -247,7 +257,7 @@ export const ThemedInput = withMemo<ThemedInputProps>(
 		);
 
 		const handleBlur = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(false);
 				onBlur?.(e);
 			},
@@ -306,8 +316,15 @@ interface ThemedCardProps extends ViewProps {
 	onPress?: () => void;
 }
 
-export const ThemedCard = withMemo<ThemedCardProps>(
-	({ elevation = "low", padding = "medium", onPress, style, children, ...props }) => {
+export const ThemedCard: React.FC<ThemedCardProps> = withMemo(
+	({
+		elevation = "low",
+		padding = "medium",
+		onPress,
+		style,
+		children,
+		...props
+	}: ThemedCardProps) => {
 		const { theme } = useTheme();
 
 		const cardStyle = useMemo<ViewStyle>(() => {

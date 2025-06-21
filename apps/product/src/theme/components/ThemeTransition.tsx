@@ -9,7 +9,7 @@ interface ThemeTransitionProps {
 }
 
 export const ThemeTransition: React.FC<ThemeTransitionProps> = ({ children }) => {
-	const { theme, isTransitioning } = useTheme();
+	const { isTransitioning } = useTheme();
 	const fadeValue = useSharedValue(1);
 	const scaleValue = useSharedValue(1);
 

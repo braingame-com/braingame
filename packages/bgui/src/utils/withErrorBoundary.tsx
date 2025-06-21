@@ -45,7 +45,7 @@ interface WithErrorBoundaryOptions {
  */
 export function withErrorBoundary<P extends object>(
 	Component: ComponentType<P>,
-	options?: WithErrorBoundaryOptions,
+	_options?: WithErrorBoundaryOptions,
 ) {
 	// TODO: Implement error boundary wrapping
 	const WrappedComponent = (props: P) => <Component {...props} />;

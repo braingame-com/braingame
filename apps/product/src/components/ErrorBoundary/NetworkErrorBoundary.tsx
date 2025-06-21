@@ -191,7 +191,7 @@ export const useNetworkStatus = () => {
 		type: "unknown",
 		isWifi: false,
 		isCellular: false,
-		details: null as any,
+		details: null as unknown,
 	});
 
 	useEffect(() => {

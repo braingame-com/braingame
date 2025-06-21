@@ -1,4 +1,5 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import type { Route } from "@react-navigation/native";
 import React, { useCallback, useMemo } from "react";
 import { AccessibilityInfo, Text, TouchableOpacity, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
@@ -45,12 +46,12 @@ const tabConfigs: Record<string, TabConfig> = {
 
 // Accessible Tab Item Component
 const TabItem = withMemo<{
-	route: any;
+	route: Route<string>;
 	index: number;
 	focused: boolean;
 	onPress: () => void;
 	onLongPress: () => void;
-}>(({ route, index, focused, onPress, onLongPress }) => {
+}>(({ route, index: _index, focused, onPress, onLongPress }) => {
 	const { theme } = useTheme();
 	const { reduceMotionEnabled, announce } = useAccessibility();
 	const scaleValue = useSharedValue(focused ? 1.1 : 1);
@@ -128,7 +129,7 @@ const TabItem = withMemo<{
 
 export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	state,
-	descriptors,
+	descriptors: _descriptors,
 	navigation,
 }) => {
 	const { theme } = useTheme();
@@ -145,7 +146,7 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	React.useEffect(() => {
 		if (!keyboardNavigation) return;
 
-		const _handleKeyPress = (event: any) => {
+		const _handleKeyPress = (event: KeyboardEvent) => {
 			const key = event.key;
 			const currentIndex = state.index;
 
@@ -205,7 +206,6 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 		>
 			<View style={tabBarStyles.tabsContainer}>
 				{state.routes.map((route, index) => {
-					const { options } = descriptors[route.key];
 					const isFocused = state.index === index;
 
 					const onPress = () => {

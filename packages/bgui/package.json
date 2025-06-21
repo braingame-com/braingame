@@ -10,7 +10,7 @@
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
-		"lint": "biome check --fix",
+		"lint": "biome check --fix --vcs-root=../..",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist"
 	},

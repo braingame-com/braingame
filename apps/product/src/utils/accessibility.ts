@@ -111,7 +111,7 @@ export const getProgressLabel = (current: number, total: number, unit = "items")
  */
 export const focusManagement = {
 	// Set focus to element with accessibility
-	setAccessibilityFocus: (ref: any) => {
+	setAccessibilityFocus: (ref: React.RefObject<unknown>) => {
 		if (ref?.current) {
 			const { AccessibilityInfo } = require("react-native");
 			const reactTag = ref.current._nativeTag;
@@ -122,7 +122,7 @@ export const focusManagement = {
 	},
 
 	// Create focus trap for modals
-	createFocusTrap: (containerRef: any) => {
+	createFocusTrap: (containerRef: React.RefObject<unknown>) => {
 		// Implementation would handle focus cycling within container
 		return {
 			activate: () => {

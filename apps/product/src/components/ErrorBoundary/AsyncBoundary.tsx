@@ -68,7 +68,7 @@ export function AsyncBoundary<T>({
 	children,
 	loadingFallback,
 	errorFallback,
-	deps = [],
+	deps: _deps = [],
 	showRetry = true,
 	timeout,
 	onSuccess,
@@ -204,9 +204,13 @@ export function AsyncBoundary<T>({
 	}
 
 	// Success state - render children with data
+	if (!state.data) {
+		return null; // This should never happen, but satisfies TypeScript
+	}
+
 	return (
 		<ErrorBoundary level="component" resetKeys={[retryCount]}>
-			{children(state.data!)}
+			{children(state.data)}
 		</ErrorBoundary>
 	);
 }

@@ -169,7 +169,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 
 // Mini theme toggle for navigation bars
 export const ThemeToggle: React.FC = () => {
-	const { theme, toggleTheme, themeMode } = useTheme();
+	const { toggleTheme, themeMode } = useTheme();
 	const rotationValue = useSharedValue(0);
 
 	const handleToggle = () => {

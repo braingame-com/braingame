@@ -12,7 +12,7 @@ type Props = NativeStackScreenProps<ModalStackParamList, "Payment">;
 export const PaymentModal: React.FC = () => {
 	const navigation = useNavigation<Props["navigation"]>();
 	const route = useRoute<Props["route"]>();
-	const { planId, price } = route.params;
+	const { price } = route.params;
 	const [selectedMethod, setSelectedMethod] = useState<"card" | "apple" | "google">("card");
 	const [processing, setProcessing] = useState(false);
 

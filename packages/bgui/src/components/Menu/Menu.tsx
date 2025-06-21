@@ -143,7 +143,8 @@ export const Menu = ({
 	const menuId = useRef(`menu-${Math.random().toString(36).slice(2)}`).current;
 
 	const triggerElement = React.isValidElement(trigger)
-		? cloneElement(trigger as React.ReactElement<any>, {
+		? // biome-ignore lint/suspicious/noExplicitAny: cloning a generic trigger component requires 'any' here.
+			cloneElement(trigger as React.ReactElement<any>, {
 				onPress: variant === "dropdown" ? open : undefined,
 				onContextMenu: variant === "context" ? open : undefined,
 				"aria-haspopup": "menu",

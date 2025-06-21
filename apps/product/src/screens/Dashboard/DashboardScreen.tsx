@@ -188,7 +188,7 @@ export const DashboardScreen: React.FC<Props> = () => {
 				case "section-header":
 					return (
 						<View style={dashboardStyles.section}>
-							<SectionHeader title={item.title!} />
+							<SectionHeader title={item.title || ""} />
 						</View>
 					);
 				case "actions":

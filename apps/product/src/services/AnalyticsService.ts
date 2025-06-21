@@ -69,7 +69,7 @@ interface UserProperties {
 	themeName?: string;
 	accessibilityEnabled?: boolean;
 	notificationsEnabled?: boolean;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 interface SuperProperties {
@@ -82,7 +82,7 @@ interface SuperProperties {
 	deviceName?: string;
 	isDevice: boolean;
 	sessionId: string;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 interface AnalyticsProvider {
@@ -95,22 +95,36 @@ interface AnalyticsProvider {
 	flush(): Promise<void>;
 }
 
+type AnalyticsEvent =
+	| {
+			type: "identify";
+			userId: string;
+			properties?: UserProperties;
+			timestamp: Date;
+	  }
+	| {
+			type: "track";
+			event: EventName;
+			properties?: EventProperties;
+			timestamp: Date;
+	  };
+
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
-	private logs: any[] = [];
+	private logs: AnalyticsEvent[] = [];
 
 	async init(apiKey: string) {
 		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
 	}
 
 	async identify(userId: string, properties?: UserProperties) {
-		const log = { type: "identify", userId, properties, timestamp: new Date() };
+		const log: AnalyticsEvent = { type: "identify", userId, properties, timestamp: new Date() };
 		this.logs.push(log);
 		console.log("[MockAnalytics] Identify:", log);
 	}
 
 	async track(event: EventName, properties?: EventProperties) {
-		const log = { type: "track", event, properties, timestamp: new Date() };
+		const log: AnalyticsEvent = { type: "track", event, properties, timestamp: new Date() };
 		this.logs.push(log);
 		console.log("[MockAnalytics] Track:", log);
 	}
@@ -298,7 +312,7 @@ class AnalyticsService {
 		}
 	}
 
-	async setUserProperty(key: string, value: any) {
+	async setUserProperty(key: string, value: unknown) {
 		if (!this.isEnabled) return;
 
 		this.userProperties[key] = value;
@@ -436,7 +450,8 @@ export const trackScreen = (screenName: string, properties?: EventProperties) =>
 export const identifyUser = (userId: string, properties?: UserProperties) =>
 	analytics.identify(userId, properties);
 
-export const setUserProperty = (key: string, value: any) => analytics.setUserProperty(key, value);
+export const setUserProperty = (key: string, value: unknown) =>
+	analytics.setUserProperty(key, value);
 
 export const setUserProperties = (properties: UserProperties) =>
 	analytics.setUserProperties(properties);

@@ -11,7 +11,7 @@ interface ErrorContext {
 	sessionId?: string;
 	screen?: string;
 	action?: string;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 interface ErrorLog {
@@ -81,7 +81,7 @@ class ErrorService {
 		}
 	}
 
-	setUser(userId: string, _attributes?: Record<string, any>) {
+	setUser(userId: string, _attributes?: Record<string, unknown>) {
 		this.userId = userId;
 
 		// Set user in third-party services
@@ -220,24 +220,28 @@ class ErrorService {
 	}
 
 	// Network error handler
-	handleNetworkError(error: any, endpoint: string, method: string) {
+	handleNetworkError(error: unknown, endpoint: string, method: string) {
+		const networkError = error as {
+			response?: { status: number; data: unknown };
+			message: string;
+		};
 		const context: ErrorContext = {
 			type: "network",
 			endpoint,
 			method,
-			statusCode: error.response?.status,
-			responseData: error.response?.data,
+			statusCode: networkError.response?.status,
+			responseData: networkError.response?.data,
 		};
 
-		const networkError = new Error(
-			`Network request failed: ${method} ${endpoint} - ${error.message}`,
+		const finalError = new Error(
+			`Network request failed: ${method} ${endpoint} - ${networkError.message}`,
 		);
 
-		this.captureException(networkError, context);
+		this.captureException(finalError, context);
 	}
 
 	// Promise rejection handler
-	handleUnhandledRejection(reason: any, promise: Promise<any>) {
+	handleUnhandledRejection(reason: unknown, promise: Promise<unknown>) {
 		const error =
 			reason instanceof Error
 				? reason
@@ -263,7 +267,7 @@ export const captureMessage = (
 	context?: ErrorContext,
 ) => errorService.captureMessage(message, level, context);
 
-export const setErrorUser = (userId: string, attributes?: Record<string, any>) =>
+export const setErrorUser = (userId: string, attributes?: Record<string, unknown>) =>
 	errorService.setUser(userId, attributes);
 
 export const clearErrorUser = () => errorService.clearUser();
@@ -272,10 +276,11 @@ export const clearErrorUser = () => errorService.clearUser();
 export const setupGlobalErrorHandlers = () => {
 	// Handle unhandled promise rejections
 	const originalHandler = global.onunhandledrejection;
-	global.onunhandledrejection = (event: any) => {
+	global.onunhandledrejection = (event: PromiseRejectionEvent) => {
 		errorService.handleUnhandledRejection(event.reason, event.promise);
-		if (originalHandler) {
-			originalHandler(event);
+		if (typeof originalHandler === "function") {
+			// biome-ignore lint/suspicious/noExplicitAny: This is a workaround for a typing issue in a non-browser environment.
+			originalHandler.call(global as any, event);
 		}
 	};
 

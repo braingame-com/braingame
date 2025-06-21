@@ -9,7 +9,7 @@
 		"lint": "turbo lint",
 		"test": "turbo test",
 		"clean": "turbo clean",
-		"format": "biome check --fix",
+		"format": "biome check --fix --vcs-root=.",
 		"typecheck": "turbo typecheck",
 		"changeset": "changeset",
 		"version": "changeset version",
@@ -22,7 +22,7 @@
 		"dev:packages": "turbo dev --filter=./packages/*",
 		"dev:apps": "turbo dev --filter=./apps/*",
 		"lint:fix": "turbo lint -- --fix",
-		"format:check": "biome check",
+		"format:check": "biome check --vcs-root=.",
 		"format:write": "biome format --write .",
 		"typecheck:strict": "turbo typecheck -- --strict",
 		"analyze": "turbo analyze",
@@ -80,7 +80,7 @@
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx,js,jsx}": [
-			"biome check --fix",
+			"biome check --fix --vcs-root=.",
 			"biome format --write"
 		]
 	},

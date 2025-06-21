@@ -4,7 +4,7 @@
  * Optimized with lazy loading and performance enhancements
  */
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { type BottomTabBarProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type React from "react";
 import { useMemo } from "react";
@@ -139,7 +139,7 @@ export const TabNavigator: React.FC = () => {
 	);
 
 	// Memoize tab bar component
-	const renderTabBar = useMemo(() => (props: any) => <TabBar {...props} />, []);
+	const renderTabBar = useMemo(() => (props: BottomTabBarProps) => <TabBar {...props} />, []);
 
 	return (
 		<Tab.Navigator tabBar={renderTabBar} screenOptions={screenOptions} backBehavior="history">

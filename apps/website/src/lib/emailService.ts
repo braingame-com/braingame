@@ -1,9 +1,17 @@
-import { addDoc, collection, getDocs, query, serverTimestamp, where } from "firebase/firestore";
+import {
+	addDoc,
+	collection,
+	getDocs,
+	query,
+	serverTimestamp,
+	type Timestamp,
+	where,
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 export interface EmailSignup {
 	email: string;
-	timestamp: any; // Firestore timestamp
+	timestamp: Timestamp; // Firestore timestamp
 	source: string;
 	userAgent?: string;
 	ipAddress?: string;
