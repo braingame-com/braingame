@@ -36,7 +36,7 @@ export const Link = ({
 	if (href && !external && Platform.OS === "web") {
 		return (
 			<ExpoLink href={href} aria-label={label} style={style} {...rest}>
-				{children as any}
+				{children}
 			</ExpoLink>
 		);
 	}
@@ -48,7 +48,7 @@ export const Link = ({
 			onPress={handlePress}
 			disabled={disabled}
 			style={style}
-			{...(rest as any)}
+			{...rest}
 		>
 			{text}
 		</Pressable>

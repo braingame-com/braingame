@@ -111,10 +111,10 @@ export function validateProps<T extends Record<string, any>>(
 	>,
 	componentName: string,
 ) {
-	for (const [propName, validator] of Object.entries(validationRules)) {
+	for (const propName in validationRules) {
+		const validator = validationRules[propName];
 		if (validator && props[propName] !== undefined) {
-			// biome-ignore lint/suspicious/noExplicitAny: Type assertion needed for validator call
-			(validator as any)(props[propName], propName, componentName);
+			validator(props[propName], propName, componentName);
 		}
 	}
 }
