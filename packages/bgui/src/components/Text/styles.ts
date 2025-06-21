@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+
 import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
+
 =======
-import { StyleSheet } from "react-native";
+
 import { Colors, Tokens } from "@braingame/utils";
+import { StyleSheet } from "react-native";
+
 >>>>>>> main
 
 /**

@@ -55,6 +55,7 @@ Each session document should contain:
 
 ## Index of Sessions
 
+- [2025-06-21: PR Conflict Resolution Lessons](./2025-06-21-pr-conflict-resolution-lessons.md) - Successfully merged 5 "corrupted" PRs by proper rebasing and persistence
 - [2025-06-21: Corrupted PR Cleanup](./2025-06-21-corrupted-pr-cleanup.md) - Identified and closed 5 corrupted PRs with 200+ unintended files each
 - [2025-06-20: Storybook Setup](./2025-06-20-storybook-setup.md) - Added Storybook configuration and documentation
 - [2025-06-20: Legacy Migration Completion & PR Merging Marathon](./2025-06-20-legacy-migration-completion.md) - Final merge of migration pull requests

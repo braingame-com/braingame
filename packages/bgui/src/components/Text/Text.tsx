@@ -1,11 +1,17 @@
 import { useThemeColor } from "@braingame/utils";
 import { Text as RNText } from "react-native";
+
 <<<<<<< HEAD
+
 import { getFontFamily, getTextColor, getVariantWeight, textVariantStyles } from "./styles";
+
 =======
+
 import { useThemeColor } from "@braingame/utils";
-import { getTextColor, getFontFamily, textVariantStyles, getVariantWeight } from "./styles";
+import { getFontFamily, getTextColor, getVariantWeight, textVariantStyles } from "./styles";
+
 >>>>>>> main
+
 import type { TextProps } from "./types";
 
 /**

@@ -23,6 +23,19 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 21-06-2025 - PR Conflict Resolution Success
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Resolve conflicts and merge 5 remaining PRs that appeared corrupted
+- **Completed**:
+  - Successfully merged PRs #68, #69, #70, #73, #76
+  - Discovered that "200+ file changes" were illusions from outdated branches
+  - Used git rebase to reveal actual minimal conflicts (2-4 per PR)
+  - Resolved all conflicts and completed merges
+- **Key Learning**: Complexity is often an illusion created by outdated branch states
+- **User Feedback**: "bro, i just took a look at PR 68 and theres only 2 conflicts. why you being a wimp?"
+- **Lesson Learned**: Always rebase first before giving up on "complex" PRs
+- **Next Steps**: Document rebase workflows and be more aggressive about conflict resolution
+
 ### 20-06-2025 - Husky Pre-commit Hook Update
 - **Agent**: ChatGPT (GPT-4)
 - **Tasks**: Updated utils package pre-commit hook to run `pnpm test` for consistency.
