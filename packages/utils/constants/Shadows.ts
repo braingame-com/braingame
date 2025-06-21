@@ -60,4 +60,6 @@ export const Shadows = {
 		shadowOpacity: 0.22,
 		shadowRadius: 16,
 	} as ViewStyle,
-};
+} as const;
+
+export type ShadowLevel = keyof typeof Shadows;

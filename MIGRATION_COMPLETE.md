@@ -1,6 +1,6 @@
 # 🎉 Legacy Migration Complete!
 
-**Date**: June 20, 2025  
+**Date**: 20-06-2025
 **Duration**: 4 weeks  
 **Result**: 100% Success
 
