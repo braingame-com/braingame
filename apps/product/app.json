@@ -1,26 +1,80 @@
 {
 	"expo": {
-		"name": "braingame",
+		"name": "Brain Game",
 		"slug": "braingame",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "myapp",
+		"scheme": "braingame",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
+		"owner": "braingame",
+		"description": "Master mindfulness through science-backed techniques and personalized brain training exercises",
+		"privacy": "public",
+		"primaryColor": "#3B82F6",
+		"backgroundColor": "#000000",
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"bundleIdentifier": "com.braingame.app",
+			"buildNumber": "1",
+			"icon": "./assets/images/icon.png",
+			"infoPlist": {
+				"NSCameraUsageDescription": "This app uses the camera for mindfulness exercises and progress tracking.",
+				"NSMicrophoneUsageDescription": "This app uses the microphone for guided meditation sessions.",
+				"NSLocationWhenInUseUsageDescription": "This app uses your location to provide localized content and recommendations.",
+				"ITSAppUsesNonExemptEncryption": false,
+				"LSApplicationQueriesSchemes": ["mailto", "tel", "sms"]
+			},
+			"config": {
+				"usesNonExemptEncryption": false
+			},
+			"associatedDomains": ["applinks:braingame.dev"],
+			"usesAppleSignIn": false,
+			"userInterfaceStyle": "automatic"
 		},
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/adaptive-icon.png",
 				"backgroundColor": "#000000"
-			}
+			},
+			"package": "com.braingame.app",
+			"versionCode": 1,
+			"permissions": [
+				"CAMERA",
+				"RECORD_AUDIO",
+				"ACCESS_COARSE_LOCATION",
+				"ACCESS_FINE_LOCATION",
+				"VIBRATE"
+			],
+			"intentFilters": [
+				{
+					"action": "VIEW",
+					"autoVerify": true,
+					"data": [
+						{
+							"scheme": "https",
+							"host": "braingame.dev",
+							"pathPrefix": "/"
+						}
+					],
+					"category": ["BROWSABLE", "DEFAULT"]
+				}
+			],
+			"icon": "./assets/images/icon.png",
+			"userInterfaceStyle": "automatic"
 		},
 		"web": {
 			"bundler": "metro",
 			"output": "static",
-			"favicon": "./assets/images/favicon.png"
+			"favicon": "./assets/images/favicon.png",
+			"name": "Brain Game",
+			"shortName": "BrainGame",
+			"description": "Master mindfulness through science-backed techniques",
+			"backgroundColor": "#000000",
+			"themeColor": "#3B82F6",
+			"lang": "en",
+			"orientation": "portrait",
+			"preferRelatedApplications": true
 		},
 		"plugins": [
 			"expo-router",
@@ -32,6 +86,24 @@
 					"resizeMode": "contain",
 					"backgroundColor": "#000000"
 				}
+			],
+			"expo-font",
+			"expo-haptics",
+			[
+				"expo-clipboard",
+				{
+					"ios": {
+						"NSPhotoLibraryUsageDescription": "Allow access to save mindfulness progress images."
+					}
+				}
+			],
+			[
+				"@react-native-community/netinfo",
+				{
+					"ios": {
+						"NSLocalNetworkUsageDescription": "This app uses the local network to sync your progress across devices."
+					}
+				}
 			]
 		],
 		"experiments": {
@@ -39,6 +111,29 @@
 		},
 		"developer": {
 			"tool": null
+		},
+		"extra": {
+			"eas": {
+				"projectId": "your-project-id-here"
+			}
+		},
+		"updates": {
+			"enabled": true,
+			"checkAutomatically": "ON_LOAD",
+			"fallbackToCacheTimeout": 30000
+		},
+		"assetBundlePatterns": ["**/*"],
+		"locales": {
+			"en": {
+				"name": "Brain Game",
+				"description": "Master mindfulness through science-backed techniques and personalized brain training exercises"
+			}
+		},
+		"notification": {
+			"icon": "./assets/images/notification-icon.png",
+			"color": "#3B82F6",
+			"androidMode": "default",
+			"androidCollapsedTitle": "Brain Game"
 		}
 	}
 }

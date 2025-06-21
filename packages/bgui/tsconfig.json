@@ -6,7 +6,10 @@
 		"declaration": true,
 		"declarationMap": true,
 		"module": "esnext",
-		"lib": ["esnext", "dom"]
+		"lib": ["esnext", "dom"],
+		"paths": {
+			"@braingame/utils": ["../utils"]
+		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", "vitest.config.ts"]
 }

@@ -33,6 +33,10 @@ Follow these steps exactly to ensure a clean setup.
   pnpm install
   ```
 
+> **Important**: The lint (`pnpm lint`) and test (`pnpm test`) scripts require
+> all dependencies to be installed. Run `pnpm install` first whenever you clone
+> or pull new changes, otherwise these tasks may fail.
+
 - [ ] **3. Set Up Environment Variables:**
   - [ ] Copy the example env files. They are git-ignored.
     ```bash
@@ -114,7 +118,7 @@ This repo is heavily documented. Before asking a question, check these files:
 | `docs/BGUI_COMPONENT_PLAN.md` | **UI Components:** The plan and API for our component library. |
 | `docs/CODING_STYLE.md` | **Code Quality:** Specific rules for writing clean, maintainable code. |
 | `docs/BRAND.md` | **Brand Identity:** How to use our name, voice, and tone. |
-| `docs/AI_CONTEXT.md` | **AI Collaboration:** The tactical dashboard for AI agents. |
+| `docs/LESSONS.md` | **Knowledge Base:** Technical learnings and patterns from development. |
 | `TODO.md` | **Task Tracker:** The list of current and upcoming work. |
 
 ---
@@ -163,7 +167,7 @@ pnpm --filter product web
 ### 2. Working with Components
 
 ```bash
-# Start Storybook for component development (placeholder)
+# Start Storybook for component development
 pnpm storybook
 
 # Create a new component in bgui
@@ -279,14 +283,14 @@ npx expo start -c
 When using AI assistants (like Claude):
 1. Point them to `CLAUDE.md` for project-specific instructions
 2. Check `TODO.md` for current priorities
-3. Review `AI_CONTEXT.md` for project state
+3. Review `LESSONS.md` for technical patterns and solutions
 
 ## Getting Help
 
 - **Documentation**: Check `/docs` folder
 - **Architecture**: See `docs/ARCHITECTURE.md`
 - **Task Tracking**: See `TODO.md`
-- **Security**: See `SECURITY.md`
+- **Security**: See `../.github/SECURITY.md`
 
 ## VS Code Extensions
 

@@ -1,4 +1,4 @@
-import { Colors, Tokens, useThemeColor } from "@braingame/utils";
+import { Colors, Tokens, Typography, useThemeColor } from "@braingame/utils";
 import { Children, cloneElement, type ReactElement, useState } from "react";
 import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
 import { Text } from "../../../Text";
@@ -127,10 +127,15 @@ const SelectComponent = ({
 				<Text style={{ color: textColor }}>{label}</Text>
 			</Pressable>
 			{helperText && !error && (
-				<Text style={{ fontSize: 12, color: textColor, marginTop: 4 }}>{helperText}</Text>
+				<Text style={{ fontSize: Typography.fontSize.xs, color: textColor, marginTop: 4 }}>
+					{helperText}
+				</Text>
 			)}
 			{error && errorMessage && (
-				<Text style={{ fontSize: 12, color: errorColor, marginTop: 4 }} accessibilityRole="alert">
+				<Text
+					style={{ fontSize: Typography.fontSize.xs, color: errorColor, marginTop: 4 }}
+					accessibilityRole="alert"
+				>
 					{errorMessage}
 				</Text>
 			)}
