@@ -21,6 +21,7 @@ The `packages/bgui` package now includes unit tests for most components. However
 - Link
 - Menu
 - Modal
+- PageWrapper
 - ProgressBar
 - RadioGroup
 - Select
@@ -31,5 +32,6 @@ The `packages/bgui` package now includes unit tests for most components. However
 - Text
 - Toast
 - Tooltip
+- View
 
 _Coverage generation will resume once the test environment is fully operational._
