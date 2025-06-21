@@ -37,7 +37,7 @@
 		"preflight": "pnpm install",
 		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
 		"precommit": "lint-staged && pnpm secrets:check && pnpm quality",
-		"storybook": "echo 'Storybook is not yet implemented'",
+		"storybook": "storybook dev -p 6006 -c packages/bgui/.storybook",
 		"bgui:scaffold": "node scripts/create-bgui-component.js"
 	},
 	"devDependencies": {
@@ -60,7 +60,10 @@
 		"secretlint": "^10.1.0",
 		"ts-morph": "^26.0.0",
 		"turbo": "^2.3.3",
-		"typescript": "^5.3.3"
+		"typescript": "^5.3.3",
+		"@storybook/react": "^8.0.0",
+		"@storybook/addon-essentials": "^8.0.0",
+		"@storybook/react-vite": "^8.0.0"
 	},
 	"engines": {
 		"node": ">=18",

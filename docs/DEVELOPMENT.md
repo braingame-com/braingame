@@ -167,7 +167,7 @@ pnpm --filter product web
 ### 2. Working with Components
 
 ```bash
-# Start Storybook for component development (placeholder)
+# Start Storybook for component development
 pnpm storybook
 
 # Create a new component in bgui
