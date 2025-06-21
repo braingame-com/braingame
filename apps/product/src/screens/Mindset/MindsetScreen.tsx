@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { listOptimizations, withMemo } from "../../utils/performance";
 import { Affirmations } from "./components/Affirmations";
+import { Images } from "./components/Images";
 import { VisionGoals } from "./components/VisionGoals";
 import { mindsetStyles } from "./styles";
 import type { CompletionState } from "./types";
@@ -112,6 +113,10 @@ export const MindsetScreen: React.FC = () => {
 		() => handleSectionComplete("affirmations"),
 		[handleSectionComplete],
 	);
+	const handleImagesComplete = useCallback(
+		() => handleSectionComplete("images"),
+		[handleSectionComplete],
+	);
 
 	// Coming soon cards data
 	const comingSoonCards = useMemo<ComingSoonCard[]>(
@@ -121,12 +126,6 @@ export const MindsetScreen: React.FC = () => {
 				icon: "💭",
 				title: "Reminders",
 				description: "Coming next: 9 core philosophical principles",
-			},
-			{
-				id: "images",
-				icon: "🖼️",
-				title: "Visual Inspiration",
-				description: "Coming next: 75+ motivational images slideshow",
 			},
 			{
 				id: "journal",
@@ -152,6 +151,7 @@ export const MindsetScreen: React.FC = () => {
 			{ id: "subtitle", type: "subtitle" },
 			{ id: "vision", type: "vision" },
 			{ id: "affirmations", type: "affirmations" },
+			{ id: "images", type: "images" },
 			{ id: "coming-soon", type: "coming-soon" },
 		],
 		[],
@@ -183,6 +183,8 @@ export const MindsetScreen: React.FC = () => {
 							completed={completionState.affirmations}
 						/>
 					);
+				case "images":
+					return <Images onComplete={handleImagesComplete} completed={completionState.images} />;
 				case "coming-soon":
 					return (
 						<FlatList
@@ -202,8 +204,10 @@ export const MindsetScreen: React.FC = () => {
 			totalCount,
 			completionState.vision,
 			completionState.affirmations,
+			completionState.images,
 			handleVisionComplete,
 			handleAffirmationsComplete,
+			handleImagesComplete,
 			comingSoonCards,
 			renderComingSoonCard,
 		],
