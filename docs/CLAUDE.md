@@ -14,7 +14,7 @@ Follow these steps for every development task.
     - If uncertain which to use, STOP and ask the user
 2.  **Location Verification:** Run `pwd && git branch --show-current` to confirm you're in the right place
 3.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
-4.  **Consult Docs:** Read `ARCHITECTURE.md` and `LESSONS.md` to refresh context.
+4.  **Consult Docs:** Read `ARCHITECTURE.md`, `AI_CONTEXT.md`, and `LESSONS.md` to refresh context.
 5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
 **Phase 2: Development & Implementation**
