@@ -7,7 +7,6 @@ import {
 	AccessibleThemedButton,
 	AccessibleThemedText,
 } from "../../theme/components/AccessibleThemedComponents";
-import { useTheme } from "../../theme/ThemeContext";
 import { announceForAccessibility } from "../../utils/accessibility";
 
 interface Props {

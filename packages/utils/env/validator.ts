@@ -46,25 +46,24 @@ export function validateEnv<T>(
 				data: result.data,
 				warnings: checkForWarnings(result.data, env),
 			};
-		} else {
-			const errors = result.error.errors.map((err) => `${err.path.join(".")}: ${err.message}`);
-
-			if (logResults) {
-				logger("❌ Environment validation failed:");
-				errors.forEach((error) => logger(`  - ${error}`));
-			}
-
-			const validationResult: EnvValidationResult<T> = {
-				success: false,
-				errors,
-			};
-
-			if (throwOnError) {
-				throw new Error(`Environment validation failed:\n${errors.join("\n")}`);
-			}
-
-			return validationResult;
 		}
+		const errors = result.error.errors.map((err) => `${err.path.join(".")}: ${err.message}`);
+
+		if (logResults) {
+			logger("❌ Environment validation failed:");
+			errors.forEach((error) => logger(`  - ${error}`));
+		}
+
+		const validationResult: EnvValidationResult<T> = {
+			success: false,
+			errors,
+		};
+
+		if (throwOnError) {
+			throw new Error(`Environment validation failed:\n${errors.join("\n")}`);
+		}
+
+		return validationResult;
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : "Unknown validation error";
 
@@ -88,7 +87,7 @@ export function validateEnv<T>(
 /**
  * Check for potential warnings in environment configuration
  */
-function checkForWarnings<T>(data: T, env: Record<string, string | undefined>): string[] {
+function checkForWarnings<T>(_data: T, env: Record<string, string | undefined>): string[] {
 	const warnings: string[] = [];
 
 	// Check for default/example values that should be changed

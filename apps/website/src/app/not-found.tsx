@@ -1,7 +1,7 @@
 "use client";
 
+import { Link, Text, View } from "@braingame/bgui";
 import { useEffect, useState } from "react";
-import { View, Text, Link } from "@braingame/bgui";
 
 const ASCII_FACES = [
 	"¯\\_(ツ)_/¯",
@@ -63,7 +63,7 @@ export default function NotFound() {
 		<View
 			style={{
 				flex: 1,
-				minHeight: "100vh",
+				minHeight: 800,
 				backgroundColor: "#000",
 				alignItems: "center",
 				justifyContent: "center",

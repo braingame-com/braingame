@@ -1,12 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 import {
-	ScrollView as RNScrollView,
 	Text as RNText,
 	TextInput as RNTextInput,
 	TouchableOpacity as RNTouchableOpacity,
 	View as RNView,
-	ScrollViewProps,
-	StyleSheet,
 	type TextInputProps,
 	type TextProps,
 	type TextStyle,
@@ -14,12 +11,7 @@ import {
 	type ViewProps,
 	type ViewStyle,
 } from "react-native";
-import Animated, {
-	interpolateColor,
-	useAnimatedStyle,
-	useSharedValue,
-	withTiming,
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { withMemo } from "../../utils/performance";
 import { useTheme } from "../ThemeContext";
 

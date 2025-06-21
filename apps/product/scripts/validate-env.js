@@ -5,7 +5,7 @@
  * Validates that all required environment variables are properly configured
  */
 
-const { validateProductAppEnv, validateProductionEnv } = require("@braingame/utils/env");
+const { validateProductAppEnv, validateProductionEnv } = require("@braingame/utils");
 const fs = require("fs");
 const path = require("path");
 
@@ -45,7 +45,7 @@ async function validateEnvironment() {
 	try {
 		require("dotenv").config({ path: ".env.local" });
 		require("dotenv").config({ path: ".env" });
-	} catch (error) {
+	} catch (_error) {
 		// dotenv not installed, use process.env
 	}
 

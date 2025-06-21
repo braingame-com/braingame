@@ -4,15 +4,12 @@ import {
 	createAnimation,
 	getColorWithOpacity,
 	getPlatformToken,
-	SemanticAnimation,
 	SemanticBorderRadius,
 	SemanticSpacing,
 	SemanticTypography,
 	Shadows,
 	Tokens,
-	Typography,
 } from "@braingame/utils";
-import React from "react";
 import { Pressable, Text, useColorScheme, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
@@ -26,7 +23,7 @@ export function TokenSystemExample() {
 	const scale = useSharedValue(1);
 
 	// Platform-specific padding
-	const padding = getPlatformToken({
+	const _padding = getPlatformToken({
 		default: SemanticSpacing.componentPaddingM,
 		ios: SemanticSpacing.componentPaddingL,
 		web: SemanticSpacing.componentPaddingXl,

@@ -5,11 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-na
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
 import { useTheme } from "../../theme/ThemeContext";
-import {
-	a11yLabels,
-	getAccessibilityProps,
-	getAccessibilityState,
-} from "../../utils/accessibility";
+import { getAccessibilityProps, getAccessibilityState } from "../../utils/accessibility";
 import { withMemo } from "../../utils/performance";
 import { tabBarStyles } from "./styles";
 
@@ -149,7 +145,7 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	React.useEffect(() => {
 		if (!keyboardNavigation) return;
 
-		const handleKeyPress = (event: any) => {
+		const _handleKeyPress = (event: any) => {
 			const key = event.key;
 			const currentIndex = state.index;
 

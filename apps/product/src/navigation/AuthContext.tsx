@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
 
 interface User {
 	id: string;
@@ -26,11 +26,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 	const [isLoading, setIsLoading] = useState(true);
 	const [user, setUser] = useState<User | null>(null);
 
-	useEffect(() => {
-		checkAuthStatus();
-	}, []);
-
-	const checkAuthStatus = async () => {
+	const checkAuthStatus = useCallback(async () => {
 		try {
 			const token = await AsyncStorage.getItem("auth_token");
 			const userData = await AsyncStorage.getItem("user_data");
@@ -44,7 +40,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, []);
+
+	useEffect(() => {
+		checkAuthStatus();
+	}, [checkAuthStatus]);
 
 	const login = async (email: string, _password: string) => {
 		// Simulate API call

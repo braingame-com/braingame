@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
-import { Appearance, useColorScheme } from "react-native";
-import Animated, {
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { useColorScheme } from "react-native";
+import {
 	interpolateColor,
 	runOnJS,
 	useAnimatedStyle,
@@ -40,28 +40,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 	const isDark = themeMode === "dark" || (themeMode === "system" && systemColorScheme === "dark");
 	const theme = createTheme(isDark, colorScheme);
 
-	// Load saved preferences
-	useEffect(() => {
-		loadSavedPreferences();
-	}, []);
-
-	// Save preferences when they change
-	useEffect(() => {
-		AsyncStorage.setItem(THEME_STORAGE_KEY, themeMode);
-	}, [themeMode]);
-
-	useEffect(() => {
-		AsyncStorage.setItem(COLOR_SCHEME_STORAGE_KEY, colorScheme);
-	}, [colorScheme]);
-
-	// Update theme when system color scheme changes
-	useEffect(() => {
-		if (themeMode === "system") {
-			// Trigger re-render when system theme changes
-		}
-	}, [systemColorScheme, themeMode]);
-
-	const loadSavedPreferences = async () => {
+	const loadSavedPreferences = useCallback(async () => {
 		try {
 			const [savedThemeMode, savedColorScheme] = await Promise.all([
 				AsyncStorage.getItem(THEME_STORAGE_KEY),
@@ -77,7 +56,28 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 		} catch (error) {
 			console.error("Error loading theme preferences:", error);
 		}
-	};
+	}, []);
+
+	// Load saved preferences
+	useEffect(() => {
+		loadSavedPreferences();
+	}, [loadSavedPreferences]);
+
+	// Save preferences when they change
+	useEffect(() => {
+		AsyncStorage.setItem(THEME_STORAGE_KEY, themeMode);
+	}, [themeMode]);
+
+	useEffect(() => {
+		AsyncStorage.setItem(COLOR_SCHEME_STORAGE_KEY, colorScheme);
+	}, [colorScheme]);
+
+	// Update theme when system color scheme changes
+	useEffect(() => {
+		if (themeMode === "system") {
+			// Trigger re-render when system theme changes
+		}
+	}, [themeMode]);
 
 	const setThemeMode = (mode: ThemeMode) => {
 		setIsTransitioning(true);
@@ -142,7 +142,7 @@ export const useAnimatedTheme = () => {
 		animationProgress.value = withTiming(isTransitioning ? 1 : 0, {
 			duration: theme.animation.durationNormal,
 		});
-	}, [isTransitioning, theme.animation.durationNormal]);
+	}, [isTransitioning, theme.animation.durationNormal, animationProgress]);
 
 	const animatedBackgroundStyle = useAnimatedStyle(() => {
 		return {

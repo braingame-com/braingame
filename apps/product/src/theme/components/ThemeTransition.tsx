@@ -1,13 +1,7 @@
 import type React from "react";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import Animated, {
-	Extrapolate,
-	interpolate,
-	useAnimatedStyle,
-	useSharedValue,
-	withTiming,
-} from "react-native-reanimated";
+import { StyleSheet } from "react-native";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useTheme } from "../ThemeContext";
 
 interface ThemeTransitionProps {
@@ -31,7 +25,11 @@ export const ThemeTransition: React.FC<ThemeTransitionProps> = ({ children }) =>
 				scaleValue.value = withTiming(1, { duration: 150 });
 			});
 		}
-	}, [isTransitioning]);
+	}, [
+		isTransitioning, // Fade out and scale down
+		fadeValue,
+		scaleValue,
+	]);
 
 	const animatedStyle = useAnimatedStyle(() => {
 		return {
@@ -54,7 +52,7 @@ export const ColorTransition: React.FC<ColorTransitionProps> = ({ color, childre
 
 	useEffect(() => {
 		animatedColor.value = withTiming(color, { duration: 300 });
-	}, [color]);
+	}, [color, animatedColor]);
 
 	return <>{children(animatedColor)}</>;
 };

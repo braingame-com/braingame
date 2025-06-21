@@ -1,5 +1,5 @@
 import type React from "react";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
 import { captureException } from "../../services/ErrorService";
@@ -83,7 +83,7 @@ export function AsyncBoundary<T>({
 	});
 	const [retryCount, setRetryCount] = useState(0);
 
-	const loadData = async () => {
+	const loadData = useCallback(async () => {
 		setState({ loading: true, error: null, data: null });
 		announce("Loading data");
 
@@ -119,11 +119,11 @@ export function AsyncBoundary<T>({
 
 			onError?.(errorObj);
 		}
-	};
+	}, [asyncFn, timeout, onSuccess, onError, retryCount, announce]);
 
 	useEffect(() => {
 		loadData();
-	}, [...deps, retryCount]);
+	}, [loadData]);
 
 	const retry = () => {
 		setRetryCount((prev) => prev + 1);
@@ -221,7 +221,7 @@ export function useAsyncBoundary<T>(asyncFn: () => Promise<T>, deps: React.Depen
 		data: null,
 	});
 
-	const execute = async () => {
+	const execute = useCallback(async () => {
 		setState({ loading: true, error: null, data: null });
 
 		try {
@@ -233,11 +233,12 @@ export function useAsyncBoundary<T>(asyncFn: () => Promise<T>, deps: React.Depen
 			setState({ loading: false, error: errorObj, data: null });
 			throw errorObj;
 		}
-	};
+	}, [asyncFn]);
 
 	useEffect(() => {
 		execute();
-	}, deps);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [execute, ...deps]);
 
 	return {
 		...state,

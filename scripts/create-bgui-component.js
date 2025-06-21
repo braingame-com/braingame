@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Enhanced CLI to scaffold a new BGUI component with enterprise-grade boilerplate.
- * 
+ *
  * Features:
  * - Creates components in the correct src/components/ structure
  * - Generates comprehensive TypeScript types
@@ -60,8 +60,13 @@ if (isHook) {
 }
 
 // Check if already exists
-if (fs.existsSync(targetDir) || (isHook && fs.existsSync(path.join(targetDir, `${componentName}.ts`)))) {
-	console.error(`${isHook ? 'Hook' : isUtil ? 'Utility' : 'Component'} ${componentName} already exists`);
+if (
+	fs.existsSync(targetDir) ||
+	(isHook && fs.existsSync(path.join(targetDir, `${componentName}.ts`)))
+) {
+	console.error(
+		`${isHook ? "Hook" : isUtil ? "Utility" : "Component"} ${componentName} already exists`,
+	);
 	process.exit(1);
 }
 
@@ -440,7 +445,7 @@ export const WithCustomStyles: Story = {
 
 function generateHook(hookName, targetDir) {
 	const filePath = path.join(targetDir, `${hookName}.ts`);
-	
+
 	const content = `import { useCallback, useState } from "react";
 
 /**
@@ -484,7 +489,7 @@ export function ${hookName}<T>(initialValue: T) {
 
 function generateUtil(utilName, targetDir) {
 	const filePath = path.join(targetDir, `${utilName}.ts`);
-	
+
 	const content = `/**
  * Utility function for [describe the purpose].
  *
@@ -515,19 +520,19 @@ export function is${utilName}Valid(input: unknown): input is string {
 
 function updatePackageExports(componentName) {
 	const indexPath = path.join(__dirname, "..", "packages", "bgui", "index.ts");
-	
+
 	try {
 		let content = fs.readFileSync(indexPath, "utf8");
-		
+
 		// Find the right place to insert the export (after other component exports)
 		const exportPattern = /export \{ \w+ \} from "\.\/src\/components\/\w+";/g;
 		const matches = [...content.matchAll(exportPattern)];
-		
+
 		if (matches.length > 0) {
 			// Insert after the last component export
 			const lastMatch = matches[matches.length - 1];
 			const insertIndex = lastMatch.index + lastMatch[0].length;
-			
+
 			const newExport = `\nexport { ${componentName} } from "./src/components/${componentName}";`;
 			content = content.slice(0, insertIndex) + newExport + content.slice(insertIndex);
 		} else {
@@ -539,41 +544,43 @@ function updatePackageExports(componentName) {
 				content = content.slice(0, insertIndex) + newExport + content.slice(insertIndex);
 			}
 		}
-		
+
 		// Add type export
 		const typePattern = /export type \{ \w+Props \} from "\.\/src\/components\/\w+\/types";/g;
 		const typeMatches = [...content.matchAll(typePattern)];
-		
+
 		if (typeMatches.length > 0) {
 			const lastTypeMatch = typeMatches[typeMatches.length - 1];
 			const insertIndex = lastTypeMatch.index + lastTypeMatch[0].length;
-			
+
 			const newTypeExport = `\nexport type { ${componentName}Props } from "./src/components/${componentName}/types";`;
 			content = content.slice(0, insertIndex) + newTypeExport + content.slice(insertIndex);
 		}
-		
+
 		fs.writeFileSync(indexPath, content, "utf8");
 		console.log("✅ Updated package exports");
 	} catch (error) {
 		console.warn("⚠️ Could not auto-update package exports:", error.message);
 		console.log("📝 Manual step: Add this to packages/bgui/index.ts:");
 		console.log(`export { ${componentName} } from "./src/components/${componentName}";`);
-		console.log(`export type { ${componentName}Props } from "./src/components/${componentName}/types";`);
+		console.log(
+			`export type { ${componentName}Props } from "./src/components/${componentName}/types";`,
+		);
 	}
 }
 
 function updateHooksIndex(hookName) {
 	const hooksIndexPath = path.join(__dirname, "..", "packages", "bgui", "src", "hooks", "index.ts");
-	
+
 	try {
 		let content = "";
 		if (fs.existsSync(hooksIndexPath)) {
 			content = fs.readFileSync(hooksIndexPath, "utf8");
 		}
-		
+
 		const newExport = `export { ${hookName} } from "./${hookName}";\n`;
 		content += newExport;
-		
+
 		fs.writeFileSync(hooksIndexPath, content, "utf8");
 		console.log("✅ Updated hooks index");
 	} catch (error) {

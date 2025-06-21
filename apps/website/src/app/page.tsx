@@ -1,7 +1,7 @@
 "use client";
 
+import { Button, GlowingLogo, Link, Text, TextInput, View } from "@braingame/bgui";
 import { useState } from "react";
-import { View, Text, TextInput, Button, GlowingLogo, Link } from "@braingame/bgui";
 
 export default function HomePage() {
 	const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ export default function HomePage() {
 			await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
 			setSubmitMessage("Thanks! We'll notify you when we launch.");
 			setEmail("");
-		} catch (error) {
+		} catch (_error) {
 			setSubmitMessage("Something went wrong. Please try again.");
 		} finally {
 			setIsSubmitting(false);
@@ -114,17 +114,7 @@ export default function HomePage() {
 						editable={!isSubmitting}
 					/>
 
-					<Button
-						onPress={handleSubmit}
-						disabled={isSubmitting}
-						style={{
-							backgroundColor: "#7c3aed",
-							paddingHorizontal: 24,
-							paddingVertical: 12,
-							borderRadius: 8,
-							opacity: isSubmitting ? 0.5 : 1,
-						}}
-					>
+					<Button onPress={handleSubmit} disabled={isSubmitting}>
 						<Text variant="bold" style={{ color: "#fff" }}>
 							{isSubmitting ? "..." : "Join"}
 						</Text>

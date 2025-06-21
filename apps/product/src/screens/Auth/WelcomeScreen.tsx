@@ -1,7 +1,7 @@
 import { Text } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { AuthStackScreenProps } from "../../navigation/types";
 import { authStyles } from "./styles";

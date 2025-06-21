@@ -1,7 +1,6 @@
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 import { useCallback, useEffect, useRef } from "react";
 import {
-	analytics,
 	type EventName,
 	type EventProperties,
 	trackEvent,

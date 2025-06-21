@@ -1,7 +1,7 @@
 import { Text } from "@braingame/bgui";
 import { Audio, type AVPlaybackStatus } from "expo-av";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import {
 	AFFIRMATIONS_ATTRIBUTION,
@@ -28,23 +28,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 	const [isLoading, setIsLoading] = useState(false);
 
 	/**
-	 * Load audio file on component mount
-	 */
-	useEffect(() => {
-		loadAudio();
-
-		// Cleanup on unmount
-		return () => {
-			if (sound) {
-				sound.unloadAsync();
-			}
-		};
-	}, []);
-
-	/**
 	 * Load the affirmations audio file
 	 */
-	const loadAudio = async () => {
+	const loadAudio = useCallback(async () => {
 		try {
 			setIsLoading(true);
 			const { sound: audioSound } = await Audio.Sound.createAsync(
@@ -69,7 +55,21 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, [onComplete]);
+
+	/**
+	 * Load audio file on component mount
+	 */
+	useEffect(() => {
+		loadAudio();
+
+		// Cleanup on unmount
+		return () => {
+			if (sound) {
+				sound.unloadAsync();
+			}
+		};
+	}, [loadAudio, sound]);
 
 	/**
 	 * Toggle audio playback

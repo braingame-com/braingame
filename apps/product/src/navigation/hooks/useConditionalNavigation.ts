@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useAuth } from "../AuthContext";
 
 interface NavigationConditions {
@@ -14,11 +14,7 @@ export const useConditionalNavigation = (conditions: NavigationConditions = {}) 
 	const navigation = useNavigation();
 	const { isAuthenticated, user } = useAuth();
 
-	useEffect(() => {
-		checkConditions();
-	}, [isAuthenticated, user]);
-
-	const checkConditions = async () => {
+	const checkConditions = useCallback(async () => {
 		// Check authentication
 		if (conditions.requiresAuth && !isAuthenticated) {
 			navigation.navigate("Auth" as never, { screen: "Login" } as never);
@@ -45,7 +41,11 @@ export const useConditionalNavigation = (conditions: NavigationConditions = {}) 
 			);
 			return;
 		}
-	};
+	}, [conditions, isAuthenticated, user, navigation]);
+
+	useEffect(() => {
+		checkConditions();
+	}, [checkConditions]);
 
 	const navigateWithConditions = (
 		screen: string,

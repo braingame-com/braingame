@@ -1,7 +1,7 @@
 import { textStyles } from "@braingame/utils";
 import { Link as ExpoLink } from "expo-router";
 import { Linking, Platform, Pressable } from "react-native";
-import { Text } from "../../../Text";
+import { Text } from "../Text";
 import { styles } from "./styles";
 import type { LinkProps } from "./types";
 

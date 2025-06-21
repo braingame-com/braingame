@@ -1,25 +1,21 @@
-# Dependencies
-node_modules/
-**/node_modules/
+# Biome ignore patterns
 
-# Build outputs
+# Build and cache directories
+.turbo/
+.next/
+node_modules/
 dist/
 build/
-web-build/
-.next/
-**/dist/
-**/build/
-**/web-build/
-**/.next/
-apps/**/.next/
-
-# Expo generated files
 .expo/
-**/.expo/
-apps/**/.expo/
+web-build/
 
-# TypeScript build info
+# Logs and temporary files
+*.log
+branch-info.txt
+current-branch.txt
+
+# Claude configuration
+.claude/
+
+# Generated files
 *.tsbuildinfo
-
-# Turbo
-.turbo/

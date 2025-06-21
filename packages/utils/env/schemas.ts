@@ -59,7 +59,7 @@ const DevToolsSchema = z.object({
 /**
  * Firebase configuration schema
  */
-const FirebaseSchema = z.object({
+const _FirebaseSchema = z.object({
 	FIREBASE_API_KEY: z.string().min(1, "Firebase API key is required"),
 	FIREBASE_AUTH_DOMAIN: z
 		.string()

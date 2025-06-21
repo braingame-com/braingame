@@ -1,5 +1,4 @@
 import type React from "react";
-import { useEffect } from "react";
 import { Linking, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAnalyticsSettings } from "../../contexts/AnalyticsContext";
@@ -118,9 +117,9 @@ const PrivacyLevelSelector = withMemo(() => {
 					</AccessibleThemedText>
 
 					<View style={{ marginLeft: theme.sizes.spacingMD }}>
-						{option.features.map((feature, index) => (
+						{option.features.map((feature) => (
 							<AccessibleThemedText
-								key={index}
+								key={`${option.id}-${feature}`}
 								variant="secondary"
 								size="xs"
 								style={{ marginBottom: 2 }}

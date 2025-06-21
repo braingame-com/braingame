@@ -101,11 +101,7 @@ export const getListItemLabel = (item: string, index: number, total: number): st
 /**
  * Generate label for progress
  */
-export const getProgressLabel = (
-	current: number,
-	total: number,
-	unit: string = "items",
-): string => {
+export const getProgressLabel = (current: number, total: number, unit = "items"): string => {
 	const percentage = Math.round((current / total) * 100);
 	return `${current} of ${total} ${unit} complete, ${percentage} percent`;
 };
@@ -186,9 +182,9 @@ export const getHint = {
  * Color contrast checker
  */
 export const meetsContrastRatio = (
-	foreground: string,
-	background: string,
-	ratio: number = 4.5,
+	_foreground: string,
+	_background: string,
+	_ratio = 4.5,
 ): boolean => {
 	// Simplified check - in production would calculate actual contrast
 	// WCAG AA requires 4.5:1 for normal text, 3:1 for large text

@@ -57,7 +57,7 @@
 		"@babel/preset-flow": "^7.27.1",
 		"@babel/preset-react": "^7.27.1",
 		"@babel/preset-typescript": "^7.27.1",
-		"@biomejs/biome": "^2.0.0",
+		"@biomejs/biome": "^2.0.4",
 		"@changesets/cli": "^2.27.1",
 		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
 		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
@@ -79,7 +79,10 @@
 		"pnpm": ">=9"
 	},
 	"lint-staged": {
-		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
+		"**/*.{ts,tsx,js,jsx}": [
+			"biome check --fix",
+			"biome format --write"
+		]
 	},
 	"pnpm": {
 		"overrides": {
@@ -90,7 +93,8 @@
 			"react-native-web": "0.20.0",
 			"strip-ansi": "^7.1.0",
 			"string-width": "^5.1.2",
-			"wrap-ansi": "^8.1.0"
+			"wrap-ansi": "^8.1.0",
+			"@biomejs/biome": "^2.0.4"
 		},
 		"packageExtensions": {
 			"expo-router": {

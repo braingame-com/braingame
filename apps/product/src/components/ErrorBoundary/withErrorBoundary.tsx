@@ -57,9 +57,9 @@ export function withErrorBoundary<P extends object>(
 		logErrors = __DEV__,
 	} = options;
 
-	const WrappedComponent = forwardRef<any, P>((props, ref) => {
+	const WrappedComponent = forwardRef<React.ComponentRef<ComponentType<P>>, P>((props, ref) => {
 		// Extract reset keys from props
-		const currentResetKeys = resetKeys.map((key) => (props as any)[key]);
+		const currentResetKeys = resetKeys.map((key) => (props as Record<string, unknown>)[key]);
 
 		const handleError = (error: Error, errorInfo: React.ErrorInfo) => {
 			if (logErrors) {
@@ -122,15 +122,19 @@ export function withScreenErrorBoundary<P extends object>(
  * Decorator for class components
  */
 export function ErrorBoundaryDecorator(options: WithErrorBoundaryOptions = {}) {
-	return <T extends { new (...args: any[]): any }>(constructor: T) => {
-		const WrappedComponent = (props: any) => (
-			<ErrorBoundary {...options}>
-				<constructor {...props} />
-			</ErrorBoundary>
-		);
+	return <T extends { new (...args: unknown[]): React.Component }>(Component: T) => {
+		class WrappedComponent extends (Component as { new (...args: unknown[]): React.Component }) {
+			static displayName = `ErrorBoundary(${Component.name})`;
 
-		WrappedComponent.displayName = `ErrorBoundary(${constructor.name})`;
+			render() {
+				return (
+					<ErrorBoundary {...options}>
+						<Component {...this.props} />
+					</ErrorBoundary>
+				);
+			}
+		}
 
-		return WrappedComponent as any;
+		return WrappedComponent as T;
 	};
 }

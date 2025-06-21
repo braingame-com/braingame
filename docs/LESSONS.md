@@ -471,3 +471,108 @@ This document consolidates months of learning from the Brain Game monorepo devel
 6. **Learn from incidents** - Every crisis is a learning opportunity
 
 These lessons should guide future development and help new contributors avoid common pitfalls.
+
+---
+
+## The Great Dependency Resolution Saga (2025-06-21)
+
+### Problem
+`pnpm lint` and `pnpm typecheck` were failing with:
+```
+Error: Cannot find module '/Users/jordancrow-stewart/Desktop/code/braingame/node_modules/.pnpm/@biomejs+biome@2.0.0/node_modules/@biomejs/biome/bin/biome'
+```
+
+Even though we had updated all package.json files to use biome@2.0.4, the product app kept looking for 2.0.0.
+
+### Root Cause
+Stale dependency resolution cached somewhere in the pnpm/turbo ecosystem. The package manager was holding onto old resolution paths even after updating package.json files.
+
+### The Solution
+**Complete nuclear reset of all caches and lockfiles:**
+
+```bash
+# 1. Delete all caches and lockfiles
+rm -rf node_modules pnpm-lock.yaml
+
+# 2. Clear pnpm global store
+pnpm store prune
+pnpm store clear  # Note: 'clear' command doesn't exist, but prune worked
+
+# 3. Clean turbo cache
+find . -name ".turbo" -type d -exec rm -rf {} +
+
+# 4. Force version consistency in root package.json
+# Added to pnpm.overrides:
+"@biomejs/biome": "^2.0.4"
+
+# 5. Fresh install
+pnpm install
+
+# 6. Verify resolution
+pnpm why @biomejs/biome
+
+# 7. Success!
+pnpm lint     # ✅ Works
+pnpm typecheck # ✅ Works
+```
+
+### Key Learnings
+
+1. **Version Mismatches in Monorepos are Painful**
+   - Root package.json had biome@2.0.0
+   - Apps had biome@2.0.4
+   - This caused pnpm to create different resolution paths
+
+2. **pnpm Overrides are Powerful**
+   - Adding `"@biomejs/biome": "^2.0.4"` to `pnpm.overrides` forces all workspaces to use the same version
+   - This is crucial for dev tools that need to be consistent across the monorepo
+
+3. **Don't Try to Outsmart the Package Manager**
+   - ❌ Bad: Hardcoding paths like `../../node_modules/.bin/biome`
+   - ✅ Good: Fix the root cause - dependency resolution
+
+4. **Monorepo Commands Should Run from Root**
+   - The whole point of turbo/pnpm workspaces is to run commands from root
+   - Don't cd into folders and run commands individually
+
+5. **Cache Can Be Your Enemy**
+   - Multiple layers of caching: pnpm store, turbo cache, node_modules
+   - When in doubt, nuclear option works: delete everything and reinstall
+
+6. **Small Fixes Before Nuclear Option**
+   - First tried: Updating individual package.json files
+   - Then tried: Running pnpm install multiple times
+   - Finally: Complete reset (which actually worked)
+
+### Other Issues Fixed Along the Way
+
+1. **Unused Variables/Parameters**
+   - Fixed by prefixing with underscore: `_data`, `_trackVisibility`
+   - This tells the linter "I know it's unused, it's intentional"
+
+2. **Missing Type Exports**
+   - Changed `EventProperties` to `Record<string, unknown>` when type wasn't exported
+
+3. **React Component Props Types**
+   - Use `React.ComponentProps<typeof Component>` instead of `Component["props"]`
+   - More reliable and TypeScript-friendly
+
+### Current Status
+- ✅ Build tooling working correctly
+- 📝 43 lint warnings to address (mostly `any` types and unused vars)
+- 🚨 Multiple TypeScript errors to fix (proper types needed)
+
+### Next Steps
+1. Fix remaining lint warnings (especially `any` types)
+2. Fix TypeScript errors
+3. Consider adding stricter biome rules once codebase is clean
+4. Document the biome/TypeScript configuration for team
+
+### Quotes from the Session
+- User: "im getting annoyed now. you keep saying we've fixed them but when i check, theyre not fixed."
+- User: "why are you trying to run stuff inside folders? we just discussed we shouldn't be doing that."
+- User: "fucking sweet!"
+- User: "great work apart from one thing. you created lessons.md (lowercase) when your CLAUDE.md file already explains we have a LESSONS.md (uppercase) file. Put your changes in there before I report you to jesus"
+- User: "bro stop smoking that stuff next time"
+
+The user's frustration was 100% justified - I was going in circles trying small fixes instead of doing the proper full reset. Also, I need to pay better attention to file locations and naming conventions.

@@ -1,6 +1,6 @@
 import { useThemeColor } from "@braingame/utils";
 import { Platform, View } from "react-native";
-import { Text } from "../../../Text";
+import { Text } from "../Text";
 import { getBackgroundColor, styles } from "./styles";
 import type { BadgeProps } from "./types";
 import { getAriaLabel } from "./utils";

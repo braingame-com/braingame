@@ -100,7 +100,7 @@ class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: any[] = [];
 
 	async init(apiKey: string) {
-		console.log("[MockAnalytics] Initialized with key:", apiKey.substring(0, 8) + "...");
+		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
 	}
 
 	async identify(userId: string, properties?: UserProperties) {
@@ -230,7 +230,7 @@ class AnalyticsService {
 		try {
 			const lastLaunch = await AsyncStorage.getItem("@braingame/last_launch");
 			if (lastLaunch) {
-				return Date.now() - parseInt(lastLaunch, 10);
+				return Date.now() - Number.parseInt(lastLaunch, 10);
 			}
 		} catch {}
 		return null;
@@ -395,7 +395,7 @@ class AnalyticsService {
 	}
 
 	// Performance tracking helpers
-	startTimer(timerId: string): () => void {
+	startTimer(_timerId: string): () => void {
 		const startTime = Date.now();
 
 		return () => {
@@ -414,7 +414,7 @@ class AnalyticsService {
 	}
 
 	// Error tracking helper
-	trackError(error: Error, fatal: boolean = false) {
+	trackError(error: Error, fatal = false) {
 		this.track("error", {
 			error_message: error.message,
 			error_stack: error.stack,

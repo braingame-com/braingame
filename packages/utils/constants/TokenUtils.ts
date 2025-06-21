@@ -99,9 +99,9 @@ export function mixColors(color1: string, _color2: string, ratio: number): strin
 export function getColorWithOpacity(color: string, opacity: number): string {
 	// Handle hex colors
 	if (color.startsWith("#")) {
-		const r = parseInt(color.slice(1, 3), 16);
-		const g = parseInt(color.slice(3, 5), 16);
-		const b = parseInt(color.slice(5, 7), 16);
+		const r = Number.parseInt(color.slice(1, 3), 16);
+		const g = Number.parseInt(color.slice(3, 5), 16);
+		const b = Number.parseInt(color.slice(5, 7), 16);
 		return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 	}
 

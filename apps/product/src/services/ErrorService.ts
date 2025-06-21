@@ -81,7 +81,7 @@ class ErrorService {
 		}
 	}
 
-	setUser(userId: string, attributes?: Record<string, any>) {
+	setUser(userId: string, _attributes?: Record<string, any>) {
 		this.userId = userId;
 
 		// Set user in third-party services
@@ -142,7 +142,7 @@ class ErrorService {
 		level: "info" | "warning" | "error" = "info",
 		context?: ErrorContext,
 	) {
-		const log = {
+		const _log = {
 			id: `MSG_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
 			timestamp: new Date().toISOString(),
 			message,
@@ -177,7 +177,7 @@ class ErrorService {
 		}
 	}
 
-	private sendToErrorServices(error: Error, errorLog: ErrorLog) {
+	private sendToErrorServices(_error: Error, errorLog: ErrorLog) {
 		// Send to Sentry
 		// Sentry.captureException(error, {
 		//   contexts: {
@@ -195,19 +195,19 @@ class ErrorService {
 		this.sendToBackend(errorLog);
 	}
 
-	private async sendToBackend(errorLog: ErrorLog) {
-		try {
-			// In production, send to your error logging endpoint
-			// await fetch('https://api.braingame.dev/errors', {
-			//   method: 'POST',
-			//   headers: {
-			//     'Content-Type': 'application/json',
-			//   },
-			//   body: JSON.stringify(errorLog),
-			// });
-		} catch (error) {
-			console.error("Failed to send error to backend:", error);
-		}
+	private async sendToBackend(_errorLog: ErrorLog) {
+		// In production, send to your error logging endpoint
+		// try {
+		//   await fetch('https://api.braingame.dev/errors', {
+		//     method: 'POST',
+		//     headers: {
+		//       'Content-Type': 'application/json',
+		//     },
+		//     body: JSON.stringify(errorLog),
+		//   });
+		// } catch (sendError) {
+		//   console.error("Failed to send error to backend:", sendError);
+		// }
 	}
 
 	async getStoredErrors(): Promise<ErrorLog[]> {

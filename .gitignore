@@ -48,5 +48,8 @@ yarn-error.*
 branch-info.txt
 current-branch.txt
 *.log
+
+# Claude configuration
+.claude/
 **/dist/
 **/*.tmp

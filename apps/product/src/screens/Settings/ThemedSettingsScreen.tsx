@@ -23,15 +23,18 @@ export const ThemedSettingsScreen: React.FC = () => {
 
 	const settingsSections = [
 		{
+			id: "appearance",
 			title: "Appearance",
 			items: [
 				{
+					id: "theme",
 					icon: "🎨",
 					title: "Theme",
 					description: "Customize colors and appearance",
 					action: () => setThemeSelectorVisible(true),
 				},
 				{
+					id: "theme-toggle",
 					icon: "🌓",
 					title: "Quick Theme Toggle",
 					description: "Switch between light and dark",
@@ -40,9 +43,11 @@ export const ThemedSettingsScreen: React.FC = () => {
 			],
 		},
 		{
+			id: "preferences",
 			title: "Preferences",
 			items: [
 				{
+					id: "notifications",
 					icon: "🔔",
 					title: "Notifications",
 					description: "Receive alerts and reminders",
@@ -50,6 +55,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 					onToggle: setNotifications,
 				},
 				{
+					id: "analytics",
 					icon: "📊",
 					title: "Analytics",
 					description: "Help us improve with usage data",
@@ -57,6 +63,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 					onToggle: setAnalytics,
 				},
 				{
+					id: "biometrics",
 					icon: "🔐",
 					title: "Biometric Login",
 					description: "Use Face ID or Touch ID",
@@ -66,20 +73,24 @@ export const ThemedSettingsScreen: React.FC = () => {
 			],
 		},
 		{
+			id: "about",
 			title: "About",
 			items: [
 				{
+					id: "version",
 					icon: "📱",
 					title: "Version",
 					description: "1.0.0 (Build 100)",
 					showArrow: false,
 				},
 				{
+					id: "terms",
 					icon: "📄",
 					title: "Terms of Service",
 					description: "Legal terms and conditions",
 				},
 				{
+					id: "privacy",
 					icon: "🔒",
 					title: "Privacy Policy",
 					description: "How we protect your data",
@@ -102,8 +113,8 @@ export const ThemedSettingsScreen: React.FC = () => {
 			</ThemedView>
 
 			<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-				{settingsSections.map((section, sectionIndex) => (
-					<View key={sectionIndex} style={styles.section}>
+				{settingsSections.map((section) => (
+					<View key={section.id} style={styles.section}>
 						<ThemedText size="sm" variant="secondary" weight="semibold" style={styles.sectionTitle}>
 							{section.title.toUpperCase()}
 						</ThemedText>
@@ -111,7 +122,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 						<ThemedCard elevation="low" padding="none">
 							{section.items.map((item, itemIndex) => (
 								<TouchableOpacity
-									key={itemIndex}
+									key={item.id}
 									style={[
 										styles.settingItem,
 										itemIndex === section.items.length - 1 && styles.lastItem,

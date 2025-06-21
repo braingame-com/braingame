@@ -7,10 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
 import type { DashboardStackScreenProps } from "../../navigation/types";
 import {
-	a11yLabels,
-	announceForAccessibility,
 	getAccessibilityProps,
-	getAccessibilityState,
 	getListItemLabel,
 	getProgressLabel,
 } from "../../utils/accessibility";

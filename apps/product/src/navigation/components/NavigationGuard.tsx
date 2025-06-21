@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useAuth } from "../AuthContext";
 
@@ -24,13 +25,7 @@ export const NavigationGuard: React.FC<NavigationGuardProps> = ({
 	const [isChecking, setIsChecking] = useState(true);
 	const [hasAccess, setHasAccess] = useState(false);
 
-	useFocusEffect(
-		React.useCallback(() => {
-			checkAccess();
-		}, [isAuthenticated, user]),
-	);
-
-	const checkAccess = async () => {
+	const checkAccess = useCallback(async () => {
 		setIsChecking(true);
 
 		// Check authentication
@@ -66,7 +61,21 @@ export const NavigationGuard: React.FC<NavigationGuardProps> = ({
 
 		setHasAccess(true);
 		setIsChecking(false);
-	};
+	}, [
+		requireAuth,
+		requireSubscription,
+		requireOnboarding,
+		isAuthenticated,
+		user,
+		redirectTo,
+		navigation,
+	]);
+
+	useFocusEffect(
+		useCallback(() => {
+			checkAccess();
+		}, [checkAccess]),
+	);
 
 	if (authLoading || isChecking) {
 		return (

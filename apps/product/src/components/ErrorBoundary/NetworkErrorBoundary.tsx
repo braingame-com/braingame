@@ -1,7 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import type React from "react";
 import { useCallback, useEffect, useState } from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
 import { captureMessage } from "../../services/ErrorService";
 import {

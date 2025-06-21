@@ -58,7 +58,7 @@ export const linking: LinkingOptions<RootStackParamList> = {
 			},
 		},
 	},
-	async getStateFromPath(path, config) {
+	async getStateFromPath(path, _config) {
 		// Custom logic for handling special paths
 		console.log("Deep link received:", path);
 

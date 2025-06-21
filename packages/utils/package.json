@@ -10,8 +10,7 @@
 		"test": "jest",
 		"lint": "biome check --fix",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf dist",
-		"prepare": "husky"
+		"clean": "rm -rf dist"
 	},
 	"peerDependencies": {
 		"react": "19.0.0",
@@ -23,8 +22,7 @@
 		"husky": "^9.1.7",
 		"jest": "^30.0.0",
 		"lint-staged": "^16.1.2",
-		"ts-jest": "^29.1.1",
-		"typescript": "^5.3.3"
+		"ts-jest": "^29.1.1"
 	},
 	"dependencies": {
 		"zod": "^3.25.67"

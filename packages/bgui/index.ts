@@ -12,8 +12,8 @@ export { Avatar } from "./src/components/Avatar";
 export type { AvatarProps } from "./src/components/Avatar/types";
 export { Badge } from "./src/components/Badge";
 export type { BadgeProps } from "./src/components/Badge/types";
-export { Breadcrumb, BreadcrumbItem } from "./src/components/Breadcrumb";
 export type { BreadcrumbItemProps, BreadcrumbProps } from "./src/components/Breadcrumb";
+export { Breadcrumb, BreadcrumbItem } from "./src/components/Breadcrumb";
 export { Button } from "./src/components/Button";
 export type { ButtonProps } from "./src/components/Button/types";
 export { Card } from "./src/components/Card";
@@ -22,8 +22,9 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-export { ErrorBoundary } from "./src/components/ErrorBoundary";
+// export { ErrorBoundary } from "./src/components/ErrorBoundary";
 // ErrorBoundaryProps is defined in the component file, not exported separately
+// TODO: Create ErrorBoundary component
 export { GlowingLogo } from "./src/components/GlowingLogo";
 export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
 export { Icon } from "./src/components/Icon";
@@ -63,10 +64,6 @@ export { Toast } from "./src/components/Toast";
 export type { ToastProps } from "./src/components/Toast/types";
 export { Tooltip } from "./src/components/Tooltip";
 export type { TooltipProps } from "./src/components/Tooltip/types";
-
-// Core Layout Components
-export { PageWrapper } from "./src/components/PageWrapper";
-export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export { View } from "./src/components/View";
 export type { ViewProps } from "./src/components/View/types";
 
