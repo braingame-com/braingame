@@ -12,6 +12,7 @@
 | [`DEVELOPMENT.md`](./DEVELOPMENT.md) | **Start here.** A step-by-step guide to setting up your local environment. |
 | [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | The official guide to contributing, including our PR and review process. |
 | [`CLAUDE.md`](./CLAUDE.md) | A tactical cheatsheet with commands and workflows for AI agents. |
+| [`WORKTREES.md`](./WORKTREES.md) | **CRITICAL:** Git worktree management to prevent workspace contamination. |
 
 ---
 
@@ -27,6 +28,12 @@
 | [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | Design specification and roadmap for the component library. |
 | [`SECURITY.md`](../.github/SECURITY.md) | Our security policy, including how to report vulnerabilities. |
 
+## 📚 Component Snippets
+*Quick examples showing how to use our UI kit.*
+
+| Document | Description |
+|---|---|
+| [`snippets/`](./snippets) | Ready-to-use code snippets for each BGUI component. |
 ---
 
 ## 📈 Project Management & Strategy

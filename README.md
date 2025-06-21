@@ -28,6 +28,32 @@ For complete documentation including architecture, coding standards, and contrib
 
 ---
 
+## ⚡ Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/braingame-com/braingame.git
+cd braingame
+
+# Verify workspace (CRITICAL - prevents contamination)
+bash scripts/check-workspace.sh
+
+# Install dependencies
+nvm use  # Use correct Node version
+pnpm install
+
+# Run everything
+pnpm dev
+
+# Or run specific apps
+pnpm dev --filter product  # Expo app
+pnpm dev --filter website  # Next.js site
+```
+
+**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/WORKTREES.md) for details.
+
+---
+
 ## 🧠 Guiding Principles
 
 - **Enterprise-Grade by Default:** We build robust, scalable, and maintainable software that meets Fortune 500 quality standards from day one.

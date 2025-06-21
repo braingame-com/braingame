@@ -27,10 +27,10 @@ if (__DEV__) {
 
 // Font assets
 const fonts = {
-	LexendRegular: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendMedium: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendSemibold: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendBold: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendRegular: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendMedium: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendSemibold: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendBold: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
 };
 
 export default function App() {

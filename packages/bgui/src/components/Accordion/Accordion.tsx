@@ -114,23 +114,23 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 
 	const expandedState = expanded.includes(val);
 
-	// biome-ignore lint/suspicious/noExplicitAny: Event type varies between web and native
-	const handleKeyDown = (e: any) => {
-		const key = Platform.OS === "web" ? e.key : e.nativeEvent?.key;
-		if (key === "ArrowDown") {
-			if (Platform.OS === "web") e.preventDefault();
-			const next = (indexRef.current + 1) % refs.length;
-			const nextRef = refs[next];
-			// @ts-ignore - focus exists on web
-			nextRef?.current?.focus?.();
-		} else if (key === "ArrowUp") {
-			if (Platform.OS === "web") e.preventDefault();
-			const prev = (indexRef.current - 1 + refs.length) % refs.length;
-			const prevRef = refs[prev];
-			// @ts-ignore - focus exists on web
-			prevRef?.current?.focus?.();
-		} else if (key === " " || key === "Enter") {
-			if (Platform.OS === "web") e.preventDefault();
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+			e.preventDefault();
+			const currentIndex = refs.findIndex((ref) => ref.current === document.activeElement);
+			let nextIndex = currentIndex;
+
+			if (e.key === "ArrowDown") {
+				nextIndex = (currentIndex + 1) % refs.length;
+			} else if (e.key === "ArrowUp") {
+				nextIndex = (currentIndex - 1 + refs.length) % refs.length;
+			}
+
+			if (nextIndex !== currentIndex) {
+				refs[nextIndex].current?.focus();
+			}
+		} else if (e.key === " " || e.key === "Enter") {
+			e.preventDefault();
 			toggle(val);
 		}
 	};
