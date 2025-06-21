@@ -16,8 +16,10 @@ for borders and text colors: `Colors.text`, `Colors.textSecondary`, and
 | `leftIcon?` | `string` | – |
 | `rightIcon?` | `string` | – |
 | `disabled?` | `boolean` | `false` |
+| `variant` | `"standard" \| "flat" \| "error"` | `"standard"` |
 | `aria-label?` | `string` | – |
 | `aria-describedby?` | `string` | – |
+| `...RNTextInputProps` | `React Native TextInputProps` | – |
 
 ## Usage
 
@@ -30,4 +32,3 @@ import { TextInput } from '@braingame/bgui';
   placeholder="Enter your name"
 />;
 ```
-
