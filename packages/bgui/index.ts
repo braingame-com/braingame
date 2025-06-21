@@ -1,15 +1,13 @@
 // ENTERPRISE-GRADE UI KIT EXPORTS
 // Brain Game UI components built for scale and maintainability
 
-export { PageWrapper } from "./PageWrapper";
-export type { PageWrapperProps } from "./PageWrapper/types";
-export type { AccordionProps } from "./src/components/Accordion";
 // All Components from src/components (Enterprise folder-per-component structure)
 export { Accordion } from "./src/components/Accordion";
+export type { AccordionProps } from "./src/components/Accordion";
 export { ActionList, ActionListDivider, ActionListItem } from "./src/components/ActionList";
 export type { ActionListItemProps, ActionListProps } from "./src/components/ActionList/types";
-export type { AlertProps, AlertType, AlertVariant } from "./src/components/Alert";
 export { Alert } from "./src/components/Alert";
+export type { AlertProps, AlertType, AlertVariant } from "./src/components/Alert";
 export { Avatar } from "./src/components/Avatar";
 export type { AvatarProps } from "./src/components/Avatar/types";
 export { Badge } from "./src/components/Badge";
@@ -69,6 +67,7 @@ export { useControlledState, useFocusManagement, useInteractiveState } from "./s
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";
 // Core Layout Components
-export { View } from "./View";
-// Type Exports (Enterprise TypeScript interfaces)
-export type { ViewProps } from "./View/types";
+export { PageWrapper } from "./src/components/PageWrapper";
+export type { PageWrapperProps } from "./src/components/PageWrapper/types";
+export { View } from "./src/components/View";
+export type { ViewProps } from "./src/components/View/types";
