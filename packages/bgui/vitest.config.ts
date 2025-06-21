@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+import path from "path";
 
 export default defineConfig({
 	plugins: [react()],
@@ -7,14 +8,18 @@ export default defineConfig({
 		globals: true,
 		environment: "jsdom",
 		setupFiles: "./vitest.setup.ts",
-		// Vitest doesn't transform node_modules by default.
-		// We need to explicitly tell it to transform the React Native libraries.
-		deps: {
-			inline: [/react-native/, /@react-native/, /@expo/, /expo-/, /expo-asset/, /expo-font/],
-		},
+		alias: [
+			{ find: "@braingame/utils", replacement: path.resolve(__dirname, "../utils/index.ts") },
+			{ find: /^react-native$/, replacement: "react-native-web" },
+			{ find: /^react-native\/(.*)/, replacement: "react-native-web/$1" }
+		],
+	},
+	resolve: {
+		extensions: [".web.js", ".web.ts", ".web.tsx", ".js", ".ts", ".tsx", ".json"],
 		alias: {
-			"@braingame/utils": new URL("../utils/index.ts", import.meta.url).pathname,
-		},
+			"react-native": "react-native-web",
+			"react-native-svg": "react-native-svg-web"
+		}
 	},
 	optimizeDeps: {
 		include: [
@@ -22,7 +27,12 @@ export default defineConfig({
 			"react-native-svg-web",
 			"@braingame/utils",
 			"react-native-reanimated",
-			"@expo/vector-icons",
+			"@expo/vector-icons"
 		],
-	},
+		esbuildOptions: {
+			loader: {
+				".js": "jsx"
+			}
+		}
+	}
 });

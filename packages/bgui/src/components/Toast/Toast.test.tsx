@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Toast } from "./Toast";
 
@@ -21,7 +22,7 @@ describe("Toast", () => {
 	});
 
 	it("renders with action button", () => {
-		const onActionPress = jest.fn();
+		const onActionPress = vi.fn();
 		const { getByText } = render(
 			<Toast
 				message="Toast with action"

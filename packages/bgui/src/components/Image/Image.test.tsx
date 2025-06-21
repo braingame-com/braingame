@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { Image } from "./Image";
@@ -19,7 +20,7 @@ describe("Image", () => {
 	});
 
 	it("calls onLoad when image loads", async () => {
-		const onLoad = jest.fn();
+		const onLoad = vi.fn();
 		const { getByLabelText } = render(
 			<Image src="https://example.com/image.jpg" alt="Test image" onLoad={onLoad} />,
 		);
@@ -61,7 +62,7 @@ describe("Image", () => {
 	});
 
 	it("calls onError when image fails", async () => {
-		const onError = jest.fn();
+		const onError = vi.fn();
 		const { getByLabelText } = render(
 			<Image src="https://example.com/broken.jpg" alt="Broken image" onError={onError} />,
 		);
@@ -108,7 +109,7 @@ describe("Image", () => {
 	});
 
 	it("validates required props", () => {
-		console.error = jest.fn();
+		console.error = vi.fn();
 
 		// Missing src
 		expect(() => {

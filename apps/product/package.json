@@ -10,13 +10,10 @@
 		"web": "expo start --web",
 		"dev": "expo start",
 		"build": "expo export",
-		"test": "jest --passWithNoTests",
+		"test": "jest",
 		"lint": "biome check --fix",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf .expo dist web-build"
-	},
-	"jest": {
-		"preset": "jest-expo"
 	},
 	"dependencies": {
 		"@expo/vector-icons": "^14.0.2",
@@ -41,7 +38,7 @@
 		"expo-web-browser": "~14.1.6",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
-		"react-native": "0.80.0",
+		"react-native": "0.76.3",
 		"react-native-gesture-handler": "~2.26.0",
 		"react-native-reanimated": "~3.18.0",
 		"react-native-safe-area-context": "5.4.1",
@@ -56,6 +53,7 @@
 		"@types/jest": "^30.0.0",
 		"@types/react": "~19.1.8",
 		"@types/react-test-renderer": "^19.1.0",
+		"babel-preset-expo": "^13.2.1",
 		"expo-module-scripts": "^4.0.2",
 		"jest": "^30.0.0",
 		"jest-expo": "~53.0.7",

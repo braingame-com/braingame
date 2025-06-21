@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Link } from "./Link";
 
@@ -8,7 +9,7 @@ describe("Link", () => {
 	});
 
 	it("handles press event", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Link href="https://example.com" onPress={onPress}>
 				Link
@@ -20,8 +21,8 @@ describe("Link", () => {
 
 	it("opens external links", () => {
 		// Mock Linking.openURL
-		const mockOpenURL = jest.fn();
-		jest.mock("react-native", () => ({
+		const mockOpenURL = vi.fn();
+		vi.mock("react-native", () => ({
 			...jest.requireActual("react-native"),
 			Linking: { openURL: mockOpenURL },
 		}));
@@ -56,7 +57,7 @@ describe("Link", () => {
 	});
 
 	it("disables link when specified", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Link href="#" disabled onPress={onPress}>
 				Disabled Link
@@ -102,7 +103,7 @@ describe("Link", () => {
 	});
 
 	it("renders without href", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(<Link onPress={onPress}>Action Link</Link>);
 		fireEvent.press(getByText("Action Link"));
 		expect(onPress).toHaveBeenCalled();
@@ -133,7 +134,7 @@ describe("Link", () => {
 	});
 
 	it("handles keyboard navigation", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Link href="#" onPress={onPress}>
 				Keyboard Nav

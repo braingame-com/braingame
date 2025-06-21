@@ -1,5 +1,6 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import type React from "react";
+import { vi } from "vitest";
 import { useState } from "react";
 import { Text } from "react-native";
 import { Tabs } from "./Tabs";
@@ -63,7 +64,7 @@ describe("Tabs", () => {
 	});
 
 	it("supports controlled mode", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<Tabs activeTab="tab1" onValueChange={fn}>
 				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
@@ -76,7 +77,7 @@ describe("Tabs", () => {
 	});
 
 	it("calls onValueChange when tab changes", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<Tabs activeTab="tab1" onValueChange={fn}>
 				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
@@ -89,7 +90,7 @@ describe("Tabs", () => {
 	});
 
 	it("disables tabs", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<Tabs activeTab="tab1" onValueChange={fn}>
 				<Tabs.Tab value="tab1">Tab 1</Tabs.Tab>

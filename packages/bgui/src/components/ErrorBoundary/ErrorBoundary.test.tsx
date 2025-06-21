@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -14,7 +15,7 @@ describe("ErrorBoundary", () => {
 	// Suppress console errors for these tests
 	const originalError = console.error;
 	beforeAll(() => {
-		console.error = jest.fn();
+		console.error = vi.fn();
 	});
 	afterAll(() => {
 		console.error = originalError;
@@ -50,7 +51,7 @@ describe("ErrorBoundary", () => {
 	});
 
 	it("calls onError callback when error occurs", () => {
-		const onError = jest.fn();
+		const onError = vi.fn();
 		render(
 			<ErrorBoundary onError={onError}>
 				<ThrowError shouldThrow={true} />

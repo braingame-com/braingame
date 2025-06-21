@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { ActionList } from "./ActionList";
 import { ActionListItem } from "./ActionListItem";
@@ -15,7 +16,7 @@ describe("ActionList", () => {
 	});
 
 	it("handles item press", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<ActionList>
 				<ActionListItem onPress={fn}>Click me</ActionListItem>
@@ -26,7 +27,7 @@ describe("ActionList", () => {
 	});
 
 	it("supports single selection", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<ActionList selectable onSelectionChange={fn}>
 				<ActionListItem value="item1">Item 1</ActionListItem>
@@ -60,7 +61,7 @@ describe("ActionList", () => {
 	});
 
 	it("deselects selected item", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<ActionList selectable selectedItems={["item1"]} onSelectionChange={fn}>
 				<ActionListItem value="item1">Item 1</ActionListItem>
@@ -71,7 +72,7 @@ describe("ActionList", () => {
 	});
 
 	it("disables item interaction", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<ActionList>
 				<ActionListItem onPress={fn} disabled>

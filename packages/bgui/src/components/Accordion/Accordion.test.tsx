@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { Accordion } from "./Accordion";
@@ -97,7 +98,7 @@ describe("Accordion", () => {
 	});
 
 	it("supports controlled mode", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<Accordion value="1" onValueChange={fn}>
 				<Accordion.Item title="Section 1" value="1">
@@ -114,7 +115,7 @@ describe("Accordion", () => {
 	});
 
 	it("supports controlled mode with multiple values", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByText } = render(
 			<Accordion value={["1"]} onValueChange={fn} allowMultiple>
 				<Accordion.Item title="Section 1" value="1">
@@ -176,7 +177,7 @@ describe("Accordion", () => {
 	});
 
 	it("throws error when value provided without onValueChange", () => {
-		console.error = jest.fn();
+		console.error = vi.fn();
 		expect(() => {
 			render(
 				<Accordion value="1">
@@ -189,7 +190,7 @@ describe("Accordion", () => {
 	});
 
 	it("throws error when Item used outside Accordion", () => {
-		console.error = jest.fn();
+		console.error = vi.fn();
 		expect(() => {
 			render(
 				<Accordion.Item title="Section 1" value="1">

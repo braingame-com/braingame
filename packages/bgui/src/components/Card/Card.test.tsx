@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { Card } from "./Card";
@@ -35,7 +36,7 @@ describe("Card", () => {
 	});
 
 	it("handles press event", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Card onPress={onPress}>
 				<Text>Clickable card</Text>
@@ -125,7 +126,7 @@ describe("Card", () => {
 	});
 
 	it("handles press when interactive", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Card onPress={onPress}>
 				<Text>Interactive card</Text>

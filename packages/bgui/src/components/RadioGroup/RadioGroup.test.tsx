@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { RadioGroup } from "./RadioGroup";
 
@@ -14,7 +15,7 @@ describe("RadioGroup", () => {
 	});
 
 	it("selects option on press", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={onValueChange}>
 				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
@@ -40,7 +41,7 @@ describe("RadioGroup", () => {
 	});
 
 	it("disables individual items", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={onValueChange}>
 				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
@@ -55,7 +56,7 @@ describe("RadioGroup", () => {
 	});
 
 	it("disables entire group", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByText } = render(
 			<RadioGroup value="option1" onValueChange={onValueChange} disabled>
 				<RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
