@@ -12,6 +12,7 @@
 | [`DEVELOPMENT.md`](./DEVELOPMENT.md) | **Start here.** A step-by-step guide to setting up your local environment. |
 | [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | The official guide to contributing, including our PR and review process. |
 | [`CLAUDE.md`](./CLAUDE.md) | A tactical cheatsheet with commands and workflows for AI agents. |
+| [`WORKTREES.md`](./WORKTREES.md) | **CRITICAL:** Git worktree management to prevent workspace contamination. |
 
 ---
 
@@ -24,6 +25,7 @@
 | [`CODING_STYLE.md`](./CODING_STYLE.md) | The definitive guide to writing clean, maintainable code in this repository. |
 | [`BRAND.md`](./BRAND.md) | The official brand book defining our voice, tone, and brand assets. |
 | [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | The detailed API and specification for our BGUI component library. |
+| [`COMPONENT_ORGANIZATION.md`](./COMPONENT_ORGANIZATION.md) | Folder structure and naming conventions. |
 | [`SECURITY.md`](../.github/SECURITY.md) | Our security policy, including how to report vulnerabilities. |
 
 ## 📚 Component Snippets

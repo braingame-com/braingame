@@ -1,4 +1,4 @@
-import { Tokens, useThemeColor } from "@braingame/utils";
+import { Tokens, Typography, useThemeColor } from "@braingame/utils";
 import type { ReactNode } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Icon } from "../Icon";
@@ -24,7 +24,7 @@ export const ModalHeader = ({ children, closable = true, onClose }: ModalHeaderP
 				marginBottom: Tokens.m,
 			}}
 		>
-			<Text style={{ fontSize: 18, fontWeight: "600" }}>{children}</Text>
+			<Text style={{ fontSize: Typography.fontSize.lg, fontWeight: "600" }}>{children}</Text>
 			{closable && onClose && (
 				<Pressable
 					onPress={onClose}

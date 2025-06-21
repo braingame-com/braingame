@@ -24,6 +24,19 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
+### 21-06-2025 - PR Conflict Resolution Success
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Resolve conflicts and merge 5 remaining PRs that appeared corrupted
+- **Completed**:
+  - Successfully merged PRs #68, #69, #70, #73, #76
+  - Discovered that "200+ file changes" were illusions from outdated branches
+  - Used git rebase to reveal actual minimal conflicts (2-4 per PR)
+  - Resolved all conflicts and completed merges
+- **Key Learning**: Complexity is often an illusion created by outdated branch states
+- **User Feedback**: "bro, i just took a look at PR 68 and theres only 2 conflicts. why you being a wimp?"
+- **Lesson Learned**: Always rebase first before giving up on "complex" PRs
+- **Next Steps**: Document rebase workflows and be more aggressive about conflict resolution
+
 ### 20-01-2025 - Hidden Bugs Analysis
 - **Agent**: Claude (Opus 4)
 - **Tasks**: Find hidden bugs in the codebase
@@ -48,6 +61,51 @@
   - hidden-bugs-analysis.md: Complete bug report with examples and fixes
   - Updated TODO.md with prioritized bug fix tasks
 - **Next Steps**: Start fixing critical memory leaks immediately
+
+### 20-06-2025 - Husky Pre-commit Hook Update
+- **Agent**: ChatGPT (GPT-4)
+- **Tasks**: Updated utils package pre-commit hook to run `pnpm test` for consistency.
+- **Outcome**: Pre-commit now leverages pnpm workspace scripts.
+
+### 20-06-2025 - BGUI Coverage Improvements
+- **Agent**: ChatGPT
+- **Tasks**: Add Jest tests for PageWrapper and View components and configure coverage reporting
+- **Completed**:
+  - Created `PageWrapper.test.tsx` and `View.test.tsx`
+  - Updated Jest config to include root components
+  - Attempted to run coverage via Jest (tests failing due to React Native dependencies)
+- **Next Steps**: Investigate React Native Jest compatibility to enable full test suite
+
+### 20-06-2025 - Added Alert, Breadcrumb and TextInput Components
+- **Agent**: ChatGPT
+- **Tasks**: Implement missing BGUI components and update documentation
+- **Completed**:
+  - Created `Alert`, `Breadcrumb`, and `TextInput` components with types, styles and tests
+  - Exported new components from `@braingame/bgui`
+  - Added prop documentation for each component
+  - Updated TODO tracker and work session notes
+- **Next Steps**: Review component APIs and expand test coverage
+
+### 20-06-2025 - Storybook Setup for BGUI
+- **Agent**: ChatGPT
+- **Tasks**: Configure Storybook and update documentation
+- **Completed**:
+  - Added `.storybook` with `main.ts` and `preview.ts` in `packages/bgui`
+  - Replaced placeholder script with `storybook dev` command
+  - Documented Storybook usage in `DEVELOPMENT.md` and `ARCHITECTURE.md`
+  - Updated TODO to mark Storybook setup complete
+- **Next Steps**: Write component stories and enable visual testing
+
+### 20-06-2025 - Preflight Documentation Update
+- **Agent**: ChatGPT (Codex)
+- **Tasks**: Document requirement to run `pnpm install` before lint or test, add `preflight` script
+- **Completed**:
+  - Updated `docs/DEVELOPMENT.md` with dependency note
+  - Added preflight instructions to `README.md`
+  - Introduced `preflight` script in `package.json`
+  - Marked task complete in `docs/TODO.md`
+  - Created work session document
+- **Next Steps**: Consider automating additional environment checks
 
 ### 20-06-2025 - Legacy Migration Completion & PR Merging Marathon
 - **Agent**: Claude (Opus 4)
@@ -133,7 +191,7 @@
   - Resolved .expo and .next directory linting issues
   - Fixed all TypeScript errors in BGUI package (RefObject types, React.ReactNode compatibility, etc.)
   - Fixed all TypeScript errors in product app (component prop mismatches, version conflicts)
-  - Created comprehensive WORK_SESSION_2025-06-19.md with detailed learnings
+  - Created comprehensive work-sessions/2025-06-19-lint-and-type-fixes.md with detailed learnings
   - Improved pre-commit messaging for clear, actionable feedback
 - **Key Learnings**:
   - Biome v2 doesn't support `ignore` in files section - use .biomeignore or modify lint scripts
@@ -248,6 +306,7 @@
   - Documentation should be "living" and continuously updated.
   - AI-specific documentation is critical for effective human-AI collaboration.
 - **Next Steps**: The repository's documentation is now considered enterprise-grade. Ready for next development phase.
+
 ### 17-06-2025 - Test Coverage Analysis
 - **Agent**: Codex
 - **Tasks**: Generate coverage report for `packages/bgui`
@@ -277,6 +336,7 @@
   - Added TODO entry tracking documentation progress
   - No Storybook stories were found, so pages show only basic information
 - **Next Steps**: Implement Storybook, enhance docs with examples, integrate snippets into Storybook docs
+
 ### 17-06-2025 - Enterprise-Grade BGUI Component Plan
 - **Agent**: Claude Sonnet 4
 - **Tasks**: Review and enhance BGUI component plan for enterprise standards
@@ -371,6 +431,54 @@
   - Created missing config files (turbo.json, .nvmrc, .editorconfig, .vscode/settings.json)
   - Ran Biome formatter (fixed 7 files)
 - **Next Steps**: Run `pnpm install` to install new dependencies (turbo, changesets)
+
+### 21-01-2025 - Improved Token System
+
+- **Tasks**: Enhanced the design token system with better TypeScript support and developer experience
+- **What Changed**:
+  - Added comprehensive TypeScript types for all token categories
+  - Created semantic tokens (`SemanticSpacing`, `SemanticBorderRadius`, `SemanticTypography`, etc.)
+  - Added token utilities for composition and manipulation:
+    - `getPlatformToken()` - Platform-specific values
+    - `getResponsiveSpacing()` - Screen-size aware spacing
+    - `getColorWithOpacity()` - Color manipulation
+    - `createColorPalette()` - Generate color variations
+    - `combineShadows()` - Complex shadow effects
+    - `createAnimation()` - Animation helpers
+  - Added token validation helpers
+  - Created comprehensive documentation in `docs/IMPROVED_TOKEN_SYSTEM.md`
+  - Created example component demonstrating best practices
+- **Key Features**:
+  - Full TypeScript support with strict types
+  - Semantic naming for common patterns
+  - Platform-specific token values
+  - Responsive token utilities
+  - Token composition helpers
+  - Runtime validation
+- **Next Steps**: Migrate existing components to use semantic tokens
+
+### **Session: 20 01 2025**
+
+**Focus:** Duplicate file detection and cleanup planning
+
+**What We Did:**
+- Performed comprehensive scan for duplicate and redundant files across the monorepo
+- Discovered critical merge conflicts in Text component (5 files with <<<<<<< HEAD markers)
+- Found duplicate component implementations (Icon, Text) in bgui package
+- Identified inconsistent component organization (View, PageWrapper not migrated)
+- Created detailed DUPLICATE_FILES_REPORT.md documenting all findings
+
+**Key Findings:**
+- `/packages/bgui/Icon/` and `/packages/bgui/Text/` are old duplicates (new versions in src/components/)
+- Mixed import patterns: old components use relative imports, new use @braingame/utils
+- Mixed testing setup with both Jest and Vitest configurations
+- No duplicate fonts or documentation files (good!)
+
+**Next Steps:**
+1. Resolve merge conflicts in Text component files
+2. Delete old Icon and Text directories
+3. Migrate View and PageWrapper to src/components/
+4. Standardize import patterns
 
 <!-- Add new session summaries above this line -->
 
