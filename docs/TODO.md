@@ -245,6 +245,6 @@
 
 ## 🔗 Quick Links
 - Architecture: [ARCHITECTURE.md](./ARCHITECTURE.md)
-- AI Context: [CLAUDE.md](./CLAUDE.md)
+- AI Guide: [CLAUDE.md](./CLAUDE.md)
 - Security: [SECURITY.md](../.github/SECURITY.md)
 - Worktrees: [WORKTREES.md](./WORKTREES.md) 🆕
