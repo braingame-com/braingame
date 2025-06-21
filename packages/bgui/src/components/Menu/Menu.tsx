@@ -1,3 +1,4 @@
+import { useThemeColor } from "@braingame/utils";
 import React, {
 	Children,
 	cloneElement,
@@ -8,9 +9,8 @@ import React, {
 	useState,
 } from "react";
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
-import { useThemeColor } from "@braingame/utils";
-import { Text } from "../Text";
 import { Icon } from "../Icon";
+import { Text } from "../Text";
 import { styles } from "./styles";
 import type { MenuItemProps, MenuProps } from "./types";
 

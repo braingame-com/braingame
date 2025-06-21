@@ -5,7 +5,7 @@ import { Colors } from "./Colors";
 import { Shadows } from "./Shadows";
 import { Tokens } from "./Tokens";
 import { Typography } from "./Typography";
-import type { ColorToken, PlatformTokens, SpacingToken } from "./types";
+import type { PlatformTokens, SpacingToken } from "./types";
 
 /**
  * Get platform-specific token value
@@ -87,7 +87,7 @@ export function getResponsiveSpacing(token: SpacingToken, screenWidth: number): 
  * Mix two colors with a given opacity
  * Useful for creating color variations
  */
-export function mixColors(color1: string, color2: string, ratio: number): string {
+export function mixColors(color1: string, _color2: string, ratio: number): string {
 	// Simple implementation - in production, use a proper color library
 	return `rgba(${color1}, ${ratio})`;
 }

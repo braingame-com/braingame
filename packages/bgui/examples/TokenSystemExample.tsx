@@ -1,6 +1,9 @@
 import {
 	BorderRadius,
 	Colors,
+	createAnimation,
+	getColorWithOpacity,
+	getPlatformToken,
 	SemanticAnimation,
 	SemanticBorderRadius,
 	SemanticSpacing,
@@ -8,12 +11,9 @@ import {
 	Shadows,
 	Tokens,
 	Typography,
-	createAnimation,
-	getColorWithOpacity,
-	getPlatformToken,
 } from "@braingame/utils";
 import React from "react";
-import { Pressable, Text, View, useColorScheme } from "react-native";
+import { Pressable, Text, useColorScheme, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 /**
