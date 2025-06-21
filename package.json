@@ -67,5 +67,31 @@
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx,js,jsx}": ["biome check --fix", "biome format --write"]
+	},
+	"pnpm": {
+		"overrides": {
+			"react": "19.0.0",
+			"react-dom": "19.0.0",
+			"react-test-renderer": "19.0.0",
+			"@types/react": "19.0.14",
+			"react-native-web": "0.20.0",
+			"strip-ansi": "^7.1.0",
+			"string-width": "^5.1.2",
+			"wrap-ansi": "^8.1.0"
+		},
+		"packageExtensions": {
+			"expo-router": {
+				"peerDependencies": {
+					"react": "19.0.0",
+					"react-dom": "19.0.0"
+				}
+			}
+		},
+		"peerDependencyRules": {
+			"allowedVersions": {
+				"react": "19.0.0",
+				"react-dom": "19.0.0"
+			}
+		}
 	}
 }
