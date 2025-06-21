@@ -33,7 +33,7 @@ export default function HomePage() {
 		<View
 			style={{
 				flex: 1,
-				minHeight: "100vh",
+				minHeight: 600,
 				backgroundColor: "#000",
 				alignItems: "center",
 				justifyContent: "center",
@@ -96,7 +96,7 @@ export default function HomePage() {
 				>
 					<TextInput
 						value={email}
-						onChangeText={setEmail}
+						onValueChange={setEmail}
 						placeholder="Enter your email"
 						style={{
 							flex: 1,

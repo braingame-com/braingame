@@ -1,6 +1,6 @@
 import type React from "react";
-import { useState } from "react";
-import { ScrollView, Switch, TouchableOpacity, View } from "react-native";
+import { type ReactNode, useState } from "react";
+import { ScrollView, StyleSheet, Switch, TouchableOpacity, View } from "react-native";
 import type { Theme } from "../../theme";
 import {
 	ThemedCard,
@@ -10,18 +10,64 @@ import {
 	ThemeSelector,
 	ThemeToggle,
 	useTheme,
-	useThemedStyles,
 } from "../../theme";
+
+type BaseSettingItem = {
+	id?: string;
+	icon: string;
+	title: string;
+	description: string;
+};
+
+type ActionSettingItem = BaseSettingItem & {
+	action: () => void;
+	customRight?: never;
+	toggle?: never;
+	onToggle?: never;
+	showArrow?: never;
+};
+
+type CustomRightSettingItem = BaseSettingItem & {
+	customRight: ReactNode;
+	action?: never;
+	toggle?: never;
+	onToggle?: never;
+	showArrow?: never;
+};
+
+type ToggleSettingItem = BaseSettingItem & {
+	toggle: boolean;
+	onToggle: (value: boolean) => void;
+	action?: never;
+	customRight?: never;
+	showArrow?: never;
+};
+
+type InfoSettingItem = BaseSettingItem & {
+	showArrow: false;
+	action?: never;
+	customRight?: never;
+	toggle?: never;
+	onToggle?: never;
+};
+
+type SettingItem = ActionSettingItem | CustomRightSettingItem | ToggleSettingItem | InfoSettingItem;
+
+type SettingsSection = {
+	id: string;
+	title: string;
+	items: SettingItem[];
+};
 
 export const ThemedSettingsScreen: React.FC = () => {
 	const { theme } = useTheme();
-	const styles = useThemedStyles((theme) => createStyles(theme));
+	const styles = createStyles(theme);
 	const [notifications, setNotifications] = useState(true);
 	const [analytics, setAnalytics] = useState(false);
 	const [biometrics, setBiometrics] = useState(true);
 	const [themeSelectorVisible, setThemeSelectorVisible] = useState(false);
 
-	const settingsSections = [
+	const settingsSections: SettingsSection[] = [
 		{
 			id: "appearance",
 			title: "Appearance",
@@ -88,17 +134,21 @@ export const ThemedSettingsScreen: React.FC = () => {
 					icon: "📄",
 					title: "Terms of Service",
 					description: "Legal terms and conditions",
+					action: () => {},
 				},
 				{
 					id: "privacy",
 					icon: "🔒",
 					title: "Privacy Policy",
 					description: "How we protect your data",
+					action: () => {},
 				},
 				{
+					id: "support",
 					icon: "💬",
 					title: "Support",
 					description: "Get help and contact us",
+					action: () => {},
 				},
 			],
 		},
@@ -127,8 +177,8 @@ export const ThemedSettingsScreen: React.FC = () => {
 										styles.settingItem,
 										itemIndex === section.items.length - 1 && styles.lastItem,
 									]}
-									onPress={item.action}
-									disabled={!item.action && !item.toggle}
+									onPress={item.action || (() => {})}
+									disabled={!item.action && !item.onToggle}
 								>
 									<View style={styles.settingLeft}>
 										<ThemedText size="2xl">{item.icon}</ThemedText>
@@ -199,48 +249,49 @@ export const ThemedSettingsScreen: React.FC = () => {
 	);
 };
 
-const createStyles = (theme: Theme) => ({
-	header: {
-		paddingHorizontal: 20,
-		paddingVertical: 16,
-		borderBottomWidth: 1,
-		borderBottomColor: theme.colors.border,
-	},
-	content: {
-		flex: 1,
-	},
-	section: {
-		marginTop: 24,
-		marginBottom: 8,
-	},
-	sectionTitle: {
-		marginLeft: 20,
-		marginBottom: 8,
-	},
-	settingItem: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
-		paddingHorizontal: 16,
-		paddingVertical: 12,
-		borderBottomWidth: 1,
-		borderBottomColor: theme.colors.borderLight,
-	},
-	lastItem: {
-		borderBottomWidth: 0,
-	},
-	settingLeft: {
-		flexDirection: "row",
-		alignItems: "center",
-		flex: 1,
-	},
-	settingContent: {
-		marginLeft: 12,
-		flex: 1,
-	},
-	dangerItem: {
-		padding: 16,
-		borderBottomWidth: 1,
-		borderBottomColor: theme.colors.borderLight,
-	},
-});
+const createStyles = (theme: Theme) =>
+	StyleSheet.create({
+		header: {
+			paddingHorizontal: 20,
+			paddingVertical: 16,
+			borderBottomWidth: 1,
+			borderBottomColor: theme.colors.border,
+		},
+		content: {
+			flex: 1,
+		},
+		section: {
+			marginTop: 24,
+			marginBottom: 8,
+		},
+		sectionTitle: {
+			marginLeft: 20,
+			marginBottom: 8,
+		},
+		settingItem: {
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-between",
+			paddingHorizontal: 16,
+			paddingVertical: 12,
+			borderBottomWidth: 1,
+			borderBottomColor: theme.colors.borderLight,
+		},
+		lastItem: {
+			borderBottomWidth: 0,
+		},
+		settingLeft: {
+			flexDirection: "row",
+			alignItems: "center",
+			flex: 1,
+		},
+		settingContent: {
+			marginLeft: 12,
+			flex: 1,
+		},
+		dangerItem: {
+			padding: 16,
+			borderBottomWidth: 1,
+			borderBottomColor: theme.colors.borderLight,
+		},
+	});

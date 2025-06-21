@@ -56,8 +56,8 @@ export type EventName =
 	| "accessibility_change"
 	| "notification_toggle";
 
-interface EventProperties {
-	[key: string]: string | number | boolean | null | undefined;
+export interface EventProperties {
+	[key: string]: string | number | boolean | null | undefined | Record<string, unknown>;
 }
 
 interface UserProperties {

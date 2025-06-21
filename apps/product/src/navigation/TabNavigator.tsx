@@ -13,27 +13,33 @@ import { lazyScreen } from "../utils/lazyLoad";
 import { withMemo } from "../utils/performance";
 import type {
 	AnalyticsStackParamList,
+	AnalyticsStackScreenProps,
 	DashboardStackParamList,
+	DashboardStackScreenProps,
 	MainTabParamList,
 	SettingsStackParamList,
+	SettingsStackScreenProps,
 	VideosStackParamList,
+	VideosStackScreenProps,
 } from "./types";
 
 // Lazy load all screens for better initial performance
-const DashboardScreen = lazyScreen(() =>
+const DashboardScreen = lazyScreen<DashboardStackScreenProps<"DashboardHome">>(() =>
 	import("../screens/Dashboard/DashboardScreen").then((m) => ({ default: m.DashboardScreen })),
 );
-const TaskDetailsScreen = lazyScreen(() =>
+const TaskDetailsScreen = lazyScreen<DashboardStackScreenProps<"TaskDetails">>(() =>
 	import("../screens/Dashboard/TaskDetailsScreen").then((m) => ({ default: m.TaskDetailsScreen })),
 );
-const VideosScreen = lazyScreen(() =>
+const VideosScreen = lazyScreen<VideosStackScreenProps<"VideosList">>(() =>
 	import("../screens/Videos/VideosScreen").then((m) => ({ default: m.VideosScreen })),
 );
-const AnalyticsScreen = lazyScreen(() =>
+const AnalyticsScreen = lazyScreen<AnalyticsStackScreenProps<"AnalyticsOverview">>(() =>
 	import("../screens/Analytics/AnalyticsScreen").then((m) => ({ default: m.AnalyticsScreen })),
 );
-const SettingsScreen = lazyScreen(() =>
-	import("../screens/Settings/SettingsScreen").then((m) => ({ default: m.SettingsScreen })),
+const SettingsScreen = lazyScreen<SettingsStackScreenProps<"SettingsHome">>(() =>
+	import("../screens/Settings/ThemedSettingsScreen").then((m) => ({
+		default: m.ThemedSettingsScreen,
+	})),
 );
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -98,7 +104,7 @@ const AnalyticsNavigator = withMemo(
 			}}
 		>
 			<AnalyticsStack.Screen
-				name="AnalyticsHome"
+				name="AnalyticsOverview"
 				component={AnalyticsScreen}
 				options={{ headerShown: false }}
 			/>

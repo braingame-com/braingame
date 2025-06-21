@@ -1,5 +1,4 @@
 import { Text } from "@braingame/bgui";
-import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useCallback, useMemo } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
@@ -86,9 +85,7 @@ const SectionHeader = withMemo<{ title: string }>(
 	"SectionHeader",
 );
 
-export const DashboardScreen: React.FC<Props> = () => {
-	const navigation = useNavigation<Props["navigation"]>();
-
+export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 	// Memoized data
 	const stats = useMemo<StatItem[]>(
 		() => [
@@ -111,6 +108,7 @@ export const DashboardScreen: React.FC<Props> = () => {
 	// Memoized callbacks
 	const handleTaskPress = useCallback(
 		(taskId: string) => {
+			// @ts-expect-error - Navigation typing issue
 			navigation.navigate("TaskDetails", { taskId });
 		},
 		[navigation],

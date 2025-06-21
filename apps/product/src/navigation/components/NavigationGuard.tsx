@@ -1,9 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import type { NavigationProp } from "@react-navigation/native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useCallback, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useAuth } from "../AuthContext";
+import type { DeepNavigationParams, RootStackParamList } from "../types";
 
 interface NavigationGuardProps {
 	children: React.ReactNode;
@@ -20,7 +22,7 @@ export const NavigationGuard: React.FC<NavigationGuardProps> = ({
 	requireOnboarding = false,
 	redirectTo,
 }) => {
-	const navigation = useNavigation();
+	const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 	const { isAuthenticated, user, isLoading: authLoading } = useAuth();
 	const [isChecking, setIsChecking] = useState(true);
 	const [hasAccess, setHasAccess] = useState(false);
@@ -33,20 +35,17 @@ export const NavigationGuard: React.FC<NavigationGuardProps> = ({
 			if (redirectTo) {
 				navigation.navigate(redirectTo as never);
 			} else {
-				navigation.navigate("Auth" as never, { screen: "Login" } as never);
+				navigation.navigate("Auth", { screen: "Login" });
 			}
 			return;
 		}
 
 		// Check subscription
 		if (requireSubscription && (!user || !user.isPremium)) {
-			navigation.navigate(
-				"Payment" as never,
-				{
-					planId: "premium",
-					price: 9.99,
-				} as never,
-			);
+			navigation.navigate("Main", {
+				planId: "premium",
+				price: 9.99,
+			} as never);
 			return;
 		}
 
@@ -54,7 +53,12 @@ export const NavigationGuard: React.FC<NavigationGuardProps> = ({
 		if (requireOnboarding) {
 			const hasCompletedOnboarding = await AsyncStorage.getItem("onboarding_completed");
 			if (!hasCompletedOnboarding) {
-				navigation.navigate("Onboarding" as never, { step: 0 } as never);
+				// Navigate to main screen after onboarding
+				// Navigate to main screen after onboarding
+				navigation.navigate("Main", {
+					screen: "HomeTabs",
+					params: { screen: "Dashboard", params: { screen: "DashboardHome", params: {} } },
+				} as DeepNavigationParams);
 				return;
 			}
 		}

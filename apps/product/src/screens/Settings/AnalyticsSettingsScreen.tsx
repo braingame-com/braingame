@@ -1,5 +1,5 @@
 import type React from "react";
-import { Linking, ScrollView, View } from "react-native";
+import { Linking, ScrollView, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAnalyticsSettings } from "../../contexts/AnalyticsContext";
 import { useButtonTracking, useScreenTracking } from "../../hooks/useAnalytics";

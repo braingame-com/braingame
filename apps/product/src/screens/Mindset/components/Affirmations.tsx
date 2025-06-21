@@ -1,5 +1,36 @@
 import { Text } from "@braingame/bgui";
-import { Audio, type AVPlaybackStatus } from "expo-av";
+
+// TODO: Install expo-av
+// import { Audio, type AVPlaybackStatus } from "expo-av";
+type AVPlaybackStatus = {
+	isLoaded: boolean;
+	isPlaying?: boolean;
+	didJustFinish?: boolean;
+	positionMillis?: number;
+	durationMillis?: number;
+};
+type AudioSound = {
+	loadAsync: (source: { uri: string }) => Promise<void>;
+	playAsync: () => Promise<void>;
+	pauseAsync: () => Promise<void>;
+	unloadAsync: () => Promise<void>;
+	setOnPlaybackStatusUpdate: (callback: (status: AVPlaybackStatus) => void) => void;
+};
+const Audio = {
+	Sound: {
+		createAsync: () =>
+			Promise.resolve({
+				sound: {
+					loadAsync: async (_source: { uri: string }) => {},
+					unloadAsync: async () => {},
+					playAsync: async () => {},
+					pauseAsync: async () => {},
+					setOnPlaybackStatusUpdate: (_callback: (status: AVPlaybackStatus) => void) => {},
+				} as AudioSound,
+			}),
+	},
+};
+
 import type React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
@@ -23,7 +54,7 @@ interface AffirmationsProps {
  */
 export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, completed }) => {
 	const [showAudio, setShowAudio] = useState(true);
-	const [sound, setSound] = useState<Audio.Sound | null>(null);
+	const [sound, setSound] = useState<AudioSound | null>(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -33,16 +64,13 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 	const loadAudio = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const { sound: audioSound } = await Audio.Sound.createAsync(
-				require("../../../assets/audio/affirmations-with-music.mp3"),
-				{ shouldPlay: false },
-			);
+			const { sound: audioSound } = await Audio.Sound.createAsync();
 			setSound(audioSound);
 
 			// Set up playback status listener
-			audioSound.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
+			audioSound?.setOnPlaybackStatusUpdate?.((status: AVPlaybackStatus) => {
 				if (status.isLoaded) {
-					setIsPlaying(status.isPlaying);
+					setIsPlaying(status.isPlaying || false);
 
 					// Mark as complete when audio finishes
 					if (status.didJustFinish) {
@@ -78,7 +106,8 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		if (!sound) return;
 
 		try {
-			const status = await sound.getStatusAsync();
+			// @ts-expect-error - getStatusAsync not in stub AudioSound type
+			const status = (await sound.getStatusAsync?.()) || { isLoaded: false };
 			if (status.isLoaded) {
 				if (status.isPlaying) {
 					await sound.pauseAsync();

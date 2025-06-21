@@ -95,13 +95,14 @@ const TabItem = withMemo<{
 		<TouchableOpacity
 			onPress={handlePress}
 			onLongPress={onLongPress}
-			style={[tabBarStyles.tab, focused && tabBarStyles.activeTab]}
+			style={[tabBarStyles.tabItem]}
 			{...accessibilityProps}
 		>
 			<Animated.View style={[tabBarStyles.tabContent, animatedStyle]}>
 				<Text
 					style={[
-						tabBarStyles.tabIcon,
+						tabBarStyles.icon,
+						focused && tabBarStyles.iconActive,
 						{ color: focused ? theme.colors.primary : theme.colors.textSecondary },
 					]}
 					importantForAccessibility="no"
@@ -110,7 +111,8 @@ const TabItem = withMemo<{
 				</Text>
 				<Text
 					style={[
-						tabBarStyles.tabLabel,
+						tabBarStyles.label,
+						focused && tabBarStyles.labelActive,
 						{
 							color: focused ? theme.colors.primary : theme.colors.textSecondary,
 							fontWeight: focused ? "600" : "400",
@@ -137,10 +139,7 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	const insets = useSafeAreaInsets();
 
 	// Focus management for keyboard navigation
-	const tabRefs = useMemo(
-		() => state.routes.map(() => React.createRef<TouchableOpacity>()),
-		[state.routes],
-	);
+	const tabRefs = useMemo(() => state.routes.map(() => React.createRef<View>()), [state.routes]);
 
 	// Handle keyboard navigation
 	React.useEffect(() => {
@@ -204,7 +203,7 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 			accessibilityRole="tablist"
 			accessibilityLabel="Main navigation"
 		>
-			<View style={tabBarStyles.tabsContainer}>
+			<View style={{ flexDirection: "row", flex: 1 }}>
 				{state.routes.map((route, index) => {
 					const isFocused = state.index === index;
 

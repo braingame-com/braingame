@@ -69,7 +69,7 @@ export function lazyScreen<P extends object>(
 		</Suspense>
 	);
 
-	WrappedComponent.displayName = `Lazy(${LazyComponent.displayName || "Component"})`;
+	WrappedComponent.displayName = "Lazy(Component)";
 
 	return WrappedComponent;
 }

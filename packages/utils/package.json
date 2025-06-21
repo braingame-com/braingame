@@ -1,6 +1,7 @@
 {
 	"name": "@braingame/utils",
 	"version": "1.0.0",
+	"private": true,
 	"description": "Brain Game utilities - shared helpers, hooks, and constants",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -9,7 +10,7 @@
 		"build": "tsc",
 		"test": "jest",
 		"lint": "biome check --fix --vcs-root=../..",
-		"typecheck": "pnpm exec tsc --noEmit",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist"
 	},
 	"peerDependencies": {

@@ -84,7 +84,8 @@ export default function App() {
 				captureException(error, {
 					level: "app",
 					critical: true,
-					...errorInfo,
+					componentStack: errorInfo.componentStack ?? undefined,
+					digest: errorInfo.digest ?? undefined,
 				});
 			}}
 		>

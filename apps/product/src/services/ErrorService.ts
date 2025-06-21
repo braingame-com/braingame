@@ -279,7 +279,7 @@ export const setupGlobalErrorHandlers = () => {
 	global.onunhandledrejection = (event: PromiseRejectionEvent) => {
 		errorService.handleUnhandledRejection(event.reason, event.promise);
 		if (typeof originalHandler === "function") {
-			originalHandler.call(global, event);
+			originalHandler.call(global as unknown as Window, event);
 		}
 	};
 

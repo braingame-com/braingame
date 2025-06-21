@@ -114,6 +114,7 @@ export const focusManagement = {
 	setAccessibilityFocus: (ref: React.RefObject<unknown>) => {
 		if (ref?.current) {
 			const { AccessibilityInfo } = require("react-native");
+			// @ts-expect-error - _nativeTag is not typed in React Native
 			const reactTag = ref.current._nativeTag;
 			if (reactTag) {
 				AccessibilityInfo.setAccessibilityFocus(reactTag);

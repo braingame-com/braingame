@@ -15,31 +15,29 @@ export const linking: LinkingOptions<RootStackParamList> = {
 		screens: {
 			Main: {
 				screens: {
-					Dashboard: {
+					HomeTabs: {
 						screens: {
-							DashboardHome: "dashboard",
-							TaskDetails: "dashboard/task/:taskId",
+							Dashboard: {
+								screens: {
+									DashboardHome: "dashboard",
+									TaskDetails: "dashboard/task/:taskId",
+								},
+							},
+							Videos: {
+								screens: {
+									VideosList: "videos",
+								},
+							},
+							Analytics: {
+								screens: {
+									AnalyticsOverview: "analytics",
+								},
+							},
+							Mindset: "mindset",
+							Profile: "profile",
 						},
 					},
-					Videos: {
-						screens: {
-							VideosList: "videos",
-						},
-					},
-					Analytics: {
-						screens: {
-							AnalyticsHome: "analytics",
-							AnalyticsDetails: "analytics/:metricType",
-						},
-					},
-					Settings: {
-						screens: {
-							SettingsHome: "settings",
-							CloudSettings: "settings/cloud",
-							PrivacySettings: "settings/privacy",
-							AccountSettings: "settings/account",
-						},
-					},
+					Settings: "settings",
 				},
 			},
 			VideoPlayer: {
@@ -58,14 +56,5 @@ export const linking: LinkingOptions<RootStackParamList> = {
 			},
 		},
 	},
-	async getStateFromPath(path, _config) {
-		// Custom logic for handling special paths
-		console.log("Deep link received:", path);
-
-		// You can add custom logic here to handle special cases
-		// For example, redirecting old URLs to new ones
-
-		// Use the default implementation
-		return undefined;
-	},
+	// Remove getStateFromPath to use default implementation
 };

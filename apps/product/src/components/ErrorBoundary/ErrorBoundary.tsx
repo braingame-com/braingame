@@ -282,7 +282,7 @@ export class ErrorBoundary extends Component<Props, State> {
 			level,
 			errorBoundary: true,
 			errorId,
-			componentStack: errorInfo.componentStack,
+			componentStack: errorInfo.componentStack ?? undefined,
 			errorCount: errorCount + 1,
 		});
 	}

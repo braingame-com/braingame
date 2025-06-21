@@ -12,11 +12,11 @@ import {
 	type ViewToken,
 } from "react-native";
 import { useAnalyticsEvent } from "../../hooks/useAnalytics";
-import type { EventName } from "../../services/AnalyticsService";
+import type { EventName, EventProperties } from "../../services/AnalyticsService";
 
 interface TrackableProps {
 	eventName: EventName;
-	eventProperties?: Record<string, unknown>;
+	eventProperties?: EventProperties;
 	trackOnMount?: boolean;
 	trackOnUnmount?: boolean;
 	trackInteractions?: boolean;
@@ -90,7 +90,7 @@ export const Trackable: React.FC<TrackableProps> = ({
 interface TrackableTouchableProps
 	extends Omit<React.ComponentProps<typeof TouchableOpacity>, "onPress"> {
 	eventName?: EventName;
-	eventProperties?: Record<string, unknown>;
+	eventProperties?: EventProperties;
 	onPress?: () => void;
 	children: React.ReactNode;
 }
@@ -142,7 +142,7 @@ export const TrackableScrollView: React.FC<TrackableScrollViewProps> = ({
 	...props
 }) => {
 	const { track } = useAnalyticsEvent();
-	const scrollTimer = useRef<NodeJS.Timeout | null>(null);
+	const scrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const _scrollStartY = useRef<number>(0);
 	const maxScroll = useRef<number>(0);
 

@@ -35,7 +35,11 @@ export const Link = ({
 
 	if (href && !external && Platform.OS === "web") {
 		return (
-			<ExpoLink href={href} aria-label={label} style={style}>
+			<ExpoLink
+				href={href as Parameters<typeof ExpoLink>[0]["href"]}
+				aria-label={label}
+				style={style}
+			>
 				{children}
 			</ExpoLink>
 		);

@@ -62,16 +62,15 @@ export const tabBarStyles = StyleSheet.create({
 	},
 
 	// Platform specific adjustments
-	...(Platform.select({
-		ios: {
-			container: {
-				backgroundColor: "#f8f8f8",
-			},
-		},
-		android: {
-			container: {
-				elevation: 12,
-			},
-		},
-	}) || {}),
+	...(Platform.OS === "ios"
+		? {
+				iosContainer: {
+					backgroundColor: "#f8f8f8",
+				},
+			}
+		: {
+				androidContainer: {
+					elevation: 12,
+				},
+			}),
 });

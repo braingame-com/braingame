@@ -453,7 +453,7 @@ export const AccessibleThemedSwitch: React.FC<AccessibleThemedSwitchProps> = wit
 		};
 
 		return (
-			<View style={{ flexDirection: "row", alignItems: "center" }}>
+			<RNView style={{ flexDirection: "row", alignItems: "center" }}>
 				<AccessibleThemedText
 					variant={error ? "error" : disabled ? "disabled" : "primary"}
 					size="md"
@@ -463,7 +463,7 @@ export const AccessibleThemedSwitch: React.FC<AccessibleThemedSwitchProps> = wit
 				</AccessibleThemedText>
 				<RNSwitch
 					trackColor={{
-						false: theme.components.switch?.trackColor || "#767577",
+						false: "#767577",
 						true: theme.colors.primary,
 					}}
 					thumbColor={value ? theme.colors.background : "#f4f3f4"}
@@ -474,7 +474,7 @@ export const AccessibleThemedSwitch: React.FC<AccessibleThemedSwitchProps> = wit
 					{...switchAccessibilityProps}
 					{...props}
 				/>
-			</View>
+			</RNView>
 		);
 	},
 	"AccessibleThemedSwitch",

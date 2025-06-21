@@ -1,5 +1,4 @@
 import { Text } from "@braingame/bgui";
-import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { AccessibilityInfo, FlatList, TouchableOpacity, View } from "react-native";
@@ -118,22 +117,22 @@ const ActivityCard = withMemo<{
 
 // Accessible Header component
 const DashboardHeader = withMemo(() => {
-	const headerRef = useRef(null);
+	const headerRef = useRef<View>(null);
 
 	// Focus on header when screen loads for screen readers
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (headerRef.current) {
-				AccessibilityInfo.setAccessibilityFocus(headerRef.current);
+				// @ts-expect-error - _nativeTag is not typed in React Native
+				AccessibilityInfo.setAccessibilityFocus(headerRef.current._nativeTag);
 			}
 		}, 100);
 		return () => clearTimeout(timer);
 	}, []);
 
 	return (
-		<View style={dashboardStyles.header}>
+		<View ref={headerRef} style={dashboardStyles.header}>
 			<Text
-				ref={headerRef}
 				style={dashboardStyles.title}
 				{...getAccessibilityProps("Dashboard", "Your productivity hub", "header")}
 			>
@@ -159,8 +158,7 @@ const SectionHeader = withMemo<{ title: string }>(
 	"SectionHeader",
 );
 
-export const DashboardScreenAccessible: React.FC<Props> = () => {
-	const navigation = useNavigation<Props["navigation"]>();
+export const DashboardScreenAccessible: React.FC<Props> = ({ navigation }) => {
 	const { announce } = useAccessibility();
 
 	// Memoized data
@@ -186,6 +184,7 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 	const handleTaskPress = useCallback(
 		(taskId: string) => {
 			announce(`Opening task ${taskId}`);
+			// @ts-expect-error - Navigation typing issue
 			navigation.navigate("TaskDetails", { taskId });
 		},
 		[navigation, announce],
@@ -314,7 +313,7 @@ export const DashboardScreenAccessible: React.FC<Props> = () => {
 		announce("Dashboard loaded");
 		const progress = getProgressLabel(
 			Object.values(activities).filter((a) => a.task.includes("completed")).length,
-			stats[0].value,
+			Number.parseInt(stats[0].value, 10),
 			"tasks",
 		);
 		announce(progress);
