@@ -38,7 +38,15 @@
 		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
 		"precommit": "lint-staged && pnpm secrets:check && pnpm quality",
 		"storybook": "storybook dev -p 6006 -c packages/bgui/.storybook",
-		"bgui:scaffold": "node scripts/create-bgui-component.js"
+		"bgui:scaffold": "node scripts/create-bgui-component.js",
+		"dev:tools": "node scripts/dev-tools.js",
+		"dev:stats": "node scripts/dev-tools.js stats",
+		"dev:analyze": "node scripts/dev-tools.js analyze",
+		"dev:deps": "node scripts/dev-tools.js deps",
+		"dev:coverage": "node scripts/dev-tools.js coverage",
+		"dev:unused": "node scripts/dev-tools.js find-unused",
+		"workspace": "node scripts/workspace-helper.js",
+		"docs": "node scripts/doc-generator.js"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",
