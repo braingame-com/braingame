@@ -1,48 +1,167 @@
 "use client";
 
-import styles from "./page.module.css";
+import { useState } from "react";
+import { View, Text, TextInput, Button, GlowingLogo, Link } from "@braingame/bgui";
 
 export default function HomePage() {
+	const [email, setEmail] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitMessage, setSubmitMessage] = useState("");
+
+	const handleSubmit = async () => {
+		if (!email || !email.includes("@")) {
+			setSubmitMessage("Please enter a valid email address");
+			return;
+		}
+
+		setIsSubmitting(true);
+		setSubmitMessage("");
+
+		try {
+			// TODO: Implement Firebase integration
+			await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
+			setSubmitMessage("Thanks! We'll notify you when we launch.");
+			setEmail("");
+		} catch (error) {
+			setSubmitMessage("Something went wrong. Please try again.");
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
+
 	return (
-		<div className={styles.container}>
-			<main className={styles.main}>
-				{/* Floating, Glowing SVG Logo */}
-				<div className={styles.svgContainer}>
-					<svg viewBox="0 0 24 24" fill="white" role="graphics-symbol">
-						<path d="m20.88,7.56l1.56-.78,1.56-.78v-2.88c0-.57-.15-1.1-.42-1.56-.27-.47-.67-.87-1.14-1.14C21.98.15,21.45,0,20.88,0H3.12C2.55,0,2.02.15,1.56.42c-.47.27-.87.67-1.14,1.14-.27.46-.42.99-.42,1.56v17.76c0,.57.15,1.1.42,1.56.27.47.67.87,1.14,1.14.46.27.99.42,1.56.42h17.76c.57,0,1.1-.15,1.56-.42.47-.27.87-.67,1.14-1.14.27-.46.42-.99.42-1.56v-10.44h-8.88l-3.12,1.56,3.12,1.56h5.76v5.76c0,.19-.03.38-.1.55l-2.2-1.1-.58-.29-12.95-6.48,12.95-6.48.58-.29,2.2-1.1c.06.17.1.35.1.55v2.88Zm-5.05,13.32H4.68c-.86,0-1.56-.7-1.56-1.56v-4.79l12.71,6.35ZM3.12,9.47v-4.79c0-.86.7-1.56,1.56-1.56h11.14L3.12,9.47Z" />
-					</svg>
-				</div>
+		<View
+			style={{
+				flex: 1,
+				minHeight: "100vh",
+				backgroundColor: "#000",
+				alignItems: "center",
+				justifyContent: "center",
+				padding: 20,
+			}}
+		>
+			{/* Glowing Logo */}
+			<GlowingLogo size={150} glowIntensity="high" animate />
 
-				{/* Content */}
-				<div className={styles.content}>
-					<div className={styles.textSection}>
-						<h1 className={styles.title}>Brain Game</h1>
+			{/* Title */}
+			<Text
+				variant="displayTitle"
+				style={{
+					color: "#fff",
+					marginTop: 40,
+					marginBottom: 16,
+					textAlign: "center",
+				}}
+			>
+				Brain Game
+			</Text>
 
-						<p className={styles.subtitle}>
-							A new era of personal development technology is coming soon.
-						</p>
+			{/* Subtitle */}
+			<Text
+				variant="subtitle"
+				style={{
+					color: "#999",
+					marginBottom: 48,
+					textAlign: "center",
+					maxWidth: 600,
+				}}
+			>
+				A new era of personal development technology is coming soon.
+			</Text>
 
-						<p className={styles.description}>
-							We&apos;re building something extraordinary. Our platform will revolutionize how you
-							approach personal growth through innovative technology.
-						</p>
-					</div>
+			{/* Email Capture Form */}
+			<View
+				style={{
+					width: "100%",
+					maxWidth: 400,
+					marginBottom: 16,
+				}}
+			>
+				<Text
+					variant="body"
+					style={{
+						color: "#ccc",
+						marginBottom: 12,
+						textAlign: "center",
+					}}
+				>
+					Subscribe to be alerted when we go live
+				</Text>
 
-					<div className={styles.buttonContainer}>
-						<a href="/docs" className={styles.primaryButton}>
-							View Docs
-						</a>
-						<a
-							href="https://github.com/braingame-com/braingame"
-							target="_blank"
-							rel="noopener noreferrer"
-							className={styles.secondaryButton}
-						>
-							GitHub
-						</a>
-					</div>
-				</div>
-			</main>
-		</div>
+				<View
+					style={{
+						flexDirection: "row",
+						gap: 12,
+					}}
+				>
+					<TextInput
+						value={email}
+						onChangeText={setEmail}
+						placeholder="Enter your email"
+						style={{
+							flex: 1,
+							backgroundColor: "#111",
+							borderColor: "#333",
+							borderWidth: 1,
+							borderRadius: 8,
+							padding: 12,
+							color: "#fff",
+							fontSize: 16,
+						}}
+						placeholderTextColor="#666"
+						keyboardType="email-address"
+						autoCapitalize="none"
+						editable={!isSubmitting}
+					/>
+
+					<Button
+						onPress={handleSubmit}
+						disabled={isSubmitting}
+						style={{
+							backgroundColor: "#7c3aed",
+							paddingHorizontal: 24,
+							paddingVertical: 12,
+							borderRadius: 8,
+							opacity: isSubmitting ? 0.5 : 1,
+						}}
+					>
+						<Text variant="bold" style={{ color: "#fff" }}>
+							{isSubmitting ? "..." : "Join"}
+						</Text>
+					</Button>
+				</View>
+
+				{submitMessage && (
+					<Text
+						variant="small"
+						style={{
+							color: submitMessage.includes("Thanks") ? "#22c55e" : "#ef4444",
+							marginTop: 12,
+							textAlign: "center",
+						}}
+					>
+						{submitMessage}
+					</Text>
+				)}
+			</View>
+
+			{/* GitHub Link */}
+			<Link
+				href="https://github.com/braingame-com/braingame"
+				style={{
+					marginTop: 32,
+				}}
+			>
+				<Text
+					variant="body"
+					style={{
+						color: "#666",
+						textDecorationLine: "underline",
+					}}
+				>
+					View on GitHub
+				</Text>
+			</Link>
+		</View>
 	);
 }
