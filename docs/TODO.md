@@ -56,12 +56,15 @@
 ### 🚨 Critical Priority
 
 - [ ] Production Deployment Preparation
-  - [ ] Environment variable validation across all apps
+  - [x] Environment variable validation across all apps (21-06-2025)
+    - [x] Created Zod schemas for type-safe env validation
+    - [x] Added validation scripts for both apps
+    - [x] Integrated validate:env commands
   - [ ] Production Firebase configuration
   - [ ] App Store Connect setup
   - [ ] Google Play Console setup
   - [ ] SSL certificates and domain configuration
-  - Status: Next phase after migration completion
+  - Status: Environment validation complete, moving to deployment configs
 
 - [x] Setup CI/CD Pipeline
   - [x] Create `.github/workflows/ci.yml`
@@ -188,6 +191,34 @@
   - [ ] Performance benchmarks
   - [ ] Accessibility audits
   - Status: Not started
+
+## 🚀 Next Steps (Post PR Merges - 21-06-2025)
+
+### Immediate Actions Required:
+1. **Fix Pre-commit Hooks** - secretlint is not installed, causing commit failures
+2. **Resolve Testing Conflicts** - Both Jest and Vitest configs exist in bgui package
+3. **Complete Component Migration** - View and PageWrapper components need to move to src/components/
+4. **Firebase Integration** - Website has TODO for Firebase email collection
+5. **Install Missing Dependencies** - chalk needed for validation scripts
+
+### Production Path:
+1. **Firebase Setup** (HIGH PRIORITY)
+   - Configure Firebase project for production
+   - Implement email collection in website
+   - Set up Firestore for data persistence
+   - Configure authentication
+
+2. **App Store Preparation**
+   - Generate app icons and splash screens
+   - Create App Store screenshots
+   - Write app descriptions
+   - Configure app signing
+
+3. **Performance Optimization**
+   - Implement code splitting
+   - Optimize bundle sizes
+   - Add performance monitoring
+   - Set up Sentry for error tracking
 
 ## ✅ Completed (Latest First)
 

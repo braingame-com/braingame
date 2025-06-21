@@ -43,3 +43,10 @@ yarn-error.*
 # Next.js
 .next/
 **/.next/
+
+# Temporary files
+branch-info.txt
+current-branch.txt
+*.log
+**/dist/
+**/*.tmp
