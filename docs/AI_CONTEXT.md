@@ -7,9 +7,10 @@
 
 ## 1. Current Focus
 1. ✅ Legacy migration from bg1 and dev-dil projects (ALL 4 WEEKS COMPLETE)
-2. Production deployment preparation
-3. Worktree management documentation and tooling
-4. Performance baseline establishment
+2. 🐛 **CRITICAL**: Fix hidden bugs discovered in code analysis
+3. Production deployment preparation
+4. Worktree management documentation and tooling
+5. Performance baseline establishment
 
 ## ⚠️ Critical Workspace Information
 **This repository uses git worktrees for isolation:**
@@ -36,10 +37,36 @@
 - **Lesson Learned**: Always rebase first before giving up on "complex" PRs
 - **Next Steps**: Document rebase workflows and be more aggressive about conflict resolution
 
+### 20-01-2025 - Hidden Bugs Analysis
+- **Agent**: Claude (Opus 4)
+- **Tasks**: Find hidden bugs in the codebase
+- **Completed**:
+  - Performed comprehensive code analysis across all packages
+  - Found 10 categories of bugs with multiple instances each
+  - Created detailed bug report in `docs/work-sessions/hidden-bugs-analysis.md`
+  - Updated TODO.md with critical bug fixes section
+- **Critical Findings**:
+  - **Memory Leaks**: Multiple setTimeout/setInterval without cleanup
+  - **Event Listeners**: Several addEventListener calls without removeEventListener
+  - **Console Statements**: 25+ console.log/error statements in production code
+  - **Missing Error Handling**: Async functions without try-catch blocks
+  - **Race Conditions**: Component unmount issues with async operations
+  - **Hardcoded Values**: App version and other constants that should be dynamic
+- **Immediate Actions Required**:
+  - Fix all timer cleanups (add return statements to useEffect)
+  - Fix all event listener cleanups
+  - Replace console statements with proper logging
+  - Add error boundaries to critical components
+- **Documentation Created**:
+  - hidden-bugs-analysis.md: Complete bug report with examples and fixes
+  - Updated TODO.md with prioritized bug fix tasks
+- **Next Steps**: Start fixing critical memory leaks immediately
+
 ### 20-06-2025 - Husky Pre-commit Hook Update
 - **Agent**: ChatGPT (GPT-4)
 - **Tasks**: Updated utils package pre-commit hook to run `pnpm test` for consistency.
 - **Outcome**: Pre-commit now leverages pnpm workspace scripts.
+
 ### 20-06-2025 - BGUI Coverage Improvements
 - **Agent**: ChatGPT
 - **Tasks**: Add Jest tests for PageWrapper and View components and configure coverage reporting

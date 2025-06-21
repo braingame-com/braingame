@@ -4,6 +4,31 @@
 ![Progress](https://img.shields.io/badge/completion-100%25-brightgreen?style=flat-square&logo=checkmarx)
 ![Quality](https://img.shields.io/badge/quality-enterprise%20grade-gold?style=flat-square&logo=quality)
 
+## 🐛 CRITICAL BUG FIXES REQUIRED
+
+**URGENT**: Hidden bugs discovered during code analysis on 20-01-2025. See [hidden-bugs-analysis.md](./work-sessions/hidden-bugs-analysis.md) for full details.
+
+### Memory Leak Fixes (Priority: CRITICAL)
+- [ ] Fix timer cleanup in `TrackableComponent.tsx` scrollTimer
+- [ ] Add cleanup to `Tooltip.tsx` setTimeout
+- [ ] Add cleanup to `Toast.tsx` setTimeout 
+- [ ] Fix missing event listener cleanup in `Modal.tsx`
+- [ ] Fix missing event listener cleanup in `Menu.tsx`
+- [ ] Verify NetInfo listener cleanup in `NetworkErrorBoundary.tsx`
+
+### Quick Win Fixes (Can be done immediately)
+- [ ] Add cleanup to setTimeout in `DashboardScreenAccessible.tsx`
+- [ ] Replace hardcoded app version in `ErrorService.ts`
+- [ ] Remove/replace console.log statements (25+ instances)
+- [ ] Add try-catch blocks to async functions in ErrorService
+- [ ] Add try-catch blocks to async functions in AnalyticsService
+
+### Error Handling Improvements
+- [ ] Add error boundaries to navigation components
+- [ ] Add error boundaries to context providers
+- [ ] Handle unmount race conditions in components with async operations
+- [ ] Review and fix optional chaining that might hide required data
+
 ## 🎉 BGUI COMPONENT QUALITY IMPROVEMENT - COMPLETE! 🎉
 
 **ALL 9 PHASES SUCCESSFULLY COMPLETED** - The BGUI component library has been transformed:
