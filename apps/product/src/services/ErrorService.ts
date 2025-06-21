@@ -279,8 +279,7 @@ export const setupGlobalErrorHandlers = () => {
 	global.onunhandledrejection = (event: PromiseRejectionEvent) => {
 		errorService.handleUnhandledRejection(event.reason, event.promise);
 		if (typeof originalHandler === "function") {
-			// biome-ignore lint/suspicious/noExplicitAny: This is a workaround for a typing issue in a non-browser environment.
-			originalHandler.call(global as any, event);
+			originalHandler.call(global, event);
 		}
 	};
 

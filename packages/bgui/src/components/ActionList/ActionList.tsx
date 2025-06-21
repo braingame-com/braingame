@@ -39,9 +39,7 @@ export const ActionList = ({
 		if (typeInfo.displayName === ActionListItem.displayName) {
 			const childProps = child.props as { value?: string };
 			const value = childProps.value ?? index.toString();
-			// TypeScript workaround: cast to any to allow ref prop
-			// biome-ignore lint/suspicious/noExplicitAny: Required for ref prop in cloneElement
-			return React.cloneElement(child as React.ReactElement<any>, {
+			return React.cloneElement(child as React.ReactElement<ActionItemProps>, {
 				ref: (node: { focus?: () => void } | null) => {
 					itemRefs.current[index] = node;
 				},

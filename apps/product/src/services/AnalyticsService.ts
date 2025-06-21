@@ -112,7 +112,6 @@ type AnalyticsEvent =
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: AnalyticsEvent[] = [];
-
 	async init(apiKey: string) {
 		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
 	}

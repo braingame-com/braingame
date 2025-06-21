@@ -27,8 +27,7 @@ describe("Button Styles", () => {
 		});
 
 		it("should return md padding for invalid size", () => {
-			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
-			const padding = getPaddingForSize("invalid" as any);
+			const padding = getPaddingForSize("invalid" as unknown as ButtonSize);
 			expect(padding).toEqual({
 				paddingVertical: 12,
 				paddingHorizontal: 24,
