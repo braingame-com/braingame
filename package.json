@@ -46,7 +46,8 @@
 		"dev:coverage": "node scripts/dev-tools.js coverage",
 		"dev:unused": "node scripts/dev-tools.js find-unused",
 		"workspace": "node scripts/workspace-helper.js",
-		"docs": "node scripts/doc-generator.js"
+		"docs": "node scripts/doc-generator.js",
+		"validate:env": "turbo validate:env"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",

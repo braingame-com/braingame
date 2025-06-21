@@ -13,7 +13,8 @@
 		"test": "jest --passWithNoTests",
 		"lint": "biome check --fix",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf .expo dist web-build"
+		"clean": "rm -rf .expo dist web-build",
+		"validate:env": "node scripts/validate-env.js"
 	},
 	"jest": {
 		"preset": "jest-expo"
