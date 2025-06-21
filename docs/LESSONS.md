@@ -90,6 +90,25 @@ module.exports = {
 };
 ```
 
+### BGUI Testing Challenges
+**Problem**: Setting up React Native testing in a monorepo with RN 0.80.0+ proved extremely challenging.
+
+**Specific Issues**:
+1. **Flow Type Syntax**: Jest couldn't parse Flow annotations in React Native modules
+2. **Circular Dependencies**: react-native-web mocking caused call stack errors
+3. **Module Resolution**: Complex with cross-package dependencies and asset imports
+4. **Version Conflicts**: React Native Testing Library compatibility issues
+
+**Resolution**: Switched to Vitest which handles modern ESM and monorepo complexities better than Jest.
+
+**Current Test Coverage** (as of 20-06-2025):
+- Statements: 1.88%
+- Branches: 1.12%
+- Functions: 2.31%
+- Lines: 1.87%
+
+**Key Learning**: Sometimes it's better to use tools that work with your architecture rather than fighting to make standard tools work.
+
 ---
 
 ## TypeScript & Type Safety
@@ -134,6 +153,16 @@ export type TokenKey = keyof typeof Tokens;
 export type OpacityKey = keyof typeof Opacity;
 export type ShadowLevel = keyof typeof Shadows;
 ```
+
+### Token Usage Patterns
+**Components and their token dependencies**:
+- **Button**: Uses `button`, `buttonHovered` colors and `xs`, `m` spacing
+- **Icon**: Uses `icon` color and `xl`, `l`, `s` sizes
+- **Text**: Uses `text`, `universal.primary` colors and full range of size tokens
+- **TextInput**: Uses `text`, `textSecondary`, `border`, `background` colors
+- **View**: Uses `background`, `card`, `border` colors and `m`, `s` spacing
+
+**Key Insight**: Most components use a limited subset of tokens, suggesting opportunity for component-specific token subsets.
 
 ### Component Prop Type Patterns
 ```typescript
