@@ -36,6 +36,33 @@ echo ""
 print_status "Running pre-commit checks..."
 echo ""
 
+# 0. Workspace verification (AI agents only)
+if [[ "$PWD" == *"braingame-claude-sandbox"* ]]; then
+    print_status "🤖 AI Agent detected - running workspace verification..."
+    # Run non-interactive version of workspace check
+    CURRENT_DIR=$(pwd)
+    if [[ "$CURRENT_DIR" != *"braingame-claude-sandbox"* ]]; then
+        print_error "AI Agent working in wrong directory!"
+        echo "   Expected: .../braingame-claude-sandbox"
+        echo "   Actual: $CURRENT_DIR"
+        echo "   Switch to AI sandbox before committing"
+        exit 1
+    fi
+    
+    # Check GitHub account for AI agents
+    if command -v gh &> /dev/null; then
+        GH_USER=$(gh auth status 2>&1 | grep "Logged in to github.com" | grep -o "as [^[:space:]]*" | cut -d' ' -f2 2>/dev/null)
+        if [[ "$GH_USER" != "jcs180" ]]; then
+            print_error "Wrong GitHub account for AI agent!"
+            echo "   Current: $GH_USER"
+            echo "   Required: jcs180"
+            echo "   Run: gh auth switch --user jcs180"
+            exit 1
+        fi
+    fi
+    print_success "AI Agent workspace verified"
+fi
+
 # 1. Check for secrets
 print_status "🔒 Checking for secrets..."
 if pnpm secrets:check > /dev/null 2>&1; then

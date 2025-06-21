@@ -32,8 +32,8 @@ git status
 
 | Worktree | Path | Purpose | Who Uses |
 |----------|------|---------|----------|
-| **main** | `/workspace/braingame/` | Production code, releases | Humans, production deployments |
-| **claude-sandbox** | `/workspace/braingame-claude-sandbox/` | AI experiments, prototypes | AI agents, experimental work |
+| **main** | `/Users/jordancrow-stewart/Desktop/code/braingame/` | Production code, releases | Humans, production deployments |
+| **claude-sandbox** | `/Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox/` | AI experiments, prototypes | AI agents, experimental work |
 
 ---
 
@@ -42,10 +42,10 @@ git status
 ### Initial Setup (One-time)
 ```bash
 # From the main repository
-cd /workspace/braingame
+cd /Users/jordancrow-stewart/Desktop/code/braingame
 
-# Create the sandbox worktree
-git worktree add ../braingame-claude-sandbox -b claude-sandbox
+# Create the sandbox worktree (ALREADY DONE)
+git worktree add ../braingame-claude-sandbox main
 
 # Verify setup
 git worktree list
@@ -54,10 +54,10 @@ git worktree list
 ### Switching Between Worktrees
 ```bash
 # To main worktree (production)
-cd /workspace/braingame
+cd /Users/jordancrow-stewart/Desktop/code/braingame
 
 # To sandbox (experiments)
-cd /workspace/braingame-claude-sandbox
+cd /Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox
 ```
 
 ---
@@ -103,10 +103,12 @@ echo "✅ Workspace verified - proceed with work"
 ## 🤖 AI Agent Rules
 
 1. **ALWAYS run workspace verification** before generating any code
-2. **Experimental work goes in sandbox** - no exceptions
-3. **Production commits only from main worktree**
-4. **Document worktree used** in all work session notes
-5. **Never mix worktree commits** - keep them isolated
+2. **ALWAYS verify GitHub account** with `gh auth status` (must be jcs180)
+3. **Switch accounts if needed** with `gh auth switch --user jcs180`
+4. **Experimental work goes in sandbox** - no exceptions
+5. **Production commits only from main worktree**
+6. **Document worktree used** in all work session notes
+7. **Never mix worktree commits** - keep them isolated
 
 ---
 
@@ -115,37 +117,45 @@ echo "✅ Workspace verified - proceed with work"
 ### For Experimental AI Work
 ```bash
 # 1. Switch to sandbox
-cd /workspace/braingame-claude-sandbox
+cd /Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox
 
-# 2. Create feature branch
+# 2. Verify GitHub account
+gh auth status  # Must show jcs180
+gh auth switch --user jcs180  # If needed
+
+# 3. Create feature branch
 git checkout -b experiment/ai-feature
 
-# 3. Do experimental work
+# 4. Do experimental work
 # ... make changes ...
 
-# 4. Commit to sandbox
+# 5. Commit to sandbox
 git add .
 git commit -m "experiment: testing new AI approach"
 
-# 5. If successful, cherry-pick to main
-cd /workspace/braingame
+# 6. If successful, cherry-pick to main
+cd /Users/jordancrow-stewart/Desktop/code/braingame
 git cherry-pick <commit-hash>
 ```
 
 ### For Production Work
 ```bash
 # 1. Ensure you're in main worktree
-cd /workspace/braingame
+cd /Users/jordancrow-stewart/Desktop/code/braingame
 
-# 2. Create feature branch from main
+# 2. Verify GitHub account
+gh auth status  # Must show jcs180
+gh auth switch --user jcs180  # If needed
+
+# 3. Create feature branch from main
 git checkout main
 git pull origin main
 git checkout -b feature/production-feature
 
-# 3. Make production-ready changes
+# 4. Make production-ready changes
 # ... make changes ...
 
-# 4. Commit and push
+# 5. Commit and push
 git add .
 git commit -m "feat: production-ready feature"
 git push origin feature/production-feature
@@ -170,12 +180,12 @@ git worktree prune
 ### Sync Worktrees
 ```bash
 # In main worktree
-cd /workspace/braingame
+cd /Users/jordancrow-stewart/Desktop/code/braingame
 git pull origin main
 
 # In sandbox
-cd /workspace/braingame-claude-sandbox
-git pull origin claude-sandbox
+cd /Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox
+git pull origin main  # Both use same main branch
 ```
 
 ---
@@ -198,10 +208,10 @@ git pull origin claude-sandbox
 pwd && git worktree list
 
 # Switch to production
-cd /workspace/braingame
+cd /Users/jordancrow-stewart/Desktop/code/braingame
 
 # Switch to sandbox  
-cd /workspace/braingame-claude-sandbox
+cd /Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox
 
 # What branch?
 git branch --show-current

@@ -46,6 +46,7 @@
 		"dev:coverage": "node scripts/dev-tools.js coverage",
 		"dev:unused": "node scripts/dev-tools.js find-unused",
 		"workspace": "node scripts/workspace-helper.js",
+		"workspace:check": "./scripts/check-workspace.sh",
 		"docs": "node scripts/doc-generator.js"
 	},
 	"devDependencies": {
