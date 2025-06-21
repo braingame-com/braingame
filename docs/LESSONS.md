@@ -429,6 +429,34 @@ The 4-week phased approach proved highly effective:
 - Have fallback testing strategies (Storybook, type checking)
 - Document blockers clearly for future reference
 
+### PR Merge Status Confusion (21-06-2025)
+**What Happened**: Agent incorrectly reported PR #96 as "successfully merged and closed" when it was only closed without merging.
+
+**Root Causes**:
+1. Agent didn't verify actual merge status after git operations
+2. Confused successful rebase/push with successful merge
+3. Failed to double-check PR state before reporting completion
+
+**Critical Commands for Verification**:
+```bash
+# Always verify PR merge status
+gh pr view <number> --json state,mergedAt,mergedBy
+
+# Check if changes actually made it to main
+git log --oneline main | head -5
+
+# Verify commits exist on target branch
+git branch --contains <commit-hash>
+```
+
+**Prevention Protocol**:
+1. **Never assume success** - Always verify with explicit commands
+2. **Check multiple sources** - Git status + GitHub PR status + branch commits
+3. **Double-check before reporting** - Especially for critical operations like merges
+4. **If rebase fails or has conflicts** - The merge is NOT complete until explicitly verified
+
+**Lesson**: A successful rebase + push ≠ a successful merge. Always verify the final state.
+
 ---
 
 ## Summary

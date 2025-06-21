@@ -1,13 +1,13 @@
 // ENTERPRISE-GRADE UI KIT EXPORTS
 // Brain Game UI components built for scale and maintainability
 
+export type { AccordionProps } from "./src/components/Accordion";
 // All Components from src/components (Enterprise folder-per-component structure)
 export { Accordion } from "./src/components/Accordion";
-export type { AccordionProps } from "./src/components/Accordion";
 export { ActionList, ActionListDivider, ActionListItem } from "./src/components/ActionList";
 export type { ActionListItemProps, ActionListProps } from "./src/components/ActionList/types";
-export { Alert } from "./src/components/Alert";
 export type { AlertProps, AlertType, AlertVariant } from "./src/components/Alert";
+export { Alert } from "./src/components/Alert";
 export { Avatar } from "./src/components/Avatar";
 export type { AvatarProps } from "./src/components/Avatar/types";
 export { Badge } from "./src/components/Badge";
@@ -38,6 +38,9 @@ export { Menu, MenuItem } from "./src/components/Menu";
 export type { MenuItemProps, MenuProps } from "./src/components/Menu/types";
 export { Modal, ModalFooter, ModalHeader } from "./src/components/Modal";
 export type { ModalProps } from "./src/components/Modal/types";
+// Core Layout Components
+export { PageWrapper } from "./src/components/PageWrapper";
+export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export { ProgressBar } from "./src/components/ProgressBar";
 export type { ProgressBarProps } from "./src/components/ProgressBar/types";
 export { RadioGroup } from "./src/components/RadioGroup";
