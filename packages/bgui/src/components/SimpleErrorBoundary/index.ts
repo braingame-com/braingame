@@ -1,0 +1,1 @@
+export { SimpleErrorBoundary } from "./SimpleErrorBoundary";

@@ -24,8 +24,8 @@
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | The high-level blueprint of our system, services, and folder structure. |
 | [`CODING_STYLE.md`](./CODING_STYLE.md) | The definitive guide to writing clean, maintainable code in this repository. |
 | [`BRAND.md`](./BRAND.md) | The official brand book defining our voice, tone, and brand assets. |
-| [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | The detailed API and specification for our BGUI component library. |
-| [`COMPONENT_ORGANIZATION.md`](./COMPONENT_ORGANIZATION.md) | Folder structure and naming conventions. |
+| [`COMPONENT_REFERENCE.md`](./COMPONENT_REFERENCE.md) | Complete API reference for all BGUI components. |
+| [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | Design specification and roadmap for the component library. |
 | [`SECURITY.md`](../.github/SECURITY.md) | Our security policy, including how to report vulnerabilities. |
 
 ## 📚 Component Snippets
@@ -34,7 +34,6 @@
 | Document | Description |
 |---|---|
 | [`snippets/`](./snippets) | Ready-to-use code snippets for each BGUI component. |
-
 ---
 
 ## 📈 Project Management & Strategy
