@@ -279,6 +279,7 @@
   - Documentation should be "living" and continuously updated.
   - AI-specific documentation is critical for effective human-AI collaboration.
 - **Next Steps**: The repository's documentation is now considered enterprise-grade. Ready for next development phase.
+
 ### 17-06-2025 - Test Coverage Analysis
 - **Agent**: Codex
 - **Tasks**: Generate coverage report for `packages/bgui`
@@ -308,6 +309,7 @@
   - Added TODO entry tracking documentation progress
   - No Storybook stories were found, so pages show only basic information
 - **Next Steps**: Implement Storybook, enhance docs with examples, integrate snippets into Storybook docs
+
 ### 17-06-2025 - Enterprise-Grade BGUI Component Plan
 - **Agent**: Claude Sonnet 4
 - **Tasks**: Review and enhance BGUI component plan for enterprise standards
@@ -428,7 +430,28 @@
   - Runtime validation
 - **Next Steps**: Migrate existing components to use semantic tokens
 
-## Migration Patterns
+### **Session: 20 01 2025**
+
+**Focus:** Duplicate file detection and cleanup planning
+
+**What We Did:**
+- Performed comprehensive scan for duplicate and redundant files across the monorepo
+- Discovered critical merge conflicts in Text component (5 files with <<<<<<< HEAD markers)
+- Found duplicate component implementations (Icon, Text) in bgui package
+- Identified inconsistent component organization (View, PageWrapper not migrated)
+- Created detailed DUPLICATE_FILES_REPORT.md documenting all findings
+
+**Key Findings:**
+- `/packages/bgui/Icon/` and `/packages/bgui/Text/` are old duplicates (new versions in src/components/)
+- Mixed import patterns: old components use relative imports, new use @braingame/utils
+- Mixed testing setup with both Jest and Vitest configurations
+- No duplicate fonts or documentation files (good!)
+
+**Next Steps:**
+1. Resolve merge conflicts in Text component files
+2. Delete old Icon and Text directories
+3. Migrate View and PageWrapper to src/components/
+4. Standardize import patterns
 
 <!-- Add new session summaries above this line -->
 
