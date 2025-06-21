@@ -6,7 +6,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 > 1. **Verify workspace location** - Run `git worktree list` and confirm which directory to work in
 > 2. **Read and understand:**
 >    - `docs/ARCHITECTURE.md`
->    - `docs/AI_CONTEXT.md`
+>    - `docs/LESSONS.md`
 >    - `docs/CLAUDE.md`
     - `docs/legacy-migration/LEGACY_MIGRATION.md` (for migration work)
 
@@ -33,25 +33,6 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 - **Respect Ownership:** Agents must adhere to `CODEOWNERS` and branch protection rules.
 - **Pinned Dependencies:** All agent-related tooling and dependencies should be pinned to specific versions to ensure stability. Upgrades must go through a PR.
 - **Use Correct Dates:** All dates in documentation **MUST** follow the `DD-MM-YYYY` format and reflect the correct current date. Chronological accuracy is non-negotiable.
-
----
-
-## Work Session Documentation Requirements
-
-**All agents MUST create a work session document at the end of each session:**
-
-1. **Location:** `docs/work-sessions/YYYY-MM-DD-brief-description.md`
-2. **Required Content:**
-   - Session metadata (date, agent name/model, objectives)
-   - Complete list of tasks accomplished
-   - Key learnings and technical discoveries
-   - Code examples demonstrating solutions
-   - Problems encountered and how they were solved
-   - Recommendations for future sessions
-3. **Purpose:** Knowledge preservation and continuous learning
-4. **Reference:** See `docs/work-sessions/README.md` for template
-
-This is not optional - it ensures knowledge transfer between sessions and agents.
 
 ---
 
