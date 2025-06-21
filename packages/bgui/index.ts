@@ -25,8 +25,10 @@ export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
 export { ErrorBoundary } from "./src/components/ErrorBoundary";
+export { GlowingLogo } from "./src/components/GlowingLogo";
 export { Icon } from "./src/components/Icon";
 // ErrorBoundaryProps is defined in the component file, not exported separately
+export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
 export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
 export type { ImageProps } from "./src/components/Image/types";
