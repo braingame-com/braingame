@@ -2,6 +2,7 @@ import { Tokens, useThemeColor } from "@braingame/utils";
 import { memo, useCallback, useMemo } from "react";
 import { Pressable } from "react-native";
 import { Text } from "../../../Text";
+import { SELECTED_BACKGROUND_OPACITY } from "../../constants";
 import type { SelectItemProps } from "./types";
 
 export interface InternalSelectItemProps extends SelectItemProps {
@@ -20,7 +21,7 @@ const SelectItemComponent = ({ value, children, selected, onSelect }: InternalSe
 	const itemStyle = useMemo(
 		() => ({
 			padding: Tokens.s,
-			backgroundColor: selected ? `${selectedColor}33` : "transparent",
+			backgroundColor: selected ? `${selectedColor}${SELECTED_BACKGROUND_OPACITY}` : "transparent",
 		}),
 		[selected, selectedColor],
 	);

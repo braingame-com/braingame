@@ -1,5 +1,6 @@
 import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
+import { TAB_ACTIVE_BORDER_WIDTH } from "../../constants";
 
 export const styles = StyleSheet.create({
 	list: {
@@ -17,7 +18,7 @@ export const styles = StyleSheet.create({
 		borderRadius: Tokens.s,
 	},
 	lineActive: {
-		borderBottomWidth: 2,
+		borderBottomWidth: TAB_ACTIVE_BORDER_WIDTH,
 		borderColor: Colors.universal.primary,
 	},
 	enclosedActive: {

@@ -10,6 +10,7 @@ import React, {
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
 import { Text } from "../../../Text";
+import { RANDOM_ID_SLICE_START } from "../../constants";
 import { styles } from "./styles";
 import type { MenuItemProps, MenuProps } from "./types";
 
@@ -139,8 +140,10 @@ export const Menu = ({
 
 	const backgroundColor = useThemeColor("card");
 
-	const triggerId = useRef(`menu-trigger-${Math.random().toString(36).slice(2)}`).current;
-	const menuId = useRef(`menu-${Math.random().toString(36).slice(2)}`).current;
+	const triggerId = useRef(
+		`menu-trigger-${Math.random().toString(36).slice(RANDOM_ID_SLICE_START)}`,
+	).current;
+	const menuId = useRef(`menu-${Math.random().toString(36).slice(RANDOM_ID_SLICE_START)}`).current;
 
 	const triggerElement = React.isValidElement(trigger)
 		? cloneElement(trigger as React.ReactElement<any>, {

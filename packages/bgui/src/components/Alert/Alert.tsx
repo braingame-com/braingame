@@ -1,6 +1,7 @@
 import { useThemeColor } from "@braingame/utils";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import { FLOATING_ALERT_ELEVATION } from "../../constants";
 import { Icon } from "../Icon";
 import { styles, typeColorMap } from "./styles";
 import type { AlertProps } from "./types";
@@ -25,7 +26,7 @@ export function Alert({
 				styles.container,
 				{ backgroundColor },
 				variant === "inline" && { borderRadius: 0 },
-				variant === "floating" && { elevation: 4 },
+				variant === "floating" && { elevation: FLOATING_ALERT_ELEVATION },
 				style,
 			]}
 		>
