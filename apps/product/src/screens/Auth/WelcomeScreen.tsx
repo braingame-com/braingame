@@ -41,7 +41,7 @@ export const WelcomeScreen: React.FC<Props> = () => {
 						style={authStyles.skipButton}
 						onPress={() => {
 							// In a real app, this would sign in as guest
-							console.log("Continue as guest");
+							// Guest authentication functionality not yet implemented
 						}}
 					>
 						<Text style={authStyles.skipButtonText}>Continue as Guest</Text>

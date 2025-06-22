@@ -1,6 +1,6 @@
 import { Text } from "@braingame/bgui";
 
-// TODO: Install expo-av
+// Audio playback uses expo-av. Ensure the dependency is installed in the Expo project
 // import { Audio, type AVPlaybackStatus } from "expo-av";
 type AVPlaybackStatus = {
 	isLoaded: boolean;
