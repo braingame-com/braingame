@@ -12,7 +12,7 @@ export const usePersistedQuery = <TQueryFnData, TError>(
 		queryKey: key,
 		queryFn,
 		enabled: enabled && isConnected,
-		retry: (failureCount, error) => {
+		retry: (failureCount, _error) => {
 			if (!isConnected) return false;
 			return failureCount < 3;
 		},
