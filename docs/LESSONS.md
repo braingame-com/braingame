@@ -344,6 +344,51 @@ git clean -fdx             # Nuclear option: clean everything
 
 **Example**: 9 text components → 1 unified Text component with variants
 
+### Utility Extraction Pattern  
+**Learning**: Moving from duplicate code to shared utilities provides massive benefits.
+
+**Before**: Repeated validation, styling, and form logic across components
+**After**: Centralized utilities in `packages/utils` with consistent APIs
+
+```typescript
+// Style utilities - consistent spacing and shadows
+import { spacing, shadows, layout } from '@braingame/utils';
+style={[layout.center, shadows.medium, { padding: spacing.l }]}
+
+// Form utilities - unified validation and state management  
+import { useForm, validators } from '@braingame/utils';
+const form = useForm({
+  initialValues: { email: '' },
+  validationRules: { email: validators.email }
+});
+
+// Async utilities - consistent loading/error states
+import { useAsyncState } from '@braingame/utils';
+const { data, loading, error, execute } = useAsyncState<User>();
+```
+
+**Results**: 30-40% code reduction, consistent patterns, better maintainability.
+
+### Error Boundary Architecture
+**Learning**: Comprehensive error boundaries prevent app crashes and improve debugging.
+
+**Strategy**: Layer error boundaries at app, screen, and component levels with automatic reporting.
+
+```typescript
+// Screen-level boundaries
+export default withScreenErrorBoundary(MyScreen, 'MyScreen');
+
+// Component-level isolation
+export default withErrorBoundary(MyComponent, { level: 'component', isolate: true });
+
+// Async operation boundaries  
+<AsyncBoundary asyncFn={fetchData} fallback={ErrorView}>
+  {(data) => <DataView data={data} />}
+</AsyncBoundary>
+```
+
+**Benefits**: Prevents crashes, provides retry functionality, centralizes error tracking.
+
 ### Service Layer Pattern
 Centralize API logic in service classes:
 ```typescript

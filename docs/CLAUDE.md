@@ -190,6 +190,6 @@ pnpm --filter product web
 - [🌍 I18N_WORKFLOW.md](./I18N_WORKFLOW.md) - Internationalization processes
 - [🔒 SECURITY.md](../.github/SECURITY.md) - Security policy and vulnerability reporting
 
-### **Utility References:**
-- [🛠️ ExtractedUtilitiesGuide.md](../ExtractedUtilitiesGuide.md) - Documentation for extracted utility functions
-- [🛡️ ErrorBoundaryImplementationSummary.md](../ErrorBoundaryImplementationSummary.md) - Error handling guide
+### **Package Documentation:**
+- [🛠️ Utils Package](../packages/utils/README.md) - API reference for shared utilities and hooks
+- [🎨 BGUI Package](../packages/bgui/README.md) - Component library documentation
