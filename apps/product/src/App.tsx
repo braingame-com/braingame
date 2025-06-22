@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { LogBox } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ErrorBoundary, ErrorBoundaryProvider } from "./components/ErrorBoundary";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 import { RootNavigator } from "./navigation/RootNavigator";
 import { captureException, setupGlobalErrorHandlers } from "./services/ErrorService";
@@ -75,31 +75,33 @@ export default function App() {
 	}
 
 	return (
-		<ErrorBoundary
-			level="app"
-			showDetails={__DEV__}
-			onError={(error, errorInfo) => {
-				// In production, you might want to show a crash report dialog
-				// or automatically restart the app
-				captureException(error, {
-					level: "app",
-					critical: true,
-					componentStack: errorInfo.componentStack ?? undefined,
-					digest: errorInfo.digest ?? undefined,
-				});
-			}}
-		>
-			<SafeAreaProvider>
-				<AccessibilityProvider>
-					<ThemeProvider>
-						<NavigationContainer>
-							<StatusBar style="auto" />
-							<RootNavigator />
-						</NavigationContainer>
-					</ThemeProvider>
-				</AccessibilityProvider>
-			</SafeAreaProvider>
-		</ErrorBoundary>
+		<ErrorBoundaryProvider showDetails={__DEV__} enableReporting={!__DEV__} maxErrors={10}>
+			<ErrorBoundary
+				level="app"
+				showDetails={__DEV__}
+				onError={(error, errorInfo) => {
+					// In production, you might want to show a crash report dialog
+					// or automatically restart the app
+					captureException(error, {
+						level: "app",
+						critical: true,
+						componentStack: errorInfo.componentStack ?? undefined,
+						digest: errorInfo.digest ?? undefined,
+					});
+				}}
+			>
+				<SafeAreaProvider>
+					<AccessibilityProvider>
+						<ThemeProvider>
+							<NavigationContainer>
+								<StatusBar style="auto" />
+								<RootNavigator />
+							</NavigationContainer>
+						</ThemeProvider>
+					</AccessibilityProvider>
+				</SafeAreaProvider>
+			</ErrorBoundary>
+		</ErrorBoundaryProvider>
 	);
 }
 

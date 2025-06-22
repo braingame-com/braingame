@@ -10,7 +10,7 @@ import {
 import { useTheme } from "../../theme/ThemeContext";
 import { ErrorBoundary } from "./ErrorBoundary";
 
-interface AsyncBoundaryProps<T> {
+export interface AsyncBoundaryProps<T> {
 	/**
 	 * Async function to load data
 	 */
