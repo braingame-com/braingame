@@ -106,34 +106,38 @@ class ErrorService {
 	}
 
 	captureException(error: Error, context?: ErrorContext) {
-		const errorLog: ErrorLog = {
-			id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-			timestamp: new Date().toISOString(),
-			message: error.message || error.toString(),
-			stack: error.stack,
-			context: {
-				...context,
-				userId: this.userId,
-				sessionId: this.sessionId,
-			},
-			platform: Platform.OS,
-			appVersion: "1.0.0", // TODO: Get from app config
-			deviceInfo: {
-				os: Platform.OS,
-				osVersion: Platform.Version?.toString() || "unknown",
-				// device: Device.modelName, // If using expo-device
-			},
-		};
+		try {
+			const errorLog: ErrorLog = {
+				id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+				timestamp: new Date().toISOString(),
+				message: error.message || error.toString(),
+				stack: error.stack,
+				context: {
+					...context,
+					userId: this.userId,
+					sessionId: this.sessionId,
+				},
+				platform: Platform.OS,
+				appVersion: "1.0.0", // TODO: Get from app config
+				deviceInfo: {
+					os: Platform.OS,
+					osVersion: Platform.Version?.toString() || "unknown",
+					// device: Device.modelName, // If using expo-device
+				},
+			};
 
-		// Store locally
-		this.storeErrorLog(errorLog);
+			// Store locally
+			this.storeErrorLog(errorLog);
 
-		// Log to console in development
-		if (__DEV__) {
-			// Error captured and logged in development mode
-		} else {
-			// Send to error tracking services in production
-			this.sendToErrorServices(error, errorLog);
+			// Log to console in development
+			if (__DEV__) {
+				// Error captured and logged in development mode
+			} else {
+				// Send to error tracking services in production
+				this.sendToErrorServices(error, errorLog);
+			}
+		} catch (captureError) {
+			// Critical error in error capture system - fail silently to prevent recursion
 		}
 	}
 
@@ -177,46 +181,59 @@ class ErrorService {
 		}
 	}
 
-	private sendToErrorServices(_error: Error, errorLog: ErrorLog) {
-		// Send to Sentry
-		// Sentry.captureException(error, {
-		//   contexts: {
-		//     error: errorLog.context,
-		//     device: errorLog.deviceInfo,
-		//   },
-		// });
+	private sendToErrorServices(error: Error, errorLog: ErrorLog) {
+		try {
+			// Send to Sentry
+			// Sentry.captureException(error, {
+			//   contexts: {
+			//     error: errorLog.context,
+			//     device: errorLog.deviceInfo,
+			//   },
+			// });
 
-		// Send to Crashlytics
-		// if (this.CRASHLYTICS_ENABLED) {
-		//   crashlytics().recordError(error, errorLog.context);
-		// }
+			// Send to Crashlytics
+			// if (this.CRASHLYTICS_ENABLED) {
+			//   crashlytics().recordError(error, errorLog.context);
+			// }
 
-		// Send to custom backend
-		this.sendToBackend(errorLog);
+			// Send to custom backend
+			this.sendToBackend(errorLog);
+		} catch (serviceError) {
+			// Error sending to external services - fail silently
+		}
 	}
 
-	private async sendToBackend(_errorLog: ErrorLog) {
+	private async sendToBackend(errorLog: ErrorLog) {
 		// In production, send to your error logging endpoint
-		// try {
-		//   await fetch('https://api.braingame.dev/errors', {
-		//     method: 'POST',
-		//     headers: {
-		//       'Content-Type': 'application/json',
-		//     },
-		//     body: JSON.stringify(errorLog),
-		//   });
-		// } catch (sendError) {
-		//   console.error("Failed to send error to backend:", sendError);
-		// }
+		try {
+			// await fetch('https://api.braingame.dev/errors', {
+			//   method: 'POST',
+			//   headers: {
+			//     'Content-Type': 'application/json',
+			//   },
+			//   body: JSON.stringify(errorLog),
+			// });
+		} catch (sendError) {
+			// Failed to send error to backend - network or server issue
+		}
 	}
 
 	async getStoredErrors(): Promise<ErrorLog[]> {
-		return this.errorLogs;
+		try {
+			return this.errorLogs;
+		} catch (error) {
+			// Error retrieving stored errors - returning empty array
+			return [];
+		}
 	}
 
 	async clearStoredErrors() {
-		this.errorLogs = [];
-		await AsyncStorage.removeItem("@braingame/error_logs");
+		try {
+			this.errorLogs = [];
+			await AsyncStorage.removeItem("@braingame/error_logs");
+		} catch (error) {
+			// Error clearing stored errors - operation failed silently
+		}
 	}
 
 	// Network error handler
