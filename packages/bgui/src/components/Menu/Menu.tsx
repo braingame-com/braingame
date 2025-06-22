@@ -1,3 +1,4 @@
+import { useThemeColor } from "@braingame/utils";
 import React, {
 	Children,
 	cloneElement,
@@ -8,9 +9,9 @@ import React, {
 	useState,
 } from "react";
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
-import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
-import { Text } from "../../../Text";
 import { RANDOM_ID_SLICE_START } from "../../constants";
+import { ContextErrorBoundary } from "../ErrorBoundary";
+import { Text } from "../Text";
 import { styles } from "./styles";
 import type { MenuItemProps, MenuProps } from "./types";
 
@@ -146,14 +147,24 @@ export const Menu = ({
 	const menuId = useRef(`menu-${Math.random().toString(36).slice(RANDOM_ID_SLICE_START)}`).current;
 
 	const triggerElement = React.isValidElement(trigger)
-		? cloneElement(trigger as React.ReactElement<any>, {
-				onPress: variant === "dropdown" ? open : undefined,
-				onContextMenu: variant === "context" ? open : undefined,
-				"aria-haspopup": "menu",
-				"aria-expanded": visible,
-				"aria-controls": menuId,
-				id: triggerId,
-			})
+		? cloneElement(
+				trigger as React.ReactElement<{
+					onPress?: () => void;
+					onContextMenu?: () => void;
+					"aria-haspopup"?: string;
+					"aria-expanded"?: boolean;
+					"aria-controls"?: string;
+					id?: string;
+				}>,
+				{
+					onPress: variant === "dropdown" ? open : undefined,
+					onContextMenu: variant === "context" ? open : undefined,
+					"aria-haspopup": "menu",
+					"aria-expanded": visible,
+					"aria-controls": menuId,
+					id: triggerId,
+				},
+			)
 		: null;
 
 	return (
@@ -175,9 +186,11 @@ export const Menu = ({
 						variant === "context" && { position: "absolute", left: position.x, top: position.y },
 					]}
 				>
-					<MenuContext.Provider value={{ closeMenu: close, closeOnSelect }}>
-						{Children.map(children, (child) => child)}
-					</MenuContext.Provider>
+					<ContextErrorBoundary contextName="Menu">
+						<MenuContext.Provider value={{ closeMenu: close, closeOnSelect }}>
+							{Children.map(children, (child) => child)}
+						</MenuContext.Provider>
+					</ContextErrorBoundary>
 				</View>
 			</Modal>
 		</>

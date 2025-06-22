@@ -1,8 +1,8 @@
 import { Tokens, useThemeColor } from "@braingame/utils";
 import { memo, useCallback, useMemo } from "react";
 import { Pressable } from "react-native";
-import { Text } from "../../../Text";
 import { SELECTED_BACKGROUND_OPACITY } from "../../constants";
+import { Text } from "../Text";
 import type { SelectItemProps } from "./types";
 
 export interface InternalSelectItemProps extends SelectItemProps {

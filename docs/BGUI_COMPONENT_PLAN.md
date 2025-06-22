@@ -18,6 +18,10 @@ All components support:
 - Screen reader compatibility with semantic markup
 - Focus trapping for overlays (Modal, Menu, etc.)
 
+### Internationalization (i18n)
+All user facing strings and ARIA labels should come from translation files managed by the shared `@braingame/i18n` package. Components reference translation keys so content can be localized without code changes.
+See [I18N_WORKFLOW.md](./I18N_WORKFLOW.md) for steps to add a new language.
+
 ### Theming Strategy
 Components consume design tokens from a central theme:
 ```typescript

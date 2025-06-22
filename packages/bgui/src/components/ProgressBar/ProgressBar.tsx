@@ -5,7 +5,7 @@ import Svg, { Circle } from "react-native-svg";
 import { getCircularProgressProps, styles } from "./styles";
 import type { ProgressBarProps } from "./types";
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle as any);
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 export const ProgressBar = ({
 	value,

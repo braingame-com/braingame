@@ -1,5 +1,15 @@
 {
   "projects": {
-    "default": "braingame-dev"
+    "default": "your-project-id"
+  },
+  "targets": {
+    "your-project-id": {
+      "hosting": {
+        "www": ["braingame-website"],
+        "app": ["braingame-app"],
+        "docs": ["braingame-docs"]
+      }
+    }
   }
 }
+EOF < /dev/null

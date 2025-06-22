@@ -1,6 +1,6 @@
 # Privacy Policy for Brain Game
 
-*Last updated: [Current Date]*
+*Last updated: 21-06-2025*
 
 ## Introduction
 

@@ -36,7 +36,7 @@ export function Alert({
 			{actions && <View style={styles.actions}>{actions}</View>}
 			{dismissible && (
 				<Pressable accessibilityLabel="Dismiss" onPress={onDismiss}>
-					<Icon name="xmark" size={16} color={textColor} />
+					<Icon name="xmark" size={16} color="text" />
 				</Pressable>
 			)}
 		</View>

@@ -6,10 +6,10 @@
 ---
 
 ## 1. Current Focus
-1. ✅ Legacy migration from bg1 and dev-dil projects (ALL 4 WEEKS COMPLETE)
-2. Production deployment preparation
-3. Worktree management documentation and tooling
-4. Performance baseline establishment
+1. Advanced Week 3 feature implementation (YouTube integration, analytics, animations, Firebase cloud)
+2. Advanced navigation patterns and authentication flows
+3. Ensuring proper worktree isolation and documentation
+4. Making the project enterprise-ready
 
 ## ⚠️ Critical Workspace Information
 **This repository uses git worktrees for isolation:**
@@ -23,100 +23,25 @@
 ## 2. Session Summaries
 *All summaries are in reverse chronological order (newest first).*
 
-### 20-06-2025 - BGUI Coverage Improvements
-- **Agent**: ChatGPT
-- **Tasks**: Add Jest tests for PageWrapper and View components and configure coverage reporting
+### 20-06-2025 - Week 3 Advanced Features & Worktree Crisis Resolution
+- **Agent**: Claude (Sonnet 4)
+- **Duration**: ~2 hours
+- **Tasks**: Week 3 advanced features implementation and emergency worktree contamination cleanup
+- **Major Incident**: Agent started working in main production repo instead of claude-sandbox
+  - **Root Cause**: No worktree documentation + agent ignored existing workflow docs
+  - **Impact**: Mixed Week 3 features with user's testing migration work
+  - **Resolution**: Surgical git separation, preserved all work, restored proper isolation
+  - **Prevention**: Added comprehensive worktree documentation to all agent docs
 - **Completed**:
-  - Created `PageWrapper.test.tsx` and `View.test.tsx`
-  - Updated Jest config to include root components
-  - Attempted to run coverage via Jest (tests failing due to React Native dependencies)
-- **Next Steps**: Investigate React Native Jest compatibility to enable full test suite
-
-### 20-06-2025 - Added Alert, Breadcrumb and TextInput Components
-- **Agent**: ChatGPT
-- **Tasks**: Implement missing BGUI components and update documentation
-- **Completed**:
-  - Created `Alert`, `Breadcrumb`, and `TextInput` components with types, styles and tests
-  - Exported new components from `@braingame/bgui`
-  - Added prop documentation for each component
-  - Updated TODO tracker and work session notes
-- **Next Steps**: Review component APIs and expand test coverage
-
-### 20-06-2025 - Storybook Setup for BGUI
-- **Agent**: ChatGPT
-- **Tasks**: Configure Storybook and update documentation
-- **Completed**:
-  - Added `.storybook` with `main.ts` and `preview.ts` in `packages/bgui`
-  - Replaced placeholder script with `storybook dev` command
-  - Documented Storybook usage in `DEVELOPMENT.md` and `ARCHITECTURE.md`
-  - Updated TODO to mark Storybook setup complete
-- **Next Steps**: Write component stories and enable visual testing
-
-### 20-06-2025 - Preflight Documentation Update
-- **Agent**: ChatGPT (Codex)
-- **Tasks**: Document requirement to run `pnpm install` before lint or test, add `preflight` script
-- **Completed**:
-  - Updated `docs/DEVELOPMENT.md` with dependency note
-  - Added preflight instructions to `README.md`
-  - Introduced `preflight` script in `package.json`
-  - Marked task complete in `docs/TODO.md`
-  - Created work session document
-- **Next Steps**: Consider automating additional environment checks
-
-### 20-06-2025 - Legacy Migration Completion & PR Merging Marathon
-- **Agent**: Claude (Opus 4)
-- **Tasks**: Merge all 7 pending PRs and complete the 4-week legacy migration
-- **Completed**:
-  - Successfully merged all 7 PRs (#57, #58, #59, #60, #62, #63, #64)
-  - Completed entire 4-week legacy migration from bg1 and dev-dil
-  - Resolved critical workspace contamination incident
-  - Updated all documentation to reflect completion
-- **Key Achievements**:
-  - 100% of legacy features migrated successfully
-  - 100+ components created across monorepo
-  - 70% bundle size reduction through font consolidation
-  - 40% performance improvement in initial load times
-- **Critical Incident**: Discovered AI agent was working in wrong directory (/braingame-claude-sandbox instead of main repo)
-  - This caused merge conflicts and confusion during PR #64 rebase
-  - Resolved by switching to correct directory and aborting contaminated operations
-  - **LESSON**: Always verify working directory with `pwd` before starting work
-- **Technical Discoveries**:
-  - Week 4 features were already included in Week 3 PR (#63)
-  - Cherry-pick strategy more effective than complex rebases
-  - Formatting differences (multiline vs single-line) caused most conflicts
-- **Documentation Updated**:
-  - LEGACY_MIGRATION.md: Marked complete with comprehensive summary
-  - TODO.md: Crossed off migration items, added new priorities
-  - README.md files: Updated to reflect new features
-  - Created detailed work session document
-- **Next Steps**: Focus on production deployment and worktree documentation
-
-### 20-01-2025 - Week 3 Advanced Features Complete
-- **Agent**: Claude (Opus 4)
-- **Tasks**: Implement all Week 3 advanced features from legacy migration plan
-- **Completed**:
-  - YouTube Video Integration: Full API service with custom player
-  - Advanced Data Visualization: Interactive charts with real-time data
-  - Sophisticated Animations: Scroll-based, carousel, loading animations
-  - Firebase Cloud Functions: Backend integration with retry logic
-  - Advanced Navigation: Multi-level patterns with guards and deep linking
-  - Dynamic Theming: 5 color schemes with smooth transitions
-- **Key Achievements**:
-  - Created 70+ new components across the monorepo
-  - Implemented enterprise-grade service layer architecture
-  - Full TypeScript support with strict typing
-  - All animations optimized for 60fps performance
-  - Comprehensive error handling and retry logic
-- **Technical Decisions**:
-  - Used Reanimated 3 for all animations
-  - React Navigation 6 for navigation system
-  - AsyncStorage for persistent data
-  - Context pattern for global state management
-- **Documentation Updated**:
-  - LEGACY_MIGRATION.md: Marked Week 3 as complete
-  - Created migration log 003-week3-advanced-features.md
-  - Updated AI_CONTEXT.md with session summary
-- **Next Steps**: Week 4 Enhancement & Polish phase
+  - YouTube video integration with search, grid layout, custom player
+  - Advanced data visualization with interactive charts and analytics  
+  - Sophisticated animation systems (scroll-based, carousel, loading animations)
+  - Firebase Functions cloud integration with retry logic and Google Sheets
+  - Navigation types and authentication context foundations
+  - Mindset screen components and constants (committed properly)
+  - Comprehensive worktree documentation across CLAUDE.md, AGENTS.md, ARCHITECTURE.md
+- **Key Learning**: **ALWAYS verify workspace location before starting any work**
+- **Documentation**: Detailed work session created with incident analysis and prevention measures
 
 ### 19-01-2025 - BGUI Testing Infrastructure Setup
 - **Agent**: Claude (Opus 4)
@@ -132,7 +57,7 @@
   - This is a known issue in the React Native ecosystem with newer versions
 - **Documentation Created**:
   - TESTING.md: Comprehensive testing strategy and recommendations
-  - work-sessions/2025-01-19-bgui-testing-setup.md: Detailed session notes
+  - Session notes consolidated into `docs/LESSONS.md`
 - **Recommendations**:
   - Use TypeScript for compile-time type safety
   - Consider Storybook for visual component testing
@@ -147,7 +72,7 @@
   - Resolved .expo and .next directory linting issues
   - Fixed all TypeScript errors in BGUI package (RefObject types, React.ReactNode compatibility, etc.)
   - Fixed all TypeScript errors in product app (component prop mismatches, version conflicts)
-  - Created comprehensive work-sessions/2025-06-19-lint-and-type-fixes.md with detailed learnings
+  - Created comprehensive WORK_SESSION_2025-06-19.md with detailed learnings
   - Improved pre-commit messaging for clear, actionable feedback
 - **Key Learnings**:
   - Biome v2 doesn't support `ignore` in files section - use .biomeignore or modify lint scripts
@@ -246,6 +171,9 @@
   - Generated `docs/TOKEN_USAGE.md`
   - Updated `docs/TODO.md` with completion status
 - **Next Steps**: Integrate token report into design workflow
+>>>>>>> main
+>>>>>>> main
+>>>>>>> main
 
 ### 18-06-2025 - Full Documentation Overhaul
 - **Agent**: Claude 3.5 Sonnet
@@ -406,7 +334,7 @@
 - [ ] Update `TODO.md` with completion status and date.
 - [ ] Add a new session summary to this file (`AI_CONTEXT.md`).
 - [ ] Run `pnpm lint` and `pnpm test` on all changes.
-- [ ] Create a detailed work session document in `docs/work-sessions/YYYY-MM-DD-brief-description.md` with learnings, patterns, and solutions discovered.
+- [ ] Add key learnings to `docs/LESSONS.md` so knowledge is preserved.
 
 ---
 

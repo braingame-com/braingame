@@ -22,16 +22,19 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-export { ErrorBoundary } from "./src/components/ErrorBoundary";
+export { ContextErrorBoundary as ErrorBoundary } from "./src/components/ErrorBoundary";
 export { Icon } from "./src/components/Icon";
-// ErrorBoundaryProps is defined in the component file, not exported separately
 export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
 export type { ImageProps } from "./src/components/Image/types";
+export type { KeyboardAvoidingContainerProps } from "./src/components/KeyboardAvoidingContainer";
+export { KeyboardAvoidingContainer } from "./src/components/KeyboardAvoidingContainer";
 export { Label } from "./src/components/Label";
 export type { LabelProps } from "./src/components/Label/types";
 export { Link } from "./src/components/Link";
 export type { LinkProps } from "./src/components/Link/types";
+export type { LoadingButtonProps } from "./src/components/LoadingButton";
+export { LoadingButton } from "./src/components/LoadingButton";
 export { Menu, MenuItem } from "./src/components/Menu";
 export type { MenuItemProps, MenuProps } from "./src/components/Menu/types";
 export { Modal, ModalFooter, ModalHeader } from "./src/components/Modal";
@@ -60,13 +63,20 @@ export { Toast } from "./src/components/Toast";
 export type { ToastProps } from "./src/components/Toast/types";
 export { Tooltip } from "./src/components/Tooltip";
 export type { TooltipProps } from "./src/components/Tooltip/types";
-// Core Layout Components
 export { View } from "./src/components/View";
-// Type Exports (Enterprise TypeScript interfaces)
 export type { ViewProps } from "./src/components/View/types";
+
 // Constants
 export { Fonts } from "./src/constants/Fonts";
+
 // Hooks
-export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
+export {
+	useAbortController,
+	useControlledState,
+	useFocusManagement,
+	useInteractiveState,
+	useMountedState,
+} from "./src/hooks";
+
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";

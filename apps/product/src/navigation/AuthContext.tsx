@@ -1,6 +1,16 @@
+import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import {
+	createContext,
+	type ReactNode,
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
+import { STORAGE_KEYS } from "../config/env";
 
 interface User {
 	id: string;
@@ -21,19 +31,20 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [user, setUser] = useState<User | null>(null);
+	const isMounted = useMountedState();
+	const loginTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const registerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	useEffect(() => {
-		checkAuthStatus();
-	}, []);
-
-	const checkAuthStatus = async () => {
+	const checkAuthStatus = useCallback(async () => {
 		try {
-			const token = await AsyncStorage.getItem("auth_token");
-			const userData = await AsyncStorage.getItem("user_data");
+			const token = await AsyncStorage.getItem(STORAGE_KEYS.auth.token);
+			const userData = await AsyncStorage.getItem(STORAGE_KEYS.auth.userData);
+
+			if (!isMounted()) return;
 
 			if (token && userData) {
 				setUser(JSON.parse(userData));
@@ -42,13 +53,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		} catch (error) {
 			console.error("Error checking auth status:", error);
 		} finally {
-			setIsLoading(false);
+			if (isMounted()) {
+				setIsLoading(false);
+			}
 		}
-	};
+	}, [isMounted]);
+
+	useEffect(() => {
+		checkAuthStatus();
+	}, [checkAuthStatus]);
 
 	const login = async (email: string, _password: string) => {
 		// Simulate API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		await new Promise<void>((resolve) => {
+			loginTimeoutRef.current = setTimeout(resolve, 1000);
+		});
+
+		if (!isMounted()) return;
 
 		// Mock successful login
 		const mockUser: User = {
@@ -58,16 +79,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 			isPremium: false,
 		};
 
-		await AsyncStorage.setItem("auth_token", "mock_token");
-		await AsyncStorage.setItem("user_data", JSON.stringify(mockUser));
+		// In production, this would be a real token from the API
+		const mockToken = `mock_token_${Date.now()}`;
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.token, mockToken);
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.userData, JSON.stringify(mockUser));
 
-		setUser(mockUser);
-		setIsAuthenticated(true);
+		if (isMounted()) {
+			setUser(mockUser);
+			setIsAuthenticated(true);
+		}
 	};
 
 	const register = async (email: string, _password: string, displayName: string) => {
 		// Simulate API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		await new Promise<void>((resolve) => {
+			registerTimeoutRef.current = setTimeout(resolve, 1000);
+		});
+
+		if (!isMounted()) return;
 
 		// Mock successful registration
 		const mockUser: User = {
@@ -77,21 +106,37 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 			isPremium: false,
 		};
 
-		await AsyncStorage.setItem("auth_token", "mock_token");
-		await AsyncStorage.setItem("user_data", JSON.stringify(mockUser));
+		// In production, this would be a real token from the API
+		const mockToken = `mock_token_${Date.now()}`;
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.token, mockToken);
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.userData, JSON.stringify(mockUser));
 
-		setUser(mockUser);
-		setIsAuthenticated(true);
+		if (isMounted()) {
+			setUser(mockUser);
+			setIsAuthenticated(true);
+		}
 	};
 
+	// Cleanup timeouts on unmount
+	useEffect(() => {
+		return () => {
+			if (loginTimeoutRef.current) {
+				clearTimeout(loginTimeoutRef.current);
+			}
+			if (registerTimeoutRef.current) {
+				clearTimeout(registerTimeoutRef.current);
+			}
+		};
+	}, []);
+
 	const logout = async () => {
-		await AsyncStorage.multiRemove(["auth_token", "user_data"]);
+		await AsyncStorage.multiRemove([STORAGE_KEYS.auth.token, STORAGE_KEYS.auth.userData]);
 		setUser(null);
 		setIsAuthenticated(false);
 	};
 
 	const resetPassword = async (_email: string) => {
-		// Simulate API call
+		// Simulate API call (using 1 second timeout for mock)
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 		// In a real app, this would send a password reset email
 	};
@@ -110,6 +155,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		>
 			{children}
 		</AuthContext.Provider>
+	);
+};
+
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+	return (
+		<ContextErrorBoundary contextName="Auth">
+			<AuthProviderInner>{children}</AuthProviderInner>
+		</ContextErrorBoundary>
 	);
 };
 

@@ -109,6 +109,9 @@
 		"experiments": {
 			"typedRoutes": true
 		},
+		"developer": {
+			"tool": null
+		},
 		"extra": {
 			"eas": {
 				"projectId": "your-project-id-here"

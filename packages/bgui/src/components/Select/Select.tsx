@@ -1,8 +1,6 @@
 import { Colors, Tokens, Typography, useThemeColor } from "@braingame/utils";
 import { Children, cloneElement, type ReactElement, useState } from "react";
 import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
-import { Text } from "../../../Text";
-import { View as BView } from "../../../View";
 import {
 	SELECT_DROPDOWN_MAX_HEIGHT,
 	SELECT_DROPDOWN_Z_INDEX,
@@ -11,6 +9,8 @@ import {
 } from "../../constants";
 import { validateProps, validators } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { Text } from "../Text";
+import { View as BView } from "../View";
 import { SelectItem } from "./SelectItem";
 import type { SelectItemProps, SelectProps } from "./types";
 

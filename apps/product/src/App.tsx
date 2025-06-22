@@ -5,11 +5,21 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { LogBox } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ErrorBoundary } from "./components/ErrorBoundary";
+import * as Sentry from "sentry-expo";
+import { ErrorBoundary, ErrorBoundaryProvider } from "./components/ErrorBoundary";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
+import { QueryClientProviderWithPersist } from "./contexts/QueryClientProvider";
 import { RootNavigator } from "./navigation/RootNavigator";
 import { captureException, setupGlobalErrorHandlers } from "./services/ErrorService";
 import { ThemeProvider } from "./theme/ThemeContext";
+
+// Initialize Sentry for error and performance monitoring
+Sentry.init({
+	dsn: process.env.SENTRY_DSN,
+	enableInExpoDevelopment: true,
+	debug: __DEV__,
+	tracesSampleRate: 1.0,
+});
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -27,10 +37,10 @@ if (__DEV__) {
 
 // Font assets
 const fonts = {
-	LexendRegular: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendMedium: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendSemibold: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendBold: require("./assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendRegular: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendMedium: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendSemibold: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	LexendBold: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
 };
 
 export default function App() {
@@ -75,30 +85,35 @@ export default function App() {
 	}
 
 	return (
-		<ErrorBoundary
-			level="app"
-			showDetails={__DEV__}
-			onError={(error, errorInfo) => {
-				// In production, you might want to show a crash report dialog
-				// or automatically restart the app
-				captureException(error, {
-					level: "app",
-					critical: true,
-					...errorInfo,
-				});
-			}}
-		>
-			<SafeAreaProvider>
-				<AccessibilityProvider>
-					<ThemeProvider>
-						<NavigationContainer>
-							<StatusBar style="auto" />
-							<RootNavigator />
-						</NavigationContainer>
-					</ThemeProvider>
-				</AccessibilityProvider>
-			</SafeAreaProvider>
-		</ErrorBoundary>
+		<ErrorBoundaryProvider showDetails={__DEV__} enableReporting={!__DEV__} maxErrors={10}>
+			<ErrorBoundary
+				level="app"
+				showDetails={__DEV__}
+				onError={(error, errorInfo) => {
+					// In production, you might want to show a crash report dialog
+					// or automatically restart the app
+					captureException(error, {
+						level: "app",
+						critical: true,
+						componentStack: errorInfo.componentStack ?? undefined,
+						digest: errorInfo.digest ?? undefined,
+					});
+				}}
+			>
+				<SafeAreaProvider>
+					<AccessibilityProvider>
+						<QueryClientProviderWithPersist>
+							<ThemeProvider>
+								<NavigationContainer>
+									<StatusBar style="auto" />
+									<RootNavigator />
+								</NavigationContainer>
+							</ThemeProvider>
+						</QueryClientProviderWithPersist>
+					</AccessibilityProvider>
+				</SafeAreaProvider>
+			</ErrorBoundary>
+		</ErrorBoundaryProvider>
 	);
 }
 

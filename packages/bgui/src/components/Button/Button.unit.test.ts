@@ -1,4 +1,5 @@
 import { getPaddingForSize, VARIANT_COLORS, validationRules } from "./styles";
+import type { ButtonSize } from "./types";
 
 describe("Button Styles", () => {
 	describe("getPaddingForSize", () => {
@@ -27,7 +28,7 @@ describe("Button Styles", () => {
 		});
 
 		it("should return md padding for invalid size", () => {
-			const padding = getPaddingForSize("invalid" as any);
+			const padding = getPaddingForSize("invalid" as unknown as ButtonSize);
 			expect(padding).toEqual({
 				paddingVertical: 12,
 				paddingHorizontal: 24,

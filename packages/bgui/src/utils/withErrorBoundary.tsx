@@ -1,5 +1,5 @@
 import type { ComponentType, ErrorInfo, ReactNode } from "react";
-import { ErrorBoundary } from "../components/ErrorBoundary";
+import { SimpleErrorBoundary } from "../components/SimpleErrorBoundary";
 
 /**
  * Options for the withErrorBoundary HOC
@@ -45,10 +45,11 @@ export function withErrorBoundary<P extends object>(
 	Component: ComponentType<P>,
 	options?: WithErrorBoundaryOptions,
 ) {
+	const { fallback, onError } = options || {};
 	const WrappedComponent = (props: P) => (
-		<ErrorBoundary fallback={options?.fallback} onError={options?.onError}>
+		<SimpleErrorBoundary fallback={fallback} onError={onError}>
 			<Component {...props} />
-		</ErrorBoundary>
+		</SimpleErrorBoundary>
 	);
 
 	WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
