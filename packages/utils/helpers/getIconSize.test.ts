@@ -1,5 +1,5 @@
-const { getIconSize } = require("./getIconSize");
-const { Tokens } = require("../constants/Tokens");
+import { Tokens } from "../constants/Tokens";
+import { getIconSize } from "./getIconSize";
 
 describe("getIconSize", () => {
 	it("returns the number when size is a number", () => {

@@ -1,6 +1,20 @@
 import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
+import { vi } from "vitest";
 import { SimpleErrorBoundary as ErrorBoundary } from "./SimpleErrorBoundary";
+
+// Mock the logger
+vi.mock("@braingame/utils", () => {
+	const vi = require("vitest").vi;
+	return {
+		createLogger: () => ({
+			error: vi.fn(),
+			warn: vi.fn(),
+			info: vi.fn(),
+			debug: vi.fn(),
+		}),
+	};
+});
 
 // Component that throws an error
 const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
@@ -11,15 +25,6 @@ const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
 };
 
 describe("ErrorBoundary", () => {
-	// Suppress console errors for these tests
-	const originalError = console.error;
-	beforeAll(() => {
-		console.error = jest.fn();
-	});
-	afterAll(() => {
-		console.error = originalError;
-	});
-
 	it("renders children when there is no error", () => {
 		const { getByText } = render(
 			<ErrorBoundary>
@@ -50,7 +55,7 @@ describe("ErrorBoundary", () => {
 	});
 
 	it("calls onError callback when error occurs", () => {
-		const onError = jest.fn();
+		const onError = vi.fn();
 		render(
 			<ErrorBoundary onError={onError}>
 				<ThrowError shouldThrow={true} />

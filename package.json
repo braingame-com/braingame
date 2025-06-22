@@ -21,6 +21,8 @@
 		"build:apps": "turbo build --filter=./apps/*",
 		"dev:packages": "turbo dev --filter=./packages/*",
 		"dev:apps": "turbo dev --filter=./apps/*",
+		"dev:docs": "turbo dev --filter=@braingame/docs",
+		"build:docs": "turbo build --filter=@braingame/docs",
 		"lint:fix": "turbo lint -- --fix",
 		"format:check": "biome check --vcs-root=.",
 		"format:write": "biome format --write .",

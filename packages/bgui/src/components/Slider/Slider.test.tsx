@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Slider } from "./Slider";
 
 describe("Slider", () => {
@@ -8,7 +9,7 @@ describe("Slider", () => {
 	});
 
 	it("renders with min and max", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByRole } = render(
 			<Slider value={50} onValueChange={onValueChange} min={0} max={100} />,
 		);
@@ -19,7 +20,7 @@ describe("Slider", () => {
 	});
 
 	it("calls onValueChange when value changes", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByRole } = render(<Slider value={50} onValueChange={onValueChange} />);
 
 		const slider = getByRole("slider");
@@ -29,7 +30,7 @@ describe("Slider", () => {
 	});
 
 	it("respects step prop", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByRole } = render(
 			<Slider value={50} onValueChange={onValueChange} min={0} max={100} step={10} />,
 		);
@@ -41,7 +42,7 @@ describe("Slider", () => {
 	});
 
 	it("disables interaction when disabled", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByRole } = render(
 			<Slider value={50} onValueChange={onValueChange} min={0} max={100} disabled />,
 		);
@@ -67,7 +68,7 @@ describe("Slider", () => {
 	});
 
 	it("supports range values", () => {
-		const onValueChange = jest.fn();
+		const onValueChange = vi.fn();
 		const { getByRole } = render(
 			<Slider value={[20, 80]} onValueChange={onValueChange} min={0} max={100} />,
 		);
