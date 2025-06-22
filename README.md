@@ -36,6 +36,8 @@ pnpm install    # or pnpm run preflight
 
 For complete documentation including architecture, coding standards, and contribution guides, visit our **[Documentation Hub](./docs/README.md)**.
 
+New contributors should also review **[docs/AGENTS.md](./docs/AGENTS.md)** and **[docs/AI_CONTEXT.md](./docs/AI_CONTEXT.md)** to understand how human and AI workflows operate in this repository.
+
 ---
 
 ## ⚡ Quick Start
