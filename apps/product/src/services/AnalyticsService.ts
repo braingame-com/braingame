@@ -112,37 +112,37 @@ type AnalyticsEvent =
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: AnalyticsEvent[] = [];
-	async init(apiKey: string) {
-		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
+	async init(_apiKey: string) {
+		// Mock analytics initialized in development
 	}
 
 	async identify(userId: string, properties?: UserProperties) {
 		const log: AnalyticsEvent = { type: "identify", userId, properties, timestamp: new Date() };
 		this.logs.push(log);
-		console.log("[MockAnalytics] Identify:", log);
+		// Mock analytics user identified
 	}
 
 	async track(event: EventName, properties?: EventProperties) {
 		const log: AnalyticsEvent = { type: "track", event, properties, timestamp: new Date() };
 		this.logs.push(log);
-		console.log("[MockAnalytics] Track:", log);
+		// Mock analytics event tracked
 	}
 
-	async setUserProperties(properties: UserProperties) {
-		console.log("[MockAnalytics] Set User Properties:", properties);
+	async setUserProperties(_properties: UserProperties) {
+		// Mock analytics user properties set
 	}
 
-	async setSuperProperties(properties: SuperProperties) {
-		console.log("[MockAnalytics] Set Super Properties:", properties);
+	async setSuperProperties(_properties: SuperProperties) {
+		// Mock analytics super properties set
 	}
 
 	async reset() {
 		this.logs = [];
-		console.log("[MockAnalytics] Reset");
+		// Mock analytics reset
 	}
 
 	async flush() {
-		console.log("[MockAnalytics] Flush - Total events:", this.logs.length);
+		// Mock analytics flushed events
 	}
 }
 
@@ -195,7 +195,7 @@ class AnalyticsService {
 			this.isEnabled = enabled !== "false";
 
 			if (!this.isEnabled) {
-				console.log("Analytics disabled by user preference");
+				// Analytics disabled by user preference
 				return;
 			}
 
@@ -279,7 +279,7 @@ class AnalyticsService {
 		if (!this.isEnabled) return;
 
 		if (this.debugMode) {
-			console.log(`[Analytics] ${event}`, properties);
+			// Analytics event tracked in debug mode
 		}
 
 		if (!this.isInitialized) {

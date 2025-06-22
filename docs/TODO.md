@@ -19,7 +19,7 @@
 ### Quick Win Fixes (Can be done immediately)
 - [ ] Add cleanup to setTimeout in `DashboardScreenAccessible.tsx`
 - [ ] Replace hardcoded app version in `ErrorService.ts`
-- [ ] Remove/replace console.log statements (25+ instances)
+- [x] Remove/replace console.log statements (25+ instances) (22-06-2025)
 - [ ] Add try-catch blocks to async functions in ErrorService
 - [ ] Add try-catch blocks to async functions in AnalyticsService
 

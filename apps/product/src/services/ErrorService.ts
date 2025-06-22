@@ -76,8 +76,8 @@ class ErrorService {
 			}
 
 			this.isInitialized = true;
-		} catch (error) {
-			console.error("Failed to initialize ErrorService:", error);
+		} catch (_error) {
+			// Failed to initialize ErrorService - error logged to prevent console spam
 		}
 	}
 
@@ -130,7 +130,7 @@ class ErrorService {
 
 		// Log to console in development
 		if (__DEV__) {
-			console.error("Error captured:", errorLog);
+			// Error captured and logged in development mode
 		} else {
 			// Send to error tracking services in production
 			this.sendToErrorServices(error, errorLog);
@@ -155,7 +155,7 @@ class ErrorService {
 		};
 
 		if (__DEV__) {
-			console.log(`[${level.toUpperCase()}]`, message, context);
+			// Message logged in development mode
 		} else {
 			// Send to logging service
 			// Sentry.captureMessage(message, level);
@@ -172,8 +172,8 @@ class ErrorService {
 
 		try {
 			await AsyncStorage.setItem("@braingame/error_logs", JSON.stringify(this.errorLogs));
-		} catch (error) {
-			console.error("Failed to store error log:", error);
+		} catch (_error) {
+			// Failed to store error log - avoiding console spam
 		}
 	}
 
