@@ -44,6 +44,10 @@ Follow these steps exactly to ensure a clean setup.
     cp apps/website/.env.example apps/website/.env.local
     ```
   - [ ] Open each `.env.local` file and fill in the required secrets. Ask a team member for these values if you don't have them.
+  - [ ] Validate your configuration:
+    ```bash
+    pnpm validate:env
+    ```
 
 - [ ] **4. Verify Your Setup:**
   - [ ] Run the build and test scripts to ensure everything is working correctly.
@@ -67,6 +71,7 @@ These are the commands you will use most often. They are run from the monorepo r
 | `pnpm test:watch` | Runs tests in watch mode for TDD. |
 | `pnpm build` | Builds all packages and apps for production. |
 | `pnpm clean` | Deletes all build artifacts and caches (`dist`, `.next`, etc.). |
+| `pnpm validate:env` | Validates environment variables for all apps. |
 | `pnpm storybook` | Starts Storybook for BGUI component development. |
 
 ---

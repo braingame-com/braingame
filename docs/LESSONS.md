@@ -58,6 +58,15 @@ git cherry-pick specific-commit-hash
 git diff --check  # Checks for whitespace issues
 ```
 
+### Branch State Verification
+Always check `git diff` before opening a pull request. Huge file counts usually mean the branch includes unrelated work. Start a fresh branch from `main` when in doubt.
+
+### Rebase to Reveal True Conflicts
+Running `git rebase main` cleans up outdated branches and shows the real merge conflicts. What looks like 200+ changed files often boils down to a handful of simple fixes.
+
+### Defensive Documentation
+Repeat critical instructions—such as worktree usage—in multiple docs (`CLAUDE.md`, `AGENTS.md`, `AI_CONTEXT.md`). Redundancy ensures every agent sees the guidance.
+
 ---
 
 ## Testing Infrastructure
@@ -286,6 +295,8 @@ if ! pnpm lint; then
 fi
 ```
 
+All packages should call `pnpm` in pre-commit hooks so workspace scripts resolve correctly. For example, use `pnpm test` instead of plain `npm test`.
+
 ### Essential Commands
 ```bash
 # Development
@@ -364,9 +375,12 @@ export const withNavigationGuard = <P extends object>(
     <NavigationGuard {...guardProps}>
       <Component {...props} />
     </NavigationGuard>
-  );
+);
 };
 ```
+
+### Component Documentation Template
+Comprehensive docs help everyone use components correctly. Each page should cover overview, usage, props, examples, accessibility, best practices, performance, and related components.
 
 ---
 
@@ -457,6 +471,11 @@ git branch --contains <commit-hash>
 
 **Lesson**: A successful rebase + push ≠ a successful merge. Always verify the final state.
 
+### Corrupted PR Cleanup (21-06-2025)
+Branches with hundreds of unintended changes were closed instead of rebased. Recreating clean branches was faster than untangling bad history. Always verify branch state before opening a PR.
+
+### Hidden Bugs Analysis (20-01-2025)
+A code scan uncovered memory leaks from timers and listeners, missing error boundaries, hardcoded values and excessive console logs. Add cleanup functions and proper error handling to avoid performance issues.
 ---
 
 ## Summary

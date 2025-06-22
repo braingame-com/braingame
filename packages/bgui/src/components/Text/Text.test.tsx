@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Text } from "./Text";
 
 describe("Text", () => {
@@ -158,7 +159,7 @@ describe("Text", () => {
 	});
 
 	it("inherits Text component props", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Text onPress={onPress} testID="pressable-text">
 				Press me

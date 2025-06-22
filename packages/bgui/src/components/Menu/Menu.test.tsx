@@ -1,5 +1,6 @@
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
 import { Pressable, Text } from "react-native";
+import { vi } from "vitest";
 import { Menu, MenuItem } from "./Menu";
 
 describe("Menu", () => {
@@ -36,7 +37,7 @@ describe("Menu", () => {
 	});
 
 	it("closes menu on item selection", async () => {
-		const onSelect = jest.fn();
+		const onSelect = vi.fn();
 		const { getByText, queryByText } = render(
 			<Menu trigger={<Text>Menu</Text>}>
 				<MenuItem onPress={onSelect}>Select me</MenuItem>
@@ -99,7 +100,7 @@ describe("Menu", () => {
 	});
 
 	it("supports disabled menu items", async () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Menu trigger={<Text>Menu</Text>}>
 				<MenuItem onPress={onPress} disabled>

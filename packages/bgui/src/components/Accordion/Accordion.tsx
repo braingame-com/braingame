@@ -11,6 +11,7 @@ import {
 } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { ContextErrorBoundary } from "../ErrorBoundary";
 
 export interface AccordionProps {
 	children: ReactNode;
@@ -84,9 +85,11 @@ const AccordionComponent = ({
 	);
 
 	return (
-		<AccordionContext.Provider value={{ expanded, toggle, register, refs: itemRefs.current }}>
-			<View>{children}</View>
-		</AccordionContext.Provider>
+		<ContextErrorBoundary contextName="Accordion">
+			<AccordionContext.Provider value={{ expanded, toggle, register, refs: itemRefs.current }}>
+				<View>{children}</View>
+			</AccordionContext.Provider>
+		</ContextErrorBoundary>
 	);
 };
 

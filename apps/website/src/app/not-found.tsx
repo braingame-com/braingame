@@ -63,7 +63,7 @@ export default function NotFound() {
 		<View
 			style={{
 				flex: 1,
-				minHeight: 800,
+				height: "100%",
 				backgroundColor: "#000",
 				alignItems: "center",
 				justifyContent: "center",

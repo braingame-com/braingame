@@ -22,11 +22,7 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-// export { ErrorBoundary } from "./src/components/ErrorBoundary";
-// ErrorBoundaryProps is defined in the component file, not exported separately
-// TODO: Create ErrorBoundary component
-export { GlowingLogo } from "./src/components/GlowingLogo";
-export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
+export { ContextErrorBoundary as ErrorBoundary } from "./src/components/ErrorBoundary";
 export { Icon } from "./src/components/Icon";
 export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
@@ -43,7 +39,6 @@ export { Menu, MenuItem } from "./src/components/Menu";
 export type { MenuItemProps, MenuProps } from "./src/components/Menu/types";
 export { Modal, ModalFooter, ModalHeader } from "./src/components/Modal";
 export type { ModalProps } from "./src/components/Modal/types";
-// Core Layout Components
 export { PageWrapper } from "./src/components/PageWrapper";
 export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export { ProgressBar } from "./src/components/ProgressBar";
@@ -75,7 +70,13 @@ export type { ViewProps } from "./src/components/View/types";
 export { Fonts } from "./src/constants/Fonts";
 
 // Hooks
-export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
+export {
+	useAbortController,
+	useControlledState,
+	useFocusManagement,
+	useInteractiveState,
+	useMountedState,
+} from "./src/hooks";
 
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";

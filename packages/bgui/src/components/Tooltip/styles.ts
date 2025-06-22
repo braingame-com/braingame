@@ -1,5 +1,6 @@
 import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
+import { TOOLTIP_MAX_WIDTH, TOOLTIP_Z_INDEX } from "../../constants";
 
 /**
  * StyleSheet for Tooltip component
@@ -14,8 +15,8 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: Tokens.s,
 		paddingVertical: Tokens.xs,
 		borderRadius: Tokens.xs,
-		maxWidth: 200,
-		zIndex: 999,
+		maxWidth: TOOLTIP_MAX_WIDTH,
+		zIndex: TOOLTIP_Z_INDEX,
 	},
 	text: {
 		fontSize: Tokens.s,

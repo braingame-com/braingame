@@ -1,15 +1,17 @@
+import React from "react";
+import { vi } from "vitest";
 import { fireEvent, render, screen } from "../../test-utils";
 import { Button } from "./Button";
 
 describe("Button", () => {
 	it("renders correctly with text", () => {
-		render(<Button onPress={jest.fn()}>Click me</Button>);
+		render(<Button onPress={vi.fn()}>Click me</Button>);
 
 		expect(screen.getByText("Click me")).toBeTruthy();
 	});
 
 	it("calls onPress when pressed", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		render(<Button onPress={onPress}>Press me</Button>);
 
 		const button = screen.getByText("Press me");
@@ -19,7 +21,7 @@ describe("Button", () => {
 	});
 
 	it("does not call onPress when disabled", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		render(
 			<Button onPress={onPress} disabled>
 				Disabled Button
@@ -34,7 +36,7 @@ describe("Button", () => {
 
 	it("renders with icon on the left by default", () => {
 		render(
-			<Button onPress={jest.fn()} icon="home" aria-label="Home">
+			<Button onPress={vi.fn()} icon="home" aria-label="Home">
 				Home
 			</Button>,
 		);
@@ -48,7 +50,7 @@ describe("Button", () => {
 
 	it("renders with icon on the right when specified", () => {
 		render(
-			<Button onPress={jest.fn()} icon="arrow-right" iconPosition="right" aria-label="Next">
+			<Button onPress={vi.fn()} icon="arrow-right" iconPosition="right" aria-label="Next">
 				Next
 			</Button>,
 		);
@@ -66,7 +68,7 @@ describe("Button", () => {
 
 	it("shows loading state", () => {
 		render(
-			<Button onPress={jest.fn()} loading aria-label="Loading Button">
+			<Button onPress={vi.fn()} loading aria-label="Loading Button">
 				Loading
 			</Button>,
 		);
@@ -81,7 +83,7 @@ describe("Button", () => {
 
 		variants.forEach((variant) => {
 			const { rerender } = render(
-				<Button onPress={jest.fn()} variant={variant}>
+				<Button onPress={vi.fn()} variant={variant}>
 					{variant}
 				</Button>,
 			);
@@ -89,7 +91,7 @@ describe("Button", () => {
 			const button = screen.getByText(variant);
 			expect(button).toBeTruthy();
 
-			rerender(<Button onPress={jest.fn()}>Clear</Button>);
+			rerender(<Button onPress={vi.fn()}>Clear</Button>);
 		});
 	});
 
@@ -98,7 +100,7 @@ describe("Button", () => {
 
 		sizes.forEach((size) => {
 			const { rerender } = render(
-				<Button onPress={jest.fn()} size={size}>
+				<Button onPress={vi.fn()} size={size}>
 					{size}
 				</Button>,
 			);
@@ -106,13 +108,13 @@ describe("Button", () => {
 			const button = screen.getByText(size);
 			expect(button).toBeTruthy();
 
-			rerender(<Button onPress={jest.fn()}>Clear</Button>);
+			rerender(<Button onPress={vi.fn()}>Clear</Button>);
 		});
 	});
 
 	it("expands to full width when specified", () => {
 		render(
-			<Button onPress={jest.fn()} fullWidth>
+			<Button onPress={vi.fn()} fullWidth>
 				Full Width
 			</Button>,
 		);
@@ -130,7 +132,7 @@ describe("Button", () => {
 
 	it("uses aria-label when provided", () => {
 		render(
-			<Button onPress={jest.fn()} aria-label="Submit form">
+			<Button onPress={vi.fn()} aria-label="Submit form">
 				Submit
 			</Button>,
 		);
@@ -140,7 +142,7 @@ describe("Button", () => {
 
 	it("uses aria-describedby when provided", () => {
 		render(
-			<Button onPress={jest.fn()} aria-describedby="helper-text">
+			<Button onPress={vi.fn()} aria-describedby="helper-text">
 				Help
 			</Button>,
 		);
@@ -151,7 +153,7 @@ describe("Button", () => {
 
 	it("has correct accessibility state when disabled", () => {
 		render(
-			<Button onPress={jest.fn()} disabled>
+			<Button onPress={vi.fn()} disabled>
 				Disabled
 			</Button>,
 		);
@@ -163,7 +165,7 @@ describe("Button", () => {
 	});
 
 	it("renders icon-only button with proper accessibility", () => {
-		render(<Button onPress={jest.fn()} variant="icon" icon="settings" aria-label="Settings" />);
+		render(<Button onPress={vi.fn()} variant="icon" icon="settings" aria-label="Settings" />);
 
 		expect(screen.getByLabelText("Settings")).toBeTruthy();
 	});
