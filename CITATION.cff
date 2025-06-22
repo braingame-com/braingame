@@ -1,7 +1,15 @@
 cff-version: 1.2.0
 title: "Brain Game"
-authors:
-  - family-names: Brain
-    given-names: Game
 version: "1.0.0"
-date-released: "22-06-2025"
+date-released: "2025-06-22"
+
+authors:
+  - family-names: Crow-Stewart
+    given-names: Jordan
+    orcid: https://orcid.org/0009-0006-6070-9304
+    email: hello@braingame.dev
+    affiliation: Brain Game
+    github: jcs180
+    repository: https://github.com/braingame-com/braingame
+    license: MIT
+    abstract: "Brain Game is a personal development technology company focused on self-mastery, behavioral engineering, and performance optimization."
