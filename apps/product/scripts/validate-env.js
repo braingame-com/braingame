@@ -5,9 +5,19 @@
  * Validates that all required environment variables are properly configured
  */
 
-const { validateProductAppEnv, validateProductionEnv } = require("@braingame/utils");
 const fs = require("node:fs");
 const path = require("node:path");
+const { execSync } = require("node:child_process");
+
+// Ensure @braingame/utils is built so it can be required
+const utilsPath = path.resolve(__dirname, "../../packages/utils");
+const distPath = path.join(utilsPath, "dist");
+if (!fs.existsSync(distPath)) {
+	console.log("\n🔄 Building @braingame/utils for environment validation...");
+	execSync("pnpm build", { cwd: utilsPath, stdio: "inherit" });
+}
+
+const { validateProductAppEnv, validateProductionEnv } = require("@braingame/utils");
 
 // Colors for console output
 const colors = {
