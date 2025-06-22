@@ -1,6 +1,7 @@
+import { useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 interface User {
 	id: string;
@@ -25,11 +26,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [user, setUser] = useState<User | null>(null);
+	const isMounted = useMountedState();
+	const loginTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const registerTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const checkAuthStatus = useCallback(async () => {
 		try {
 			const token = await AsyncStorage.getItem("auth_token");
 			const userData = await AsyncStorage.getItem("user_data");
+
+			if (!isMounted()) return;
 
 			if (token && userData) {
 				setUser(JSON.parse(userData));
@@ -38,9 +44,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		} catch (error) {
 			console.error("Error checking auth status:", error);
 		} finally {
-			setIsLoading(false);
+			if (isMounted()) {
+				setIsLoading(false);
+			}
 		}
-	}, []);
+	}, [isMounted]);
 
 	useEffect(() => {
 		checkAuthStatus();
@@ -48,7 +56,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 	const login = async (email: string, _password: string) => {
 		// Simulate API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		await new Promise((resolve) => {
+			loginTimeoutRef.current = setTimeout(resolve, 1000);
+		});
+
+		if (!isMounted()) return;
 
 		// Mock successful login
 		const mockUser: User = {
@@ -61,13 +73,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		await AsyncStorage.setItem("auth_token", "mock_token");
 		await AsyncStorage.setItem("user_data", JSON.stringify(mockUser));
 
-		setUser(mockUser);
-		setIsAuthenticated(true);
+		if (isMounted()) {
+			setUser(mockUser);
+			setIsAuthenticated(true);
+		}
 	};
 
 	const register = async (email: string, _password: string, displayName: string) => {
 		// Simulate API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		await new Promise((resolve) => {
+			registerTimeoutRef.current = setTimeout(resolve, 1000);
+		});
+
+		if (!isMounted()) return;
 
 		// Mock successful registration
 		const mockUser: User = {
@@ -80,9 +98,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		await AsyncStorage.setItem("auth_token", "mock_token");
 		await AsyncStorage.setItem("user_data", JSON.stringify(mockUser));
 
-		setUser(mockUser);
-		setIsAuthenticated(true);
+		if (isMounted()) {
+			setUser(mockUser);
+			setIsAuthenticated(true);
+		}
 	};
+
+	// Cleanup timeouts on unmount
+	useEffect(() => {
+		return () => {
+			if (loginTimeoutRef.current) {
+				clearTimeout(loginTimeoutRef.current);
+			}
+			if (registerTimeoutRef.current) {
+				clearTimeout(registerTimeoutRef.current);
+			}
+		};
+	}, []);
 
 	const logout = async () => {
 		await AsyncStorage.multiRemove(["auth_token", "user_data"]);

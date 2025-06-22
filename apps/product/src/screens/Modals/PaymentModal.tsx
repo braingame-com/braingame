@@ -1,8 +1,8 @@
-import { Text } from "@braingame/bgui";
+import { Text, useMountedState } from "@braingame/bgui";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { ModalStackParamList } from "../../navigation/ModalNavigator";
@@ -15,14 +15,31 @@ export const PaymentModal: React.FC = () => {
 	const { price } = route.params;
 	const [selectedMethod, setSelectedMethod] = useState<"card" | "apple" | "google">("card");
 	const [processing, setProcessing] = useState(false);
+	const isMounted = useMountedState();
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const handlePayment = async () => {
-		setProcessing(true);
+		if (isMounted()) {
+			setProcessing(true);
+		}
+		
 		// Simulate payment processing
-		await new Promise((resolve) => setTimeout(resolve, 2000));
-		setProcessing(false);
-		navigation.goBack();
+		timeoutRef.current = setTimeout(() => {
+			if (isMounted()) {
+				setProcessing(false);
+				navigation.goBack();
+			}
+		}, 2000);
 	};
+
+	// Cleanup timeout on unmount
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container}>

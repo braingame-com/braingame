@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Text, useMountedState } from "@braingame/bgui";
 
 // Audio playback uses expo-av. Ensure the dependency is installed in the Expo project
 // import { Audio, type AVPlaybackStatus } from "expo-av";
@@ -57,18 +57,26 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 	const [sound, setSound] = useState<AudioSound | null>(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const isMounted = useMountedState();
 
 	/**
 	 * Load the affirmations audio file
 	 */
 	const loadAudio = useCallback(async () => {
 		try {
-			setIsLoading(true);
+			if (isMounted()) {
+				setIsLoading(true);
+			}
 			const { sound: audioSound } = await Audio.Sound.createAsync();
+			
+			if (!isMounted()) return;
+			
 			setSound(audioSound);
 
 			// Set up playback status listener
 			audioSound?.setOnPlaybackStatusUpdate?.((status: AVPlaybackStatus) => {
+				if (!isMounted()) return;
+				
 				if (status.isLoaded) {
 					setIsPlaying(status.isPlaying || false);
 
@@ -81,9 +89,11 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		} catch (error) {
 			console.error("Error loading audio:", error);
 		} finally {
-			setIsLoading(false);
+			if (isMounted()) {
+				setIsLoading(false);
+			}
 		}
-	}, [onComplete]);
+	}, [onComplete, isMounted]);
 
 	/**
 	 * Load audio file on component mount

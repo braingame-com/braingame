@@ -1,6 +1,6 @@
-import { Text } from "@braingame/bgui";
+import { Text, useAbortController, useMountedState } from "@braingame/bgui";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { FIREBASE_FUNCTION_URL, VISION_AREAS } from "../constants";
 import { mindsetStyles } from "../styles";
@@ -24,6 +24,10 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 
 	const [buttonState, setButtonState] = useState<ButtonState>("idle");
 	const [error, setError] = useState<string>("");
+	const isMounted = useMountedState();
+	const abortController = useAbortController();
+	const successTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	/**
 	 * Handle text input changes
@@ -58,8 +62,10 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 	const handleSubmit = async () => {
 		if (!validateForm()) return;
 
-		setButtonState("loading");
-		setError("");
+		if (isMounted()) {
+			setButtonState("loading");
+			setError("");
+		}
 
 		try {
 			const response = await fetch(FIREBASE_FUNCTION_URL, {
@@ -71,7 +77,10 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 					sheet: "Vision", // Same sheet name as dev-dil
 					data: formData,
 				}),
+				signal: abortController.signal,
 			});
+
+			if (abortController.signal.aborted || !isMounted()) return;
 
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
@@ -79,28 +88,48 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 
 			const result = await response.json();
 
+			if (!isMounted()) return;
+
 			if (result.success) {
 				setButtonState("success");
 				onComplete(); // Mark as completed
 
 				// Reset button state after delay (matches dev-dil behavior)
-				setTimeout(() => {
-					setButtonState("idle");
+				successTimeoutRef.current = setTimeout(() => {
+					if (isMounted()) {
+						setButtonState("idle");
+					}
 				}, 2000);
 			} else {
 				throw new Error(result.message || "Submission failed");
 			}
 		} catch (err) {
+			if (abortController.signal.aborted || !isMounted()) return;
+
 			console.error("Vision submission error:", err);
 			setError(err instanceof Error ? err.message : "Failed to submit vision");
 			setButtonState("error");
 
 			// Reset button state after delay
-			setTimeout(() => {
-				setButtonState("idle");
+			errorTimeoutRef.current = setTimeout(() => {
+				if (isMounted()) {
+					setButtonState("idle");
+				}
 			}, 2000);
 		}
 	};
+
+	// Cleanup timeouts on unmount
+	useEffect(() => {
+		return () => {
+			if (successTimeoutRef.current) {
+				clearTimeout(successTimeoutRef.current);
+			}
+			if (errorTimeoutRef.current) {
+				clearTimeout(errorTimeoutRef.current);
+			}
+		};
+	}, []);
 
 	/**
 	 * Get button text based on state
