@@ -6,7 +6,7 @@
 
 ## 🐛 CRITICAL BUG FIXES REQUIRED
 
-**URGENT**: Hidden bugs discovered during code analysis on 20-01-2025. See [hidden-bugs-analysis.md](./work-sessions/hidden-bugs-analysis.md) for full details.
+**URGENT**: Hidden bugs discovered during code analysis on 20-01-2025. See [Hidden Bugs Analysis](./LESSONS.md#hidden-bugs-analysis-20-01-2025) for details.
 
 ### Memory Leak Fixes (Priority: CRITICAL)
 - [ ] Fix timer cleanup in `TrackableComponent.tsx` scrollTimer
