@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 
 // Setup globals
-global.__DEV__ = true;
+(globalThis as any).__DEV__ = true;
 
 // Mock expo modules
 vi.mock("expo-font", () => ({

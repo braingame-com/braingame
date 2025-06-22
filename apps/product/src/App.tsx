@@ -7,6 +7,7 @@ import { LogBox } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ErrorBoundary, ErrorBoundaryProvider } from "./components/ErrorBoundary";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
+import { QueryClientProviderWithPersist } from "./contexts/QueryClientProvider";
 import { RootNavigator } from "./navigation/RootNavigator";
 import { captureException, setupGlobalErrorHandlers } from "./services/ErrorService";
 import { ThemeProvider } from "./theme/ThemeContext";
@@ -92,12 +93,14 @@ export default function App() {
 			>
 				<SafeAreaProvider>
 					<AccessibilityProvider>
-						<ThemeProvider>
-							<NavigationContainer>
-								<StatusBar style="auto" />
-								<RootNavigator />
-							</NavigationContainer>
-						</ThemeProvider>
+						<QueryClientProviderWithPersist>
+							<ThemeProvider>
+								<NavigationContainer>
+									<StatusBar style="auto" />
+									<RootNavigator />
+								</NavigationContainer>
+							</ThemeProvider>
+						</QueryClientProviderWithPersist>
 					</AccessibilityProvider>
 				</SafeAreaProvider>
 			</ErrorBoundary>
