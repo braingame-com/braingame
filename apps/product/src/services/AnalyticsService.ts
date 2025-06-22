@@ -471,7 +471,7 @@ class AnalyticsService {
 				error_stack: error.stack,
 				fatal,
 			});
-		} catch (trackingError) {
+		} catch (_trackingError) {
 			// Avoid recursive error tracking - error tracking itself failed
 		}
 	}

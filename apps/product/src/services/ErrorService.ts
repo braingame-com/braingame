@@ -144,7 +144,7 @@ class ErrorService {
 				// Send to error tracking services in production
 				this.sendToErrorServices(error, errorLog);
 			}
-		} catch (captureError) {
+		} catch (_captureError) {
 			// Critical error in error capture system - fail silently to prevent recursion
 		}
 	}
@@ -189,7 +189,7 @@ class ErrorService {
 		}
 	}
 
-	private sendToErrorServices(error: Error, errorLog: ErrorLog) {
+	private sendToErrorServices(_error: Error, errorLog: ErrorLog) {
 		try {
 			// Send to Sentry
 			// Sentry.captureException(error, {
@@ -206,12 +206,12 @@ class ErrorService {
 
 			// Send to custom backend
 			this.sendToBackend(errorLog);
-		} catch (serviceError) {
+		} catch (_serviceError) {
 			// Error sending to external services - fail silently
 		}
 	}
 
-	private async sendToBackend(errorLog: ErrorLog) {
+	private async sendToBackend(_errorLog: ErrorLog) {
 		// In production, send to your error logging endpoint
 		try {
 			// await fetch('https://api.braingame.dev/errors', {
@@ -221,7 +221,7 @@ class ErrorService {
 			//   },
 			//   body: JSON.stringify(errorLog),
 			// });
-		} catch (sendError) {
+		} catch (_sendError) {
 			// Failed to send error to backend - network or server issue
 		}
 	}
@@ -229,7 +229,7 @@ class ErrorService {
 	async getStoredErrors(): Promise<ErrorLog[]> {
 		try {
 			return this.errorLogs;
-		} catch (error) {
+		} catch (_error) {
 			// Error retrieving stored errors - returning empty array
 			return [];
 		}
@@ -239,7 +239,7 @@ class ErrorService {
 		try {
 			this.errorLogs = [];
 			await AsyncStorage.removeItem("@braingame/error_logs");
-		} catch (error) {
+		} catch (_error) {
 			// Error clearing stored errors - operation failed silently
 		}
 	}
