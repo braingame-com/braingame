@@ -248,10 +248,10 @@ Once all checks pass and conflicts are resolved:
 4. **Merge the PR properly**:
    ```bash
    # Use GitHub's merge command to ensure proper tracking
-   gh pr merge <number> --merge --delete-branch
-   
-   # Alternative: squash merge for cleaner history
    gh pr merge <number> --squash --delete-branch
+   
+   # Alternative: regular merge to preserve all commits
+   gh pr merge <number> --merge --delete-branch
    ```
    
    **IMPORTANT**: Use `gh pr merge` instead of local git merge + `gh pr close`
