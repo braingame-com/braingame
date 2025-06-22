@@ -181,6 +181,8 @@ Close PRs in these scenarios:
 
 ### Standard Closure Process
 
+**CRITICAL**: Only use `gh pr close` for PRs that will NOT be merged. For PRs being merged, use `gh pr merge`.
+
 **ALWAYS comment before closing** to explain the decision:
 
 ```bash
@@ -203,16 +205,25 @@ When closing PRs:
 4. **Update TODO.md** if the PR addressed items listed there
 5. **Tag the author** if they should be aware of alternatives
 
-### Example Closure Scenarios
+### Example Scenarios
 
-**Redundant Work:**
+**Merging a PR (Standard Case):**
 ```bash
-gh pr close 140 --comment "Closing as redundant - this work was already completed and merged in PR #144 (fix: add comprehensive try-catch blocks to AnalyticsService functions), which included try-catch blocks for both AnalyticsService and ErrorService."
+# For feature additions or fixes that should be integrated
+gh pr merge 150 --merge --delete-branch
+# This shows as "Merged" on GitHub with purple badge ✅
 ```
 
-**Obsolete Changes:**
+**Closing Redundant Work:**
+```bash
+gh pr close 140 --comment "Closing as redundant - this work was already completed and merged in PR #144 (fix: add comprehensive try-catch blocks to AnalyticsService functions), which included try-catch blocks for both AnalyticsService and ErrorService."
+# This shows as "Closed" on GitHub with red badge ❌
+```
+
+**Closing Obsolete Changes:**
 ```bash
 gh pr close 999 --comment "Closing as obsolete - console.log removal is no longer needed as this was completed in PR #136. All console.log statements have been replaced with appropriate logging mechanisms."
+# This shows as "Closed" on GitHub with red badge ❌
 ```
 
 ## 8. Merge Strategy
@@ -234,15 +245,33 @@ Once all checks pass and conflicts are resolved:
    - Explain any conflict resolutions
    - Confirm ready to merge
 
-4. **Merge**:
+4. **Merge the PR properly**:
    ```bash
-   # Squash and merge for clean history
-   gh pr merge <number> --squash
+   # Use GitHub's merge command to ensure proper tracking
+   gh pr merge <number> --merge --delete-branch
+   
+   # Alternative: squash merge for cleaner history
+   gh pr merge <number> --squash --delete-branch
    ```
+   
+   **IMPORTANT**: Use `gh pr merge` instead of local git merge + `gh pr close`
+   - This ensures GitHub shows the PR as "Merged" with purple badge
+   - Maintains accurate contribution statistics
+   - Creates clear audit trail
 
 5. **Document follow-up work** if needed
 
-## 8. Common Scenarios
+### Merge vs Close Decision Tree
+
+```
+Is this PR being integrated into the codebase?
+├─ YES → Use: gh pr merge <number> --merge --delete-branch
+│        (Shows as "Merged" on GitHub)
+└─ NO → Use: gh pr close <number> --comment "[reason]"
+         (Shows as "Closed" on GitHub)
+```
+
+## 9. Common Scenarios
 
 ### Scenario: Outdated Dependencies
 ```bash
