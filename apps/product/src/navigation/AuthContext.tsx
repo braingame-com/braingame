@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { ContextErrorBoundary } from "../../../packages/bgui/src/components/ErrorBoundary";
 
 interface User {
 	id: string;
@@ -21,7 +22,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [user, setUser] = useState<User | null>(null);
@@ -110,6 +111,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		>
 			{children}
 		</AuthContext.Provider>
+	);
+};
+
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+	return (
+		<ContextErrorBoundary contextName="Auth">
+			<AuthProviderInner>{children}</AuthProviderInner>
+		</ContextErrorBoundary>
 	);
 };
 

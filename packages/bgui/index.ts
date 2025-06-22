@@ -22,9 +22,7 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-// export { ErrorBoundary } from "./src/components/ErrorBoundary";
-// ErrorBoundaryProps is defined in the component file, not exported separately
-// TODO: Create ErrorBoundary component
+export { ContextErrorBoundary } from "./src/components/ErrorBoundary";
 export { GlowingLogo } from "./src/components/GlowingLogo";
 export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
 export { Icon } from "./src/components/Icon";

@@ -9,6 +9,7 @@ import {
 	useSharedValue,
 	withTiming,
 } from "react-native-reanimated";
+import { ContextErrorBoundary } from "../../../packages/bgui/src/components/ErrorBoundary";
 import { createTheme } from "./themes";
 import type { ColorScheme, Theme, ThemeMode } from "./types";
 
@@ -27,7 +28,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 const THEME_STORAGE_KEY = "@braingame/theme";
 const COLOR_SCHEME_STORAGE_KEY = "@braingame/colorScheme";
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const ThemeProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const systemColorScheme = useColorScheme();
 	const [themeMode, setThemeModeState] = useState<ThemeMode>("system");
 	const [colorScheme, setColorSchemeState] = useState<ColorScheme>("default");
@@ -122,6 +123,14 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 		>
 			{children}
 		</ThemeContext.Provider>
+	);
+};
+
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+	return (
+		<ContextErrorBoundary contextName="Theme">
+			<ThemeProviderInner>{children}</ThemeProviderInner>
+		</ContextErrorBoundary>
 	);
 };
 

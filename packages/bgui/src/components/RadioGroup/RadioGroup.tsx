@@ -14,6 +14,7 @@ import {
 import type { NativeSyntheticEvent } from "react-native";
 import { Pressable, View } from "react-native";
 import { useControlledState, useFocusManagement } from "../../hooks";
+import { ContextErrorBoundary } from "../ErrorBoundary";
 import { getItemStyles } from "./styles";
 import type { RadioGroupItemProps, RadioGroupProps } from "./types";
 
@@ -67,7 +68,9 @@ const RadioGroupRoot = ({
 
 	return (
 		<View accessibilityRole="radiogroup" accessibilityLabel={ariaLabel} style={style}>
-			<RadioGroupContext.Provider value={context}>{wrapped}</RadioGroupContext.Provider>
+			<ContextErrorBoundary contextName="RadioGroup">
+				<RadioGroupContext.Provider value={context}>{wrapped}</RadioGroupContext.Provider>
+			</ContextErrorBoundary>
 		</View>
 	);
 };
