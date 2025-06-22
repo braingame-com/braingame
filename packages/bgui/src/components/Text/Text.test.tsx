@@ -8,13 +8,94 @@ describe("Text", () => {
 		expect(getByText("Hello World")).toBeTruthy();
 	});
 
-	it("applies variant styles", () => {
+	it("applies variant styles - legacy variants", () => {
 		const variants = ["h1", "h2", "h3", "body", "caption"] as const;
 		for (const variant of variants) {
 			const { getByText } = render(<Text variant={variant}>Text {variant}</Text>);
 			const text = getByText(`Text ${variant}`);
 			expect(text.props.style).toBeDefined();
 		}
+	});
+
+	it("applies variant styles - enhanced variants", () => {
+		const variants = [
+			"displayTitle",
+			"title",
+			"heading",
+			"subtitle",
+			"bold",
+			"text",
+			"secondaryText",
+			"small",
+			"smallThin",
+		] as const;
+		for (const variant of variants) {
+			const { getByText } = render(<Text variant={variant}>Text {variant}</Text>);
+			const text = getByText(`Text ${variant}`);
+			expect(text.props.style).toBeDefined();
+		}
+	});
+
+	it("uses Lexend font family by default", () => {
+		const { getByText } = render(<Text>Default text</Text>);
+		const text = getByText("Default text");
+		expect(text.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					fontFamily: "LexendRegular",
+				}),
+			]),
+		);
+	});
+
+	it("uses monospace font when mono=true", () => {
+		const { getByText } = render(<Text mono>Monospace text</Text>);
+		const text = getByText("Monospace text");
+		expect(text.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					fontFamily: "Roboto Mono",
+				}),
+			]),
+		);
+	});
+
+	it("uses appropriate Lexend weight for variants", () => {
+		const { getByText: getBold } = render(<Text variant="bold">Bold text</Text>);
+		const boldText = getBold("Bold text");
+		expect(boldText.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					fontFamily: "LexendBold",
+				}),
+			]),
+		);
+
+		const { getByText: getLight } = render(<Text variant="smallThin">Light text</Text>);
+		const lightText = getLight("Light text");
+		expect(lightText.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					fontFamily: "LexendLight",
+				}),
+			]),
+		);
+	});
+
+	it("uses Roboto Mono for all mono variants", () => {
+		const { getByText } = render(
+			<Text variant="title" mono>
+				Mono Title
+			</Text>,
+		);
+		const text = getByText("Mono Title");
+		expect(text.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					fontFamily: "Roboto Mono", // All mono variants use Roboto Mono
+				}),
+			]),
+		);
 	});
 
 	it("applies color prop", () => {

@@ -1,6 +1,7 @@
 {
 	"name": "@braingame/utils",
 	"version": "1.0.0",
+	"private": true,
 	"description": "Brain Game utilities - shared helpers, hooks, and constants",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -10,13 +11,12 @@
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
-		"lint": "biome check --fix",
+		"lint": "biome check --fix --vcs-root=../..",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf dist",
-		"prepare": "husky"
+		"clean": "rm -rf dist"
 	},
 	"peerDependencies": {
-		"react": "19.1.0",
+		"react": "19.0.0",
 		"react-native": "0.76.3"
 	},
 	"devDependencies": {
@@ -25,7 +25,7 @@
 		"husky": "^9.1.7",
 		"jsdom": "^26.1.0",
 		"lint-staged": "^16.1.2",
-		"react-test-renderer": "19.1.0",
+		"react-test-renderer": "19.0.0",
 		"typescript": "^5.3.3",
 		"vitest": "^3.2.4"
 	},

@@ -1,6 +1,6 @@
 import { useThemeColor } from "@braingame/utils";
 import { Platform, View } from "react-native";
-import { Text } from "../../../Text";
+import { Text } from "../Text";
 import { getBackgroundColor, styles } from "./styles";
 import type { BadgeProps } from "./types";
 import { getAriaLabel } from "./utils";
@@ -33,7 +33,7 @@ export const Badge = ({
 		>
 			{content && (
 				<Text
-					type="small"
+					variant="small"
 					style={styles.text}
 					{...(Platform.OS === "web" ? { "aria-hidden": true } : {})}
 				>

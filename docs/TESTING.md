@@ -1,7 +1,7 @@
 # Testing Strategy
 
 > **Single source of truth** for all testing conventions in the Brain Game monorepo.  
-> Last Updated: 21 December 2024
+> Last Updated: 21-06-2024
 
 This document outlines the official testing stack and philosophy. All new code **must** adhere to these standards to ensure stability, maintainability, and quality.
 
@@ -97,6 +97,7 @@ We use **Vitest** for pure component libraries (bgui) and utilities (utils) wher
 -   **E2E Tests:** Critical user flows only. Login, checkout, core feature interactions. These are slow and brittle; use them sparingly.
 -   **Visual Tests (Storybook):** All visual states of a component (hover, focused, disabled, different variants, etc.).
 
+<<<<<<< HEAD
 We do not test third-party libraries or simple component rendering. We trust that our tools work.
 
 ---
@@ -218,3 +219,6 @@ If you're adding tests to an existing package:
 5. **Document Decisions:** Why did you skip certain tests?
 
 Remember: The goal is confidence in your code, not 100% coverage. 
+=======
+We do not test third-party libraries or simple component rendering. We trust that our tools work. 
+>>>>>>> main

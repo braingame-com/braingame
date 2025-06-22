@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react-native";
-import React from "react";
 import { Text, View } from "react-native";
 
 // Simple component test to verify jest-expo setup

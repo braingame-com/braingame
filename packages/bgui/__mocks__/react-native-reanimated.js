@@ -34,7 +34,7 @@ module.exports = {
 		CLAMP: "clamp",
 		IDENTITY: "identity",
 	},
-	interpolate: (value, inputRange, outputRange) => 0,
+	interpolate: (_value, _inputRange, _outputRange) => 0,
 	Transitioning: {
 		View: "View",
 	},

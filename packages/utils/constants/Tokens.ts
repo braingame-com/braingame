@@ -13,7 +13,7 @@ export const Tokens = {
 	xxl: 32, // 2rem
 	xxxl: 48, // 3rem
 	xxxxl: 72, // 4.5rem
-};
+} as const;
 
 /**
  * Consistent opacity values for UI states
@@ -24,4 +24,7 @@ export const Opacity = {
 	pressed: 0.8,
 	shadow: 0.1,
 	overlay: 0.7,
-};
+} as const;
+
+export type TokenKey = keyof typeof Tokens;
+export type OpacityKey = keyof typeof Opacity;

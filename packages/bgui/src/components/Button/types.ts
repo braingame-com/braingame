@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 
 /**
+ * Available button sizes
+ */
+export type ButtonSize = "sm" | "md" | "lg";
+
+/**
  * Available button style variants
  */
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "icon";

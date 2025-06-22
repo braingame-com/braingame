@@ -31,7 +31,7 @@ export const listOptimizations = {
 	},
 
 	// Get item layout for fixed height items
-	getItemLayout: (height: number) => (data: any, index: number) => ({
+	getItemLayout: (height: number) => (_data: any, index: number) => ({
 		length: height,
 		offset: height * index,
 		index,

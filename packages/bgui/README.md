@@ -2,17 +2,13 @@
 
 > Enterprise-grade UI component library for React Native and web platforms
 
-![TypeScript](https://img.shields.io/badge/TypeScript-100%25-3178c6?style=flat-square&logo=typescript)
-![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20Web-lightgrey?style=flat-square)
-![Components](https://img.shields.io/badge/components-25-brightgreen?style=flat-square)
-
-## 📦 Installation
+## Installation
 
 ```bash
 pnpm add @braingame/bgui
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ```tsx
 import { Button, Card, Text } from '@braingame/bgui';
@@ -29,84 +25,27 @@ export function MyComponent() {
 }
 ```
 
-## 🧩 Components
+## Components
 
-### Layout
-- **View** - Basic container component
-- **Card** - Content container with elevation
-- **Divider** - Visual separator
-- **Modal** - Overlay dialog
-- **Tabs** - Tabbed navigation
+25+ components across Layout, Forms, Display, Navigation, Feedback, and Utility categories.
 
-### Forms
-- **Button** - Interactive button with variants
-- **Checkbox** - Boolean checkbox input
-- **RadioGroup** - Single selection from options
-- **Select** - Dropdown selection
-- **Slider** - Range input slider
-- **Switch** - Toggle switch
+For detailed component documentation, see [Component Reference](../../docs/COMPONENT_REFERENCE.md).
 
-### Display
-- **Avatar** - User profile image/initials
-- **Badge** - Status indicators and counts
-- **Icon** - Vector icons
-- **Image** - Optimized image display
-- **Spinner** - Loading indicator
-- **Text** - Typography component
-- **Tooltip** - Contextual help text
+## Features
 
-### Navigation
-- **ActionList** - List of interactive items
-- **Link** - Navigation links
-- **Menu** - Dropdown menu
+- **TypeScript**: 100% type-safe with exported types
+- **Cross-Platform**: Works on iOS, Android, and Web
+- **Accessible**: WCAG 2.1 AA compliant
+- **Themeable**: Token-based design system
+- **Performant**: Optimized with React.memo and lazy loading
+- **Error Handling**: Built-in error boundaries
 
-### Feedback
-- **ProgressBar** - Progress indicator
-- **Toast** - Temporary notifications
-- **ErrorBoundary** - Error handling wrapper
+## Documentation
 
-### Utility
-- **Accordion** - Collapsible content panels
-- **Label** - Form field labels
+- [Component Reference](../../docs/COMPONENT_REFERENCE.md) - Detailed API documentation
+- [Architecture](../../docs/ARCHITECTURE.md) - System design and patterns
+- [Development Guide](../../docs/DEVELOPMENT.md) - Setup and workflow
 
-## 🎨 Design System
-
-All components use the Brain Game design token system:
-
-```tsx
-import { Colors, Tokens } from '@braingame/utils';
-
-// Using theme colors
-<Text color={Colors.universal.primary}>Primary text</Text>
-
-// Using spacing tokens
-<View style={{ padding: Tokens.m }}>Content</View>
-```
-
-## ♿ Accessibility
-
-All components are built with accessibility in mind:
-- Full keyboard navigation support
-- Screen reader compatibility
-- ARIA attributes for web
-- AccessibilityRole for React Native
-
-## 🔧 TypeScript
-
-Full TypeScript support with exported types:
-
-```tsx
-import type { ButtonProps, CardProps } from '@braingame/bgui';
-```
-
-## 📚 Documentation
-
-For detailed component documentation and examples, see the [BGUI Component Plan](../../docs/BGUI_COMPONENT_PLAN.md).
-
-## 🤝 Contributing
-
-See the main [Contributing Guide](../../.github/CONTRIBUTING.md) for development setup and guidelines.
-
-## 📄 License
+---
 
 MIT © Brain Game

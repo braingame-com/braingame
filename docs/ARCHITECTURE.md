@@ -76,7 +76,7 @@ braingame/
 ├── .github/workflows/     # CI / CD
 ├── firebase.json
 ├── .firebaserc
-├── turborepo.json
+├── turbo.json
 ├── pnpm-workspace.yaml
 └── package.json
 ```
@@ -95,10 +95,10 @@ braingame/
 | Dev Next only | `pnpm dev --filter website` |
 | Lint / format | `pnpm lint` (Biome) |
 | Unit tests | `pnpm test` (Jest) |
-| Storybook | `pnpm storybook` (placeholder) |
+| Storybook | `pnpm storybook` |
 | Prod build | `pnpm build` (Turbo graph) |
 
-Turbo pipelines (defined in `turborepo.json`):
+Turbo pipelines (defined in `turbo.json`):
 
 ```
 dev   -> transpile            (no cache)
@@ -136,14 +136,14 @@ Key files for task tracking and AI agent coordination:
 | File | Purpose | Update Frequency |
 |------|---------|------------------|
 | **TODO.md** | Central task tracker with priorities | Daily/per session |
-| **AI_CONTEXT.md** | AI agent context & session summaries | After each session |
+| **LESSONS.md** | Technical learnings & patterns | As discovered |
 | **CLAUDE.md** | Project-specific AI instructions | As needed |
 | **AGENTS.md** | AI agent roles and guidelines | When adding agents |
 
 All AI agents **MUST**:
 1. Read `TODO.md` before starting work
 2. Update task status when beginning/completing tasks
-3. Add session summary to `AI_CONTEXT.md` after work
+3. Significant learnings should be added to `LESSONS.md`
 4. Follow conventions in `CLAUDE.md` and this document
 
 ---
@@ -158,8 +158,11 @@ All AI agents **MUST**:
 
 ## 10. Extension points
 
-- **Add platform**: create `apps/desktop` (Electron/Tauri) – same folder contract.  
-- **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.  
+- **Add platform**: create `apps/desktop` (Electron/Tauri).
+  - Mirror `apps/product` structure (`src/`, `public/`, config files).
+  - Package with Tauri CLI to produce signed `.dmg`/`.exe` installers.
+  - Publish installers via GitHub Releases with auto‑update enabled.
+- **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.
 - **Feature flags**: insert LaunchDarkly wrapper in `packages/utils`.
 
 ---
