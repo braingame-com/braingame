@@ -2,12 +2,17 @@
 	"hosting": [
 		{
 			"target": "www",
-			"public": "apps/website",
+			"public": "apps/website/out",
 			"ignore": ["firebase.json", "**/.*"]
 		},
 		{
 			"target": "app",
 			"public": "apps/product",
+			"ignore": ["firebase.json", "**/.*"]
+		},
+		{
+			"target": "docs",
+			"public": "apps/docs/out",
 			"ignore": ["firebase.json", "**/.*"]
 		}
 	]
