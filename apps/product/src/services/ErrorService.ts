@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 import { Platform } from "react-native";
 
 interface ErrorContext {
@@ -11,6 +12,7 @@ interface ErrorContext {
 	sessionId?: string;
 	screen?: string;
 	action?: string;
+	networkFailureType?: string;
 	[key: string]: unknown;
 }
 
@@ -76,7 +78,7 @@ class ErrorService {
 			}
 
 			this.isInitialized = true;
-		} catch (error) {
+		} catch (_error) {
 			// Failed to initialize ErrorService - error logged to prevent console spam
 		}
 	}
@@ -118,10 +120,16 @@ class ErrorService {
 					sessionId: this.sessionId,
 				},
 				platform: Platform.OS,
-				appVersion: "1.0.0", // TODO: Get from app config
+				appVersion: Constants.expoConfig?.version || "unknown",
 				deviceInfo: {
 					os: Platform.OS,
-					osVersion: Platform.Version?.toString() || "unknown",
+					osVersion:
+						Platform.Version !== null && Platform.Version !== undefined
+							? Platform.Version.toString()
+							: (() => {
+									console.error("Platform.Version is not available - check React Native setup");
+									return "unknown";
+								})(),
 					// device: Device.modelName, // If using expo-device
 				},
 			};
@@ -176,7 +184,7 @@ class ErrorService {
 
 		try {
 			await AsyncStorage.setItem("@braingame/error_logs", JSON.stringify(this.errorLogs));
-		} catch (error) {
+		} catch (_error) {
 			// Failed to store error log - avoiding console spam
 		}
 	}
@@ -246,9 +254,17 @@ class ErrorService {
 			type: "network",
 			endpoint,
 			method,
-			statusCode: networkError.response?.status,
-			responseData: networkError.response?.data,
 		};
+
+		// Explicitly handle network error response data
+		if (networkError.response) {
+			context.statusCode = networkError.response.status;
+			context.responseData = networkError.response.data;
+		} else {
+			// Log when network response is missing for debugging
+			console.warn("Network error has no response data - possible network failure or timeout");
+			context.networkFailureType = "no_response";
+		}
 
 		const finalError = new Error(
 			`Network request failed: ${method} ${endpoint} - ${networkError.message}`,

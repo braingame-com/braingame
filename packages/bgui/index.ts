@@ -22,9 +22,6 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-// export { ErrorBoundary } from "./src/components/ErrorBoundary";
-// ErrorBoundaryProps is defined in the component file, not exported separately
-// TODO: Create ErrorBoundary component
 export { GlowingLogo } from "./src/components/GlowingLogo";
 export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
 export { Icon } from "./src/components/Icon";
@@ -48,6 +45,8 @@ export { RadioGroup } from "./src/components/RadioGroup";
 export type { RadioGroupItemProps, RadioGroupProps } from "./src/components/RadioGroup/types";
 export { Select, SelectItem } from "./src/components/Select";
 export type { SelectItemProps, SelectProps } from "./src/components/Select/types";
+export { SimpleErrorBoundary } from "./src/components/SimpleErrorBoundary";
+export type { SimpleErrorBoundaryProps } from "./src/components/SimpleErrorBoundary/SimpleErrorBoundary";
 export { Slider } from "./src/components/Slider";
 export type { SliderProps } from "./src/components/Slider/types";
 export { Spinner } from "./src/components/Spinner";
@@ -71,7 +70,13 @@ export type { ViewProps } from "./src/components/View/types";
 export { Fonts } from "./src/constants/Fonts";
 
 // Hooks
-export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
+export {
+	useAbortController,
+	useControlledState,
+	useFocusManagement,
+	useInteractiveState,
+	useMountedState,
+} from "./src/hooks";
 
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";

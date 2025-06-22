@@ -112,7 +112,7 @@ type AnalyticsEvent =
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: AnalyticsEvent[] = [];
-	async init(apiKey: string) {
+	async init(_apiKey: string) {
 		// Mock analytics initialized in development
 	}
 
@@ -128,11 +128,11 @@ class MockAnalyticsProvider implements AnalyticsProvider {
 		// Mock analytics event tracked
 	}
 
-	async setUserProperties(properties: UserProperties) {
+	async setUserProperties(_properties: UserProperties) {
 		// Mock analytics user properties set
 	}
 
-	async setSuperProperties(properties: SuperProperties) {
+	async setSuperProperties(_properties: SuperProperties) {
 		// Mock analytics super properties set
 	}
 
@@ -175,9 +175,17 @@ class AnalyticsService {
 	}
 
 	private generateSuperProperties(): SuperProperties {
+		// Validate critical platform data
+		if (Platform.Version === null || Platform.Version === undefined) {
+			console.error("Platform.Version is not available - check React Native setup");
+		}
+
 		return {
 			platform: Platform.OS,
-			platformVersion: Platform.Version?.toString() || "unknown",
+			platformVersion:
+				Platform.Version !== null && Platform.Version !== undefined
+					? Platform.Version.toString()
+					: "unknown",
 			appVersion: Application.nativeApplicationVersion || "1.0.0",
 			buildVersion: Application.nativeBuildVersion || "1",
 			deviceModel: Device.modelName || undefined,

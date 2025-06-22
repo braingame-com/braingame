@@ -7,7 +7,7 @@ import { errorContainerStyle, errorMessageStyle, errorTitleStyle } from "./style
 /**
  * Props for the SimpleErrorBoundary component
  */
-interface SimpleErrorBoundaryProps {
+export interface SimpleErrorBoundaryProps {
 	/**
 	 * Child components to render and protect from errors.
 	 */
