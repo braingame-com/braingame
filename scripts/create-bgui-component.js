@@ -503,8 +503,7 @@ function generateUtil(utilName, targetDir) {
  * \`\`\`
  */
 export function ${utilName}(input: string): string {
-	// TODO: Implement your utility logic here
-	return input.toLowerCase().trim();
+        return input.toLowerCase().trim();
 }
 
 /**
