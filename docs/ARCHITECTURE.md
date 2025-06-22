@@ -179,7 +179,16 @@ All AI agents **MUST**:
 
 ---
 
-## 10. Extension points
+## 10. Monitoring & Observability
+
+Brain Game uses **Sentry** for crash reporting and performance tracing across
+both applications. DSNs are supplied via environment variables (`SENTRY_DSN`
+for the Expo app and `NEXT_PUBLIC_SENTRY_DSN` for the Next.js website). The
+Sentry SDKs are configured with `tracesSampleRate: 1.0` to capture basic
+performance metrics such as app launch times and route transitions.
+
+---
+## 11. Extension points
 
 - **Add platform**: create `apps/desktop` (Electron/Tauri).
   - Mirror `apps/product` structure (`src/`, `public/`, config files).

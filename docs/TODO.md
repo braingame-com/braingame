@@ -101,8 +101,8 @@
 ## 🔥 High Priority
 
 - [ ] Performance Monitoring & Optimization
-  - [ ] Integrate Sentry for production error tracking
-  - [ ] Set up performance monitoring baselines
+  - [x] Integrate Sentry for production error tracking (22-06-2025)
+  - [x] Set up performance monitoring baselines (22-06-2025)
   - [ ] Implement code splitting for web apps
   - [ ] Optimize bundle sizes for mobile apps
   - [ ] Add lighthouse CI checks
@@ -148,11 +148,11 @@
   - Status: Foundation laid, needs completion
 
 - [ ] Setup Monitoring & Analytics
-  - [ ] Integrate Sentry for error tracking
+  - [x] Integrate Sentry for error tracking (22-06-2025)
   - [ ] Add Mixpanel/Amplitude for analytics
-  - [ ] Configure performance monitoring
+  - [x] Configure performance monitoring (22-06-2025)
   - [ ] Set up alerting rules
-  - Status: Not started
+  - Status: In progress
 
 - [x] Preflight Docs
   - [x] Clarify that lint and test require `pnpm install`

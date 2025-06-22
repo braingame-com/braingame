@@ -5,12 +5,21 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { LogBox } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import * as Sentry from "sentry-expo";
 import { ErrorBoundary, ErrorBoundaryProvider } from "./components/ErrorBoundary";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 import { QueryClientProviderWithPersist } from "./contexts/QueryClientProvider";
 import { RootNavigator } from "./navigation/RootNavigator";
 import { captureException, setupGlobalErrorHandlers } from "./services/ErrorService";
 import { ThemeProvider } from "./theme/ThemeContext";
+
+// Initialize Sentry for error and performance monitoring
+Sentry.init({
+	dsn: process.env.SENTRY_DSN,
+	enableInExpoDevelopment: true,
+	debug: __DEV__,
+	tracesSampleRate: 1.0,
+});
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();

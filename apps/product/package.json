@@ -52,6 +52,7 @@
 		"react-native-svg": "15.11.2",
 		"react-native-web": "~0.20.0",
 		"react-native-webview": "13.13.5",
+		"sentry-expo": "^7.2.0",
 		"@tanstack/react-query": "^5.21.1",
 		"@tanstack/react-query-persist-client": "^5.21.1"
 	},
