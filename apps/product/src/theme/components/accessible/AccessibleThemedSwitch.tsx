@@ -52,7 +52,7 @@ export const AccessibleThemedSwitch = withMemo<AccessibleThemedSwitchProps>(
 				</AccessibleThemedText>
 				<RNSwitch
 					trackColor={{
-						false: theme.components.switch?.trackColor || "#767577",
+						false: "#767577",
 						true: theme.colors.primary,
 					}}
 					thumbColor={value ? theme.colors.background : "#f4f3f4"}

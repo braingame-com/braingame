@@ -106,9 +106,9 @@ export const useFormTracking = (formName: string) => {
 				action: "submit",
 				success,
 				duration,
-				field_interactions: fieldInteractions.current,
+				field_interaction_count: Object.keys(fieldInteractions.current).length,
 				error_count: errors ? Object.keys(errors).length : 0,
-				errors: __DEV__ ? errors : undefined,
+				has_errors: Boolean(errors && Object.keys(errors).length > 0),
 			});
 
 			// Reset tracking
@@ -125,7 +125,7 @@ export const useFormTracking = (formName: string) => {
 			form_name: formName,
 			action: "abandon",
 			duration,
-			field_interactions: fieldInteractions.current,
+			field_interaction_count: Object.keys(fieldInteractions.current).length,
 		});
 
 		// Reset tracking

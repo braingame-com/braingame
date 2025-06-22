@@ -74,7 +74,7 @@ export const AccessibleThemedText = withMemo<AccessibleThemedTextProps>(
 			accessible: true,
 			accessibilityLabel:
 				accessibilityLabel || (typeof children === "string" ? children : undefined),
-			accessibilityRole: isHeading ? "header" : "text",
+			accessibilityRole: isHeading ? ("header" as const) : ("text" as const),
 		};
 
 		if (animated) {

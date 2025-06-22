@@ -13,7 +13,9 @@ jest.mock("expo-router", () => ({
 	Link: ({ children, href, asChild }: MockLinkProps) => {
 		// If asChild is true, clone the child element with href prop
 		if (asChild && React.isValidElement(children)) {
-			return React.cloneElement(children as React.ReactElement, { testID: `link-${href}` });
+			return React.cloneElement(children as React.ReactElement<unknown>, {
+				testID: `link-${href}`,
+			});
 		}
 		return children;
 	},

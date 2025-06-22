@@ -118,8 +118,8 @@ function applyErrorBoundaryToFile(screenInfo: ScreenInfo): void {
 /**
  * Analyze all screens
  */
-async function analyzeScreens(): Promise<ScreenInfo[]> {
-	const screenFiles = await glob(`${SCREENS_DIR}/**/*Screen.tsx`);
+function analyzeScreens(): ScreenInfo[] {
+	const screenFiles = glob.sync(`${SCREENS_DIR}/**/*Screen.tsx`);
 	const screens: ScreenInfo[] = [];
 
 	for (const filePath of screenFiles) {
@@ -170,10 +170,10 @@ function generateReport(screens: ScreenInfo[]): void {
 /**
  * Main function
  */
-async function main() {
+function main() {
 	console.log("🔍 Analyzing screens for error boundaries...\n");
 
-	const screens = await analyzeScreens();
+	const screens = analyzeScreens();
 	generateReport(screens);
 
 	const screensWithoutBoundary = screens.filter((s) => !s.hasErrorBoundary);
@@ -208,4 +208,8 @@ async function main() {
 }
 
 // Run the script
-main().catch(console.error);
+try {
+	main();
+} catch (error) {
+	console.error(error);
+}

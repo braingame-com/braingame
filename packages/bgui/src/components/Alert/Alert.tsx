@@ -1,4 +1,5 @@
 import { useThemeColor } from "@braingame/utils";
+import type React from "react";
 import { Pressable, Text, View } from "react-native";
 import { FLOATING_ALERT_ELEVATION } from "../../constants";
 import { Icon } from "../Icon";
@@ -33,7 +34,7 @@ export function Alert({
 				{title ? <Text style={[styles.title, { color: textColor }]}>{title}</Text> : null}
 				<Text style={{ color: textColor }}>{message}</Text>
 			</View>
-			{actions && <View style={styles.actions}>{actions}</View>}
+			{actions && <View style={styles.actions}>{actions as React.ReactNode}</View>}
 			{dismissible && (
 				<Pressable accessibilityLabel="Dismiss" onPress={onDismiss}>
 					<Icon name="xmark" size={16} color="text" />

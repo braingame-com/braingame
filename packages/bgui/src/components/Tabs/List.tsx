@@ -25,12 +25,12 @@ export const List = ({ children }: TabsListProps) => {
 	};
 
 	const childrenWithRefs = Children.map(children, (child, index) => {
-		if (isValidElement(child)) {
-			return cloneElement(child as React.ReactElement<TabProps>, {
+		if (isValidElement<TabProps>(child)) {
+			return cloneElement(child, {
 				tabRef: (node: View | null) => {
 					tabRefs.current[index] = node;
 				},
-			});
+			} as Partial<TabProps>);
 		}
 		return child;
 	});
