@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Documentation Generator - Creates quick documentation snippets
- * 
+ *
  * Generates:
  * - Component API documentation
  * - README updates
@@ -62,7 +62,7 @@ function generateComponentAPI(name) {
 	// Read types file to extract props
 	const typesFile = path.join(componentDir, "types.ts");
 	let propsInterface = "";
-	
+
 	if (fs.existsSync(typesFile)) {
 		const content = fs.readFileSync(typesFile, "utf8");
 		const interfaceMatch = content.match(/export interface \w+Props \{([\s\S]*?)\}/);
@@ -72,34 +72,36 @@ function generateComponentAPI(name) {
 	}
 
 	console.log(`# ${name} Component API\n`);
-	console.log(`## Props\n`);
-	
+	console.log("## Props\n");
+
 	if (propsInterface) {
 		// Parse props from interface
 		const props = propsInterface
-			.split('\n')
-			.map(line => line.trim())
-			.filter(line => line && !line.startsWith('/**') && !line.startsWith('*'))
-			.filter(line => line.includes(':'));
+			.split("\n")
+			.map((line) => line.trim())
+			.filter((line) => line && !line.startsWith("/**") && !line.startsWith("*"))
+			.filter((line) => line.includes(":"));
 
 		console.log("| Prop | Type | Default | Description |");
 		console.log("|------|------|---------|-------------|");
-		
+
 		for (const prop of props) {
 			const match = prop.match(/(\w+)(\?)?:\s*([^;]+);?/);
 			if (match) {
 				const [, propName, optional, propType] = match;
-				const isOptional = optional === '?';
-				const cleanType = propType.replace(/\s+/g, ' ').trim();
-				
-				console.log(`| \`${propName}\` | \`${cleanType}\` | ${isOptional ? 'undefined' : 'required'} | Description needed |`);
+				const isOptional = optional === "?";
+				const cleanType = propType.replace(/\s+/g, " ").trim();
+
+				console.log(
+					`| \`${propName}\` | \`${cleanType}\` | ${isOptional ? "undefined" : "required"} | Description needed |`,
+				);
 			}
 		}
 	} else {
 		console.log("No props interface found");
 	}
 
-	console.log(`\n## Usage\n`);
+	console.log("\n## Usage\n");
 	console.log("```tsx");
 	console.log(`import { ${name} } from "@braingame/bgui";`);
 	console.log("");
@@ -108,7 +110,7 @@ function generateComponentAPI(name) {
 	console.log(`</${name}>`);
 	console.log("```");
 
-	console.log(`\n## Examples\n`);
+	console.log("\n## Examples\n");
 	console.log("### Basic Usage");
 	console.log("```tsx");
 	console.log(`<${name}>`);
@@ -133,8 +135,8 @@ function generateReadmeSection(name) {
 	console.log("```tsx");
 	console.log(`import { ${name} } from "@braingame/bgui";`);
 	console.log("");
-	console.log(`function MyComponent() {`);
-	console.log(`  return (`);
+	console.log("function MyComponent() {");
+	console.log("  return (");
 	console.log(`    <${name}>`);
 	console.log("      Example content");
 	console.log(`    </${name}>`);
@@ -146,7 +148,7 @@ function generateReadmeSection(name) {
 
 function generateQuickRef() {
 	console.log("# Brain Game Development Quick Reference\n");
-	
+
 	console.log("## 🛠️ Development Commands\n");
 	console.log("```bash");
 	console.log("# Create new component");

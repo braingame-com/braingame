@@ -1,5 +1,5 @@
+import { Tokens } from "@braingame/utils";
 import { fireEvent, render } from "@testing-library/react-native";
-import { Tokens } from "../../utils/constants/Tokens";
 import { View } from "./View";
 
 jest.mock("../../utils/hooks/useThemeColor", () => ({

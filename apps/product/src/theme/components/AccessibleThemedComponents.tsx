@@ -1,11 +1,15 @@
 import React, { useCallback, useMemo } from "react";
 import {
+	type AccessibilityRole,
+	type GestureResponderEvent,
+	type NativeSyntheticEvent,
 	Switch as RNSwitch,
 	Text as RNText,
 	TextInput as RNTextInput,
 	TouchableOpacity as RNTouchableOpacity,
 	View as RNView,
 	type SwitchProps,
+	type TextInputFocusEventData,
 	type TextInputProps,
 	type TextProps,
 	type TextStyle,
@@ -16,7 +20,7 @@ import {
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { getScaledFontSize, useAccessibility } from "../../contexts/AccessibilityContext";
 import { getAccessibilityProps, getAccessibilityState, getHint } from "../../utils/accessibility";
-import { withMemo } from "../../utils/performance";
+import { withMemo } from "../../utils/withMemo";
 import { useTheme } from "../ThemeContext";
 
 // Accessible Themed View Component
@@ -24,10 +28,10 @@ interface AccessibleThemedViewProps extends ViewProps {
 	variant?: "background" | "surface" | "card";
 	animated?: boolean;
 	accessibilityLabel?: string;
-	accessibilityRole?: any;
+	accessibilityRole?: AccessibilityRole;
 }
 
-export const AccessibleThemedView = withMemo<AccessibleThemedViewProps>(
+export const AccessibleThemedView: React.FC<AccessibleThemedViewProps> = withMemo(
 	({
 		variant = "background",
 		animated = false,
@@ -36,7 +40,7 @@ export const AccessibleThemedView = withMemo<AccessibleThemedViewProps>(
 		accessibilityLabel,
 		accessibilityRole,
 		...props
-	}) => {
+	}: AccessibleThemedViewProps) => {
 		const { theme } = useTheme();
 
 		const backgroundColor = useMemo(() => {
@@ -88,7 +92,7 @@ interface AccessibleThemedTextProps extends TextProps {
 	isHeading?: boolean;
 }
 
-export const AccessibleThemedText = withMemo<AccessibleThemedTextProps>(
+export const AccessibleThemedText: React.FC<AccessibleThemedTextProps> = withMemo(
 	({
 		variant = "primary",
 		size = "md",
@@ -99,7 +103,7 @@ export const AccessibleThemedText = withMemo<AccessibleThemedTextProps>(
 		isHeading = false,
 		accessibilityLabel,
 		...props
-	}) => {
+	}: AccessibleThemedTextProps) => {
 		const { theme } = useTheme();
 		const { fontSize: userFontSize, boldTextEnabled } = useAccessibility();
 
@@ -145,11 +149,15 @@ export const AccessibleThemedText = withMemo<AccessibleThemedTextProps>(
 			};
 		}, [variant, size, weight, theme, style, userFontSize, boldTextEnabled]);
 
-		const accessibilityProps = {
+		const accessibilityProps: {
+			accessible: boolean;
+			accessibilityLabel: string | undefined;
+			accessibilityRole?: AccessibilityRole;
+		} = {
 			accessible: true,
 			accessibilityLabel:
 				accessibilityLabel || (typeof children === "string" ? children : undefined),
-			accessibilityRole: isHeading ? "header" : "text",
+			accessibilityRole: isHeading ? "header" : undefined,
 		};
 
 		if (animated) {
@@ -179,7 +187,7 @@ interface AccessibleThemedButtonProps extends TouchableOpacityProps {
 	accessibilityHint?: string;
 }
 
-export const AccessibleThemedButton = withMemo<AccessibleThemedButtonProps>(
+export const AccessibleThemedButton: React.FC<AccessibleThemedButtonProps> = withMemo(
 	({
 		variant = "primary",
 		size = "medium",
@@ -191,7 +199,7 @@ export const AccessibleThemedButton = withMemo<AccessibleThemedButtonProps>(
 		accessibilityLabel,
 		accessibilityHint,
 		...props
-	}) => {
+	}: AccessibleThemedButtonProps) => {
 		const { theme } = useTheme();
 		const { reduceMotionEnabled, announce } = useAccessibility();
 		const scaleValue = useSharedValue(1);
@@ -209,7 +217,7 @@ export const AccessibleThemedButton = withMemo<AccessibleThemedButtonProps>(
 		}, [scaleValue, reduceMotionEnabled]);
 
 		const handlePress = useCallback(
-			(e: any) => {
+			(e: GestureResponderEvent) => {
 				announce(`${accessibilityLabel} activated`);
 				onPress?.(e);
 			},
@@ -301,7 +309,7 @@ interface AccessibleThemedInputProps extends TextInputProps {
 	required?: boolean;
 }
 
-export const AccessibleThemedInput = withMemo<AccessibleThemedInputProps>(
+export const AccessibleThemedInput: React.FC<AccessibleThemedInputProps> = withMemo(
 	({
 		variant = "default",
 		error = false,
@@ -312,13 +320,13 @@ export const AccessibleThemedInput = withMemo<AccessibleThemedInputProps>(
 		onBlur,
 		accessibilityLabel,
 		...props
-	}) => {
+	}: AccessibleThemedInputProps) => {
 		const { theme } = useTheme();
 		const { fontSize: userFontSize, announce } = useAccessibility();
 		const [isFocused, setIsFocused] = React.useState(false);
 
 		const handleFocus = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(true);
 				announce(`${label || "Text field"} focused`);
 				onFocus?.(e);
@@ -327,7 +335,7 @@ export const AccessibleThemedInput = withMemo<AccessibleThemedInputProps>(
 		);
 
 		const handleBlur = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(false);
 				onBlur?.(e);
 			},
@@ -411,8 +419,16 @@ interface AccessibleThemedSwitchProps extends SwitchProps {
 	error?: boolean;
 }
 
-export const AccessibleThemedSwitch = withMemo<AccessibleThemedSwitchProps>(
-	({ label, value, onValueChange, disabled, accessibilityLabel, error, ...props }) => {
+export const AccessibleThemedSwitch: React.FC<AccessibleThemedSwitchProps> = withMemo(
+	({
+		label,
+		value,
+		onValueChange,
+		disabled,
+		accessibilityLabel,
+		error,
+		...props
+	}: AccessibleThemedSwitchProps) => {
 		const { theme } = useTheme();
 		const { announce } = useAccessibility();
 
@@ -437,7 +453,7 @@ export const AccessibleThemedSwitch = withMemo<AccessibleThemedSwitchProps>(
 		};
 
 		return (
-			<View style={{ flexDirection: "row", alignItems: "center" }}>
+			<RNView style={{ flexDirection: "row", alignItems: "center" }}>
 				<AccessibleThemedText
 					variant={error ? "error" : disabled ? "disabled" : "primary"}
 					size="md"
@@ -447,7 +463,7 @@ export const AccessibleThemedSwitch = withMemo<AccessibleThemedSwitchProps>(
 				</AccessibleThemedText>
 				<RNSwitch
 					trackColor={{
-						false: theme.components.switch?.trackColor || "#767577",
+						false: "#767577",
 						true: theme.colors.primary,
 					}}
 					thumbColor={value ? theme.colors.background : "#f4f3f4"}
@@ -458,7 +474,7 @@ export const AccessibleThemedSwitch = withMemo<AccessibleThemedSwitchProps>(
 					{...switchAccessibilityProps}
 					{...props}
 				/>
-			</View>
+			</RNView>
 		);
 	},
 	"AccessibleThemedSwitch",

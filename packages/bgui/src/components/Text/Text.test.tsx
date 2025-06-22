@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Text } from "./Text";
 
 describe("Text", () => {
@@ -17,7 +18,17 @@ describe("Text", () => {
 	});
 
 	it("applies variant styles - enhanced variants", () => {
-		const variants = ["displayTitle", "title", "heading", "subtitle", "bold", "text", "secondaryText", "small", "smallThin"] as const;
+		const variants = [
+			"displayTitle",
+			"title",
+			"heading",
+			"subtitle",
+			"bold",
+			"text",
+			"secondaryText",
+			"small",
+			"smallThin",
+		] as const;
 		for (const variant of variants) {
 			const { getByText } = render(<Text variant={variant}>Text {variant}</Text>);
 			const text = getByText(`Text ${variant}`);
@@ -72,7 +83,11 @@ describe("Text", () => {
 	});
 
 	it("uses Roboto Mono for all mono variants", () => {
-		const { getByText } = render(<Text variant="title" mono>Mono Title</Text>);
+		const { getByText } = render(
+			<Text variant="title" mono>
+				Mono Title
+			</Text>,
+		);
 		const text = getByText("Mono Title");
 		expect(text.props.style).toEqual(
 			expect.arrayContaining([
@@ -144,7 +159,7 @@ describe("Text", () => {
 	});
 
 	it("inherits Text component props", () => {
-		const onPress = jest.fn();
+		const onPress = vi.fn();
 		const { getByText } = render(
 			<Text onPress={onPress} testID="pressable-text">
 				Press me

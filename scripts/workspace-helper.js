@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Workspace Helper - Quick commands for monorepo navigation and operations
- * 
+ *
  * Usage: node scripts/workspace-helper.js <command> [package] [script]
  */
 
@@ -44,16 +44,16 @@ const workspaceYaml = path.join(rootDir, "pnpm-workspace.yaml");
 // Get all packages in workspace
 function getWorkspacePackages() {
 	const packages = [];
-	
+
 	// Read from pnpm-workspace.yaml
 	if (fs.existsSync(workspaceYaml)) {
 		const yamlContent = fs.readFileSync(workspaceYaml, "utf8");
 		const patterns = yamlContent.match(/- ['"]([^'"]+)['"]/g) || [];
-		
+
 		for (const pattern of patterns) {
-			const cleanPattern = pattern.replace(/- ['"]([^'"]+)['"]/, '$1');
-			const glob = cleanPattern.replace('/*', '');
-			
+			const cleanPattern = pattern.replace(/- ['"]([^'"]+)['"]/, "$1");
+			const glob = cleanPattern.replace("/*", "");
+
 			const baseDir = path.join(rootDir, glob);
 			if (fs.existsSync(baseDir)) {
 				const subdirs = fs.readdirSync(baseDir, { withFileTypes: true });
@@ -74,16 +74,14 @@ function getWorkspacePackages() {
 			}
 		}
 	}
-	
+
 	return packages;
 }
 
 function findPackage(name) {
 	const packages = getWorkspacePackages();
-	return packages.find(pkg => 
-		pkg.name === name || 
-		pkg.name.includes(name) || 
-		pkg.path.includes(name)
+	return packages.find(
+		(pkg) => pkg.name === name || pkg.name.includes(name) || pkg.path.includes(name),
 	);
 }
 
@@ -120,22 +118,26 @@ switch (command) {
 
 function listPackages() {
 	console.log("📦 Workspace Packages\n");
-	
+
 	const packages = getWorkspacePackages();
-	
+
 	if (packages.length === 0) {
 		console.log("No packages found in workspace");
 		return;
 	}
-	
+
 	for (const pkg of packages) {
 		const scripts = pkg.package.scripts ? Object.keys(pkg.package.scripts).length : 0;
 		const deps = pkg.package.dependencies ? Object.keys(pkg.package.dependencies).length : 0;
-		const devDeps = pkg.package.devDependencies ? Object.keys(pkg.package.devDependencies).length : 0;
-		
-		console.log(`📁 ${pkg.name.padEnd(20)} ${pkg.path.padEnd(15)} (${scripts} scripts, ${deps + devDeps} deps)`);
+		const devDeps = pkg.package.devDependencies
+			? Object.keys(pkg.package.devDependencies).length
+			: 0;
+
+		console.log(
+			`📁 ${pkg.name.padEnd(20)} ${pkg.path.padEnd(15)} (${scripts} scripts, ${deps + devDeps} deps)`,
+		);
 	}
-	
+
 	console.log(`\nTotal: ${packages.length} packages`);
 }
 
@@ -145,22 +147,22 @@ function listScripts(name) {
 		console.log("Usage: pnpm workspace scripts <package-name>");
 		process.exit(1);
 	}
-	
+
 	const pkg = findPackage(name);
 	if (!pkg) {
 		console.error(`Package '${name}' not found`);
 		console.log("Available packages:");
-		getWorkspacePackages().forEach(p => console.log(`  ${p.name}`));
+		getWorkspacePackages().forEach((p) => console.log(`  ${p.name}`));
 		process.exit(1);
 	}
-	
+
 	console.log(`📋 Scripts for ${pkg.name}\n`);
-	
+
 	if (!pkg.package.scripts || Object.keys(pkg.package.scripts).length === 0) {
 		console.log("No scripts defined");
 		return;
 	}
-	
+
 	for (const [script, command] of Object.entries(pkg.package.scripts)) {
 		console.log(`${script.padEnd(15)} ${command}`);
 	}
@@ -172,13 +174,13 @@ function runScript(name, script) {
 		console.log("Usage: pnpm workspace run <package-name> <script-name>");
 		process.exit(1);
 	}
-	
+
 	const pkg = findPackage(name);
 	if (!pkg) {
 		console.error(`Package '${name}' not found`);
 		process.exit(1);
 	}
-	
+
 	if (!pkg.package.scripts || !pkg.package.scripts[script]) {
 		console.error(`Script '${script}' not found in ${pkg.name}`);
 		console.log("Available scripts:");
@@ -189,9 +191,9 @@ function runScript(name, script) {
 		}
 		process.exit(1);
 	}
-	
+
 	console.log(`🚀 Running ${script} in ${pkg.name}...\n`);
-	
+
 	try {
 		execSync(`pnpm run ${script}`, {
 			cwd: pkg.fullPath,
@@ -208,33 +210,35 @@ function showPackageInfo(name) {
 		console.error("Package name required for info command");
 		process.exit(1);
 	}
-	
+
 	const pkg = findPackage(name);
 	if (!pkg) {
 		console.error(`Package '${name}' not found`);
 		process.exit(1);
 	}
-	
+
 	console.log(`📦 ${pkg.package.name}\n`);
-	console.log(`Version:     ${pkg.package.version || 'N/A'}`);
-	console.log(`Description: ${pkg.package.description || 'N/A'}`);
+	console.log(`Version:     ${pkg.package.version || "N/A"}`);
+	console.log(`Description: ${pkg.package.description || "N/A"}`);
 	console.log(`Path:        ${pkg.path}`);
-	console.log(`Private:     ${pkg.package.private ? 'Yes' : 'No'}`);
-	
+	console.log(`Private:     ${pkg.package.private ? "Yes" : "No"}`);
+
 	if (pkg.package.main) {
 		console.log(`Main:        ${pkg.package.main}`);
 	}
-	
+
 	if (pkg.package.types) {
 		console.log(`Types:       ${pkg.package.types}`);
 	}
-	
+
 	const scripts = pkg.package.scripts ? Object.keys(pkg.package.scripts).length : 0;
 	const deps = pkg.package.dependencies ? Object.keys(pkg.package.dependencies).length : 0;
 	const devDeps = pkg.package.devDependencies ? Object.keys(pkg.package.devDependencies).length : 0;
-	const peerDeps = pkg.package.peerDependencies ? Object.keys(pkg.package.peerDependencies).length : 0;
-	
-	console.log(`\nCounts:`);
+	const peerDeps = pkg.package.peerDependencies
+		? Object.keys(pkg.package.peerDependencies).length
+		: 0;
+
+	console.log("\nCounts:");
 	console.log(`  Scripts:     ${scripts}`);
 	console.log(`  Dependencies:     ${deps}`);
 	console.log(`  Dev Dependencies: ${devDeps}`);
@@ -246,15 +250,15 @@ function showDependencies(name) {
 		console.error("Package name required for deps command");
 		process.exit(1);
 	}
-	
+
 	const pkg = findPackage(name);
 	if (!pkg) {
 		console.error(`Package '${name}' not found`);
 		process.exit(1);
 	}
-	
+
 	console.log(`📦 Dependencies for ${pkg.package.name}\n`);
-	
+
 	if (pkg.package.dependencies) {
 		console.log("Dependencies:");
 		for (const [dep, version] of Object.entries(pkg.package.dependencies)) {
@@ -262,7 +266,7 @@ function showDependencies(name) {
 		}
 		console.log("");
 	}
-	
+
 	if (pkg.package.devDependencies) {
 		console.log("Dev Dependencies:");
 		for (const [dep, version] of Object.entries(pkg.package.devDependencies)) {
@@ -270,7 +274,7 @@ function showDependencies(name) {
 		}
 		console.log("");
 	}
-	
+
 	if (pkg.package.peerDependencies) {
 		console.log("Peer Dependencies:");
 		for (const [dep, version] of Object.entries(pkg.package.peerDependencies)) {

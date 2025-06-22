@@ -1,7 +1,6 @@
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 import { useCallback, useEffect, useRef } from "react";
 import {
-	analytics,
 	type EventName,
 	type EventProperties,
 	trackEvent,
@@ -99,7 +98,7 @@ export const useFormTracking = (formName: string) => {
 	}, []);
 
 	const trackFormSubmit = useCallback(
-		(success: boolean, errors?: Record<string, any>) => {
+		(success: boolean, errors?: Record<string, unknown>) => {
 			const duration = startTime.current ? Date.now() - startTime.current : null;
 
 			track("form_submit", {
@@ -209,7 +208,7 @@ export const useSearchTracking = () => {
 	}, []);
 
 	const trackSearch = useCallback(
-		(query: string, resultCount: number, filters?: any) => {
+		(query: string, resultCount: number, filters?: Record<string, unknown>) => {
 			const duration = searchStartTime.current ? Date.now() - searchStartTime.current : null;
 
 			track("search", {

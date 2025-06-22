@@ -1,6 +1,6 @@
 import { forwardRef, memo, useCallback, useMemo } from "react";
 import { Pressable, type View } from "react-native";
-import { Text } from "../../../Text";
+import { Text } from "../Text";
 import { useTabsContext } from "./context";
 import { styles } from "./styles";
 import type { TabProps } from "./types";

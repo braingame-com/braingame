@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Application from "expo-application";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
+import { ANALYTICS_CONFIG, APP_CONFIG, STORAGE_KEYS } from "../config/env";
 import { captureException } from "./ErrorService";
 
 // Event types
@@ -56,8 +57,8 @@ export type EventName =
 	| "accessibility_change"
 	| "notification_toggle";
 
-interface EventProperties {
-	[key: string]: string | number | boolean | null | undefined;
+export interface EventProperties {
+	[key: string]: string | number | boolean | null | undefined | Record<string, unknown>;
 }
 
 interface UserProperties {
@@ -69,7 +70,7 @@ interface UserProperties {
 	themeName?: string;
 	accessibilityEnabled?: boolean;
 	notificationsEnabled?: boolean;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 interface SuperProperties {
@@ -82,7 +83,7 @@ interface SuperProperties {
 	deviceName?: string;
 	isDevice: boolean;
 	sessionId: string;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 interface AnalyticsProvider {
@@ -95,41 +96,54 @@ interface AnalyticsProvider {
 	flush(): Promise<void>;
 }
 
+type AnalyticsEvent =
+	| {
+			type: "identify";
+			userId: string;
+			properties?: UserProperties;
+			timestamp: Date;
+	  }
+	| {
+			type: "track";
+			event: EventName;
+			properties?: EventProperties;
+			timestamp: Date;
+	  };
+
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
-	private logs: any[] = [];
-
-	async init(apiKey: string) {
-		console.log("[MockAnalytics] Initialized with key:", apiKey.substring(0, 8) + "...");
+	private logs: AnalyticsEvent[] = [];
+	async init(_apiKey: string) {
+		// Mock analytics initialized in development
 	}
 
 	async identify(userId: string, properties?: UserProperties) {
-		const log = { type: "identify", userId, properties, timestamp: new Date() };
+		const log: AnalyticsEvent = { type: "identify", userId, properties, timestamp: new Date() };
 		this.logs.push(log);
-		console.log("[MockAnalytics] Identify:", log);
+		// Mock analytics user identified
 	}
 
 	async track(event: EventName, properties?: EventProperties) {
-		const log = { type: "track", event, properties, timestamp: new Date() };
+		const log: AnalyticsEvent = { type: "track", event, properties, timestamp: new Date() };
 		this.logs.push(log);
-		console.log("[MockAnalytics] Track:", log);
+		// Mock analytics event tracked
 	}
 
-	async setUserProperties(properties: UserProperties) {
-		console.log("[MockAnalytics] Set User Properties:", properties);
+	async setUserProperties(_properties: UserProperties) {
+		// Mock analytics user properties set
 	}
 
-	async setSuperProperties(properties: SuperProperties) {
-		console.log("[MockAnalytics] Set Super Properties:", properties);
+	async setSuperProperties(_properties: SuperProperties) {
+		// Mock analytics super properties set
 	}
 
 	async reset() {
 		this.logs = [];
-		console.log("[MockAnalytics] Reset");
+		// Mock analytics reset
 	}
 
 	async flush() {
-		console.log("[MockAnalytics] Flush - Total events:", this.logs.length);
+		// Mock analytics flushed events
 	}
 }
 
@@ -143,7 +157,7 @@ class AnalyticsService {
 	private eventQueue: Array<{ event: EventName; properties?: EventProperties }> = [];
 	private isInitialized = false;
 	private isEnabled = true;
-	private debugMode = __DEV__;
+	private debugMode = ANALYTICS_CONFIG.debugMode;
 
 	private constructor() {
 		this.sessionId = this.generateSessionId();
@@ -162,9 +176,17 @@ class AnalyticsService {
 	}
 
 	private generateSuperProperties(): SuperProperties {
+		// Validate critical platform data
+		if (Platform.Version === null || Platform.Version === undefined) {
+			console.error("Platform.Version is not available - check React Native setup");
+		}
+
 		return {
 			platform: Platform.OS,
-			platformVersion: Platform.Version?.toString() || "unknown",
+			platformVersion:
+				Platform.Version !== null && Platform.Version !== undefined
+					? Platform.Version.toString()
+					: "unknown",
 			appVersion: Application.nativeApplicationVersion || "1.0.0",
 			buildVersion: Application.nativeBuildVersion || "1",
 			deviceModel: Device.modelName || undefined,
@@ -178,30 +200,34 @@ class AnalyticsService {
 	async initialize() {
 		try {
 			// Check if analytics is enabled
-			const enabled = await AsyncStorage.getItem("@braingame/analytics_enabled");
-			this.isEnabled = enabled !== "false";
+			const enabled = await AsyncStorage.getItem(STORAGE_KEYS.analytics.enabled);
+			this.isEnabled = enabled !== "false" && (ANALYTICS_CONFIG.enabled ?? false);
 
 			if (!this.isEnabled) {
-				console.log("Analytics disabled by user preference");
+				// Analytics disabled by user preference
 				return;
 			}
 
 			// Initialize providers based on environment
-			if (__DEV__) {
+			if (APP_CONFIG.isDevelopment) {
 				// Use mock provider in development
 				const mockProvider = new MockAnalyticsProvider();
 				await mockProvider.init("mock-api-key");
 				this.providers.push(mockProvider);
-			} else {
+			} else if (APP_CONFIG.isProduction && ANALYTICS_CONFIG.enabled) {
 				// Initialize real providers in production
-				// Example: Mixpanel
-				// const mixpanel = new MixpanelProvider();
-				// await mixpanel.init(process.env.MIXPANEL_TOKEN);
-				// this.providers.push(mixpanel);
-				// Example: Amplitude
-				// const amplitude = new AmplitudeProvider();
-				// await amplitude.init(process.env.AMPLITUDE_API_KEY);
-				// this.providers.push(amplitude);
+				if (ANALYTICS_CONFIG.providers.amplitude) {
+					// Example: Amplitude
+					// const amplitude = new AmplitudeProvider();
+					// await amplitude.init(ANALYTICS_CONFIG.providers.amplitude);
+					// this.providers.push(amplitude);
+				}
+				if (ANALYTICS_CONFIG.providers.analytics) {
+					// Example: Other analytics provider
+					// const analytics = new AnalyticsProvider();
+					// await analytics.init(ANALYTICS_CONFIG.providers.analytics);
+					// this.providers.push(analytics);
+				}
 			}
 
 			// Set super properties on all providers
@@ -228,9 +254,9 @@ class AnalyticsService {
 
 	private async getTimeSinceLastLaunch(): Promise<number | null> {
 		try {
-			const lastLaunch = await AsyncStorage.getItem("@braingame/last_launch");
+			const lastLaunch = await AsyncStorage.getItem(STORAGE_KEYS.analytics.lastLaunch);
 			if (lastLaunch) {
-				return Date.now() - parseInt(lastLaunch, 10);
+				return Date.now() - Number.parseInt(lastLaunch, 10);
 			}
 		} catch {}
 		return null;
@@ -266,7 +292,7 @@ class AnalyticsService {
 		if (!this.isEnabled) return;
 
 		if (this.debugMode) {
-			console.log(`[Analytics] ${event}`, properties);
+			// Analytics event tracked in debug mode
 		}
 
 		if (!this.isInitialized) {
@@ -288,7 +314,7 @@ class AnalyticsService {
 
 			// Store last launch time
 			if (event === "app_launch") {
-				await AsyncStorage.setItem("@braingame/last_launch", Date.now().toString());
+				await AsyncStorage.setItem(STORAGE_KEYS.analytics.lastLaunch, Date.now().toString());
 			}
 		} catch (error) {
 			captureException(error as Error, {
@@ -298,7 +324,7 @@ class AnalyticsService {
 		}
 	}
 
-	async setUserProperty(key: string, value: any) {
+	async setUserProperty(key: string, value: unknown) {
 		if (!this.isEnabled) return;
 
 		this.userProperties[key] = value;
@@ -363,11 +389,18 @@ class AnalyticsService {
 	}
 
 	async setEnabled(enabled: boolean) {
-		this.isEnabled = enabled;
-		await AsyncStorage.setItem("@braingame/analytics_enabled", enabled.toString());
+		try {
+			this.isEnabled = enabled;
+			await AsyncStorage.setItem(STORAGE_KEYS.analytics.enabled, enabled.toString());
 
-		if (!enabled) {
-			await this.reset();
+			if (!enabled) {
+				await this.reset();
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_set_enabled",
+				enabled,
+			});
 		}
 	}
 
@@ -376,26 +409,40 @@ class AnalyticsService {
 	}
 
 	private async processEventQueue() {
-		if (this.eventQueue.length === 0) return;
+		try {
+			if (this.eventQueue.length === 0) return;
 
-		const events = [...this.eventQueue];
-		this.eventQueue = [];
+			const events = [...this.eventQueue];
+			this.eventQueue = [];
 
-		for (const { event, properties } of events) {
-			await this.track(event, properties);
+			for (const { event, properties } of events) {
+				await this.track(event, properties);
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_process_event_queue",
+				queueLength: this.eventQueue.length,
+			});
 		}
 	}
 
 	// Screen tracking helper
 	trackScreen(screenName: string, properties?: EventProperties) {
-		this.track("screen_view", {
-			screen_name: screenName,
-			...properties,
-		});
+		try {
+			this.track("screen_view", {
+				screen_name: screenName,
+				...properties,
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track_screen",
+				screenName,
+			});
+		}
 	}
 
 	// Performance tracking helpers
-	startTimer(timerId: string): () => void {
+	startTimer(_timerId: string): () => void {
 		const startTime = Date.now();
 
 		return () => {
@@ -405,21 +452,33 @@ class AnalyticsService {
 	}
 
 	trackTiming(category: string, timingVar: string, duration: number, label?: string) {
-		this.track("screen_load_time", {
-			category,
-			timing_var: timingVar,
-			duration,
-			label,
-		});
+		try {
+			this.track("screen_load_time", {
+				category,
+				timing_var: timingVar,
+				duration,
+				label,
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track_timing",
+				category,
+				timingVar,
+			});
+		}
 	}
 
 	// Error tracking helper
-	trackError(error: Error, fatal: boolean = false) {
-		this.track("error", {
-			error_message: error.message,
-			error_stack: error.stack,
-			fatal,
-		});
+	trackError(error: Error, fatal = false) {
+		try {
+			this.track("error", {
+				error_message: error.message,
+				error_stack: error.stack,
+				fatal,
+			});
+		} catch (_trackingError) {
+			// Avoid recursive error tracking - error tracking itself failed
+		}
 	}
 }
 
@@ -436,7 +495,8 @@ export const trackScreen = (screenName: string, properties?: EventProperties) =>
 export const identifyUser = (userId: string, properties?: UserProperties) =>
 	analytics.identify(userId, properties);
 
-export const setUserProperty = (key: string, value: any) => analytics.setUserProperty(key, value);
+export const setUserProperty = (key: string, value: unknown) =>
+	analytics.setUserProperty(key, value);
 
 export const setUserProperties = (properties: UserProperties) =>
 	analytics.setUserProperties(properties);

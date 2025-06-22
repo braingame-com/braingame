@@ -5,41 +5,40 @@
 
 import type { LinkingOptions } from "@react-navigation/native";
 import * as Linking from "expo-linking";
+import { DEEP_LINKING_CONFIG } from "../config/env";
 import type { RootStackParamList } from "./types";
 
 const prefix = Linking.createURL("/");
 
 export const linking: LinkingOptions<RootStackParamList> = {
-	prefixes: [prefix, "braingame://", "https://app.braingame.dev"],
+	prefixes: [prefix, ...DEEP_LINKING_CONFIG.prefixes],
 	config: {
 		screens: {
 			Main: {
 				screens: {
-					Dashboard: {
+					HomeTabs: {
 						screens: {
-							DashboardHome: "dashboard",
-							TaskDetails: "dashboard/task/:taskId",
+							Dashboard: {
+								screens: {
+									DashboardHome: "dashboard",
+									TaskDetails: "dashboard/task/:taskId",
+								},
+							},
+							Videos: {
+								screens: {
+									VideosList: "videos",
+								},
+							},
+							Analytics: {
+								screens: {
+									AnalyticsOverview: "analytics",
+								},
+							},
+							Mindset: "mindset",
+							Profile: "profile",
 						},
 					},
-					Videos: {
-						screens: {
-							VideosList: "videos",
-						},
-					},
-					Analytics: {
-						screens: {
-							AnalyticsHome: "analytics",
-							AnalyticsDetails: "analytics/:metricType",
-						},
-					},
-					Settings: {
-						screens: {
-							SettingsHome: "settings",
-							CloudSettings: "settings/cloud",
-							PrivacySettings: "settings/privacy",
-							AccountSettings: "settings/account",
-						},
-					},
+					Settings: "settings",
 				},
 			},
 			VideoPlayer: {
@@ -58,14 +57,5 @@ export const linking: LinkingOptions<RootStackParamList> = {
 			},
 		},
 	},
-	async getStateFromPath(path, config) {
-		// Custom logic for handling special paths
-		console.log("Deep link received:", path);
-
-		// You can add custom logic here to handle special cases
-		// For example, redirecting old URLs to new ones
-
-		// Use the default implementation
-		return undefined;
-	},
+	// Remove getStateFromPath to use default implementation
 };

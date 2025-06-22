@@ -11,6 +11,7 @@ import {
 } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { ContextErrorBoundary } from "../ErrorBoundary";
 
 export interface AccordionProps {
 	children: ReactNode;
@@ -84,9 +85,11 @@ const AccordionComponent = ({
 	);
 
 	return (
-		<AccordionContext.Provider value={{ expanded, toggle, register, refs: itemRefs.current }}>
-			<View>{children}</View>
-		</AccordionContext.Provider>
+		<ContextErrorBoundary contextName="Accordion">
+			<AccordionContext.Provider value={{ expanded, toggle, register, refs: itemRefs.current }}>
+				<View>{children}</View>
+			</AccordionContext.Provider>
+		</ContextErrorBoundary>
 	);
 };
 
@@ -117,7 +120,13 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === "ArrowDown" || e.key === "ArrowUp") {
 			e.preventDefault();
-			const currentIndex = refs.findIndex((ref) => ref.current === document.activeElement);
+			const currentIndex =
+				Platform.OS === "web"
+					? refs.findIndex(
+							(ref) =>
+								ref.current === (document as unknown as { activeElement: unknown }).activeElement,
+						)
+					: -1;
 			let nextIndex = currentIndex;
 
 			if (e.key === "ArrowDown") {
@@ -126,8 +135,8 @@ export const Item = ({ title, value: val, children }: ItemProps) => {
 				nextIndex = (currentIndex - 1 + refs.length) % refs.length;
 			}
 
-			if (nextIndex !== currentIndex) {
-				refs[nextIndex].current?.focus();
+			if (nextIndex !== currentIndex && Platform.OS === "web") {
+				(refs[nextIndex].current as unknown as { focus?: () => void })?.focus?.();
 			}
 		} else if (e.key === " " || e.key === "Enter") {
 			e.preventDefault();

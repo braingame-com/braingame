@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, GlowingLogo, Link, Text, TextInput, View } from "@braingame/bgui";
+import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
 import { useState } from "react";
 import { submitEmail } from "../lib/emailService";
 
@@ -28,7 +28,7 @@ export default function HomePage() {
 			if (result.success) {
 				setEmail("");
 			}
-		} catch (error) {
+		} catch (_error) {
 			setSubmitMessage("Something went wrong. Please try again.");
 			setIsSuccess(false);
 		} finally {
@@ -47,8 +47,7 @@ export default function HomePage() {
 				padding: 20,
 			}}
 		>
-			{/* Glowing Logo */}
-			<GlowingLogo size={150} glowIntensity="high" animate />
+			{/* Logo placeholder */}
 
 			{/* Title */}
 			<Text

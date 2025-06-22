@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Checkbox } from "./Checkbox";
 
 describe("Checkbox", () => {
@@ -12,21 +13,21 @@ describe("Checkbox", () => {
 	});
 
 	it("calls onValueChange when pressed", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole } = render(<Checkbox checked={false} onValueChange={fn} />);
 		fireEvent.press(getByRole("checkbox"));
 		expect(fn).toHaveBeenCalledWith(true);
 	});
 
 	it("toggles from checked to unchecked", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole } = render(<Checkbox checked={true} onValueChange={fn} />);
 		fireEvent.press(getByRole("checkbox"));
 		expect(fn).toHaveBeenCalledWith(false);
 	});
 
 	it("does not call onValueChange when disabled", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole } = render(<Checkbox checked={false} onValueChange={fn} disabled />);
 		fireEvent.press(getByRole("checkbox"));
 		expect(fn).not.toHaveBeenCalled();

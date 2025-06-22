@@ -1,19 +1,19 @@
 // ENTERPRISE-GRADE UI KIT EXPORTS
 // Brain Game UI components built for scale and maintainability
 
+export type { AccordionProps } from "./src/components/Accordion";
 // All Components from src/components (Enterprise folder-per-component structure)
 export { Accordion } from "./src/components/Accordion";
-export type { AccordionProps } from "./src/components/Accordion";
 export { ActionList, ActionListDivider, ActionListItem } from "./src/components/ActionList";
 export type { ActionListItemProps, ActionListProps } from "./src/components/ActionList/types";
-export { Alert } from "./src/components/Alert";
 export type { AlertProps, AlertType, AlertVariant } from "./src/components/Alert";
+export { Alert } from "./src/components/Alert";
 export { Avatar } from "./src/components/Avatar";
 export type { AvatarProps } from "./src/components/Avatar/types";
 export { Badge } from "./src/components/Badge";
 export type { BadgeProps } from "./src/components/Badge/types";
-export { Breadcrumb, BreadcrumbItem } from "./src/components/Breadcrumb";
 export type { BreadcrumbItemProps, BreadcrumbProps } from "./src/components/Breadcrumb";
+export { Breadcrumb, BreadcrumbItem } from "./src/components/Breadcrumb";
 export { Button } from "./src/components/Button";
 export type { ButtonProps } from "./src/components/Button/types";
 export { Card } from "./src/components/Card";
@@ -22,10 +22,7 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-export { ErrorBoundary } from "./src/components/ErrorBoundary";
-// ErrorBoundaryProps is defined in the component file, not exported separately
-export { GlowingLogo } from "./src/components/GlowingLogo";
-export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
+export { ContextErrorBoundary as ErrorBoundary } from "./src/components/ErrorBoundary";
 export { Icon } from "./src/components/Icon";
 export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
@@ -38,6 +35,8 @@ export { Menu, MenuItem } from "./src/components/Menu";
 export type { MenuItemProps, MenuProps } from "./src/components/Menu/types";
 export { Modal, ModalFooter, ModalHeader } from "./src/components/Modal";
 export type { ModalProps } from "./src/components/Modal/types";
+export { PageWrapper } from "./src/components/PageWrapper";
+export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export { ProgressBar } from "./src/components/ProgressBar";
 export type { ProgressBarProps } from "./src/components/ProgressBar/types";
 export { RadioGroup } from "./src/components/RadioGroup";
@@ -60,10 +59,6 @@ export { Toast } from "./src/components/Toast";
 export type { ToastProps } from "./src/components/Toast/types";
 export { Tooltip } from "./src/components/Tooltip";
 export type { TooltipProps } from "./src/components/Tooltip/types";
-
-// Core Layout Components
-export { PageWrapper } from "./src/components/PageWrapper";
-export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export { View } from "./src/components/View";
 export type { ViewProps } from "./src/components/View/types";
 
@@ -71,7 +66,13 @@ export type { ViewProps } from "./src/components/View/types";
 export { Fonts } from "./src/constants/Fonts";
 
 // Hooks
-export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
+export {
+	useAbortController,
+	useControlledState,
+	useFocusManagement,
+	useInteractiveState,
+	useMountedState,
+} from "./src/hooks";
 
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";

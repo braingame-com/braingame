@@ -1,24 +1,45 @@
 import { Text } from "@braingame/bgui";
-import {
-	createDrawerNavigator,
-	type DrawerContentComponentProps,
-	DrawerContentScrollView,
-	DrawerItemList,
-} from "@react-navigation/drawer";
+// TODO: Install @react-navigation/drawer
+// import {
+// 	createDrawerNavigator,
+// 	type DrawerContentComponentProps,
+// 	DrawerContentScrollView,
+// 	DrawerItemList,
+// } from "@react-navigation/drawer";
 import type React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { SettingsScreen } from "../screens/Settings/SettingsScreen";
+import { ThemedSettingsScreen } from "../screens/Settings/ThemedSettingsScreen";
 import { useAuth } from "./AuthContext";
 import { TabNavigator } from "./TabNavigator";
-import type { DrawerParamList } from "./types";
 
-const Drawer = createDrawerNavigator<DrawerParamList>();
+// const Drawer = createDrawerNavigator<DrawerParamList>();
 
-const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
+// Temporary stub until @react-navigation/drawer is installed
+const Drawer = {
+	Navigator: View as unknown as React.ComponentType<{
+		drawerContent?: (props: DrawerContentComponentProps) => React.ReactNode;
+		screenOptions?: Record<string, unknown>;
+		children?: React.ReactNode;
+	}>,
+	Screen: View as unknown as React.ComponentType<{
+		name: string;
+		component: React.ComponentType;
+		options?: Record<string, unknown>;
+	}>,
+};
+
+type DrawerContentComponentProps = {
+	navigation?: unknown;
+	state?: unknown;
+	descriptors?: unknown;
+	progress?: unknown;
+};
+
+const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (_props) => {
 	const { user, logout } = useAuth();
 
 	return (
-		<DrawerContentScrollView {...props}>
+		<View style={{ flex: 1 }}>
 			{/* User Profile Section */}
 			<View
 				style={{
@@ -40,17 +61,19 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 					}}
 				>
 					<Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
-						{user?.displayName?.charAt(0) || "U"}
+						{user ? user.displayName?.charAt(0) || user.email.charAt(0).toUpperCase() : "?"}
 					</Text>
 				</View>
 				<Text style={{ fontSize: 18, fontWeight: "600", marginBottom: 4 }}>
-					{user?.displayName || "User"}
+					{user ? user.displayName || user.email.split("@")[0] : "Not signed in"}
 				</Text>
-				<Text style={{ fontSize: 14, color: "#666" }}>{user?.email || "user@example.com"}</Text>
+				<Text style={{ fontSize: 14, color: "#666" }}>
+					{user ? user.email : "Please sign in to continue"}
+				</Text>
 			</View>
 
 			{/* Navigation Items */}
-			<DrawerItemList {...props} />
+			{/* <DrawerItemList {...props} /> */}
 
 			{/* Logout Button */}
 			<View style={{ marginTop: "auto", padding: 20, paddingTop: 40 }}>
@@ -67,14 +90,14 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 					<Text style={{ color: "#fff", fontWeight: "600" }}>Logout</Text>
 				</TouchableOpacity>
 			</View>
-		</DrawerContentScrollView>
+		</View>
 	);
 };
 
 export const DrawerNavigator: React.FC = () => {
 	return (
 		<Drawer.Navigator
-			drawerContent={(props) => <CustomDrawerContent {...props} />}
+			drawerContent={(props: DrawerContentComponentProps) => <CustomDrawerContent {...props} />}
 			screenOptions={{
 				drawerActiveTintColor: "#007fff",
 				drawerInactiveTintColor: "#666",
@@ -90,15 +113,19 @@ export const DrawerNavigator: React.FC = () => {
 				component={TabNavigator}
 				options={{
 					drawerLabel: "Home",
-					drawerIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🏠</Text>,
+					drawerIcon: ({ color: _color }: { color: string }) => (
+						<Text style={{ fontSize: 20 }}>🏠</Text>
+					),
 				}}
 			/>
 			<Drawer.Screen
 				name="Settings"
-				component={SettingsScreen}
+				component={ThemedSettingsScreen}
 				options={{
 					drawerLabel: "Settings",
-					drawerIcon: ({ color }) => <Text style={{ fontSize: 20 }}>⚙️</Text>,
+					drawerIcon: ({ color: _color }: { color: string }) => (
+						<Text style={{ fontSize: 20 }}>⚙️</Text>
+					),
 					headerShown: true,
 					headerTitle: "Settings",
 				}}
