@@ -49,7 +49,7 @@ export async function checkEmailExists(email: string): Promise<boolean> {
 		const querySnapshot = await getDocs(q);
 		return !querySnapshot.empty;
 	} catch (error) {
-		console.error("Error checking email existence:", error);
+		// Error checking email existence - proceeding to avoid blocking users
 		// In case of error, proceed with submission to avoid blocking users
 		return false;
 	}
@@ -93,14 +93,14 @@ export async function submitEmail(email: string): Promise<EmailSubmissionResult>
 			timestamp: serverTimestamp(),
 		});
 
-		console.log("Email submitted successfully with ID:", docRef.id);
+		// Email submitted successfully to database
 
 		return {
 			success: true,
 			message: "Thanks! We'll notify you when we launch.",
 		};
 	} catch (error) {
-		console.error("Error submitting email:", error);
+		// Error submitting email - returning user-friendly message
 
 		// Return a user-friendly error message
 		return {
@@ -119,7 +119,7 @@ export async function getSignupCount(): Promise<number> {
 		const querySnapshot = await getDocs(emailRef);
 		return querySnapshot.size;
 	} catch (error) {
-		console.error("Error getting signup count:", error);
+		// Error getting signup count - returning default value
 		return 0;
 	}
 }

@@ -237,12 +237,6 @@ export const TokenValidation = {
 export function logTokens() {
 	// Only log in development environments
 	if (process.env.NODE_ENV === "development") {
-		console.log("=== Design Tokens ===");
-		console.log("Spacing:", Tokens);
-		console.log("Colors:", Colors);
-		console.log("Typography:", Typography);
-		console.log("Animation:", Animation);
-		console.log("BorderRadius:", BorderRadius);
-		console.log("Shadows:", Shadows);
+		// Design tokens available for debugging in development
 	}
 }

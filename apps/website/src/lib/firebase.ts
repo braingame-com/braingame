@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
 		connectFirestoreEmulator(db, "localhost", 8080);
 	} catch (error) {
 		// Emulator might already be connected or not running
-		console.log("Firestore emulator connection:", error);
+		// Firestore emulator connection issue - likely already connected
 	}
 }
 
