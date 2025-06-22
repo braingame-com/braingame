@@ -146,6 +146,15 @@ export const TrackableScrollView: React.FC<TrackableScrollViewProps> = ({
 	const _scrollStartY = useRef<number>(0);
 	const maxScroll = useRef<number>(0);
 
+	// Cleanup timer on unmount
+	useEffect(() => {
+		return () => {
+			if (scrollTimer.current) {
+				clearTimeout(scrollTimer.current);
+			}
+		};
+	}, []);
+
 	const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 		const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
 		const currentY = contentOffset.y;

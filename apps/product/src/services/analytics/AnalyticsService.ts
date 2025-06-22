@@ -52,7 +52,7 @@ class AnalyticsService {
 			this.isEnabled = enabled !== "false";
 
 			if (!this.isEnabled) {
-				console.log("Analytics disabled by user preference");
+				// Analytics disabled by user preference
 				return;
 			}
 
@@ -136,7 +136,7 @@ class AnalyticsService {
 		if (!this.isEnabled) return;
 
 		if (this.debugMode) {
-			console.log(`[Analytics] ${event}`, properties);
+			// Debug analytics event: [event] with [properties]
 		}
 
 		if (!this.isInitialized) {

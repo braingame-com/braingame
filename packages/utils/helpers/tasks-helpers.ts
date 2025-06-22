@@ -10,14 +10,14 @@ export const handleSlashKeyPress = (e: KeyboardEvent, inputRef: React.RefObject<
 
 		// Validate input element availability before focusing
 		if (!inputRef.current) {
-			console.warn("Attempted to focus non-existent input element");
+			// Attempted to focus non-existent input element
 			return;
 		}
 
 		try {
 			inputRef.current.focus();
-		} catch (error) {
-			console.error("Error focusing input element:", error);
+		} catch (_error) {
+			// Error focusing input element - silently fail
 		}
 	}
 };

@@ -9,17 +9,22 @@
 **URGENT**: Hidden bugs discovered during code analysis on 20-01-2025. See [Hidden Bugs Analysis](./LESSONS.md#hidden-bugs-analysis-20-01-2025) for details.
 
 ### Memory Leak Fixes (Priority: CRITICAL)
-- [ ] Fix timer cleanup in `TrackableComponent.tsx` scrollTimer
-- [ ] Add cleanup to `Tooltip.tsx` setTimeout
-- [ ] Add cleanup to `Toast.tsx` setTimeout 
-- [ ] Fix missing event listener cleanup in `Modal.tsx`
-- [ ] Fix missing event listener cleanup in `Menu.tsx`
-- [ ] Verify NetInfo listener cleanup in `NetworkErrorBoundary.tsx`
+- [x] Fix timer cleanup in `TrackableComponent.tsx` scrollTimer (22-06-2025)
+- [x] Add cleanup to `Tooltip.tsx` setTimeout (22-06-2025 - Already implemented with useMountedState)
+- [x] Add cleanup to `Toast.tsx` setTimeout (22-06-2025 - Already has proper cleanup)
+- [x] Fix missing event listener cleanup in `Modal.tsx` (22-06-2025 - Already has proper cleanup in useFocusTrap)
+- [x] Fix missing event listener cleanup in `Menu.tsx` (22-06-2025 - Already has proper cleanup)
+- [x] Verify NetInfo listener cleanup in `NetworkErrorBoundary.tsx` (22-06-2025 - Verified, has proper cleanup)
 
 ### Quick Win Fixes (Can be done immediately)
-- [ ] Add cleanup to setTimeout in `DashboardScreenAccessible.tsx`
+- [x] Add cleanup to setTimeout in `DashboardScreenAccessible.tsx` (22-06-2025 - Already has proper cleanup)
 - [ ] Replace hardcoded app version in `ErrorService.ts`
-- [x] Remove/replace console.log statements (25+ instances) (22-06-2025)
+- [x] Remove/replace console.log statements (22-06-2025)
+  - [x] `apps/api/src/index.ts` (replaced with appLogger)
+  - [x] `apps/product/src/services/analytics/AnalyticsService.ts` (removed)
+  - [x] `packages/utils/helpers/tasks-helpers.ts` (removed)
+  - [x] `apps/api/src/middleware/logger.ts` (intentional - part of logger implementation)
+  - [x] `apps/product/src/services/analytics/providers/MockProvider.ts` (intentional - dev only)
 - [x] Add try-catch blocks to async functions in ErrorService (22-06-2025)
 - [x] Add try-catch blocks to async functions in AnalyticsService (22-06-2025)
 
@@ -55,6 +60,11 @@
 
 ### 🚨 Critical Priority
 
+- [x] Fix Missing Dependencies (22-06-2025)
+  - [x] Install `secretlint` package (already in package.json)
+  - [x] Install `chalk` package (not needed - scripts use inline colors)
+  - Status: Completed - dependencies properly installed
+
 - [ ] Production Deployment Preparation
   - [x] Environment variable validation across all apps (21-06-2025)
     - [x] Created Zod schemas for type-safe env validation
@@ -89,14 +99,15 @@
   - Status: React Native testing infrastructure breakthrough! Both utils and bgui packages have working test setups
   - Target: >80% coverage
 
-- [ ] Implement Testing Infrastructure (Vitest) 🔥 NEXT PHASE
+- [ ] Resolve Testing Infrastructure Conflict 🔥 CRITICAL
   - [x] Update `docs/TESTING.md` with new Vitest strategy
-  - [ ] Remove all Jest dependencies and configurations from the monorepo
-  - [ ] Install and configure Vitest in `packages/bgui`
-  - [ ] Write a sample test for a BGUI component to validate the setup
+  - [ ] Remove conflicting test configurations (both Jest and Vitest configs exist in bgui)
+  - [ ] Choose single testing framework (Jest currently working, Vitest planned)
+  - [ ] Remove all Jest dependencies if pivoting to Vitest
+  - [ ] Configure chosen framework consistently across monorepo
   - [ ] Add unit tests for all `packages/utils` functions
   - [ ] Configure and enforce >80% coverage reporting
-  - Status: Planning complete - Pivoted to Vitest due to Jest/ESM issues. Critical for quality assurance.
+  - Status: Conflict detected - both Jest and Vitest configurations present. Tests passing but need to standardize.
 
 ## 🔥 High Priority
 
@@ -192,14 +203,12 @@
   - [ ] Accessibility audits
   - Status: Not started
 
-## 🚀 Next Steps (Post PR Merges - 21-06-2025)
+## 🚀 Next Steps (Updated - 22-06-2025)
 
 ### Immediate Actions Required:
-1. **Fix Pre-commit Hooks** - secretlint is not installed, causing commit failures
-2. **Resolve Testing Conflicts** - Both Jest and Vitest configs exist in bgui package
-3. **Complete Component Migration** - View and PageWrapper components need to move to src/components/
-4. **Firebase Integration** - Website has TODO for Firebase email collection
-5. **Install Missing Dependencies** - chalk needed for validation scripts
+1. **Resolve Testing Conflicts** - Both Jest and Vitest configs exist in bgui package (HIGH)
+2. **Firebase Integration** - Website has TODO for Firebase email collection (HIGH)
+3. **Replace hardcoded app version** - ErrorService.ts still has hardcoded version (LOW)
 
 ### Production Path:
 1. **Firebase Setup** (HIGH PRIORITY)

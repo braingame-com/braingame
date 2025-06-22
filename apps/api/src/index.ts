@@ -5,7 +5,7 @@ import morgan from "morgan";
 import { config } from "./config";
 import { corsMiddleware } from "./middleware/cors";
 import { errorHandler } from "./middleware/error";
-import { logger } from "./middleware/logger";
+import { appLogger, logger } from "./middleware/logger";
 import routes from "./routes";
 
 // Load environment variables
@@ -36,7 +36,7 @@ app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
-	console.log(`🚀 API Server running on port ${PORT}`);
-	console.log(`📍 Environment: ${config.NODE_ENV}`);
-	console.log(`🌐 Allowed origins: ${config.ALLOWED_ORIGINS.join(", ")}`);
+	appLogger.info(`🚀 API Server running on port ${PORT}`);
+	appLogger.info(`📍 Environment: ${config.NODE_ENV}`);
+	appLogger.info(`🌐 Allowed origins: ${config.ALLOWED_ORIGINS.join(", ")}`);
 });
