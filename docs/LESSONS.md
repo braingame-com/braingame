@@ -144,6 +144,23 @@ export type OpacityKey = keyof typeof Opacity;
 export type ShadowLevel = keyof typeof Shadows;
 ```
 
+### Replacing Any Types with Unknown
+**Best Practice**: Replace `any` with `unknown` for better type safety in utility functions.
+
+```typescript
+// ❌ Before: Unsafe any types
+type Validator = (value: any, propName: string, componentName: string) => void;
+const required = (value: any, propName: string, componentName: string) => { ... };
+
+// ✅ After: Safe unknown types with type guards
+type Validator = (value: unknown, propName: string, componentName: string) => void;
+const required = (value: unknown, propName: string, componentName: string) => {
+  if (typeof value === "string" && value.length > 0) { ... }
+};
+```
+
+**Benefits**: Forces proper type checking, catches errors at compile time, maintains flexibility without sacrificing safety.
+
 ### Component Prop Type Patterns
 ```typescript
 // Type-safe variant-to-color mapping
