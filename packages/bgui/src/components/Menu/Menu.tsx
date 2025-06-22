@@ -9,6 +9,7 @@ import React, {
 	useState,
 } from "react";
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
+import { RANDOM_ID_SLICE_START } from "../../constants";
 import { ContextErrorBoundary } from "../ErrorBoundary";
 import { Text } from "../Text";
 import { styles } from "./styles";
@@ -140,8 +141,10 @@ export const Menu = ({
 
 	const backgroundColor = useThemeColor("card");
 
-	const triggerId = useRef(`menu-trigger-${Math.random().toString(36).slice(2)}`).current;
-	const menuId = useRef(`menu-${Math.random().toString(36).slice(2)}`).current;
+	const triggerId = useRef(
+		`menu-trigger-${Math.random().toString(36).slice(RANDOM_ID_SLICE_START)}`,
+	).current;
+	const menuId = useRef(`menu-${Math.random().toString(36).slice(RANDOM_ID_SLICE_START)}`).current;
 
 	const triggerElement = React.isValidElement(trigger)
 		? cloneElement(

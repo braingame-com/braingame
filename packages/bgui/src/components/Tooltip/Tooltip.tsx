@@ -1,6 +1,7 @@
 import { useThemeColor } from "@braingame/utils";
 import { useEffect, useId, useRef, useState } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
+import { DEFAULT_TOOLTIP_DELAY } from "../../constants";
 import { useMountedState } from "../../hooks/useMountedState";
 import { getTooltipBackgroundColor, getTooltipTextColor, styles } from "./styles";
 import type { TooltipProps } from "./types";
@@ -9,7 +10,7 @@ export const Tooltip = ({
 	content,
 	children,
 	placement = "top",
-	delay = 300,
+	delay = DEFAULT_TOOLTIP_DELAY,
 	variant = "dark",
 	disabled = false,
 }: TooltipProps) => {
