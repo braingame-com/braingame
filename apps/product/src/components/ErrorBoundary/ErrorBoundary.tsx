@@ -279,7 +279,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
 		// Validate and log component stack information
 		if (!errorInfo.componentStack) {
-			console.warn("Error boundary: Component stack missing from errorInfo - React error boundary may not be providing expected debug info");
+			console.warn(
+				"Error boundary: Component stack missing from errorInfo - React error boundary may not be providing expected debug info",
+			);
 		}
 
 		// Report to error service

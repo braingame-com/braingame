@@ -182,9 +182,10 @@ class AnalyticsService {
 
 		return {
 			platform: Platform.OS,
-			platformVersion: Platform.Version !== null && Platform.Version !== undefined 
-				? Platform.Version.toString() 
-				: "unknown",
+			platformVersion:
+				Platform.Version !== null && Platform.Version !== undefined
+					? Platform.Version.toString()
+					: "unknown",
 			appVersion: Application.nativeApplicationVersion || "1.0.0",
 			buildVersion: Application.nativeBuildVersion || "1",
 			deviceModel: Device.modelName || undefined,
@@ -383,11 +384,18 @@ class AnalyticsService {
 	}
 
 	async setEnabled(enabled: boolean) {
-		this.isEnabled = enabled;
-		await AsyncStorage.setItem("@braingame/analytics_enabled", enabled.toString());
+		try {
+			this.isEnabled = enabled;
+			await AsyncStorage.setItem("@braingame/analytics_enabled", enabled.toString());
 
-		if (!enabled) {
-			await this.reset();
+			if (!enabled) {
+				await this.reset();
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_set_enabled",
+				enabled,
+			});
 		}
 	}
 
@@ -396,22 +404,36 @@ class AnalyticsService {
 	}
 
 	private async processEventQueue() {
-		if (this.eventQueue.length === 0) return;
+		try {
+			if (this.eventQueue.length === 0) return;
 
-		const events = [...this.eventQueue];
-		this.eventQueue = [];
+			const events = [...this.eventQueue];
+			this.eventQueue = [];
 
-		for (const { event, properties } of events) {
-			await this.track(event, properties);
+			for (const { event, properties } of events) {
+				await this.track(event, properties);
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_process_event_queue",
+				queueLength: this.eventQueue.length,
+			});
 		}
 	}
 
 	// Screen tracking helper
 	trackScreen(screenName: string, properties?: EventProperties) {
-		this.track("screen_view", {
-			screen_name: screenName,
-			...properties,
-		});
+		try {
+			this.track("screen_view", {
+				screen_name: screenName,
+				...properties,
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track_screen",
+				screenName,
+			});
+		}
 	}
 
 	// Performance tracking helpers
@@ -425,21 +447,33 @@ class AnalyticsService {
 	}
 
 	trackTiming(category: string, timingVar: string, duration: number, label?: string) {
-		this.track("screen_load_time", {
-			category,
-			timing_var: timingVar,
-			duration,
-			label,
-		});
+		try {
+			this.track("screen_load_time", {
+				category,
+				timing_var: timingVar,
+				duration,
+				label,
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track_timing",
+				category,
+				timingVar,
+			});
+		}
 	}
 
 	// Error tracking helper
 	trackError(error: Error, fatal = false) {
-		this.track("error", {
-			error_message: error.message,
-			error_stack: error.stack,
-			fatal,
-		});
+		try {
+			this.track("error", {
+				error_message: error.message,
+				error_stack: error.stack,
+				fatal,
+			});
+		} catch (trackingError) {
+			// Avoid recursive error tracking - error tracking itself failed
+		}
 	}
 }
 
