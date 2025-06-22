@@ -5,7 +5,7 @@ export default function Index() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Dashboard</Text>
-			<Link href="/tasks" asChild>
+			<Link href="./tasks" asChild>
 				<Text style={styles.linkText}>Go to Tasks</Text>
 			</Link>
 		</View>

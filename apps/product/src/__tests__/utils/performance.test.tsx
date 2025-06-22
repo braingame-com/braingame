@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react-native";
-import { InteractionManager, type Text, } from "react-native";
+import React from "react";
+import { InteractionManager, Text } from "react-native";
 import {
 	animationOptimizations,
 	imageOptimizations,
@@ -25,7 +26,7 @@ describe("Performance Utils", () => {
 			const MemoizedComponent = withMemo(TestComponent);
 
 			const { rerender } = render(<MemoizedComponent text="Hello" />);
-			
+
 			// Component should be memoized
 			expect(MemoizedComponent).toBeDefined();
 			expect(typeof MemoizedComponent).toBe("object");
@@ -34,21 +35,21 @@ describe("Performance Utils", () => {
 		it("preserves display name", () => {
 			const TestComponent = ({ text }: { text: string }) => <Text>{text}</Text>;
 			TestComponent.displayName = "TestComponent";
-			
+
 			const MemoizedComponent = withMemo(TestComponent);
 			expect(MemoizedComponent.displayName).toBe("TestComponent");
 		});
 
 		it("uses custom display name when provided", () => {
 			const TestComponent = ({ text }: { text: string }) => <Text>{text}</Text>;
-			
+
 			const MemoizedComponent = withMemo(TestComponent, "CustomMemoized");
 			expect(MemoizedComponent.displayName).toBe("CustomMemoized");
 		});
 
 		it("falls back to component name", () => {
 			const NamedComponent = ({ text }: { text: string }) => <Text>{text}</Text>;
-			
+
 			const MemoizedComponent = withMemo(NamedComponent);
 			expect(MemoizedComponent.displayName).toBe("NamedComponent");
 		});
@@ -75,7 +76,7 @@ describe("Performance Utils", () => {
 
 		it("calculates item layout correctly", () => {
 			const getLayout = listOptimizations.getItemLayout(50);
-			
+
 			expect(getLayout(null, 0)).toEqual({
 				length: 50,
 				offset: 0,
@@ -117,9 +118,9 @@ describe("Performance Utils", () => {
 
 		it("wraps InteractionManager correctly", () => {
 			const callback = jest.fn();
-			
+
 			animationOptimizations.runAfterInteractions(callback);
-			
+
 			expect(InteractionManager.runAfterInteractions).toHaveBeenCalledWith(callback);
 			expect(callback).toHaveBeenCalled();
 		});

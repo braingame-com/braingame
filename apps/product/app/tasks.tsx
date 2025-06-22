@@ -6,7 +6,7 @@ export default function Tasks() {
 		<View style={styles.container}>
 			<Text style={styles.title}>Tasks</Text>
 			<Text style={styles.subtitle}>Your tasks will appear here</Text>
-			<Link href="/" asChild>
+			<Link href="./" asChild>
 				<Text style={styles.linkText}>Back to Dashboard</Text>
 			</Link>
 		</View>
