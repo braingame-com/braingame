@@ -11,7 +11,7 @@ interface HealthResponse {
 	uptime: number;
 }
 
-router.get("/health", (req: Request, res: Response<HealthResponse>) => {
+router.get("/health", (_req: Request, res: Response<HealthResponse>) => {
 	const healthCheck: HealthResponse = {
 		status: "healthy",
 		timestamp: new Date().toISOString(),
@@ -23,7 +23,7 @@ router.get("/health", (req: Request, res: Response<HealthResponse>) => {
 	res.json(healthCheck);
 });
 
-router.get("/ready", (req: Request, res: Response) => {
+router.get("/ready", (_req: Request, res: Response) => {
 	// Add any readiness checks here (database connections, external services, etc.)
 	res.json({ ready: true });
 });

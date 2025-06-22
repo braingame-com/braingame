@@ -1,5 +1,4 @@
 import { useThemeColor } from "@braingame/utils";
-import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { FLOATING_ALERT_ELEVATION } from "../../constants";
 import { Icon } from "../Icon";
