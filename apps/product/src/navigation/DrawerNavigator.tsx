@@ -61,13 +61,15 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (_props) => {
 					}}
 				>
 					<Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
-						{user?.displayName?.charAt(0) || "U"}
+						{user ? (user.displayName?.charAt(0) || user.email.charAt(0).toUpperCase()) : "?"}
 					</Text>
 				</View>
 				<Text style={{ fontSize: 18, fontWeight: "600", marginBottom: 4 }}>
-					{user?.displayName || "User"}
+					{user ? (user.displayName || user.email.split("@")[0]) : "Not signed in"}
 				</Text>
-				<Text style={{ fontSize: 14, color: "#666" }}>{user?.email || "user@example.com"}</Text>
+				<Text style={{ fontSize: 14, color: "#666" }}>
+					{user ? user.email : "Please sign in to continue"}
+				</Text>
 			</View>
 
 			{/* Navigation Items */}

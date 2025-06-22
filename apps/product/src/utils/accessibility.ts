@@ -209,7 +209,19 @@ export const prefersReducedMotion = async (): Promise<boolean> => {
 export const prefersHighContrast = async (): Promise<boolean> => {
 	if (Platform.OS === "windows") {
 		const { AccessibilityInfo } = require("react-native");
-		return (await AccessibilityInfo.isHighContrastEnabled?.()) || false;
+		
+		// Check API availability explicitly
+		if (!AccessibilityInfo.isHighContrastEnabled) {
+			console.warn("High contrast detection not available on this platform");
+			return false;
+		}
+		
+		try {
+			return await AccessibilityInfo.isHighContrastEnabled();
+		} catch (error) {
+			console.error("Error checking high contrast setting:", error);
+			return false;
+		}
 	}
 	return false;
 };

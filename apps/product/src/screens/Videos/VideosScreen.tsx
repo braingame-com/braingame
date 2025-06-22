@@ -11,12 +11,21 @@ interface Props {
 }
 
 export const VideosScreen: React.FC<Props> = ({ route }) => {
+	// Validate navigation parameters
+	if (!route?.params) {
+		console.warn("VideosScreen: No navigation parameters provided");
+	}
+	
 	const categoryId = route?.params?.categoryId;
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 			<Text>Videos</Text>
-			{categoryId && <Text>Category: {categoryId}</Text>}
+			{categoryId ? (
+				<Text>Category: {categoryId}</Text>
+			) : (
+				<Text>No category specified</Text>
+			)}
 		</View>
 	);
 };
