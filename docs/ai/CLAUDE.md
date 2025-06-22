@@ -5,16 +5,16 @@
 ## 📚 **REQUIRED READING** (Read these docs before any development work)
 
 ### **Critical Workflow Docs:**
-- **[📋 AGENTS.md](./AGENTS.md)** - AI agent roles, guardrails, and zero-tolerance quality policy
-- **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint  
-- **[🧠 AI_CONTEXT.md](./AI_CONTEXT.md)** - Project context, session summaries, and working agreements
-- **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings and incident prevention
-- **[📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and contribution workflow
+- **[📋 AGENTS.md](../ai/AGENTS.md)** - AI agent roles, guardrails, and zero-tolerance quality policy
+- **[🏗️ ARCHITECTURE.md](../architecture/ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint  
+- **[🧠 AI_CONTEXT.md](../ai/AI_CONTEXT.md)** - Project context, session summaries, and working agreements
+- **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings and incident prevention
+- **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and contribution workflow
 
 ### **Essential Process Docs:**
-- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - **CRITICAL: PR merge procedures with quality validation**
-- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
-- **[📝 TODO.md](./TODO.md)** - Current task tracker and priority management
+- **[🔄 PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md)** - **CRITICAL: PR merge procedures with quality validation**
+- **[⚙️ WORKTREES.md](../engineering/WORKTREES.md)** - Workspace isolation guide (prevents contamination)
+- **[📝 TODO.md](../project/TODO.md)** - Current task tracker and priority management
 
 ---
 
@@ -181,15 +181,15 @@ pnpm --filter product web
 ## 6. Quick Reference Links
 
 ### **Quality & Standards:**
-- [📊 QUALITY.md](./QUALITY.md) - Comprehensive code quality playbook with examples
-- [💅 CODING_STYLE.md](./CODING_STYLE.md) - Code standards and anti-patterns  
-- [🧪 TESTING.md](./TESTING.md) - Testing strategy and hybrid approach
+- [📊 QUALITY.md](../architecture/QUALITY.md) - Comprehensive code quality playbook with examples
+- [💅 CODING_STYLE.md](../engineering/CODING_STYLE.md) - Code standards and anti-patterns  
+- [🧪 TESTING.md](../engineering/TESTING.md) - Testing strategy and hybrid approach
 
 ### **Development Guides:**
-- [⚙️ DEVELOPMENT.md](./DEVELOPMENT.md) - Environment setup and development workflow
-- [🌍 I18N_WORKFLOW.md](./I18N_WORKFLOW.md) - Internationalization processes
-- [🔒 SECURITY.md](../.github/SECURITY.md) - Security policy and vulnerability reporting
+- [⚙️ DEVELOPMENT.md](../engineering/DEVELOPMENT.md) - Environment setup and development workflow
+- [🌍 I18N_WORKFLOW.md](../project/I18N_WORKFLOW.md) - Internationalization processes
+- [🔒 SECURITY.md](../../.github/SECURITY.md) - Security policy and vulnerability reporting
 
 ### **Package Documentation:**
-- [🛠️ Utils Package](../packages/utils/README.md) - API reference for shared utilities and hooks
-- [🎨 BGUI Package](../packages/bgui/README.md) - Component library documentation
+- [🛠️ Utils Package](../../packages/utils/README.md) - API reference for shared utilities and hooks
+- [🎨 BGUI Package](../../packages/bgui/README.md) - Component library documentation

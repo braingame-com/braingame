@@ -102,8 +102,8 @@ if (ldClient.variation("new-ui", false)) {
 
 ## Documentation
 
-- [Architecture](../../docs/ARCHITECTURE.md) - System design
-- [Development Guide](../../docs/DEVELOPMENT.md) - Setup and workflow
+- [Architecture](../../docs/architecture/ARCHITECTURE.md) - System design
+- [Development Guide](../../docs/engineering/DEVELOPMENT.md) - Setup and workflow
 
 ---
 

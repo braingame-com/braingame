@@ -29,7 +29,7 @@ export function MyComponent() {
 
 25+ components across Layout, Forms, Display, Navigation, Feedback, and Utility categories.
 
-For detailed component documentation, see [Component Reference](../../docs/COMPONENT_REFERENCE.md).
+For detailed component documentation, see [Component Reference](./docs/BGUI_COMPONENT_PLAN.md).
 
 ## Features
 
@@ -42,9 +42,9 @@ For detailed component documentation, see [Component Reference](../../docs/COMPO
 
 ## Documentation
 
-- [Component Reference](../../docs/COMPONENT_REFERENCE.md) - Detailed API documentation
-- [Architecture](../../docs/ARCHITECTURE.md) - System design and patterns
-- [Development Guide](../../docs/DEVELOPMENT.md) - Setup and workflow
+- [Component Reference](./docs/BGUI_COMPONENT_PLAN.md) - Detailed API documentation
+- [Architecture](../../docs/architecture/ARCHITECTURE.md) - System design and patterns
+- [Development Guide](../../docs/engineering/DEVELOPMENT.md) - Setup and workflow
 
 ---
 

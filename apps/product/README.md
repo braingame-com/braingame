@@ -156,7 +156,7 @@ eas build --platform android --profile production
 - **Main Project**: [../../README.md](../../README.md)
 - **BGUI Components**: [../../packages/bgui/README.md](../../packages/bgui/README.md)
 - **Utils Package**: [../../packages/utils/README.md](../../packages/utils/README.md)
-- **Architecture**: [../../docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md)
+- **Architecture**: [../../docs/architecture/ARCHITECTURE.md](../../docs/architecture/ARCHITECTURE.md)
 
 ## 📄 License
 

@@ -40,7 +40,7 @@ src/
 ## 🔗 Links
 
 - **Main Project**: [../../README.md](../../README.md)
-- **Architecture**: [../../docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md)
+- **Architecture**: [../../docs/architecture/ARCHITECTURE.md](../../docs/architecture/ARCHITECTURE.md)
 - **Contributing**: [../../CONTRIBUTING.md](../../CONTRIBUTING.md)
 
 ---

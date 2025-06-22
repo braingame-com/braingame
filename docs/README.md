@@ -1,51 +1,71 @@
 # Documentation Hub
 
-> **This is the single source of truth for all Brain Game documentation.** It is organized to help you find the information you need quickly.
+> **This is the single source of truth for all Brain Game documentation.** Organized by topic for easy navigation.
 
 ---
 
-## 🚀 Onboarding & Development
-*For new contributors (human or AI) getting started with the repository.*
+## 📁 Documentation Structure
+
+### 🏗️ [`architecture/`](./architecture/) - System Design & High-Level Decisions
+Core architectural documents defining how we build software.
 
 | Document | Description |
 |---|---|
-| [`DEVELOPMENT.md`](./DEVELOPMENT.md) | **Start here.** A step-by-step guide to setting up your local environment. |
-| [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | The official guide to contributing, including our PR and review process. |
-| [`CLAUDE.md`](./CLAUDE.md) | A tactical cheatsheet with commands and workflows for AI agents. |
-| [`WORKTREES.md`](./WORKTREES.md) | **CRITICAL:** Git worktree management to prevent workspace contamination. |
+| [`ARCHITECTURE.md`](./architecture/ARCHITECTURE.md) | Technical blueprint and system design |
+| [`QUALITY.md`](./architecture/QUALITY.md) | Quality standards and best practices |
+| [`LESSONS.md`](./architecture/LESSONS.md) | Technical learnings and solutions |
+| [`BRAND.md`](./architecture/BRAND.md) | Brand guidelines and identity |
+| [`ENTERPRISE_READINESS.md`](./architecture/ENTERPRISE_READINESS.md) | Enterprise practices and CI pipeline |
+
+### ⚙️ [`engineering/`](./engineering/) - Development Process & Standards  
+How to actually build and code in this repository.
+
+| Document | Description |
+|---|---|
+| [`DEVELOPMENT.md`](./engineering/DEVELOPMENT.md) | **Start here.** Environment setup guide |
+| [`CODING_STYLE.md`](./engineering/CODING_STYLE.md) | Code standards and conventions |
+| [`PR_REVIEW_PROCESS.md`](./engineering/PR_REVIEW_PROCESS.md) | Pull request review process |
+| [`TESTING.md`](./engineering/TESTING.md) | Testing strategy and guidelines |
+| [`WORKTREES.md`](./engineering/WORKTREES.md) | **CRITICAL:** Git worktree management |
+| [`API.md`](./engineering/API.md) | API documentation and examples |
+| [`TOKEN_SYSTEM.md`](./engineering/TOKEN_SYSTEM.md) | Design token system guide |
+
+### 🤖 [`ai/`](./ai/) - AI Agent Documentation
+Specific guidance for AI agents and automation.
+
+| Document | Description |
+|---|---|
+| [`CLAUDE.md`](./ai/CLAUDE.md) | Tactical guide with commands and workflows |
+| [`AGENTS.md`](./ai/AGENTS.md) | AI agent roles and guidelines |
+| [`AI_CONTEXT.md`](./ai/AI_CONTEXT.md) | Project context and working agreements |
+
+### 📋 [`project/`](./project/) - Project Management
+Planning, tracking, and process documentation.
+
+| Document | Description |
+|---|---|
+| [`TODO.md`](./project/TODO.md) | Current tasks and priorities |
+| [`I18N_WORKFLOW.md`](./project/I18N_WORKFLOW.md) | Internationalization workflow |
+| [`QUALITY_ROADMAP.md`](./project/QUALITY_ROADMAP.md) | Quality improvement roadmap |
 
 ---
 
-## 🏛️ Architecture & Standards
-*The "constitution" of our codebase, defining how we build software.*
+## 🚀 Quick Start by Role
 
-| Document | Description |
-|---|---|
-| [`ARCHITECTURE.md`](./ARCHITECTURE.md) | The high-level blueprint of our system, services, and folder structure. |
-| [`CODING_STYLE.md`](./CODING_STYLE.md) | The definitive guide to writing clean, maintainable code in this repository. |
-| [`BRAND.md`](./BRAND.md) | The official brand book defining our voice, tone, and brand assets. |
-| [`COMPONENT_REFERENCE.md`](./COMPONENT_REFERENCE.md) | Complete API reference for all BGUI components. |
-| [`BGUI_COMPONENT_PLAN.md`](./BGUI_COMPONENT_PLAN.md) | Design specification and roadmap for the component library. |
-| [`SECURITY.md`](../.github/SECURITY.md) | Our security policy, including how to report vulnerabilities. |
+### New Developer?
+1. Start with [`DEVELOPMENT.md`](./engineering/DEVELOPMENT.md)
+2. Read [`CODING_STYLE.md`](./engineering/CODING_STYLE.md)
+3. Review [`PR_REVIEW_PROCESS.md`](./engineering/PR_REVIEW_PROCESS.md)
 
-## 📚 Component Snippets
-*Quick examples showing how to use our UI kit.*
+### AI Agent?
+1. Start with [`CLAUDE.md`](./ai/CLAUDE.md)
+2. Read [`AGENTS.md`](./ai/AGENTS.md)
+3. Review [`WORKTREES.md`](./engineering/WORKTREES.md)
 
-| Document | Description |
-|---|---|
-| [`snippets/`](./snippets) | Ready-to-use code snippets for each BGUI component. |
----
-
-## 📈 Project Management & Strategy
-*How we plan, track, and execute on our goals.*
-
-| Document | Description |
-|---|---|
-| [`TODO.md`](./TODO.md) | The official task tracker for all ongoing and upcoming work. |
-| [`QUALITY_ROADMAP.md`](./QUALITY_ROADMAP.md) | The strategic roadmap for all engineering quality initiatives. |
-| [`LESSONS.md`](./LESSONS.md) | Consolidated technical learnings, patterns, and solutions from development. |
-| [`AGENTS.md`](./AGENTS.md) | The high-level policy document defining roles for AI agents. |
-| [`ENTERPRISE_READINESS.md`](./ENTERPRISE_READINESS.md) | Overview of our enterprise practices and CI pipeline. |
+### Contributing?
+1. Read [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md)
+2. Follow [`CODING_STYLE.md`](./engineering/CODING_STYLE.md)
+3. Use [`PR_REVIEW_PROCESS.md`](./engineering/PR_REVIEW_PROCESS.md)
 
 ---
 

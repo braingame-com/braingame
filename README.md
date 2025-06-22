@@ -26,7 +26,7 @@ This monorepo contains the code for all Brain Game applications, websites, and s
 
 ## 🚀 Get Started
 
-To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
+To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/engineering/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
 Before running any lint or test commands, make sure your dependencies are installed:
 
@@ -36,7 +36,7 @@ pnpm install    # or pnpm run preflight
 
 For complete documentation including architecture, coding standards, and contribution guides, visit our **[Documentation Hub](./docs/README.md)**.
 
-New contributors should also review **[docs/AGENTS.md](./docs/AGENTS.md)** and **[docs/AI_CONTEXT.md](./docs/AI_CONTEXT.md)** to understand how human and AI workflows operate in this repository.
+New contributors should also review **[docs/ai/AGENTS.md](./docs/ai/AGENTS.md)** and **[docs/ai/AI_CONTEXT.md](./docs/ai/AI_CONTEXT.md)** to understand how human and AI workflows operate in this repository.
 
 ---
 
@@ -62,7 +62,7 @@ pnpm dev --filter product  # Expo app
 pnpm dev --filter website  # Next.js site
 ```
 
-**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/WORKTREES.md) for details.
+**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/engineering/WORKTREES.md) for details.
 
 ---
 
@@ -120,7 +120,7 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 
 We welcome contributions! Please see our **[Contributing Guide](./CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
 
-A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./docs/TODO.md)**.
+A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./docs/project/TODO.md)**.
 
 ## 🛡️ Security
 

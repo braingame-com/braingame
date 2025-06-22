@@ -7,21 +7,21 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 > **Primary Directive:** All agents **MUST** read these docs before generating code, tests, or documentation:
 
 ### **Essential Workflow Docs:**
-1. **[📋 CLAUDE.md](./CLAUDE.md)** - Tactical guide with golden path workflow and commands
-2. **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
-3. **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings and incident prevention 
-4. **[🧠 AI_CONTEXT.md](./AI_CONTEXT.md)** - Project context, session summaries, and working agreements
-5. **[📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
+1. **[📋 CLAUDE.md](../ai/CLAUDE.md)** - Tactical guide with golden path workflow and commands
+2. **[🏗️ ARCHITECTURE.md](../architecture/ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
+3. **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings and incident prevention 
+4. **[🧠 AI_CONTEXT.md](../ai/AI_CONTEXT.md)** - Project context, session summaries, and working agreements
+5. **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
 
 ### **Critical Process Docs:**
-- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
-- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
-- **[📝 TODO.md](./TODO.md)** - Current task tracker and priority management
+- **[🔄 PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
+- **[⚙️ WORKTREES.md](../engineering/WORKTREES.md)** - Workspace isolation guide (prevents contamination)
+- **[📝 TODO.md](../project/TODO.md)** - Current task tracker and priority management
 
 ### **Quality Standards:**
-- **[📊 QUALITY.md](./QUALITY.md)** - Comprehensive code quality playbook with examples
-- **[💅 CODING_STYLE.md](./CODING_STYLE.md)** - Code standards and anti-patterns
-- **[🧪 TESTING.md](./TESTING.md)** - Testing strategy and hybrid approach
+- **[📊 QUALITY.md](../architecture/QUALITY.md)** - Comprehensive code quality playbook with examples
+- **[💅 CODING_STYLE.md](../engineering/CODING_STYLE.md)** - Code standards and anti-patterns
+- **[🧪 TESTING.md](../engineering/TESTING.md)** - Testing strategy and hybrid approach
 
 ---
 

@@ -241,7 +241,7 @@ firebase deploy --only functions:api
 
 ## Contributing
 
-See the main [DEVELOPMENT.md](../../docs/DEVELOPMENT.md) for contribution guidelines.
+See the main [DEVELOPMENT.md](../../docs/engineering/DEVELOPMENT.md) for contribution guidelines.
 
 ## License
 
