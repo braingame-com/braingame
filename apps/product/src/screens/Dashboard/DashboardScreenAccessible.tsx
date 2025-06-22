@@ -192,7 +192,7 @@ export const DashboardScreenAccessible: React.FC<Props> = ({ navigation }) => {
 
 	const navigateToMindset = useCallback(() => {
 		announce("Opening mindset training");
-		console.log("Navigate to mindset training");
+		// Navigate to mindset training functionality not yet implemented
 	}, [announce]);
 
 	const actions = useMemo<ActionItem[]>(

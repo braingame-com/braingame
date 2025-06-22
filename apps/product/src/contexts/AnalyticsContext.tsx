@@ -1,4 +1,4 @@
-import { ContextErrorBoundary } from "@braingame/bgui";
+import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
@@ -31,6 +31,7 @@ const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ child
 	const [privacyLevel, setPrivacyLevelState] = useState<"minimal" | "balanced" | "full">(
 		"balanced",
 	);
+	const isMounted = useMountedState();
 
 	// Load preferences on mount
 	useEffect(() => {
@@ -42,6 +43,8 @@ const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ child
 					AsyncStorage.getItem(STORAGE_KEYS.CRASH_REPORTING),
 					AsyncStorage.getItem(STORAGE_KEYS.PRIVACY_LEVEL),
 				]);
+
+				if (!isMounted()) return;
 
 				if (analyticsEnabled !== null) {
 					setIsAnalyticsEnabled(analyticsEnabled === "true");
@@ -61,7 +64,7 @@ const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ child
 		};
 
 		loadPreferences();
-	}, []);
+	}, [isMounted]);
 
 	// Initialize analytics service
 	useEffect(() => {
@@ -75,7 +78,10 @@ const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ child
 
 	const toggleAnalytics = useCallback(async () => {
 		const newValue = !isAnalyticsEnabled;
-		setIsAnalyticsEnabled(newValue);
+
+		if (isMounted()) {
+			setIsAnalyticsEnabled(newValue);
+		}
 
 		try {
 			await AsyncStorage.setItem(STORAGE_KEYS.ANALYTICS_ENABLED, newValue.toString());
@@ -86,14 +92,14 @@ const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ child
 			});
 
 			// If disabling, also disable sub-features
-			if (!newValue) {
+			if (!newValue && isMounted()) {
 				setIsPerformanceTrackingEnabled(false);
 				await AsyncStorage.setItem(STORAGE_KEYS.PERFORMANCE_TRACKING, "false");
 			}
 		} catch (error) {
 			console.error("Failed to save analytics preference:", error);
 		}
-	}, [isAnalyticsEnabled]);
+	}, [isAnalyticsEnabled, isMounted]);
 
 	const togglePerformanceTracking = useCallback(async () => {
 		const newValue = !isPerformanceTrackingEnabled;

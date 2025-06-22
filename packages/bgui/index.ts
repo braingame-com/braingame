@@ -46,6 +46,8 @@ export { RadioGroup } from "./src/components/RadioGroup";
 export type { RadioGroupItemProps, RadioGroupProps } from "./src/components/RadioGroup/types";
 export { Select, SelectItem } from "./src/components/Select";
 export type { SelectItemProps, SelectProps } from "./src/components/Select/types";
+export { SimpleErrorBoundary } from "./src/components/SimpleErrorBoundary";
+export type { SimpleErrorBoundaryProps } from "./src/components/SimpleErrorBoundary/SimpleErrorBoundary";
 export { Slider } from "./src/components/Slider";
 export type { SliderProps } from "./src/components/Slider/types";
 export { Spinner } from "./src/components/Spinner";
@@ -69,7 +71,13 @@ export type { ViewProps } from "./src/components/View/types";
 export { Fonts } from "./src/constants/Fonts";
 
 // Hooks
-export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
+export {
+	useAbortController,
+	useControlledState,
+	useFocusManagement,
+	useInteractiveState,
+	useMountedState,
+} from "./src/hooks";
 
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";

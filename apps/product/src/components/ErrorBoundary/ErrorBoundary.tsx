@@ -277,12 +277,19 @@ export class ErrorBoundary extends Component<Props, State> {
 		// Call custom error handler
 		onError?.(error, errorInfo);
 
+		// Validate and log component stack information
+		if (!errorInfo.componentStack) {
+			console.warn(
+				"Error boundary: Component stack missing from errorInfo - React error boundary may not be providing expected debug info",
+			);
+		}
+
 		// Report to error service
 		captureException(error, {
 			level,
 			errorBoundary: true,
 			errorId,
-			componentStack: errorInfo.componentStack ?? undefined,
+			componentStack: errorInfo.componentStack || "Component stack not available",
 			errorCount: errorCount + 1,
 		});
 	}
