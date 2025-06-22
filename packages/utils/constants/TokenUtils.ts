@@ -1,7 +1,5 @@
 import { Platform } from "react-native";
 import { Animation } from "./Animation";
-import { BorderRadius } from "./BorderRadius";
-import { Colors } from "./Colors";
 import { Shadows } from "./Shadows";
 import { Tokens } from "./Tokens";
 import { Typography } from "./Typography";
