@@ -75,6 +75,14 @@ const _FirebaseSchema = z.object({
 });
 
 /**
+ * Firebase Functions Schema
+ */
+const FirebaseFunctionsSchema = z.object({
+	FIREBASE_FUNCTION_URL: z.string().url().optional(),
+	FIREBASE_REGION: z.string().default("us-central1"),
+});
+
+/**
  * React Native Product App Environment Schema
  * For the main mobile application
  */
@@ -82,7 +90,8 @@ export const ProductAppEnvSchema = BaseEnvSchema.merge(ApiConfigSchema)
 	.merge(SecurityConfigSchema)
 	.merge(AnalyticsSchema)
 	.merge(FeatureFlagsSchema)
-	.merge(DevToolsSchema);
+	.merge(DevToolsSchema)
+	.merge(FirebaseFunctionsSchema);
 
 /**
  * Next.js Website Environment Schema

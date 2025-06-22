@@ -1,4 +1,5 @@
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Select } from "./Select";
 
 describe("Select", () => {
@@ -32,7 +33,7 @@ describe("Select", () => {
 	});
 
 	it("calls onValueChange when item selected", async () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole, getByText } = render(
 			<Select value="" onValueChange={fn} variant="dropdown">
 				<Select.Item value="option1">Option 1</Select.Item>
@@ -46,7 +47,7 @@ describe("Select", () => {
 	});
 
 	it("supports multiple selection", async () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole, getByText } = render(
 			<Select value={[]} onValueChange={fn} multiple variant="dropdown">
 				<Select.Item value="option1">Option 1</Select.Item>
@@ -61,7 +62,7 @@ describe("Select", () => {
 	});
 
 	it("deselects item in multiple mode", async () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole, getByText } = render(
 			<Select value={["option1"]} onValueChange={fn} multiple variant="dropdown">
 				<Select.Item value="option1">Option 1</Select.Item>
@@ -103,7 +104,7 @@ describe("Select", () => {
 	});
 
 	it("validates required props", () => {
-		console.error = jest.fn();
+		console.error = vi.fn();
 		expect(() => {
 			render(
 				<Select value="" onValueChange={undefined as unknown as () => void}>

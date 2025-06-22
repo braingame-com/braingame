@@ -31,7 +31,7 @@ export function validateEnv<T>(
 	env: Record<string, string | undefined> = process.env,
 	options: EnvValidationOptions = {},
 ): EnvValidationResult<T> {
-	const { throwOnError = false, logResults = true, logger = console.log } = options;
+	const { throwOnError = false, logResults = true, logger = (..._args: unknown[]) => {} } = options;
 
 	try {
 		// Parse and validate the environment

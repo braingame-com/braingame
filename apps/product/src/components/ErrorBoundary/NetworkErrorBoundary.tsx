@@ -11,7 +11,7 @@ import {
 } from "../../theme/components/AccessibleThemedComponents";
 import { useTheme } from "../../theme/ThemeContext";
 
-interface NetworkErrorBoundaryProps {
+export interface NetworkErrorBoundaryProps {
 	children: React.ReactNode;
 	onRetry?: () => void;
 	showOfflineUI?: boolean;

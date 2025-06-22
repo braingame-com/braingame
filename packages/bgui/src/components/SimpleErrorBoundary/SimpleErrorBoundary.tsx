@@ -1,3 +1,4 @@
+import { createLogger } from "@braingame/utils";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import { View } from "react-native";
@@ -7,7 +8,7 @@ import { errorContainerStyle, errorMessageStyle, errorTitleStyle } from "./style
 /**
  * Props for the SimpleErrorBoundary component
  */
-interface SimpleErrorBoundaryProps {
+export interface SimpleErrorBoundaryProps {
 	/**
 	 * Child components to render and protect from errors.
 	 */
@@ -42,6 +43,8 @@ interface SimpleErrorBoundaryState {
 	 */
 	error: Error | null;
 }
+
+const logger = createLogger({ prefix: "ErrorBoundary" });
 
 /**
  * Simple error boundary component that catches JavaScript errors in child components.
@@ -86,7 +89,7 @@ export class SimpleErrorBoundary extends Component<
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		// Log error to error reporting service
-		console.error("SimpleErrorBoundary caught an error:", error, errorInfo);
+		logger.error("SimpleErrorBoundary caught an error:", error, errorInfo);
 
 		// Call custom error handler if provided
 		this.props.onError?.(error, errorInfo);

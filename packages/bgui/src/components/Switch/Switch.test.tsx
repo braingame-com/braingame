@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Switch } from "./Switch";
 
 describe("Switch", () => {
@@ -15,21 +16,21 @@ describe("Switch", () => {
 	});
 
 	it("calls onValueChange when toggled", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole } = render(<Switch checked={false} onValueChange={fn} />);
 		fireEvent.press(getByRole("switch"));
 		expect(fn).toHaveBeenCalledWith(true);
 	});
 
 	it("toggles from on to off", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole } = render(<Switch checked={true} onValueChange={fn} />);
 		fireEvent.press(getByRole("switch"));
 		expect(fn).toHaveBeenCalledWith(false);
 	});
 
 	it("does not toggle when disabled", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByRole } = render(<Switch checked={false} onValueChange={fn} disabled />);
 		fireEvent.press(getByRole("switch"));
 		expect(fn).not.toHaveBeenCalled();

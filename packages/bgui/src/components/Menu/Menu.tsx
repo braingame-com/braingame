@@ -9,6 +9,7 @@ import React, {
 	useState,
 } from "react";
 import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
+import { ContextErrorBoundary } from "../ErrorBoundary";
 import { Text } from "../Text";
 import { styles } from "./styles";
 import type { MenuItemProps, MenuProps } from "./types";
@@ -182,9 +183,11 @@ export const Menu = ({
 						variant === "context" && { position: "absolute", left: position.x, top: position.y },
 					]}
 				>
-					<MenuContext.Provider value={{ closeMenu: close, closeOnSelect }}>
-						{Children.map(children, (child) => child)}
-					</MenuContext.Provider>
+					<ContextErrorBoundary contextName="Menu">
+						<MenuContext.Provider value={{ closeMenu: close, closeOnSelect }}>
+							{Children.map(children, (child) => child)}
+						</MenuContext.Provider>
+					</ContextErrorBoundary>
 				</View>
 			</Modal>
 		</>

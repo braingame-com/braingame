@@ -1,6 +1,6 @@
-import { Text } from "@braingame/bgui";
+import { Text, useMountedState } from "@braingame/bgui";
 
-// TODO: Install expo-av
+// Audio playback uses expo-av. Ensure the dependency is installed in the Expo project
 // import { Audio, type AVPlaybackStatus } from "expo-av";
 type AVPlaybackStatus = {
 	isLoaded: boolean;
@@ -15,6 +15,7 @@ type AudioSound = {
 	pauseAsync: () => Promise<void>;
 	unloadAsync: () => Promise<void>;
 	setOnPlaybackStatusUpdate: (callback: (status: AVPlaybackStatus) => void) => void;
+	getStatusAsync: () => Promise<AVPlaybackStatus>;
 };
 const Audio = {
 	Sound: {
@@ -26,6 +27,7 @@ const Audio = {
 					playAsync: async () => {},
 					pauseAsync: async () => {},
 					setOnPlaybackStatusUpdate: (_callback: (status: AVPlaybackStatus) => void) => {},
+					getStatusAsync: async () => ({ isLoaded: true, isPlaying: false }) as AVPlaybackStatus,
 				} as AudioSound,
 			}),
 	},
@@ -57,18 +59,29 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 	const [sound, setSound] = useState<AudioSound | null>(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const isMounted = useMountedState();
 
 	/**
 	 * Load the affirmations audio file
 	 */
 	const loadAudio = useCallback(async () => {
 		try {
-			setIsLoading(true);
+			if (isMounted()) {
+				setIsLoading(true);
+			}
 			const { sound: audioSound } = await Audio.Sound.createAsync();
+
+			if (!isMounted()) return;
+
 			setSound(audioSound);
 
 			// Set up playback status listener
-			audioSound?.setOnPlaybackStatusUpdate?.((status: AVPlaybackStatus) => {
+			if (!audioSound || !audioSound.setOnPlaybackStatusUpdate) {
+				throw new Error("Audio playback listener API not available - check expo-av setup");
+			}
+
+			audioSound.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
+				if (!isMounted()) return;
 				if (status.isLoaded) {
 					setIsPlaying(status.isPlaying || false);
 
@@ -81,9 +94,11 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		} catch (error) {
 			console.error("Error loading audio:", error);
 		} finally {
-			setIsLoading(false);
+			if (isMounted()) {
+				setIsLoading(false);
+			}
 		}
-	}, [onComplete]);
+	}, [onComplete, isMounted]);
 
 	/**
 	 * Load audio file on component mount
@@ -106,14 +121,21 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		if (!sound) return;
 
 		try {
-			// @ts-expect-error - getStatusAsync not in stub AudioSound type
-			const status = (await sound.getStatusAsync?.()) || { isLoaded: false };
-			if (status.isLoaded) {
-				if (status.isPlaying) {
-					await sound.pauseAsync();
-				} else {
-					await sound.playAsync();
-				}
+			// Validate audio API availability
+			if (!sound.getStatusAsync) {
+				throw new Error("Audio status API not available - check expo-av setup");
+			}
+
+			const status = await sound.getStatusAsync();
+			if (!status || !status.isLoaded) {
+				console.error("Audio not loaded properly");
+				return;
+			}
+
+			if (status.isPlaying) {
+				await sound.pauseAsync();
+			} else {
+				await sound.playAsync();
 			}
 		} catch (error) {
 			console.error("Error toggling playback:", error);
