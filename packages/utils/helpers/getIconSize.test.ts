@@ -1,5 +1,5 @@
-import { getIconSize } from "./getIconSize";
 import { Tokens } from "../constants/Tokens";
+import { getIconSize } from "./getIconSize";
 
 describe("getIconSize", () => {
 	it("returns the number when size is a number", () => {

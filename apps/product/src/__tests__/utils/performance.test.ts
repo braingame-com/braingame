@@ -1,11 +1,11 @@
-import React from "react";
-import { View, Text, InteractionManager } from "react-native";
 import { render } from "@testing-library/react-native";
+import React from "react";
+import { InteractionManager, type Text, View } from "react-native";
 import {
-	withMemo,
-	listOptimizations,
-	imageOptimizations,
 	animationOptimizations,
+	imageOptimizations,
+	listOptimizations,
+	withMemo,
 } from "../../utils/performance";
 
 // Mock React Native modules

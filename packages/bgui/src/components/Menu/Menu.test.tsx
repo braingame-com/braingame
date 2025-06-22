@@ -1,6 +1,6 @@
-import { vi } from "vitest";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
 import { Pressable, Text } from "react-native";
+import { vi } from "vitest";
 import { Menu, MenuItem } from "./Menu";
 
 describe("Menu", () => {

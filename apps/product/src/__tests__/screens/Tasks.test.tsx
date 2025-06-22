@@ -1,5 +1,5 @@
-import React from "react";
 import { render, screen } from "@testing-library/react-native";
+import React from "react";
 import Tasks from "../../../app/tasks";
 
 // Mock expo-router
@@ -16,28 +16,28 @@ jest.mock("expo-router", () => ({
 describe("Tasks Screen", () => {
 	it("renders the tasks title", () => {
 		render(<Tasks />);
-		
+
 		const title = screen.getByText("Tasks");
 		expect(title).toBeTruthy();
 	});
 
 	it("renders the subtitle", () => {
 		render(<Tasks />);
-		
+
 		const subtitle = screen.getByText("Your tasks will appear here");
 		expect(subtitle).toBeTruthy();
 	});
 
 	it("renders the back link", () => {
 		render(<Tasks />);
-		
+
 		const link = screen.getByText("Back to Dashboard");
 		expect(link).toBeTruthy();
 	});
 
 	it("has correct styles for the title", () => {
 		render(<Tasks />);
-		
+
 		const title = screen.getByText("Tasks");
 		expect(title.props.style).toMatchObject({
 			fontSize: 32,
@@ -48,7 +48,7 @@ describe("Tasks Screen", () => {
 
 	it("has correct styles for the subtitle", () => {
 		render(<Tasks />);
-		
+
 		const subtitle = screen.getByText("Your tasks will appear here");
 		expect(subtitle.props.style).toMatchObject({
 			fontSize: 16,
@@ -59,7 +59,7 @@ describe("Tasks Screen", () => {
 
 	it("has correct styles for the link", () => {
 		render(<Tasks />);
-		
+
 		const link = screen.getByText("Back to Dashboard");
 		expect(link.props.style).toMatchObject({
 			fontSize: 18,

@@ -1,5 +1,5 @@
-import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { ActionList } from "./ActionList";
 import { ActionListItem } from "./ActionListItem";
 

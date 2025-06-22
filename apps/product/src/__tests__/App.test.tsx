@@ -1,5 +1,5 @@
-import React from "react";
 import { render } from "@testing-library/react-native";
+import React from "react";
 import { Text, View } from "react-native";
 
 // Simple component test to verify jest-expo setup
@@ -12,7 +12,7 @@ const TestComponent = () => (
 describe("Product App Tests", () => {
 	it("renders test component correctly", () => {
 		const { getByTestId, getByText } = render(<TestComponent />);
-		
+
 		expect(getByTestId("test-view")).toBeTruthy();
 		expect(getByText("Test Component")).toBeTruthy();
 	});

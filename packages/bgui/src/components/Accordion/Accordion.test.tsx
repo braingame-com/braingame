@@ -1,6 +1,6 @@
-import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Text } from "react-native";
+import { vi } from "vitest";
 import { Accordion } from "./Accordion";
 
 describe("Accordion", () => {

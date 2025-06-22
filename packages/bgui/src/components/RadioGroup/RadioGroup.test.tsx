@@ -1,5 +1,5 @@
-import { vi } from "vitest";
 import { fireEvent, render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { RadioGroup } from "./RadioGroup";
 
 describe("RadioGroup", () => {

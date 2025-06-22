@@ -1,3 +1,4 @@
+import { createLogger } from "@braingame/utils";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import { View } from "react-native";
@@ -43,6 +44,8 @@ interface ErrorBoundaryState {
 	error: Error | null;
 }
 
+const logger = createLogger({ prefix: "ErrorBoundary" });
+
 /**
  * Error boundary component that catches JavaScript errors in child components.
  * Prevents the entire app from crashing and displays a fallback UI.
@@ -81,7 +84,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		// Log error to error reporting service
-		console.error("ErrorBoundary caught an error:", error, errorInfo);
+		logger.error("ErrorBoundary caught an error:", error, errorInfo);
 
 		// Call custom error handler if provided
 		this.props.onError?.(error, errorInfo);

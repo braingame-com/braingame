@@ -1,8 +1,8 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import type React from "react";
-import { vi } from "vitest";
 import { useState } from "react";
 import { Text } from "react-native";
+import { vi } from "vitest";
 import { Tabs } from "./Tabs";
 
 // Helper component for testing controlled mode

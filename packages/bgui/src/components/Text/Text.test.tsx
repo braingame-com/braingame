@@ -1,5 +1,5 @@
-import { vi } from "vitest";
 import { render } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Text } from "./Text";
 
 describe("Text", () => {

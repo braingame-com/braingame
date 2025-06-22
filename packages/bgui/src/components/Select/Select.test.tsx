@@ -1,5 +1,5 @@
-import { vi } from "vitest";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { Select } from "./Select";
 
 describe("Select", () => {
