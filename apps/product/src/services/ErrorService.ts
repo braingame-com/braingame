@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 import { Platform } from "react-native";
 
 interface ErrorContext {
@@ -117,7 +118,7 @@ class ErrorService {
 				sessionId: this.sessionId,
 			},
 			platform: Platform.OS,
-			appVersion: "1.0.0", // TODO: Get from app config
+			appVersion: Constants.expoConfig?.version || "unknown",
 			deviceInfo: {
 				os: Platform.OS,
 				osVersion: Platform.Version?.toString() || "unknown",
