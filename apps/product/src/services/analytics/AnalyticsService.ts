@@ -265,7 +265,7 @@ class AnalyticsService {
 	}
 
 	// Performance tracking helpers
-	startTimer(timerId: string): () => void {
+	startTimer(_timerId: string): () => void {
 		const startTime = Date.now();
 
 		return () => {

@@ -2,7 +2,7 @@
  * HOC for wrapping components with AsyncBoundary
  */
 
-import React, { type ComponentType } from "react";
+import type { ComponentType } from "react";
 import { AsyncBoundary, type AsyncBoundaryProps } from "./AsyncBoundary";
 
 export interface WithAsyncBoundaryOptions<T>

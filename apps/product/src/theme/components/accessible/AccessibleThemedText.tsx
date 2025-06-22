@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { Text as RNText, type TextProps, type TextStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import { getScaledFontSize, useAccessibility } from "../../../contexts/AccessibilityContext";

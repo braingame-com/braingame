@@ -4,9 +4,9 @@
  * Run this to ensure all screens have proper error handling
  */
 
-import * as fs from "fs";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { glob } from "glob";
-import * as path from "path";
 
 const SCREENS_DIR = path.join(__dirname, "../screens");
 const ERROR_BOUNDARY_IMPORT =
@@ -105,7 +105,7 @@ function applyErrorBoundaryToFile(screenInfo: ScreenInfo): void {
 			// Add wrapped export
 			newContent = newContent.replace(
 				/export\s+{\s*\w+\s*}/,
-				wrappedExport + `export { ${componentName} }`,
+				`${wrappedExport}export { ${componentName} }`,
 			);
 		}
 	}

@@ -1,10 +1,10 @@
 // Common API types
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
 	data?: T;
 	error?: {
 		message: string;
-		details?: any;
+		details?: unknown;
 	};
 	metadata?: {
 		timestamp: string;

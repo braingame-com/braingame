@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { Switch as RNSwitch, type SwitchProps, View } from "react-native";
 import { useAccessibility } from "../../../contexts/AccessibilityContext";
 import {
