@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { Colors, Tokens } from "@braingame/utils";
 import { StyleSheet } from "react-native";
-=======
-import { StyleSheet } from "react-native";
-import { Colors, Tokens } from "@braingame/utils";
->>>>>>> main
 
 /**
  * Color mapping for Text component
@@ -34,21 +29,16 @@ export const getTextColor = (
  * Font family mapping based on mono preference and weight
  * Uses Lexend for regular text, Roboto Mono for monospace
  */
-<<<<<<< HEAD
 export const getFontFamily = (
 	mono: boolean,
 	weight: "light" | "regular" | "medium" | "semibold" | "bold" = "regular",
 ) => {
-=======
-export const getFontFamily = (mono: boolean, weight: "light" | "regular" | "medium" | "semibold" | "bold" = "regular") => {
->>>>>>> main
 	if (mono) {
 		// Use Roboto Mono - Google's excellent monospace font
 		return "Roboto Mono";
 	} else {
 		// Use Lexend variable font
 		switch (weight) {
-<<<<<<< HEAD
 			case "light":
 				return "LexendLight";
 			case "medium":
@@ -59,13 +49,6 @@ export const getFontFamily = (mono: boolean, weight: "light" | "regular" | "medi
 				return "LexendBold";
 			default:
 				return "LexendRegular";
-=======
-			case "light": return "LexendLight";
-			case "medium": return "LexendMedium";
-			case "semibold": return "LexendSemiBold";
-			case "bold": return "LexendBold";
-			default: return "LexendRegular";
->>>>>>> main
 		}
 	}
 };

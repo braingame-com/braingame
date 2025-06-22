@@ -36,16 +36,6 @@ export type LinkProps = {
 	style?: StyleProp<TextStyle>;
 };
 
-// export type TextInputProps = {
-// 	ref?: RefObject<TextInput>;
-// 	placeholder?: string;
-// 	placeholderTextColor?: string;
-// 	value: string;
-// 	onChangeText?: (text: string) => void;
-// 	onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
-// 	style?: StyleProp<TextStyle>;
-// };
-
 // Button types
 export type ButtonProps = {
 	text?: string;

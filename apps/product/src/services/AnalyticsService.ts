@@ -194,14 +194,6 @@ class AnalyticsService {
 				this.providers.push(mockProvider);
 			} else {
 				// Initialize real providers in production
-				// Example: Mixpanel
-				// const mixpanel = new MixpanelProvider();
-				// await mixpanel.init(process.env.MIXPANEL_TOKEN);
-				// this.providers.push(mixpanel);
-				// Example: Amplitude
-				// const amplitude = new AmplitudeProvider();
-				// await amplitude.init(process.env.AMPLITUDE_API_KEY);
-				// this.providers.push(amplitude);
 			}
 
 			// Set super properties on all providers

@@ -154,7 +154,6 @@ export const DraggableTaskItem = ({
 		// position: isDragging.value ? "absolute" : "relative", // Lift it off the list
 	}));
 
-	// const shouldRenderOriginal = !isDragging.value;
 	const shouldRenderOriginal = true;
 
 	return (

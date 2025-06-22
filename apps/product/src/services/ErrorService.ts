@@ -67,12 +67,7 @@ class ErrorService {
 
 			// Initialize third-party services in production
 			if (!__DEV__) {
-				// Initialize Sentry
-				// Sentry.init({ dsn: this.SENTRY_DSN });
-				// Initialize Crashlytics
-				// if (this.CRASHLYTICS_ENABLED) {
-				//   crashlytics().setCrashlyticsCollectionEnabled(true);
-				// }
+				// Initialize third-party services here when ready
 			}
 
 			this.isInitialized = true;
@@ -86,13 +81,7 @@ class ErrorService {
 
 		// Set user in third-party services
 		if (!__DEV__ && this.isInitialized) {
-			// Sentry.setUser({ id: userId, ...attributes });
-			// crashlytics().setUserId(userId);
-			// if (attributes) {
-			//   Object.entries(attributes).forEach(([key, value]) => {
-			//     crashlytics().setAttribute(key, String(value));
-			//   });
-			// }
+			// Set user in third-party services when ready
 		}
 	}
 
@@ -100,8 +89,7 @@ class ErrorService {
 		this.userId = undefined;
 
 		if (!__DEV__ && this.isInitialized) {
-			// Sentry.configureScope(scope => scope.setUser(null));
-			// crashlytics().setUserId('');
+			// Clear user in third-party services when ready
 		}
 	}
 
@@ -157,8 +145,7 @@ class ErrorService {
 		if (__DEV__) {
 			console.log(`[${level.toUpperCase()}]`, message, context);
 		} else {
-			// Send to logging service
-			// Sentry.captureMessage(message, level);
+			// Send to logging service when ready
 		}
 	}
 
@@ -178,18 +165,7 @@ class ErrorService {
 	}
 
 	private sendToErrorServices(error: Error, errorLog: ErrorLog) {
-		// Send to Sentry
-		// Sentry.captureException(error, {
-		//   contexts: {
-		//     error: errorLog.context,
-		//     device: errorLog.deviceInfo,
-		//   },
-		// });
-
-		// Send to Crashlytics
-		// if (this.CRASHLYTICS_ENABLED) {
-		//   crashlytics().recordError(error, errorLog.context);
-		// }
+		// Send to third-party error services when ready
 
 		// Send to custom backend
 		this.sendToBackend(errorLog);
@@ -198,13 +174,6 @@ class ErrorService {
 	private async sendToBackend(errorLog: ErrorLog) {
 		try {
 			// In production, send to your error logging endpoint
-			// await fetch('https://api.braingame.dev/errors', {
-			//   method: 'POST',
-			//   headers: {
-			//     'Content-Type': 'application/json',
-			//   },
-			//   body: JSON.stringify(errorLog),
-			// });
 		} catch (error) {
 			console.error("Failed to send error to backend:", error);
 		}
