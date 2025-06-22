@@ -55,6 +55,8 @@ To ensure a scalable, maintainable, and predictable application, we enforce a st
 
 **Key Principle:** The Redux store **must never** contain raw server-side data. It should only hold client-side state, such as UI settings, session information, or identifiers that `TanStack Query` can use to fetch the actual data. All data fetched from Firebase must be managed by TanStack Query.
 
+**Offline expectations:** TanStack Query persistence keeps recent API data available when the device is offline. Queries and mutations are retried automatically when connectivity is restored. Components should render cached data first and gracefully degrade if no cache is available.
+
 ---
 
 ## 4. Folder layout (authoritative)
