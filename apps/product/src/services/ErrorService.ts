@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Constants from "expo-constants";
 import { Platform } from "react-native";
 import { APP_CONFIG, ERROR_CONFIG, STORAGE_KEYS } from "../config/env";
 

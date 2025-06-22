@@ -10,7 +10,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { AUTH_CONFIG, STORAGE_KEYS } from "../config/env";
+import { STORAGE_KEYS } from "../config/env";
 
 interface User {
 	id: string;
