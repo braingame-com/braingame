@@ -10,6 +10,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { STORAGE_KEYS } from "../config/env";
 
 interface User {
 	id: string;
@@ -40,8 +41,8 @@ const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 	const checkAuthStatus = useCallback(async () => {
 		try {
-			const token = await AsyncStorage.getItem("auth_token");
-			const userData = await AsyncStorage.getItem("user_data");
+			const token = await AsyncStorage.getItem(STORAGE_KEYS.auth.token);
+			const userData = await AsyncStorage.getItem(STORAGE_KEYS.auth.userData);
 
 			if (!isMounted()) return;
 
@@ -78,8 +79,10 @@ const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 			isPremium: false,
 		};
 
-		await AsyncStorage.setItem("auth_token", "mock_token");
-		await AsyncStorage.setItem("user_data", JSON.stringify(mockUser));
+		// In production, this would be a real token from the API
+		const mockToken = `mock_token_${Date.now()}`;
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.token, mockToken);
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.userData, JSON.stringify(mockUser));
 
 		if (isMounted()) {
 			setUser(mockUser);
@@ -103,8 +106,10 @@ const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 			isPremium: false,
 		};
 
-		await AsyncStorage.setItem("auth_token", "mock_token");
-		await AsyncStorage.setItem("user_data", JSON.stringify(mockUser));
+		// In production, this would be a real token from the API
+		const mockToken = `mock_token_${Date.now()}`;
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.token, mockToken);
+		await AsyncStorage.setItem(STORAGE_KEYS.auth.userData, JSON.stringify(mockUser));
 
 		if (isMounted()) {
 			setUser(mockUser);
@@ -125,13 +130,13 @@ const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 	}, []);
 
 	const logout = async () => {
-		await AsyncStorage.multiRemove(["auth_token", "user_data"]);
+		await AsyncStorage.multiRemove([STORAGE_KEYS.auth.token, STORAGE_KEYS.auth.userData]);
 		setUser(null);
 		setIsAuthenticated(false);
 	};
 
 	const resetPassword = async (_email: string) => {
-		// Simulate API call
+		// Simulate API call (using 1 second timeout for mock)
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 		// In a real app, this would send a password reset email
 	};

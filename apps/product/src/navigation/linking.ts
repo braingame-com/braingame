@@ -5,12 +5,13 @@
 
 import type { LinkingOptions } from "@react-navigation/native";
 import * as Linking from "expo-linking";
+import { DEEP_LINKING_CONFIG } from "../config/env";
 import type { RootStackParamList } from "./types";
 
 const prefix = Linking.createURL("/");
 
 export const linking: LinkingOptions<RootStackParamList> = {
-	prefixes: [prefix, "braingame://", "https://app.braingame.dev"],
+	prefixes: [prefix, ...DEEP_LINKING_CONFIG.prefixes],
 	config: {
 		screens: {
 			Main: {

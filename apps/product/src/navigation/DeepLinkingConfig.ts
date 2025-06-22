@@ -1,5 +1,7 @@
+import { DEEP_LINKING_CONFIG } from "../config/env";
+
 export const linking = {
-	prefixes: ["braingame://", "https://braingame.com"],
+	prefixes: DEEP_LINKING_CONFIG.prefixes,
 	config: {
 		screens: {
 			Auth: {

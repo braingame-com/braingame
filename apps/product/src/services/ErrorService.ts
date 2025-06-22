@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Constants from "expo-constants";
 import { Platform } from "react-native";
+import { APP_CONFIG, ERROR_CONFIG, STORAGE_KEYS } from "../config/env";
 
 interface ErrorContext {
 	level?: string;
@@ -34,14 +34,14 @@ interface ErrorLog {
 class ErrorService {
 	private static instance: ErrorService;
 	private errorLogs: ErrorLog[] = [];
-	private maxLocalLogs = 100;
+	private maxLocalLogs = ERROR_CONFIG.maxLocalLogs;
 	private sessionId: string;
 	private userId?: string;
 	private isInitialized = false;
 
-	// In production, these would be your actual error tracking service endpoints
-	private readonly SENTRY_DSN = process.env.SENTRY_DSN || "";
-	private readonly CRASHLYTICS_ENABLED = process.env.CRASHLYTICS_ENABLED === "true";
+	// Error tracking service configuration
+	private readonly SENTRY_DSN = ERROR_CONFIG.sentryDsn || "";
+	private readonly ERROR_REPORTING_ENABLED = ERROR_CONFIG.enabled;
 
 	private constructor() {
 		this.sessionId = this.generateSessionId();
@@ -62,17 +62,19 @@ class ErrorService {
 	private async initialize() {
 		try {
 			// Load stored error logs
-			const storedLogs = await AsyncStorage.getItem("@braingame/error_logs");
+			const storedLogs = await AsyncStorage.getItem(STORAGE_KEYS.errors.logs);
 			if (storedLogs) {
 				this.errorLogs = JSON.parse(storedLogs);
 			}
 
 			// Initialize third-party services in production
-			if (!__DEV__) {
+			if (APP_CONFIG.isProduction && this.ERROR_REPORTING_ENABLED) {
 				// Initialize Sentry
-				// Sentry.init({ dsn: this.SENTRY_DSN });
-				// Initialize Crashlytics
-				// if (this.CRASHLYTICS_ENABLED) {
+				if (this.SENTRY_DSN) {
+					// Sentry.init({ dsn: this.SENTRY_DSN });
+				}
+				// Initialize other error tracking services
+				// if (this.ERROR_REPORTING_ENABLED) {
 				//   crashlytics().setCrashlyticsCollectionEnabled(true);
 				// }
 			}
@@ -87,7 +89,7 @@ class ErrorService {
 		this.userId = userId;
 
 		// Set user in third-party services
-		if (!__DEV__ && this.isInitialized) {
+		if (APP_CONFIG.isProduction && this.isInitialized && this.ERROR_REPORTING_ENABLED) {
 			// Sentry.setUser({ id: userId, ...attributes });
 			// crashlytics().setUserId(userId);
 			// if (attributes) {
@@ -101,7 +103,7 @@ class ErrorService {
 	clearUser() {
 		this.userId = undefined;
 
-		if (!__DEV__ && this.isInitialized) {
+		if (APP_CONFIG.isProduction && this.isInitialized && this.ERROR_REPORTING_ENABLED) {
 			// Sentry.configureScope(scope => scope.setUser(null));
 			// crashlytics().setUserId('');
 		}
@@ -120,7 +122,7 @@ class ErrorService {
 					sessionId: this.sessionId,
 				},
 				platform: Platform.OS,
-				appVersion: Constants.expoConfig?.version || "unknown",
+				appVersion: APP_CONFIG.version,
 				deviceInfo: {
 					os: Platform.OS,
 					osVersion:
@@ -138,9 +140,9 @@ class ErrorService {
 			this.storeErrorLog(errorLog);
 
 			// Log to console in development
-			if (__DEV__) {
-				// Error captured and logged in development mode
-			} else {
+			if (APP_CONFIG.isDevelopment) {
+				console.error("Error captured:", errorLog);
+			} else if (APP_CONFIG.isProduction && this.ERROR_REPORTING_ENABLED) {
 				// Send to error tracking services in production
 				this.sendToErrorServices(error, errorLog);
 			}
@@ -166,9 +168,9 @@ class ErrorService {
 			},
 		};
 
-		if (__DEV__) {
-			// Message logged in development mode
-		} else {
+		if (APP_CONFIG.isDevelopment) {
+			console.log(`[${level.toUpperCase()}]`, message, context);
+		} else if (APP_CONFIG.isProduction && this.ERROR_REPORTING_ENABLED) {
 			// Send to logging service
 			// Sentry.captureMessage(message, level);
 		}
@@ -183,7 +185,7 @@ class ErrorService {
 		}
 
 		try {
-			await AsyncStorage.setItem("@braingame/error_logs", JSON.stringify(this.errorLogs));
+			await AsyncStorage.setItem(STORAGE_KEYS.errors.logs, JSON.stringify(this.errorLogs));
 		} catch (_error) {
 			// Failed to store error log - avoiding console spam
 		}
@@ -200,7 +202,7 @@ class ErrorService {
 			// });
 
 			// Send to Crashlytics
-			// if (this.CRASHLYTICS_ENABLED) {
+			// if (this.ERROR_REPORTING_ENABLED) {
 			//   crashlytics().recordError(error, errorLog.context);
 			// }
 
@@ -238,7 +240,7 @@ class ErrorService {
 	async clearStoredErrors() {
 		try {
 			this.errorLogs = [];
-			await AsyncStorage.removeItem("@braingame/error_logs");
+			await AsyncStorage.removeItem(STORAGE_KEYS.errors.logs);
 		} catch (_error) {
 			// Error clearing stored errors - operation failed silently
 		}
