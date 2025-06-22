@@ -132,3 +132,28 @@ This shows:
 - Well-organized test files (except for merge conflicts)
 
 **Recommendation:** Focus on resolving merge conflicts first, then clean up the duplicate component directories to establish a consistent structure.
+
+---
+
+## 9. Additional Duplicate Assets (22-06-2025)
+
+Recent scans uncovered a few remaining duplicates:
+
+1. **Logo/Favicon**
+   - `docs/assets/logo.png`
+   - `apps/product/assets/images/favicon.png`
+   - *Both files have the same checksum and dimensions.*
+   - **Fix**: Keep a single source (e.g. in `docs/assets/`) and reference it everywhere.
+
+2. **Expo Icons**
+   - `apps/product/assets/images/icon.png`
+   - `apps/product/assets/images/adaptive-icon.png`
+   - `apps/product/assets/images/splash-icon.png`
+   - *All three images are byte-for-byte identical.*
+   - **Fix**: Store one image (e.g. `icon.png`) and update `app.json` to point to it for all icon fields.
+
+3. **Husky Hook Templates**
+   - `.husky/_/*` contains 14 tiny hook files that are identical.
+   - **Fix**: Remove the unused templates and keep only `husky.sh`, `h` and any actual hooks (e.g. `pre-commit`).
+
+Removing these files will reduce repository noise without affecting functionality.

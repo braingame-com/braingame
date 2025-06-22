@@ -2,6 +2,12 @@ import { Tokens, useThemeColor } from "@braingame/utils";
 import type React from "react";
 import { useEffect, useRef } from "react";
 import { Platform, Pressable, Modal as RNModal, StyleSheet, View } from "react-native";
+import {
+	MODAL_LG_WIDTH_MULTIPLIER,
+	MODAL_MAX_HEIGHT_PERCENTAGE,
+	MODAL_MD_WIDTH_MULTIPLIER,
+	MODAL_SM_WIDTH_MULTIPLIER,
+} from "../../constants";
 import type { ModalProps } from "./types";
 
 const FOCUSABLE_SELECTOR =
@@ -106,9 +112,9 @@ const useFocusTrap = (active: boolean, ref: React.RefObject<View | null>, onClos
 };
 
 const sizes = StyleSheet.create({
-	sm: { width: Tokens.l * 15 },
-	md: { width: Tokens.xl * 20 },
-	lg: { width: Tokens.xxxxl * 10 },
+	sm: { width: Tokens.l * MODAL_SM_WIDTH_MULTIPLIER },
+	md: { width: Tokens.xl * MODAL_MD_WIDTH_MULTIPLIER },
+	lg: { width: Tokens.xxxxl * MODAL_LG_WIDTH_MULTIPLIER },
 	fullscreen: { flex: 1, width: "100%" },
 });
 
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
 	content: {
 		borderRadius: Tokens.m,
 		padding: Tokens.m,
-		maxHeight: "90%",
+		maxHeight: MODAL_MAX_HEIGHT_PERCENTAGE,
 	},
 	center: {
 		alignSelf: "center",

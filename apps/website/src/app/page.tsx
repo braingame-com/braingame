@@ -1,16 +1,19 @@
 "use client";
 
-import { Button, GlowingLogo, Link, Text, TextInput, View } from "@braingame/bgui";
+import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
 import { useState } from "react";
+import { submitEmail } from "../lib/emailService";
 
 export default function HomePage() {
 	const [email, setEmail] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState("");
+	const [isSuccess, setIsSuccess] = useState(false);
 
 	const handleSubmit = async () => {
-		if (!email || !email.includes("@")) {
-			setSubmitMessage("Please enter a valid email address");
+		if (!email.trim()) {
+			setSubmitMessage("Please enter your email address");
+			setIsSuccess(false);
 			return;
 		}
 
@@ -18,12 +21,16 @@ export default function HomePage() {
 		setSubmitMessage("");
 
 		try {
-			// TODO: Implement Firebase integration
-			await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-			setSubmitMessage("Thanks! We'll notify you when we launch.");
-			setEmail("");
+			const result = await submitEmail(email);
+			setSubmitMessage(result.message);
+			setIsSuccess(result.success);
+
+			if (result.success) {
+				setEmail("");
+			}
 		} catch (_error) {
 			setSubmitMessage("Something went wrong. Please try again.");
+			setIsSuccess(false);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -33,15 +40,14 @@ export default function HomePage() {
 		<View
 			style={{
 				flex: 1,
-				minHeight: 600,
+				height: "100%",
 				backgroundColor: "#000",
 				alignItems: "center",
 				justifyContent: "center",
 				padding: 20,
 			}}
 		>
-			{/* Glowing Logo */}
-			<GlowingLogo size={150} glowIntensity="high" animate />
+			{/* Logo placeholder */}
 
 			{/* Title */}
 			<Text
@@ -112,9 +118,15 @@ export default function HomePage() {
 						keyboardType="email-address"
 						autoCapitalize="none"
 						editable={!isSubmitting}
+						autoComplete="email"
 					/>
 
-					<Button onPress={handleSubmit} disabled={isSubmitting}>
+					<Button
+						onPress={handleSubmit}
+						disabled={isSubmitting || !email.trim()}
+						variant="primary"
+						loading={isSubmitting}
+					>
 						<Text variant="bold" style={{ color: "#fff" }}>
 							{isSubmitting ? "..." : "Join"}
 						</Text>
@@ -125,7 +137,7 @@ export default function HomePage() {
 					<Text
 						variant="small"
 						style={{
-							color: submitMessage.includes("Thanks") ? "#22c55e" : "#ef4444",
+							color: isSuccess ? "#22c55e" : "#ef4444",
 							marginTop: 12,
 							textAlign: "center",
 						}}

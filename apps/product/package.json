@@ -16,9 +16,6 @@
 		"clean": "rm -rf .expo dist web-build",
 		"validate:env": "node scripts/validate-env.js"
 	},
-	"jest": {
-		"preset": "jest-expo"
-	},
 	"dependencies": {
 		"@expo/metro-runtime": "~5.0.4",
 		"@expo/vector-icons": "^14.0.2",
@@ -55,7 +52,9 @@
 		"react-native-svg": "15.11.2",
 		"react-native-web": "~0.20.0",
 		"react-native-webview": "13.13.5",
-		"sentry-expo": "^7.2.0"
+		"sentry-expo": "^7.2.0",
+		"@tanstack/react-query": "^5.21.1",
+		"@tanstack/react-query-persist-client": "^5.21.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.25.2",
@@ -63,6 +62,7 @@
 		"@types/jest": "^30.0.0",
 		"@types/react": "~19.0.10",
 		"@types/react-test-renderer": "^19.1.0",
+		"babel-preset-expo": "^13.2.1",
 		"expo-module-scripts": "^4.0.2",
 		"jest": "~29.7.0",
 		"jest-expo": "~53.0.7",

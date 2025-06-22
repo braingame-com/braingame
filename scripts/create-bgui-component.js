@@ -11,11 +11,12 @@
  */
 const fs = require("node:fs");
 const path = require("node:path");
+const { error, success, info } = require("./utils/console");
 
 const [, , rawName, ...options] = process.argv;
 
 if (!rawName) {
-	console.error("Usage: pnpm bgui:scaffold <ComponentName> [options]");
+	error("Usage: pnpm bgui:scaffold <ComponentName> [options]");
 	console.error("Options:");
 	console.error("  --simple     Create a simple component without advanced features");
 	console.error("  --hook       Create a custom hook instead of a component");
@@ -38,12 +39,12 @@ const pascalCasePattern = /^[A-Z][A-Za-z0-9]*$/;
 const hookPattern = /^use[A-Z][A-Za-z0-9]*$/;
 
 if (isHook && !hookPattern.test(componentName)) {
-	console.error("Hook name must start with 'use' and be in camelCase, e.g. useMyHook");
+	error("Hook name must start with 'use' and be in camelCase, e.g. useMyHook");
 	process.exit(1);
 }
 
 if (!isHook && !isUtil && !pascalCasePattern.test(componentName)) {
-	console.error("Component name must be in PascalCase, e.g. MyComponent");
+	error("Component name must be in PascalCase, e.g. MyComponent");
 	process.exit(1);
 }
 
@@ -64,7 +65,7 @@ if (
 	fs.existsSync(targetDir) ||
 	(isHook && fs.existsSync(path.join(targetDir, `${componentName}.ts`)))
 ) {
-	console.error(
+	error(
 		`${isHook ? "Hook" : isUtil ? "Utility" : "Component"} ${componentName} already exists`,
 	);
 	process.exit(1);
@@ -84,8 +85,8 @@ if (isHook) {
 	generateComponent(componentName, targetDir, isSimple);
 }
 
-console.log(`✅ Scaffolded ${componentName} successfully!`);
-console.log(`📁 Location: ${path.relative(rootDir, targetDir)}`);
+success(`Scaffolded ${componentName} successfully!`);
+info(`Location: ${path.relative(rootDir, targetDir)}`);
 
 if (!isHook && !isUtil) {
 	console.log("");
@@ -503,8 +504,7 @@ function generateUtil(utilName, targetDir) {
  * \`\`\`
  */
 export function ${utilName}(input: string): string {
-	// TODO: Implement your utility logic here
-	return input.toLowerCase().trim();
+        return input.toLowerCase().trim();
 }
 
 /**
@@ -558,7 +558,7 @@ function updatePackageExports(componentName) {
 		}
 
 		fs.writeFileSync(indexPath, content, "utf8");
-		console.log("✅ Updated package exports");
+		success("Updated package exports");
 	} catch (error) {
 		console.warn("⚠️ Could not auto-update package exports:", error.message);
 		console.log("📝 Manual step: Add this to packages/bgui/index.ts:");
@@ -582,7 +582,7 @@ function updateHooksIndex(hookName) {
 		content += newExport;
 
 		fs.writeFileSync(hooksIndexPath, content, "utf8");
-		console.log("✅ Updated hooks index");
+		success("Updated hooks index");
 	} catch (error) {
 		console.warn("⚠️ Could not auto-update hooks index:", error.message);
 	}

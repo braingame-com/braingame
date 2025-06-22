@@ -3,6 +3,7 @@
 import path from "node:path";
 import { globSync } from "glob";
 import { Node, Project } from "ts-morph";
+import { info, success, warning } from "./utils/console";
 
 function run() {
 	const patterns = process.argv.slice(2);
@@ -18,10 +19,11 @@ function run() {
 	);
 
 	if (files.length === 0) {
-		console.log("No files matched.");
+		warning("No files matched.");
 		return;
 	}
 
+	info(`Processing ${files.length} file(s)...`);
 	const project = new Project({ tsConfigFilePath: path.join(process.cwd(), "tsconfig.json") });
 
 	for (const file of files) {
@@ -75,9 +77,10 @@ function run() {
 
 		if (modified) {
 			sourceFile.saveSync();
-			console.log(`Updated ${sourceFile.getFilePath()}`);
+			success(`Updated ${sourceFile.getFilePath()}`);
 		}
 	}
 }
 
 run();
+info("Codemod complete");

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { info, success, warning } from "./utils/console";
 
 // Patterns for common secret formats
 const patterns: Record<string, RegExp> = {
@@ -18,7 +19,7 @@ function scanFile(filePath: string) {
 	lines.forEach((line, index) => {
 		for (const [name, regex] of Object.entries(patterns)) {
 			if (regex.test(line)) {
-				console.warn(`Potential secret (${name}) in ${filePath}:${index + 1}`);
+				warning(`Potential secret (${name}) in ${filePath}:${index + 1}`);
 			}
 		}
 	});
@@ -36,4 +37,6 @@ function walk(dir: string) {
 	}
 }
 
+info("Scanning for secrets...");
 walk(process.cwd());
+success("Secret scan complete");
