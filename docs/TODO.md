@@ -21,7 +21,7 @@
 - [ ] Replace hardcoded app version in `ErrorService.ts`
 - [x] Remove/replace console.log statements (25+ instances) (22-06-2025)
 - [x] Add try-catch blocks to async functions in ErrorService (22-06-2025)
-- [ ] Add try-catch blocks to async functions in AnalyticsService
+- [x] Add try-catch blocks to async functions in AnalyticsService (22-06-2025)
 
 ### Error Handling Improvements
 - [ ] Add error boundaries to navigation components
