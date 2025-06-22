@@ -57,7 +57,7 @@
   - This is a known issue in the React Native ecosystem with newer versions
 - **Documentation Created**:
   - TESTING.md: Comprehensive testing strategy and recommendations
-  - work-sessions/2025-01-19-bgui-testing-setup.md: Detailed session notes
+  - Session notes consolidated into `docs/LESSONS.md`
 - **Recommendations**:
   - Use TypeScript for compile-time type safety
   - Consider Storybook for visual component testing
@@ -334,7 +334,7 @@
 - [ ] Update `TODO.md` with completion status and date.
 - [ ] Add a new session summary to this file (`AI_CONTEXT.md`).
 - [ ] Run `pnpm lint` and `pnpm test` on all changes.
-- [ ] Create a detailed work session document in `docs/work-sessions/YYYY-MM-DD-brief-description.md` with learnings, patterns, and solutions discovered.
+- [ ] Add key learnings to `docs/LESSONS.md` so knowledge is preserved.
 
 ---
 
