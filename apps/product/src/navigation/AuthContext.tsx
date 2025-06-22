@@ -1,7 +1,7 @@
+import { ContextErrorBoundary } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { ContextErrorBoundary } from "../../../packages/bgui/src/components/ErrorBoundary";
 
 interface User {
 	id: string;

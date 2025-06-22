@@ -1,8 +1,8 @@
+import { ContextErrorBoundary } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { AccessibilityInfo, Platform } from "react-native";
-import { ContextErrorBoundary } from "../../../packages/bgui/src/components/ErrorBoundary";
 
 interface AccessibilityState {
 	screenReaderEnabled: boolean;

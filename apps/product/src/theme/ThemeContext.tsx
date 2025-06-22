@@ -1,3 +1,4 @@
+import { ContextErrorBoundary } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
@@ -9,7 +10,6 @@ import {
 	useSharedValue,
 	withTiming,
 } from "react-native-reanimated";
-import { ContextErrorBoundary } from "../../../packages/bgui/src/components/ErrorBoundary";
 import { createTheme } from "./themes";
 import type { ColorScheme, Theme, ThemeMode } from "./types";
 
