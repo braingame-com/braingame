@@ -1,6 +1,0 @@
-public-hoist-pattern[]=*react*
-public-hoist-pattern[]=*react-dom*
-public-hoist-pattern[]=*react-native*
-strict-peer-dependencies=false
-shamefully-hoist=true
-node-linker=hoisted
