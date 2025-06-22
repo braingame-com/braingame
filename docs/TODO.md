@@ -265,7 +265,6 @@
   - Successfully migrated all valuable assets from `bg1` and `dev-dil`
   - Created 70+ new components with enterprise-grade quality
   - Preserved months of development work while improving implementation
-  - Full documentation in `docs/legacy-migration/`
   - Status: Completed @ 20-01-2025
 
 - [x] BGUI Component Quality Improvement (19-01-2025)

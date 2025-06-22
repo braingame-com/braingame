@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://braingame.com">
-    <img src="./docs/assets/logo.png" alt="Brain Game Logo" width="200" height="200">
+    <img src="./assets/logo.png" alt="Brain Game Logo" width="200" height="200">
   </a>
   
   <h1>Brain Game</h1>

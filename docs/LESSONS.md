@@ -444,6 +444,8 @@ export const withNavigationGuard = <P extends object>(
 ### Component Documentation Template
 Comprehensive docs help everyone use components correctly. Each page should cover overview, usage, props, examples, accessibility, best practices, performance, and related components.
 
+**Template Location**: `packages/bgui/docs/COMPONENT_TEMPLATE.md`
+
 ---
 
 ## Migration Strategies
