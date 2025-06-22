@@ -1,3 +1,4 @@
+import { useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
@@ -32,6 +33,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 	const [themeMode, setThemeModeState] = useState<ThemeMode>("system");
 	const [colorScheme, setColorSchemeState] = useState<ColorScheme>("default");
 	const [isTransitioning, setIsTransitioning] = useState(false);
+	const isMounted = useMountedState();
 
 	// Animation values
 	const transitionProgress = useSharedValue(0);
@@ -47,6 +49,8 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 				AsyncStorage.getItem(COLOR_SCHEME_STORAGE_KEY),
 			]);
 
+			if (!isMounted()) return;
+
 			if (savedThemeMode) {
 				setThemeModeState(savedThemeMode as ThemeMode);
 			}
@@ -56,7 +60,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 		} catch (error) {
 			console.error("Error loading theme preferences:", error);
 		}
-	}, []);
+	}, [isMounted]);
 
 	// Load saved preferences
 	useEffect(() => {

@@ -70,7 +70,13 @@ export type { ViewProps } from "./src/components/View/types";
 export { Fonts } from "./src/constants/Fonts";
 
 // Hooks
-export { useControlledState, useFocusManagement, useInteractiveState } from "./src/hooks";
+export {
+	useAbortController,
+	useControlledState,
+	useFocusManagement,
+	useInteractiveState,
+	useMountedState,
+} from "./src/hooks";
 
 // Utils
 export { withErrorBoundary } from "./src/utils/withErrorBoundary";
