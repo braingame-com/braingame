@@ -1,8 +1,8 @@
+import { useThemeColor } from "@braingame/utils";
 import { useEffect, useState } from "react";
 import { AccessibilityInfo, Pressable } from "react-native";
-import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
-import { Text } from "../../../Text";
-import { View } from "../../../View";
+import { Text } from "../Text";
+import { View as BView } from "../View";
 import { DEFAULT_DURATION, styles, typeColorMap } from "./styles";
 import type { ToastProps } from "./types";
 
@@ -27,7 +27,7 @@ export const Toast = ({
 	if (!visible) return null;
 
 	return (
-		<View
+		<BView
 			style={[styles.container, { backgroundColor }]}
 			accessibilityLiveRegion="polite"
 			accessibilityRole="alert"
@@ -38,6 +38,6 @@ export const Toast = ({
 					<Text style={[styles.actionText, { color: textColor }]}>{actionLabel}</Text>
 				</Pressable>
 			)}
-		</View>
+		</BView>
 	);
 };

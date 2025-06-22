@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { AccessibilityInfo, Platform } from "react-native";
 import { useAccessibility } from "../contexts/AccessibilityContext";
 
@@ -77,7 +77,7 @@ export const useScreenReaderAnnouncement = () => {
 	 * Announce multiple messages in sequence
 	 */
 	const announceSequence = useCallback(
-		(messages: string[], delayBetween: number = 1000) => {
+		(messages: string[], delayBetween = 1000) => {
 			messages.forEach((message, index) => {
 				announce(message, {
 					delay: index * delayBetween,
@@ -169,7 +169,7 @@ export const useScreenReaderAnnouncement = () => {
 	 * Announce progress updates
 	 */
 	const announceProgress = useCallback(
-		(current: number, total: number, unit: string = "items") => {
+		(current: number, total: number, unit = "items") => {
 			const percentage = Math.round((current / total) * 100);
 			const message = `Progress: ${current} of ${total} ${unit} complete, ${percentage} percent`;
 

@@ -1,4 +1,5 @@
 import { act, renderHook } from "@testing-library/react-native";
+import { vi } from "vitest";
 import { useDisclosure } from "./useDisclosure";
 
 describe("useDisclosure", () => {
@@ -31,7 +32,7 @@ describe("useDisclosure", () => {
 	});
 
 	it("calls onOpenChange callback", () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		const { result } = renderHook(() => useDisclosure({ onOpenChange: callback }));
 
 		act(() => {

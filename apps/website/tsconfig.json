@@ -1,22 +1,30 @@
 {
-	"extends": "../../packages/config/tsconfig.base.json",
-	"compilerOptions": {
-		"jsx": "preserve",
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
-		"paths": {
-			"@braingame/bgui": ["../../packages/bgui"],
-			"@braingame/utils": ["../../packages/utils"],
-			"@braingame/config": ["../../packages/config"],
-			"@/*": ["./src/*"]
-		},
-		"incremental": true,
-		"module": "esnext",
-		"isolatedModules": true
-	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@braingame/bgui": ["../../packages/bgui"],
+      "@braingame/utils": ["../../packages/utils"],
+      "@braingame/config": ["../../packages/config"],
+      "@/*": ["./src/*"]
+    },
+    "target": "ES2017"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

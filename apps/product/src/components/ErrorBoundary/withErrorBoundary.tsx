@@ -1,5 +1,4 @@
-import type React from "react";
-import { type ComponentType, forwardRef } from "react";
+import React, { type ComponentType } from "react";
 import { captureException } from "../../services/ErrorService";
 import { ErrorBoundary } from "./ErrorBoundary";
 
@@ -57,9 +56,12 @@ export function withErrorBoundary<P extends object>(
 		logErrors = __DEV__,
 	} = options;
 
-	const WrappedComponent = forwardRef<any, P>((props, ref) => {
+	const WrappedComponent = (props: P) => {
 		// Extract reset keys from props
-		const currentResetKeys = resetKeys.map((key) => (props as any)[key]);
+		const currentResetKeys = resetKeys.map((key) => (props as Record<string, unknown>)[key]) as (
+			| string
+			| number
+		)[];
 
 		const handleError = (error: Error, errorInfo: React.ErrorInfo) => {
 			if (logErrors) {
@@ -74,7 +76,8 @@ export function withErrorBoundary<P extends object>(
 				component: Component.displayName || Component.name || "Unknown",
 				level,
 				props: __DEV__ ? props : undefined, // Only include props in dev
-				...errorInfo,
+				componentStack: errorInfo.componentStack ?? undefined,
+				digest: errorInfo.digest ?? undefined,
 			});
 		};
 
@@ -87,10 +90,10 @@ export function withErrorBoundary<P extends object>(
 				isolate={isolate}
 				onError={handleError}
 			>
-				<Component {...props} ref={ref} />
+				<Component {...props} />
 			</ErrorBoundary>
 		);
-	});
+	};
 
 	WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name || "Component"})`;
 
@@ -112,7 +115,8 @@ export function withScreenErrorBoundary<P extends object>(
 			captureException(error, {
 				screen: screenName || Screen.displayName || Screen.name,
 				type: "screen_error",
-				...errorInfo,
+				componentStack: errorInfo.componentStack ?? undefined,
+				digest: errorInfo.digest ?? undefined,
 			});
 		},
 	});
@@ -122,15 +126,21 @@ export function withScreenErrorBoundary<P extends object>(
  * Decorator for class components
  */
 export function ErrorBoundaryDecorator(options: WithErrorBoundaryOptions = {}) {
-	return <T extends { new (...args: any[]): any }>(constructor: T) => {
-		const WrappedComponent = (props: any) => (
-			<ErrorBoundary {...options}>
-				<constructor {...props} />
-			</ErrorBoundary>
-		);
+	return <T extends { new (...args: unknown[]): React.Component }>(Component: T) => {
+		const WrappedComponent = class extends (Component as {
+			new (...args: unknown[]): React.Component<Record<string, unknown>, unknown>;
+		}) {
+			static displayName = `ErrorBoundary(${Component.name})`;
 
-		WrappedComponent.displayName = `ErrorBoundary(${constructor.name})`;
+			render() {
+				return (
+					<ErrorBoundary {...options}>
+						{React.createElement(Component as ComponentType, this.props)}
+					</ErrorBoundary>
+				);
+			}
+		};
 
-		return WrappedComponent as any;
+		return WrappedComponent as unknown as T;
 	};
 }

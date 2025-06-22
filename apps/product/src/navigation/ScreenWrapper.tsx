@@ -1,6 +1,5 @@
 import type React from "react";
 import { ErrorBoundary, NetworkErrorBoundary } from "../components/ErrorBoundary";
-import { AccessibilityProvider } from "../contexts/AccessibilityContext";
 import { setupGlobalErrorHandlers } from "../services/ErrorService";
 
 // Setup global error handlers once

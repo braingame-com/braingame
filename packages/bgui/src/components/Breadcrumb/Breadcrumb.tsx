@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
 import { Link } from "../Link";
 import { styles } from "./styles";
 import type { BreadcrumbItemProps, BreadcrumbProps } from "./types";
@@ -22,9 +22,12 @@ export function Breadcrumb({
 	}
 
 	return (
-		<View accessibilityRole="navigation" style={[styles.container, style]}>
+		<View style={[styles.container, style]}>
 			{displayItems.map((child, index) => (
-				<View key={index} style={[styles.item, variant === "compact" && styles.compactItem]}>
+				<View
+					key={child === "..." ? "ellipsis" : `breadcrumb-${index}`}
+					style={[styles.item, variant === "compact" && styles.compactItem]}
+				>
 					{child}
 					{index < displayItems.length - 1 && <Text>{separator}</Text>}
 				</View>
