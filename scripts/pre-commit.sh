@@ -50,8 +50,9 @@ print_status "🔒 Checking for secrets..."
 if pnpm secrets:check > /dev/null 2>&1; then
     print_success "No secrets detected"
 else
-    print_warning "Secret scan failed or secrets detected"
-    echo "   Run 'pnpm secrets:check' manually to investigate"
+    print_error "Secrets detected in your code!"
+    echo "   Run 'pnpm secrets:check' to see details"
+    OVERALL_SUCCESS=false
 fi
 
 # 2. Run linting
