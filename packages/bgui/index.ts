@@ -22,7 +22,7 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
-export { ErrorBoundary } from "./src/components/ErrorBoundary";
+export { ContextErrorBoundary as ErrorBoundary } from "./src/components/ErrorBoundary";
 export { Icon } from "./src/components/Icon";
 export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
