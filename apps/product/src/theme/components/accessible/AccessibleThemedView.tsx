@@ -1,9 +1,5 @@
 import React, { useMemo } from "react";
-import {
-	View as RNView,
-	type ViewProps,
-	type ViewStyle,
-} from "react-native";
+import { View as RNView, type ViewProps, type ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import { getAccessibilityProps } from "../../../utils/accessibility";
 import { withMemo } from "../../../utils/performance";

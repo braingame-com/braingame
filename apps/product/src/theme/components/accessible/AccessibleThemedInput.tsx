@@ -1,12 +1,16 @@
 import React, { useCallback, useMemo } from "react";
 import {
-	View as RNView,
 	TextInput as RNTextInput,
+	View as RNView,
 	type TextInputProps,
 	type TextStyle,
 } from "react-native";
 import { getScaledFontSize, useAccessibility } from "../../../contexts/AccessibilityContext";
-import { getAccessibilityProps, getAccessibilityState, getHint } from "../../../utils/accessibility";
+import {
+	getAccessibilityProps,
+	getAccessibilityState,
+	getHint,
+} from "../../../utils/accessibility";
 import { withMemo } from "../../../utils/performance";
 import { useTheme } from "../../ThemeContext";
 import { AccessibleThemedText } from "./AccessibleThemedText";

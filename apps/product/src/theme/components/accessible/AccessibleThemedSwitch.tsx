@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
-import {
-	View,
-	Switch as RNSwitch,
-	type SwitchProps,
-} from "react-native";
+import { Switch as RNSwitch, type SwitchProps, View } from "react-native";
 import { useAccessibility } from "../../../contexts/AccessibilityContext";
-import { getAccessibilityProps, getAccessibilityState, getHint } from "../../../utils/accessibility";
+import {
+	getAccessibilityProps,
+	getAccessibilityState,
+	getHint,
+} from "../../../utils/accessibility";
 import { withMemo } from "../../../utils/performance";
 import { useTheme } from "../../ThemeContext";
 import { AccessibleThemedText } from "./AccessibleThemedText";

@@ -14,11 +14,10 @@ export * from "./hooks";
 // Export new hooks
 export * from "./hooks/useAsyncState";
 export * from "./hooks/useForm";
+// Export logger
+export * from "./logger";
+export { default as logger } from "./logger";
 // Export common styles
 export * from "./styles/commonStyles";
 // Export form validation
 export * from "./validation/formValidation";
-
-// Export logger
-export * from "./logger";
-export { default as logger } from "./logger";

@@ -1,9 +1,5 @@
 import React, { useMemo } from "react";
-import {
-	Text as RNText,
-	type TextProps,
-	type TextStyle,
-} from "react-native";
+import { Text as RNText, type TextProps, type TextStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import { withMemo } from "../../../utils/performance";
 import { useTheme } from "../../ThemeContext";

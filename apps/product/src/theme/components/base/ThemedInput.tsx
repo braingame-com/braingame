@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import {
-	View as RNView,
 	TextInput as RNTextInput,
+	View as RNView,
 	type TextInputProps,
 	type TextStyle,
 } from "react-native";

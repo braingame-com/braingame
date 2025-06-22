@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo } from "react";
+import type React from "react";
+import { useCallback, useMemo } from "react";
 import {
 	TouchableOpacity as RNTouchableOpacity,
 	type TouchableOpacityProps,

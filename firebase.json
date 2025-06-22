@@ -14,6 +14,21 @@
 			"target": "docs",
 			"public": "apps/docs/out",
 			"ignore": ["firebase.json", "**/.*"]
+		},
+		{
+			"target": "api",
+			"public": "apps/api/dist",
+			"ignore": ["firebase.json", "**/.*"],
+			"rewrites": [
+				{
+					"source": "**",
+					"function": "api"
+				}
+			]
 		}
-	]
+	],
+	"functions": {
+		"source": "apps/api",
+		"runtime": "nodejs18"
+	}
 }

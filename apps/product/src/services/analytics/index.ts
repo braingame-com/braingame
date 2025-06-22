@@ -1,17 +1,15 @@
 // Main exports
 export { analytics } from "./AnalyticsService";
-
-// Type exports
-export type { EventName, EventProperties, UserProperties, SuperProperties } from "./types";
-
 // Helper function exports
 export {
+	flushAnalytics,
+	identifyUser,
+	resetAnalytics,
+	setUserProperties,
+	setUserProperty,
 	trackEvent,
 	trackScreen,
-	identifyUser,
-	setUserProperty,
-	setUserProperties,
 	trackTiming,
-	resetAnalytics,
-	flushAnalytics,
 } from "./helpers";
+// Type exports
+export type { EventName, EventProperties, SuperProperties, UserProperties } from "./types";

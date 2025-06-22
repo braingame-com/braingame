@@ -1,4 +1,4 @@
-import type { EventName, EventProperties, UserProperties, SuperProperties } from "../types";
+import type { EventName, EventProperties, SuperProperties, UserProperties } from "../types";
 import type { AnalyticsProvider } from "./AnalyticsProvider";
 
 export class MockAnalyticsProvider implements AnalyticsProvider {

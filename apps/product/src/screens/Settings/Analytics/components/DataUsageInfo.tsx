@@ -1,5 +1,8 @@
-import React from "react";
-import { AccessibleThemedText, AccessibleThemedView } from "../../../../theme/components/AccessibleThemedComponents";
+import type React from "react";
+import {
+	AccessibleThemedText,
+	AccessibleThemedView,
+} from "../../../../theme/components/AccessibleThemedComponents";
 import { useTheme } from "../../../../theme/ThemeContext";
 
 export const DataUsageInfo: React.FC = () => {

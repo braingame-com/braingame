@@ -1,7 +1,7 @@
 export {
-	ThemedView,
-	ThemedText,
 	ThemedButton,
-	ThemedInput,
 	ThemedCard,
+	ThemedInput,
+	ThemedText,
+	ThemedView,
 } from "./base";

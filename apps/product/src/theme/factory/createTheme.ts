@@ -1,7 +1,7 @@
-import type { ColorScheme, Theme } from "../types";
-import { baseAnimation, baseSizes } from "../constants";
-import { lightColorSchemes } from "../colorSchemes/light";
 import { darkColorSchemes } from "../colorSchemes/dark";
+import { lightColorSchemes } from "../colorSchemes/light";
+import { baseAnimation, baseSizes } from "../constants";
+import type { ColorScheme, Theme } from "../types";
 import { createComponentStyles } from "./componentStyles";
 
 export const createTheme = (isDark: boolean, colorScheme: ColorScheme): Theme => {

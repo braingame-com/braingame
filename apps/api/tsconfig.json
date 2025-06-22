@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"target": "ES2022",
+		"lib": ["ES2022"],
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": false,
+		"declaration": true,
+		"declarationMap": true,
+		"strict": true,
+		"baseUrl": ".",
+		"paths": {
+			"@braingame/bgui": ["../../packages/bgui"],
+			"@braingame/utils": ["../../packages/utils"],
+			"@braingame/config": ["../../packages/config"]
+		}
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+}

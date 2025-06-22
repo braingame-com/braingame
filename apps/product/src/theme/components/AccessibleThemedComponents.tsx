@@ -1,7 +1,7 @@
 export {
-	AccessibleThemedView,
-	AccessibleThemedText,
 	AccessibleThemedButton,
 	AccessibleThemedInput,
 	AccessibleThemedSwitch,
+	AccessibleThemedText,
+	AccessibleThemedView,
 } from "./accessible";

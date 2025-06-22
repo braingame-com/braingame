@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { Linking, View } from "react-native";
 import { useButtonTracking } from "../../../../hooks/useAnalytics";
 import { AccessibleThemedButton } from "../../../../theme/components/AccessibleThemedComponents";

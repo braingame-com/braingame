@@ -1,9 +1,9 @@
 import type { ColorScheme, Theme } from "../../types";
 import { defaultLight } from "./default";
-import { oceanLight } from "./ocean";
 import { forestLight } from "./forest";
-import { sunsetLight } from "./sunset";
 import { midnightLight } from "./midnight";
+import { oceanLight } from "./ocean";
+import { sunsetLight } from "./sunset";
 
 export const lightColorSchemes: Record<ColorScheme, Theme["colors"]> = {
 	default: defaultLight,

@@ -4,7 +4,7 @@ import * as Device from "expo-device";
 import { Platform } from "react-native";
 import { captureException } from "../ErrorService";
 import { ANALYTICS_STORAGE_KEYS } from "./constants";
-import { AnalyticsProvider, MockAnalyticsProvider } from "./providers";
+import { type AnalyticsProvider, MockAnalyticsProvider } from "./providers";
 import type { EventName, EventProperties, SuperProperties, UserProperties } from "./types";
 import { generateSessionId } from "./utils";
 
@@ -100,7 +100,7 @@ class AnalyticsService {
 		try {
 			const lastLaunch = await AsyncStorage.getItem(ANALYTICS_STORAGE_KEYS.LAST_LAUNCH);
 			if (lastLaunch) {
-				return Date.now() - parseInt(lastLaunch, 10);
+				return Date.now() - Number.parseInt(lastLaunch, 10);
 			}
 		} catch {}
 		return null;
@@ -284,7 +284,7 @@ class AnalyticsService {
 	}
 
 	// Error tracking helper
-	trackError(error: Error, fatal: boolean = false) {
+	trackError(error: Error, fatal = false) {
 		this.track("error", {
 			error_message: error.message,
 			error_stack: error.stack,

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import {
-	View as RNView,
 	TouchableOpacity as RNTouchableOpacity,
+	View as RNView,
 	type ViewProps,
 	type ViewStyle,
 } from "react-native";

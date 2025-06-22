@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo } from "react";
+import type React from "react";
+import { useCallback, useMemo } from "react";
 import {
 	TouchableOpacity as RNTouchableOpacity,
 	type TouchableOpacityProps,
@@ -6,7 +7,11 @@ import {
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useAccessibility } from "../../../contexts/AccessibilityContext";
-import { getAccessibilityProps, getAccessibilityState, getHint } from "../../../utils/accessibility";
+import {
+	getAccessibilityProps,
+	getAccessibilityState,
+	getHint,
+} from "../../../utils/accessibility";
 import { withMemo } from "../../../utils/performance";
 import { useTheme } from "../../ThemeContext";
 import { AccessibleThemedText } from "./AccessibleThemedText";

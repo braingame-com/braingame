@@ -1,5 +1,5 @@
-export { ThemedView } from "./ThemedView";
-export { ThemedText } from "./ThemedText";
 export { ThemedButton } from "./ThemedButton";
-export { ThemedInput } from "./ThemedInput";
 export { ThemedCard } from "./ThemedCard";
+export { ThemedInput } from "./ThemedInput";
+export { ThemedText } from "./ThemedText";
+export { ThemedView } from "./ThemedView";
