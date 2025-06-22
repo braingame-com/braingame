@@ -158,8 +158,11 @@ All AI agents **MUST**:
 
 ## 10. Extension points
 
-- **Add platform**: create `apps/desktop` (Electron/Tauri) – same folder contract.  
-- **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.  
+- **Add platform**: create `apps/desktop` (Electron/Tauri).
+  - Mirror `apps/product` structure (`src/`, `public/`, config files).
+  - Package with Tauri CLI to produce signed `.dmg`/`.exe` installers.
+  - Publish installers via GitHub Releases with auto‑update enabled.
+- **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.
 - **Feature flags**: insert LaunchDarkly wrapper in `packages/utils`.
 
 ---

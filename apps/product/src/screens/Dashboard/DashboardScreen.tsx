@@ -116,7 +116,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 
 	const navigateToMindset = useCallback(() => {
 		// This would navigate to mindset screen once integrated
-		console.log("Navigate to mindset training");
+		// Navigate to mindset training functionality not yet implemented
 	}, []);
 
 	const actions = useMemo<ActionItem[]>(

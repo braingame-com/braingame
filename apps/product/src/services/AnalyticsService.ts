@@ -113,37 +113,37 @@ type AnalyticsEvent =
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: AnalyticsEvent[] = [];
-	async init(apiKey: string) {
-		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
+	async init(_apiKey: string) {
+		// Mock analytics initialized in development
 	}
 
 	async identify(userId: string, properties?: UserProperties) {
 		const log: AnalyticsEvent = { type: "identify", userId, properties, timestamp: new Date() };
 		this.logs.push(log);
-		console.log("[MockAnalytics] Identify:", log);
+		// Mock analytics user identified
 	}
 
 	async track(event: EventName, properties?: EventProperties) {
 		const log: AnalyticsEvent = { type: "track", event, properties, timestamp: new Date() };
 		this.logs.push(log);
-		console.log("[MockAnalytics] Track:", log);
+		// Mock analytics event tracked
 	}
 
-	async setUserProperties(properties: UserProperties) {
-		console.log("[MockAnalytics] Set User Properties:", properties);
+	async setUserProperties(_properties: UserProperties) {
+		// Mock analytics user properties set
 	}
 
-	async setSuperProperties(properties: SuperProperties) {
-		console.log("[MockAnalytics] Set Super Properties:", properties);
+	async setSuperProperties(_properties: SuperProperties) {
+		// Mock analytics super properties set
 	}
 
 	async reset() {
 		this.logs = [];
-		console.log("[MockAnalytics] Reset");
+		// Mock analytics reset
 	}
 
 	async flush() {
-		console.log("[MockAnalytics] Flush - Total events:", this.logs.length);
+		// Mock analytics flushed events
 	}
 }
 
@@ -176,9 +176,17 @@ class AnalyticsService {
 	}
 
 	private generateSuperProperties(): SuperProperties {
+		// Validate critical platform data
+		if (Platform.Version === null || Platform.Version === undefined) {
+			console.error("Platform.Version is not available - check React Native setup");
+		}
+
 		return {
 			platform: Platform.OS,
-			platformVersion: Platform.Version?.toString() || "unknown",
+			platformVersion:
+				Platform.Version !== null && Platform.Version !== undefined
+					? Platform.Version.toString()
+					: "unknown",
 			appVersion: Application.nativeApplicationVersion || "1.0.0",
 			buildVersion: Application.nativeBuildVersion || "1",
 			deviceModel: Device.modelName || undefined,
@@ -196,7 +204,7 @@ class AnalyticsService {
 			this.isEnabled = enabled !== "false" && (ANALYTICS_CONFIG.enabled ?? false);
 
 			if (!this.isEnabled) {
-				console.log("Analytics disabled by user preference");
+				// Analytics disabled by user preference
 				return;
 			}
 
@@ -284,7 +292,7 @@ class AnalyticsService {
 		if (!this.isEnabled) return;
 
 		if (this.debugMode) {
-			console.log(`[Analytics] ${event}`, properties);
+			// Analytics event tracked in debug mode
 		}
 
 		if (!this.isInitialized) {
@@ -381,11 +389,18 @@ class AnalyticsService {
 	}
 
 	async setEnabled(enabled: boolean) {
-		this.isEnabled = enabled;
-		await AsyncStorage.setItem(STORAGE_KEYS.analytics.enabled, enabled.toString());
+		try {
+			this.isEnabled = enabled;
+			await AsyncStorage.setItem(STORAGE_KEYS.analytics.enabled, enabled.toString());
 
-		if (!enabled) {
-			await this.reset();
+			if (!enabled) {
+				await this.reset();
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_set_enabled",
+				enabled,
+			});
 		}
 	}
 
@@ -394,22 +409,36 @@ class AnalyticsService {
 	}
 
 	private async processEventQueue() {
-		if (this.eventQueue.length === 0) return;
+		try {
+			if (this.eventQueue.length === 0) return;
 
-		const events = [...this.eventQueue];
-		this.eventQueue = [];
+			const events = [...this.eventQueue];
+			this.eventQueue = [];
 
-		for (const { event, properties } of events) {
-			await this.track(event, properties);
+			for (const { event, properties } of events) {
+				await this.track(event, properties);
+			}
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_process_event_queue",
+				queueLength: this.eventQueue.length,
+			});
 		}
 	}
 
 	// Screen tracking helper
 	trackScreen(screenName: string, properties?: EventProperties) {
-		this.track("screen_view", {
-			screen_name: screenName,
-			...properties,
-		});
+		try {
+			this.track("screen_view", {
+				screen_name: screenName,
+				...properties,
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track_screen",
+				screenName,
+			});
+		}
 	}
 
 	// Performance tracking helpers
@@ -423,21 +452,33 @@ class AnalyticsService {
 	}
 
 	trackTiming(category: string, timingVar: string, duration: number, label?: string) {
-		this.track("screen_load_time", {
-			category,
-			timing_var: timingVar,
-			duration,
-			label,
-		});
+		try {
+			this.track("screen_load_time", {
+				category,
+				timing_var: timingVar,
+				duration,
+				label,
+			});
+		} catch (error) {
+			captureException(error as Error, {
+				context: "analytics_track_timing",
+				category,
+				timingVar,
+			});
+		}
 	}
 
 	// Error tracking helper
 	trackError(error: Error, fatal = false) {
-		this.track("error", {
-			error_message: error.message,
-			error_stack: error.stack,
-			fatal,
-		});
+		try {
+			this.track("error", {
+				error_message: error.message,
+				error_stack: error.stack,
+				fatal,
+			});
+		} catch (_trackingError) {
+			// Avoid recursive error tracking - error tracking itself failed
+		}
 	}
 }
 

@@ -2,6 +2,7 @@
 
 import { Button, GlowingLogo, Link, Text, TextInput, View } from "@braingame/bgui";
 import { useState } from "react";
+import { submitEmail } from "../lib/emailService";
 
 export default function HomePage() {
 	const [email, setEmail] = useState("");
@@ -9,19 +10,15 @@ export default function HomePage() {
 	const [submitMessage, setSubmitMessage] = useState("");
 
 	const handleSubmit = async () => {
-		if (!email || !email.includes("@")) {
-			setSubmitMessage("Please enter a valid email address");
-			return;
-		}
-
 		setIsSubmitting(true);
 		setSubmitMessage("");
 
 		try {
-			// TODO: Implement Firebase integration
-			await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-			setSubmitMessage("Thanks! We'll notify you when we launch.");
-			setEmail("");
+			const result = await submitEmail(email);
+			setSubmitMessage(result.message);
+			if (result.success) {
+				setEmail("");
+			}
 		} catch (_error) {
 			setSubmitMessage("Something went wrong. Please try again.");
 		} finally {

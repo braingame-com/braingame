@@ -1,3 +1,4 @@
+import { ContextErrorBoundary } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
@@ -27,7 +28,7 @@ const AccessibilityContext = createContext<AccessibilityContextValue | undefined
 
 const STORAGE_KEY = "@braingame/accessibility_preferences";
 
-export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AccessibilityProviderInner: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [state, setState] = useState<AccessibilityState>({
 		screenReaderEnabled: false,
 		reduceMotionEnabled: false,
@@ -205,6 +206,14 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	return <AccessibilityContext.Provider value={value}>{children}</AccessibilityContext.Provider>;
+};
+
+export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	return (
+		<ContextErrorBoundary contextName="Accessibility">
+			<AccessibilityProviderInner>{children}</AccessibilityProviderInner>
+		</ContextErrorBoundary>
+	);
 };
 
 export const useAccessibility = () => {

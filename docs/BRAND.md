@@ -42,7 +42,7 @@ Our brand is built on **authority, clarity, and momentum.**
 
 ## 4. Logo & Visuals
 
-- **Primary Logo**: [Link to logo file/kit - TBD]
+ - **Primary Logo**: [logo.png](./assets/logo.png)
 - **Usage**:
   - Maintain clear space around the logo.
   - Do not stretch, distort, or alter the logo.
