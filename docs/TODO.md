@@ -24,7 +24,7 @@
 - [x] Add try-catch blocks to async functions in AnalyticsService (22-06-2025)
 
 ### Error Handling Improvements
-- [ ] Add error boundaries to navigation components
+- [x] Add error boundaries to navigation components (22-06-2025)
 - [ ] Add error boundaries to context providers
 - [ ] Handle unmount race conditions in components with async operations
 - [ ] Review and fix optional chaining that might hide required data

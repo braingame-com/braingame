@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { ErrorBoundary } from "../components/ErrorBoundary/ErrorBoundary";
 import { ThemeProvider } from "../theme";
 import { AuthProvider, useAuth } from "./AuthContext";
 import { AuthNavigator } from "./AuthNavigator";
@@ -20,13 +21,18 @@ const RootStack: React.FC = () => {
 	}
 
 	return (
-		<Stack.Navigator screenOptions={{ headerShown: false }}>
-			{isAuthenticated ? (
-				<Stack.Screen name="Main" component={DrawerNavigator} />
-			) : (
-				<Stack.Screen name="Auth" component={AuthNavigator} />
-			)}
-		</Stack.Navigator>
+		<ErrorBoundary level="app" onError={(error, errorInfo) => {
+			// Critical navigation error - log with high priority
+			console.error('Critical navigation error:', error, errorInfo);
+		}}>
+			<Stack.Navigator screenOptions={{ headerShown: false }}>
+				{isAuthenticated ? (
+					<Stack.Screen name="Main" component={DrawerNavigator} />
+				) : (
+					<Stack.Screen name="Auth" component={AuthNavigator} />
+				)}
+			</Stack.Navigator>
+		</ErrorBoundary>
 	);
 };
 
@@ -38,18 +44,23 @@ export const RootNavigator: React.FC = () => {
 	}, []);
 
 	return (
-		<ThemeProvider>
-			<AuthProvider>
-				<NavigationContainer
-					ref={navigationRef}
-					onReady={() => {
-						isReadyRef.current = true;
-					}}
-					linking={linking}
-				>
-					<RootStack />
-				</NavigationContainer>
-			</AuthProvider>
-		</ThemeProvider>
+		<ErrorBoundary level="app" onError={(error, errorInfo) => {
+			// Critical app-level error - log with maximum priority
+			console.error('Critical app error:', error, errorInfo);
+		}}>
+			<ThemeProvider>
+				<AuthProvider>
+					<NavigationContainer
+						ref={navigationRef}
+						onReady={() => {
+							isReadyRef.current = true;
+						}}
+						linking={linking}
+					>
+						<RootStack />
+					</NavigationContainer>
+				</AuthProvider>
+			</ThemeProvider>
+		</ErrorBoundary>
 	);
 };
