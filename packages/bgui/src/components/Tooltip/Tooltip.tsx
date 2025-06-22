@@ -1,5 +1,5 @@
 import { useThemeColor } from "@braingame/utils";
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import { getTooltipBackgroundColor, getTooltipTextColor, styles } from "./styles";
 import type { TooltipProps } from "./types";
@@ -25,6 +25,13 @@ export const Tooltip = ({
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		setVisible(false);
 	};
+
+	// Cleanup timeout on unmount
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, []);
 
 	// Handle keyboard interactions
 	const handleKeyDown = (e: React.KeyboardEvent) => {

@@ -17,6 +17,13 @@
 - **Clean architecture** with separated concerns and standard patterns
 
 ## 🚨 Critical Priority
+
+### Cleanup Issues (22-06-2025)
+- [x] Fix timer cleanup in `TrackableComponent.tsx` scrollTimer (file not found)
+- [x] Add cleanup to `Tooltip.tsx` setTimeout (completed - added useEffect cleanup)
+- [x] Add cleanup to `Toast.tsx` setTimeout (already implemented)
+- [x] Fix missing event listener cleanup in `Modal.tsx` (already implemented)
+
 - [x] Setup CI/CD Pipeline
   - [x] Create `.github/workflows/ci.yml`
   - [x] Add build, test, lint jobs
