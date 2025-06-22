@@ -112,7 +112,7 @@ type AnalyticsEvent =
 // Mock Analytics Provider for Development
 class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: AnalyticsEvent[] = [];
-	async init(apiKey: string) {
+	async init(_apiKey: string) {
 		// Mock analytics initialized in development
 	}
 
@@ -128,11 +128,11 @@ class MockAnalyticsProvider implements AnalyticsProvider {
 		// Mock analytics event tracked
 	}
 
-	async setUserProperties(properties: UserProperties) {
+	async setUserProperties(_properties: UserProperties) {
 		// Mock analytics user properties set
 	}
 
-	async setSuperProperties(properties: SuperProperties) {
+	async setSuperProperties(_properties: SuperProperties) {
 		// Mock analytics super properties set
 	}
 

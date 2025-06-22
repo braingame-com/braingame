@@ -48,7 +48,7 @@ export async function checkEmailExists(email: string): Promise<boolean> {
 		const q = query(emailRef, where("email", "==", sanitizeEmail(email)));
 		const querySnapshot = await getDocs(q);
 		return !querySnapshot.empty;
-	} catch (error) {
+	} catch (_error) {
 		// Error checking email existence - proceeding to avoid blocking users
 		// In case of error, proceed with submission to avoid blocking users
 		return false;
@@ -88,7 +88,7 @@ export async function submitEmail(email: string): Promise<EmailSubmissionResult>
 		};
 
 		// Add to Firestore
-		const docRef = await addDoc(collection(db, "email_signups"), {
+		const _docRef = await addDoc(collection(db, "email_signups"), {
 			...emailSignup,
 			timestamp: serverTimestamp(),
 		});
@@ -99,7 +99,7 @@ export async function submitEmail(email: string): Promise<EmailSubmissionResult>
 			success: true,
 			message: "Thanks! We'll notify you when we launch.",
 		};
-	} catch (error) {
+	} catch (_error) {
 		// Error submitting email - returning user-friendly message
 
 		// Return a user-friendly error message
@@ -118,7 +118,7 @@ export async function getSignupCount(): Promise<number> {
 		const emailRef = collection(db, "email_signups");
 		const querySnapshot = await getDocs(emailRef);
 		return querySnapshot.size;
-	} catch (error) {
+	} catch (_error) {
 		// Error getting signup count - returning default value
 		return 0;
 	}

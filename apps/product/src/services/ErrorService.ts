@@ -76,7 +76,7 @@ class ErrorService {
 			}
 
 			this.isInitialized = true;
-		} catch (error) {
+		} catch (_error) {
 			// Failed to initialize ErrorService - error logged to prevent console spam
 		}
 	}
@@ -176,7 +176,7 @@ class ErrorService {
 
 		try {
 			await AsyncStorage.setItem("@braingame/error_logs", JSON.stringify(this.errorLogs));
-		} catch (error) {
+		} catch (_error) {
 			// Failed to store error log - avoiding console spam
 		}
 	}
