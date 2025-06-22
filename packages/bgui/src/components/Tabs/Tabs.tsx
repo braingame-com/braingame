@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import { ContextErrorBoundary } from "../ErrorBoundary";
 import { TabsContext } from "./context";
 import { List } from "./List";
 import { Panel } from "./Panel";
@@ -14,9 +15,11 @@ function TabsBase({
 	variant = "line",
 }: TabsProps): ReactElement {
 	return (
-		<TabsContext.Provider value={{ activeTab, onValueChange, variant, scrollable }}>
-			{children}
-		</TabsContext.Provider>
+		<ContextErrorBoundary contextName="Tabs">
+			<TabsContext.Provider value={{ activeTab, onValueChange, variant, scrollable }}>
+				{children}
+			</TabsContext.Provider>
+		</ContextErrorBoundary>
 	);
 }
 

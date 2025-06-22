@@ -1,4 +1,4 @@
-import { useMountedState } from "@braingame/bgui";
+import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
@@ -24,7 +24,7 @@ const STORAGE_KEYS = {
 	PRIVACY_LEVEL: "@braingame/analytics_privacy_level",
 };
 
-export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [isAnalyticsEnabled, setIsAnalyticsEnabled] = useState(true);
 	const [isPerformanceTrackingEnabled, setIsPerformanceTrackingEnabled] = useState(true);
 	const [isCrashReportingEnabled, setIsCrashReportingEnabled] = useState(true);
@@ -174,6 +174,14 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 	};
 
 	return <AnalyticsContext.Provider value={value}>{children}</AnalyticsContext.Provider>;
+};
+
+export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	return (
+		<ContextErrorBoundary contextName="Analytics">
+			<AnalyticsProviderInner>{children}</AnalyticsProviderInner>
+		</ContextErrorBoundary>
+	);
 };
 
 export const useAnalyticsSettings = () => {
