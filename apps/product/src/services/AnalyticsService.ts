@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Application from "expo-application";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
+import { ANALYTICS_CONFIG, APP_CONFIG, STORAGE_KEYS } from "../config/env";
 import { captureException } from "./ErrorService";
 
 // Event types
@@ -156,7 +157,7 @@ class AnalyticsService {
 	private eventQueue: Array<{ event: EventName; properties?: EventProperties }> = [];
 	private isInitialized = false;
 	private isEnabled = true;
-	private debugMode = __DEV__;
+	private debugMode = ANALYTICS_CONFIG.debugMode;
 
 	private constructor() {
 		this.sessionId = this.generateSessionId();
@@ -191,8 +192,8 @@ class AnalyticsService {
 	async initialize() {
 		try {
 			// Check if analytics is enabled
-			const enabled = await AsyncStorage.getItem("@braingame/analytics_enabled");
-			this.isEnabled = enabled !== "false";
+			const enabled = await AsyncStorage.getItem(STORAGE_KEYS.analytics.enabled);
+			this.isEnabled = enabled !== "false" && (ANALYTICS_CONFIG.enabled ?? false);
 
 			if (!this.isEnabled) {
 				console.log("Analytics disabled by user preference");
@@ -200,21 +201,25 @@ class AnalyticsService {
 			}
 
 			// Initialize providers based on environment
-			if (__DEV__) {
+			if (APP_CONFIG.isDevelopment) {
 				// Use mock provider in development
 				const mockProvider = new MockAnalyticsProvider();
 				await mockProvider.init("mock-api-key");
 				this.providers.push(mockProvider);
-			} else {
+			} else if (APP_CONFIG.isProduction && ANALYTICS_CONFIG.enabled) {
 				// Initialize real providers in production
-				// Example: Mixpanel
-				// const mixpanel = new MixpanelProvider();
-				// await mixpanel.init(process.env.MIXPANEL_TOKEN);
-				// this.providers.push(mixpanel);
-				// Example: Amplitude
-				// const amplitude = new AmplitudeProvider();
-				// await amplitude.init(process.env.AMPLITUDE_API_KEY);
-				// this.providers.push(amplitude);
+				if (ANALYTICS_CONFIG.providers.amplitude) {
+					// Example: Amplitude
+					// const amplitude = new AmplitudeProvider();
+					// await amplitude.init(ANALYTICS_CONFIG.providers.amplitude);
+					// this.providers.push(amplitude);
+				}
+				if (ANALYTICS_CONFIG.providers.analytics) {
+					// Example: Other analytics provider
+					// const analytics = new AnalyticsProvider();
+					// await analytics.init(ANALYTICS_CONFIG.providers.analytics);
+					// this.providers.push(analytics);
+				}
 			}
 
 			// Set super properties on all providers
@@ -241,7 +246,7 @@ class AnalyticsService {
 
 	private async getTimeSinceLastLaunch(): Promise<number | null> {
 		try {
-			const lastLaunch = await AsyncStorage.getItem("@braingame/last_launch");
+			const lastLaunch = await AsyncStorage.getItem(STORAGE_KEYS.analytics.lastLaunch);
 			if (lastLaunch) {
 				return Date.now() - Number.parseInt(lastLaunch, 10);
 			}
@@ -301,7 +306,7 @@ class AnalyticsService {
 
 			// Store last launch time
 			if (event === "app_launch") {
-				await AsyncStorage.setItem("@braingame/last_launch", Date.now().toString());
+				await AsyncStorage.setItem(STORAGE_KEYS.analytics.lastLaunch, Date.now().toString());
 			}
 		} catch (error) {
 			captureException(error as Error, {
@@ -377,7 +382,7 @@ class AnalyticsService {
 
 	async setEnabled(enabled: boolean) {
 		this.isEnabled = enabled;
-		await AsyncStorage.setItem("@braingame/analytics_enabled", enabled.toString());
+		await AsyncStorage.setItem(STORAGE_KEYS.analytics.enabled, enabled.toString());
 
 		if (!enabled) {
 			await this.reset();
