@@ -1,5 +1,6 @@
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
 import { Text } from "react-native";
+import { vi } from "vitest";
 import { Modal } from "./Modal";
 
 describe("Modal", () => {
@@ -22,7 +23,7 @@ describe("Modal", () => {
 	});
 
 	it("calls onClose when backdrop pressed", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByTestId } = render(
 			<Modal visible={true} onClose={fn}>
 				<Text>Modal content</Text>
@@ -36,7 +37,7 @@ describe("Modal", () => {
 	});
 
 	it("does not close on backdrop press when closable is false", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByTestId } = render(
 			<Modal visible={true} onClose={fn} closable={false}>
 				<Text>Modal content</Text>
@@ -49,7 +50,7 @@ describe("Modal", () => {
 	});
 
 	it("does not close on backdrop press when backdrop is false", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { getByTestId } = render(
 			<Modal visible={true} onClose={fn} backdrop={false}>
 				<Text>Modal content</Text>
@@ -98,7 +99,7 @@ describe("Modal", () => {
 	});
 
 	it("handles onRequestClose from RNModal", () => {
-		const fn = jest.fn();
+		const fn = vi.fn();
 		const { UNSAFE_getByType } = render(
 			<Modal visible={true} onClose={fn}>
 				<Text>Modal content</Text>

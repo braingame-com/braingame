@@ -1,4 +1,3 @@
-import React from "react";
 import { TextInput as RNTextInput, View } from "react-native";
 import { Icon } from "../Icon";
 import { styles } from "./styles";

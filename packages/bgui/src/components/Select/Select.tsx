@@ -1,10 +1,16 @@
 import { Colors, Tokens, Typography, useThemeColor } from "@braingame/utils";
 import { Children, cloneElement, type ReactElement, useState } from "react";
 import { Platform, Pressable, Modal as RNModal, ScrollView, View } from "react-native";
-import { Text } from "../../../Text";
-import { View as BView } from "../../../View";
+import {
+	SELECT_DROPDOWN_MAX_HEIGHT,
+	SELECT_DROPDOWN_Z_INDEX,
+	SELECT_MODAL_HORIZONTAL_MARGIN,
+	SELECT_MODAL_TOP,
+} from "../../constants";
 import { validateProps, validators } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { Text } from "../Text";
+import { View as BView } from "../View";
 import { SelectItem } from "./SelectItem";
 import type { SelectItemProps, SelectProps } from "./types";
 
@@ -88,7 +94,7 @@ const SelectComponent = ({
 	};
 
 	const renderItems = () => (
-		<ScrollView accessibilityRole="list" style={{ maxHeight: 200 }}>
+		<ScrollView accessibilityRole="list" style={{ maxHeight: SELECT_DROPDOWN_MAX_HEIGHT }}>
 			{Children.map(children, (child) => {
 				if (!child) return null;
 				const element = child as ReactElement<SelectItemProps>;
@@ -146,7 +152,7 @@ const SelectComponent = ({
 						top: Tokens.l + Tokens.s,
 						left: 0,
 						right: 0,
-						zIndex: 1000,
+						zIndex: SELECT_DROPDOWN_Z_INDEX,
 						borderWidth: 1,
 						borderColor,
 						backgroundColor: background,
@@ -169,9 +175,9 @@ const SelectComponent = ({
 					<View
 						style={{
 							position: "absolute",
-							top: "30%",
-							left: "10%",
-							right: "10%",
+							top: SELECT_MODAL_TOP,
+							left: SELECT_MODAL_HORIZONTAL_MARGIN,
+							right: SELECT_MODAL_HORIZONTAL_MARGIN,
 							borderWidth: 1,
 							borderColor,
 							backgroundColor: background,

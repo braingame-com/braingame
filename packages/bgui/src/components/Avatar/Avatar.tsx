@@ -1,6 +1,6 @@
 import { useThemeColor } from "@braingame/utils";
 import { Image, Pressable, View } from "react-native";
-import { Text } from "../../../Text";
+import { Text } from "../Text";
 import { getAvatarStyles } from "./styles";
 import type { AvatarProps } from "./types";
 import { getInitials } from "./utils";

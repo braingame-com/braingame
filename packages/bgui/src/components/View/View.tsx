@@ -1,8 +1,6 @@
+import { Tokens, useThemeColor, viewStyles } from "@braingame/utils";
 import { useState } from "react";
 import { Platform, View as RNView } from "react-native";
-import { viewStyles } from "../../utils/constants/styles";
-import { Tokens } from "../../utils/constants/Tokens";
-import { useThemeColor } from "../../utils/hooks/useThemeColor";
 import type { ViewProps } from "./types";
 
 /**
@@ -21,7 +19,8 @@ export const View = ({
 	const [isHovered, setIsHovered] = useState(false);
 	const themeBackgroundColor = useThemeColor(type.includes("card") ? "card" : "background");
 	const backgroundColor = transparent ? "transparent" : themeBackgroundColor;
-	const borderColor = getBorderColor(border, hoverable, isHovered);
+	const themeBorderColor = useThemeColor("border");
+	const borderColor = getBorderColor(border, hoverable, isHovered, themeBorderColor);
 
 	return (
 		<RNView
@@ -54,9 +53,8 @@ const getBorderColor = (
 	border: boolean | undefined,
 	hoverable: boolean | undefined,
 	isHovered: boolean,
+	borderColor: string,
 ) => {
-	const borderColor = useThemeColor("border");
-
 	if (border && !hoverable) {
 		return borderColor;
 	}

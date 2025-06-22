@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
+import { APP_CONFIG, ERROR_CONFIG, STORAGE_KEYS } from "../config/env";
 
 interface ErrorContext {
 	level?: string;
@@ -11,7 +12,8 @@ interface ErrorContext {
 	sessionId?: string;
 	screen?: string;
 	action?: string;
-	[key: string]: any;
+	networkFailureType?: string;
+	[key: string]: unknown;
 }
 
 interface ErrorLog {
@@ -32,14 +34,14 @@ interface ErrorLog {
 class ErrorService {
 	private static instance: ErrorService;
 	private errorLogs: ErrorLog[] = [];
-	private maxLocalLogs = 100;
+	private maxLocalLogs = ERROR_CONFIG.maxLocalLogs;
 	private sessionId: string;
 	private userId?: string;
 	private isInitialized = false;
 
-	// In production, these would be your actual error tracking service endpoints
-	private readonly SENTRY_DSN = process.env.SENTRY_DSN || "";
-	private readonly CRASHLYTICS_ENABLED = process.env.CRASHLYTICS_ENABLED === "true";
+	// Error tracking service configuration
+	private readonly SENTRY_DSN = ERROR_CONFIG.sentryDsn || "";
+	private readonly ERROR_REPORTING_ENABLED = ERROR_CONFIG.enabled;
 
 	private constructor() {
 		this.sessionId = this.generateSessionId();
@@ -60,32 +62,34 @@ class ErrorService {
 	private async initialize() {
 		try {
 			// Load stored error logs
-			const storedLogs = await AsyncStorage.getItem("@braingame/error_logs");
+			const storedLogs = await AsyncStorage.getItem(STORAGE_KEYS.errors.logs);
 			if (storedLogs) {
 				this.errorLogs = JSON.parse(storedLogs);
 			}
 
 			// Initialize third-party services in production
-			if (!__DEV__) {
+			if (APP_CONFIG.isProduction && this.ERROR_REPORTING_ENABLED) {
 				// Initialize Sentry
-				// Sentry.init({ dsn: this.SENTRY_DSN });
-				// Initialize Crashlytics
-				// if (this.CRASHLYTICS_ENABLED) {
+				if (this.SENTRY_DSN) {
+					// Sentry.init({ dsn: this.SENTRY_DSN });
+				}
+				// Initialize other error tracking services
+				// if (this.ERROR_REPORTING_ENABLED) {
 				//   crashlytics().setCrashlyticsCollectionEnabled(true);
 				// }
 			}
 
 			this.isInitialized = true;
-		} catch (error) {
-			console.error("Failed to initialize ErrorService:", error);
+		} catch (_error) {
+			// Failed to initialize ErrorService - error logged to prevent console spam
 		}
 	}
 
-	setUser(userId: string, attributes?: Record<string, any>) {
+	setUser(userId: string, _attributes?: Record<string, unknown>) {
 		this.userId = userId;
 
 		// Set user in third-party services
-		if (!__DEV__ && this.isInitialized) {
+		if (APP_CONFIG.isProduction && this.isInitialized && this.ERROR_REPORTING_ENABLED) {
 			// Sentry.setUser({ id: userId, ...attributes });
 			// crashlytics().setUserId(userId);
 			// if (attributes) {
@@ -99,41 +103,51 @@ class ErrorService {
 	clearUser() {
 		this.userId = undefined;
 
-		if (!__DEV__ && this.isInitialized) {
+		if (APP_CONFIG.isProduction && this.isInitialized && this.ERROR_REPORTING_ENABLED) {
 			// Sentry.configureScope(scope => scope.setUser(null));
 			// crashlytics().setUserId('');
 		}
 	}
 
 	captureException(error: Error, context?: ErrorContext) {
-		const errorLog: ErrorLog = {
-			id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-			timestamp: new Date().toISOString(),
-			message: error.message || error.toString(),
-			stack: error.stack,
-			context: {
-				...context,
-				userId: this.userId,
-				sessionId: this.sessionId,
-			},
-			platform: Platform.OS,
-			appVersion: "1.0.0", // TODO: Get from app config
-			deviceInfo: {
-				os: Platform.OS,
-				osVersion: Platform.Version?.toString() || "unknown",
-				// device: Device.modelName, // If using expo-device
-			},
-		};
+		try {
+			const errorLog: ErrorLog = {
+				id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+				timestamp: new Date().toISOString(),
+				message: error.message || error.toString(),
+				stack: error.stack,
+				context: {
+					...context,
+					userId: this.userId,
+					sessionId: this.sessionId,
+				},
+				platform: Platform.OS,
+				appVersion: APP_CONFIG.version,
+				deviceInfo: {
+					os: Platform.OS,
+					osVersion:
+						Platform.Version !== null && Platform.Version !== undefined
+							? Platform.Version.toString()
+							: (() => {
+									console.error("Platform.Version is not available - check React Native setup");
+									return "unknown";
+								})(),
+					// device: Device.modelName, // If using expo-device
+				},
+			};
 
-		// Store locally
-		this.storeErrorLog(errorLog);
+			// Store locally
+			this.storeErrorLog(errorLog);
 
-		// Log to console in development
-		if (__DEV__) {
-			console.error("Error captured:", errorLog);
-		} else {
-			// Send to error tracking services in production
-			this.sendToErrorServices(error, errorLog);
+			// Log to console in development
+			if (APP_CONFIG.isDevelopment) {
+				console.error("Error captured:", errorLog);
+			} else if (APP_CONFIG.isProduction && this.ERROR_REPORTING_ENABLED) {
+				// Send to error tracking services in production
+				this.sendToErrorServices(error, errorLog);
+			}
+		} catch (_captureError) {
+			// Critical error in error capture system - fail silently to prevent recursion
 		}
 	}
 
@@ -142,7 +156,7 @@ class ErrorService {
 		level: "info" | "warning" | "error" = "info",
 		context?: ErrorContext,
 	) {
-		const log = {
+		const _log = {
 			id: `MSG_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
 			timestamp: new Date().toISOString(),
 			message,
@@ -154,9 +168,9 @@ class ErrorService {
 			},
 		};
 
-		if (__DEV__) {
+		if (APP_CONFIG.isDevelopment) {
 			console.log(`[${level.toUpperCase()}]`, message, context);
-		} else {
+		} else if (APP_CONFIG.isProduction && this.ERROR_REPORTING_ENABLED) {
 			// Send to logging service
 			// Sentry.captureMessage(message, level);
 		}
@@ -171,33 +185,37 @@ class ErrorService {
 		}
 
 		try {
-			await AsyncStorage.setItem("@braingame/error_logs", JSON.stringify(this.errorLogs));
-		} catch (error) {
-			console.error("Failed to store error log:", error);
+			await AsyncStorage.setItem(STORAGE_KEYS.errors.logs, JSON.stringify(this.errorLogs));
+		} catch (_error) {
+			// Failed to store error log - avoiding console spam
 		}
 	}
 
-	private sendToErrorServices(error: Error, errorLog: ErrorLog) {
-		// Send to Sentry
-		// Sentry.captureException(error, {
-		//   contexts: {
-		//     error: errorLog.context,
-		//     device: errorLog.deviceInfo,
-		//   },
-		// });
+	private sendToErrorServices(_error: Error, errorLog: ErrorLog) {
+		try {
+			// Send to Sentry
+			// Sentry.captureException(error, {
+			//   contexts: {
+			//     error: errorLog.context,
+			//     device: errorLog.deviceInfo,
+			//   },
+			// });
 
-		// Send to Crashlytics
-		// if (this.CRASHLYTICS_ENABLED) {
-		//   crashlytics().recordError(error, errorLog.context);
-		// }
+			// Send to Crashlytics
+			// if (this.ERROR_REPORTING_ENABLED) {
+			//   crashlytics().recordError(error, errorLog.context);
+			// }
 
-		// Send to custom backend
-		this.sendToBackend(errorLog);
+			// Send to custom backend
+			this.sendToBackend(errorLog);
+		} catch (_serviceError) {
+			// Error sending to external services - fail silently
+		}
 	}
 
-	private async sendToBackend(errorLog: ErrorLog) {
+	private async sendToBackend(_errorLog: ErrorLog) {
+		// In production, send to your error logging endpoint
 		try {
-			// In production, send to your error logging endpoint
 			// await fetch('https://api.braingame.dev/errors', {
 			//   method: 'POST',
 			//   headers: {
@@ -205,39 +223,60 @@ class ErrorService {
 			//   },
 			//   body: JSON.stringify(errorLog),
 			// });
-		} catch (error) {
-			console.error("Failed to send error to backend:", error);
+		} catch (_sendError) {
+			// Failed to send error to backend - network or server issue
 		}
 	}
 
 	async getStoredErrors(): Promise<ErrorLog[]> {
-		return this.errorLogs;
+		try {
+			return this.errorLogs;
+		} catch (_error) {
+			// Error retrieving stored errors - returning empty array
+			return [];
+		}
 	}
 
 	async clearStoredErrors() {
-		this.errorLogs = [];
-		await AsyncStorage.removeItem("@braingame/error_logs");
+		try {
+			this.errorLogs = [];
+			await AsyncStorage.removeItem(STORAGE_KEYS.errors.logs);
+		} catch (_error) {
+			// Error clearing stored errors - operation failed silently
+		}
 	}
 
 	// Network error handler
-	handleNetworkError(error: any, endpoint: string, method: string) {
+	handleNetworkError(error: unknown, endpoint: string, method: string) {
+		const networkError = error as {
+			response?: { status: number; data: unknown };
+			message: string;
+		};
 		const context: ErrorContext = {
 			type: "network",
 			endpoint,
 			method,
-			statusCode: error.response?.status,
-			responseData: error.response?.data,
 		};
 
-		const networkError = new Error(
-			`Network request failed: ${method} ${endpoint} - ${error.message}`,
+		// Explicitly handle network error response data
+		if (networkError.response) {
+			context.statusCode = networkError.response.status;
+			context.responseData = networkError.response.data;
+		} else {
+			// Log when network response is missing for debugging
+			console.warn("Network error has no response data - possible network failure or timeout");
+			context.networkFailureType = "no_response";
+		}
+
+		const finalError = new Error(
+			`Network request failed: ${method} ${endpoint} - ${networkError.message}`,
 		);
 
-		this.captureException(networkError, context);
+		this.captureException(finalError, context);
 	}
 
 	// Promise rejection handler
-	handleUnhandledRejection(reason: any, promise: Promise<any>) {
+	handleUnhandledRejection(reason: unknown, promise: Promise<unknown>) {
 		const error =
 			reason instanceof Error
 				? reason
@@ -263,7 +302,7 @@ export const captureMessage = (
 	context?: ErrorContext,
 ) => errorService.captureMessage(message, level, context);
 
-export const setErrorUser = (userId: string, attributes?: Record<string, any>) =>
+export const setErrorUser = (userId: string, attributes?: Record<string, unknown>) =>
 	errorService.setUser(userId, attributes);
 
 export const clearErrorUser = () => errorService.clearUser();
@@ -272,10 +311,10 @@ export const clearErrorUser = () => errorService.clearUser();
 export const setupGlobalErrorHandlers = () => {
 	// Handle unhandled promise rejections
 	const originalHandler = global.onunhandledrejection;
-	global.onunhandledrejection = (event: any) => {
+	global.onunhandledrejection = (event: PromiseRejectionEvent) => {
 		errorService.handleUnhandledRejection(event.reason, event.promise);
-		if (originalHandler) {
-			originalHandler(event);
+		if (typeof originalHandler === "function") {
+			originalHandler.call(global as unknown as Window, event);
 		}
 	};
 

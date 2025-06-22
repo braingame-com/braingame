@@ -69,7 +69,7 @@ export const RegisterScreen: React.FC<Props> = () => {
 		try {
 			await register(email, password, displayName);
 			// Navigation happens automatically via auth state
-		} catch (error) {
+		} catch (_error) {
 			Alert.alert("Registration Failed", "An account with this email may already exist.");
 		} finally {
 			setLoading(false);

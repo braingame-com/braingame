@@ -1,11 +1,9 @@
 import { Platform } from "react-native";
 import { Animation } from "./Animation";
-import { BorderRadius } from "./BorderRadius";
-import { Colors } from "./Colors";
 import { Shadows } from "./Shadows";
 import { Tokens } from "./Tokens";
 import { Typography } from "./Typography";
-import type { ColorToken, PlatformTokens, SpacingToken } from "./types";
+import type { PlatformTokens, SpacingToken } from "./types";
 
 /**
  * Get platform-specific token value
@@ -87,7 +85,7 @@ export function getResponsiveSpacing(token: SpacingToken, screenWidth: number): 
  * Mix two colors with a given opacity
  * Useful for creating color variations
  */
-export function mixColors(color1: string, color2: string, ratio: number): string {
+export function mixColors(color1: string, _color2: string, ratio: number): string {
 	// Simple implementation - in production, use a proper color library
 	return `rgba(${color1}, ${ratio})`;
 }
@@ -99,9 +97,9 @@ export function mixColors(color1: string, color2: string, ratio: number): string
 export function getColorWithOpacity(color: string, opacity: number): string {
 	// Handle hex colors
 	if (color.startsWith("#")) {
-		const r = parseInt(color.slice(1, 3), 16);
-		const g = parseInt(color.slice(3, 5), 16);
-		const b = parseInt(color.slice(5, 7), 16);
+		const r = Number.parseInt(color.slice(1, 3), 16);
+		const g = Number.parseInt(color.slice(3, 5), 16);
+		const b = Number.parseInt(color.slice(5, 7), 16);
 		return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 	}
 
@@ -146,14 +144,20 @@ export function combineShadows(...shadows: Array<keyof typeof Shadows>) {
 
 	for (const shadow of shadows) {
 		const shadowStyle = Shadows[shadow];
-		combined.elevation = Math.max(combined.elevation, shadowStyle.elevation || 0);
-		combined.shadowColor = shadowStyle.shadowColor || combined.shadowColor;
+		combined.elevation = Math.max(combined.elevation, (shadowStyle.elevation as number) || 0);
+		combined.shadowColor = (shadowStyle.shadowColor || combined.shadowColor) as string;
 		combined.shadowOffset = {
 			width: combined.shadowOffset.width + (shadowStyle.shadowOffset?.width || 0),
 			height: combined.shadowOffset.height + (shadowStyle.shadowOffset?.height || 0),
 		};
-		combined.shadowOpacity = Math.max(combined.shadowOpacity, shadowStyle.shadowOpacity || 0);
-		combined.shadowRadius = Math.max(combined.shadowRadius, shadowStyle.shadowRadius || 0);
+		combined.shadowOpacity = Math.max(
+			combined.shadowOpacity,
+			(shadowStyle.shadowOpacity as number) || 0,
+		);
+		combined.shadowRadius = Math.max(
+			combined.shadowRadius,
+			(shadowStyle.shadowRadius as number) || 0,
+		);
 	}
 
 	return combined;
@@ -231,12 +235,6 @@ export const TokenValidation = {
 export function logTokens() {
 	// Only log in development environments
 	if (process.env.NODE_ENV === "development") {
-		console.log("=== Design Tokens ===");
-		console.log("Spacing:", Tokens);
-		console.log("Colors:", Colors);
-		console.log("Typography:", Typography);
-		console.log("Animation:", Animation);
-		console.log("BorderRadius:", BorderRadius);
-		console.log("Shadows:", Shadows);
+		// Design tokens available for debugging in development
 	}
 }

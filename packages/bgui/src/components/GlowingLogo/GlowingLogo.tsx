@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Pressable, View, Platform } from "react-native";
+import type React from "react";
+import { useEffect, useRef } from "react";
+import { Animated, Platform, Pressable, View } from "react-native";
 import { styles } from "./styles";
 import type { GlowingLogoProps } from "./types";
 
@@ -38,7 +39,7 @@ export const GlowingLogo: React.FC<GlowingLogoProps> = ({
 					duration: 2000,
 					useNativeDriver: true,
 				}),
-			])
+			]),
 		);
 
 		const glowAnimation = Animated.loop(
@@ -53,7 +54,7 @@ export const GlowingLogo: React.FC<GlowingLogoProps> = ({
 					duration: 1500,
 					useNativeDriver: true,
 				}),
-			])
+			]),
 		);
 
 		pulseAnimation.start();
@@ -67,21 +68,20 @@ export const GlowingLogo: React.FC<GlowingLogoProps> = ({
 
 	const { blur, scale } = glowIntensityMap[glowIntensity];
 
-	const LogoSvg = Platform.OS === "web" ? (
-		<svg
-			width={size}
-			height={size}
-			viewBox="0 0 24 24"
-			fill="white"
-			style={{ display: "block" }}
-		>
-			<path d="m20.88,7.56l1.56-.78,1.56-.78v-2.88c0-.57-.15-1.1-.42-1.56-.27-.47-.67-.87-1.14-1.14C21.98.15,21.45,0,20.88,0H3.12C2.55,0,2.02.15,1.56.42c-.47.27-.87.67-1.14,1.14-.27.46-.42.99-.42,1.56v17.76c0,.57.15,1.1.42,1.56.27.47.67.87,1.14,1.14.46.27.99.42,1.56.42h17.76c.57,0,1.1-.15,1.56-.42.47-.27.87-.67,1.14-1.14.27-.46.42-.99.42-1.56v-10.44h-8.88l-3.12,1.56,3.12,1.56h5.76v5.76c0,.19-.03.38-.1.55l-2.2-1.1-.58-.29-12.95-6.48,12.95-6.48.58-.29,2.2-1.1c.06.17.1.35.1.55v2.88Zm-5.05,13.32H4.68c-.86,0-1.56-.7-1.56-1.56v-4.79l12.71,6.35ZM3.12,9.47v-4.79c0-.86.7-1.56,1.56-1.56h11.14L3.12,9.47Z" />
-		</svg>
-	) : null;
+	const LogoSvg =
+		Platform.OS === "web" ? (
+			<svg width={size} height={size} viewBox="0 0 24 24" fill="white" style={{ display: "block" }}>
+				<title>Brain Game Logo</title>
+				<path d="m20.88,7.56l1.56-.78,1.56-.78v-2.88c0-.57-.15-1.1-.42-1.56-.27-.47-.67-.87-1.14-1.14C21.98.15,21.45,0,20.88,0H3.12C2.55,0,2.02.15,1.56.42c-.47.27-.87.67-1.14,1.14-.27.46-.42.99-.42,1.56v17.76c0,.57.15,1.1.42,1.56.27.47.67.87,1.14,1.14.46.27.99.42,1.56.42h17.76c.57,0,1.1-.15,1.56-.42.47-.27.87-.67,1.14-1.14.27-.46.42-.99.42-1.56v-10.44h-8.88l-3.12,1.56,3.12,1.56h5.76v5.76c0,.19-.03.38-.1.55l-2.2-1.1-.58-.29-12.95-6.48,12.95-6.48.58-.29,2.2-1.1c.06.17.1.35.1.55v2.88Zm-5.05,13.32H4.68c-.86,0-1.56-.7-1.56-1.56v-4.79l12.71,6.35ZM3.12,9.47v-4.79c0-.86.7-1.56,1.56-1.56h11.14L3.12,9.47Z" />
+			</svg>
+		) : null;
 
-	const glowStyle = Platform.OS === "web" ? {
-		boxShadow: `0 0 ${blur}px ${glowColor}`,
-	} : {};
+	const glowStyle =
+		Platform.OS === "web"
+			? {
+					boxShadow: `0 0 ${blur}px ${glowColor}`,
+				}
+			: {};
 
 	const content = (
 		<Animated.View
@@ -129,19 +129,13 @@ export const GlowingLogo: React.FC<GlowingLogoProps> = ({
 			)}
 
 			{/* Logo */}
-			<View style={styles.logo}>
-				{LogoSvg}
-			</View>
+			<View style={styles.logo}>{LogoSvg}</View>
 		</Animated.View>
 	);
 
 	return (
 		<View style={[styles.container, viewProps.style]} {...viewProps}>
-			{onPress ? (
-				<Pressable onPress={onPress}>{content}</Pressable>
-			) : (
-				content
-			)}
+			{onPress ? <Pressable onPress={onPress}>{content}</Pressable> : content}
 		</View>
 	);
 };

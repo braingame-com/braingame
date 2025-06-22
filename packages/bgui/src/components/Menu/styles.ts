@@ -1,5 +1,5 @@
 import { BorderRadius, Shadows, Tokens } from "@braingame/utils";
-import { StyleSheet, TextStyle, type ViewStyle } from "react-native";
+import { StyleSheet, type ViewStyle } from "react-native";
 
 interface MenuStyles {
 	menu: ViewStyle;

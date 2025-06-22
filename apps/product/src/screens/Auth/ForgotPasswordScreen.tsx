@@ -52,7 +52,7 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 					onPress: () => navigation.navigate("Login"),
 				},
 			]);
-		} catch (error) {
+		} catch (_error) {
 			Alert.alert("Error", "Failed to send reset email. Please try again.");
 		} finally {
 			setLoading(false);

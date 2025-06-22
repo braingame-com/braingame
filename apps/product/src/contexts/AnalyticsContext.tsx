@@ -1,3 +1,4 @@
+import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
@@ -23,13 +24,14 @@ const STORAGE_KEYS = {
 	PRIVACY_LEVEL: "@braingame/analytics_privacy_level",
 };
 
-export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [isAnalyticsEnabled, setIsAnalyticsEnabled] = useState(true);
 	const [isPerformanceTrackingEnabled, setIsPerformanceTrackingEnabled] = useState(true);
 	const [isCrashReportingEnabled, setIsCrashReportingEnabled] = useState(true);
 	const [privacyLevel, setPrivacyLevelState] = useState<"minimal" | "balanced" | "full">(
 		"balanced",
 	);
+	const isMounted = useMountedState();
 
 	// Load preferences on mount
 	useEffect(() => {
@@ -41,6 +43,8 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 					AsyncStorage.getItem(STORAGE_KEYS.CRASH_REPORTING),
 					AsyncStorage.getItem(STORAGE_KEYS.PRIVACY_LEVEL),
 				]);
+
+				if (!isMounted()) return;
 
 				if (analyticsEnabled !== null) {
 					setIsAnalyticsEnabled(analyticsEnabled === "true");
@@ -60,7 +64,7 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 		};
 
 		loadPreferences();
-	}, []);
+	}, [isMounted]);
 
 	// Initialize analytics service
 	useEffect(() => {
@@ -74,7 +78,10 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
 	const toggleAnalytics = useCallback(async () => {
 		const newValue = !isAnalyticsEnabled;
-		setIsAnalyticsEnabled(newValue);
+
+		if (isMounted()) {
+			setIsAnalyticsEnabled(newValue);
+		}
 
 		try {
 			await AsyncStorage.setItem(STORAGE_KEYS.ANALYTICS_ENABLED, newValue.toString());
@@ -85,14 +92,14 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 			});
 
 			// If disabling, also disable sub-features
-			if (!newValue) {
+			if (!newValue && isMounted()) {
 				setIsPerformanceTrackingEnabled(false);
 				await AsyncStorage.setItem(STORAGE_KEYS.PERFORMANCE_TRACKING, "false");
 			}
 		} catch (error) {
 			console.error("Failed to save analytics preference:", error);
 		}
-	}, [isAnalyticsEnabled]);
+	}, [isAnalyticsEnabled, isMounted]);
 
 	const togglePerformanceTracking = useCallback(async () => {
 		const newValue = !isPerformanceTrackingEnabled;
@@ -167,6 +174,14 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 	};
 
 	return <AnalyticsContext.Provider value={value}>{children}</AnalyticsContext.Provider>;
+};
+
+export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	return (
+		<ContextErrorBoundary contextName="Analytics">
+			<AnalyticsProviderInner>{children}</AnalyticsProviderInner>
+		</ContextErrorBoundary>
+	);
 };
 
 export const useAnalyticsSettings = () => {

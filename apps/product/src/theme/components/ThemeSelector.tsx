@@ -134,9 +134,9 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 									>
 										<ThemedCard elevation="low" padding="medium" style={styles.colorCard}>
 											<View style={styles.colorPreview}>
-												{item.colors.map((color, index) => (
+												{item.colors.map((color, colorIndex) => (
 													<View
-														key={index}
+														key={`${item.scheme}-color-${colorIndex}`}
 														style={[styles.colorSwatch, { backgroundColor: color }]}
 													/>
 												))}
@@ -169,7 +169,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 
 // Mini theme toggle for navigation bars
 export const ThemeToggle: React.FC = () => {
-	const { theme, toggleTheme, themeMode } = useTheme();
+	const { toggleTheme, themeMode } = useTheme();
 	const rotationValue = useSharedValue(0);
 
 	const handleToggle = () => {

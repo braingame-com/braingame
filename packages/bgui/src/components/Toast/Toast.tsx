@@ -1,6 +1,6 @@
+import { useThemeColor } from "@braingame/utils";
 import { useEffect, useState } from "react";
 import { AccessibilityInfo, Pressable } from "react-native";
-import { useThemeColor } from "@braingame/utils";
 import { Text } from "../Text";
 import { View as BView } from "../View";
 import { DEFAULT_DURATION, styles, typeColorMap } from "./styles";
