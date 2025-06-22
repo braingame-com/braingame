@@ -5,7 +5,7 @@ export class MockAnalyticsProvider implements AnalyticsProvider {
 	private logs: any[] = [];
 
 	async init(apiKey: string) {
-		console.log("[MockAnalytics] Initialized with key:", apiKey.substring(0, 8) + "...");
+		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
 	}
 
 	async identify(userId: string, properties?: UserProperties) {

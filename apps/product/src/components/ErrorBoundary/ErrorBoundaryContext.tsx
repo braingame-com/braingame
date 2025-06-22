@@ -3,7 +3,7 @@
  * Provides global error handling configuration and utilities
  */
 
-import React, { createContext, type ReactNode, useCallback, useContext, useState } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useState } from "react";
 import { captureException } from "../../services/ErrorService";
 import { announceForAccessibility } from "../../utils/accessibility";
 

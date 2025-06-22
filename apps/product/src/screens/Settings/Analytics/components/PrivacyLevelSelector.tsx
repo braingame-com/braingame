@@ -1,4 +1,3 @@
-import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useAnalyticsSettings } from "../../../../contexts/AnalyticsContext";
 import { useButtonTracking } from "../../../../hooks/useAnalytics";
@@ -73,9 +72,9 @@ export const PrivacyLevelSelector = withMemo(() => {
 					</AccessibleThemedText>
 
 					<View style={{ marginLeft: theme.sizes.spacingMD }}>
-						{option.features.map((feature, index) => (
+						{option.features.map((feature) => (
 							<AccessibleThemedText
-								key={index}
+								key={feature}
 								variant="secondary"
 								size="xs"
 								style={{ marginBottom: 2 }}

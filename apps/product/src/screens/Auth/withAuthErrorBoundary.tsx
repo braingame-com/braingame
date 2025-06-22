@@ -128,7 +128,7 @@ export function withAuthErrorBoundary<P extends object>(
 				screenName={screenName}
 			/>
 		),
-		onError: (error: Error, errorInfo: React.ErrorInfo) => {
+		onError: (error: Error, _errorInfo: React.ErrorInfo) => {
 			// Special handling for auth errors
 			if (error.message.includes("network")) {
 				Alert.alert("Network Error", "Please check your internet connection and try again.");

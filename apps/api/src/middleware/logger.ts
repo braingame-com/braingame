@@ -19,25 +19,25 @@ class Logger {
 		return logLevels[level] <= logLevels[this.level];
 	}
 
-	error(message: string, ...args: any[]) {
+	error(message: string, ...args: unknown[]) {
 		if (this.shouldLog("error")) {
 			console.error(`[ERROR] ${new Date().toISOString()} ${message}`, ...args);
 		}
 	}
 
-	warn(message: string, ...args: any[]) {
+	warn(message: string, ...args: unknown[]) {
 		if (this.shouldLog("warn")) {
 			console.warn(`[WARN] ${new Date().toISOString()} ${message}`, ...args);
 		}
 	}
 
-	info(message: string, ...args: any[]) {
+	info(message: string, ...args: unknown[]) {
 		if (this.shouldLog("info")) {
 			console.info(`[INFO] ${new Date().toISOString()} ${message}`, ...args);
 		}
 	}
 
-	debug(message: string, ...args: any[]) {
+	debug(message: string, ...args: unknown[]) {
 		if (this.shouldLog("debug")) {
 			console.debug(`[DEBUG] ${new Date().toISOString()} ${message}`, ...args);
 		}
