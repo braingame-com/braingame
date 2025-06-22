@@ -24,6 +24,10 @@
 		},
 		"clean": {
 			"cache": false
+		},
+		"validate:env": {
+			"cache": false,
+			"outputs": []
 		}
 	}
 }

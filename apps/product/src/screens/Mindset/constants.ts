@@ -3,6 +3,8 @@
  * Ported from dev-dil React app
  */
 
+import { FIREBASE_CONFIG } from "../../config/env";
+
 /**
  * 5 Core Life Areas for Vision & Goals System
  * Exact content from dev-dil/src/sections/Vision.tsx
@@ -41,10 +43,9 @@ export const PERFORMANCE_TEXT_INPUTS = [
 
 /**
  * Firebase Cloud Function endpoint
- * Keep same as dev-dil for now
+ * Configured via environment variables
  */
-export const FIREBASE_FUNCTION_URL =
-	"https://us-central1-dev-dil.cloudfunctions.net/sendFormDataToGoogleSheets";
+export const FIREBASE_FUNCTION_URL = FIREBASE_CONFIG.functionUrl;
 
 /**
  * Mindset section configuration

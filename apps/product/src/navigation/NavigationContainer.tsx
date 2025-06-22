@@ -7,6 +7,7 @@ import { NavigationContainer as RNNavigationContainer } from "@react-navigation/
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type React from "react";
 import { ActivityIndicator, View } from "react-native";
+import { ErrorBoundary } from "../components/ErrorBoundary/ErrorBoundary";
 import { VideoPlayerScreen } from "../screens/Videos/VideoPlayerScreen";
 import { useAuth } from "./AuthContext";
 import { AuthNavigator } from "./AuthNavigator";
@@ -28,36 +29,52 @@ export const NavigationContainer: React.FC = () => {
 	}
 
 	return (
-		<RNNavigationContainer linking={linking}>
-			<RootStack.Navigator
-				screenOptions={{
-					headerShown: false,
-				}}
-			>
-				{isAuthenticated ? (
-					<>
-						<RootStack.Screen name="Main" component={TabNavigator} />
-						<RootStack.Screen
-							name="VideoPlayer"
-							component={VideoPlayerScreen}
-							options={{
-								presentation: "modal",
-								headerShown: true,
-								headerTitle: "Video Player",
-								headerTintColor: "#007fff",
-							}}
-						/>
-					</>
-				) : (
-					<RootStack.Screen
-						name="Auth"
-						component={AuthNavigator}
-						options={{
-							animationTypeForReplace: "pop",
+		<ErrorBoundary
+			level="screen"
+			onError={(error, errorInfo) => {
+				// Navigation container error - critical for app functionality
+				console.error("Navigation container error:", error, errorInfo);
+			}}
+		>
+			<RNNavigationContainer linking={linking}>
+				<ErrorBoundary
+					level="component"
+					onError={(error, errorInfo) => {
+						// Stack navigator error - isolate to prevent app-wide crash
+						console.error("Stack navigator error:", error, errorInfo);
+					}}
+				>
+					<RootStack.Navigator
+						screenOptions={{
+							headerShown: false,
 						}}
-					/>
-				)}
-			</RootStack.Navigator>
-		</RNNavigationContainer>
+					>
+						{isAuthenticated ? (
+							<>
+								<RootStack.Screen name="Main" component={TabNavigator} />
+								<RootStack.Screen
+									name="VideoPlayer"
+									component={VideoPlayerScreen}
+									options={{
+										presentation: "modal",
+										headerShown: true,
+										headerTitle: "Video Player",
+										headerTintColor: "#007fff",
+									}}
+								/>
+							</>
+						) : (
+							<RootStack.Screen
+								name="Auth"
+								component={AuthNavigator}
+								options={{
+									animationTypeForReplace: "pop",
+								}}
+							/>
+						)}
+					</RootStack.Navigator>
+				</ErrorBoundary>
+			</RNNavigationContainer>
+		</ErrorBoundary>
 	);
 };

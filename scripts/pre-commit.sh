@@ -7,13 +7,22 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# Disable colors if running in GitHub Desktop (no TTY)
+if [ ! -t 1 ]; then
+  RED=''
+  GREEN=''
+  YELLOW=''
+  BLUE=''
+  NC=''
+fi
+
 # Function to print colored output
 print_status() {
-    echo -e "${BLUE}[PRE-COMMIT]${NC} $1"
+    echo -e "${BLUE}$1${NC}"
 }
 
 print_success() {
-    echo -e "${GREEN}✓${NC} $1"
+    echo -e "${GREEN}✅${NC} $1"
 }
 
 print_warning() {
@@ -21,7 +30,7 @@ print_warning() {
 }
 
 print_error() {
-    echo -e "${RED}✗${NC} $1"
+    echo -e "${RED}❌${NC} $1"
 }
 
 # Track overall success

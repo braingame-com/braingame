@@ -1,6 +1,8 @@
 import type React from "react";
+import type { PressableProps, ViewStyle } from "react-native";
 
-export interface LinkProps {
+export interface LinkProps
+	extends Omit<PressableProps, "children" | "onPress" | "disabled" | "style"> {
 	children: React.ReactNode;
 	href?: string;
 	onPress?: () => void;
@@ -8,5 +10,5 @@ export interface LinkProps {
 	disabled?: boolean;
 	variant?: "inline" | "standalone";
 	"aria-label"?: string;
-	style?: any;
+	style?: ViewStyle;
 }

@@ -1,10 +1,7 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
 # dependencies
 node_modules/
 
 # Expo
-apps/**/.expo/
 **/.expo/
 .expo/
 dist/
@@ -43,3 +40,11 @@ yarn-error.*
 # Next.js
 .next/
 **/.next/
+
+# Temporary files
+*.log
+
+# Claude configuration
+.claude/
+**/dist/
+**/*.tmp

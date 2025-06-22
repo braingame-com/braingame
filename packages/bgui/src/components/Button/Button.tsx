@@ -14,7 +14,7 @@ import type { ButtonProps } from "./types";
  * @example
  * ```tsx
  * // Basic button
- * <Button onPress={() => console.log('Pressed!')}>Click me</Button>
+ * <Button onPress={() => alert('Pressed!')}>Click me</Button>
  *
  * // Button with icon
  * <Button icon="settings" onPress={handleSettings}>Settings</Button>

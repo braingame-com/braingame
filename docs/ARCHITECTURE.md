@@ -55,6 +55,29 @@ To ensure a scalable, maintainable, and predictable application, we enforce a st
 
 **Key Principle:** The Redux store **must never** contain raw server-side data. It should only hold client-side state, such as UI settings, session information, or identifiers that `TanStack Query` can use to fetch the actual data. All data fetched from Firebase must be managed by TanStack Query.
 
+**Offline expectations:** TanStack Query persistence keeps recent API data available when the device is offline. Queries and mutations are retried automatically when connectivity is restored. Components should render cached data first and gracefully degrade if no cache is available.
+
+### Offline Implementation Details
+
+1. **Query Persistence**: The `QueryClientProviderWithPersist` component in `apps/product/src/contexts/QueryClientProvider.tsx` configures AsyncStorage-based persistence with a 24-hour cache time.
+
+2. **Network-Aware Queries**: Use the `usePersistedQuery` hook from `apps/product/src/hooks/usePersistedQuery.ts` for network-aware data fetching. This hook:
+   - Disables queries when offline
+   - Automatically retries when connection is restored
+   - Provides exponential backoff for failed requests
+
+3. **Offline UI**: The `NetworkErrorBoundary` component provides:
+   - Automatic network status detection
+   - User-friendly offline UI with retry capabilities
+   - Hooks into TanStack Query for automatic refetching
+   - Accessibility announcements for connection state changes
+
+4. **Best Practices**:
+   - Always use `usePersistedQuery` instead of raw `useQuery` for Firebase data
+   - Wrap screens that need network data with `NetworkErrorBoundary`
+   - Design UI to gracefully handle stale data scenarios
+   - Test offline behavior using device airplane mode
+
 ---
 
 ## 4. Folder layout (authoritative)
@@ -136,14 +159,14 @@ Key files for task tracking and AI agent coordination:
 | File | Purpose | Update Frequency |
 |------|---------|------------------|
 | **TODO.md** | Central task tracker with priorities | Daily/per session |
-| **AI_CONTEXT.md** | AI agent context & session summaries | After each session |
+| **LESSONS.md** | Technical learnings & patterns | As discovered |
 | **CLAUDE.md** | Project-specific AI instructions | As needed |
 | **AGENTS.md** | AI agent roles and guidelines | When adding agents |
 
 All AI agents **MUST**:
 1. Read `TODO.md` before starting work
 2. Update task status when beginning/completing tasks
-3. Add session summary to `AI_CONTEXT.md` after work
+3. Significant learnings should be added to `LESSONS.md`
 4. Follow conventions in `CLAUDE.md` and this document
 
 ---
@@ -158,8 +181,11 @@ All AI agents **MUST**:
 
 ## 10. Extension points
 
-- **Add platform**: create `apps/desktop` (Electron/Tauri) – same folder contract.  
-- **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.  
+- **Add platform**: create `apps/desktop` (Electron/Tauri).
+  - Mirror `apps/product` structure (`src/`, `public/`, config files).
+  - Package with Tauri CLI to produce signed `.dmg`/`.exe` installers.
+  - Publish installers via GitHub Releases with auto‑update enabled.
+- **Extract UI kit**: move `packages/bgui` to its own repo; replace workspace dep with npm.
 - **Feature flags**: insert LaunchDarkly wrapper in `packages/utils`.
 
 ---

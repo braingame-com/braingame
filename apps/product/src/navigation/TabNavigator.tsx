@@ -4,36 +4,43 @@
  * Optimized with lazy loading and performance enhancements
  */
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { type BottomTabBarProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type React from "react";
 import { useMemo } from "react";
+import { ErrorBoundary } from "../components/ErrorBoundary/ErrorBoundary";
 import { TabBar } from "../components/TabBar";
 import { lazyScreen } from "../utils/lazyLoad";
 import { withMemo } from "../utils/performance";
 import type {
 	AnalyticsStackParamList,
+	AnalyticsStackScreenProps,
 	DashboardStackParamList,
+	DashboardStackScreenProps,
 	MainTabParamList,
 	SettingsStackParamList,
+	SettingsStackScreenProps,
 	VideosStackParamList,
+	VideosStackScreenProps,
 } from "./types";
 
 // Lazy load all screens for better initial performance
-const DashboardScreen = lazyScreen(() =>
+const DashboardScreen = lazyScreen<DashboardStackScreenProps<"DashboardHome">>(() =>
 	import("../screens/Dashboard/DashboardScreen").then((m) => ({ default: m.DashboardScreen })),
 );
-const TaskDetailsScreen = lazyScreen(() =>
+const TaskDetailsScreen = lazyScreen<DashboardStackScreenProps<"TaskDetails">>(() =>
 	import("../screens/Dashboard/TaskDetailsScreen").then((m) => ({ default: m.TaskDetailsScreen })),
 );
-const VideosScreen = lazyScreen(() =>
+const VideosScreen = lazyScreen<VideosStackScreenProps<"VideosList">>(() =>
 	import("../screens/Videos/VideosScreen").then((m) => ({ default: m.VideosScreen })),
 );
-const AnalyticsScreen = lazyScreen(() =>
+const AnalyticsScreen = lazyScreen<AnalyticsStackScreenProps<"AnalyticsOverview">>(() =>
 	import("../screens/Analytics/AnalyticsScreen").then((m) => ({ default: m.AnalyticsScreen })),
 );
-const SettingsScreen = lazyScreen(() =>
-	import("../screens/Settings/SettingsScreen").then((m) => ({ default: m.SettingsScreen })),
+const SettingsScreen = lazyScreen<SettingsStackScreenProps<"SettingsHome">>(() =>
+	import("../screens/Settings/ThemedSettingsScreen").then((m) => ({
+		default: m.ThemedSettingsScreen,
+	})),
 );
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -45,26 +52,33 @@ const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 // Dashboard Stack Navigator - Memoized
 const DashboardNavigator = withMemo(
 	() => (
-		<DashboardStack.Navigator
-			screenOptions={{
-				animation: "slide_from_right",
-				animationDuration: 200,
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Dashboard navigator error:", error);
 			}}
 		>
-			<DashboardStack.Screen
-				name="DashboardHome"
-				component={DashboardScreen}
-				options={{ headerShown: false }}
-			/>
-			<DashboardStack.Screen
-				name="TaskDetails"
-				component={TaskDetailsScreen}
-				options={{
-					headerTitle: "Task Details",
-					headerTintColor: "#007fff",
+			<DashboardStack.Navigator
+				screenOptions={{
+					animation: "slide_from_right",
+					animationDuration: 200,
 				}}
-			/>
-		</DashboardStack.Navigator>
+			>
+				<DashboardStack.Screen
+					name="DashboardHome"
+					component={DashboardScreen}
+					options={{ headerShown: false }}
+				/>
+				<DashboardStack.Screen
+					name="TaskDetails"
+					component={TaskDetailsScreen}
+					options={{
+						headerTitle: "Task Details",
+						headerTintColor: "#007fff",
+					}}
+				/>
+			</DashboardStack.Navigator>
+		</ErrorBoundary>
 	),
 	"DashboardNavigator",
 );
@@ -72,18 +86,25 @@ const DashboardNavigator = withMemo(
 // Videos Stack Navigator - Memoized
 const VideosNavigator = withMemo(
 	() => (
-		<VideosStack.Navigator
-			screenOptions={{
-				animation: "slide_from_right",
-				animationDuration: 200,
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Videos navigator error:", error);
 			}}
 		>
-			<VideosStack.Screen
-				name="VideosList"
-				component={VideosScreen}
-				options={{ headerShown: false }}
-			/>
-		</VideosStack.Navigator>
+			<VideosStack.Navigator
+				screenOptions={{
+					animation: "slide_from_right",
+					animationDuration: 200,
+				}}
+			>
+				<VideosStack.Screen
+					name="VideosList"
+					component={VideosScreen}
+					options={{ headerShown: false }}
+				/>
+			</VideosStack.Navigator>
+		</ErrorBoundary>
 	),
 	"VideosNavigator",
 );
@@ -91,18 +112,25 @@ const VideosNavigator = withMemo(
 // Analytics Stack Navigator - Memoized
 const AnalyticsNavigator = withMemo(
 	() => (
-		<AnalyticsStack.Navigator
-			screenOptions={{
-				animation: "slide_from_right",
-				animationDuration: 200,
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Analytics navigator error:", error);
 			}}
 		>
-			<AnalyticsStack.Screen
-				name="AnalyticsHome"
-				component={AnalyticsScreen}
-				options={{ headerShown: false }}
-			/>
-		</AnalyticsStack.Navigator>
+			<AnalyticsStack.Navigator
+				screenOptions={{
+					animation: "slide_from_right",
+					animationDuration: 200,
+				}}
+			>
+				<AnalyticsStack.Screen
+					name="AnalyticsOverview"
+					component={AnalyticsScreen}
+					options={{ headerShown: false }}
+				/>
+			</AnalyticsStack.Navigator>
+		</ErrorBoundary>
 	),
 	"AnalyticsNavigator",
 );
@@ -110,18 +138,25 @@ const AnalyticsNavigator = withMemo(
 // Settings Stack Navigator - Memoized
 const SettingsNavigator = withMemo(
 	() => (
-		<SettingsStack.Navigator
-			screenOptions={{
-				animation: "slide_from_right",
-				animationDuration: 200,
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Settings navigator error:", error);
 			}}
 		>
-			<SettingsStack.Screen
-				name="SettingsHome"
-				component={SettingsScreen}
-				options={{ headerShown: false }}
-			/>
-		</SettingsStack.Navigator>
+			<SettingsStack.Navigator
+				screenOptions={{
+					animation: "slide_from_right",
+					animationDuration: 200,
+				}}
+			>
+				<SettingsStack.Screen
+					name="SettingsHome"
+					component={SettingsScreen}
+					options={{ headerShown: false }}
+				/>
+			</SettingsStack.Navigator>
+		</ErrorBoundary>
 	),
 	"SettingsNavigator",
 );
@@ -139,38 +174,45 @@ export const TabNavigator: React.FC = () => {
 	);
 
 	// Memoize tab bar component
-	const renderTabBar = useMemo(() => (props: any) => <TabBar {...props} />, []);
+	const renderTabBar = useMemo(() => (props: BottomTabBarProps) => <TabBar {...props} />, []);
 
 	return (
-		<Tab.Navigator tabBar={renderTabBar} screenOptions={screenOptions} backBehavior="history">
-			<Tab.Screen
-				name="Dashboard"
-				component={DashboardNavigator}
-				options={{
-					tabBarLabel: "Dashboard",
-				}}
-			/>
-			<Tab.Screen
-				name="Videos"
-				component={VideosNavigator}
-				options={{
-					tabBarLabel: "Videos",
-				}}
-			/>
-			<Tab.Screen
-				name="Analytics"
-				component={AnalyticsNavigator}
-				options={{
-					tabBarLabel: "Analytics",
-				}}
-			/>
-			<Tab.Screen
-				name="Settings"
-				component={SettingsNavigator}
-				options={{
-					tabBarLabel: "Settings",
-				}}
-			/>
-		</Tab.Navigator>
+		<ErrorBoundary
+			level="screen"
+			onError={(error) => {
+				console.error("Tab navigator error:", error);
+			}}
+		>
+			<Tab.Navigator tabBar={renderTabBar} screenOptions={screenOptions} backBehavior="history">
+				<Tab.Screen
+					name="Dashboard"
+					component={DashboardNavigator}
+					options={{
+						tabBarLabel: "Dashboard",
+					}}
+				/>
+				<Tab.Screen
+					name="Videos"
+					component={VideosNavigator}
+					options={{
+						tabBarLabel: "Videos",
+					}}
+				/>
+				<Tab.Screen
+					name="Analytics"
+					component={AnalyticsNavigator}
+					options={{
+						tabBarLabel: "Analytics",
+					}}
+				/>
+				<Tab.Screen
+					name="Settings"
+					component={SettingsNavigator}
+					options={{
+						tabBarLabel: "Settings",
+					}}
+				/>
+			</Tab.Navigator>
+		</ErrorBoundary>
 	);
 };

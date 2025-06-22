@@ -1,8 +1,8 @@
+import { useThemeColor } from "@braingame/utils";
 import { type ComponentRef, forwardRef, memo, useCallback, useMemo } from "react";
 import { Pressable } from "react-native";
-import { useThemeColor } from "../../../../utils/hooks/useThemeColor";
-import { Icon } from "../../../Icon";
-import { Text } from "../../../Text";
+import { Icon } from "../Icon";
+import { Text } from "../Text";
 import type { ActionListItemProps } from "./types";
 
 const ActionListItemComponent = forwardRef<ComponentRef<typeof Pressable>, ActionListItemProps>(

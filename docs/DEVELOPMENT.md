@@ -44,6 +44,10 @@ Follow these steps exactly to ensure a clean setup.
     cp apps/website/.env.example apps/website/.env.local
     ```
   - [ ] Open each `.env.local` file and fill in the required secrets. Ask a team member for these values if you don't have them.
+  - [ ] Validate your configuration:
+    ```bash
+    pnpm validate:env
+    ```
 
 - [ ] **4. Verify Your Setup:**
   - [ ] Run the build and test scripts to ensure everything is working correctly.
@@ -67,6 +71,7 @@ These are the commands you will use most often. They are run from the monorepo r
 | `pnpm test:watch` | Runs tests in watch mode for TDD. |
 | `pnpm build` | Builds all packages and apps for production. |
 | `pnpm clean` | Deletes all build artifacts and caches (`dist`, `.next`, etc.). |
+| `pnpm validate:env` | Validates environment variables for all apps. |
 | `pnpm storybook` | Starts Storybook for BGUI component development. |
 
 ---
@@ -118,7 +123,7 @@ This repo is heavily documented. Before asking a question, check these files:
 | `docs/BGUI_COMPONENT_PLAN.md` | **UI Components:** The plan and API for our component library. |
 | `docs/CODING_STYLE.md` | **Code Quality:** Specific rules for writing clean, maintainable code. |
 | `docs/BRAND.md` | **Brand Identity:** How to use our name, voice, and tone. |
-| `docs/AI_CONTEXT.md` | **AI Collaboration:** The tactical dashboard for AI agents. |
+| `docs/LESSONS.md` | **Knowledge Base:** Technical learnings and patterns from development. |
 | `TODO.md` | **Task Tracker:** The list of current and upcoming work. |
 
 ---
@@ -283,7 +288,7 @@ npx expo start -c
 When using AI assistants (like Claude):
 1. Point them to `CLAUDE.md` for project-specific instructions
 2. Check `TODO.md` for current priorities
-3. Review `AI_CONTEXT.md` for project state
+3. Review `LESSONS.md` for technical patterns and solutions
 
 ## Getting Help
 

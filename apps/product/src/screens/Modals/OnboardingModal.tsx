@@ -8,7 +8,6 @@ import Animated, {
 	interpolate,
 	useAnimatedStyle,
 	useSharedValue,
-	withSpring,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -16,26 +15,60 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const onboardingSteps = [
 	{
+		id: "train",
 		icon: "🧠",
 		title: "Train Your Mind",
 		description: "Daily exercises designed by neuroscientists to improve focus and mental clarity",
 	},
 	{
+		id: "track",
 		icon: "📊",
 		title: "Track Progress",
 		description: "Visualize your improvement with detailed analytics and insights",
 	},
 	{
+		id: "achieve",
 		icon: "🎯",
 		title: "Achieve Goals",
 		description: "Set personal targets and build lasting habits with our guided programs",
 	},
 	{
+		id: "community",
 		icon: "🏆",
 		title: "Join Community",
 		description: "Connect with thousands of people on the same journey to peak performance",
 	},
 ];
+
+interface OnboardingStepProps {
+	step: (typeof onboardingSteps)[0];
+	index: number;
+	scrollX: Animated.SharedValue<number>;
+}
+
+const OnboardingStep: React.FC<OnboardingStepProps> = ({ step, index, scrollX }) => {
+	const inputRange = [(index - 1) * SCREEN_WIDTH, index * SCREEN_WIDTH, (index + 1) * SCREEN_WIDTH];
+
+	const animatedStyle = useAnimatedStyle(() => {
+		const scale = interpolate(scrollX.value, inputRange, [0.8, 1, 0.8], Extrapolate.CLAMP);
+		const opacity = interpolate(scrollX.value, inputRange, [0.5, 1, 0.5], Extrapolate.CLAMP);
+
+		return {
+			transform: [{ scale }],
+			opacity,
+		};
+	});
+
+	return (
+		<View style={styles.stepContainer}>
+			<Animated.View style={[styles.stepContent, animatedStyle]}>
+				<Text style={styles.stepIcon}>{step.icon}</Text>
+				<Text style={styles.stepTitle}>{step.title}</Text>
+				<Text style={styles.stepDescription}>{step.description}</Text>
+			</Animated.View>
+		</View>
+	);
+};
 
 export const OnboardingModal: React.FC = () => {
 	const navigation = useNavigation();
@@ -63,32 +96,7 @@ export const OnboardingModal: React.FC = () => {
 	};
 
 	const renderStep = (step: (typeof onboardingSteps)[0], index: number) => {
-		const inputRange = [
-			(index - 1) * SCREEN_WIDTH,
-			index * SCREEN_WIDTH,
-			(index + 1) * SCREEN_WIDTH,
-		];
-
-		const animatedStyle = useAnimatedStyle(() => {
-			const scale = interpolate(scrollX.value, inputRange, [0.8, 1, 0.8], Extrapolate.CLAMP);
-
-			const opacity = interpolate(scrollX.value, inputRange, [0.5, 1, 0.5], Extrapolate.CLAMP);
-
-			return {
-				transform: [{ scale }],
-				opacity,
-			};
-		});
-
-		return (
-			<View key={index} style={styles.stepContainer}>
-				<Animated.View style={[styles.stepContent, animatedStyle]}>
-					<Text style={styles.stepIcon}>{step.icon}</Text>
-					<Text style={styles.stepTitle}>{step.title}</Text>
-					<Text style={styles.stepDescription}>{step.description}</Text>
-				</Animated.View>
-			</View>
-		);
+		return <OnboardingStep key={step.id} step={step} index={index} scrollX={scrollX} />;
 	};
 
 	return (
@@ -118,9 +126,9 @@ export const OnboardingModal: React.FC = () => {
 
 			{/* Pagination */}
 			<View style={styles.pagination}>
-				{onboardingSteps.map((_, index) => (
+				{onboardingSteps.map((step, index) => (
 					<View
-						key={index}
+						key={step.id}
 						style={[styles.paginationDot, currentStep === index && styles.paginationDotActive]}
 					/>
 				))}

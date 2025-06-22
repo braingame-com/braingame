@@ -52,7 +52,7 @@ export const LoginScreen: React.FC<Props> = () => {
 		try {
 			await login(email, password);
 			// Navigation happens automatically via auth state
-		} catch (error) {
+		} catch (_error) {
 			Alert.alert("Login Failed", "Invalid email or password. Please try again.");
 		} finally {
 			setLoading(false);

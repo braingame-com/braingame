@@ -1,3 +1,5 @@
+import type { ViewStyle } from "react-native";
+
 export type AlertType = "info" | "success" | "warning" | "error";
 export type AlertVariant = "banner" | "inline" | "floating";
 
@@ -16,5 +18,5 @@ export interface AlertProps {
 	onDismiss?: () => void;
 	/** Visual presentation variant */
 	variant?: AlertVariant;
-	style?: any;
+	style?: ViewStyle;
 }
