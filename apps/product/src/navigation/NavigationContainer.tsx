@@ -29,15 +29,21 @@ export const NavigationContainer: React.FC = () => {
 	}
 
 	return (
-		<ErrorBoundary level="screen" onError={(error, errorInfo) => {
-			// Navigation container error - critical for app functionality
-			console.error('Navigation container error:', error, errorInfo);
-		}}>
+		<ErrorBoundary
+			level="screen"
+			onError={(error, errorInfo) => {
+				// Navigation container error - critical for app functionality
+				console.error("Navigation container error:", error, errorInfo);
+			}}
+		>
 			<RNNavigationContainer linking={linking}>
-				<ErrorBoundary level="component" onError={(error, errorInfo) => {
-					// Stack navigator error - isolate to prevent app-wide crash
-					console.error('Stack navigator error:', error, errorInfo);
-				}}>
+				<ErrorBoundary
+					level="component"
+					onError={(error, errorInfo) => {
+						// Stack navigator error - isolate to prevent app-wide crash
+						console.error("Stack navigator error:", error, errorInfo);
+					}}
+				>
 					<RootStack.Navigator
 						screenOptions={{
 							headerShown: false,

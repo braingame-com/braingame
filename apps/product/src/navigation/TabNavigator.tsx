@@ -52,9 +52,12 @@ const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 // Dashboard Stack Navigator - Memoized
 const DashboardNavigator = withMemo(
 	() => (
-		<ErrorBoundary level="component" onError={(error) => {
-			console.error('Dashboard navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Dashboard navigator error:", error);
+			}}
+		>
 			<DashboardStack.Navigator
 				screenOptions={{
 					animation: "slide_from_right",
@@ -83,9 +86,12 @@ const DashboardNavigator = withMemo(
 // Videos Stack Navigator - Memoized
 const VideosNavigator = withMemo(
 	() => (
-		<ErrorBoundary level="component" onError={(error) => {
-			console.error('Videos navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Videos navigator error:", error);
+			}}
+		>
 			<VideosStack.Navigator
 				screenOptions={{
 					animation: "slide_from_right",
@@ -106,9 +112,12 @@ const VideosNavigator = withMemo(
 // Analytics Stack Navigator - Memoized
 const AnalyticsNavigator = withMemo(
 	() => (
-		<ErrorBoundary level="component" onError={(error) => {
-			console.error('Analytics navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Analytics navigator error:", error);
+			}}
+		>
 			<AnalyticsStack.Navigator
 				screenOptions={{
 					animation: "slide_from_right",
@@ -129,9 +138,12 @@ const AnalyticsNavigator = withMemo(
 // Settings Stack Navigator - Memoized
 const SettingsNavigator = withMemo(
 	() => (
-		<ErrorBoundary level="component" onError={(error) => {
-			console.error('Settings navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="component"
+			onError={(error) => {
+				console.error("Settings navigator error:", error);
+			}}
+		>
 			<SettingsStack.Navigator
 				screenOptions={{
 					animation: "slide_from_right",
@@ -165,9 +177,12 @@ export const TabNavigator: React.FC = () => {
 	const renderTabBar = useMemo(() => (props: BottomTabBarProps) => <TabBar {...props} />, []);
 
 	return (
-		<ErrorBoundary level="screen" onError={(error) => {
-			console.error('Tab navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="screen"
+			onError={(error) => {
+				console.error("Tab navigator error:", error);
+			}}
+		>
 			<Tab.Navigator tabBar={renderTabBar} screenOptions={screenOptions} backBehavior="history">
 				<Tab.Screen
 					name="Dashboard"

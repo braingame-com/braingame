@@ -17,9 +17,12 @@ const Stack = createNativeStackNavigator<ModalStackParamList>();
 
 export const ModalNavigator: React.FC = () => {
 	return (
-		<ErrorBoundary level="screen" onError={(error) => {
-			console.error('Modal navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="screen"
+			onError={(error) => {
+				console.error("Modal navigator error:", error);
+			}}
+		>
 			<Stack.Navigator
 				screenOptions={{
 					presentation: "modal",

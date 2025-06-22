@@ -16,9 +16,12 @@ const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator: React.FC = () => {
 	return (
-		<ErrorBoundary level="screen" onError={(error) => {
-			console.error('Auth navigator error:', error);
-		}}>
+		<ErrorBoundary
+			level="screen"
+			onError={(error) => {
+				console.error("Auth navigator error:", error);
+			}}
+		>
 			<AuthStack.Navigator
 				screenOptions={{
 					headerShown: true,
@@ -30,7 +33,11 @@ export const AuthNavigator: React.FC = () => {
 					},
 				}}
 			>
-				<AuthStack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+				<AuthStack.Screen
+					name="Welcome"
+					component={WelcomeScreen}
+					options={{ headerShown: false }}
+				/>
 				<AuthStack.Screen
 					name="Login"
 					component={LoginScreen}

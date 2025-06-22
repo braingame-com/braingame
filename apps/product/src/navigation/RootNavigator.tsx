@@ -21,10 +21,13 @@ const RootStack: React.FC = () => {
 	}
 
 	return (
-		<ErrorBoundary level="app" onError={(error, errorInfo) => {
-			// Critical navigation error - log with high priority
-			console.error('Critical navigation error:', error, errorInfo);
-		}}>
+		<ErrorBoundary
+			level="app"
+			onError={(error, errorInfo) => {
+				// Critical navigation error - log with high priority
+				console.error("Critical navigation error:", error, errorInfo);
+			}}
+		>
 			<Stack.Navigator screenOptions={{ headerShown: false }}>
 				{isAuthenticated ? (
 					<Stack.Screen name="Main" component={DrawerNavigator} />
@@ -44,10 +47,13 @@ export const RootNavigator: React.FC = () => {
 	}, []);
 
 	return (
-		<ErrorBoundary level="app" onError={(error, errorInfo) => {
-			// Critical app-level error - log with maximum priority
-			console.error('Critical app error:', error, errorInfo);
-		}}>
+		<ErrorBoundary
+			level="app"
+			onError={(error, errorInfo) => {
+				// Critical app-level error - log with maximum priority
+				console.error("Critical app error:", error, errorInfo);
+			}}
+		>
 			<ThemeProvider>
 				<AuthProvider>
 					<NavigationContainer
