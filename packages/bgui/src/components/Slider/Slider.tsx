@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { PanResponder, View } from "react-native";
+import { DEFAULT_SLIDER_MAX } from "../../constants";
 import { styles } from "./styles";
 import type { SliderProps } from "./types";
 
@@ -7,7 +8,7 @@ export const Slider = ({
 	value,
 	onValueChange,
 	min = 0,
-	max = 100,
+	max = DEFAULT_SLIDER_MAX,
 	step = 1,
 	disabled = false,
 	"aria-label": ariaLabel,

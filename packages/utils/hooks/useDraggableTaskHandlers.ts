@@ -5,6 +5,11 @@ import type {
 	PanGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
 import { runOnJS, useSharedValue, withSpring } from "react-native-reanimated";
+import {
+	DRAG_POSITION_DIVISOR,
+	GESTURE_STATE_ACTIVE,
+	GESTURE_STATE_END,
+} from "../constants/GestureConstants";
 
 export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 	const [taskOrder, setTaskOrder] = useState(initialTasks);
@@ -36,7 +41,7 @@ export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 
 			// Dynamically calculate the target index
 			const newIndex = Math.min(
-				Math.max(0, Math.round(initialIndex.value + translateY.value / 60)),
+				Math.max(0, Math.round(initialIndex.value + translateY.value / DRAG_POSITION_DIVISOR)),
 				taskOrder.length - 1,
 			);
 			runOnJS(setTargetIndex)(newIndex);
@@ -45,11 +50,11 @@ export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 		const onHandlerStateChange = ({
 			nativeEvent,
 		}: HandlerStateChangeEvent<PanGestureHandlerEventPayload>) => {
-			if (nativeEvent.state === 5 /* END */) {
+			if (nativeEvent.state === GESTURE_STATE_END) {
 				isDragging.value = false;
 
 				const finalIndex = Math.min(
-					Math.max(0, Math.round(initialIndex.value + translateY.value / 60)),
+					Math.max(0, Math.round(initialIndex.value + translateY.value / DRAG_POSITION_DIVISOR)),
 					taskOrder.length - 1,
 				);
 				if (finalIndex !== initialIndex.value) {
@@ -57,7 +62,7 @@ export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 				}
 				runOnJS(setTargetIndex)(null);
 				translateY.value = withSpring(0);
-			} else if (nativeEvent.state === 4 /* ACTIVE */) {
+			} else if (nativeEvent.state === GESTURE_STATE_ACTIVE) {
 				isDragging.value = true;
 			}
 		};

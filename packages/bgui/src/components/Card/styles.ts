@@ -1,5 +1,10 @@
 import { Animation, BorderRadius, Opacity, Tokens } from "@braingame/utils";
 import { Platform, type ViewStyle } from "react-native";
+import {
+	CARD_FOCUS_OUTLINE_OFFSET,
+	CARD_FOCUS_OUTLINE_WIDTH,
+	CARD_HOVER_SCALE,
+} from "../../constants";
 
 /**
  * Padding mapping for Card component
@@ -28,10 +33,10 @@ export const getBaseCardStyle = (
 	// Add focus outline for web
 	...(Platform.OS === "web" && isFocused
 		? {
-				outlineWidth: 2,
+				outlineWidth: CARD_FOCUS_OUTLINE_WIDTH,
 				outlineColor: borderColor,
 				outlineStyle: "solid",
-				outlineOffset: 2,
+				outlineOffset: CARD_FOCUS_OUTLINE_OFFSET,
 			}
 		: {}),
 });
@@ -47,7 +52,7 @@ export const getInteractiveCardStyle = (isHovered: boolean): ViewStyle => ({
 				transitionProperty: "opacity, transform",
 				transitionDuration: `${Animation.duration.fast}ms`,
 				transitionTimingFunction: Animation.easing.easeOut,
-				transform: isHovered ? [{ scale: 1.02 }] : [{ scale: 1 }],
+				transform: isHovered ? [{ scale: CARD_HOVER_SCALE }] : [{ scale: 1 }],
 			}
 		: {}),
 });
