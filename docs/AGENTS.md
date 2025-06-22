@@ -1,15 +1,27 @@
-# AGENTS.md
+# AGENTS.md - AI Agent Guidelines & Standards
 
 This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
-> **Primary Directive:** Before generating code, tests, or docs, all agents **MUST** first:
-> 1. **Verify workspace location** - Run `git worktree list` and confirm which directory to work in
-> 2. **Read and understand:**
->    - `docs/ARCHITECTURE.md`
->    - `docs/AI_CONTEXT.md`
->    - `docs/LESSONS.md`
->    - `docs/CLAUDE.md`
->    - `docs/legacy-migration/LEGACY_MIGRATION.md` (for migration work)
+## 📚 **MANDATORY READING** (Before any development work)
+
+> **Primary Directive:** All agents **MUST** read these docs before generating code, tests, or documentation:
+
+### **Essential Workflow Docs:**
+1. **[📋 CLAUDE.md](./CLAUDE.md)** - Tactical guide with golden path workflow and commands
+2. **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
+3. **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings and incident prevention 
+4. **[🧠 AI_CONTEXT.md](./AI_CONTEXT.md)** - Project context, session summaries, and working agreements
+5. **[📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
+
+### **Critical Process Docs:**
+- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
+- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
+- **[📝 TODO.md](./TODO.md)** - Current task tracker and priority management
+
+### **Quality Standards:**
+- **[📊 QUALITY.md](./QUALITY.md)** - Comprehensive code quality playbook with examples
+- **[💅 CODING_STYLE.md](./CODING_STYLE.md)** - Code standards and anti-patterns
+- **[🧪 TESTING.md](./TESTING.md)** - Testing strategy and hybrid approach
 
 ---
 
@@ -44,6 +56,20 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 pnpm lint      # Must pass with 0 errors, 0 warnings
 pnpm typecheck # Must pass with 0 errors
 ```
+
+**Before every PR merge:**
+```bash
+# Checkout the PR branch first
+gh pr checkout <number>
+
+# Run quality validation
+pnpm lint && pnpm typecheck && pnpm test && pnpm build
+
+# Only merge if all checks pass
+gh pr merge <number> --squash --delete-branch
+```
+
+**⚠️ CRITICAL:** Follow [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) exactly. Skipping quality validation on branches is the primary cause of technical debt on main.
 
 ### Operational Guardrails
 - **Workspace Isolation:** Always verify which git worktree you're working in. Production work happens in the main `braingame/` directory, experimental/AI work happens in `braingame-claude-sandbox/`. When in doubt, ask.

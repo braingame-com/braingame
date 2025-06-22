@@ -1,6 +1,20 @@
 # CLAUDE.md - AI Agent Cheatsheet
 
-> **This is your tactical guide.** It provides the essential commands and workflows for operating effectively within the Brain Game repository. For project structure and high-level decisions, refer to `docs/ARCHITECTURE.md`.
+> **This is your tactical guide.** It provides the essential commands and workflows for operating effectively within the Brain Game repository.
+
+## 📚 **REQUIRED READING** (Read these docs before any development work)
+
+### **Critical Workflow Docs:**
+- **[📋 AGENTS.md](./AGENTS.md)** - AI agent roles, guardrails, and zero-tolerance quality policy
+- **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint  
+- **[🧠 AI_CONTEXT.md](./AI_CONTEXT.md)** - Project context, session summaries, and working agreements
+- **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings and incident prevention
+- **[📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and contribution workflow
+
+### **Essential Process Docs:**
+- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - **CRITICAL: PR merge procedures with quality validation**
+- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
+- **[📝 TODO.md](./TODO.md)** - Current task tracker and priority management
 
 ---
 
@@ -14,7 +28,7 @@ Follow these steps for every development task.
     - If uncertain which to use, STOP and ask the user
 2.  **Location Verification:** Run `pwd && git branch --show-current` to confirm you're in the right place
 3.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
-4.  **Consult Docs:** Read `ARCHITECTURE.md`, `AI_CONTEXT.md`, and `LESSONS.md` to refresh context.
+4.  **Consult Required Docs:** Read the required docs above to refresh context.
 5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
 **Phase 2: Development & Implementation**
@@ -22,7 +36,12 @@ Follow these steps for every development task.
 2.  **Lint:** Run `pnpm lint` frequently to ensure code is clean.
 3.  **Test:** Add or update tests as needed. Run `pnpm test` to verify.
 
-**Phase 3: Completion & Handoff**
+**Phase 3: PR Creation & Review**
+1.  **Create PR:** Use `gh pr create` with clear title and description
+2.  **Follow PR Review Process:** See [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) for complete merge procedures
+3.  **Quality Validation:** Ensure each branch passes quality checks before merging
+
+**Phase 4: Completion & Handoff**
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
 2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
 
@@ -156,3 +175,22 @@ pnpm --filter product android
 # Start the Expo app in a web browser
 pnpm --filter product web
 ```
+
+---
+
+## 6. Quick Reference Links
+
+### **Quality & Standards:**
+- [📊 QUALITY.md](./QUALITY.md) - Comprehensive code quality playbook with examples
+- [💅 CODING_STYLE.md](./CODING_STYLE.md) - Code standards and anti-patterns  
+- [🧪 TESTING.md](./TESTING.md) - Testing strategy and hybrid approach
+
+### **Development Guides:**
+- [⚙️ DEVELOPMENT.md](./DEVELOPMENT.md) - Environment setup and development workflow
+- [🌍 I18N_WORKFLOW.md](./I18N_WORKFLOW.md) - Internationalization processes
+- [🔒 SECURITY.md](../.github/SECURITY.md) - Security policy and vulnerability reporting
+
+### **Utility References:**
+- [🛠️ ExtractedUtilitiesGuide.md](../ExtractedUtilitiesGuide.md) - Documentation for extracted utility functions
+- [🛡️ ErrorBoundaryImplementationSummary.md](../ErrorBoundaryImplementationSummary.md) - Error handling guide
+- [📘 TypeScriptImprovementsSummary.md](../TypeScriptImprovementsSummary.md) - TypeScript improvements
