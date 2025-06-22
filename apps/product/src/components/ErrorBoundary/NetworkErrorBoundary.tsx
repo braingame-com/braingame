@@ -1,7 +1,8 @@
 import NetInfo from "@react-native-community/netinfo";
+import { useQueryClient } from "@tanstack/react-query";
 import type React from "react";
 import { useCallback, useEffect, useState } from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
 import { captureMessage } from "../../services/ErrorService";
 import {
@@ -10,7 +11,7 @@ import {
 } from "../../theme/components/AccessibleThemedComponents";
 import { useTheme } from "../../theme/ThemeContext";
 
-interface NetworkErrorBoundaryProps {
+export interface NetworkErrorBoundaryProps {
 	children: React.ReactNode;
 	onRetry?: () => void;
 	showOfflineUI?: boolean;
@@ -24,6 +25,7 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 	offlineFallback,
 }) => {
 	const { theme } = useTheme();
+	const queryClient = useQueryClient();
 	const { announce } = useAccessibility();
 	const [isConnected, setIsConnected] = useState(true);
 	const [isInternetReachable, setIsInternetReachable] = useState(true);
@@ -71,12 +73,16 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 		NetInfo.fetch().then((state) => {
 			if (state.isConnected && state.isInternetReachable) {
 				announce("Connection available, retrying");
-				onRetry?.();
+				if (onRetry) {
+					onRetry();
+				} else {
+					queryClient.refetchQueries();
+				}
 			} else {
 				announce("Still offline, please check your connection");
 			}
 		});
-	}, [onRetry, announce]);
+	}, [onRetry, announce, queryClient]);
 
 	// If connected and reachable, render children
 	if (isConnected && isInternetReachable) {
@@ -191,7 +197,7 @@ export const useNetworkStatus = () => {
 		type: "unknown",
 		isWifi: false,
 		isCellular: false,
-		details: null as any,
+		details: null as unknown,
 	});
 
 	useEffect(() => {

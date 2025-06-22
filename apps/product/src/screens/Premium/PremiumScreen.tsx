@@ -25,7 +25,7 @@ const PremiumFeature = ({
 );
 
 const PremiumScreenComponent: React.FC = () => {
-	const navigation = useNavigation();
+	const _navigation = useNavigation();
 	const { navigateWithConditions } = useConditionalNavigation();
 
 	const handleSubscribe = () => {

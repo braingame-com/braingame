@@ -14,7 +14,7 @@ Follow these steps for every development task.
     - If uncertain which to use, STOP and ask the user
 2.  **Location Verification:** Run `pwd && git branch --show-current` to confirm you're in the right place
 3.  **Sync:** Ensure your local environment is up-to-date with the `main` branch.
-4.  **Consult Docs:** Read `ARCHITECTURE.md` and `AI_CONTEXT.md` to refresh context.
+4.  **Consult Docs:** Read `ARCHITECTURE.md`, `AI_CONTEXT.md`, and `LESSONS.md` to refresh context.
 5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
 **Phase 2: Development & Implementation**
@@ -25,48 +25,33 @@ Follow these steps for every development task.
 **Phase 3: Completion & Handoff**
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
 2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
-3.  **Summarize:** Add a session summary to `AI_CONTEXT.md`.
-4.  **Document Session:** Create a detailed work session file in `docs/work-sessions/` using the format `YYYY-MM-DD-brief-description.md` with key learnings, solutions, and patterns discovered.
 
 ---
 
-## 2. Code Generation Guidelines
+## 2. Code Quality Standards
 
-- **Language:** All code **MUST** be TypeScript.
-- **Components:** All UI components go in the `packages/bgui` package. Follow the existing folder-per-component structure.
-- **Utilities:** All shared helpers, hooks, and wrappers go in the `packages/utils` package.
-- **Styling:** Use the theming system defined in `BGUI_COMPONENT_PLAN.md`. Do not use inline styles or arbitrary values.
-- **Imports:** **MUST** use absolute imports for workspace packages (e.g., `@braingame/bgui`, `@braingame/utils`).
-- **Quality:** Code must be "enterprise-grade"—robust, readable, and maintainable. Adhere to `CODING_STYLE.md`.
+**⚠️ CRITICAL:** All code must meet our zero-tolerance quality standards.
 
----
+For complete quality standards, coding guidelines, and contribution workflow, see:
+**[📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)**
 
-## 3. Administrative Guidelines
+**Quick Reference - Zero Tolerance Policy:**
+- ❌ No lint errors or warnings
+- ❌ No TypeScript errors  
+- ❌ No `--no-verify` (bypassing pre-commit hooks)
+- ❌ No `any` types in public APIs
+- ❌ No `@ts-expect-error` or `biome-ignore`
+- ❌ No technical debt introduction
 
-- **Date Format:** All dates in documentation (`TODO.md`, `AI_CONTEXT.md`, etc.) **MUST** use the `DD-MM-YYYY` format.
-- **Accurate Dating:** Ensure the current, correct date is used. Time-traveling agents will be decommissioned.
-
----
-
-## 4. Work Session Documentation
-
-**IMPORTANT:** At the end of each work session, create a comprehensive session document in `docs/work-sessions/`:
-
-- **Filename Format:** `YYYY-MM-DD-brief-description.md`
-- **Include:**
-  - Session metadata (date, agent, objectives)
-  - Detailed list of work completed
-  - Key learnings and discoveries
-  - Code examples and patterns
-  - Solutions to complex problems
-  - Recommendations for future work
-- **Purpose:** Preserve knowledge, document solutions, and help future agents understand project evolution
-
-See `docs/work-sessions/README.md` for detailed guidelines.
+**Before every commit:**
+```bash
+pnpm lint      # Must be 0 errors, 0 warnings
+pnpm typecheck # Must be 0 errors
+```
 
 ---
 
-## 5. Git Worktree Usage (MANDATORY for AI Agents)
+## 3. Git Worktree Usage (MANDATORY for AI Agents)
 
 **⚠️ CRITICAL:** All AI agents MUST use the dedicated worktree for development to avoid conflicts with human work.
 
@@ -121,7 +106,14 @@ gh pr create --title "Your PR Title" --body "Description"
 
 ---
 
-## 6. Common Commands
+## 4. Administrative Guidelines
+
+- **Date Format:** All dates in documentation (`TODO.md`, etc.) **MUST** use the `DD-MM-YYYY` format.
+- **Accurate Dating:** Ensure the current, correct date is used. Time-traveling agents will be decommissioned.
+
+---
+
+## 5. Common Commands
 
 ### Core Development
 ```bash

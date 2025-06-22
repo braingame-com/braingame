@@ -1,15 +1,12 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import type { Route } from "@react-navigation/native";
 import React, { useCallback, useMemo } from "react";
 import { AccessibilityInfo, Text, TouchableOpacity, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAccessibility } from "../../contexts/AccessibilityContext";
 import { useTheme } from "../../theme/ThemeContext";
-import {
-	a11yLabels,
-	getAccessibilityProps,
-	getAccessibilityState,
-} from "../../utils/accessibility";
+import { getAccessibilityProps, getAccessibilityState } from "../../utils/accessibility";
 import { withMemo } from "../../utils/performance";
 import { tabBarStyles } from "./styles";
 
@@ -49,12 +46,12 @@ const tabConfigs: Record<string, TabConfig> = {
 
 // Accessible Tab Item Component
 const TabItem = withMemo<{
-	route: any;
+	route: Route<string>;
 	index: number;
 	focused: boolean;
 	onPress: () => void;
 	onLongPress: () => void;
-}>(({ route, index, focused, onPress, onLongPress }) => {
+}>(({ route, index: _index, focused, onPress, onLongPress }) => {
 	const { theme } = useTheme();
 	const { reduceMotionEnabled, announce } = useAccessibility();
 	const scaleValue = useSharedValue(focused ? 1.1 : 1);
@@ -98,13 +95,14 @@ const TabItem = withMemo<{
 		<TouchableOpacity
 			onPress={handlePress}
 			onLongPress={onLongPress}
-			style={[tabBarStyles.tab, focused && tabBarStyles.activeTab]}
+			style={[tabBarStyles.tabItem]}
 			{...accessibilityProps}
 		>
 			<Animated.View style={[tabBarStyles.tabContent, animatedStyle]}>
 				<Text
 					style={[
-						tabBarStyles.tabIcon,
+						tabBarStyles.icon,
+						focused && tabBarStyles.iconActive,
 						{ color: focused ? theme.colors.primary : theme.colors.textSecondary },
 					]}
 					importantForAccessibility="no"
@@ -113,7 +111,8 @@ const TabItem = withMemo<{
 				</Text>
 				<Text
 					style={[
-						tabBarStyles.tabLabel,
+						tabBarStyles.label,
+						focused && tabBarStyles.labelActive,
 						{
 							color: focused ? theme.colors.primary : theme.colors.textSecondary,
 							fontWeight: focused ? "600" : "400",
@@ -132,7 +131,7 @@ const TabItem = withMemo<{
 
 export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	state,
-	descriptors,
+	descriptors: _descriptors,
 	navigation,
 }) => {
 	const { theme } = useTheme();
@@ -140,16 +139,13 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 	const insets = useSafeAreaInsets();
 
 	// Focus management for keyboard navigation
-	const tabRefs = useMemo(
-		() => state.routes.map(() => React.createRef<TouchableOpacity>()),
-		[state.routes],
-	);
+	const tabRefs = useMemo(() => state.routes.map(() => React.createRef<View>()), [state.routes]);
 
 	// Handle keyboard navigation
 	React.useEffect(() => {
 		if (!keyboardNavigation) return;
 
-		const handleKeyPress = (event: any) => {
+		const _handleKeyPress = (event: KeyboardEvent) => {
 			const key = event.key;
 			const currentIndex = state.index;
 
@@ -207,9 +203,8 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 			accessibilityRole="tablist"
 			accessibilityLabel="Main navigation"
 		>
-			<View style={tabBarStyles.tabsContainer}>
+			<View style={{ flexDirection: "row", flex: 1 }}>
 				{state.routes.map((route, index) => {
-					const { options } = descriptors[route.key];
 					const isFocused = state.index === index;
 
 					const onPress = () => {

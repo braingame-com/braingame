@@ -1,7 +1,7 @@
 import { Text } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { AuthStackScreenProps } from "../../navigation/types";
 import { authStyles } from "./styles";
@@ -41,7 +41,7 @@ export const WelcomeScreen: React.FC<Props> = () => {
 						style={authStyles.skipButton}
 						onPress={() => {
 							// In a real app, this would sign in as guest
-							console.log("Continue as guest");
+							// Guest authentication functionality not yet implemented
 						}}
 					>
 						<Text style={authStyles.skipButtonText}>Continue as Guest</Text>

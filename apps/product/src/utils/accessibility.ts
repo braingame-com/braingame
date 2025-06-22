@@ -101,11 +101,7 @@ export const getListItemLabel = (item: string, index: number, total: number): st
 /**
  * Generate label for progress
  */
-export const getProgressLabel = (
-	current: number,
-	total: number,
-	unit: string = "items",
-): string => {
+export const getProgressLabel = (current: number, total: number, unit = "items"): string => {
 	const percentage = Math.round((current / total) * 100);
 	return `${current} of ${total} ${unit} complete, ${percentage} percent`;
 };
@@ -115,9 +111,10 @@ export const getProgressLabel = (
  */
 export const focusManagement = {
 	// Set focus to element with accessibility
-	setAccessibilityFocus: (ref: any) => {
+	setAccessibilityFocus: (ref: React.RefObject<unknown>) => {
 		if (ref?.current) {
 			const { AccessibilityInfo } = require("react-native");
+			// @ts-expect-error - _nativeTag is not typed in React Native
 			const reactTag = ref.current._nativeTag;
 			if (reactTag) {
 				AccessibilityInfo.setAccessibilityFocus(reactTag);
@@ -126,7 +123,7 @@ export const focusManagement = {
 	},
 
 	// Create focus trap for modals
-	createFocusTrap: (containerRef: any) => {
+	createFocusTrap: (containerRef: React.RefObject<unknown>) => {
 		// Implementation would handle focus cycling within container
 		return {
 			activate: () => {
@@ -186,9 +183,9 @@ export const getHint = {
  * Color contrast checker
  */
 export const meetsContrastRatio = (
-	foreground: string,
-	background: string,
-	ratio: number = 4.5,
+	_foreground: string,
+	_background: string,
+	_ratio = 4.5,
 ): boolean => {
 	// Simplified check - in production would calculate actual contrast
 	// WCAG AA requires 4.5:1 for normal text, 3:1 for large text
@@ -212,7 +209,19 @@ export const prefersReducedMotion = async (): Promise<boolean> => {
 export const prefersHighContrast = async (): Promise<boolean> => {
 	if (Platform.OS === "windows") {
 		const { AccessibilityInfo } = require("react-native");
-		return (await AccessibilityInfo.isHighContrastEnabled?.()) || false;
+
+		// Check API availability explicitly
+		if (!AccessibilityInfo.isHighContrastEnabled) {
+			console.warn("High contrast detection not available on this platform");
+			return false;
+		}
+
+		try {
+			return await AccessibilityInfo.isHighContrastEnabled();
+		} catch (error) {
+			console.error("Error checking high contrast setting:", error);
+			return false;
+		}
 	}
 	return false;
 };

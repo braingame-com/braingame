@@ -37,20 +37,19 @@ export const getFontFamily = (
 	if (mono) {
 		// Use Roboto Mono - Google's excellent monospace font
 		return "Roboto Mono";
-	} else {
-		// Use Lexend variable font
-		switch (weight) {
-			case "light":
-				return "LexendLight";
-			case "medium":
-				return "LexendMedium";
-			case "semibold":
-				return "LexendSemiBold";
-			case "bold":
-				return "LexendBold";
-			default:
-				return "LexendRegular";
-		}
+	}
+	// Use Lexend variable font
+	switch (weight) {
+		case "light":
+			return "LexendLight";
+		case "medium":
+			return "LexendMedium";
+		case "semibold":
+			return "LexendSemiBold";
+		case "bold":
+			return "LexendBold";
+		default:
+			return "LexendRegular";
 	}
 };
 

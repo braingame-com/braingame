@@ -69,7 +69,7 @@ export function lazyScreen<P extends object>(
 		</Suspense>
 	);
 
-	WrappedComponent.displayName = `Lazy(${LazyComponent.displayName || "Component"})`;
+	WrappedComponent.displayName = "Lazy(Component)";
 
 	return WrappedComponent;
 }
@@ -78,7 +78,9 @@ export function lazyScreen<P extends object>(
  * Preload multiple screens for better performance
  * @param screens - Array of import functions to preload
  */
-export async function preloadScreens(screens: Array<() => Promise<any>>): Promise<void> {
+export async function preloadScreens(
+	screens: Array<() => Promise<{ default: React.ComponentType<unknown> }>>,
+): Promise<void> {
 	await Promise.all(screens.map((importFn) => importFn()));
 }
 
@@ -115,7 +117,7 @@ export class LazyErrorBoundary extends React.Component<
 	{ children: React.ReactNode; fallback?: React.ReactNode },
 	ErrorBoundaryState
 > {
-	constructor(props: any) {
+	constructor(props: { children: React.ReactNode }) {
 		super(props);
 		this.state = { hasError: false };
 	}
