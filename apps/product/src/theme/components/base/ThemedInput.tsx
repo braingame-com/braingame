@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 import {
+	type NativeSyntheticEvent,
 	TextInput as RNTextInput,
 	View as RNView,
+	type TextInputFocusEventData,
 	type TextInputProps,
 	type TextStyle,
 } from "react-native";
@@ -21,7 +23,7 @@ export const ThemedInput = withMemo<ThemedInputProps>(
 		const [isFocused, setIsFocused] = React.useState(false);
 
 		const handleFocus = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(true);
 				onFocus?.(e);
 			},
@@ -29,7 +31,7 @@ export const ThemedInput = withMemo<ThemedInputProps>(
 		);
 
 		const handleBlur = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(false);
 				onBlur?.(e);
 			},

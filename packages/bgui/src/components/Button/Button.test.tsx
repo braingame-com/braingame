@@ -1,4 +1,3 @@
-import React from "react";
 import { vi } from "vitest";
 import { fireEvent, render, screen } from "../../test-utils";
 import { Button } from "./Button";

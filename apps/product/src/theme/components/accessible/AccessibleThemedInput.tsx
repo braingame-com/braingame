@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 import {
+	type NativeSyntheticEvent,
 	TextInput as RNTextInput,
 	View as RNView,
+	type TextInputFocusEventData,
 	type TextInputProps,
 	type TextStyle,
 } from "react-native";
@@ -39,7 +41,7 @@ export const AccessibleThemedInput = withMemo<AccessibleThemedInputProps>(
 		const [isFocused, setIsFocused] = React.useState(false);
 
 		const handleFocus = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(true);
 				announce(`${label || "Text field"} focused`);
 				onFocus?.(e);
@@ -48,7 +50,7 @@ export const AccessibleThemedInput = withMemo<AccessibleThemedInputProps>(
 		);
 
 		const handleBlur = useCallback(
-			(e: any) => {
+			(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
 				setIsFocused(false);
 				onBlur?.(e);
 			},

@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 
 // Setup globals
-(globalThis as any).__DEV__ = true;
+(globalThis as Record<string, unknown>).__DEV__ = true;
 
 // Mock expo modules
 vi.mock("expo-font", () => ({
@@ -21,14 +21,14 @@ vi.mock("expo-asset", () => ({
 // Mock react-native-reanimated for web
 vi.mock("react-native-reanimated", () => ({
 	default: {
-		createAnimatedComponent: (component: any) => component,
+		createAnimatedComponent: (component: unknown) => component,
 		View: "View",
 		Text: "Text",
 		Image: "Image",
 		ScrollView: "ScrollView",
 	},
-	useSharedValue: (initial: any) => ({ value: initial }),
-	useAnimatedStyle: (fn: any) => fn(),
-	withSpring: (value: any) => value,
-	withTiming: (value: any) => value,
+	useSharedValue: (initial: unknown) => ({ value: initial }),
+	useAnimatedStyle: (fn: () => unknown) => fn(),
+	withSpring: (value: unknown) => value,
+	withTiming: (value: unknown) => value,
 }));

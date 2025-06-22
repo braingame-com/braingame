@@ -24,7 +24,7 @@ describe("Performance Utils", () => {
 			const TestComponent = ({ text }: { text: string }) => <Text>{text}</Text>;
 			const MemoizedComponent = withMemo(TestComponent);
 
-			const { rerender } = render(<MemoizedComponent text="Hello" />);
+			render(<MemoizedComponent text="Hello" />);
 
 			// Component should be memoized
 			expect(MemoizedComponent).toBeDefined();

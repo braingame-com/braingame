@@ -1,5 +1,10 @@
 import { useMemo } from "react";
-import { View as RNView, type ViewProps, type ViewStyle } from "react-native";
+import {
+	type AccessibilityRole,
+	View as RNView,
+	type ViewProps,
+	type ViewStyle,
+} from "react-native";
 import Animated from "react-native-reanimated";
 import { getAccessibilityProps } from "../../../utils/accessibility";
 import { withMemo } from "../../../utils/performance";
@@ -9,7 +14,7 @@ interface AccessibleThemedViewProps extends ViewProps {
 	variant?: "background" | "surface" | "card";
 	animated?: boolean;
 	accessibilityLabel?: string;
-	accessibilityRole?: any;
+	accessibilityRole?: AccessibilityRole;
 }
 
 export const AccessibleThemedView = withMemo<AccessibleThemedViewProps>(

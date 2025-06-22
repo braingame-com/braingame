@@ -1,6 +1,7 @@
 import type React from "react";
 import { useCallback, useMemo } from "react";
 import {
+	type GestureResponderEvent,
 	TouchableOpacity as RNTouchableOpacity,
 	type TouchableOpacityProps,
 	type ViewStyle,
@@ -55,7 +56,7 @@ export const AccessibleThemedButton = withMemo<AccessibleThemedButtonProps>(
 		}, [scaleValue, reduceMotionEnabled]);
 
 		const handlePress = useCallback(
-			(e: any) => {
+			(e: GestureResponderEvent) => {
 				announce(`${accessibilityLabel} activated`);
 				onPress?.(e);
 			},

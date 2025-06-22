@@ -75,7 +75,7 @@ export function applyScreenErrorBoundary<P extends object>(
  * const safeScreens = applyErrorBoundariesToScreens(screens);
  * ```
  */
-export function applyErrorBoundariesToScreens<T extends Record<string, ComponentType<any>>>(
+export function applyErrorBoundariesToScreens<T extends Record<string, ComponentType<unknown>>>(
 	screens: T,
 ): T {
 	const safeScreens = {} as T;
@@ -90,7 +90,7 @@ export function applyErrorBoundariesToScreens<T extends Record<string, Component
 /**
  * Check if a component has an error boundary
  */
-export function hasErrorBoundary(Component: ComponentType<any>): boolean {
+export function hasErrorBoundary(Component: ComponentType<unknown>): boolean {
 	return (
 		Component.displayName?.includes("withErrorBoundary") ||
 		Component.displayName?.includes("ErrorBoundary") ||
@@ -101,7 +101,7 @@ export function hasErrorBoundary(Component: ComponentType<any>): boolean {
 /**
  * Development-only validation to ensure screens have error boundaries
  */
-export function validateErrorBoundaries(screens: Record<string, ComponentType<any>>): void {
+export function validateErrorBoundaries(screens: Record<string, ComponentType<unknown>>): void {
 	if (!__DEV__) return;
 
 	const missing: string[] = [];

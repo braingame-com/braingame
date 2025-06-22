@@ -11,7 +11,8 @@ export const trackScreen = (screenName: string, properties?: EventProperties) =>
 export const identifyUser = (userId: string, properties?: UserProperties) =>
 	analytics.identify(userId, properties);
 
-export const setUserProperty = (key: string, value: any) => analytics.setUserProperty(key, value);
+export const setUserProperty = (key: string, value: unknown) =>
+	analytics.setUserProperty(key, value);
 
 export const setUserProperties = (properties: UserProperties) =>
 	analytics.setUserProperties(properties);

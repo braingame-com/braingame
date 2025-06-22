@@ -168,7 +168,7 @@ class AnalyticsService {
 		}
 	}
 
-	async setUserProperty(key: string, value: any) {
+	async setUserProperty(key: string, value: unknown) {
 		if (!this.isEnabled) return;
 
 		this.userProperties[key] = value;

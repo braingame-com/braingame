@@ -14,7 +14,7 @@ const queryClient = new QueryClient({
 });
 
 const persister = {
-	persistClient: async (client: any) => {
+	persistClient: async (client: unknown) => {
 		await AsyncStorage.setItem("REACT_QUERY_OFFLINE_CACHE", JSON.stringify(client));
 	},
 	restoreClient: async () => {

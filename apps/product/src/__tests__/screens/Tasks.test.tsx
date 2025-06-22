@@ -3,11 +3,17 @@ import React from "react";
 import Tasks from "../../../app/tasks";
 
 // Mock expo-router
+interface MockLinkProps {
+	children: React.ReactNode;
+	href: string;
+	asChild?: boolean;
+}
+
 jest.mock("expo-router", () => ({
-	Link: ({ children, href, asChild }: any) => {
+	Link: ({ children, href, asChild }: MockLinkProps) => {
 		// If asChild is true, clone the child element with href prop
 		if (asChild && React.isValidElement(children)) {
-			return React.cloneElement(children as any, { testID: `link-${href}` });
+			return React.cloneElement(children as React.ReactElement, { testID: `link-${href}` });
 		}
 		return children;
 	},

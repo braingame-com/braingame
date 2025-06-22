@@ -62,7 +62,7 @@ export interface UserProperties {
 	themeName?: string;
 	accessibilityEnabled?: boolean;
 	notificationsEnabled?: boolean;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 export interface SuperProperties {
@@ -75,5 +75,5 @@ export interface SuperProperties {
 	deviceName?: string;
 	isDevice: boolean;
 	sessionId: string;
-	[key: string]: any;
+	[key: string]: unknown;
 }

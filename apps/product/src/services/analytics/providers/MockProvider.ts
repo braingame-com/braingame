@@ -2,7 +2,13 @@ import type { EventName, EventProperties, SuperProperties, UserProperties } from
 import type { AnalyticsProvider } from "./AnalyticsProvider";
 
 export class MockAnalyticsProvider implements AnalyticsProvider {
-	private logs: any[] = [];
+	private logs: Array<{
+		type: string;
+		userId?: string;
+		event?: EventName;
+		properties?: EventProperties | UserProperties;
+		timestamp: Date;
+	}> = [];
 
 	async init(apiKey: string) {
 		console.log("[MockAnalytics] Initialized with key:", `${apiKey.substring(0, 8)}...`);
