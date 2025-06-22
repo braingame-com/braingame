@@ -1,7 +1,15 @@
 import { useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useState } from "react";
+import {
+	createContext,
+	type ReactNode,
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 
 interface User {
 	id: string;
@@ -27,8 +35,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 	const [isLoading, setIsLoading] = useState(true);
 	const [user, setUser] = useState<User | null>(null);
 	const isMounted = useMountedState();
-	const loginTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-	const registerTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const loginTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const registerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const checkAuthStatus = useCallback(async () => {
 		try {
@@ -56,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 	const login = async (email: string, _password: string) => {
 		// Simulate API call
-		await new Promise((resolve) => {
+		await new Promise<void>((resolve) => {
 			loginTimeoutRef.current = setTimeout(resolve, 1000);
 		});
 
@@ -81,7 +89,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 	const register = async (email: string, _password: string, displayName: string) => {
 		// Simulate API call
-		await new Promise((resolve) => {
+		await new Promise<void>((resolve) => {
 			registerTimeoutRef.current = setTimeout(resolve, 1000);
 		});
 

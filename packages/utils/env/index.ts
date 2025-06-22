@@ -11,12 +11,12 @@
  * // Validate current environment
  * const result = validateProductAppEnv();
  * if (!result.success) {
- *   console.error('Environment validation failed:', result.errors);
+ *   // Handle environment validation failure
  * }
  *
  * // Create type-safe config
  * const config = createEnvConfig(ProductAppEnvSchema);
- * console.log(config.API_BASE_URL); // Type-safe access
+ * // config.API_BASE_URL is now type-safe
  * ```
  */
 

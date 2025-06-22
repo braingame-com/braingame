@@ -3,13 +3,13 @@ import { useEffect, useRef } from "react";
 /**
  * Hook that provides an AbortController for cancelling async operations
  * when the component unmounts.
- * 
+ *
  * @returns An AbortController that will be aborted when the component unmounts
- * 
+ *
  * @example
  * ```tsx
  * const abortController = useAbortController();
- * 
+ *
  * useEffect(() => {
  *   const fetchData = async () => {
  *     try {

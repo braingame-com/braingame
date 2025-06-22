@@ -16,13 +16,13 @@ export const PaymentModal: React.FC = () => {
 	const [selectedMethod, setSelectedMethod] = useState<"card" | "apple" | "google">("card");
 	const [processing, setProcessing] = useState(false);
 	const isMounted = useMountedState();
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const handlePayment = async () => {
 		if (isMounted()) {
 			setProcessing(true);
 		}
-		
+
 		// Simulate payment processing
 		timeoutRef.current = setTimeout(() => {
 			if (isMounted()) {

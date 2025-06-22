@@ -78,7 +78,7 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
 	const toggleAnalytics = useCallback(async () => {
 		const newValue = !isAnalyticsEnabled;
-		
+
 		if (isMounted()) {
 			setIsAnalyticsEnabled(newValue);
 		}

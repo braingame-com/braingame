@@ -26,8 +26,8 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 	const [error, setError] = useState<string>("");
 	const isMounted = useMountedState();
 	const abortController = useAbortController();
-	const successTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-	const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const successTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const errorTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	/**
 	 * Handle text input changes

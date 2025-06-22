@@ -15,6 +15,7 @@ type AudioSound = {
 	pauseAsync: () => Promise<void>;
 	unloadAsync: () => Promise<void>;
 	setOnPlaybackStatusUpdate: (callback: (status: AVPlaybackStatus) => void) => void;
+	getStatusAsync: () => Promise<AVPlaybackStatus>;
 };
 const Audio = {
 	Sound: {
@@ -26,6 +27,7 @@ const Audio = {
 					playAsync: async () => {},
 					pauseAsync: async () => {},
 					setOnPlaybackStatusUpdate: (_callback: (status: AVPlaybackStatus) => void) => {},
+					getStatusAsync: async () => ({ isLoaded: true, isPlaying: false }) as AVPlaybackStatus,
 				} as AudioSound,
 			}),
 	},
@@ -68,15 +70,18 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				setIsLoading(true);
 			}
 			const { sound: audioSound } = await Audio.Sound.createAsync();
-			
+
 			if (!isMounted()) return;
-			
+
 			setSound(audioSound);
 
 			// Set up playback status listener
-			audioSound?.setOnPlaybackStatusUpdate?.((status: AVPlaybackStatus) => {
+			if (!audioSound || !audioSound.setOnPlaybackStatusUpdate) {
+				throw new Error("Audio playback listener API not available - check expo-av setup");
+			}
+
+			audioSound.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
 				if (!isMounted()) return;
-				
 				if (status.isLoaded) {
 					setIsPlaying(status.isPlaying || false);
 
@@ -116,14 +121,21 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		if (!sound) return;
 
 		try {
-			// @ts-expect-error - getStatusAsync not in stub AudioSound type
-			const status = (await sound.getStatusAsync?.()) || { isLoaded: false };
-			if (status.isLoaded) {
-				if (status.isPlaying) {
-					await sound.pauseAsync();
-				} else {
-					await sound.playAsync();
-				}
+			// Validate audio API availability
+			if (!sound.getStatusAsync) {
+				throw new Error("Audio status API not available - check expo-av setup");
+			}
+
+			const status = await sound.getStatusAsync();
+			if (!status || !status.isLoaded) {
+				console.error("Audio not loaded properly");
+				return;
+			}
+
+			if (status.isPlaying) {
+				await sound.pauseAsync();
+			} else {
+				await sound.playAsync();
 			}
 		} catch (error) {
 			console.error("Error toggling playback:", error);

@@ -169,7 +169,53 @@ Option B: Keep email verification separate as a middleware
 I lean toward Option A for consistency, but want your input on the architectural choice."
 ```
 
-## 7. Merge Strategy
+## 7. PR Closure Policy
+
+### When to Close PRs (Not Merge)
+
+Close PRs in these scenarios:
+- **Redundant work**: PR duplicates changes already merged elsewhere
+- **Obsolete changes**: Original problem no longer exists or approach is deprecated  
+- **Major conflicts**: PR conflicts fundamentally with architectural decisions in main
+- **Abandoned work**: PR author confirms work is no longer needed
+
+### Standard Closure Process
+
+**ALWAYS comment before closing** to explain the decision:
+
+```bash
+# Template for redundant PRs
+gh pr close <number> --comment "Closing as redundant - this work was already completed and merged in PR #<other-number> (<title>), which included <explanation>."
+
+# Template for obsolete changes
+gh pr close <number> --comment "Closing as obsolete - <explanation of why no longer needed>. The original issue has been resolved by <alternative solution>."
+
+# Template for conflicting approaches  
+gh pr close <number> --comment "Closing due to architectural conflicts with recent changes in main. The approach in <conflicting changes> takes precedence. Consider reopening with updated approach if still needed."
+```
+
+### Documentation Requirements
+
+When closing PRs:
+1. **Always comment** with clear reasoning
+2. **Reference related PRs** that provide the functionality  
+3. **Suggest alternatives** if applicable
+4. **Update TODO.md** if the PR addressed items listed there
+5. **Tag the author** if they should be aware of alternatives
+
+### Example Closure Scenarios
+
+**Redundant Work:**
+```bash
+gh pr close 140 --comment "Closing as redundant - this work was already completed and merged in PR #144 (fix: add comprehensive try-catch blocks to AnalyticsService functions), which included try-catch blocks for both AnalyticsService and ErrorService."
+```
+
+**Obsolete Changes:**
+```bash
+gh pr close 999 --comment "Closing as obsolete - console.log removal is no longer needed as this was completed in PR #136. All console.log statements have been replaced with appropriate logging mechanisms."
+```
+
+## 8. Merge Strategy
 
 Once all checks pass and conflicts are resolved:
 
