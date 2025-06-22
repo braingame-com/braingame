@@ -45,6 +45,7 @@
 | [`QUALITY_ROADMAP.md`](./QUALITY_ROADMAP.md) | The strategic roadmap for all engineering quality initiatives. |
 | [`LESSONS.md`](./LESSONS.md) | Consolidated technical learnings, patterns, and solutions from development. |
 | [`AGENTS.md`](./AGENTS.md) | The high-level policy document defining roles for AI agents. |
+| [`ENTERPRISE_READINESS.md`](./ENTERPRISE_READINESS.md) | Overview of our enterprise practices and CI pipeline. |
 
 ---
 
