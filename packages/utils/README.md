@@ -26,6 +26,23 @@ pnpm add @braingame/utils
 - Icon sizing utilities
 - Task management functions
 
+### Feature Flags
+Use LaunchDarkly to control experimental features across apps.
+
+```env
+REACT_APP_LD_CLIENT_ID="your-client-id"
+REACT_APP_LD_USER_KEY="anonymous-user"
+```
+
+```ts
+import { ldClient } from "@braingame/utils/featureFlags";
+
+await ldClient.waitForInitialization();
+if (ldClient.variation("new-ui", false)) {
+    // feature-specific logic
+}
+```
+
 ## Documentation
 
 - [Architecture](../../docs/ARCHITECTURE.md) - System design

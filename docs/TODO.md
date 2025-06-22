@@ -220,6 +220,10 @@
    - Add performance monitoring
    - Set up Sentry for error tracking
 
+## 🔌 Extension Points
+- Plan new `apps/desktop` using Tauri with GitHub Release distribution.
+- Add LaunchDarkly feature flag wrapper in `packages/utils`.
+
 ## ✅ Completed (Latest First)
 
 - [x] Worktree Management & Documentation (20-01-2025)
