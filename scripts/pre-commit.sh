@@ -46,7 +46,14 @@ print_status "Running pre-commit checks..."
 echo ""
 
 # 1. Check for secrets
-print_status "🔒 Skipping secret scan (incompatible in this environment)"
+print_status "🔒 Checking for secrets..."
+if pnpm secrets:check > /dev/null 2>&1; then
+    print_success "No secrets detected"
+else
+    print_warning "Secret scan failed (allowing commit anyway)"
+    echo "   Run 'pnpm secrets:scan' to see potential secrets"
+    # Don't fail overall for secrets right now to avoid blocking commits
+fi
 
 # 2. Run linting
 print_status "🔍 Running linter..."

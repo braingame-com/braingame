@@ -34,9 +34,7 @@ Before running any lint or test commands, make sure your dependencies are instal
 pnpm install    # or pnpm run preflight
 ```
 
-For complete documentation including architecture, coding standards, and contribution guides, visit our **[Documentation Hub](./docs/README.md)**.
-
-New contributors should also review **[docs/ai/AGENTS.md](./docs/ai/AGENTS.md)** and **[docs/ai/AI_CONTEXT.md](./docs/ai/AI_CONTEXT.md)** to understand how human and AI workflows operate in this repository.
+New contributors should review **[docs/ai/AGENTS.md](./docs/ai/AGENTS.md)** and **[docs/ai/CLAUDE.md](./docs/ai/CLAUDE.md)** to understand how human and AI workflows operate in this repository.
 
 ---
 
@@ -121,6 +119,66 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 We welcome contributions! Please see our **[Contributing Guide](./CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
 
 A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./docs/project/TODO.md)**.
+
+## 📚 Documentation
+
+### 🏗️ Architecture & Quality
+Core architectural documents defining how we build software.
+
+| Document | Description |
+|---|---|
+| [`ARCHITECTURE.md`](./docs/architecture/ARCHITECTURE.md) | Technical blueprint and system design |
+| [`QUALITY.md`](./docs/architecture/QUALITY.md) | Quality standards and best practices |
+| [`LESSONS.md`](./docs/architecture/LESSONS.md) | Technical learnings and solutions |
+| [`BRAND.md`](./docs/architecture/BRAND.md) | Brand guidelines and identity |
+
+### ⚙️ Engineering Process
+How to actually build and code in this repository.
+
+| Document | Description |
+|---|---|
+| [`DEVELOPMENT.md`](./docs/engineering/DEVELOPMENT.md) | **Start here.** Environment setup guide |
+| [`CODING_STYLE.md`](./docs/engineering/CODING_STYLE.md) | Code standards and conventions |
+| [`PR_REVIEW_PROCESS.md`](./docs/engineering/PR_REVIEW_PROCESS.md) | Pull request review process |
+| [`TESTING.md`](./docs/engineering/TESTING.md) | Testing strategy and guidelines |
+| [`WORKTREES.md`](./docs/engineering/WORKTREES.md) | **CRITICAL:** Git worktree management |
+| [`API.md`](./docs/engineering/API.md) | API documentation and examples |
+| [`TOKEN_SYSTEM.md`](./docs/engineering/TOKEN_SYSTEM.md) | Design token system guide |
+
+### 🤖 AI Agent Documentation
+Specific guidance for AI agents and automation.
+
+| Document | Description |
+|---|---|
+| [`CLAUDE.md`](./docs/ai/CLAUDE.md) | Tactical guide with commands and workflows |
+| [`AGENTS.md`](./docs/ai/AGENTS.md) | AI agent roles and guidelines |
+
+### 📋 Project Management
+Planning, tracking, and process documentation.
+
+| Document | Description |
+|---|---|
+| [`TODO.md`](./docs/project/TODO.md) | Current tasks and priorities |
+| [`I18N_WORKFLOW.md`](./docs/project/I18N_WORKFLOW.md) | Internationalization workflow |
+
+### 🚀 Quick Start by Role
+
+**New Developer?**
+1. Start with [`DEVELOPMENT.md`](./docs/engineering/DEVELOPMENT.md)
+2. Read [`CODING_STYLE.md`](./docs/engineering/CODING_STYLE.md)
+3. Review [`PR_REVIEW_PROCESS.md`](./docs/engineering/PR_REVIEW_PROCESS.md)
+
+**AI Agent?**
+1. Start with [`CLAUDE.md`](./docs/ai/CLAUDE.md)
+2. Read [`AGENTS.md`](./docs/ai/AGENTS.md)
+3. Review [`WORKTREES.md`](./docs/engineering/WORKTREES.md)
+
+**Contributing?**
+1. Read [`CONTRIBUTING.md`](./.github/CONTRIBUTING.md)
+2. Follow [`CODING_STYLE.md`](./docs/engineering/CODING_STYLE.md)
+3. Use [`PR_REVIEW_PROCESS.md`](./docs/engineering/PR_REVIEW_PROCESS.md)
+
+---
 
 ## 🛡️ Security
 

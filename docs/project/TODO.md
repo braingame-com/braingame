@@ -197,10 +197,12 @@
   - Status: Not started
 
 - [ ] Advanced Testing
-  - [ ] E2E tests with Playwright
+  - [ ] E2E tests with Playwright (Web)
+  - [ ] E2E tests with Maestro (Native mobile)
   - [ ] Visual regression tests
   - [ ] Performance benchmarks
   - [ ] Accessibility audits
+  - [ ] 90% test coverage goal
   - Status: Not started
 
 ## 🚀 Next Steps (Updated - 22-06-2025)

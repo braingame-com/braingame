@@ -1,6 +1,6 @@
 # LESSONS.md - Consolidated Learnings
 
-> This document preserves valuable technical knowledge, patterns, and solutions discovered during the development of the Brain Game monorepo. It consolidates learnings previously scattered across AI_CONTEXT.md and work-sessions files.
+> This document preserves valuable technical knowledge, patterns, and solutions discovered during the development of the Brain Game monorepo. It consolidates learnings from all work sessions and serves as the central knowledge repository.
 
 ---
 
@@ -65,7 +65,7 @@ Always check `git diff` before opening a pull request. Huge file counts usually 
 Running `git rebase main` cleans up outdated branches and shows the real merge conflicts. What looks like 200+ changed files often boils down to a handful of simple fixes.
 
 ### Defensive Documentation
-Repeat critical instructions—such as worktree usage—in multiple docs (`CLAUDE.md`, `AGENTS.md`, `AI_CONTEXT.md`). Redundancy ensures every agent sees the guidance.
+Repeat critical instructions—such as worktree usage—in multiple docs (`CLAUDE.md`, `AGENTS.md`). Redundancy ensures every agent sees the guidance.
 
 ---
 
@@ -497,7 +497,7 @@ The 4-week phased approach proved highly effective:
 1. Added mandatory workspace verification to all agent docs
 2. Created git worktree documentation
 3. Enhanced CLAUDE.md with explicit workspace checks
-4. Added warnings to AI_CONTEXT.md
+4. Added workspace verification as first step in workflow
 
 ### Testing Infrastructure Blocker (19-01-2025)
 **What Happened**: React Native 0.80.0 Flow types prevented Jest from running.
@@ -847,3 +847,158 @@ This feedback directly shaped our zero-tolerance policy and comprehensive docume
 
 ### Key Insight
 **Quality investment is multiplicative** - systematic fixes prevent exponential technical debt, while shortcuts become tomorrow's debugging nightmares.
+
+---
+
+## Session History & Major Achievements
+
+### 20-06-2025 - Week 3 Advanced Features & Worktree Crisis Resolution
+- **Agent**: Claude (Sonnet 4)
+- **Duration**: ~2 hours
+- **Major Incident**: Agent started working in main production repo instead of claude-sandbox
+  - **Root Cause**: No worktree documentation + agent ignored existing workflow docs
+  - **Impact**: Mixed Week 3 features with user's testing migration work
+  - **Resolution**: Surgical git separation, preserved all work, restored proper isolation
+  - **Prevention**: Added comprehensive worktree documentation to all agent docs
+- **Completed**:
+  - YouTube video integration with search, grid layout, custom player
+  - Advanced data visualization with interactive charts and analytics  
+  - Sophisticated animation systems (scroll-based, carousel, loading animations)
+  - Firebase Functions cloud integration with retry logic and Google Sheets
+  - Navigation types and authentication context foundations
+  - Mindset screen components and constants (committed properly)
+  - Comprehensive worktree documentation across CLAUDE.md, AGENTS.md, ARCHITECTURE.md
+- **Key Learning**: **ALWAYS verify workspace location before starting any work**
+
+### 19-01-2025 - BGUI Testing Infrastructure Setup
+- **Agent**: Claude (Opus 4)
+- **Attempted**:
+  - Installed testing dependencies: @testing-library/react-native, jest-expo, ts-jest, babel-jest
+  - Created test infrastructure: jest.config.js, babel.config.js, jest-setup.js, test-utils.tsx
+  - Wrote comprehensive Button.test.tsx with 14 test cases
+  - Tried multiple Jest/Babel configurations to resolve compatibility issues
+- **Blocker Encountered**: React Native 0.80.0 uses Flow type syntax which Jest cannot parse
+  - Error: `type ErrorHandler = (error: mixed, isFatal: boolean) => void;`
+  - This is a known issue in the React Native ecosystem with newer versions
+- **Documentation Created**:
+  - TESTING.md: Comprehensive testing strategy and recommendations
+- **Recommendations**:
+  - Use TypeScript for compile-time type safety
+  - Consider Storybook for visual component testing
+  - Test pure utility functions separately from React Native components
+  - Wait for React Native Testing Library updates or use alternative testing strategies
+
+### 19-06-2025 - Complete Lint and Type Error Resolution
+- **Agent**: Claude (Opus 4)
+- **Completed**:
+  - Fixed all Biome lint errors in all packages
+  - Resolved .expo and .next directory linting issues
+  - Fixed all TypeScript errors in BGUI package (RefObject types, React.ReactNode compatibility, etc.)
+  - Fixed all TypeScript errors in product app (component prop mismatches, version conflicts)
+  - Improved pre-commit messaging for clear, actionable feedback
+- **Key Learnings**:
+  - Biome v2 doesn't support `ignore` in files section - use .biomeignore or modify lint scripts
+  - React 18 vs 19 have different ReactNode types (bigint support)
+  - Generated files (.expo, .next) need special handling to exclude from linting
+  - Component APIs must be checked carefully - common prop naming mistakes
+
+### 18-06-2025 - Enterprise-Grade BGUI Component Plan
+- **Agent**: Claude Sonnet 4
+- **Completed**:
+  - Complete overhaul of `docs/BGUI_COMPONENT_PLAN.md` addressing major enterprise concerns:
+    - Added comprehensive accessibility (A11y) specifications for all 28 components
+    - Standardized API consistency (onPress/onValueChange, children over label props)
+    - Defined theming strategy with TypeScript design tokens
+    - Added missing critical components: Label, Link, Image, Tooltip
+    - Converted configuration-based APIs to compositional patterns for flexibility
+    - Added implementation priority phases (Foundation → Layout → Advanced)
+    - Included TypeScript definitions and accessibility requirements
+- **Key Decisions**:
+  - Favor composition over configuration for complex components
+  - Mandatory accessibility compliance with ARIA support
+  - Design token system prevents arbitrary styling
+  - Three-phase implementation roadmap prioritizes MVP components
+
+### 18-06-2025 - Full Documentation Overhaul
+- **Agent**: Claude 3.5 Sonnet
+- **Completed**:
+  - Performed a comprehensive review of all `.md` files in the repository
+  - Refactored and rewrote `ARCHITECTURE.md`, `AGENTS.md`, `BRAND.md`, `CLAUDE.md`, `CODING_STYLE.md`, `DEVELOPMENT.md`, `docs/README.md`, the root `README.md`, `CONTRIBUTING.md`, and `SECURITY.md`
+  - Renamed `ENTERPRISE_TRANSFORMATION.md` to `QUALITY_ROADMAP.md` to better reflect its purpose as a living document
+  - Created a standard `CODE_OF_CONDUCT.md`
+  - Ensured all documents are consistent, interlinked, and have a single source of truth
+- **Key Decisions**:
+  - Each document must have a single, clear purpose to avoid redundancy
+  - Documentation should be "living" and continuously updated
+  - AI-specific documentation is critical for effective human-AI collaboration
+- **Result**: The repository's documentation is now considered enterprise-grade
+
+### 16-01-2024 - Project Setup Complete
+- **Agent**: Claude (Opus)
+- **Completed**: 
+  - Created GitHub Actions workflows (ci.yml, release.yml, dependabot.yml)
+  - Added Jest configuration (jest.config.js, jest.setup.js)
+  - Created DEVELOPMENT.md onboarding guide
+  - Setup Changesets for version management
+  - Added VS Code extensions recommendations
+  - Cleaned up duplicate files (biome.json, package-lock.json, eslint.config.mjs)
+  - Organized font files into subdirectories
+  - Created missing config files (turbo.json, .nvmrc, .editorconfig, .vscode/settings.json)
+  - Ran Biome formatter (fixed 7 files)
+- **Foundation**: Established clean project structure and development workflow
+
+---
+
+## Secret Scanning Tools (23-06-2025)
+
+### Background
+The project has two secret scanning tools:
+1. **Secretlint** - The official tool configured with `.secretlintrc.json`
+2. **scan-secrets.ts** - A custom TypeScript scanner added as "codex secret scanner"
+
+### Why Secret Scanning Was Disabled
+- The pre-commit hook had secret scanning disabled with message "incompatible in this environment"
+- Investigation revealed this was a false assumption - secretlint works perfectly fine
+- The custom scan-secrets.ts has too many false positives (detects any 32-char alphanumeric string as potential secret)
+
+### Current State
+- **Secretlint** is the primary tool:
+  - `pnpm secrets:scan` - Interactive scan with colors
+  - `pnpm secrets:check` - CI-friendly scan without colors
+  - Configured to check for AWS keys, GCP service accounts, GitHub tokens, and .env files
+  - Has proper ignore patterns in `.secretlintignore`
+  
+- **scan-secrets.ts** was removed (23-06-2025):
+  - Had overly broad patterns causing false positives in binary files, images, lockfiles
+  - Was never integrated into the workflow
+  - Secretlint provides better, more accurate secret detection
+
+### Resolution
+- Re-enabled secretlint in pre-commit hook (non-blocking to avoid disrupting workflow)
+- Updated documentation to correctly reference Secretlint instead of TruffleHog
+- Secret scanning now runs on every commit and provides helpful warnings
+
+---
+
+## Documentation Consolidation (23-06-2025)
+
+### Files Consolidated
+1. **AI_CONTEXT.md** → Content moved to CLAUDE.md, AGENTS.md, and LESSONS.md
+2. **ENTERPRISE_READINESS.md** → Content integrated into ARCHITECTURE.md
+3. **QUALITY_ROADMAP.md** → Guiding principles moved to QUALITY.md, task tracking remains in TODO.md
+
+### Key Learning
+Having multiple overlapping documentation files creates confusion and maintenance burden. Better to have:
+- **ARCHITECTURE.md** - System design and technical decisions
+- **QUALITY.md** - Quality standards and patterns
+- **TODO.md** - Active task tracking
+- **LESSONS.md** - Historical learnings and session summaries
+
+This provides clear separation of concerns and single sources of truth.
+
+### Documentation Hub Consolidation
+**docs/README.md** was deleted and its content moved to the main README.md because:
+- It was just a table of contents that added an unnecessary navigation hop
+- It inevitably got out of sync (had references to deleted files)
+- Users can now access all documentation directly from the main README
+- Reduces maintenance burden of keeping two navigation structures in sync

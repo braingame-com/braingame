@@ -111,6 +111,14 @@ braingame/
 
 ## 5. Build & dev workflow
 
+### Monorepo Management
+- **Turborepo** organizes apps and packages with a unified task graph
+- Atomic commits ensure related changes across packages stay together
+- Shared caching keeps builds fast and reproducible
+- Optional remote caching (e.g., Vercel) speeds up CI across pull requests
+
+### Development Commands
+
 | Task | Command |
 |------|---------|
 | Dev all | `pnpm dev` |
@@ -134,11 +142,18 @@ build -> transpile -> test -> typecheck -> package
 
 ## 6. CI / CD pipeline (GitHub Actions)
 
-1. **lint** → Biome, dep‑graph check  
-2. **test** → unit & e2e (Playwright, Maestro)  
-3. **build** → Turbo cache; upload artifacts  
-4. **preview deploy** → Vercel (web) & Expo EAS (app)  
-5. **release** (main) → Changesets publish, Firebase deploy
+### Quality Gates
+- **Zero tolerance** policy for lint and type errors
+- Mandatory pre-commit hooks run `pnpm lint` and `pnpm typecheck`
+- Tests run with `pnpm test` in CI before any merge
+
+### Pipeline Stages
+
+1. **lint** → Biome and dependency graph checks
+2. **test** → unit and e2e suites (Jest, Playwright, Maestro)
+3. **build** → Turbo cache and artifact upload
+4. **deploy** → preview on Vercel (web) and Expo EAS (app)
+5. **release** → publish packages with Changesets, Firebase deploy
 
 ---
 
@@ -173,7 +188,7 @@ All AI agents **MUST**:
 
 ## 9. Security & compliance
 
-- Secrets only in CI secret manager; scanned via TruffleHog pre‑commit.  
+- Secrets only in CI secret manager; scanned via Secretlint (`pnpm secrets:scan`).  
 - Dependabot weekly updates for npm + GH Actions.  
 - Disclosure policy in [SECURITY.md](../.github/SECURITY.md).
 

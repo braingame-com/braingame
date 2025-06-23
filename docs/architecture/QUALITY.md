@@ -4,6 +4,13 @@
 
 ---
 
+## Guiding Principles
+- **Quality is a Feature:** We treat code quality, test coverage, and developer experience as first-class features of our product.
+- **Continuous Improvement:** Quality standards evolve - we're always looking for opportunities to improve our tools, processes, and standards.
+- **Data-Driven Decisions:** We use metrics (test coverage, performance benchmarks, type safety) to guide our quality initiatives.
+
+---
+
 ## Table of Contents
 1. [Zero Tolerance Policy](#zero-tolerance-policy)
 2. [Quality Tools & Commands](#quality-tools--commands)

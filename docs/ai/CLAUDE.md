@@ -1,14 +1,14 @@
 # CLAUDE.md - AI Agent Cheatsheet
 
 > **This is your tactical guide.** It provides the essential commands and workflows for operating effectively within the Brain Game repository.
+> **Last Updated**: 23-06-2025
 
 ## 📚 **REQUIRED READING** (Read these docs before any development work)
 
 ### **Critical Workflow Docs:**
 - **[📋 AGENTS.md](../ai/AGENTS.md)** - AI agent roles, guardrails, and zero-tolerance quality policy
 - **[🏗️ ARCHITECTURE.md](../architecture/ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint  
-- **[🧠 AI_CONTEXT.md](../ai/AI_CONTEXT.md)** - Project context, session summaries, and working agreements
-- **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings and incident prevention
+- **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings and incident prevention (includes all session summaries)
 - **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and contribution workflow
 
 ### **Essential Process Docs:**
@@ -31,6 +31,8 @@ Follow these steps for every development task.
 4.  **Consult Required Docs:** Read the required docs above to refresh context.
 5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
+⚠️ **CRITICAL WORKSPACE WARNING**: Working in the wrong directory has caused major incidents. AI agents MUST verify workspace location before starting any work. See [LESSONS.md](../architecture/LESSONS.md#workspace-contamination-20-06-2025) for incident details.
+
 **Phase 2: Development & Implementation**
 1.  **Code:** Implement the required changes, following the guidelines below.
 2.  **Lint:** Run `pnpm lint` frequently to ensure code is clean.
@@ -44,6 +46,7 @@ Follow these steps for every development task.
 **Phase 4: Completion & Handoff**
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
 2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
+3.  **Document Session:** Add your session summary to [LESSONS.md](../architecture/LESSONS.md) if you discovered new patterns or issues.
 
 ---
 
@@ -91,6 +94,22 @@ gh auth status
 ```
 
 **Why this matters:** The braingame repository requires the `jcs180` account, not `jcs-rca`. Always run this before any git operations to avoid permission errors.
+
+### PR Merge Verification (CRITICAL)
+**⚠️ WARNING:** A successful rebase + push ≠ a successful merge. Always verify:
+
+```bash
+# Verify PR merge status
+gh pr view <number> --json state,mergedAt,mergedBy
+
+# Check if changes made it to main
+git log --oneline main | head -5
+
+# Verify commits exist on target branch
+git branch --contains <commit-hash>
+```
+
+**Lesson from 21-06-2025 incident:** Agent incorrectly reported PR as merged when it was only closed. See [LESSONS.md](../architecture/LESSONS.md#pr-merge-status-confusion-21-06-2025) for details.
 
 ### Workflow for AI Agents
 1. **Start Here:** Always begin work in `/Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox`
@@ -157,6 +176,9 @@ pnpm lint
 # Run all unit tests with Jest
 pnpm test
 
+# Scan for secrets with Secretlint
+pnpm secrets:scan
+
 # Build all packages and apps
 pnpm build
 
@@ -193,3 +215,48 @@ pnpm --filter product web
 ### **Package Documentation:**
 - [🛠️ Utils Package](../../packages/utils/README.md) - API reference for shared utilities and hooks
 - [🎨 BGUI Package](../../packages/bgui/README.md) - Component library documentation
+
+---
+
+## 7. Working Agreements for AI Agents
+
+**Start of Session:**
+- [ ] Read `TODO.md` for current priorities
+- [ ] Read this file (`CLAUDE.md`) for project-specific instructions
+- [ ] Update task status in `TODO.md` *before* starting
+
+**During Session:**
+- [ ] Follow existing code patterns and conventions
+- [ ] Use `pnpm lint` to format code
+- [ ] Run relevant tests with `pnpm test`
+- [ ] Verify workspace location frequently
+
+**End of Session:**
+- [ ] Update `TODO.md` with completion status and date
+- [ ] Add key learnings to `LESSONS.md` if you discovered new patterns or issues
+- [ ] Run `pnpm lint` and `pnpm test` on all changes
+- [ ] Verify PR status if created (see PR Merge Verification above)
+
+---
+
+## 8. Project Architecture Quick Reference
+
+### Core Architecture Decisions
+- **Package Manager:** pnpm workspaces (not npm/yarn)
+- **Linter/Formatter:** Biome (not ESLint/Prettier)
+- **Universal App:** Expo (not separate React Native/web)
+- **Shared UI:** `packages/bgui` component library
+- **Monorepo Tooling:** Turborepo for builds and caching
+
+### File Locations
+- **Apps:** `apps/product` (Expo), `apps/website` (Next.js)
+- **Shared UI:** `packages/bgui`
+- **Utils:** `packages/utils`
+- **Config:** `packages/config`
+- **Docs:** `docs/*`
+
+### Current Focus Areas
+1. Advanced Week 3 feature implementation (YouTube integration, analytics, animations, Firebase cloud)
+2. Advanced navigation patterns and authentication flows
+3. Ensuring proper worktree isolation and documentation
+4. Making the project enterprise-ready

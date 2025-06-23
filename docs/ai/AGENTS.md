@@ -1,5 +1,7 @@
 # AGENTS.md - AI Agent Guidelines & Standards
 
+> **Last Updated**: 23-06-2025
+
 This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
 ## 📚 **MANDATORY READING** (Before any development work)
@@ -9,9 +11,8 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 ### **Essential Workflow Docs:**
 1. **[📋 CLAUDE.md](../ai/CLAUDE.md)** - Tactical guide with golden path workflow and commands
 2. **[🏗️ ARCHITECTURE.md](../architecture/ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
-3. **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings and incident prevention 
-4. **[🧠 AI_CONTEXT.md](../ai/AI_CONTEXT.md)** - Project context, session summaries, and working agreements
-5. **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
+3. **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings, incident prevention, and session summaries
+4. **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
 
 ### **Critical Process Docs:**
 - **[🔄 PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
@@ -73,6 +74,12 @@ gh pr merge <number> --squash --delete-branch
 
 ### Operational Guardrails
 - **Workspace Isolation:** Always verify which git worktree you're working in. Production work happens in the main `braingame/` directory, experimental/AI work happens in `braingame-claude-sandbox/`. When in doubt, ask.
+  ```bash
+  # MANDATORY at session start:
+  git worktree list
+  pwd && git branch --show-current
+  ```
+  ⚠️ **CRITICAL:** Working in wrong directory has caused major incidents. See [LESSONS.md](../architecture/LESSONS.md#workspace-contamination-20-06-2025).
 - **Human Review is Mandatory:** All agent-generated code must be reviewed and approved by a human maintainer before merging.
 - **Read-Only by Default:** Agents should operate with the minimum necessary permissions. Write access is a privilege, gated by CI checks.
 - **Secure by Design:** Credentials and secrets must be stored in the CI provider's secret manager, never in the repository.
@@ -80,6 +87,23 @@ gh pr merge <number> --squash --delete-branch
 - **Respect Ownership:** Agents must adhere to `CODEOWNERS` and branch protection rules.
 - **Pinned Dependencies:** All agent-related tooling and dependencies should be pinned to specific versions to ensure stability. Upgrades must go through a PR.
 - **Use Correct Dates:** All dates in documentation **MUST** follow the `DD-MM-YYYY` format and reflect the correct current date. Chronological accuracy is non-negotiable.
+- **PR Verification:** A successful rebase + push ≠ a successful merge. Always verify PR status explicitly:
+  ```bash
+  gh pr view <number> --json state,mergedAt,mergedBy
+  ```
+
+---
+
+## Session Documentation Requirements
+
+All AI agents must document their work sessions:
+
+1. **Session Start:** Read [TODO.md](../project/TODO.md) and mark tasks as `in_progress`
+2. **Session End:** 
+   - Update [TODO.md](../project/TODO.md) with completion status
+   - Add significant learnings to [LESSONS.md](../architecture/LESSONS.md)
+   - Document any incidents or workarounds discovered
+3. **Quality Checks:** Run `pnpm lint` and `pnpm test` before marking tasks complete
 
 ---
 
