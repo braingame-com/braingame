@@ -202,7 +202,7 @@ When closing PRs:
 1. **Always comment** with clear reasoning
 2. **Reference related PRs** that provide the functionality  
 3. **Suggest alternatives** if applicable
-4. **Update TODO.md** if the PR addressed items listed there
+4. **Update docs/project/TODO.md** if the PR addressed items listed there
 5. **Tag the author** if they should be aware of alternatives
 
 ### Example Scenarios

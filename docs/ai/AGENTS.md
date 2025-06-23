@@ -42,7 +42,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 ### Quality Standards (ZERO TOLERANCE)
 **⚠️ CRITICAL:** All agents must adhere to our zero-tolerance quality policy.
 
-**For complete quality standards, see: [📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)**
+**For complete quality standards, see: [📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)**
 
 **Mandatory Quality Checks:**
 - ❌ No lint errors or warnings (`pnpm lint` must be 0/0)
@@ -70,7 +70,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm build
 gh pr merge <number> --squash --delete-branch
 ```
 
-**⚠️ CRITICAL:** Follow [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) exactly. Skipping quality validation on branches is the primary cause of technical debt on main.
+**⚠️ CRITICAL:** Follow [PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md) exactly. Skipping quality validation on branches is the primary cause of technical debt on main.
 
 ### Operational Guardrails
 - **Workspace Isolation:** Always verify which git worktree you're working in. Production work happens in the main `braingame/` directory, experimental/AI work happens in `braingame-claude-sandbox/`. When in doubt, ask.

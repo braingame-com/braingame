@@ -106,7 +106,7 @@ We do not test third-party libraries or simple component rendering. We trust tha
 
 ### Testing React Native Components
 
-Given the current limitations with React Native testing (see `lessons.md` for details), we recommend:
+Given the current limitations with React Native testing (see `../architecture/LESSONS.md` for details), we recommend:
 
 1. **Don't Fight the Tools:** If you're spending more than 30 minutes configuring tests, stop and consider alternatives.
 

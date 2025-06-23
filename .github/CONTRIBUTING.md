@@ -108,11 +108,11 @@ docs: update README with new installation steps
 ## 🤖 AI Agent Guidelines
 If you're an AI agent contributing to this project:
 1. **Read the documentation** in the `docs` folder, especially:
-   - [`CLAUDE.md`](../docs/ai/CLAUDE.md) for AI-specific instructions
-   - [`AI_CONTEXT.md`](../docs/ai/AI_CONTEXT.md) for project context
+   - [`CLAUDE.md`](../docs/ai/CLAUDE.md) for AI-specific instructions and project context
+   - [`AGENTS.md`](../docs/ai/AGENTS.md) for workspace verification and session documentation
    - [`CODING_STYLE.md`](../docs/engineering/CODING_STYLE.md) for code standards
 2. **Update task tracking** in [`TODO.md`](../docs/project/TODO.md) when claiming or completing tasks
-3. **Add session summaries** to [`AI_CONTEXT.md`](../docs/ai/AI_CONTEXT.md) after completing work
+3. **Add session summaries** to [`LESSONS.md`](../docs/architecture/LESSONS.md) after completing work
 
 ---
 
@@ -148,7 +148,7 @@ Good documentation is crucial. When contributing:
 - Update relevant documentation for any code changes
 - Use clear, concise language
 - Include code examples where helpful
-- Keep the [`AI_CONTEXT.md`](../docs/ai/AI_CONTEXT.md) updated if you're an AI agent
+- Keep the [`LESSONS.md`](../docs/architecture/LESSONS.md) updated with session summaries if you're an AI agent
 
 ---
 

@@ -40,7 +40,7 @@ Follow these steps for every development task.
 
 **Phase 3: PR Creation & Review**
 1.  **Create PR:** Use `gh pr create` with clear title and description
-2.  **Follow PR Review Process:** See [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) for complete merge procedures
+2.  **Follow PR Review Process:** See [PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md) for complete merge procedures
 3.  **Quality Validation:** Ensure each branch passes quality checks before merging
 
 **Phase 4: Completion & Handoff**
@@ -55,7 +55,7 @@ Follow these steps for every development task.
 **⚠️ CRITICAL:** All code must meet our zero-tolerance quality standards.
 
 For complete quality standards, coding guidelines, and contribution workflow, see:
-**[📋 CONTRIBUTING.md](../.github/CONTRIBUTING.md)**
+**[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)**
 
 **Quick Reference - Zero Tolerance Policy:**
 - ❌ No lint errors or warnings

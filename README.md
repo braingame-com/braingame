@@ -116,7 +116,7 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our **[Contributing Guide](./CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
+We welcome contributions! Please see our **[Contributing Guide](./.github/CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
 
 A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./docs/project/TODO.md)**.
 

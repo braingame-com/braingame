@@ -90,7 +90,7 @@ These are the commands you will use most often. They are run from the monorepo r
 
 ### Pull Requests & Code Review
 1.  **Create PR:** When your work is ready, open a Pull Request against the `main` branch.
-2.  **PR Description:** Fill out the PR template. Clearly explain the "what" and the "why" of your changes. Link to the relevant task in `TODO.md`.
+2.  **PR Description:** Fill out the PR template. Clearly explain the "what" and the "why" of your changes. Link to the relevant task in `docs/project/TODO.md`.
 3.  **CI Checks:** Ensure all automated CI checks (linting, testing, building) pass. A green checkmark is required for review.
 4.  **Review:** Request a review from at least one other developer. Address all feedback.
 5.  **Merge:** Once approved and all checks are green, squash and merge your PR. Delete your feature branch.
@@ -119,12 +119,12 @@ This repo is heavily documented. Before asking a question, check these files:
 
 | File | Purpose |
 |---|---|
-| `docs/ARCHITECTURE.md` | **System Design:** The high-level blueprint of the entire project. |
-| `docs/BGUI_COMPONENT_PLAN.md` | **UI Components:** The plan and API for our component library. |
-| `docs/CODING_STYLE.md` | **Code Quality:** Specific rules for writing clean, maintainable code. |
-| `docs/BRAND.md` | **Brand Identity:** How to use our name, voice, and tone. |
-| `docs/LESSONS.md` | **Knowledge Base:** Technical learnings and patterns from development. |
-| `TODO.md` | **Task Tracker:** The list of current and upcoming work. |
+| `docs/architecture/ARCHITECTURE.md` | **System Design:** The high-level blueprint of the entire project. |
+| `packages/bgui/docs/BGUI_COMPONENT_PLAN.md` | **UI Components:** The plan and API for our component library. |
+| `docs/engineering/CODING_STYLE.md` | **Code Quality:** Specific rules for writing clean, maintainable code. |
+| `docs/architecture/BRAND.md` | **Brand Identity:** How to use our name, voice, and tone. |
+| `docs/architecture/LESSONS.md` | **Knowledge Base:** Technical learnings and patterns from development. |
+| `docs/project/TODO.md` | **Task Tracker:** The list of current and upcoming work. |
 
 ---
 
@@ -132,7 +132,7 @@ This repo is heavily documented. Before asking a question, check these files:
 These are listed in `.vscode/extensions.json` and should be automatically recommended when you open the project.
 - **Biome:** For linting, formatting, and import sorting. This is critical.
 - **Expo Tools:** For working with the Expo app.
-- **Tailwind CSS IntelliSense:** For autocompletion of Tailwind classes in the Next.js app.
+- **CSS Modules:** For styling with CSS Modules in the Next.js apps.
 - **GitLens:** For powerful Git history and blame features.
 - **Conventional Commits:** For help writing valid commit messages.
 
@@ -287,14 +287,14 @@ npx expo start -c
 
 When using AI assistants (like Claude):
 1. Point them to `CLAUDE.md` for project-specific instructions
-2. Check `TODO.md` for current priorities
+2. Check `docs/project/TODO.md` for current priorities
 3. Review `LESSONS.md` for technical patterns and solutions
 
 ## Getting Help
 
 - **Documentation**: Check `/docs` folder
-- **Architecture**: See `docs/ARCHITECTURE.md`
-- **Task Tracking**: See `TODO.md`
+- **Architecture**: See `docs/architecture/ARCHITECTURE.md`
+- **Task Tracking**: See `docs/project/TODO.md`
 - **Security**: See `../.github/SECURITY.md`
 
 ## VS Code Extensions
@@ -302,14 +302,14 @@ When using AI assistants (like Claude):
 Recommended extensions (auto-installed via `.vscode/extensions.json`):
 - Biome (formatting/linting)
 - Expo Tools
-- Tailwind CSS IntelliSense
+- CSS Modules
 
 ## Next Steps
 
 1. Explore the codebase structure
 2. Run the development servers
-3. Check `TODO.md` for good first issues
-4. Read `docs/ARCHITECTURE.md` for system design
+3. Check `docs/project/TODO.md` for good first issues
+4. Read `docs/architecture/ARCHITECTURE.md` for system design
 5. Join our Discord/Slack for questions
 
 Happy coding! 🚀

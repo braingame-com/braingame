@@ -320,6 +320,4 @@ import { Button, Text, View, Icon, TextInput } from '@braingame/bgui';
 
 ## Snippet Directory
 
-Additional code examples are available in `/docs/snippets/`:
-- Button.tsx - Basic button usage
-- Card.tsx - Interactive card example
+<!-- Additional code examples will be added here when available -->

@@ -6,7 +6,7 @@
 
 ## 🐛 CRITICAL BUG FIXES REQUIRED
 
-**URGENT**: Hidden bugs discovered during code analysis on 20-01-2025. See [Hidden Bugs Analysis](./LESSONS.md#hidden-bugs-analysis-20-01-2025) for details.
+**URGENT**: Hidden bugs discovered during code analysis on 20-01-2025. See [Hidden Bugs Analysis](../architecture/LESSONS.md#hidden-bugs-analysis-20-01-2025) for details.
 
 ### Memory Leak Fixes (Priority: CRITICAL)
 - [x] Fix timer cleanup in `TrackableComponent.tsx` scrollTimer (22-06-2025)
@@ -318,7 +318,7 @@
 - Create work session documentation for significant changes
 
 ## 🔗 Quick Links
-- Architecture: [ARCHITECTURE.md](./ARCHITECTURE.md)
-- AI Guide: [CLAUDE.md](./CLAUDE.md)
-- Security: [SECURITY.md](../.github/SECURITY.md)
-- Worktrees: [WORKTREES.md](./WORKTREES.md) 🆕
+- Architecture: [ARCHITECTURE.md](../architecture/ARCHITECTURE.md)
+- AI Guide: [CLAUDE.md](../ai/CLAUDE.md)
+- Security: [SECURITY.md](../../.github/SECURITY.md)
+- Worktrees: [WORKTREES.md](../engineering/WORKTREES.md) 🆕

@@ -31,7 +31,7 @@ This guide outlines the steps to submit Brain Game to the Apple App Store and Go
 - [ ] App Icon (1024x1024) - `./assets/images/icon.png`
 - [ ] Adaptive Icon Foreground - `./assets/images/adaptive-icon.png`
 - [ ] Splash Screen - `./assets/images/splash-icon.png`
-- [ ] Notification Icon - `./assets/images/notification-icon.png`
+- [ ] ~~Notification Icon - `./assets/images/notification-icon.png`~~ (file not present)
 - [ ] Favicon - `./assets/images/favicon.png`
 
 ### Screenshots

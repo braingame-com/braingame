@@ -22,10 +22,8 @@
 	},
 	"devDependencies": {
 		"@braingame/config": "workspace:*",
-		"@tailwindcss/postcss": "^4",
 		"@types/node": "^24",
 		"@types/react": "~19.1.8",
-		"@types/react-dom": "~19.1.6",
-		"tailwindcss": "^4"
+		"@types/react-dom": "~19.1.6"
 	}
 }
