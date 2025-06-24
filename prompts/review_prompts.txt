@@ -1,0 +1,304 @@
+PROMPT #1 – **Full‑Stack Technical Deep‑Dive Audit**
+
+You are a world‑class CTO and systems architect hired to perform a surgical audit of this monorepo. You must examine every subsystem – frontend, backend, infra, and shared libraries – with brutal honesty.
+
+Output your findings to **`CONSULTANT_FINDINGS_1.md`** in the project root.
+
+Evaluate and document:
+- 🏗 Architecture coherence, layering, dependency boundaries  
+- 🧹 Code quality (naming, abstraction, dead code, tech‑debt hotspots)  
+- ⚙️ Build & tooling (linters, formatters, TypeScript, bundle size)  
+- 🔐 Security posture (secrets, auth, OWASP, supply‑chain)  
+- 🚀 Scalability (horizontal/vertical, DB sharding, caching)  
+- 🧪 Testing strategy & coverage gaps  
+- 📝 Documentation truthfulness and onboarding clarity  
+
+Deliver a **letter‑grade** verdict at top, critical fixes, quick wins, and a roadmap for elite readiness.
+
+--------------------------------------------------------------------------------
+
+PROMPT #2 – **Red‑Team Chaos & Failure Simulation**
+
+Become a senior Red‑Team engineer tasked with breaking this system before customers do. Hunt for hidden weaknesses, race conditions, and exploitable misconfigs.
+
+Write a dossier to **`FAILURE_REPORT_1.md`**.
+
+Document:
+- ⚠️ Critical exploits (RCE, privilege escalation, data leakage)  
+- 🔥 Chaos scenarios (node crash, DB failover, network partition)  
+- 🧨 Attack surfaces & social‑engineering vectors  
+- 🩹 Mitigations and hardening steps ranked by impact  
+
+Be ruthless, detailed, and provide simulated exploit scripts/logs where useful.
+
+--------------------------------------------------------------------------------
+
+PROMPT #3 – **Product‑Launch UX & Feature Readiness Review**
+
+Act as Head of Product prepping for a public launch. Your mission: ensure the product delivers unmistakable value on day one.
+
+Record insights in **`PRODUCT_LAUNCH_READINESS.md`**.
+
+Assess:
+- 🎯 Core value delivery & feature coherence  
+- 🧭 Critical user journeys (signup, paywall, core task)  
+- 🪓 Bloat & distraction – what to cut or postpone  
+- 🪙 Revenue hooks & pricing clarity  
+- 🧹 Empty/error states & mobile edge cases  
+
+Score readiness /10 and list must‑fix items before launch.
+
+--------------------------------------------------------------------------------
+
+PROMPT #4 – **Performance & Cloud Cost Profiling**
+
+You are a performance engineer hired to squeeze every millisecond and dollar.
+
+Save results to **`PERF_COST_DIAGNOSIS.md`**.
+
+Analyse:
+- ⏱ TTFB, CLS, bundle weight, API latency  
+- 🖥️ Server CPU, memory, container density  
+- 💸 Cloud spend per request & per tenant  
+- 🗺 Hot paths, N+1 queries, caching gaps  
+- ⚖️ Trade‑offs between performance and cost  
+
+Provide quantified benchmarks, flame‑graph snapshots, and a 30‑day optimisation roadmap.
+
+--------------------------------------------------------------------------------
+
+PROMPT #5 – **Security Pen‑Test & Threat Model**
+
+Assume the role of a CREST‑certified penetration tester.
+
+Report to **`SECURITY_AUDIT_LOG.md`**.
+
+Tasks:
+- Map attack surface (web, mobile, CI/CD, supply chain)  
+- Execute OWASP Top‑10 probes & document results  
+- Analyse auth flows, token scopes, session expiry  
+- Check infra-as‑code for misconfig (S3 ACLs, SGs)  
+- Provide CVSS scores, PoC payloads, and remediation plans  
+
+No sugarcoating – treat this like a live pentest report to execs.
+
+--------------------------------------------------------------------------------
+
+PROMPT #6 – **Accessibility & Inclusivity Review**
+
+Act as a senior a11y specialist auditing compliance with WCAG 2.2 AA.
+
+Write to **`ACCESSIBILITY_REPORT.md`**.
+
+Inspect:
+- 🎨 Colour contrast, motion, prefers‑reduced‑motion  
+- ⌨️ Keyboard nav flow and focus management  
+- 🗣 Screen‑reader semantics (roles, ARIA labels)  
+- 🌐 Internationalisation of RTL & localisation strings  
+- ♿ Edge cases for cognitive, visual, motor impairments  
+
+Include screenshots of violations, code snippets, and fix checklists.
+
+--------------------------------------------------------------------------------
+
+PROMPT #7 – **DevOps & CI/CD Scalability Audit**
+
+You are a platform‑engineering lead hired to future‑proof the pipeline.
+
+Output to **`DEVOPS_PIPELINE_REVIEW.md`**.
+
+Cover:
+- 🌊 Branch strategy, trunk‑based vs git‑flow  
+- 🏗 CI stages, cache hits, parallelisation, flaky tests  
+- 🚚 CD strategy (blue‑green, canary, feature flags)  
+- 🔄 Rollback & incident response procedures  
+- 📈 Observability: logs, metrics, traces, SLOs  
+
+Deliver diagrams of current vs proposed pipeline and a 90‑day migration path.
+
+--------------------------------------------------------------------------------
+
+PROMPT #8 – **Data Architecture & Compliance Inspection**
+
+As a data‑platform architect, audit storage design and regulatory posture.
+
+Save to **`DATA_COMPLIANCE_AUDIT.md`**.
+
+Evaluate:
+- 🏛 Schema design, normalisation, indexing, delete cascades  
+- 🔄 ETL/ELT pipelines, data lineage, DAG health  
+- 🔐 PII encryption, GDPR/CCPA right‑to‑forget flows  
+- 🎯 Analytics workload isolation vs OLTP  
+- 🧩 Backup, retention, and disaster recovery strategy  
+
+Conclude with compliance gaps, risk matrix, and mitigation roadmap.
+
+--------------------------------------------------------------------------------
+
+PROMPT #9 – **Developer Onboarding & DX Assessment**
+
+You are a Staff Engineer tasked with making new‑hire ramp‑up painless.
+
+Document in **`DEV_ONBOARDING_FEEDBACK.md`**.
+
+Scrutinise:
+- 🚀 Repo clone → app running time & obstacles  
+- 📚 README accuracy, env setup scripts, DX tooling  
+- 🧭 Codebase tour guides (architecture docs, Storybook, ADRs)  
+- 🛠 Local test reliability, fixture heaviness, seed data  
+- 🔄 Feedback loops (lint, type‑check, hot‑reload latency)  
+
+Provide friction logs, time metrics, and proposals to cut onboarding to <1 day.
+
+--------------------------------------------------------------------------------
+
+PROMPT #10 – **AI Ethics & Responsible AI Review**
+
+You are an AI ethics lead ensuring this project meets rigorous responsible‑AI standards.
+
+Write your findings to **`AI_ETHICS_REPORT.md`**.
+
+Analyse:
+- 🕵️‍♂️ Data sourcing transparency & consent  
+- 🤖 Model bias, fairness tests, demographic parity  
+- 🔒 Privacy preservation, differential privacy, data minimisation  
+- 🔄 Model update & rollback governance  
+- 📜 User communication, opt‑out flows, explainability  
+
+Deliver a compliance scorecard, red‑flag list, and an ethics improvement roadmap.
+
+--------------------------------------------------------------------------------
+
+PROMPT #11 – **Monetisation & Growth Engineering Review**
+
+You're a growth engineer responsible for auditing monetisation levers and viral mechanics.
+
+Document your findings in **`MONETISATION_GROWTH_AUDIT.md`**.
+
+Investigate:
+- 📈 Conversion funnels & dropout analytics
+- 💳 Pricing model clarity, upsells, freemium-to-paid flows
+- 📬 Referral systems, invites, social integrations
+- 🔁 Retention loops, habit-forming triggers
+- 🔧 Experiments, A/B infra, growth dashboards
+
+Deliver growth hypotheses, drop-off maps, and an activation roadmap.
+
+--------------------------------------------------------------------------------
+
+PROMPT #12 – **Design System Consistency Audit**
+
+You're a lead designer performing a design system integrity check.
+
+Log your analysis in **`DESIGN_SYSTEM_AUDIT.md`**.
+
+Review:
+- 🎨 Token usage (spacing, colors, typography) across codebase
+- 🧱 Component variance, duplication, or anti-patterns
+- 🧩 Storybook coverage vs Figma parity
+- 🔀 Responsive consistency across breakpoints
+- 🧼 CSS debt, overrides, and BEM/utility strategy
+
+Deliver annotated screenshots and a merge plan for full system alignment.
+
+--------------------------------------------------------------------------------
+
+PROMPT #13 – **Startup Technical Debt Time Bomb Review**
+
+Act as a VC‑backed CTO doing diligence on a fast-scaling startup’s code health.
+
+Submit findings to **`TECHNICAL_DEBT_TIMER.md`**.
+
+Check for:
+- ⌛ Accumulated hacks, commented TODOs, deprecated code
+- 🔗 Coupling between unrelated domains or services
+- ⛓️ Chokepoints that break with team or traffic scale
+- 🧯 Lack of monitoring or alerting around known weaknesses
+- 🔨 Fixes being delayed due to brittle code or fear
+
+Summarize “time bombs,” with a detonation risk matrix.
+
+--------------------------------------------------------------------------------
+
+PROMPT #14 – **Offline & Poor Network UX Evaluation**
+
+Assume the role of a connectivity resilience engineer.
+
+Write up insights in **`OFFLINE_MODE_REPORT.md`**.
+
+Simulate:
+- 📶 3G, slow 4G, airplane mode, DNS fail, timeout cases
+- 💾 Local storage usage, data queues, retry logic
+- 📉 Meaningful fallbacks (offline banners, cached content, errors)
+- 🔄 State recovery and resync after reconnect
+- 🔁 API debounce or throttle during reconnect storms
+
+List bugs found, missing affordances, and UX degradation score.
+
+--------------------------------------------------------------------------------
+
+PROMPT #15 – **Open Source Friendliness & Community Audit**
+
+You’re a devrel engineer making this codebase contributor-ready.
+
+Save findings to **`OSS_CONTRIBUTION_REVIEW.md`**.
+
+Check:
+- 👋 CONTRIBUTING.md clarity, labels, codeowner files
+- 🧪 Easy-to-run tests and reproducible local setup
+- 🧰 Issue templates, discussions, roadmap visibility
+- 🤝 Maintainer responsiveness, PR throughput, stale bots
+- 🧩 Plugin/module APIs, extendability
+
+Deliver a contributor friction score and “first PR in 30 minutes” plan.
+
+--------------------------------------------------------------------------------
+
+PROMPT #16 – **Mobile Device UX Parity Check**
+
+You are a mobile product lead verifying parity across iOS, Android, PWA.
+
+Log to **`MOBILE_PARITY_REPORT.md`**.
+
+Compare:
+- 📱 UI layout consistency, platform-specific rendering issues
+- 🧭 Navigation paradigms (tabs, drawers, gestures)
+- 🔔 Push notification behavior, background jobs
+- 💥 Crash or performance issues on low-end devices
+- 🔐 Platform-specific auth or storage quirks
+
+Attach side-by-side screenshots and parity gap heatmap.
+
+--------------------------------------------------------------------------------
+
+PROMPT #17 – **Multitenancy & SaaS Architecture Review**
+
+You are an enterprise SaaS architect reviewing tenant separation and scale.
+
+Write to **`MULTITENANCY_AUDIT.md`**.
+
+Inspect:
+- 🏠 Data isolation: shared vs separate DBs
+- 🔐 Tenant ID scoping, JWT payloads, RBAC
+- 🚪 Auth flows for org-switching and subdomain handling
+- 📊 Usage metering, quota enforcement
+- ⚙️ Environment per-tenant configuration support
+
+Provide tenancy risk matrix and architectural tier chart.
+
+--------------------------------------------------------------------------------
+
+PROMPT #18 – **Internal Tooling & Ops Experience Review**
+
+You’re a Staff Engineer evaluating internal tooling and ops ergonomics.
+
+Save results in **`INTERNAL_DX_AUDIT.md`**.
+
+Check:
+- 🛠 Internal admin panels, CLI scripts, dashboards
+- 🧭 How easily support can resolve issues without devs
+- 🗃 DB inspection/query tooling, redaction controls
+- 🔐 Audit logs, permission scopes, observability
+- 🧰 Tooling test coverage and setup friction
+
+Deliver an “internal friction index” and a plan to scale ops with headcount.

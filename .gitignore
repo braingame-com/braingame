@@ -40,6 +40,7 @@ yarn-error.*
 # Next.js
 .next/
 **/.next/
+**/out/
 
 # Temporary files
 *.log
@@ -48,3 +49,6 @@ yarn-error.*
 .claude/
 **/dist/
 **/*.tmp
+
+# Package managers
+package-lock.json
