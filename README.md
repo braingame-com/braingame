@@ -79,7 +79,8 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 | Path | Description |
 |---|---|
 | `apps/product` | The universal **Expo client** for iOS, Android, and Web. Features a complete mindset training platform with vision & goals, affirmations, visual inspiration, and performance tracking. |
-| `apps/website` | The **Next.js marketing site** and documentation hub. |
+| `apps/main-site` | The **Next.js marketing site** and landing page. |
+| `apps/docs-site` | The **Next.js documentation site** for component library. |
 | `packages/bgui` | Our **enterprise-grade component library** with 25+ components, built with React Native and `react-native-web`. Features full TypeScript support, accessibility, and theme integration. |
 | `packages/utils` | Shared utilities, hooks, design tokens, and helpers used across the monorepo. Includes theme system, animation constants, and task management utilities. |
 | `packages/config` | Shared configurations for TypeScript, Biome, etc. |

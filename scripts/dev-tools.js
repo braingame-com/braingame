@@ -202,7 +202,8 @@ function checkDependencies() {
 		path.join(rootDir, "packages/utils/package.json"),
 		path.join(rootDir, "packages/config/package.json"),
 		path.join(rootDir, "apps/product/package.json"),
-		path.join(rootDir, "apps/website/package.json"),
+		path.join(rootDir, "apps/main-site/package.json"),
+		path.join(rootDir, "apps/docs-site/package.json"),
 	];
 
 	console.log("\nPackage configuration:");

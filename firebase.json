@@ -2,7 +2,7 @@
 	"hosting": [
 		{
 			"target": "www",
-			"public": "apps/website/out",
+			"public": "apps/main-site/out",
 			"ignore": ["firebase.json", "**/.*"]
 		},
 		{
@@ -12,7 +12,7 @@
 		},
 		{
 			"target": "docs",
-			"public": "apps/docs/out",
+			"public": "apps/docs-site/out",
 			"ignore": ["firebase.json", "**/.*"]
 		},
 		{

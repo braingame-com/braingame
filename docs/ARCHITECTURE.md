@@ -17,7 +17,8 @@ Brain Game ships **three enterprise-grade artefacts** from one professionally-ma
 | Layer | Tech | Output / Domain |
 |-------|------|-----------------|
 | **Universal client** | Expo + React Native (+ `react‑native‑web`) | `app.braingame.dev` (Web), App/Play Store (Native) |
-| **Marketing & Docs** | Next.js (in `apps/website`) | `www.braingame.dev` |
+| **Marketing Site** | Next.js (in `apps/main-site`) | `www.braingame.dev` |
+| **Documentation** | Next.js (in `apps/docs-site`) | `docs.braingame.dev` |
 | **UI Kit** | `packages/bgui` – sharable RN components | npm: `@brain-game/bgui` |
 
 Common infra: pnpm workspaces, Biome lint/format, Jest tests, Turbo task graph.

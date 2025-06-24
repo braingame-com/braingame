@@ -72,7 +72,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the website.
 ## 📁 Project Structure
 
 ```
-apps/website/
+apps/main-site/
 ├── src/
 │   ├── app/                 # Next.js App Router
 │   │   ├── globals.css     # Global styles and CSS reset
@@ -163,7 +163,7 @@ firebase deploy --only hosting
 ### Deployment Configuration
 
 - **Target**: `www` in firebase.json
-- **Public Directory**: `apps/website/out`
+- **Public Directory**: `apps/main-site/out`
 - **Static Export**: Configured in next.config.ts
 - **Domain**: Served at www.braingame.dev
 

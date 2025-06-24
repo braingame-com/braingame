@@ -41,7 +41,7 @@ Follow these steps exactly to ensure a clean setup.
   - [ ] Copy the example env files. They are git-ignored.
     ```bash
     cp apps/product/.env.example apps/product/.env.local
-    cp apps/website/.env.example apps/website/.env.local
+    cp apps/main-site/.env.example apps/main-site/.env.local
     ```
   - [ ] Open each `.env.local` file and fill in the required secrets. Ask a team member for these values if you don't have them.
   - [ ] Validate your configuration:
@@ -253,7 +253,7 @@ pnpm add typescript -r
 1. Copy example files:
    ```bash
    cp apps/product/.env.example apps/product/.env.local
-   cp apps/website/.env.example apps/website/.env.local
+   cp apps/main-site/.env.example apps/main-site/.env.local
    ```
 
 2. Fill in required values (see each `.env.example` for details)

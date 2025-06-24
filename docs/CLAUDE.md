@@ -249,7 +249,7 @@ pnpm --filter product web
 - **Monorepo Tooling:** Turborepo for builds and caching
 
 ### File Locations
-- **Apps:** `apps/product` (Expo), `apps/website` (Next.js)
+- **Apps:** `apps/product` (Expo), `apps/main-site` (Next.js marketing), `apps/docs-site` (Next.js docs)
 - **Shared UI:** `packages/bgui`
 - **Utils:** `packages/utils`
 - **Config:** `packages/config`
