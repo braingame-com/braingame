@@ -43,8 +43,8 @@ For detailed component documentation, see [Component Reference](./docs/BGUI_COMP
 ## Documentation
 
 - [Component Reference](./docs/BGUI_COMPONENT_PLAN.md) - Detailed API documentation
-- [Architecture](../../docs/architecture/ARCHITECTURE.md) - System design and patterns
-- [Development Guide](../../docs/engineering/DEVELOPMENT.md) - Setup and workflow
+- [Architecture](../../docs/ARCHITECTURE.md) - System design and patterns
+- [Development Guide](../../docs/DEVELOPMENT.md) - Setup and workflow
 
 ---
 

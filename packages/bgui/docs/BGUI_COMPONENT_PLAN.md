@@ -20,7 +20,7 @@ All components support:
 
 ### Internationalization (i18n)
 All user facing strings and ARIA labels should come from translation files managed by the shared `@braingame/i18n` package. Components reference translation keys so content can be localized without code changes.
-See [I18N_WORKFLOW.md](../../../docs/project/I18N_WORKFLOW.md) for steps to add a new language.
+See [I18N_WORKFLOW.md](../../../docs/I18N_WORKFLOW.md) for steps to add a new language.
 
 ### Theming Strategy
 Components consume design tokens from a central theme:

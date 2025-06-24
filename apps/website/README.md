@@ -232,10 +232,9 @@ The website uses Brain Game's design system from `@braingame/bgui`:
 ## 🔗 Links
 
 - **Main Project**: [../../README.md](../../README.md)
-- **Architecture**: [../../docs/architecture/ARCHITECTURE.md](../../docs/architecture/ARCHITECTURE.md)
+- **Architecture**: [../../docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md)
 - **BGUI Components**: [../../packages/bgui/README.md](../../packages/bgui/README.md)
-- **Development Guide**: [../../docs/engineering/DEVELOPMENT.md](../../docs/engineering/DEVELOPMENT.md)
-- **Contributing**: [../../.github/CONTRIBUTING.md](../../.github/CONTRIBUTING.md)
+- **Development Guide**: [../../docs/DEVELOPMENT.md](../../docs/DEVELOPMENT.md)
 
 ---
 

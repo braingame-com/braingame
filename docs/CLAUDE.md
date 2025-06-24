@@ -6,15 +6,15 @@
 ## 📚 **REQUIRED READING** (Read these docs before any development work)
 
 ### **Critical Workflow Docs:**
-- **[📋 AGENTS.md](../ai/AGENTS.md)** - AI agent roles, guardrails, and zero-tolerance quality policy
-- **[🏗️ ARCHITECTURE.md](../architecture/ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint  
-- **[📖 LESSONS.md](../architecture/LESSONS.md)** - Critical technical learnings and incident prevention (includes all session summaries)
+- **[📋 AGENTS.md](./AGENTS.md)** - AI agent roles, guardrails, and zero-tolerance quality policy
+- **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint  
+- **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings and incident prevention (includes all session summaries)
 - **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and contribution workflow
 
 ### **Essential Process Docs:**
-- **[🔄 PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md)** - **CRITICAL: PR merge procedures with quality validation**
-- **[⚙️ WORKTREES.md](../engineering/WORKTREES.md)** - Workspace isolation guide (prevents contamination)
-- **[📝 TODO.md](../project/TODO.md)** - Current task tracker and priority management
+- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - **CRITICAL: PR merge procedures with quality validation**
+- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
+- **[📝 TODO.md](../../TODO.md)** - Current task tracker and priority management
 
 ---
 
@@ -31,7 +31,7 @@ Follow these steps for every development task.
 4.  **Consult Required Docs:** Read the required docs above to refresh context.
 5.  **Claim Task:** Mark your assigned task in `TODO.md` as `in_progress`.
 
-⚠️ **CRITICAL WORKSPACE WARNING**: Working in the wrong directory has caused major incidents. AI agents MUST verify workspace location before starting any work. See [LESSONS.md](../architecture/LESSONS.md#workspace-contamination-20-06-2025) for incident details.
+⚠️ **CRITICAL WORKSPACE WARNING**: Working in the wrong directory has caused major incidents. AI agents MUST verify workspace location before starting any work. See [LESSONS.md](./LESSONS.md#workspace-contamination-20-06-2025) for incident details.
 
 **Phase 2: Development & Implementation**
 1.  **Code:** Implement the required changes, following the guidelines below.
@@ -40,13 +40,13 @@ Follow these steps for every development task.
 
 **Phase 3: PR Creation & Review**
 1.  **Create PR:** Use `gh pr create` with clear title and description
-2.  **Follow PR Review Process:** See [PR_REVIEW_PROCESS.md](../engineering/PR_REVIEW_PROCESS.md) for complete merge procedures
+2.  **Follow PR Review Process:** See [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) for complete merge procedures
 3.  **Quality Validation:** Ensure each branch passes quality checks before merging
 
 **Phase 4: Completion & Handoff**
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
 2.  **Update Task:** Mark the task in `TODO.md` as `completed`.
-3.  **Document Session:** Add your session summary to [LESSONS.md](../architecture/LESSONS.md) if you discovered new patterns or issues.
+3.  **Document Session:** Add your session summary to [LESSONS.md](./LESSONS.md) if you discovered new patterns or issues.
 
 ---
 
@@ -109,7 +109,7 @@ git log --oneline main | head -5
 git branch --contains <commit-hash>
 ```
 
-**Lesson from 21-06-2025 incident:** Agent incorrectly reported PR as merged when it was only closed. See [LESSONS.md](../architecture/LESSONS.md#pr-merge-status-confusion-21-06-2025) for details.
+**Lesson from 21-06-2025 incident:** Agent incorrectly reported PR as merged when it was only closed. See [LESSONS.md](./LESSONS.md#pr-merge-status-confusion-21-06-2025) for details.
 
 ### Workflow for AI Agents
 1. **Start Here:** Always begin work in `/Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox`
@@ -203,13 +203,13 @@ pnpm --filter product web
 ## 6. Quick Reference Links
 
 ### **Quality & Standards:**
-- [📊 QUALITY.md](../architecture/QUALITY.md) - Comprehensive code quality playbook with examples
-- [💅 CODING_STYLE.md](../engineering/CODING_STYLE.md) - Code standards and anti-patterns  
-- [🧪 TESTING.md](../engineering/TESTING.md) - Testing strategy and hybrid approach
+- [📊 QUALITY.md](./QUALITY.md) - Comprehensive code quality playbook with examples
+- [💅 CODING_STYLE.md](./CODING_STYLE.md) - Code standards and anti-patterns  
+- [🧪 TESTING.md](./TESTING.md) - Testing strategy and hybrid approach
 
 ### **Development Guides:**
-- [⚙️ DEVELOPMENT.md](../engineering/DEVELOPMENT.md) - Environment setup and development workflow
-- [🌍 I18N_WORKFLOW.md](../project/I18N_WORKFLOW.md) - Internationalization processes
+- [⚙️ DEVELOPMENT.md](./DEVELOPMENT.md) - Environment setup and development workflow
+- [🌍 I18N_WORKFLOW.md](./I18N_WORKFLOW.md) - Internationalization processes
 - [🔒 SECURITY.md](../../.github/SECURITY.md) - Security policy and vulnerability reporting
 
 ### **Package Documentation:**

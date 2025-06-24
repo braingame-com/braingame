@@ -26,7 +26,7 @@ This monorepo contains the code for all Brain Game applications, websites, and s
 
 ## 🚀 Get Started
 
-To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/engineering/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
+To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
 Before running any lint or test commands, make sure your dependencies are installed:
 
@@ -34,7 +34,7 @@ Before running any lint or test commands, make sure your dependencies are instal
 pnpm install    # or pnpm run preflight
 ```
 
-New contributors should review **[docs/ai/AGENTS.md](./docs/ai/AGENTS.md)** and **[docs/ai/CLAUDE.md](./docs/ai/CLAUDE.md)** to understand how human and AI workflows operate in this repository.
+New contributors should review **[docs/AGENTS.md](./docs/AGENTS.md)** and **[docs/CLAUDE.md](./docs/CLAUDE.md)** to understand how human and AI workflows operate in this repository.
 
 ---
 
@@ -60,7 +60,7 @@ pnpm dev --filter product  # Expo app
 pnpm dev --filter website  # Next.js site
 ```
 
-**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/engineering/WORKTREES.md) for details.
+**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/WORKTREES.md) for details.
 
 ---
 
@@ -118,7 +118,7 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 
 We welcome contributions! Please see our **[Contributing Guide](./.github/CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
 
-A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./docs/project/TODO.md)**.
+A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./TODO.md)**.
 
 ## 📚 Documentation
 
@@ -127,56 +127,56 @@ Core architectural documents defining how we build software.
 
 | Document | Description |
 |---|---|
-| [`ARCHITECTURE.md`](./docs/architecture/ARCHITECTURE.md) | Technical blueprint and system design |
-| [`QUALITY.md`](./docs/architecture/QUALITY.md) | Quality standards and best practices |
-| [`LESSONS.md`](./docs/architecture/LESSONS.md) | Technical learnings and solutions |
-| [`BRAND.md`](./docs/architecture/BRAND.md) | Brand guidelines and identity |
+| [`ARCHITECTURE.md`](./docs/ARCHITECTURE.md) | Technical blueprint and system design |
+| [`QUALITY.md`](./docs/QUALITY.md) | Quality standards and best practices |
+| [`LESSONS.md`](./docs/LESSONS.md) | Technical learnings and solutions |
+| [`BRAND.md`](./docs/BRAND.md) | Brand guidelines and identity |
 
 ### ⚙️ Engineering Process
 How to actually build and code in this repository.
 
 | Document | Description |
 |---|---|
-| [`DEVELOPMENT.md`](./docs/engineering/DEVELOPMENT.md) | **Start here.** Environment setup guide |
-| [`CODING_STYLE.md`](./docs/engineering/CODING_STYLE.md) | Code standards and conventions |
-| [`PR_REVIEW_PROCESS.md`](./docs/engineering/PR_REVIEW_PROCESS.md) | Pull request review process |
-| [`TESTING.md`](./docs/engineering/TESTING.md) | Testing strategy and guidelines |
-| [`WORKTREES.md`](./docs/engineering/WORKTREES.md) | **CRITICAL:** Git worktree management |
-| [`API.md`](./docs/engineering/API.md) | API documentation and examples |
-| [`TOKEN_SYSTEM.md`](./docs/engineering/TOKEN_SYSTEM.md) | Design token system guide |
+| [`DEVELOPMENT.md`](./docs/DEVELOPMENT.md) | **Start here.** Environment setup guide |
+| [`CODING_STYLE.md`](./docs/CODING_STYLE.md) | Code standards and conventions |
+| [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md) | Pull request review process |
+| [`TESTING.md`](./docs/TESTING.md) | Testing strategy and guidelines |
+| [`WORKTREES.md`](./docs/WORKTREES.md) | **CRITICAL:** Git worktree management |
+| [`API.md`](./docs/API.md) | API documentation and examples |
+| [`TOKEN_SYSTEM.md`](./docs/TOKEN_SYSTEM.md) | Design token system guide |
 
 ### 🤖 AI Agent Documentation
 Specific guidance for AI agents and automation.
 
 | Document | Description |
 |---|---|
-| [`CLAUDE.md`](./docs/ai/CLAUDE.md) | Tactical guide with commands and workflows |
-| [`AGENTS.md`](./docs/ai/AGENTS.md) | AI agent roles and guidelines |
+| [`CLAUDE.md`](./docs/CLAUDE.md) | Tactical guide with commands and workflows |
+| [`AGENTS.md`](./docs/AGENTS.md) | AI agent roles and guidelines |
 
 ### 📋 Project Management
 Planning, tracking, and process documentation.
 
 | Document | Description |
 |---|---|
-| [`TODO.md`](./docs/project/TODO.md) | Current tasks and priorities |
-| [`I18N_WORKFLOW.md`](./docs/project/I18N_WORKFLOW.md) | Internationalization workflow |
+| [`TODO.md`](./TODO.md) | Current tasks and priorities |
+| [`I18N_WORKFLOW.md`](./docs/I18N_WORKFLOW.md) | Internationalization workflow |
 
 ### 🚀 Quick Start by Role
 
 **New Developer?**
-1. Start with [`DEVELOPMENT.md`](./docs/engineering/DEVELOPMENT.md)
-2. Read [`CODING_STYLE.md`](./docs/engineering/CODING_STYLE.md)
-3. Review [`PR_REVIEW_PROCESS.md`](./docs/engineering/PR_REVIEW_PROCESS.md)
+1. Start with [`DEVELOPMENT.md`](./docs/DEVELOPMENT.md)
+2. Read [`CODING_STYLE.md`](./docs/CODING_STYLE.md)
+3. Review [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md)
 
 **AI Agent?**
-1. Start with [`CLAUDE.md`](./docs/ai/CLAUDE.md)
-2. Read [`AGENTS.md`](./docs/ai/AGENTS.md)
-3. Review [`WORKTREES.md`](./docs/engineering/WORKTREES.md)
+1. Start with [`CLAUDE.md`](./docs/CLAUDE.md)
+2. Read [`AGENTS.md`](./docs/AGENTS.md)
+3. Review [`WORKTREES.md`](./docs/WORKTREES.md)
 
 **Contributing?**
 1. Read [`CONTRIBUTING.md`](./.github/CONTRIBUTING.md)
-2. Follow [`CODING_STYLE.md`](./docs/engineering/CODING_STYLE.md)
-3. Use [`PR_REVIEW_PROCESS.md`](./docs/engineering/PR_REVIEW_PROCESS.md)
+2. Follow [`CODING_STYLE.md`](./docs/CODING_STYLE.md)
+3. Use [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md)
 
 ---
 
