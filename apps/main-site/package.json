@@ -24,6 +24,8 @@
 		"@braingame/config": "workspace:*",
 		"@types/node": "^24",
 		"@types/react": "~19.1.8",
-		"@types/react-dom": "~19.1.6"
+		"@types/react-dom": "~19.1.6",
+		"ignore-loader": "^0.1.2",
+		"string-replace-loader": "^3.2.0"
 	}
 }
