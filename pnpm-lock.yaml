@@ -144,7 +144,7 @@ importers:
         specifier: ^5.3.3
         version: 5.8.3
 
-  apps/docs:
+  apps/docs-site:
     dependencies:
       '@braingame/bgui':
         specifier: workspace:*
@@ -152,6 +152,43 @@ importers:
       '@braingame/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      next:
+        specifier: 15.3.3
+        version: 15.3.3(@babel/core@7.27.4)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@braingame/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@types/node':
+        specifier: ^24
+        version: 24.0.3
+      '@types/react':
+        specifier: 19.0.14
+        version: 19.0.14
+      '@types/react-dom':
+        specifier: ~19.1.6
+        version: 19.1.6(@types/react@19.0.14)
+
+  apps/main-site:
+    dependencies:
+      '@braingame/bgui':
+        specifier: workspace:*
+        version: link:../../packages/bgui
+      '@braingame/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      '@sentry/nextjs':
+        specifier: ^9.30.0
+        version: 9.30.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.27.4)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.99.9(esbuild@0.25.5))
+      firebase:
+        specifier: ^11.9.1
+        version: 11.9.1(@react-native-async-storage/async-storage@2.2.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))
       next:
         specifier: 15.3.3
         version: 15.3.3(@babel/core@7.27.4)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -325,43 +362,6 @@ importers:
       react-test-renderer:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
-
-  apps/website:
-    dependencies:
-      '@braingame/bgui':
-        specifier: workspace:*
-        version: link:../../packages/bgui
-      '@braingame/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
-      '@sentry/nextjs':
-        specifier: ^9.30.0
-        version: 9.30.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.27.4)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.99.9(esbuild@0.25.5))
-      firebase:
-        specifier: ^11.9.1
-        version: 11.9.1(@react-native-async-storage/async-storage@2.2.0(react-native@0.80.0(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))
-      next:
-        specifier: 15.3.3
-        version: 15.3.3(@babel/core@7.27.4)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
-    devDependencies:
-      '@braingame/config':
-        specifier: workspace:*
-        version: link:../../packages/config
-      '@types/node':
-        specifier: ^24
-        version: 24.0.3
-      '@types/react':
-        specifier: 19.0.14
-        version: 19.0.14
-      '@types/react-dom':
-        specifier: ~19.1.6
-        version: 19.1.6(@types/react@19.0.14)
 
   packages/bgui:
     dependencies:
