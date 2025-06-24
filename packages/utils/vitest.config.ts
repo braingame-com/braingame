@@ -10,7 +10,6 @@ export default defineConfig({
 			exclude: ["node_modules/", "dist/", "**/*.d.ts", "**/*.config.*", "**/mockData.ts"],
 		},
 		deps: {
-			inline: ["react-native", "@testing-library/react-native"],
 			optimizer: {
 				web: {
 					include: ["react-native", "@react-native", "react-native-web"],
