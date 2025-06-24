@@ -52,3 +52,7 @@ yarn-error.*
 
 # Package managers
 package-lock.json
+
+# Reassure
+**/.reassure/
+.jest-perf/

@@ -49,7 +49,9 @@
 		"dev:unused": "node scripts/dev-tools.js find-unused",
 		"workspace": "node scripts/workspace-helper.js",
 		"docs": "node scripts/doc-generator.js",
-		"validate:env": "turbo validate:env"
+		"validate:env": "turbo validate:env",
+		"perf": "pnpm --filter @braingame/product reassure",
+		"perf:baseline": "pnpm --filter @braingame/product reassure:baseline"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",
