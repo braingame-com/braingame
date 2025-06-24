@@ -62,7 +62,8 @@
 		"lighthouse:main": "./scripts/lighthouse-local.sh main",
 		"lighthouse:docs": "./scripts/lighthouse-local.sh docs",
 		"lighthouse:product": "./scripts/lighthouse-local.sh product",
-		"lighthouse:ci": "lhci autorun"
+		"lighthouse:ci": "lhci autorun",
+		"setup:branch-protection": "node scripts/setup-branch-protection.js"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",
