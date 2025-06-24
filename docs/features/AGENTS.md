@@ -1,131 +1,107 @@
-# AGENTS.md - AI Agent Guidelines & Standards
+# AI Agent Guidelines
 
-> **Last Updated**: 23-06-2025
+Standards for all AI agents working with Brain Game.
 
-This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
+## Mandatory Reading
 
-## 📚 **MANDATORY READING** (Before any development work)
-
-> **Primary Directive:** All agents **MUST** read these docs before generating code, tests, or documentation:
-
-### **Essential Workflow Docs:**
-1. **[📋 CLAUDE.md](./CLAUDE.md)** - Tactical guide with golden path workflow and commands
-2. **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
-3. **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings, incident prevention, and session summaries
-4. **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
-
-### **Critical Process Docs:**
-- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
-- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
-- **[📝 TODO.md](../../TODO.md)** - Current task tracker and priority management
-
-### **Quality Standards:**
-- **[📊 QUALITY.md](./QUALITY.md)** - Comprehensive code quality playbook with examples
-- **[💅 CODING_STYLE.md](./CODING_STYLE.md)** - Code standards and anti-patterns
-- **[🧪 TESTING.md](./TESTING.md)** - Testing strategy and hybrid approach
-
----
+All agents must read these docs before any development work:
+- [CLAUDE.md](./CLAUDE.md) - Tactical workflow guide
+- [WORKTREES.md](../development/WORKTREES.md) - Workspace isolation
+- [CODING_STYLE.md](../development/CODING_STYLE.md) - Code standards
 
 ## Agent Roles
 
-| Role | Scope | Example Tooling |
-|------|-------|--------------|
-| **Development Assistant** | Code generation, refactoring, dependency upgrades | GitHub Copilot, Cursor, bespoke scripts |
-| **Testing Agent** | Generate & run unit/e2e tests, report coverage | Jest, Playwright, Maestro |
-| **CI/CD Bot** | Build, lint, test, deploy, publish packages | GitHub Actions, Changesets |
-| **In‑App Agents** | End‑user features (e.g. adaptive coaching) | OpenAI SDKs, Firebase Functions |
+### Development Assistant
+- Code generation and refactoring
+- Bug fixes and feature implementation
+- Documentation updates
+- Follows zero-tolerance quality standards
 
----
+### Testing Agent
+- Test writing and maintenance
+- Quality assurance validation
+- Performance testing
+- Coverage analysis
 
-## Core Principles & Guardrails
+### CI/CD Bot
+- Automated deployments
+- Build process optimization
+- Quality gate enforcement
+- Release management
 
-### Quality Standards (ZERO TOLERANCE)
-**⚠️ CRITICAL:** All agents must adhere to our zero-tolerance quality policy.
+### In-App Agents
+- User assistance features
+- Content generation
+- Conversational interfaces
+- Personalized experiences
 
-**For complete quality standards, see: [📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)**
+## Zero-Tolerance Quality Standards
 
-**Mandatory Quality Checks:**
-- ❌ No lint errors or warnings (`pnpm lint` must be 0/0)
-- ❌ No TypeScript errors (`pnpm typecheck` must be 0 errors)
-- ❌ No `--no-verify` (bypassing pre-commit hooks is banned)
-- ❌ No `any` types in public APIs
-- ❌ No `@ts-expect-error` or `biome-ignore` without proper justification
-- ❌ No technical debt introduction
+All agents must:
+- **Pass all quality checks**: lint, typecheck, tests must pass 100%
+- **Use Git worktrees**: Never work directly in main workspace
+- **Follow coding standards**: Adhere to established patterns
+- **Document changes**: Update relevant documentation
 
-**Before every commit:**
+## Banned Practices
+
+| Practice | Reason | Consequence |
+|----------|--------|-------------|
+| Direct main workspace work | Contamination risk | Immediate workspace reset |
+| Skipping quality checks | Technical debt | PR rejection |
+| Hardcoded values | Maintainability | Code review failure |
+| Undocumented changes | Knowledge loss | Rollback required |
+
+## Operational Guardrails
+
+### Workspace Isolation
 ```bash
-pnpm lint      # Must pass with 0 errors, 0 warnings
-pnpm typecheck # Must pass with 0 errors
+# Always verify workspace before any action
+pwd && git branch --show-current
+
+# Use sandbox for experimental work
+cd ../braingame-claude-sandbox
 ```
 
-**Before every PR merge:**
+### Quality Verification
 ```bash
-# Checkout the PR branch first
-gh pr checkout <number>
-
-# Run quality validation
-pnpm lint && pnpm typecheck && pnpm test && pnpm build
-
-# Only merge if all checks pass
-gh pr merge <number> --squash --delete-branch
+# Run before any commit
+pnpm lint && pnpm typecheck && pnpm test
 ```
 
-**⚠️ CRITICAL:** Follow [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) exactly. Skipping quality validation on branches is the primary cause of technical debt on main.
+### Documentation Updates
+- Update README files for new features
+- Add/update JSDoc comments
+- Create ADRs for architectural decisions
+- Document breaking changes
 
-### Operational Guardrails
-- **Workspace Isolation:** Always verify which git worktree you're working in. Production work happens in the main `braingame/` directory, experimental/AI work happens in `braingame-claude-sandbox/`. When in doubt, ask.
-  ```bash
-  # MANDATORY at session start:
-  git worktree list
-  pwd && git branch --show-current
-  ```
-  ⚠️ **CRITICAL:** Working in wrong directory has caused major incidents. See [LESSONS.md](./LESSONS.md#workspace-contamination-20-06-2025).
-- **Human Review is Mandatory:** All agent-generated code must be reviewed and approved by a human maintainer before merging.
-- **Read-Only by Default:** Agents should operate with the minimum necessary permissions. Write access is a privilege, gated by CI checks.
-- **Secure by Design:** Credentials and secrets must be stored in the CI provider's secret manager, never in the repository.
-- **Log Everything:** All significant agent actions must be logged and auditable, with anomalies surfaced in CI summaries.
-- **Respect Ownership:** Agents must adhere to `CODEOWNERS` and branch protection rules.
-- **Pinned Dependencies:** All agent-related tooling and dependencies should be pinned to specific versions to ensure stability. Upgrades must go through a PR.
-- **Use Correct Dates:** All dates in documentation **MUST** follow the `DD-MM-YYYY` format and reflect the correct current date. Chronological accuracy is non-negotiable.
-- **PR Verification:** A successful rebase + push ≠ a successful merge. Always verify PR status explicitly:
-  ```bash
-  gh pr view <number> --json state,mergedAt,mergedBy
-  ```
+## Session Documentation
 
----
+Each session must:
+1. **Document approach** in session notes
+2. **Record decisions** in relevant docs
+3. **Update lessons** learned
+4. **Preserve context** for future agents
 
-## Session Documentation Requirements
+## Workflow Process
 
-All AI agents must document their work sessions:
+1. **Setup Phase**: Read docs, verify workspace
+2. **Development Phase**: Implement with quality checks
+3. **Review Phase**: Self-review and documentation
+4. **Completion Phase**: Verify all standards met
 
-1. **Session Start:** Read [TODO.md](../../TODO.md) and mark tasks as `in_progress`
-2. **Session End:** 
-   - Update [TODO.md](../../TODO.md) with completion status
-   - Add significant learnings to [LESSONS.md](./LESSONS.md)
-   - Document any incidents or workarounds discovered
-3. **Quality Checks:** Run `pnpm lint` and `pnpm test` before marking tasks complete
+## Escalation Process
 
----
+If blocked:
+1. Document the blocker
+2. Attempt alternative approaches
+3. Escalate to human developer
+4. Document resolution for future reference
 
-## Adding a New Agent
+## Agent Coordination
 
-1. **Document:** Add the agent's purpose, scope, and configuration to this file.
-2. **Secure:** Create a secrets entry in the CI provider if needed.
-3. **Comply:** Ensure the agent's output conforms to the project's Biome and style conventions.
-4. **Propose:** Open a PR and tag `@maintainers` for review and approval.
-
----
-
-## Contact
-For questions about agents or automation, ping **@Brain-Game/maintainers** or email `hello@braingame.dev`.
-
----
-
-## Tooling Reference
-
-- **Biome** – Default linter/formatter (`pnpm biome`)
-- **Turborepo** – Task graph & caching (`turbo run …`)
-- **Changesets** – Automated semver & npm publish
-- **Playwright** – Web E2E tests
-- **Maestro/Detox** – Native E2E tests
-
+When multiple agents work:
+- Use separate worktrees
+- Coordinate via GitHub issues
+- Share context through documentation
+- Respect queue priorities
