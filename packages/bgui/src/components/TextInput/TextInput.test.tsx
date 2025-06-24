@@ -18,25 +18,13 @@ describe("TextInput", () => {
 		});
 
 		it("renders with placeholder", () => {
-			render(
-				<TextInput 
-					value="" 
-					onValueChange={vi.fn()} 
-					placeholder="Enter text here" 
-				/>
-			);
+			render(<TextInput value="" onValueChange={vi.fn()} placeholder="Enter text here" />);
 
 			expect(screen.getByPlaceholderText("Enter text here")).toBeTruthy();
 		});
 
 		it("renders with testID", () => {
-			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					testID="text-input" 
-				/>
-			);
+			render(<TextInput value="test" onValueChange={vi.fn()} testID="text-input" />);
 
 			expect(screen.getByTestId("text-input")).toBeTruthy();
 		});
@@ -69,7 +57,7 @@ describe("TextInput", () => {
 			render(<TextInput value="" onValueChange={onValueChange} />);
 
 			const input = screen.getByRole("textbox");
-			
+
 			fireEvent.changeText(input, "a");
 			fireEvent.changeText(input, "ab");
 			fireEvent.changeText(input, "abc");
@@ -81,9 +69,7 @@ describe("TextInput", () => {
 		});
 
 		it("updates displayed value when value prop changes", () => {
-			const { rerender } = render(
-				<TextInput value="initial" onValueChange={vi.fn()} />
-			);
+			const { rerender } = render(<TextInput value="initial" onValueChange={vi.fn()} />);
 
 			expect(screen.getByDisplayValue("initial")).toBeTruthy();
 
@@ -103,28 +89,14 @@ describe("TextInput", () => {
 		});
 
 		it("renders flat variant correctly", () => {
-			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					variant="flat" 
-					testID="container" 
-				/>
-			);
+			render(<TextInput value="test" onValueChange={vi.fn()} variant="flat" testID="container" />);
 
 			const container = screen.getByTestId("container").parent;
 			expect(container).toBeTruthy();
 		});
 
 		it("renders error variant correctly", () => {
-			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					variant="error" 
-					testID="container" 
-				/>
-			);
+			render(<TextInput value="test" onValueChange={vi.fn()} variant="error" testID="container" />);
 
 			const container = screen.getByTestId("container").parent;
 			expect(container).toBeTruthy();
@@ -133,14 +105,14 @@ describe("TextInput", () => {
 		it("applies correct styles for each variant", () => {
 			const variants = ["standard", "flat", "error"] as const;
 
-			variants.forEach(variant => {
+			variants.forEach((variant) => {
 				render(
-					<TextInput 
-						value="test" 
-						onValueChange={vi.fn()} 
+					<TextInput
+						value="test"
+						onValueChange={vi.fn()}
 						variant={variant}
 						testID={`input-${variant}`}
-					/>
+					/>,
 				);
 
 				const input = screen.getByTestId(`input-${variant}`);
@@ -151,40 +123,21 @@ describe("TextInput", () => {
 
 	describe("Icons", () => {
 		it("renders left icon when provided", () => {
-			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					leftIcon="user" 
-				/>
-			);
+			render(<TextInput value="test" onValueChange={vi.fn()} leftIcon="user" />);
 
 			const icons = screen.getAllByRole("image");
 			expect(icons).toHaveLength(1);
 		});
 
 		it("renders right icon when provided", () => {
-			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					rightIcon="search" 
-				/>
-			);
+			render(<TextInput value="test" onValueChange={vi.fn()} rightIcon="search" />);
 
 			const icons = screen.getAllByRole("image");
 			expect(icons).toHaveLength(1);
 		});
 
 		it("renders both left and right icons", () => {
-			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					leftIcon="user" 
-					rightIcon="x" 
-				/>
-			);
+			render(<TextInput value="test" onValueChange={vi.fn()} leftIcon="user" rightIcon="x" />);
 
 			const icons = screen.getAllByRole("image");
 			expect(icons).toHaveLength(2);
@@ -198,20 +151,16 @@ describe("TextInput", () => {
 
 		it("handles icon changes", () => {
 			const { rerender } = render(
-				<TextInput value="test" onValueChange={vi.fn()} leftIcon="user" />
+				<TextInput value="test" onValueChange={vi.fn()} leftIcon="user" />,
 			);
 
 			expect(screen.getAllByRole("image")).toHaveLength(1);
 
-			rerender(
-				<TextInput value="test" onValueChange={vi.fn()} leftIcon="search" />
-			);
+			rerender(<TextInput value="test" onValueChange={vi.fn()} leftIcon="search" />);
 
 			expect(screen.getAllByRole("image")).toHaveLength(1);
 
-			rerender(
-				<TextInput value="test" onValueChange={vi.fn()} />
-			);
+			rerender(<TextInput value="test" onValueChange={vi.fn()} />);
 
 			expect(() => screen.getAllByRole("image")).toThrow();
 		});
@@ -220,12 +169,12 @@ describe("TextInput", () => {
 	describe("Input Types and Keyboard", () => {
 		it("supports email keyboard type", () => {
 			render(
-				<TextInput 
-					value="test@example.com" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test@example.com"
+					onValueChange={vi.fn()}
 					keyboardType="email-address"
 					testID="email-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("email-input");
@@ -234,12 +183,12 @@ describe("TextInput", () => {
 
 		it("supports numeric keyboard type", () => {
 			render(
-				<TextInput 
-					value="123" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="123"
+					onValueChange={vi.fn()}
 					keyboardType="numeric"
 					testID="numeric-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("numeric-input");
@@ -248,12 +197,12 @@ describe("TextInput", () => {
 
 		it("supports phone pad keyboard type", () => {
 			render(
-				<TextInput 
-					value="+1234567890" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="+1234567890"
+					onValueChange={vi.fn()}
 					keyboardType="phone-pad"
 					testID="phone-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("phone-input");
@@ -262,12 +211,12 @@ describe("TextInput", () => {
 
 		it("supports secure text entry", () => {
 			render(
-				<TextInput 
-					value="password123" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="password123"
+					onValueChange={vi.fn()}
 					secureTextEntry={true}
 					testID="password-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("password-input");
@@ -279,12 +228,7 @@ describe("TextInput", () => {
 		it("handles focus events", () => {
 			const onFocus = vi.fn();
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					onFocus={onFocus}
-					testID="focus-input"
-				/>
+				<TextInput value="test" onValueChange={vi.fn()} onFocus={onFocus} testID="focus-input" />,
 			);
 
 			const input = screen.getByTestId("focus-input");
@@ -296,12 +240,7 @@ describe("TextInput", () => {
 		it("handles blur events", () => {
 			const onBlur = vi.fn();
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					onBlur={onBlur}
-					testID="blur-input"
-				/>
+				<TextInput value="test" onValueChange={vi.fn()} onBlur={onBlur} testID="blur-input" />,
 			);
 
 			const input = screen.getByTestId("blur-input");
@@ -314,17 +253,17 @@ describe("TextInput", () => {
 			const onFocus = vi.fn();
 			const onBlur = vi.fn();
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					onFocus={onFocus}
 					onBlur={onBlur}
 					testID="focus-blur-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("focus-blur-input");
-			
+
 			fireEvent(input, "focus");
 			expect(onFocus).toHaveBeenCalledTimes(1);
 			expect(onBlur).toHaveBeenCalledTimes(0);
@@ -344,11 +283,7 @@ describe("TextInput", () => {
 
 		it("supports accessibility label", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					accessibilityLabel="Username input"
-				/>
+				<TextInput value="test" onValueChange={vi.fn()} accessibilityLabel="Username input" />,
 			);
 
 			expect(screen.getByLabelText("Username input")).toBeTruthy();
@@ -356,12 +291,12 @@ describe("TextInput", () => {
 
 		it("supports accessibility hint", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					accessibilityHint="Enter your username"
 					testID="hint-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("hint-input");
@@ -370,12 +305,12 @@ describe("TextInput", () => {
 
 		it("supports accessibility role", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					accessibilityRole="search"
 					testID="search-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("search-input");
@@ -384,12 +319,12 @@ describe("TextInput", () => {
 
 		it("supports accessibility state", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					accessibilityState={{ disabled: true }}
 					testID="disabled-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("disabled-input");
@@ -401,39 +336,35 @@ describe("TextInput", () => {
 		it("applies custom container style", () => {
 			const customStyle = { backgroundColor: "red", margin: 10 };
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					style={customStyle}
 					testID="styled-input"
-				/>
+				/>,
 			);
 
 			const container = screen.getByTestId("styled-input").parent;
 			expect(container?.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining(customStyle),
-				]),
+				expect.arrayContaining([expect.objectContaining(customStyle)]),
 			);
 		});
 
 		it("combines custom style with variant styles", () => {
 			const customStyle = { padding: 20 };
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					variant="error"
 					style={customStyle}
 					testID="combined-style-input"
-				/>
+				/>,
 			);
 
 			const container = screen.getByTestId("combined-style-input").parent;
 			expect(container?.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining(customStyle),
-				]),
+				expect.arrayContaining([expect.objectContaining(customStyle)]),
 			);
 		});
 	});
@@ -441,12 +372,12 @@ describe("TextInput", () => {
 	describe("Text Input Properties", () => {
 		it("supports multiline input", () => {
 			render(
-				<TextInput 
-					value="Line 1\nLine 2" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="Line 1\nLine 2"
+					onValueChange={vi.fn()}
 					multiline={true}
 					testID="multiline-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("multiline-input");
@@ -455,12 +386,7 @@ describe("TextInput", () => {
 
 		it("supports numberOfLines", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					numberOfLines={3}
-					testID="lines-input"
-				/>
+				<TextInput value="test" onValueChange={vi.fn()} numberOfLines={3} testID="lines-input" />,
 			);
 
 			const input = screen.getByTestId("lines-input");
@@ -469,12 +395,7 @@ describe("TextInput", () => {
 
 		it("supports maxLength", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					maxLength={10}
-					testID="maxlength-input"
-				/>
+				<TextInput value="test" onValueChange={vi.fn()} maxLength={10} testID="maxlength-input" />,
 			);
 
 			const input = screen.getByTestId("maxlength-input");
@@ -483,12 +404,7 @@ describe("TextInput", () => {
 
 		it("supports editable property", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
-					editable={false}
-					testID="readonly-input"
-				/>
+				<TextInput value="test" onValueChange={vi.fn()} editable={false} testID="readonly-input" />,
 			);
 
 			const input = screen.getByTestId("readonly-input");
@@ -497,12 +413,12 @@ describe("TextInput", () => {
 
 		it("supports autoFocus", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					autoFocus={true}
 					testID="autofocus-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("autofocus-input");
@@ -514,12 +430,12 @@ describe("TextInput", () => {
 		it("supports onSubmitEditing", () => {
 			const onSubmit = vi.fn();
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					onSubmitEditing={onSubmit}
 					testID="submit-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("submit-input");
@@ -530,12 +446,12 @@ describe("TextInput", () => {
 
 		it("supports returnKeyType", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					returnKeyType="done"
 					testID="return-key-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("return-key-input");
@@ -544,12 +460,12 @@ describe("TextInput", () => {
 
 		it("supports blurOnSubmit", () => {
 			render(
-				<TextInput 
-					value="test" 
-					onValueChange={vi.fn()} 
+				<TextInput
+					value="test"
+					onValueChange={vi.fn()}
 					blurOnSubmit={false}
 					testID="blur-submit-input"
-				/>
+				/>,
 			);
 
 			const input = screen.getByTestId("blur-submit-input");
@@ -608,13 +524,13 @@ describe("TextInput", () => {
 		it("works as search input with icon", () => {
 			const onSearch = vi.fn();
 			render(
-				<TextInput 
-					value="" 
-					onValueChange={onSearch} 
+				<TextInput
+					value=""
+					onValueChange={onSearch}
 					placeholder="Search..."
 					leftIcon="search"
 					variant="flat"
-				/>
+				/>,
 			);
 
 			const input = screen.getByPlaceholderText("Search...");
@@ -627,13 +543,13 @@ describe("TextInput", () => {
 		it("works as password input", () => {
 			const onChange = vi.fn();
 			render(
-				<TextInput 
-					value="" 
-					onValueChange={onChange} 
+				<TextInput
+					value=""
+					onValueChange={onChange}
 					placeholder="Password"
 					secureTextEntry={true}
 					rightIcon="eye"
-				/>
+				/>,
 			);
 
 			const input = screen.getByPlaceholderText("Password");
@@ -646,15 +562,15 @@ describe("TextInput", () => {
 		it("works as form field with validation", () => {
 			const onChange = vi.fn();
 			render(
-				<TextInput 
-					value="invalid-email" 
-					onValueChange={onChange} 
+				<TextInput
+					value="invalid-email"
+					onValueChange={onChange}
 					placeholder="Email"
 					variant="error"
 					keyboardType="email-address"
 					accessibilityLabel="Email address"
 					accessibilityHint="Enter a valid email address"
-				/>
+				/>,
 			);
 
 			const input = screen.getByLabelText("Email address");

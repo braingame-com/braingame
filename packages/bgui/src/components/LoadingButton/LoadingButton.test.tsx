@@ -102,7 +102,7 @@ describe("LoadingButton", () => {
 
 			// Text should not be visible when loading
 			expect(() => screen.getByText("Submit")).toThrow();
-			
+
 			// ActivityIndicator should be present (can't easily test in RNTL but we verify loading prop behavior)
 			const button = screen.getByRole("button");
 			expect(button.props.disabled).toBe(true);
@@ -194,8 +194,8 @@ describe("LoadingButton", () => {
 			render(<LoadingButton title="Submit" onPress={vi.fn()} />);
 
 			const button = screen.getByText("Submit").parent;
-			const hasDisabledOpacity = button?.props.style.some((style: any) => 
-				style && typeof style === 'object' && style.opacity === 0.6
+			const hasDisabledOpacity = button?.props.style.some(
+				(style: any) => style && typeof style === "object" && style.opacity === 0.6,
 			);
 			expect(hasDisabledOpacity).toBeFalsy();
 		});
@@ -208,9 +208,7 @@ describe("LoadingButton", () => {
 
 			const button = screen.getByText("Submit").parent;
 			expect(button?.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining(customStyle),
-				]),
+				expect.arrayContaining([expect.objectContaining(customStyle)]),
 			);
 		});
 
@@ -220,9 +218,7 @@ describe("LoadingButton", () => {
 
 			const text = screen.getByText("Submit");
 			expect(text.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining(customTextStyle),
-				]),
+				expect.arrayContaining([expect.objectContaining(customTextStyle)]),
 			);
 		});
 	});
@@ -242,11 +238,11 @@ describe("LoadingButton", () => {
 
 		it("supports accessibility hint", () => {
 			render(
-				<LoadingButton 
-					title="Submit" 
-					accessibilityHint="Submits the form data" 
-					onPress={vi.fn()} 
-				/>
+				<LoadingButton
+					title="Submit"
+					accessibilityHint="Submits the form data"
+					onPress={vi.fn()}
+				/>,
 			);
 
 			const button = screen.getByRole("button");
@@ -285,12 +281,12 @@ describe("LoadingButton", () => {
 
 		it("forwards additional TouchableOpacity props", () => {
 			render(
-				<LoadingButton 
-					title="Submit" 
-					onPress={vi.fn()} 
+				<LoadingButton
+					title="Submit"
+					onPress={vi.fn()}
 					activeOpacity={0.5}
 					hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-				/>
+				/>,
 			);
 
 			const button = screen.getByRole("button");

@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import { render, screen } from "../../test-utils";
-import { KeyboardAvoidingContainer } from "./KeyboardAvoidingContainer";
 import { Text } from "../Text/Text";
+import { KeyboardAvoidingContainer } from "./KeyboardAvoidingContainer";
 
 // Mock Platform.OS for testing
 const mockPlatform = (os: "ios" | "android" | "web") => {
@@ -22,7 +22,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer>
 					<Text>Test Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			expect(screen.getByText("Test Content")).toBeTruthy();
@@ -33,7 +33,7 @@ describe("KeyboardAvoidingContainer", () => {
 				<KeyboardAvoidingContainer>
 					<Text>First Child</Text>
 					<Text>Second Child</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			expect(screen.getByText("First Child")).toBeTruthy();
@@ -44,7 +44,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -53,7 +53,7 @@ describe("KeyboardAvoidingContainer", () => {
 					expect.objectContaining({
 						flex: 1,
 					}),
-				])
+				]),
 			);
 		});
 	});
@@ -61,11 +61,11 @@ describe("KeyboardAvoidingContainer", () => {
 	describe("Platform-specific Behavior", () => {
 		it("uses padding behavior on iOS by default", () => {
 			mockPlatform("ios");
-			
+
 			render(
 				<KeyboardAvoidingContainer testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -74,11 +74,11 @@ describe("KeyboardAvoidingContainer", () => {
 
 		it("uses height behavior on Android by default", () => {
 			mockPlatform("android");
-			
+
 			render(
 				<KeyboardAvoidingContainer testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -87,11 +87,11 @@ describe("KeyboardAvoidingContainer", () => {
 
 		it("uses height behavior on web by default", () => {
 			mockPlatform("web");
-			
+
 			render(
 				<KeyboardAvoidingContainer testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -104,7 +104,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer behavior="position" testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -113,11 +113,11 @@ describe("KeyboardAvoidingContainer", () => {
 
 		it("overrides platform default with custom behavior", () => {
 			mockPlatform("ios");
-			
+
 			render(
 				<KeyboardAvoidingContainer behavior="height" testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -127,11 +127,11 @@ describe("KeyboardAvoidingContainer", () => {
 		it("accepts all KeyboardAvoidingView behaviors", () => {
 			const behaviors = ["padding", "height", "position"] as const;
 
-			behaviors.forEach(behavior => {
+			behaviors.forEach((behavior) => {
 				render(
 					<KeyboardAvoidingContainer behavior={behavior} testID={`container-${behavior}`}>
 						<Text>Content</Text>
-					</KeyboardAvoidingContainer>
+					</KeyboardAvoidingContainer>,
 				);
 
 				const container = screen.getByTestId(`container-${behavior}`);
@@ -143,51 +143,42 @@ describe("KeyboardAvoidingContainer", () => {
 	describe("Custom Styling", () => {
 		it("applies custom style alongside default flex style", () => {
 			const customStyle = { backgroundColor: "red", padding: 10 };
-			
+
 			render(
 				<KeyboardAvoidingContainer style={customStyle} testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
-			expect(container.props.style).toEqual([
-				{ flex: 1 },
-				customStyle,
-			]);
+			expect(container.props.style).toEqual([{ flex: 1 }, customStyle]);
 		});
 
 		it("allows overriding flex style", () => {
 			const customStyle = { flex: 0.5, backgroundColor: "blue" };
-			
+
 			render(
 				<KeyboardAvoidingContainer style={customStyle} testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
-			expect(container.props.style).toEqual([
-				{ flex: 1 },
-				customStyle,
-			]);
+			expect(container.props.style).toEqual([{ flex: 1 }, customStyle]);
 		});
 
 		it("handles array of styles", () => {
 			const style1 = { backgroundColor: "red" };
 			const style2 = { padding: 10 };
-			
+
 			render(
 				<KeyboardAvoidingContainer style={[style1, style2]} testID="container">
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
-			expect(container.props.style).toEqual([
-				{ flex: 1 },
-				[style1, style2],
-			]);
+			expect(container.props.style).toEqual([{ flex: 1 }, [style1, style2]]);
 		});
 	});
 
@@ -201,7 +192,7 @@ describe("KeyboardAvoidingContainer", () => {
 					pointerEvents="auto"
 				>
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -212,13 +203,9 @@ describe("KeyboardAvoidingContainer", () => {
 
 		it("forwards additional KeyboardAvoidingView props", () => {
 			render(
-				<KeyboardAvoidingContainer
-					testID="container"
-					keyboardVerticalOffset={100}
-					enabled={true}
-				>
+				<KeyboardAvoidingContainer testID="container" keyboardVerticalOffset={100} enabled={true}>
 					<Text>Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -232,7 +219,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer accessibilityLabel="Form container">
 					<Text>Form Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			expect(screen.getByLabelText("Form container")).toBeTruthy();
@@ -242,7 +229,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer accessibilityRole="main" testID="container">
 					<Text>Main Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -253,7 +240,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer>
 					<Text accessibilityLabel="Important text">Content</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			expect(screen.getByLabelText("Important text")).toBeTruthy();
@@ -262,22 +249,14 @@ describe("KeyboardAvoidingContainer", () => {
 
 	describe("Edge Cases", () => {
 		it("handles null children gracefully", () => {
-			render(
-				<KeyboardAvoidingContainer testID="container">
-					{null}
-				</KeyboardAvoidingContainer>
-			);
+			render(<KeyboardAvoidingContainer testID="container">{null}</KeyboardAvoidingContainer>);
 
 			const container = screen.getByTestId("container");
 			expect(container).toBeTruthy();
 		});
 
 		it("handles undefined children gracefully", () => {
-			render(
-				<KeyboardAvoidingContainer testID="container">
-					{undefined}
-				</KeyboardAvoidingContainer>
-			);
+			render(<KeyboardAvoidingContainer testID="container">{undefined}</KeyboardAvoidingContainer>);
 
 			const container = screen.getByTestId("container");
 			expect(container).toBeTruthy();
@@ -287,7 +266,7 @@ describe("KeyboardAvoidingContainer", () => {
 			render(
 				<KeyboardAvoidingContainer testID="container">
 					{false && <Text>Hidden</Text>}
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
@@ -297,11 +276,11 @@ describe("KeyboardAvoidingContainer", () => {
 
 		it("handles conditional children", () => {
 			const showContent = true;
-			
+
 			render(
 				<KeyboardAvoidingContainer>
 					{showContent && <Text>Conditional Content</Text>}
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			expect(screen.getByText("Conditional Content")).toBeTruthy();
@@ -315,7 +294,7 @@ describe("KeyboardAvoidingContainer", () => {
 					<Text>Form Title</Text>
 					<Text>Input Label</Text>
 					<Text>Submit Button</Text>
-				</KeyboardAvoidingContainer>
+				</KeyboardAvoidingContainer>,
 			);
 
 			expect(screen.getByText("Form Title")).toBeTruthy();
@@ -324,14 +303,10 @@ describe("KeyboardAvoidingContainer", () => {
 		});
 
 		it("maintains performance with complex children", () => {
-			const manyChildren = Array.from({ length: 50 }, (_, i) => (
-				<Text key={i}>Item {i}</Text>
-			));
+			const manyChildren = Array.from({ length: 50 }, (_, i) => <Text key={i}>Item {i}</Text>);
 
 			render(
-				<KeyboardAvoidingContainer testID="container">
-					{manyChildren}
-				</KeyboardAvoidingContainer>
+				<KeyboardAvoidingContainer testID="container">{manyChildren}</KeyboardAvoidingContainer>,
 			);
 
 			const container = screen.getByTestId("container");
