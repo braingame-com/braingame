@@ -14,7 +14,9 @@
 		"lint": "biome check --fix --vcs-root=../.. src",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf .expo dist web-build",
-		"validate:env": "node scripts/validate-env.js"
+		"validate:env": "node scripts/validate-env.js",
+		"analyze:assets": "node scripts/optimize-assets.js",
+		"bundle:analyze": "expo export --dump-assetmap"
 	},
 	"dependencies": {
 		"@expo/metro-runtime": "~5.0.4",
