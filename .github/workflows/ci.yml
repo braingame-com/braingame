@@ -92,3 +92,105 @@ jobs:
       
       - name: Run type checking
         run: pnpm typecheck
+
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+      
+      - name: Install dependencies for main-site
+        run: |
+          cd apps/main-site
+          pnpm install --frozen-lockfile
+      
+      - name: Start Next.js server
+        run: |
+          cd apps/main-site
+          npm run start &
+          npx wait-on http://localhost:3000 --timeout 60000
+      
+      - name: Run Lighthouse CI for Main Site
+        run: |
+          lhci autorun \
+            --config=./lighthouserc.js \
+            || echo "Lighthouse CI assertions failed, but continuing"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      
+      - name: Comment PR with Lighthouse results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Read the Lighthouse results
+            const resultsPath = '.lighthouseci';
+            if (!fs.existsSync(resultsPath)) {
+              console.log('No Lighthouse results found');
+              return;
+            }
+            
+            // Find the manifest file
+            const files = fs.readdirSync(resultsPath);
+            const manifestFile = files.find(f => f.startsWith('manifest.'));
+            
+            if (!manifestFile) {
+              console.log('No manifest file found');
+              return;
+            }
+            
+            const manifest = JSON.parse(
+              fs.readFileSync(path.join(resultsPath, manifestFile), 'utf8')
+            );
+            
+            // Format the results as a comment
+            let comment = '## 🏠 Lighthouse CI Results\n\n';
+            
+            for (const [url, runs] of Object.entries(manifest)) {
+              const latestRun = runs[runs.length - 1];
+              const { summary } = latestRun;
+              
+              comment += `### ${url}\n\n`;
+              comment += '| Category | Score |\n';
+              comment += '| --- | --- |\n';
+              comment += `| Performance | ${Math.round(summary.performance * 100)}% |\n`;
+              comment += `| Accessibility | ${Math.round(summary.accessibility * 100)}% |\n`;
+              comment += `| Best Practices | ${Math.round(summary['best-practices'] * 100)}% |\n`;
+              comment += `| SEO | ${Math.round(summary.seo * 100)}% |\n\n`;
+            }
+            
+            // Post the comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment,
+            });
+      
+      - name: Save Lighthouse results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
