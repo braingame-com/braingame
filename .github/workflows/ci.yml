@@ -68,6 +68,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
+      - name: Create environment files for CI
+        run: |
+          # Create minimal .env files for CI builds
+          echo "NODE_ENV=test" > apps/product/.env
+          echo "APP_NAME=BrainGame" >> apps/product/.env
+          echo "APP_VERSION=1.0.0" >> apps/product/.env
+          echo "API_BASE_URL=https://api.example.com" >> apps/product/.env
+          
+          echo "NODE_ENV=test" > apps/main-site/.env.local
+          echo "NEXT_PUBLIC_APP_NAME=BrainGame" >> apps/main-site/.env.local
+          echo "NEXT_PUBLIC_APP_VERSION=1.0.0" >> apps/main-site/.env.local
+          echo "NEXT_PUBLIC_API_BASE_URL=https://api.example.com" >> apps/main-site/.env.local
+      
+      - name: Validate environment
+        run: pnpm env:validate
+      
       - name: Build all packages
         run: pnpm build
       
