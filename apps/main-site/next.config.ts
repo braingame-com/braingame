@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+	enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig: NextConfig = {
 	output: "export",
 	trailingSlash: true,
@@ -39,17 +43,22 @@ const nextConfig: NextConfig = {
 			})
 		);
 
-		// Handle font files and other assets
+		// Handle font files - use asset/resource instead of file-loader for Next.js 15
 		config.module.rules.push({
-			test: /\.(ttf|eot|woff|woff2)$/,
-			use: {
-				loader: "file-loader",
-				options: {
-					name: "[name].[ext]",
-					outputPath: "static/fonts/",
-				},
+			test: /\.(woff|woff2|eot|ttf|otf)$/,
+			type: "asset/resource",
+			generator: {
+				filename: "static/fonts/[hash][ext][query]",
 			},
 		});
+
+		// Create fallback for Expo packages
+		const { IgnorePlugin } = require("webpack");
+		config.plugins.push(
+			new IgnorePlugin({
+				resourceRegExp: /(expo-.*|@expo\/.*)/,
+			}),
+		);
 
 		// Exclude problematic packages from server-side rendering
 		if (!isServer) {
@@ -66,4 +75,4 @@ const nextConfig: NextConfig = {
 	},
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

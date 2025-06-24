@@ -71,6 +71,7 @@
 		"@babel/preset-typescript": "^7.27.1",
 		"@biomejs/biome": "^2.0.4",
 		"@changesets/cli": "^2.27.1",
+		"@next/bundle-analyzer": "^15.3.4",
 		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
 		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
 		"@storybook/addon-essentials": "^8.0.0",
