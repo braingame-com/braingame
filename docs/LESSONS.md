@@ -557,6 +557,136 @@ These lessons should guide future development and help new contributors avoid co
 
 ---
 
+## Branch Management and PR Discipline (2025-06-24)
+
+### Problem
+AI agent was working directly on main branch instead of creating separate feature branches for each phase of work, leading to:
+- Mixed commits that should have been separated
+- No clear PR history for individual features
+- Difficulty reviewing and rolling back specific changes
+
+### Root Cause
+Agent focused on completing tasks efficiently but didn't follow proper git workflow, assuming sequential work on main was acceptable.
+
+### Lessons Learned
+1. **Always create feature branches** - Even for "quick" changes
+2. **One PR per logical unit of work** - Makes review and rollback easier
+3. **Commit organization matters** - Helps maintain clear project history
+4. **Process > Speed** - Following proper workflow prevents future headaches
+
+### Correct Workflow
+```bash
+# For each new feature/task:
+git checkout main
+git checkout -b feat/descriptive-name
+# ... make changes ...
+git add relevant-files
+git commit -m "type: clear description"
+git push -u origin feat/descriptive-name
+gh pr create --title "..." --body "..."
+```
+
+---
+
+## Comprehensive Testing Patterns (2025-06-24)
+
+### Achievement
+Enhanced BGUI component tests from ~10 to 730+ comprehensive tests, establishing enterprise-grade testing patterns.
+
+### Key Testing Patterns Discovered
+
+1. **Platform-Specific Testing**
+```typescript
+describe.each(['ios', 'android', 'web'])('on %s platform', (platform) => {
+  beforeEach(() => {
+    Platform.OS = platform;
+  });
+  // Platform-specific tests
+});
+```
+
+2. **Animation Mocking**
+```typescript
+// Mock react-native-reanimated properly
+jest.mock('react-native-reanimated', () => ({
+  ...jest.requireActual('react-native-reanimated/mock'),
+  useAnimatedStyle: jest.fn((styleFactory) => ({ value: styleFactory() })),
+  withSpring: jest.fn((value) => ({ value })),
+}));
+```
+
+3. **Accessibility Testing**
+- Always test ARIA attributes and accessibility props
+- Verify screen reader compatibility
+- Test keyboard navigation where applicable
+
+4. **Component State Matrix Testing**
+Test all combinations of:
+- Props (required, optional, edge cases)
+- States (loading, error, success, disabled)
+- Variants (if applicable)
+- Platform differences
+
+### Testing Checklist for React Native Components
+- [ ] Basic rendering
+- [ ] All prop combinations
+- [ ] User interactions (press, focus, blur)
+- [ ] Accessibility attributes
+- [ ] Platform-specific behavior
+- [ ] Animation states (if applicable)
+- [ ] Error boundaries
+- [ ] Performance considerations
+
+---
+
+## Performance Optimization Infrastructure (2025-06-24)
+
+### Problem
+No visibility into bundle sizes and performance metrics across the monorepo apps.
+
+### Solution Implemented
+1. **Bundle Analysis Setup**
+   - Added @next/bundle-analyzer to Next.js apps
+   - Created analyze-bundles.js script for monorepo-wide analysis
+   - Configured webpack for optimal code splitting
+
+2. **Key Optimizations**
+   ```typescript
+   // Code splitting configuration
+   optimization: {
+     splitChunks: {
+       chunks: 'all',
+       cacheGroups: {
+         vendor: {
+           test: /[\\/]node_modules[\\/]/,
+           name: 'vendors',
+           priority: 20,
+         },
+         common: {
+           minChunks: 2,
+           name: 'common',
+           priority: 10,
+         },
+       },
+     },
+   }
+   ```
+
+3. **Discovered Issues**
+   - React version mismatches (19.0.0 vs 19.1.0)
+   - Missing dependencies (firebase/firestore)
+   - React Native web compatibility problems
+   - Font loader configuration issues
+
+### Performance Best Practices
+1. Use dynamic imports for heavy components
+2. Implement proper chunk splitting
+3. Monitor bundle sizes with every PR
+4. Set performance budgets
+5. Regular lighthouse audits
+
+---
+
 ## The Great Dependency Resolution Saga (2025-06-21)
 
 ### Problem
