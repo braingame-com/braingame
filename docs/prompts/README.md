@@ -16,7 +16,7 @@ Use these prompts to:
 1. Open `review_prompts.txt` and select a prompt relevant to your focus (e.g. architecture, performance, security)
 2. Run the prompt with an advanced AI agent (e.g. Claude, GPT-4, Cursor, etc.)
 3. The agent will generate a detailed report or review
-4. Save the output in `/prompts_output/` using a filename like:  
+4. Save the output in `prompts/output` using a filename like:  
    `architecture_audit.<UUID>.md`
 5. Extract actionable items into `TODO.md` or your issue tracker
 
