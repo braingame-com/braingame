@@ -1,30 +1,31 @@
 # 🎯 Engineering Excellence Prompts
 
-This directory contains a curated collection of prompts designed to enhance software engineering quality through systematic reviews and audits.
+This directory contains a curated set of AI prompts designed to elevate the engineering quality of this project through audits, reviews, and expert analysis.
 
 ## 🚀 Purpose
 
-These prompts help us:
-- 🔍 Identify blind spots in architecture and implementation
-- 🔒 Strengthen security posture and identify vulnerabilities  
-- 💡 Make informed decisions about features and architecture
-- 📈 Continuously improve project quality and maintainability
-- 🎨 Ensure consistent code quality and best practices
+Use these prompts to:
+- 🔍 Uncover blind spots in architecture, implementation, and tooling
+- 🔒 Identify and patch security vulnerabilities early
+- 📐 Make high-leverage architectural and technical decisions
+- 📈 Continuously raise code quality and maintainability
+- 🧠 Align the codebase with best-in-class engineering practices
 
 ## 📋 How to Use
 
-1. Select a prompt from `review_prompts.txt` that matches your current needs
-2. Run the prompt against the codebase using your preferred AI assistant
-3. The AI will generate a detailed report in the `/reviews` directory
-4. Extract actionable items from the report into `TODO.md`
-5. Track and implement improvements systematically
+1. Open `review_prompts.txt` and select a prompt relevant to your focus (e.g. architecture, performance, security)
+2. Run the prompt with an advanced AI agent (e.g. Claude, GPT-4, Cursor, etc.)
+3. The agent will generate a detailed report or review
+4. Save the output in `/prompts_output/` using a filename like:  
+   `architecture_audit.<UUID>.md`
+5. Extract actionable items into `TODO.md` or your issue tracker
 
-## 🎪 Available Prompt Categories
+## 🗂 Prompt Categories
 
-- **Technical Deep-Dive Audits** - Architecture, code quality, and technical debt assessment
-- **Security & Chaos Engineering** - Red team exercises and failure mode analysis
-- **Product Readiness Reviews** - UX, feature completeness, and launch preparation
-- **Performance Optimization** - Bundle size, runtime performance, and scalability
-- **Documentation Quality** - API docs, onboarding guides, and code comments
+- **Architecture & Code Quality** – Deep reviews of structure, debt, and design
+- **Security & Resilience** – Red teaming, failure modes, threat modeling
+- **Product Readiness** – UX quality, edge cases, launch preparedness
+- **Performance** – Runtime speed, bundle size, resource usage
+- **Documentation** – Accuracy, onboarding, signal-to-noise
 
-Have fun improving the codebase! 🚀
+All prompts are designed for repeat use and scalable improvement. Keep it sharp, cut the fluff. 🧠

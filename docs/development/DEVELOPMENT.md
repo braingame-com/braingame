@@ -313,3 +313,13 @@ Recommended extensions (auto-installed via `.vscode/extensions.json`):
 5. Join our Discord/Slack for questions
 
 Happy coding! 🚀
+
+## Related Documentation
+
+For more detailed information on specific aspects of development:
+
+- **[CODING_STYLE.md](./CODING_STYLE.md)** - Code standards, patterns, and anti-patterns to follow
+- **[TESTING.md](./TESTING.md)** - Testing strategy, tools, and best practices
+- **[WORKTREES.md](./WORKTREES.md)** - Git worktree usage and workspace isolation
+- **[Architecture Overview](../architecture/ARCHITECTURE.md)** - System design and technical decisions
+- **[Architecture Decision Records](../architecture/ADR.md)** - Key architectural decisions and their rationale

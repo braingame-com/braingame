@@ -301,3 +301,13 @@ git commit -m "chore: update lockfile"
 - Learn from each PR review
 
 This process ensures we maintain high code quality while respecting the work and intentions of all contributors.
+
+---
+
+## Related Documentation
+
+For comprehensive understanding of our quality standards and development practices:
+
+- **[CODING_STYLE.md](../development/CODING_STYLE.md)** - Code standards and patterns that all PRs must follow
+- **[TESTING.md](../development/TESTING.md)** - Testing requirements and strategies for ensuring code quality
+- **[QUALITY.md](../development/QUALITY.md)** - Zero-tolerance quality policy and comprehensive standards

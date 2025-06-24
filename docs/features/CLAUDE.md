@@ -260,3 +260,13 @@ pnpm --filter product web
 2. Advanced navigation patterns and authentication flows
 3. Ensuring proper worktree isolation and documentation
 4. Making the project enterprise-ready
+
+---
+
+## See Also
+
+For deeper understanding of related topics:
+
+- **[AGENTS.md](./AGENTS.md)** - Detailed AI agent roles, responsibilities, and guardrails
+- **[DEVELOPMENT.md](../development/DEVELOPMENT.md)** - Complete development environment setup and workflow
+- **[WORKTREES.md](../development/WORKTREES.md)** - In-depth guide to workspace isolation and git worktree management

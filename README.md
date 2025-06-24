@@ -26,7 +26,7 @@ This monorepo contains the code for all Brain Game applications, websites, and s
 
 ## 🚀 Get Started
 
-To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
+To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/development/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
 Before running any lint or test commands, make sure your dependencies are installed:
 
@@ -34,7 +34,7 @@ Before running any lint or test commands, make sure your dependencies are instal
 pnpm install    # or pnpm run preflight
 ```
 
-New contributors should review **[docs/AGENTS.md](./docs/AGENTS.md)** and **[docs/CLAUDE.md](./docs/CLAUDE.md)** to understand how human and AI workflows operate in this repository.
+New contributors should review **[docs/features/AGENTS.md](./docs/features/AGENTS.md)** and **[docs/features/CLAUDE.md](./docs/features/CLAUDE.md)** to understand how human and AI workflows operate in this repository.
 
 ---
 
@@ -60,7 +60,7 @@ pnpm dev --filter product  # Expo app
 pnpm dev --filter website  # Next.js site
 ```
 
-**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/WORKTREES.md) for details.
+**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/development/WORKTREES.md) for details.
 
 ---
 
@@ -84,7 +84,11 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 | `packages/bgui` | Our **enterprise-grade component library** with 25+ components, built with React Native and `react-native-web`. Features full TypeScript support, accessibility, and theme integration. |
 | `packages/utils` | Shared utilities, hooks, design tokens, and helpers used across the monorepo. Includes theme system, animation constants, and task management utilities. |
 | `packages/config` | Shared configurations for TypeScript, Biome, etc. |
-| `docs` | All project documentation, from architecture to coding style. |
+| `packages/i18n` | Internationalization support with i18next integration. |
+| `docs` | All project documentation, organized by category. |
+| `scripts` | Development tools and automation scripts. |
+| `assets` | Shared brand assets and resources. |
+| `legal` | Legal documents and policies. |
 
 ---
 
@@ -123,61 +127,43 @@ A key part of our workflow is our task management system. See what we're working
 
 ## 📚 Documentation
 
-### 🏗️ Architecture & Quality
-Core architectural documents defining how we build software.
+Our documentation is organized into logical categories for easy navigation. Visit the **[Documentation Index](./docs/README.md)** for a complete overview.
+
+### 🏗️ Architecture & Development
 
 | Document | Description |
 |---|---|
-| [`ARCHITECTURE.md`](./docs/ARCHITECTURE.md) | Technical blueprint and system design |
-| [`QUALITY.md`](./docs/QUALITY.md) | Quality standards and best practices |
-| [`LESSONS.md`](./docs/LESSONS.md) | Technical learnings and solutions |
-| [`BRAND.md`](./docs/BRAND.md) | Brand guidelines and identity |
-
-### ⚙️ Engineering Process
-How to actually build and code in this repository.
-
-| Document | Description |
-|---|---|
-| [`DEVELOPMENT.md`](./docs/DEVELOPMENT.md) | **Start here.** Environment setup guide |
-| [`CODING_STYLE.md`](./docs/CODING_STYLE.md) | Code standards and conventions |
-| [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md) | Pull request review process |
-| [`TESTING.md`](./docs/TESTING.md) | Testing strategy and guidelines |
-| [`WORKTREES.md`](./docs/WORKTREES.md) | **CRITICAL:** Git worktree management |
-| [`API.md`](./docs/API.md) | API documentation and examples |
-| [`TOKEN_SYSTEM.md`](./docs/TOKEN_SYSTEM.md) | Design token system guide |
-
-### 🤖 AI Agent Documentation
-Specific guidance for AI agents and automation.
-
-| Document | Description |
-|---|---|
-| [`CLAUDE.md`](./docs/CLAUDE.md) | Tactical guide with commands and workflows |
-| [`AGENTS.md`](./docs/AGENTS.md) | AI agent roles and guidelines |
-
-### 📋 Project Management
-Planning, tracking, and process documentation.
-
-| Document | Description |
-|---|---|
-| [`TODO.md`](./TODO.md) | Current tasks and priorities |
-| [`I18N_WORKFLOW.md`](./docs/I18N_WORKFLOW.md) | Internationalization workflow |
+| [`docs/architecture/`](./docs/architecture/) | System design, architecture decisions, and ADRs |
+| [`docs/development/`](./docs/development/) | Development guides, coding standards, and workflows |
+| [`docs/processes/`](./docs/processes/) | Quality standards, review processes, and workflows |
+| [`docs/features/`](./docs/features/) | Feature documentation (Agents, Token System, Claude) |
+| [`docs/api/`](./docs/api/) | API documentation and references |
 
 ### 🚀 Quick Start by Role
 
 **New Developer?**
-1. Start with [`DEVELOPMENT.md`](./docs/DEVELOPMENT.md)
-2. Read [`CODING_STYLE.md`](./docs/CODING_STYLE.md)
-3. Review [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md)
+1. Start with [`Development Guide`](./docs/development/DEVELOPMENT.md)
+2. Read [`Coding Standards`](./docs/development/CODING_STYLE.md)
+3. Review [`Architecture Overview`](./docs/architecture/ARCHITECTURE.md)
 
 **AI Agent?**
-1. Start with [`CLAUDE.md`](./docs/CLAUDE.md)
-2. Read [`AGENTS.md`](./docs/AGENTS.md)
-3. Review [`WORKTREES.md`](./docs/WORKTREES.md)
+1. Start with [`Claude Integration`](./docs/features/CLAUDE.md)
+2. Read [`AI Agents Guide`](./docs/features/AGENTS.md)
+3. Review [`Worktrees Guide`](./docs/development/WORKTREES.md)
 
 **Contributing?**
-1. Read [`CONTRIBUTING.md`](./.github/CONTRIBUTING.md)
-2. Follow [`CODING_STYLE.md`](./docs/CODING_STYLE.md)
-3. Use [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md)
+1. Read [`Contributing Guide`](./.github/CONTRIBUTING.md)
+2. Follow [`PR Review Process`](./docs/processes/PR_REVIEW_PROCESS.md)
+3. Check [`Quality Standards`](./docs/processes/QUALITY.md)
+
+### 📖 Additional Resources
+
+| Resource | Description |
+|---|---|
+| [`scripts/README.md`](./scripts/README.md) | Development tools and automation |
+| [`packages/*/README.md`](./packages/) | Package-specific documentation |
+| [`apps/*/README.md`](./apps/) | Application-specific guides |
+| [`TODO.md`](./TODO.md) | Current tasks and priorities |
 
 ---
 

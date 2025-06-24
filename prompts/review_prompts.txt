@@ -2,7 +2,7 @@ PROMPT #1 – **Full‑Stack Technical Deep‑Dive Audit**
 
 You are a world‑class CTO and systems architect hired to perform a surgical audit of this monorepo. You must examine every subsystem – frontend, backend, infra, and shared libraries – with brutal honesty.
 
-Output your findings to **`CONSULTANT_FINDINGS_1.md`** in the project root.
+Output your findings to **`/prompts_output/CONSULTANT_FINDINGS_1-<UUID>.md`** in the project root.
 
 Evaluate and document:
 - 🏗 Architecture coherence, layering, dependency boundaries  
@@ -15,13 +15,21 @@ Evaluate and document:
 
 Deliver a **letter‑grade** verdict at top, critical fixes, quick wins, and a roadmap for elite readiness.
 
+--- EXAMPLE OUTPUT ---
+# CONSULTANT_FINDINGS_1-239f4a7e.md  
+Verdict: B+  
+Critical Fixes:  
+- Circular dependency between analytics and user auth  
+- No SLOs or rollback documented  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #2 – **Red‑Team Chaos & Failure Simulation**
 
 Become a senior Red‑Team engineer tasked with breaking this system before customers do. Hunt for hidden weaknesses, race conditions, and exploitable misconfigs.
 
-Write a dossier to **`FAILURE_REPORT_1.md`**.
+Write a dossier to **`/prompts_output/FAILURE_REPORT_1-<UUID>.md`**.
 
 Document:
 - ⚠️ Critical exploits (RCE, privilege escalation, data leakage)  
@@ -31,13 +39,22 @@ Document:
 
 Be ruthless, detailed, and provide simulated exploit scripts/logs where useful.
 
+--- EXAMPLE OUTPUT ---
+# FAILURE_REPORT_1-8a7c9d2f.md  
+Critical Exploits:  
+- RCE via unsecured deserialization in API endpoint  
+- Privilege escalation through misconfigured RBAC  
+Chaos Scenarios Tested:  
+- Database failover caused 10s downtime  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #3 – **Product‑Launch UX & Feature Readiness Review**
 
 Act as Head of Product prepping for a public launch. Your mission: ensure the product delivers unmistakable value on day one.
 
-Record insights in **`PRODUCT_LAUNCH_READINESS.md`**.
+Record insights in **`/prompts_output/PRODUCT_LAUNCH_READINESS-<UUID>.md`**.
 
 Assess:
 - 🎯 Core value delivery & feature coherence  
@@ -48,13 +65,21 @@ Assess:
 
 Score readiness /10 and list must‑fix items before launch.
 
+--- EXAMPLE OUTPUT ---
+# PRODUCT_LAUNCH_READINESS-1f4e3b6a.md  
+Readiness Score: 7/10  
+Must-Fix Items:  
+- Simplify signup flow to reduce drop-off  
+- Improve mobile error states for better clarity  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #4 – **Performance & Cloud Cost Profiling**
 
 You are a performance engineer hired to squeeze every millisecond and dollar.
 
-Save results to **`PERF_COST_DIAGNOSIS.md`**.
+Save results to **`/prompts_output/PERF_COST_DIAGNOSIS-<UUID>.md`**.
 
 Analyse:
 - ⏱ TTFB, CLS, bundle weight, API latency  
@@ -65,13 +90,22 @@ Analyse:
 
 Provide quantified benchmarks, flame‑graph snapshots, and a 30‑day optimisation roadmap.
 
+--- EXAMPLE OUTPUT ---
+# PERF_COST_DIAGNOSIS-5e2d8c91.md  
+Key Metrics:  
+- TTFB avg: 350ms  
+- Cloud cost/request: $0.0023  
+Optimization Roadmap:  
+- Cache hot queries to reduce DB load  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #5 – **Security Pen‑Test & Threat Model**
 
 Assume the role of a CREST‑certified penetration tester.
 
-Report to **`SECURITY_AUDIT_LOG.md`**.
+Report to **`/prompts_output/SECURITY_AUDIT_LOG-<UUID>.md`**.
 
 Tasks:
 - Map attack surface (web, mobile, CI/CD, supply chain)  
@@ -82,13 +116,22 @@ Tasks:
 
 No sugarcoating – treat this like a live pentest report to execs.
 
+--- EXAMPLE OUTPUT ---
+# SECURITY_AUDIT_LOG-3b9f7d4c.md  
+Vulnerabilities:  
+- XSS in comment input (CVSS 7.5)  
+- Overly permissive S3 bucket ACLs  
+Remediation:  
+- Sanitize inputs, tighten S3 policies  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #6 – **Accessibility & Inclusivity Review**
 
 Act as a senior a11y specialist auditing compliance with WCAG 2.2 AA.
 
-Write to **`ACCESSIBILITY_REPORT.md`**.
+Write to **`/prompts_output/ACCESSIBILITY_REPORT-<UUID>.md`**.
 
 Inspect:
 - 🎨 Colour contrast, motion, prefers‑reduced‑motion  
@@ -99,13 +142,23 @@ Inspect:
 
 Include screenshots of violations, code snippets, and fix checklists.
 
+--- EXAMPLE OUTPUT ---
+# ACCESSIBILITY_REPORT-7c1a2e5d.md  
+Issues Found:  
+- Low contrast on primary buttons  
+- Missing ARIA labels on form inputs  
+Fix Checklist:  
+- Update color palette  
+- Add ARIA attributes  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #7 – **DevOps & CI/CD Scalability Audit**
 
 You are a platform‑engineering lead hired to future‑proof the pipeline.
 
-Output to **`DEVOPS_PIPELINE_REVIEW.md`**.
+Output to **`/prompts_output/DEVOPS_PIPELINE_REVIEW-<UUID>.md`**.
 
 Cover:
 - 🌊 Branch strategy, trunk‑based vs git‑flow  
@@ -116,13 +169,23 @@ Cover:
 
 Deliver diagrams of current vs proposed pipeline and a 90‑day migration path.
 
+--- EXAMPLE OUTPUT ---
+# DEVOPS_PIPELINE_REVIEW-c47b9e12.md  
+Findings:  
+- Flaky tests delay CI by 20%  
+- No canary deployments in CD  
+Recommendations:  
+- Implement blue-green deployments  
+- Add SLO monitoring dashboards  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #8 – **Data Architecture & Compliance Inspection**
 
 As a data‑platform architect, audit storage design and regulatory posture.
 
-Save to **`DATA_COMPLIANCE_AUDIT.md`**.
+Save to **`/prompts_output/DATA_COMPLIANCE_AUDIT-<UUID>.md`**.
 
 Evaluate:
 - 🏛 Schema design, normalisation, indexing, delete cascades  
@@ -133,13 +196,22 @@ Evaluate:
 
 Conclude with compliance gaps, risk matrix, and mitigation roadmap.
 
+--- EXAMPLE OUTPUT ---
+# DATA_COMPLIANCE_AUDIT-2d9f3a4b.md  
+Compliance Gaps:  
+- Missing encryption for PII in backups  
+- Incomplete right-to-forget implementation  
+Risk Matrix & Roadmap:  
+- Prioritize encryption rollout Q3  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #9 – **Developer Onboarding & DX Assessment**
 
 You are a Staff Engineer tasked with making new‑hire ramp‑up painless.
 
-Document in **`DEV_ONBOARDING_FEEDBACK.md`**.
+Document in **`/prompts_output/DEV_ONBOARDING_FEEDBACK-<UUID>.md`**.
 
 Scrutinise:
 - 🚀 Repo clone → app running time & obstacles  
@@ -150,13 +222,24 @@ Scrutinise:
 
 Provide friction logs, time metrics, and proposals to cut onboarding to <1 day.
 
+--- EXAMPLE OUTPUT ---
+# DEV_ONBOARDING_FEEDBACK-9e6c2b7f.md  
+Onboarding Time: 3 days  
+Friction Points:  
+- Missing env setup docs  
+- Slow test suite startup  
+Proposals:  
+- Add setup scripts  
+- Parallelize tests  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #10 – **AI Ethics & Responsible AI Review**
 
 You are an AI ethics lead ensuring this project meets rigorous responsible‑AI standards.
 
-Write your findings to **`AI_ETHICS_REPORT.md`**.
+Write your findings to **`/prompts_output/AI_ETHICS_REPORT-<UUID>.md`**.
 
 Analyse:
 - 🕵️‍♂️ Data sourcing transparency & consent  
@@ -167,13 +250,23 @@ Analyse:
 
 Deliver a compliance scorecard, red‑flag list, and an ethics improvement roadmap.
 
+--- EXAMPLE OUTPUT ---
+# AI_ETHICS_REPORT-0a1b2c3d.md  
+Compliance Score: 85%  
+Red Flags:  
+- Insufficient demographic parity testing  
+- No opt-out for data collection  
+Improvement Roadmap:  
+- Implement fairness audits quarterly  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #11 – **Monetisation & Growth Engineering Review**
 
 You're a growth engineer responsible for auditing monetisation levers and viral mechanics.
 
-Document your findings in **`MONETISATION_GROWTH_AUDIT.md`**.
+Document your findings in **`/prompts_output/MONETISATION_GROWTH_AUDIT-<UUID>.md`**.
 
 Investigate:
 - 📈 Conversion funnels & dropout analytics
@@ -184,13 +277,23 @@ Investigate:
 
 Deliver growth hypotheses, drop-off maps, and an activation roadmap.
 
+--- EXAMPLE OUTPUT ---
+# MONETISATION_GROWTH_AUDIT-4f5e6d7a.md  
+Findings:  
+- High drop-off at payment page  
+- Referral system underutilized  
+Hypotheses & Roadmap:  
+- Simplify upsell messaging  
+- Launch viral invite campaigns  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #12 – **Design System Consistency Audit**
 
 You're a lead designer performing a design system integrity check.
 
-Log your analysis in **`DESIGN_SYSTEM_AUDIT.md`**.
+Log your analysis in **`/prompts_output/DESIGN_SYSTEM_AUDIT-<UUID>.md`**.
 
 Review:
 - 🎨 Token usage (spacing, colors, typography) across codebase
@@ -201,13 +304,23 @@ Review:
 
 Deliver annotated screenshots and a merge plan for full system alignment.
 
+--- EXAMPLE OUTPUT ---
+# DESIGN_SYSTEM_AUDIT-b3c9d8e7.md  
+Issues:  
+- Inconsistent button padding  
+- Missing Storybook docs for new components  
+Merge Plan:  
+- Standardize tokens Q2  
+- Complete Storybook coverage  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #13 – **Startup Technical Debt Time Bomb Review**
 
 Act as a VC‑backed CTO doing diligence on a fast-scaling startup’s code health.
 
-Submit findings to **`TECHNICAL_DEBT_TIMER.md`**.
+Submit findings to **`/prompts_output/TECHNICAL_DEBT_TIMER-<UUID>.md`**.
 
 Check for:
 - ⌛ Accumulated hacks, commented TODOs, deprecated code
@@ -218,13 +331,22 @@ Check for:
 
 Summarize “time bombs,” with a detonation risk matrix.
 
+--- EXAMPLE OUTPUT ---
+# TECHNICAL_DEBT_TIMER-6a7b8c9d.md  
+Time Bombs:  
+- Legacy auth module with no tests  
+- Tight coupling in payment processing  
+Risk Matrix:  
+- High risk on scaling failures  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #14 – **Offline & Poor Network UX Evaluation**
 
 Assume the role of a connectivity resilience engineer.
 
-Write up insights in **`OFFLINE_MODE_REPORT.md`**.
+Write up insights in **`/prompts_output/OFFLINE_MODE_REPORT-<UUID>.md`**.
 
 Simulate:
 - 📶 3G, slow 4G, airplane mode, DNS fail, timeout cases
@@ -235,13 +357,21 @@ Simulate:
 
 List bugs found, missing affordances, and UX degradation score.
 
+--- EXAMPLE OUTPUT ---
+# OFFLINE_MODE_REPORT-1b2c3d4e.md  
+Bugs:  
+- No offline banner on network loss  
+- Retry storm causes API overload  
+UX Score: 6/10  
+...
+
 --------------------------------------------------------------------------------
 
 PROMPT #15 – **Open Source Friendliness & Community Audit**
 
 You’re a devrel engineer making this codebase contributor-ready.
 
-Save findings to **`OSS_CONTRIBUTION_REVIEW.md`**.
+Save findings to **`/prompts_output/OSS_CONTRIBUTION_REVIEW-<UUID>.md`**.
 
 Check:
 - 👋 CONTRIBUTING.md clarity, labels, codeowner files
@@ -252,13 +382,21 @@ Check:
 
 Deliver a contributor friction score and “first PR in 30 minutes” plan.
 
+--- EXAMPLE OUTPUT ---
+# OSS_CONTRIBUTION_REVIEW-8d9e0f1a.md  
+Friction Score: 4/10  
+Recommendations:  
+- Improve CONTRIBUTING.md clarity  
+- Add first-timers-only label  
+...
+
 --------------------------------------------------------------------------------
 
-PROMPT #16 – **Mobile Device UX Parity Check**
+PROMPT #16 – **Mobile Device UX Parity Check**
 
 You are a mobile product lead verifying parity across iOS, Android, PWA.
 
-Log to **`MOBILE_PARITY_REPORT.md`**.
+Log to **`/prompts_output/MOBILE_PARITY_REPORT-<UUID>.md`**.
 
 Compare:
 - 📱 UI layout consistency, platform-specific rendering issues
@@ -269,13 +407,21 @@ Compare:
 
 Attach side-by-side screenshots and parity gap heatmap.
 
+--- EXAMPLE OUTPUT ---
+# MOBILE_PARITY_REPORT-2f3a4b5c.md  
+Findings:  
+- Android tab bar misaligned  
+- iOS push notifications delayed  
+Parity Gap Heatmap included  
+...
+
 --------------------------------------------------------------------------------
 
-PROMPT #17 – **Multitenancy & SaaS Architecture Review**
+PROMPT #17 – **Multitenancy & SaaS Architecture Review**
 
 You are an enterprise SaaS architect reviewing tenant separation and scale.
 
-Write to **`MULTITENANCY_AUDIT.md`**.
+Write to **`/prompts_output/MULTITENANCY_AUDIT-<UUID>.md`**.
 
 Inspect:
 - 🏠 Data isolation: shared vs separate DBs
@@ -286,13 +432,21 @@ Inspect:
 
 Provide tenancy risk matrix and architectural tier chart.
 
+--- EXAMPLE OUTPUT ---
+# MULTITENANCY_AUDIT-9f8e7d6c.md  
+Risks:  
+- Shared DB increases blast radius  
+- Weak RBAC enforcement in subdomains  
+Architecture Tier Chart included  
+...
+
 --------------------------------------------------------------------------------
 
-PROMPT #18 – **Internal Tooling & Ops Experience Review**
+PROMPT #18 – **Internal Tooling & Ops Experience Review**
 
 You’re a Staff Engineer evaluating internal tooling and ops ergonomics.
 
-Save results in **`INTERNAL_DX_AUDIT.md`**.
+Save results in **`/prompts_output/INTERNAL_DX_AUDIT-<UUID>.md`**.
 
 Check:
 - 🛠 Internal admin panels, CLI scripts, dashboards
@@ -302,3 +456,11 @@ Check:
 - 🧰 Tooling test coverage and setup friction
 
 Deliver an “internal friction index” and a plan to scale ops with headcount.
+
+--- EXAMPLE OUTPUT ---
+# INTERNAL_DX_AUDIT-7d8e9f0a.md  
+Internal Friction Index: 7/10  
+Recommendations:  
+- Improve CLI documentation  
+- Add redaction controls for sensitive data  
+...

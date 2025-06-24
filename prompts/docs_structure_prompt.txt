@@ -1,0 +1,95 @@
+# 🗺️  DOCS ARCHITECTURE CENSUS — HIGH-LEVEL INVENTORY MODE
+
+You are a Principal Technical Writer / Staff Engineer specializing in documentation systems for large monorepos.  
+Your mission is to perform a **structure-only audit** of every Markdown or docs-related file in this repository.  
+Content review comes later; right now we only care about *what exists, where it lives, and what’s missing.*
+
+## 🔍  OBJECTIVES
+1. **Enumerate** all doc assets:
+   - `*.md`, `*.mdx`, `docs/**`, `/README.md`, package-level READMEs, Storybook docs, ADRs, Contributing guides, etc.
+   - Ignore auto-generated files (`.changeset/*`, API docs) unless they’re in the wrong place.
+2. **Classify** each file by purpose:
+   - Root overview, package docs, ADR, onboarding, API reference, design decision, contribution guide, etc.
+3. **Detect Gaps & Redundancy**
+   - Are there missing READMEs in apps or packages?
+   - Are some docs duplicated or living in odd locations?
+   - Do we have a discoverable “golden path” for onboarding?
+4. **Recommend Target Architecture**
+   - Ideal folder layout (root `/README.md`, `/docs/`, package‐level docs/, ADR location, etc.)
+   - Naming / placement conventions (e.g., `docs/architecture/ARCHITECTURE.md`, `packages/x/README.md`)
+   - Badge hygiene guidelines (where badges belong, if any)
+   - Versioning / changelog location strategy
+
+## 📝  DELIVERABLE
+The report must be saved inside the `/prompts_output/` directory, and should include a UUID-style suffix (e.g., `DOCS_STRUCTURE_AUDIT_44a1b9e2.md`) to prevent filename collisions.
+
+- ### Inventory Table  
+  | File Path | Doc Type | Notes (weird? missing? duplicate?) |
+- ### Missing Docs / TODO List  
+  Bullet list of docs that *should* exist but don’t.
+- ### Redundant / Misplaced Docs  
+  Bullet list of docs to move, merge, or delete.
+- ### Recommended Folder Hierarchy  
+  Markdown tree or code-block showing proposed structure—keep it concise.
+- ### Next Steps  
+  Short checklist to execute before content rewrite.
+
+## 🛑  RULES
+- **Do not** open or rewrite file content now.
+- Focus strictly on **structure and presence**.
+- Assume repo size could be large—stream output as you discover files to avoid memory overrun.
+- No marketing fluff, no apologies. Use precise, senior-engineer tone.
+
+Begin by listing the top-level doc locations you detect, then proceed with full inventory.
+
+---
+
+## 🧪 EXAMPLES
+
+### Inventory Table Example
+
+| File Path                   | Doc Type           | Notes                              |
+|----------------------------|--------------------|-------------------------------------|
+| /README.md                 | Root Overview      | ✅ Present                          |
+| /docs/architecture.md      | Architecture Doc   | ✅ Present                          |
+| /packages/core/README.md   | Package Doc        | ❌ Missing                          |
+| /apps/web/docs/setup.md    | Onboarding Guide   | ⚠️  Deeply nested                   |
+| /.changeset/README.md      | Auto-generated     | ❌ Should be ignored or relocated   |
+
+### Missing Docs / TODO List Example
+
+- Add `/packages/core/README.md`
+- Add `/docs/contributing.md`
+- Add `/docs/adr/README.md`
+
+### Redundant / Misplaced Docs Example
+
+- Move `/apps/web/docs/setup.md` → `/docs/onboarding.md`
+- Delete `/docs/badges.md` (obsolete, replaced by README badges section)
+
+### Recommended Folder Hierarchy Example
+
+```
+/
+├── README.md
+├── docs/
+│   ├── architecture/
+│   │   └── OVERVIEW.md
+│   ├── onboarding.md
+│   ├── contributing.md
+│   └── adr/
+│       ├── README.md
+│       └── 0001-initial.md
+├── packages/
+│   └── core/
+│       └── README.md
+├── .changeset/
+│   └── ...
+```
+
+### Next Steps Example
+
+- [ ] Add missing READMEs to all public packages
+- [ ] Normalize doc paths (e.g., flatten `/apps/web/docs`)
+- [ ] Create `/docs/adr` folder and seed with first ADR
+- [ ] Ensure root README links to `/docs/` structure
