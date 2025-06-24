@@ -26,9 +26,8 @@ export {
 	ContextErrorBoundary,
 	ContextErrorBoundary as ErrorBoundary,
 } from "./src/components/ErrorBoundary";
-// Temporarily disabled - Icon component uses @expo/vector-icons which causes build issues
-// export { Icon } from "./src/components/Icon";
-// export type { IconProps } from "./src/components/Icon/types";
+export { Icon } from "./src/components/Icon";
+export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
 export type { ImageProps } from "./src/components/Image/types";
 export type { KeyboardAvoidingContainerProps } from "./src/components/KeyboardAvoidingContainer";
