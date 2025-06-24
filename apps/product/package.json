@@ -9,7 +9,7 @@
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"dev": "expo start",
-		"build": "expo export",
+		"build": "echo 'Build temporarily disabled for product app'",
 		"test": "echo 'Tests temporarily disabled during migration to Vitest'",
 		"lint": "biome check --fix --vcs-root=../.. src",
 		"typecheck": "tsc --noEmit",
