@@ -10,7 +10,7 @@ import "@testing-library/jest-native/extend-expect";
 // Mock modules that don't work in test environment
 vi.mock("react-native-reanimated", () => ({
 	default: {
-		createAnimatedComponent: (component: any) => component,
+		createAnimatedComponent: (component: React.ComponentType) => component,
 		Value: vi.fn(),
 		event: vi.fn(),
 		add: vi.fn(),

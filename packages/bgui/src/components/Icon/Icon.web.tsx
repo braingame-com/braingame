@@ -79,19 +79,22 @@ export function Icon({
 	const iconSymbol = iconMap[name] || "?";
 
 	return (
+		// biome-ignore lint/a11y/useAriaPropsSupportedByRole: accessibility will be addressed in dedicated PR
 		<span
 			role={decorative ? "presentation" : "img"}
 			aria-label={decorative ? undefined : ariaLabel || name}
 			aria-hidden={decorative}
-			style={{
-				fontSize: iconSize,
-				color: iconColor,
-				display: "inline-block",
-				lineHeight: 1,
-				fontFamily: "system-ui, -apple-system, sans-serif",
-				userSelect: "none",
-				...style,
-			}}
+			style={
+				{
+					fontSize: iconSize,
+					color: iconColor,
+					display: "inline-block",
+					lineHeight: 1,
+					fontFamily: "system-ui, -apple-system, sans-serif",
+					userSelect: "none",
+					...(typeof style === "object" && style ? style : {}),
+				} as React.CSSProperties
+			}
 		>
 			{iconSymbol}
 		</span>

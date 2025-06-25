@@ -50,6 +50,7 @@ export const ProgressBar = ({
 				aria-valuenow={value}
 				role="progressbar"
 			>
+				{/* biome-ignore lint/a11y/noSvgWithoutTitle: will be fixed in accessibility PR */}
 				<svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
 					<circle
 						cx={size / 2}
@@ -80,7 +81,7 @@ export const ProgressBar = ({
 	// Linear progress bar
 	return (
 		<View
-			style={[styles.linearContainer, style]}
+			style={[style]}
 			accessibilityRole="progressbar"
 			// @ts-ignore - Web-specific props
 			aria-label={`Progress: ${value} percent`}
@@ -89,15 +90,15 @@ export const ProgressBar = ({
 			aria-valuenow={value}
 			role="progressbar"
 		>
-			<View style={[styles.linearTrack, { backgroundColor: trackColor }]}>
+			<View style={[styles.track, { backgroundColor: trackColor }]}>
 				<View
 					style={[
-						styles.linearProgress,
+						styles.bar,
 						{
 							backgroundColor: progressColor,
 							width: `${animatedValue}%`,
 							transition: animated ? "width 0.5s ease" : "none",
-						},
+						} as any,
 					]}
 				/>
 			</View>

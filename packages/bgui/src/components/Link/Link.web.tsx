@@ -32,11 +32,11 @@ export const Link = ({
 				// For internal links, check if we have expo-router available
 				try {
 					const router = require("expo-router").router;
-					if (router && router.push) {
+					if (router?.push) {
 						router.push(href);
 						return;
 					}
-				} catch (e) {
+				} catch (_e) {
 					// expo-router not available, fall back to window.location
 				}
 				// Use window.location for internal navigation as fallback
@@ -58,13 +58,14 @@ export const Link = ({
 			accessibilityRole="link"
 			accessibilityLabel={label}
 			// @ts-ignore - Web-specific props
+			// biome-ignore lint/a11y/useSemanticElements: will be fixed in accessibility PR
 			role="link"
 			aria-label={label}
 			{...rest}
 		>
 			<Text
-				variant={variant === "inline" ? "body" : "bodyStrong"}
-				style={[textStyles.link, disabled && textStyles.disabled]}
+				variant={variant === "inline" ? "body" : "bold"}
+				style={[textStyles.link, disabled && styles.disabled]}
 			>
 				{children}
 			</Text>

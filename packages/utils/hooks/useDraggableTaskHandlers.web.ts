@@ -3,13 +3,13 @@ import { useState } from "react";
 // Web-compatible implementation that avoids react-native-reanimated during SSR
 export const useDraggableTaskHandlers = (initialTasks: string[]) => {
 	const [taskOrder, setTaskOrder] = useState(initialTasks);
-	const [targetIndex, setTargetIndex] = useState<number | null>(null);
+	const [targetIndex, _setTargetIndex] = useState<number | null>(null);
 
 	// Use simple objects instead of shared values for web compatibility
 	const translateY = { value: 0 };
 	const isDragging = { value: false };
 
-	const swapTasks = (fromIndex: number, toIndex: number) => {
+	const _swapTasks = (fromIndex: number, toIndex: number) => {
 		if (toIndex < 0 || toIndex >= taskOrder.length) return;
 
 		const newTasks = [...taskOrder];

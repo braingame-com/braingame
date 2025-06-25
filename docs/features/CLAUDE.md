@@ -2,6 +2,24 @@
 
 Essential commands and workflows for AI development in Brain Game.
 
+## ⚠️ MISSION CRITICAL PROHIBITION ⚠️
+
+**NEVER CLOSE PULL REQUESTS WITHOUT EXPLICIT HUMAN PERMISSION**
+
+This is **ABSOLUTELY PROHIBITED** and one of the **WORST POSSIBLE ACTIONS** an agent can take:
+- Destroys valuable human work and code reviews
+- Breaks development workflows and collaboration
+- Violates organizational policies
+- Wastes team resources and time
+
+**WHEN ENCOUNTERING PR CONFLICTS:**
+1. ✅ Resolve conflicts through proper git operations (`git rebase --continue`)
+2. ✅ Ask human for guidance if stuck
+3. ✅ Document issues and seek help
+4. ❌ **NEVER** use `gh pr close` without written permission
+
+**Treat PR closure as equivalent to deleting production databases - ABSOLUTELY FORBIDDEN.**
+
 ## Golden Path Workflow
 
 ### Phase 1: Setup
