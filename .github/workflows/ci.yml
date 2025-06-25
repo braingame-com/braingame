@@ -140,6 +140,8 @@ jobs:
           lhci autorun \
             --config=./lighthouse/main-site.config.js \
             || echo "Main Site Lighthouse CI assertions failed, but continuing"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # Docs Site
       - name: Start docs-site server
@@ -153,6 +155,8 @@ jobs:
           lhci autorun \
             --config=./lighthouse/docs-site.config.js \
             || echo "Docs Site Lighthouse CI assertions failed, but continuing"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # Product Web
       - name: Start product web server
@@ -167,7 +171,7 @@ jobs:
             --config=./lighthouse/product-web.config.js \
             || echo "Product Web Lighthouse CI assertions failed, but continuing"
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Comment PR with Lighthouse results
         if: github.event_name == 'pull_request'
