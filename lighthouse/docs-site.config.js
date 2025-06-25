@@ -7,6 +7,7 @@ module.exports = {
         'http://localhost:3001/api',
       ],
       numberOfRuns: 3,
+      outputDir: '.lighthouseci/docs-site',
       settings: {
         preset: 'desktop',
         throttling: {

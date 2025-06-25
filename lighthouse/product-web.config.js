@@ -7,6 +7,7 @@ module.exports = {
         'http://localhost:8081/settings',
       ],
       numberOfRuns: 3,
+      outputDir: '.lighthouseci/product-web',
       settings: {
         preset: 'desktop',
         throttling: {

@@ -7,6 +7,7 @@ module.exports = {
         'http://localhost:3000/pricing',
       ],
       numberOfRuns: 3,
+      outputDir: '.lighthouseci/main-site',
       settings: {
         preset: 'desktop',
         throttling: {

@@ -133,6 +133,7 @@ jobs:
         run: |
           cd apps/main-site
           PORT=3000 npm run start &
+          echo $! > /tmp/main-site.pid
           npx wait-on http://localhost:3000 --timeout 60000
       
       - name: Run Lighthouse CI for Main Site
@@ -143,11 +144,19 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Stop main-site server
+        if: always()
+        run: |
+          if [ -f /tmp/main-site.pid ]; then
+            kill $(cat /tmp/main-site.pid) || true
+          fi
+      
       # Docs Site
       - name: Start docs-site server
         run: |
           cd apps/docs-site
           PORT=3001 npm run start &
+          echo $! > /tmp/docs-site.pid
           npx wait-on http://localhost:3001 --timeout 60000
       
       - name: Run Lighthouse CI for Docs Site
@@ -158,11 +167,19 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Stop docs-site server
+        if: always()
+        run: |
+          if [ -f /tmp/docs-site.pid ]; then
+            kill $(cat /tmp/docs-site.pid) || true
+          fi
+      
       # Product Web
       - name: Start product web server
         run: |
           cd apps/product
           npx expo start --web --port 8081 &
+          echo $! > /tmp/product-web.pid
           npx wait-on http://localhost:8081 --timeout 90000
       
       - name: Run Lighthouse CI for Product Web
@@ -172,6 +189,13 @@ jobs:
             || echo "Product Web Lighthouse CI assertions failed, but continuing"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Stop product web server
+        if: always()
+        run: |
+          if [ -f /tmp/product-web.pid ]; then
+            kill $(cat /tmp/product-web.pid) || true
+          fi
       
       - name: Comment PR with Lighthouse results
         if: github.event_name == 'pull_request'
@@ -206,22 +230,31 @@ jobs:
             
             // Process all manifest files
             for (const manifestFile of manifestFiles) {
-              const manifest = JSON.parse(
-                fs.readFileSync(path.join(resultsPath, manifestFile), 'utf8')
-              );
-              
-              for (const [url, runs] of Object.entries(manifest)) {
-                const latestRun = runs[runs.length - 1];
+              try {
+                const manifest = JSON.parse(
+                  fs.readFileSync(path.join(resultsPath, manifestFile), 'utf8')
+                );
                 
-                // Categorize by port
-                let siteName = 'Unknown';
-                if (url.includes(':3000')) siteName = 'Main Site';
-                else if (url.includes(':3001')) siteName = 'Docs Site';
-                else if (url.includes(':8081')) siteName = 'Product Web';
-                
-                if (siteResults[siteName]) {
-                  siteResults[siteName].push({ url, summary: latestRun.summary });
+                for (const [url, runs] of Object.entries(manifest)) {
+                  if (!runs || runs.length === 0) {
+                    console.log(`No runs found for URL: ${url}`);
+                    continue;
+                  }
+                  
+                  const latestRun = runs[runs.length - 1];
+                  
+                  // Categorize by port
+                  let siteName = 'Unknown';
+                  if (url.includes(':3000')) siteName = 'Main Site';
+                  else if (url.includes(':3001')) siteName = 'Docs Site';
+                  else if (url.includes(':8081')) siteName = 'Product Web';
+                  
+                  if (siteResults[siteName]) {
+                    siteResults[siteName].push({ url, summary: latestRun.summary });
+                  }
                 }
+              } catch (error) {
+                console.error(`Error processing manifest file ${manifestFile}:`, error);
               }
             }
             
