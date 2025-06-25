@@ -7,18 +7,35 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
-
 const APPS_DIR = path.join(__dirname, '..', 'apps');
 const OUTPUT_FILE = path.join(__dirname, '..', 'bundle-analysis.json');
 
 function getBundleSize(dirPath) {
   try {
-    const stats = execSync(`du -sb ${dirPath}`, { encoding: 'utf8' });
-    return parseInt(stats.split('\t')[0]);
+    return getDirSize(dirPath);
   } catch (error) {
     return 0;
   }
+}
+
+function getDirSize(dirPath) {
+  let totalSize = 0;
+  
+  function calculateSize(currentPath) {
+    const stats = fs.statSync(currentPath);
+    
+    if (stats.isFile()) {
+      totalSize += stats.size;
+    } else if (stats.isDirectory()) {
+      const items = fs.readdirSync(currentPath);
+      for (const item of items) {
+        calculateSize(path.join(currentPath, item));
+      }
+    }
+  }
+  
+  calculateSize(dirPath);
+  return totalSize;
 }
 
 function getHumanReadableSize(bytes) {

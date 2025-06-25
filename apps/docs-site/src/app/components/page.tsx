@@ -32,7 +32,7 @@ function ComponentList() {
 			{components.map((name) => (
 				<li key={name}>
 					<Link
-						href={`/components/${name}`}
+						href={`/docs/components/${name}`}
 						className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors"
 					>
 						{name}

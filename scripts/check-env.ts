@@ -151,8 +151,10 @@ function checkApp(app: AppConfig, fix = false): boolean {
 				}
 			});
 
-			// Show which variables are missing
-			const schemaKeys = Object.keys(app.schema.shape || {});
+			// Show which variables are missing (only for object schemas)
+			const schemaKeys = app.schema._def.typeName === "ZodObject" 
+				? Object.keys(app.schema.shape || {})
+				: [];
 			const envKeys = Object.keys(env);
 			const missingKeys = schemaKeys.filter((key) => !envKeys.includes(key));
 

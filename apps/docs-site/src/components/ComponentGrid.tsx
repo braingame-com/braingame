@@ -10,7 +10,7 @@ export default function ComponentGrid({ components }: ComponentGridProps) {
 			{components.map((name) => (
 				<Link
 					key={name}
-					href={`/components/${name}`}
+					href={`/docs/components/${name}`}
 					className="p-6 border border-gray-700 rounded-lg hover:bg-gray-900 hover:border-cyan-600 transition-all duration-200 group"
 				>
 					<h3 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">

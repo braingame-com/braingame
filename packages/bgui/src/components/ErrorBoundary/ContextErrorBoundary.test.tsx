@@ -1,10 +1,16 @@
 import { vi } from "vitest";
 import { render, screen } from "../../test-utils";
-import { ContextErrorBoundary } from "./ContextErrorBoundary";
 import { Text } from "../Text/Text";
+import { ContextErrorBoundary } from "./ContextErrorBoundary";
 
 // Component that throws an error for testing
-const ThrowError = ({ shouldThrow = false, message = "Test error" }: { shouldThrow?: boolean; message?: string }) => {
+const ThrowError = ({
+	shouldThrow = false,
+	message = "Test error",
+}: {
+	shouldThrow?: boolean;
+	message?: string;
+}) => {
 	if (shouldThrow) {
 		throw new Error(message);
 	}
@@ -38,7 +44,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<Text>Test content</Text>
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Test content")).toBeTruthy();
@@ -49,7 +55,7 @@ describe("ContextErrorBoundary", () => {
 				<ContextErrorBoundary>
 					<Text>First child</Text>
 					<Text>Second child</Text>
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("First child")).toBeTruthy();
@@ -60,7 +66,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<Text testID="child-text">Test content</Text>
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByTestId("child-text")).toBeTruthy();
@@ -72,7 +78,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -83,7 +89,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary contextName="Theme">
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -97,7 +103,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary onError={onError}>
 					<ThrowError shouldThrow={true} message={errorMessage} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(onError).toHaveBeenCalledTimes(1);
@@ -107,7 +113,7 @@ describe("ContextErrorBoundary", () => {
 				}),
 				expect.objectContaining({
 					componentStack: expect.any(String),
-				})
+				}),
 			);
 		});
 
@@ -118,7 +124,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary contextName={contextName}>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(consoleErrorSpy).toHaveBeenCalledWith(
@@ -126,7 +132,7 @@ describe("ContextErrorBoundary", () => {
 				expect.any(Error),
 				expect.objectContaining({
 					componentStack: expect.any(String),
-				})
+				}),
 			);
 		});
 
@@ -136,13 +142,13 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(consoleErrorSpy).toHaveBeenCalledWith(
 				"Error in Context provider:",
 				expect.any(Error),
-				expect.any(Object)
+				expect.any(Object),
 			);
 		});
 	});
@@ -154,7 +160,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary fallback={customFallback}>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Custom error message")).toBeTruthy();
@@ -172,7 +178,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary fallback={customFallback}>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Something went wrong!")).toBeTruthy();
@@ -186,7 +192,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary fallback={customFallback} onError={onError}>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Custom fallback")).toBeTruthy();
@@ -202,7 +208,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} message={errorMessage} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText(`Error: ${errorMessage}`)).toBeTruthy();
@@ -215,7 +221,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} message={errorMessage} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(() => screen.getByText(`Error: ${errorMessage}`)).toThrow();
@@ -228,7 +234,7 @@ describe("ContextErrorBoundary", () => {
 			const { rerender } = render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			// Should show error state
@@ -238,7 +244,7 @@ describe("ContextErrorBoundary", () => {
 			rerender(
 				<ContextErrorBoundary>
 					<Text>Recovered content</Text>
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			// Should still show error state (error boundaries don't auto-recover)
@@ -249,7 +255,7 @@ describe("ContextErrorBoundary", () => {
 			const { rerender } = render(
 				<ContextErrorBoundary contextName="TestContext">
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -258,7 +264,7 @@ describe("ContextErrorBoundary", () => {
 			rerender(
 				<ContextErrorBoundary contextName="UpdatedContext">
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			// Should still show error (error boundaries need key change to reset)
@@ -269,7 +275,7 @@ describe("ContextErrorBoundary", () => {
 			const { rerender } = render(
 				<ContextErrorBoundary key="first">
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -278,7 +284,7 @@ describe("ContextErrorBoundary", () => {
 			rerender(
 				<ContextErrorBoundary key="second">
 					<Text>Reset content</Text>
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Reset content")).toBeTruthy();
@@ -288,14 +294,14 @@ describe("ContextErrorBoundary", () => {
 
 	describe("Error Message Variations", () => {
 		it("handles different error types", () => {
-			const TypeError = () => {
+			const TypeErrorComponent = () => {
 				throw new TypeError("Type error message");
 			};
 
 			render(
 				<ContextErrorBoundary>
-					<TypeError />
-				</ContextErrorBoundary>
+					<TypeErrorComponent />
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -311,7 +317,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<EmptyError />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -325,7 +331,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowString />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText("Context Provider Error")).toBeTruthy();
@@ -337,7 +343,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			const errorContainer = screen.getByText("Context Provider Error").parent;
@@ -349,7 +355,7 @@ describe("ContextErrorBoundary", () => {
 					borderColor: "#fcc",
 					borderRadius: 4,
 					margin: 8,
-				})
+				}),
 			);
 		});
 
@@ -357,7 +363,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			const errorTitle = screen.getByText("Context Provider Error");
@@ -367,29 +373,21 @@ describe("ContextErrorBoundary", () => {
 					fontWeight: "bold",
 					color: "#c33",
 					marginBottom: 8,
-				})
+				}),
 			);
 		});
 	});
 
 	describe("Edge Cases", () => {
 		it("handles null children", () => {
-			render(
-				<ContextErrorBoundary>
-					{null}
-				</ContextErrorBoundary>
-			);
+			render(<ContextErrorBoundary>{null}</ContextErrorBoundary>);
 
 			// Should render without error (nothing visible)
 			expect(screen.queryByText("Context Provider Error")).toBeNull();
 		});
 
 		it("handles undefined children", () => {
-			render(
-				<ContextErrorBoundary>
-					{undefined}
-				</ContextErrorBoundary>
-			);
+			render(<ContextErrorBoundary>{undefined}</ContextErrorBoundary>);
 
 			// Should render without error (nothing visible)
 			expect(screen.queryByText("Context Provider Error")).toBeNull();
@@ -401,7 +399,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary>
 					{showContent && <Text>Conditional content</Text>}
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.queryByText("Context Provider Error")).toBeNull();
@@ -411,7 +409,7 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary contextName="">
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
 			expect(screen.getByText(/An error occurred in the context provider/)).toBeTruthy();
@@ -423,10 +421,12 @@ describe("ContextErrorBoundary", () => {
 			render(
 				<ContextErrorBoundary contextName={longName}>
 					<ThrowError shouldThrow={true} />
-				</ContextErrorBoundary>
+				</ContextErrorBoundary>,
 			);
 
-			expect(screen.getByText(new RegExp(`An error occurred in the ${longName} provider`))).toBeTruthy();
+			expect(
+				screen.getByText(new RegExp(`An error occurred in the ${longName} provider`)),
+			).toBeTruthy();
 		});
 	});
 });

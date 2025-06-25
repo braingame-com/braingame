@@ -1,7 +1,6 @@
 import { vi } from "vitest";
-import { render, screen, act } from "../../test-utils";
+import { render, screen } from "../../test-utils";
 import { ProgressBar } from "./ProgressBar";
-import { Animated } from "react-native";
 
 // Mock Animated for testing
 const mockAnimatedValue = vi.fn(() => ({
@@ -136,7 +135,7 @@ describe("ProgressBar", () => {
 		it("handles different sizes", () => {
 			const sizes = [20, 40, 60, 80, 100];
 
-			sizes.forEach(size => {
+			sizes.forEach((size) => {
 				render(<ProgressBar value={50} variant="circular" size={size} />);
 				expect(screen.getByTestId("progress-circle")).toBeTruthy();
 			});
@@ -147,7 +146,7 @@ describe("ProgressBar", () => {
 		it("handles various progress values", () => {
 			const values = [0, 25, 50, 75, 100];
 
-			values.forEach(value => {
+			values.forEach((value) => {
 				render(<ProgressBar value={value} />);
 				const progressBar = screen.getByRole("progressbar");
 				expect(progressBar).toBeTruthy();
@@ -165,7 +164,7 @@ describe("ProgressBar", () => {
 			// Test boundary values
 			const edgeValues = [-1, 0, 0.1, 99.9, 100, 101];
 
-			edgeValues.forEach(value => {
+			edgeValues.forEach((value) => {
 				render(<ProgressBar value={value} />);
 				const progressBar = screen.getByRole("progressbar");
 				expect(progressBar).toBeTruthy();
@@ -228,7 +227,7 @@ describe("ProgressBar", () => {
 				expect.objectContaining({
 					duration: 500,
 					useNativeDriver: false,
-				})
+				}),
 			);
 		});
 	});
@@ -249,13 +248,7 @@ describe("ProgressBar", () => {
 		});
 
 		it("uses both custom colors", () => {
-			render(
-				<ProgressBar 
-					value={50} 
-					color="#00ff00" 
-					backgroundColor="#eeeeee" 
-				/>
-			);
+			render(<ProgressBar value={50} color="#00ff00" backgroundColor="#eeeeee" />);
 
 			const progressBar = screen.getByRole("progressbar");
 			expect(progressBar).toBeTruthy();
@@ -263,12 +256,7 @@ describe("ProgressBar", () => {
 
 		it("applies colors to circular variant", () => {
 			render(
-				<ProgressBar 
-					value={50} 
-					variant="circular"
-					color="#0000ff" 
-					backgroundColor="#f0f0f0" 
-				/>
+				<ProgressBar value={50} variant="circular" color="#0000ff" backgroundColor="#f0f0f0" />,
 			);
 
 			const progressBar = screen.getByRole("progressbar");
@@ -346,22 +334,14 @@ describe("ProgressBar", () => {
 
 			const progressBar = screen.getByRole("progressbar");
 			expect(progressBar.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining(customStyle),
-				]),
+				expect.arrayContaining([expect.objectContaining(customStyle)]),
 			);
 		});
 
 		it("applies custom style to circular variant", () => {
 			const customStyle = { padding: 15 };
 
-			render(
-				<ProgressBar 
-					value={50} 
-					variant="circular" 
-					style={customStyle} 
-				/>
-			);
+			render(<ProgressBar value={50} variant="circular" style={customStyle} />);
 
 			const progressBar = screen.getByRole("progressbar");
 			expect(progressBar.props.style).toEqual(customStyle);
@@ -374,9 +354,7 @@ describe("ProgressBar", () => {
 
 			const progressBar = screen.getByRole("progressbar");
 			expect(progressBar.props.style).toEqual(
-				expect.arrayContaining([
-					expect.objectContaining(customStyle),
-				]),
+				expect.arrayContaining([expect.objectContaining(customStyle)]),
 			);
 		});
 	});
@@ -404,7 +382,7 @@ describe("ProgressBar", () => {
 		});
 
 		it("handles NaN values gracefully", () => {
-			render(<ProgressBar value={NaN} />);
+			render(<ProgressBar value={Number.NaN} />);
 
 			const progressBar = screen.getByRole("progressbar");
 			expect(progressBar).toBeTruthy();
@@ -456,7 +434,7 @@ describe("ProgressBar", () => {
 				expect.anything(),
 				expect.objectContaining({
 					useNativeDriver: false, // Progress animations can't use native driver
-				})
+				}),
 			);
 		});
 
@@ -483,27 +461,14 @@ describe("ProgressBar", () => {
 
 	describe("Real-world Usage Patterns", () => {
 		it("works as loading indicator", () => {
-			render(
-				<ProgressBar 
-					value={0} 
-					color="#007AFF" 
-					animated={true}
-				/>
-			);
+			render(<ProgressBar value={0} color="#007AFF" animated={true} />);
 
 			const progressBar = screen.getByLabelText("Progress: 0 percent");
 			expect(progressBar).toBeTruthy();
 		});
 
 		it("works as upload progress", () => {
-			render(
-				<ProgressBar 
-					value={65} 
-					color="#34C759" 
-					backgroundColor="#E5E5E7"
-					animated={true}
-				/>
-			);
+			render(<ProgressBar value={65} color="#34C759" backgroundColor="#E5E5E7" animated={true} />);
 
 			const progressBar = screen.getByLabelText("Progress: 65 percent");
 			expect(progressBar).toBeTruthy();
@@ -511,13 +476,13 @@ describe("ProgressBar", () => {
 
 		it("works as circular dashboard widget", () => {
 			render(
-				<ProgressBar 
-					value={78} 
+				<ProgressBar
+					value={78}
 					variant="circular"
 					size={120}
 					color="#FF9500"
 					backgroundColor="#F2F2F7"
-				/>
+				/>,
 			);
 
 			const progressBar = screen.getByLabelText("Progress: 78 percent");
