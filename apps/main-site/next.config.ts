@@ -1,9 +1,16 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
 	output: "export",
 	trailingSlash: true,
 	reactStrictMode: true,
+	transpilePackages: [
+		"@braingame/bgui",
+		"@braingame/utils",
+		"react-native-web",
+		"react-native-svg-web",
+	],
 	webpack: (config, { isServer, dev }) => {
 		// Configure React Native Web compatibility
 		config.resolve.alias = {
@@ -11,6 +18,8 @@ const nextConfig: NextConfig = {
 			// React Native web compatibility
 			"react-native$": "react-native-web",
 			"react-native-svg": "react-native-svg-web",
+			"react-native/Libraries/Utilities/codegenNativeComponent": "react-native-web/dist/cjs/modules/UnimplementedView",
+			"react-native-safe-area-context$": path.resolve(__dirname, "../../packages/bgui/src/web-shims/SafeAreaContext.tsx"),
 		};
 
 		// Add React Native web extensions
@@ -49,17 +58,12 @@ const nextConfig: NextConfig = {
 				fs: false,
 				path: false,
 				os: false,
+				"react-native-reanimated": false,
 			};
 		}
 
 		return config;
 	},
-	transpilePackages: [
-		"@braingame/bgui",
-		"@braingame/utils", 
-		"react-native-web",
-		"react-native-svg-web",
-	],
 };
 
 export default nextConfig;

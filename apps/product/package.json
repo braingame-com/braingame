@@ -23,7 +23,6 @@
 	},
 	"dependencies": {
 		"@expo/metro-runtime": "~5.0.4",
-		"@expo/vector-icons": "^14.0.2",
 		"@fortawesome/fontawesome-svg-core": "^6.7.1",
 		"@fortawesome/free-brands-svg-icons": "^6.7.1",
 		"@fortawesome/free-regular-svg-icons": "^6.7.1",
