@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "echo 'Build temporarily disabled for main-site due to @expo/vector-icons issues'",
+		"build": "next build",
 		"start": "next start",
 		"lint": "biome check --fix --vcs-root=../.. --files-ignore-unknown=true src",
 		"typecheck": "tsc --noEmit",
