@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type React from "react";
 import { measureRenders } from "reassure";
-import HomeScreen from "../../src/screens/HomeScreen";
+import { DashboardScreen as HomeScreen } from "../../src/screens/Dashboard";
 
 // Mock dependencies
 jest.mock("../../src/hooks/useAuth", () => ({

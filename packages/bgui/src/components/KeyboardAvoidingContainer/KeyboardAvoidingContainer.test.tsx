@@ -303,7 +303,9 @@ describe("KeyboardAvoidingContainer", () => {
 		});
 
 		it("maintains performance with complex children", () => {
-			const manyChildren = Array.from({ length: 50 }, (_, i) => <Text key={i}>Item {i}</Text>);
+			const manyChildren = Array.from({ length: 50 }, (_, i) => (
+				<Text key={`test-item-${Date.now()}-${i}`}>Item {i}</Text>
+			));
 
 			render(
 				<KeyboardAvoidingContainer testID="container">{manyChildren}</KeyboardAvoidingContainer>,

@@ -195,7 +195,8 @@ describe("LoadingButton", () => {
 
 			const button = screen.getByText("Submit").parent;
 			const hasDisabledOpacity = button?.props.style.some(
-				(style: any) => style && typeof style === "object" && style.opacity === 0.6,
+				(style: unknown) =>
+					style && typeof style === "object" && "opacity" in style && style.opacity === 0.6,
 			);
 			expect(hasDisabledOpacity).toBeFalsy();
 		});

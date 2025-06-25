@@ -134,8 +134,8 @@ describe("Common Styles", () => {
 			const style = createButtonStyle();
 
 			expect(style).toMatchObject({
-				height: dimensions.buttonHeight.medium,
-				borderRadius: dimensions.borderRadius.large,
+				height: dimensions.buttonSizes.medium,
+				borderRadius: dimensions.borderRadiusValues.large,
 				alignItems: "center",
 				justifyContent: "center",
 				paddingHorizontal: spacing.l,
@@ -155,10 +155,10 @@ describe("Common Styles", () => {
 			const style = createInputStyle();
 
 			expect(style).toMatchObject({
-				height: dimensions.inputHeight.medium,
-				borderRadius: dimensions.borderRadius.medium,
+				height: dimensions.inputSizes.medium,
+				borderRadius: dimensions.borderRadiusValues.medium,
 				paddingHorizontal: spacing.m,
-				borderWidth: dimensions.borderWidth.thin,
+				borderWidth: dimensions.borderWidthValues.thin,
 			});
 		});
 

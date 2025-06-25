@@ -4,17 +4,12 @@ import { measureRenders } from "reassure";
 
 describe("TextInput Performance", () => {
 	test("Basic TextInput renders efficiently", async () => {
-		await measureRenders(<TextInput value="" onChangeText={() => {}} placeholder="Enter text" />);
+		await measureRenders(<TextInput value="" onValueChange={() => {}} placeholder="Enter text" />);
 	});
 
 	test("TextInput with error renders efficiently", async () => {
 		await measureRenders(
-			<TextInput
-				value="test"
-				onChangeText={() => {}}
-				placeholder="Enter text"
-				error="This field is required"
-			/>,
+			<TextInput value="test" onValueChange={() => {}} placeholder="Enter text" variant="error" />,
 		);
 	});
 
@@ -22,10 +17,9 @@ describe("TextInput Performance", () => {
 		await measureRenders(
 			<TextInput
 				value="password123"
-				onChangeText={() => {}}
+				onValueChange={() => {}}
 				placeholder="Enter password"
 				secureTextEntry
-				showPasswordToggle
 			/>,
 		);
 	});

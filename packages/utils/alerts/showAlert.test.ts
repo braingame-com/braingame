@@ -132,13 +132,14 @@ describe("Alert Utilities", () => {
 				destructive: true,
 			});
 
-			const buttons = (Alert.alert as any).mock.calls[0][2];
+			const alertMock = Alert.alert as unknown as { mock: { calls: unknown[][] } };
+			const buttons = alertMock.mock.calls[0][2] as { style?: string; text?: string }[];
 			expect(buttons[1].style).toBe("destructive");
 		});
 
 		it("should reverse button order on Android", () => {
 			// Mock Android platform
-			(Platform as any).OS = "android";
+			(Platform as { OS: string }).OS = "android";
 
 			const onConfirm = vi.fn();
 			showAlert.confirm({
@@ -146,13 +147,14 @@ describe("Alert Utilities", () => {
 				onConfirm,
 			});
 
-			const buttons = (Alert.alert as any).mock.calls[0][2];
+			const alertMock = Alert.alert as unknown as { mock: { calls: unknown[][] } };
+			const buttons = alertMock.mock.calls[0][2] as { style?: string; text?: string }[];
 			// On Android, OK should come first
 			expect(buttons[0].text).toBe("OK");
 			expect(buttons[1].text).toBe("Cancel");
 
 			// Reset to iOS
-			(Platform as any).OS = "ios";
+			(Platform as { OS: string }).OS = "ios";
 		});
 	});
 
@@ -169,7 +171,8 @@ describe("Alert Utilities", () => {
 			});
 
 			expect(Alert.alert).toHaveBeenCalled();
-			const buttons = (Alert.alert as any).mock.calls[0][2];
+			const alertMock = Alert.alert as unknown as { mock: { calls: unknown[][] } };
+			const buttons = alertMock.mock.calls[0][2] as { style?: string; text?: string }[];
 			expect(buttons[1].text).toBe("Delete");
 			expect(buttons[1].style).toBe("destructive");
 		});
@@ -183,7 +186,8 @@ describe("Alert Utilities", () => {
 				confirmText: "Remove",
 			});
 
-			const buttons = (Alert.alert as any).mock.calls[0][2];
+			const alertMock = Alert.alert as unknown as { mock: { calls: unknown[][] } };
+			const buttons = alertMock.mock.calls[0][2] as { style?: string; text?: string }[];
 			expect(buttons[1].text).toBe("Remove");
 			expect(buttons[1].style).toBe("destructive");
 		});

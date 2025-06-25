@@ -97,7 +97,7 @@ export const ProgressBar = ({
 						{
 							backgroundColor: progressColor,
 							width: `${animatedValue}%`,
-						} as any,
+						},
 					]}
 				/>
 			</View>

@@ -215,8 +215,8 @@ export const platformStyles = {
  * Helper function to create consistent button styles
  */
 export const createButtonStyle = (
-	height: number = dimensions.buttonHeight.medium,
-	borderRadius: number = dimensions.borderRadius.large,
+	height: number = dimensions.buttonSizes.medium,
+	borderRadius: number = dimensions.borderRadiusValues.large,
 ): ViewStyle => ({
 	height,
 	borderRadius,
@@ -229,13 +229,13 @@ export const createButtonStyle = (
  * Helper function to create consistent input styles
  */
 export const createInputStyle = (
-	height: number = dimensions.inputHeight.medium,
-	borderRadius: number = dimensions.borderRadius.medium,
+	height: number = dimensions.inputSizes.medium,
+	borderRadius: number = dimensions.borderRadiusValues.medium,
 ): ViewStyle => ({
 	height,
 	borderRadius,
 	paddingHorizontal: spacing.m,
-	borderWidth: dimensions.borderWidth.thin,
+	borderWidth: dimensions.borderWidthValues.thin,
 });
 
 /**
