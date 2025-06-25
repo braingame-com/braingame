@@ -9,7 +9,8 @@
 		"lint": "biome check --fix --vcs-root=../.. --files-ignore-unknown=true src",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf .next",
-		"validate:env": "node scripts/validate-env.js"
+		"validate:env": "node scripts/validate-env.js",
+		"analyze": "ANALYZE=true npm run build"
 	},
 	"dependencies": {
 		"@braingame/bgui": "workspace:*",
