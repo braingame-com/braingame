@@ -1,9 +1,10 @@
+import { vi } from "vitest";
 import { fireEvent, render } from "../../test-utils";
 import { TextInput } from "./TextInput";
 
 describe("TextInput", () => {
 	it("calls onValueChange", () => {
-		const onChange = jest.fn();
+		const onChange = vi.fn();
 		const { getByDisplayValue } = render(<TextInput value="hi" onValueChange={onChange} />);
 		const input = getByDisplayValue("hi");
 		fireEvent.changeText(input, "bye");
