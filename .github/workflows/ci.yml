@@ -134,7 +134,7 @@ jobs:
             --config=./lighthouserc.js \
             || echo "Lighthouse CI assertions failed, but continuing"
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Comment PR with Lighthouse results
         if: github.event_name == 'pull_request'
