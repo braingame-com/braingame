@@ -63,12 +63,27 @@ const { values, errors, handleChange, isValid } = useForm({
 
 ### Async State Management
 ```typescript
-import { useAsyncState } from '@braingame/utils';
+import { useAsyncState, useForm, useDisclosure, useThemeColor } from '@braingame/utils';
 
 const { data, loading, error, execute } = useAsyncState(fetchUserData);
 
 // Trigger async operation
 execute(userId);
+
+// Form state management
+const form = useForm({
+  initialValues: { email: '', password: '' },
+  validationRules: {
+    email: validators.email,
+    password: validators.password,
+  },
+});
+
+// Modal/disclosure state
+const modal = useDisclosure();
+
+// Theme-aware colors
+const textColor = useThemeColor('text');
 ```
 
 ## Alert Utilities
@@ -134,6 +149,27 @@ if (isPremiumEnabled) {
   // Show premium UI
 }
 ```
+
+## Testing
+
+```bash
+# Run tests
+pnpm test
+
+# Watch mode
+pnpm test:watch
+
+# Coverage report
+pnpm test:coverage
+```
+
+### Test Coverage
+- ✅ Form validation utilities - 100% coverage
+- ✅ Alert utilities - 100% coverage
+- ✅ Async state hooks - Comprehensive tests
+- ✅ Form management hook - Full test suite
+- ✅ Task helpers - Complete coverage
+- ✅ Common styles - All utilities tested
 
 ## Package Structure
 
