@@ -24,12 +24,22 @@ export const Link = ({
 			return;
 		}
 
-		if (href) {
+		if (href && typeof window !== "undefined") {
 			if (external) {
 				// Use window.open for external links
 				window.open(href, "_blank", "noopener,noreferrer");
 			} else {
-				// Use window.location for internal navigation
+				// For internal links, check if we have expo-router available
+				try {
+					const router = require("expo-router").router;
+					if (router && router.push) {
+						router.push(href);
+						return;
+					}
+				} catch (e) {
+					// expo-router not available, fall back to window.location
+				}
+				// Use window.location for internal navigation as fallback
 				window.location.href = href;
 			}
 		}
