@@ -67,13 +67,13 @@ done
 deleted=0
 if [ "$DRY_RUN" = "false" ]; then
   echo -e "\n${YELLOW}Deleting branches...${NC}"
-  echo -e "$old_branches" | while IFS=: read -r branch days; do
+  while IFS=: read -r branch days; do
     [ -z "$branch" ] && continue
     if git push origin --delete "$branch" 2>/dev/null; then
       echo -e "${GREEN}✓ Deleted: $branch${NC}"
-      ((deleted++))
+      deleted=$((deleted + 1))
     fi
-  done
+  done <<< "$old_branches"
   
   # Prune local tracking
   git remote prune origin

@@ -43,7 +43,7 @@ while IFS= read -r branch; do
   # Check if branch has an open PR
   if grep -q "^${branch}$" /tmp/open_pr_branches.txt 2>/dev/null; then
     echo -e "${RED}⚠️  Skipping $branch (has open PR)${NC}"
-    ((protected_count++))
+    protected_count=$((protected_count + 1))
   else
     safe_to_delete="$safe_to_delete$branch\n"
   fi
@@ -84,15 +84,16 @@ echo -e "\n${YELLOW}Deleting branches...${NC}"
 deleted=0
 failed=0
 
-echo -e "$safe_to_delete" | grep -v '^$' | while IFS= read -r branch; do
+while IFS= read -r branch; do
+  [ -z "$branch" ] && continue
   if git push origin --delete "$branch" 2>/dev/null; then
     echo -e "${GREEN}✓ Deleted: $branch${NC}"
-    ((deleted++))
+    deleted=$((deleted + 1))
   else
     echo -e "${RED}✗ Failed: $branch${NC}"
-    ((failed++))
+    failed=$((failed + 1))
   fi
-done
+done <<< "$(echo -e "$safe_to_delete" | grep -v '^$')"
 
 echo -e "\n${GREEN}🎉 Cleanup complete!${NC}"
 echo -e "Deleted: $deleted branches"
