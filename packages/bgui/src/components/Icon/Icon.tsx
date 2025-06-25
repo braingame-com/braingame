@@ -1,31 +1,18 @@
-import { useThemeColor } from "@braingame/utils";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { sizeMap } from "./styles";
+import { Platform } from "react-native";
 import type { IconProps } from "./types";
 
-export function Icon({
-	name,
-	variant: _variant = "regular",
-	size = "md",
-	color,
-	decorative = false,
-	"aria-label": ariaLabel,
-	style,
-}: IconProps) {
-	const iconSize = typeof size === "number" ? size : sizeMap[size];
-	const iconColor = useThemeColor(color ?? "icon");
-	// FontAwesome6 handles variants internally via the 'name' prop
-	// No need to set fontFamily manually
+// Platform-specific imports and implementations
+let IconImplementation: React.ComponentType<IconProps>;
 
-	return (
-		<FontAwesome6
-			name={name}
-			size={iconSize}
-			color={iconColor}
-			accessibilityElementsHidden={decorative}
-			accessibilityRole="image"
-			accessibilityLabel={decorative ? undefined : ariaLabel}
-			style={style}
-		/>
-	);
+if (Platform.OS === "web") {
+	const WebIcon = require("./Icon.web").Icon;
+	IconImplementation = WebIcon;
+} else {
+	const NativeIcon = require("./Icon.native").Icon;
+	IconImplementation = NativeIcon;
+}
+
+export function Icon(props: IconProps) {
+	const Component = IconImplementation as React.FC<IconProps>;
+	return <Component {...props} />;
 }
