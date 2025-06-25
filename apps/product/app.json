@@ -87,6 +87,7 @@
 					"backgroundColor": "#000000"
 				}
 			],
+			"expo-haptics",
 			"expo-font",
 			[
 				"expo-clipboard",
