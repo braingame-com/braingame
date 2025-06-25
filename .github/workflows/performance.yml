@@ -33,13 +33,13 @@ jobs:
         run: |
           git checkout ${{ github.base_ref }}
           cd apps/product
-          pnpm reassure --baseline
+          pnpm run reassure:baseline
           git checkout -
       
       - name: Run performance tests on PR branch
         run: |
           cd apps/product
-          pnpm reassure
+          pnpm run reassure
       
       - name: Upload performance results
         if: always()
