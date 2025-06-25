@@ -57,6 +57,7 @@ describe("useAsyncState", () => {
 
 			// Check loading is true immediately after calling execute
 			expect(result.current.loading).toBe(true);
+			expect(loadingDuringExecution).toBe(true);
 
 			await waitFor(() => {
 				expect(result.current.loading).toBe(false);

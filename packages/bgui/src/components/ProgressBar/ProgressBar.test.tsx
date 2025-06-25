@@ -27,11 +27,12 @@ const mockAnimatedTiming = vi.fn(() => ({
 
 // Setup mocks
 vi.mock("react-native", async () => {
-	const actual = (await vi.importActual("react-native")) as any;
+	const actual = await vi.importActual("react-native");
+	const actualModule = actual as { Animated: Record<string, unknown>; [key: string]: unknown };
 	return {
-		...actual,
+		...actualModule,
 		Animated: {
-			...actual.Animated,
+			...(actualModule.Animated as Record<string, unknown>),
 			Value: mockAnimatedValue,
 			timing: mockAnimatedTiming,
 			createAnimatedComponent: vi.fn((component) => component),

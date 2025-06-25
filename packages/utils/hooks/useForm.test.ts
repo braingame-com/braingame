@@ -243,12 +243,12 @@ describe("useForm", () => {
 				}),
 			);
 
-			let isValid: boolean;
+			let isValid = false;
 			act(() => {
 				isValid = result.current.validateField("email");
 			});
 
-			expect(isValid!).toBe(false);
+			expect(isValid).toBe(false);
 			expect(result.current.errors.email).toBe("Email is required");
 
 			act(() => {
@@ -256,7 +256,7 @@ describe("useForm", () => {
 				isValid = result.current.validateField("email");
 			});
 
-			expect(isValid!).toBe(true);
+			expect(isValid).toBe(true);
 			expect(result.current.errors.email).toBeUndefined();
 		});
 
@@ -267,12 +267,12 @@ describe("useForm", () => {
 				}),
 			);
 
-			let isValid: boolean;
+			let isValid = false;
 			act(() => {
 				isValid = result.current.validateField("email");
 			});
 
-			expect(isValid!).toBe(true);
+			expect(isValid).toBe(true);
 		});
 	});
 
@@ -285,12 +285,12 @@ describe("useForm", () => {
 				}),
 			);
 
-			let isValid: boolean;
+			let isValid = false;
 			act(() => {
 				isValid = result.current.validate();
 			});
 
-			expect(isValid!).toBe(false);
+			expect(isValid).toBe(false);
 			expect(result.current.errors).toHaveProperty("email");
 			expect(result.current.errors).toHaveProperty("password");
 			expect(Object.keys(result.current.touched).length).toBe(3);
@@ -303,12 +303,12 @@ describe("useForm", () => {
 				}),
 			);
 
-			let isValid: boolean;
+			let isValid = false;
 			act(() => {
 				isValid = result.current.validate();
 			});
 
-			expect(isValid!).toBe(true);
+			expect(isValid).toBe(true);
 		});
 
 		it("should mark all fields as touched", () => {
