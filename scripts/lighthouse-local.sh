@@ -26,7 +26,7 @@ pnpm build
 
 # Start the server in the background
 echo -e "\n${YELLOW}Starting Next.js server...${NC}"
-npm run start &
+pnpm start &
 SERVER_PID=$!
 
 # Wait for server to be ready

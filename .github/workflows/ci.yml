@@ -117,15 +117,13 @@ jobs:
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.13.x
       
-      - name: Install dependencies for main-site
-        run: |
-          cd apps/main-site
-          pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       
       - name: Start Next.js server
         run: |
           cd apps/main-site
-          npm run start &
+          pnpm start &
           npx wait-on http://localhost:3000 --timeout 60000
       
       - name: Run Lighthouse CI for Main Site
