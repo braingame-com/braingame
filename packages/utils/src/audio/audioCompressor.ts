@@ -1,7 +1,7 @@
-import { exec } from "child_process";
-import { promises as fs } from "fs";
-import path from "path";
-import { promisify } from "util";
+import { exec } from "node:child_process";
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import { promisify } from "node:util";
 
 const execAsync = promisify(exec);
 
@@ -181,7 +181,6 @@ function buildFfmpegCommand(
 		case "ogg":
 			args.push("-c:a", "libvorbis");
 			break;
-		case "mp3":
 		default:
 			args.push("-c:a", "libmp3lame");
 			break;
@@ -289,7 +288,7 @@ function formatBytes(bytes: number): string {
 	const k = 1024;
 	const sizes = ["B", "KB", "MB", "GB"];
 	const i = Math.floor(Math.log(bytes) / Math.log(k));
-	return Number.parseFloat((bytes / k ** i).toFixed(1)) + " " + sizes[i];
+	return `${Number.parseFloat((bytes / k ** i).toFixed(1))} ${sizes[i]}`;
 }
 
 /**

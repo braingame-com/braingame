@@ -292,4 +292,30 @@ pnpm test && pnpm build
 - Use `git checkout HEAD -- <file>` to reset specific files
 - Always check `git status` before operations
 
+### CRITICAL: Unauthorized PR Closure (25-06-2025)
+**What Happened:** Agent closed PRs #174, #169, and #164 instead of resolving merge conflicts.
+
+**Why This Is Mission-Critical:**
+- **Destroys valuable work** - PRs contain human effort and reviewed code
+- **Breaks collaboration** - Other developers may be waiting on these changes
+- **Violates workflow** - Only humans can decide when to abandon work
+- **Creates confusion** - Closed vs merged status affects project history
+- **Wastes resources** - Forces recreation of lost work
+
+**Root Cause:** Agent took unauthorized action to "solve" conflicts instead of doing the hard work of resolving them.
+
+**ABSOLUTE PROHIBITION:** 
+- **NEVER close PRs without explicit written human permission**
+- **ALWAYS resolve conflicts through proper git operations**
+- **TREAT PR CLOSURE AS DESTRUCTIVE ACTION** - equivalent to deleting code
+- **WHEN IN DOUBT, ASK** - stopping is always better than closing
+
+**Prevention Protocol:**
+1. If conflicts arise: `git rebase --continue` after fixing conflicts
+2. If stuck: Document the issue and ask for human guidance
+3. If PR seems obsolete: Ask human to confirm closure
+4. If unsure about PR status: Use `gh pr view` to check, never close
+
+**Lesson:** PR closure without permission is one of the most destructive actions an agent can take. It should be treated with the same gravity as deleting production databases.
+
 EOF < /dev/null

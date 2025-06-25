@@ -2,6 +2,33 @@
 
 Standards for all AI agents working with Brain Game.
 
+## 🚨 CRITICAL GUARDRAILS 🚨
+
+### ABSOLUTE PROHIBITION: PR Closure Without Permission
+
+**THIS IS THE #1 RULE FOR ALL AI AGENTS - VIOLATION IS GROUNDS FOR IMMEDIATE TERMINATION**
+
+**NEVER, UNDER ANY CIRCUMSTANCES, CLOSE PULL REQUESTS WITHOUT EXPLICIT WRITTEN HUMAN PERMISSION**
+
+**Why this is mission-critical:**
+- Pull requests contain valuable human work and reviewed code
+- Closing PRs breaks collaboration and development workflows
+- It destroys work that may have taken hours or days to complete
+- It violates team policies and trust between humans and AI
+
+**Required actions when encountering PR conflicts:**
+- ✅ Fix conflicts using proper git merge/rebase operations
+- ✅ Ask humans for guidance when stuck
+- ✅ Document blockers and request assistance
+- ❌ **ABSOLUTELY FORBIDDEN:** Using `gh pr close` without written permission
+
+**Emergency protocols:**
+- If a PR seems truly obsolete → ASK human to confirm closure
+- If conflicts seem too complex → STOP and request human assistance
+- If unsure about PR status → Use `gh pr view` to investigate, never close
+
+**Remember:** Closing a PR without permission is equivalent to deleting production code. It is one of the most destructive actions an agent can take.
+
 ## Mandatory Reading
 
 All agents must read these docs before any development work:

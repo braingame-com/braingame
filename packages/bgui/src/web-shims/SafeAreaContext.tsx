@@ -7,7 +7,13 @@ export const SafeAreaProvider = ({ children }: { children: React.ReactNode }) =>
 	return <>{children}</>;
 };
 
-export const SafeAreaView = ({ children, style }: { children: React.ReactNode; style?: any }) => {
+export const SafeAreaView = ({
+	children,
+	style,
+}: {
+	children: React.ReactNode;
+	style?: React.CSSProperties;
+}) => {
 	return <div style={style}>{children}</div>;
 };
 

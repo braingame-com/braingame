@@ -4,13 +4,14 @@ import { Suspense } from "react";
 
 // Dynamically import heavy components to improve initial load
 const ComponentGrid = dynamic(
-	() => import("../../components/ComponentGrid").catch(() => ({ 
-		default: () => <ComponentList /> 
-	})),
+	() =>
+		import("../../components/ComponentGrid").catch(() => ({
+			default: () => <ComponentList />,
+		})),
 	{
 		loading: () => <div className="text-gray-400 animate-pulse">Loading components...</div>,
 		ssr: true,
-	}
+	},
 );
 
 const components = [
@@ -30,8 +31,8 @@ function ComponentList() {
 		<ul className="space-y-2">
 			{components.map((name) => (
 				<li key={name}>
-					<Link 
-						href={`/components/${name}`} 
+					<Link
+						href={`/components/${name}`}
 						className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors"
 					>
 						{name}

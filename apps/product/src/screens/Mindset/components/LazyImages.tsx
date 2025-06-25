@@ -121,20 +121,17 @@ export const LazyImages: React.FC<LazyImagesProps> = ({ onComplete, completed })
 	}, []);
 
 	// Load image on demand
-	const loadImage = useCallback(
-		(imageName: string) => {
-			setLoadedImages((prev) => {
-				if (!prev[imageName]) {
-					const source = getImageSource(imageName);
-					if (source) {
-						return { ...prev, [imageName]: source };
-					}
+	const loadImage = useCallback((imageName: string) => {
+		setLoadedImages((prev) => {
+			if (!prev[imageName]) {
+				const source = getImageSource(imageName);
+				if (source) {
+					return { ...prev, [imageName]: source };
 				}
-				return prev;
-			});
-		},
-		[],
-	);
+			}
+			return prev;
+		});
+	}, []);
 
 	// Preload current and next few images
 	useEffect(() => {

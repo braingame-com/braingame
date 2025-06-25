@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 
 // Platform-specific imports and implementations
-let useDraggableTaskHandlersImplementation: (initialTasks: string[]) => any;
+let useDraggableTaskHandlersImplementation: (initialTasks: string[]) => unknown;
 
 if (Platform.OS === "web") {
 	const WebHook = require("./useDraggableTaskHandlers.web");
