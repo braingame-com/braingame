@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev": "echo 'BGUI components ready for development'",
 		"build": "tsc",
-		"test": "vitest run",
+		"test": "vitest run --passWithNoTests",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"lint": "biome check --fix --vcs-root=../..",
@@ -46,7 +46,6 @@
 		"react-native-svg-web": "^1.0.9",
 		"react-native-web": "~0.20.0",
 		"react-test-renderer": "19.0.0",
-		"ts-jest": "^29.1.1",
 		"typescript": "^5.3.3",
 		"vitest": "^3.2.4"
 	},

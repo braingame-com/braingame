@@ -18,14 +18,16 @@
 		"firebase": "^11.9.1",
 		"next": "15.3.3",
 		"react": "19.0.0",
-		"react-dom": "19.0.0"
+		"react-dom": "19.0.0",
+		"react-native-web": "~0.20.0",
+		"react-native-svg-web": "^1.0.9"
 	},
 	"devDependencies": {
 		"@braingame/config": "workspace:*",
 		"@types/node": "^24",
 		"@types/react": "~19.1.8",
 		"@types/react-dom": "~19.1.6",
-		"ignore-loader": "^0.1.2",
-		"string-replace-loader": "^3.2.0"
+		"file-loader": "^6.2.0",
+		"webpack": "^5.99.9"
 	}
 }

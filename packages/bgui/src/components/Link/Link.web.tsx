@@ -1,16 +1,8 @@
 import { textStyles } from "@braingame/utils";
-import { Linking, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { Text } from "../Text";
 import { styles } from "./styles";
 import type { LinkProps } from "./types";
-
-// Check if we're in an Expo environment with expo-router
-let ExpoLink: any;
-try {
-	ExpoLink = require("expo-router").Link;
-} catch (e) {
-	// expo-router not available
-}
 
 export const Link = ({
 	children,
@@ -24,55 +16,58 @@ export const Link = ({
 }: LinkProps) => {
 	const label = external && ariaLabel ? `${ariaLabel} (opens in new window)` : ariaLabel;
 
-	// For web, determine if this is an internal or external link
-	const isInternalLink = href && !external && !href.startsWith("http") && !href.startsWith("//");
-
-	// If we have expo-router and it's an internal link, use expo-router's Link
-	if (ExpoLink && isInternalLink && href && !onPress) {
-		return (
-			<ExpoLink
-				href={href}
-				asChild
-				accessibilityRole="link"
-				accessibilityLabel={label}
-				disabled={disabled}
-			>
-				<Pressable
-					style={[textStyles.link, variant === "standalone" && styles.standalone]}
-					{...rest}
-				>
-					<Text>{children}</Text>
-				</Pressable>
-			</ExpoLink>
-		);
-	}
-
-	// Otherwise, use standard Pressable with Linking.openURL
 	const handlePress = () => {
 		if (disabled) return;
+
 		if (onPress) {
 			onPress();
 			return;
 		}
-		if (href) {
-			// For external links or when expo-router is not available
-			Linking.openURL(href);
+
+		if (href && typeof window !== "undefined") {
+			if (external) {
+				// Use window.open for external links
+				window.open(href, "_blank", "noopener,noreferrer");
+			} else {
+				// For internal links, check if we have expo-router available
+				try {
+					const router = require("expo-router").router;
+					if (router && router.push) {
+						router.push(href);
+						return;
+					}
+				} catch (e) {
+					// expo-router not available, fall back to window.location
+				}
+				// Use window.location for internal navigation as fallback
+				window.location.href = href;
+			}
 		}
 	};
 
-	const text = <Text>{children}</Text>;
-	const style = [textStyles.link, variant === "standalone" && styles.standalone];
-
 	return (
 		<Pressable
-			accessibilityRole="link"
-			accessibilityLabel={label}
 			onPress={handlePress}
 			disabled={disabled}
-			style={style}
+			style={({ pressed }) => [
+				styles.container,
+				variant === "standalone" && styles.standalone,
+				pressed && styles.pressed,
+				disabled && styles.disabled,
+			]}
+			accessibilityRole="link"
+			accessibilityLabel={label}
+			// @ts-ignore - Web-specific props
+			role="link"
+			aria-label={label}
 			{...rest}
 		>
-			{text}
+			<Text
+				variant={variant === "inline" ? "body" : "bodyStrong"}
+				style={[textStyles.link, disabled && textStyles.disabled]}
+			>
+				{children}
+			</Text>
 		</Pressable>
 	);
 };

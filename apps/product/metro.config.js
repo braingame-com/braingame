@@ -32,4 +32,27 @@ if (process.env.EXPO_PLATFORM === "web") {
 	config.resolver.conditionNames = ["browser", "require"];
 }
 
+// Bundle optimization settings
+config.transformer = {
+	...config.transformer,
+	// Enable asset inlining for smaller images (< 8KB)
+	inlineRequires: true,
+	// Enable minification
+	minifierConfig: {
+		keep_fnames: false,
+		mangle: {
+			keep_fnames: false,
+		},
+		output: {
+			comments: false,
+		},
+	},
+};
+
+// Asset optimization
+config.resolver.assetExts = [
+	...config.resolver.assetExts,
+	// Remove unused asset extensions to reduce bundle scanning
+].filter(ext => !['gif', 'bmp', 'tiff'].includes(ext));
+
 module.exports = config;

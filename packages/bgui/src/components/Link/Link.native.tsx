@@ -1,5 +1,6 @@
 import { textStyles } from "@braingame/utils";
-import { Linking, Pressable } from "react-native";
+import { Link as ExpoLink } from "expo-router";
+import { Linking, Platform, Pressable } from "react-native";
 import { Text } from "../Text";
 import { styles } from "./styles";
 import type { LinkProps } from "./types";
@@ -23,13 +24,26 @@ export const Link = ({
 			return;
 		}
 		if (href) {
-			// Native always uses Linking.openURL for all URLs
-			Linking.openURL(href);
+			if (external || Platform.OS !== "web") {
+				Linking.openURL(href);
+			}
 		}
 	};
 
 	const text = <Text>{children}</Text>;
 	const style = [textStyles.link, variant === "standalone" && styles.standalone];
+
+	if (href && !external && Platform.OS === "web") {
+		return (
+			<ExpoLink
+				href={href as Parameters<typeof ExpoLink>[0]["href"]}
+				aria-label={label}
+				style={style}
+			>
+				{children}
+			</ExpoLink>
+		);
+	}
 
 	return (
 		<Pressable

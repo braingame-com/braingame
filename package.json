@@ -37,6 +37,9 @@
 		"secrets:check": "secretlint --no-color .",
 		"quality": "turbo lint typecheck test",
 		"preflight": "pnpm install",
+		"cleanup:branches": "./scripts/cleanup-branches.sh",
+		"cleanup:branches:auto": "./scripts/cleanup-branches-auto.sh",
+		"cleanup:branches:old": "./scripts/cleanup-branches-auto.sh 30 true",
 		"ci": "pnpm install --frozen-lockfile && pnpm secrets:check && pnpm quality && pnpm build",
 		"precommit": "lint-staged && pnpm quality",
 		"storybook": "storybook dev -p 6006 -c packages/bgui/.storybook",
@@ -49,7 +52,14 @@
 		"dev:unused": "node scripts/dev-tools.js find-unused",
 		"workspace": "node scripts/workspace-helper.js",
 		"docs": "node scripts/doc-generator.js",
-		"validate:env": "turbo validate:env"
+		"validate:env": "turbo validate:env",
+		"perf": "pnpm --filter @braingame/product reassure",
+		"perf:baseline": "pnpm --filter @braingame/product reassure:baseline",
+		"lighthouse": "./scripts/lighthouse-local.sh all",
+		"lighthouse:main": "./scripts/lighthouse-local.sh main",
+		"lighthouse:docs": "./scripts/lighthouse-local.sh docs",
+		"lighthouse:product": "./scripts/lighthouse-local.sh product",
+		"lighthouse:ci": "lhci autorun"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",

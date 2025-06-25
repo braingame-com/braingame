@@ -1,42 +1,66 @@
 import type { NextConfig } from "next";
 import path from "path";
-import webpack from "webpack";
 
 const nextConfig: NextConfig = {
 	output: "export",
 	trailingSlash: true,
 	reactStrictMode: true,
-	transpilePackages: ["@braingame/bgui", "@braingame/utils"],
-	webpack: (config, { isServer }) => {
-		// Handle font files
-		config.module.rules.push({
-			test: /\.(ttf|otf|eot|woff|woff2)$/,
-			type: "asset/resource",
-			generator: {
-				filename: "static/fonts/[name].[hash][ext]",
-			},
-		});
-
-		// Resolve React Native for Web
+	transpilePackages: [
+		"@braingame/bgui",
+		"@braingame/utils",
+		"react-native-web",
+		"react-native-svg-web",
+	],
+	webpack: (config, { isServer, dev }) => {
+		// Configure React Native Web compatibility
 		config.resolve.alias = {
-			...config.resolve.alias,
+			...(config.resolve.alias || {}),
+			// React Native web compatibility
 			"react-native$": "react-native-web",
+			"react-native-svg": "react-native-svg-web",
 			"react-native/Libraries/Utilities/codegenNativeComponent": "react-native-web/dist/cjs/modules/UnimplementedView",
 			"react-native-safe-area-context$": path.resolve(__dirname, "../../packages/bgui/src/web-shims/SafeAreaContext.tsx"),
 		};
 
-		// Ignore problematic modules that are mobile-only
-		config.resolve.fallback = {
-			...config.resolve.fallback,
-			"react-native-reanimated": false,
-		};
+		// Add React Native web extensions
+		config.resolve.extensions = [
+			".web.js",
+			".web.jsx", 
+			".web.ts",
+			".web.tsx",
+			...config.resolve.extensions,
+		];
 
-		// Define __DEV__ for React Native compatibility
+		// Define React Native globals for web
+		const { DefinePlugin } = require("webpack");
 		config.plugins.push(
-			new webpack.DefinePlugin({
-				__DEV__: JSON.stringify(process.env.NODE_ENV !== "production"),
-			}),
+			new DefinePlugin({
+				__DEV__: JSON.stringify(dev),
+			})
 		);
+
+		// Handle font files and other assets
+		config.module.rules.push({
+			test: /\.(ttf|eot|woff|woff2)$/,
+			use: {
+				loader: "file-loader",
+				options: {
+					name: "[name].[ext]",
+					outputPath: "static/fonts/",
+				},
+			},
+		});
+
+		// Exclude problematic packages from server-side rendering
+		if (!isServer) {
+			config.resolve.fallback = {
+				...config.resolve.fallback,
+				fs: false,
+				path: false,
+				os: false,
+				"react-native-reanimated": false,
+			};
+		}
 
 		return config;
 	},
