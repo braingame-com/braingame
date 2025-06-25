@@ -1,45 +1,18 @@
-import { textStyles } from "@braingame/utils";
-import { Linking, Platform, Pressable } from "react-native";
-import { Text } from "../Text";
-import { styles } from "./styles";
+import { Platform } from "react-native";
 import type { LinkProps } from "./types";
 
-export const Link = ({
-	children,
-	href,
-	onPress,
-	external = false,
-	disabled = false,
-	variant = "inline",
-	"aria-label": ariaLabel,
-	...rest
-}: LinkProps) => {
-	const label = external && ariaLabel ? `${ariaLabel} (opens in new window)` : ariaLabel;
+// Platform-specific imports and implementations
+let LinkImplementation: React.ComponentType<LinkProps>;
 
-	const handlePress = () => {
-		if (disabled) return;
-		if (onPress) {
-			onPress();
-			return;
-		}
-		if (href) {
-			Linking.openURL(href);
-		}
-	};
+if (Platform.OS === "web") {
+	const WebLink = require("./Link.web").Link;
+	LinkImplementation = WebLink;
+} else {
+	const NativeLink = require("./Link.native").Link;
+	LinkImplementation = NativeLink;
+}
 
-	const text = <Text>{children}</Text>;
-	const style = [textStyles.link, variant === "standalone" && styles.standalone];
-
-	return (
-		<Pressable
-			accessibilityRole="link"
-			accessibilityLabel={label}
-			onPress={handlePress}
-			disabled={disabled}
-			style={style}
-			{...rest}
-		>
-			{text}
-		</Pressable>
-	);
+export const Link = (props: LinkProps) => {
+	const Component = LinkImplementation as React.FC<LinkProps>;
+	return <Component {...props} />;
 };
