@@ -50,7 +50,10 @@
 		"workspace": "node scripts/workspace-helper.js",
 		"docs": "node scripts/doc-generator.js",
 		"validate:env": "turbo validate:env",
-		"lighthouse": "./scripts/lighthouse-local.sh",
+		"lighthouse": "./scripts/lighthouse-local.sh all",
+		"lighthouse:main": "./scripts/lighthouse-local.sh main",
+		"lighthouse:docs": "./scripts/lighthouse-local.sh docs",
+		"lighthouse:product": "./scripts/lighthouse-local.sh product",
 		"lighthouse:ci": "lhci autorun"
 	},
 	"devDependencies": {

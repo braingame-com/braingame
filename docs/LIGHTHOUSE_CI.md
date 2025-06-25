@@ -2,15 +2,33 @@
 
 ## Overview
 
-Lighthouse CI is integrated into our CI/CD pipeline to automatically monitor and enforce performance standards for our web applications. It runs on every pull request and provides feedback on Core Web Vitals and other performance metrics.
+Lighthouse CI is integrated into our CI/CD pipeline to automatically monitor and enforce performance standards for all our web applications. It runs on every pull request and provides feedback on Core Web Vitals and other performance metrics.
 
 ## What Gets Monitored
 
 ### Applications
-- **Main Site** (Next.js marketing site)
-  - Homepage (`/`)
-  - Features page (`/features`)
-  - Pricing page (`/pricing`)
+
+#### 1. Main Site (Next.js marketing site)
+- Homepage (`/`)
+- Features page (`/features`)
+- Pricing page (`/pricing`)
+- **Port**: 3000
+- **Config**: `lighthouse/main-site.config.js`
+
+#### 2. Docs Site (Next.js documentation)
+- Homepage (`/`)
+- Docs page (`/docs`)
+- API page (`/api`)
+- **Port**: 3001
+- **Config**: `lighthouse/docs-site.config.js`
+
+#### 3. Product Web (Expo web version)
+- Homepage (`/`)
+- Home page (`/home`)
+- Settings page (`/settings`)
+- **Port**: 8081
+- **Config**: `lighthouse/product-web.config.js`
+- **Note**: More lenient thresholds due to Expo web limitations
 
 ### Metrics Tracked
 - **Performance Score**: Overall performance rating (target: 80%+)
@@ -36,7 +54,13 @@ Lighthouse CI is integrated into our CI/CD pipeline to automatically monitor and
 
 ## Configuration
 
-### Lighthouse Configuration (`lighthouserc.js`)
+### Site-Specific Configurations
+Each site has its own configuration file in the `lighthouse/` directory:
+- `lighthouse/main-site.config.js` - Main marketing site
+- `lighthouse/docs-site.config.js` - Documentation site  
+- `lighthouse/product-web.config.js` - Expo web app
+
+### Configuration Structure
 ```javascript
 module.exports = {
   ci: {
@@ -45,13 +69,13 @@ module.exports = {
       numberOfRuns: 3,
       settings: {
         preset: 'desktop',
-        // Chrome settings for CI
+        chromeFlags: '--headless',
       },
     },
     assert: {
       preset: 'lighthouse:recommended',
       assertions: {
-        // Performance thresholds
+        // Performance thresholds per site
       },
     },
     upload: {
@@ -65,14 +89,16 @@ module.exports = {
 The Lighthouse CI job runs in `.github/workflows/ci.yml`:
 - Depends on the build job completing successfully
 - Downloads build artifacts
-- Starts the Next.js server
-- Runs Lighthouse tests
+- Starts all three servers on different ports
+- Runs Lighthouse tests for each site
+- Aggregates results and posts PR comment
 - Uploads results as artifacts
 
 ## Viewing Results
 
 ### In Pull Requests
-- Lighthouse CI will comment on PRs with performance metrics
+- Lighthouse CI will comment on PRs with performance metrics for all three sites
+- Results show average scores per site with expandable details for each page
 - Click the provided links to see detailed reports
 - Compare scores against the base branch
 
@@ -102,27 +128,35 @@ Currently, Lighthouse assertions are set to "warn" for most metrics (except acce
 To run Lighthouse locally before pushing:
 
 ```bash
-# Install Lighthouse CLI
+# Install Lighthouse CLI (done automatically by script)
 npm install -g @lhci/cli
 
-# Build the main site
-cd apps/main-site
-pnpm build
+# Test all sites
+pnpm lighthouse
 
-# Start the server
-pnpm start
+# Test specific site
+pnpm lighthouse main    # Main site only
+pnpm lighthouse docs    # Docs site only  
+pnpm lighthouse product # Product web only
 
-# In another terminal, run Lighthouse
-lhci autorun --config=../../lighthouserc.js
+# Or use the script directly
+./scripts/lighthouse-local.sh [main|docs|product|all]
 ```
+
+The script will:
+1. Build each site
+2. Start the server on the appropriate port
+3. Run Lighthouse tests
+4. Save results in `.lighthouseci/`
 
 ## Future Enhancements
 
-1. **Add More Apps**: Monitor the docs site and other web apps
-2. **Historical Tracking**: Set up Lighthouse CI server for trend analysis
-3. **Budget Tracking**: Implement performance budgets
-4. **Mobile Testing**: Add mobile viewport testing
-5. **Production Monitoring**: Run after deployments to production
+1. **Historical Tracking**: Set up Lighthouse CI server for trend analysis
+2. **Budget Tracking**: Implement performance budgets per site
+3. **Mobile Testing**: Add mobile viewport testing configurations
+4. **Production Monitoring**: Run after deployments to production
+5. **Differential Testing**: Compare PR branch vs base branch scores
+6. **Custom Metrics**: Add app-specific performance metrics
 
 ## Resources
 
