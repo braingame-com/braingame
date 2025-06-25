@@ -12,6 +12,19 @@ jest.mock("../../src/hooks/useAuth", () => ({
 	}),
 }));
 
+jest.mock("../../src/hooks/useUserData", () => ({
+	useUserData: () => ({
+		data: Array(20)
+			.fill(null)
+			.map((_, i) => ({
+				id: i,
+				title: `Item ${i}`,
+				description: `Description for item ${i}`,
+			})),
+		isLoading: false,
+	}),
+}));
+
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: { retry: false },
@@ -30,20 +43,7 @@ describe("HomeScreen Performance", () => {
 	});
 
 	test("HomeScreen with data renders efficiently", async () => {
-		// Mock data loading state
-		jest.mock("../../src/hooks/useUserData", () => ({
-			useUserData: () => ({
-				data: Array(20)
-					.fill(null)
-					.map((_, i) => ({
-						id: i,
-						title: `Item ${i}`,
-						description: `Description for item ${i}`,
-					})),
-				isLoading: false,
-			}),
-		}));
-
+		// Mock data is already configured at module level
 		await measureRenders(<HomeScreen />, { wrapper: Wrapper });
 	});
 });

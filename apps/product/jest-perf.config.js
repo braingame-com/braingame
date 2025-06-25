@@ -11,5 +11,5 @@ module.exports = {
 	// Use different cache directory to avoid conflicts
 	cacheDirectory: "<rootDir>/.jest-perf",
 	// Specific setup for performance tests
-	setupFilesAfterEnv: [...defaultConfig.setupFilesAfterEnv, "<rootDir>/.reassure/jest-setup.ts"],
+	setupFilesAfterEnv: [...(defaultConfig.setupFilesAfterEnv || []), "<rootDir>/.reassure/jest-setup.ts"],
 };
