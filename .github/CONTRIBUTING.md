@@ -10,10 +10,16 @@
 ## Zero Tolerance Quality Standards
 
 All PRs must pass:
-- `npm run lint`
-- `npm run typecheck`
-- `npm test`
-- `npm run build`
+- `pnpm lint` (0 warnings)
+- `pnpm typecheck` (0 errors)
+- `pnpm test`
+- `pnpm build`
+
+**CRITICAL**: Always verify on your feature branch BEFORE opening PR:
+```bash
+git checkout your-feature-branch
+pnpm lint && pnpm typecheck && pnpm test
+```
 
 ## Commit Messages
 
@@ -53,6 +59,9 @@ When using AI tools:
 2. Verify against project patterns
 3. Test thoroughly
 4. Never commit without review
+5. Check BugBot comments on all PRs
+6. Run quality checks locally before merge
+7. Never close PRs without permission
 
 ## Code Style
 

@@ -11,6 +11,12 @@ Systematic approach to reviewing and merging pull requests.
 
 ## Review Checklist
 
+### BugBot Review (Check First!)
+- [ ] Check BugBot comments on PR
+- [ ] Address all HIGH/CRITICAL severity issues
+- [ ] Fix issues on feature branch before merging
+- [ ] Add resolution comments to PR
+
 ### Code Quality
 - [ ] Passes all quality checks (`pnpm lint && pnpm typecheck && pnpm test`)
 - [ ] Follows established patterns
@@ -73,6 +79,21 @@ git rebase --continue
 - Author abandonment (30+ days inactive)
 
 ## Merge Strategies
+
+### Pre-Merge Verification (MANDATORY)
+```bash
+# For EVERY PR before merging:
+git fetch origin
+git checkout <feature-branch>
+pnpm lint
+pnpm typecheck
+# Fix any issues found
+git add -A && git commit -m "fix: lint/type errors"
+git push origin <feature-branch>
+# Only then proceed with merge
+```
+
+**CRITICAL:** Never assume CI passing means branch is clean. Local verification prevents error accumulation on main.
 
 ### Squash Merge (Default)
 - Cleans up commit history

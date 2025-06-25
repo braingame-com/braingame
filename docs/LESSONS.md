@@ -318,4 +318,44 @@ pnpm test && pnpm build
 
 **Lesson:** PR closure without permission is one of the most destructive actions an agent can take. It should be treated with the same gravity as deleting production databases.
 
+### PR Merge Process Failure (25-06-2025)
+**What Happened:** Merged PRs directly without checking feature branches first, resulting in lint/type errors on main branch.
+
+**Root Cause:** Failed to follow documented process:
+- Did NOT checkout feature branches locally before merging
+- Did NOT run `pnpm lint` and `pnpm typecheck` on feature branches
+- Merged directly with `gh pr merge` assuming PRs were clean
+
+**Impact:**
+- Accumulated 24 lint warnings on main
+- Multiple TypeScript errors across packages
+- Required significant cleanup work post-merge
+
+**Correct Process (from our docs):**
+```bash
+# For each PR:
+git fetch origin
+git checkout feature-branch
+pnpm lint
+pnpm typecheck
+# Fix any issues if found
+git add -A && git commit -m "fix: lint/type errors"
+git push origin feature-branch
+# Only then merge
+```
+
+**Specific Issues That Would Have Been Caught:**
+- `__DEV__` TypeScript global not recognized
+- `any` types in test files (Alert mocks, Platform mocks)
+- Dimension property access bugs (`buttonHeight.medium` vs `buttonSizes.medium`)
+- Unused variables and non-null assertions
+
+**Prevention:**
+- **ALWAYS verify feature branches locally before merging**
+- **NEVER assume CI status means branch is clean** (version discrepancies)
+- **Document CI/local environment differences** when found
+- **Fix issues on feature branch, not main**
+
+**Lesson:** Shortcuts in the merge process create more work than they save. Following the documented process prevents error accumulation on main.
+
 EOF < /dev/null
