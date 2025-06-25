@@ -20,81 +20,82 @@ interface LazyImagesProps {
 // Define type for image assets
 type ImageAsset = () => number;
 
+// Define image map outside the function to allow access to keys
+const imageMap: Record<string, ImageAsset> = {
+	"aka-thailand.jpg": () => require("../../../assets/images/images-section/aka-thailand.jpg"),
+	"ali-liston.webp": () => require("../../../assets/images/images-section/ali-liston.webp"),
+	"arnold.png": () => require("../../../assets/images/images-section/arnold.png"),
+	"aspinall.webp": () => require("../../../assets/images/images-section/aspinall.webp"),
+	"bisping.webp": () => require("../../../assets/images/images-section/bisping.webp"),
+	"boat-deck.webp": () => require("../../../assets/images/images-section/boat-deck.webp"),
+	"buakaw.jpg": () => require("../../../assets/images/images-section/buakaw.jpg"),
+	"burj-khalifa.jpg": () => require("../../../assets/images/images-section/burj-khalifa.jpg"),
+	"calvin-klein.webp": () => require("../../../assets/images/images-section/calvin-klein.webp"),
+	"cigar-boys.jpg": () => require("../../../assets/images/images-section/cigar-boys.jpg"),
+	"classic-boat.webp": () => require("../../../assets/images/images-section/classic-boat.webp"),
+	"Dan-Bilzerian-Phuket.webp": () =>
+		require("../../../assets/images/images-section/Dan-Bilzerian-Phuket.webp"),
+	"dana-white-donald-trump-kid-rock-elon-musk.webp": () =>
+		require("../../../assets/images/images-section/dana-white-donald-trump-kid-rock-elon-musk.webp"),
+	"danaher.png": () => require("../../../assets/images/images-section/danaher.png"),
+	"dave-courtney.png": () => require("../../../assets/images/images-section/dave-courtney.png"),
+	"dc.webp": () => require("../../../assets/images/images-section/dc.webp"),
+	"diamond.jpg": () => require("../../../assets/images/images-section/diamond.jpg"),
+	"dricus.jpg": () => require("../../../assets/images/images-section/dricus.jpg"),
+	"dua.webp": () => require("../../../assets/images/images-section/dua.webp"),
+	"fedor.jpg": () => require("../../../assets/images/images-section/fedor.jpg"),
+	"freedom-beach.webp": () => require("../../../assets/images/images-section/freedom-beach.webp"),
+	"g-unit.webp": () => require("../../../assets/images/images-section/g-unit.webp"),
+	"gatsalov.webp": () => require("../../../assets/images/images-section/gatsalov.webp"),
+	"goggins.jpg": () => require("../../../assets/images/images-section/goggins.jpg"),
+	"gold.webp": () => require("../../../assets/images/images-section/gold.webp"),
+	"gordon-ryan.jpeg": () => require("../../../assets/images/images-section/gordon-ryan.jpeg"),
+	"GSP-cold.webp": () => require("../../../assets/images/images-section/GSP-cold.webp"),
+	"gucci-shorts.jpg": () => require("../../../assets/images/images-section/gucci-shorts.jpg"),
+	"guerlain.png": () => require("../../../assets/images/images-section/guerlain.png"),
+	"helicopter-tour-phuket.jpg": () =>
+		require("../../../assets/images/images-section/helicopter-tour-phuket.jpg"),
+	"ilia-topuria.webp": () => require("../../../assets/images/images-section/ilia-topuria.webp"),
+	"jacob.jpg": () => require("../../../assets/images/images-section/jacob.jpg"),
+	// Only load the most important/smaller images initially
+	// Large images like "jada-and-friends.png" (2.3MB), "jon.png" (2.3MB), "lamborghini.jpg" (3.8MB) excluded
+	"jeff-bezos.webp": () => require("../../../assets/images/images-section/jeff-bezos.webp"),
+	"jocko.png": () => require("../../../assets/images/images-section/jocko.png"),
+	"joe-rogan.jpg": () => require("../../../assets/images/images-section/joe-rogan.jpg"),
+	"jon-jones-comeback.jpg": () =>
+		require("../../../assets/images/images-section/jon-jones-comeback.jpg"),
+	"karelin.jpg": () => require("../../../assets/images/images-section/karelin.jpg"),
+	"khabib.jpg": () => require("../../../assets/images/images-section/khabib.jpg"),
+	"lenny-mclean.jpg": () => require("../../../assets/images/images-section/lenny-mclean.jpg"),
+	"lsf-1.jpg": () => require("../../../assets/images/images-section/lsf-1.jpg"),
+	"lsf-3.jpg": () => require("../../../assets/images/images-section/lsf-3.jpg"),
+	"mayweather-rr.jpg": () => require("../../../assets/images/images-section/mayweather-rr.jpg"),
+	"mcgregor.jpg": () => require("../../../assets/images/images-section/mcgregor.jpg"),
+	"mike-tyson.jpg": () => require("../../../assets/images/images-section/mike-tyson.jpg"),
+	"ngannou.jpg": () => require("../../../assets/images/images-section/ngannou.jpg"),
+	"paddy.webp": () => require("../../../assets/images/images-section/paddy.webp"),
+	"perfume-caps.webp": () => require("../../../assets/images/images-section/perfume-caps.webp"),
+	"pool-n-buddha.jpg": () => require("../../../assets/images/images-section/pool-n-buddha.jpg"),
+	"popcaan.jpg": () => require("../../../assets/images/images-section/popcaan.jpg"),
+	"private-jet.jpg": () => require("../../../assets/images/images-section/private-jet.jpg"),
+	"rocket.webp": () => require("../../../assets/images/images-section/rocket.webp"),
+	"rolex.jpeg": () => require("../../../assets/images/images-section/rolex.jpeg"),
+	"roy-shaw.webp": () => require("../../../assets/images/images-section/roy-shaw.webp"),
+	"rr-ghost.jpg": () => require("../../../assets/images/images-section/rr-ghost.jpg"),
+	"tai-jet.jpeg": () => require("../../../assets/images/images-section/tai-jet.jpeg"),
+	"tates-at-ufc.jpg": () => require("../../../assets/images/images-section/tates-at-ufc.jpg"),
+	"tough.jpg": () => require("../../../assets/images/images-section/tough.jpg"),
+	"tyson-fury.webp": () => require("../../../assets/images/images-section/tyson-fury.webp"),
+	"ufc-belt.webp": () => require("../../../assets/images/images-section/ufc-belt.webp"),
+	"ufc-logo.jpg": () => require("../../../assets/images/images-section/ufc-logo.jpg"),
+	"versace-briefs.jpg": () => require("../../../assets/images/images-section/versace-briefs.jpg"),
+	"yacht-party.jpg": () => require("../../../assets/images/images-section/yacht-party.jpg"),
+	"zahabi-gsp.jpg": () => require("../../../assets/images/images-section/zahabi-gsp.jpg"),
+	"zuck.webp": () => require("../../../assets/images/images-section/zuck.webp"),
+};
+
 // Lazy load image assets - only load when needed
 const getImageSource = (imageName: string) => {
-	const imageMap: Record<string, ImageAsset> = {
-		"aka-thailand.jpg": () => require("../../../assets/images/images-section/aka-thailand.jpg"),
-		"ali-liston.webp": () => require("../../../assets/images/images-section/ali-liston.webp"),
-		"arnold.png": () => require("../../../assets/images/images-section/arnold.png"),
-		"aspinall.webp": () => require("../../../assets/images/images-section/aspinall.webp"),
-		"bisping.webp": () => require("../../../assets/images/images-section/bisping.webp"),
-		"boat-deck.webp": () => require("../../../assets/images/images-section/boat-deck.webp"),
-		"buakaw.jpg": () => require("../../../assets/images/images-section/buakaw.jpg"),
-		"burj-khalifa.jpg": () => require("../../../assets/images/images-section/burj-khalifa.jpg"),
-		"calvin-klein.webp": () => require("../../../assets/images/images-section/calvin-klein.webp"),
-		"cigar-boys.jpg": () => require("../../../assets/images/images-section/cigar-boys.jpg"),
-		"classic-boat.webp": () => require("../../../assets/images/images-section/classic-boat.webp"),
-		"Dan-Bilzerian-Phuket.webp": () =>
-			require("../../../assets/images/images-section/Dan-Bilzerian-Phuket.webp"),
-		"dana-white-donald-trump-kid-rock-elon-musk.webp": () =>
-			require("../../../assets/images/images-section/dana-white-donald-trump-kid-rock-elon-musk.webp"),
-		"danaher.png": () => require("../../../assets/images/images-section/danaher.png"),
-		"dave-courtney.png": () => require("../../../assets/images/images-section/dave-courtney.png"),
-		"dc.webp": () => require("../../../assets/images/images-section/dc.webp"),
-		"diamond.jpg": () => require("../../../assets/images/images-section/diamond.jpg"),
-		"dricus.jpg": () => require("../../../assets/images/images-section/dricus.jpg"),
-		"dua.webp": () => require("../../../assets/images/images-section/dua.webp"),
-		"fedor.jpg": () => require("../../../assets/images/images-section/fedor.jpg"),
-		"freedom-beach.webp": () => require("../../../assets/images/images-section/freedom-beach.webp"),
-		"g-unit.webp": () => require("../../../assets/images/images-section/g-unit.webp"),
-		"gatsalov.webp": () => require("../../../assets/images/images-section/gatsalov.webp"),
-		"goggins.jpg": () => require("../../../assets/images/images-section/goggins.jpg"),
-		"gold.webp": () => require("../../../assets/images/images-section/gold.webp"),
-		"gordon-ryan.jpeg": () => require("../../../assets/images/images-section/gordon-ryan.jpeg"),
-		"GSP-cold.webp": () => require("../../../assets/images/images-section/GSP-cold.webp"),
-		"gucci-shorts.jpg": () => require("../../../assets/images/images-section/gucci-shorts.jpg"),
-		"guerlain.png": () => require("../../../assets/images/images-section/guerlain.png"),
-		"helicopter-tour-phuket.jpg": () =>
-			require("../../../assets/images/images-section/helicopter-tour-phuket.jpg"),
-		"ilia-topuria.webp": () => require("../../../assets/images/images-section/ilia-topuria.webp"),
-		"jacob.jpg": () => require("../../../assets/images/images-section/jacob.jpg"),
-		// Only load the most important/smaller images initially
-		// Large images like "jada-and-friends.png" (2.3MB), "jon.png" (2.3MB), "lamborghini.jpg" (3.8MB) excluded
-		"jeff-bezos.webp": () => require("../../../assets/images/images-section/jeff-bezos.webp"),
-		"jocko.png": () => require("../../../assets/images/images-section/jocko.png"),
-		"joe-rogan.jpg": () => require("../../../assets/images/images-section/joe-rogan.jpg"),
-		"jon-jones-comeback.jpg": () =>
-			require("../../../assets/images/images-section/jon-jones-comeback.jpg"),
-		"karelin.jpg": () => require("../../../assets/images/images-section/karelin.jpg"),
-		"khabib.jpg": () => require("../../../assets/images/images-section/khabib.jpg"),
-		"lenny-mclean.jpg": () => require("../../../assets/images/images-section/lenny-mclean.jpg"),
-		"lsf-1.jpg": () => require("../../../assets/images/images-section/lsf-1.jpg"),
-		"lsf-3.jpg": () => require("../../../assets/images/images-section/lsf-3.jpg"),
-		"mayweather-rr.jpg": () => require("../../../assets/images/images-section/mayweather-rr.jpg"),
-		"mcgregor.jpg": () => require("../../../assets/images/images-section/mcgregor.jpg"),
-		"mike-tyson.jpg": () => require("../../../assets/images/images-section/mike-tyson.jpg"),
-		"ngannou.jpg": () => require("../../../assets/images/images-section/ngannou.jpg"),
-		"paddy.webp": () => require("../../../assets/images/images-section/paddy.webp"),
-		"perfume-caps.webp": () => require("../../../assets/images/images-section/perfume-caps.webp"),
-		"pool-n-buddha.jpg": () => require("../../../assets/images/images-section/pool-n-buddha.jpg"),
-		"popcaan.jpg": () => require("../../../assets/images/images-section/popcaan.jpg"),
-		"private-jet.jpg": () => require("../../../assets/images/images-section/private-jet.jpg"),
-		"rocket.webp": () => require("../../../assets/images/images-section/rocket.webp"),
-		"rolex.jpeg": () => require("../../../assets/images/images-section/rolex.jpeg"),
-		"roy-shaw.webp": () => require("../../../assets/images/images-section/roy-shaw.webp"),
-		"rr-ghost.jpg": () => require("../../../assets/images/images-section/rr-ghost.jpg"),
-		"tai-jet.jpeg": () => require("../../../assets/images/images-section/tai-jet.jpeg"),
-		"tates-at-ufc.jpg": () => require("../../../assets/images/images-section/tates-at-ufc.jpg"),
-		"tough.jpg": () => require("../../../assets/images/images-section/tough.jpg"),
-		"tyson-fury.webp": () => require("../../../assets/images/images-section/tyson-fury.webp"),
-		"ufc-belt.webp": () => require("../../../assets/images/images-section/ufc-belt.webp"),
-		"ufc-logo.jpg": () => require("../../../assets/images/images-section/ufc-logo.jpg"),
-		"versace-briefs.jpg": () => require("../../../assets/images/images-section/versace-briefs.jpg"),
-		"yacht-party.jpg": () => require("../../../assets/images/images-section/yacht-party.jpg"),
-		"zahabi-gsp.jpg": () => require("../../../assets/images/images-section/zahabi-gsp.jpg"),
-		"zuck.webp": () => require("../../../assets/images/images-section/zuck.webp"),
-	};
-
 	return imageMap[imageName]?.() || null;
 };
 
@@ -110,7 +111,7 @@ export const LazyImages: React.FC<LazyImagesProps> = ({ onComplete, completed })
 
 	// Reduced image set to optimize bundle size
 	const imageNames = useMemo(() => {
-		return Object.keys(getImageSource).sort(() => Math.random() - 0.5);
+		return Object.keys(imageMap).sort(() => Math.random() - 0.5);
 	}, []);
 
 	// Load image on demand
