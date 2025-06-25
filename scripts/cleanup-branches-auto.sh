@@ -45,7 +45,16 @@ while IFS= read -r branch; do
   # Check age of last commit
   last_commit_date=$(git log -1 --format=%ci origin/"$branch" 2>/dev/null || echo "")
   if [ -n "$last_commit_date" ]; then
-    days_old=$(( ($(date +%s) - $(date -d "$last_commit_date" +%s)) / 86400 ))
+    # Use portable date calculation that works on both GNU and BSD date
+    if date --version >/dev/null 2>&1; then
+      # GNU date
+      commit_timestamp=$(date -d "$last_commit_date" +%s)
+    else
+      # BSD date (macOS)
+      commit_timestamp=$(date -j -f "%Y-%m-%d %H:%M:%S" "${last_commit_date%% *}" +%s 2>/dev/null || date -j -f "%Y-%m-%d" "${last_commit_date%% *}" +%s)
+    fi
+    current_timestamp=$(date +%s)
+    days_old=$(( (current_timestamp - commit_timestamp) / 86400 ))
     if [ $days_old -gt $DAYS_OLD ]; then
       old_branches="$old_branches$branch:$days_old\n"
     fi
