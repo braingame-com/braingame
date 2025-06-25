@@ -117,6 +117,7 @@ We welcome contributions! Please:
 | [`TOKEN_SYSTEM.md`](./docs/TOKEN_SYSTEM.md) | Design token system guide |
 | [`DEVELOPER_TOOLS.md`](./docs/DEVELOPER_TOOLS.md) | Scripts and developer tools guide |
 | [`VSCODE_SETUP.md`](./docs/VSCODE_SETUP.md) | VSCode configuration and snippets |
+| [`BRANCH_PROTECTION.md`](./docs/BRANCH_PROTECTION.md) | GitHub branch protection setup |
 
 1. Read [CONTRIBUTING.md](.github/CONTRIBUTING.md)
 2. Follow our [coding standards](docs/development/CODING_STYLE.md)
