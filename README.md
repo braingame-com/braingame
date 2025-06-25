@@ -106,6 +106,17 @@ pnpm build                  # Production builds
 
 We welcome contributions! Please:
 
+| Document | Description |
+|---|---|
+| [`DEVELOPMENT.md`](./docs/DEVELOPMENT.md) | **Start here.** Environment setup guide |
+| [`CODING_STYLE.md`](./docs/CODING_STYLE.md) | Code standards and conventions |
+| [`PR_REVIEW_PROCESS.md`](./docs/PR_REVIEW_PROCESS.md) | Pull request review process |
+| [`TESTING.md`](./docs/TESTING.md) | Testing strategy and guidelines |
+| [`WORKTREES.md`](./docs/WORKTREES.md) | **CRITICAL:** Git worktree management |
+| [`API.md`](./docs/API.md) | API documentation and examples |
+| [`TOKEN_SYSTEM.md`](./docs/TOKEN_SYSTEM.md) | Design token system guide |
+| [`DEVELOPER_TOOLS.md`](./docs/DEVELOPER_TOOLS.md) | Scripts and developer tools guide |
+
 1. Read [CONTRIBUTING.md](.github/CONTRIBUTING.md)
 2. Follow our [coding standards](docs/development/CODING_STYLE.md)
 3. Ensure all quality checks pass
