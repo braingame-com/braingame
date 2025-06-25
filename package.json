@@ -73,21 +73,21 @@
 		"@babel/preset-flow": "^7.27.1",
 		"@babel/preset-react": "^7.27.1",
 		"@babel/preset-typescript": "^7.27.1",
-		"@biomejs/biome": "^2.0.4",
-		"@changesets/cli": "^2.27.1",
+		"@biomejs/biome": "^2.0.5",
+		"@changesets/cli": "^2.29.5",
 		"@next/bundle-analyzer": "^15.3.4",
-		"@secretlint/secretlint-rule-no-dotenv": "^10.1.0",
-		"@secretlint/secretlint-rule-preset-recommend": "^10.1.0",
+		"@secretlint/secretlint-rule-no-dotenv": "^10.1.1",
+		"@secretlint/secretlint-rule-preset-recommend": "^10.1.1",
 		"@storybook/addon-essentials": "^8.0.0",
-		"@storybook/react": "^8.0.0",
-		"@storybook/react-vite": "^8.0.0",
+		"@storybook/react": "^9.0.13",
+		"@storybook/react-vite": "^9.0.13",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "^14.6.1",
 		"@types/glob": "^8.1.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^16.1.2",
 		"react-native-web": "~0.20.0",
-		"secretlint": "^10.1.0",
+		"secretlint": "^10.1.1",
 		"ts-morph": "^26.0.0",
 		"turbo": "^2.3.3",
 		"typescript": "^5.3.3"
@@ -104,33 +104,33 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"react": "19.0.0",
-			"react-dom": "19.0.0",
-			"react-test-renderer": "19.0.0",
-			"@types/react": "19.0.14",
+			"react": "19.1.0",
+			"react-dom": "19.1.0",
+			"react-test-renderer": "19.1.0",
+			"@types/react": "19.1.8",
 			"react-native-web": "0.20.0",
 			"strip-ansi": "^7.1.0",
 			"string-width": "^5.1.2",
 			"wrap-ansi": "^8.1.0",
-			"@biomejs/biome": "^2.0.4"
+			"@biomejs/biome": "^2.0.5"
 		},
 		"packageExtensions": {
 			"expo-router": {
 				"peerDependencies": {
-					"react": "19.0.0",
-					"react-dom": "19.0.0"
+					"react": "19.1.0",
+					"react-dom": "19.1.0"
 				}
 			}
 		},
 		"peerDependencyRules": {
 			"allowedVersions": {
-				"react": "19.0.0",
-				"react-dom": "19.0.0"
+				"react": "19.1.0",
+				"react-dom": "19.1.0"
 			}
 		}
 	},
 	"dependencies": {
-		"@sentry/nextjs": "^9.30.0",
+		"@sentry/nextjs": "^9.31.0",
 		"sentry-expo": "^7.2.0"
 	}
 }
