@@ -227,7 +227,7 @@ describe("KeyboardAvoidingContainer", () => {
 
 		it("supports accessibility role", () => {
 			render(
-				<KeyboardAvoidingContainer accessibilityRole="main" testID="container">
+				<KeyboardAvoidingContainer accessibilityRole="none" testID="container">
 					<Text>Main Content</Text>
 				</KeyboardAvoidingContainer>,
 			);

@@ -39,11 +39,19 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("HomeScreen Performance", () => {
 	test("HomeScreen renders efficiently", async () => {
-		await measureRenders(<HomeScreen />, { wrapper: Wrapper });
+		const mockNavigation = {} as any;
+		const mockRoute = {} as any;
+		await measureRenders(<HomeScreen navigation={mockNavigation} route={mockRoute} />, {
+			wrapper: Wrapper,
+		});
 	});
 
 	test("HomeScreen with data renders efficiently", async () => {
 		// Mock data is already configured at module level
-		await measureRenders(<HomeScreen />, { wrapper: Wrapper });
+		const mockNavigation = {} as any;
+		const mockRoute = {} as any;
+		await measureRenders(<HomeScreen navigation={mockNavigation} route={mockRoute} />, {
+			wrapper: Wrapper,
+		});
 	});
 });

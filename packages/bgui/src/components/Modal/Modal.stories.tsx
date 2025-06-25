@@ -53,7 +53,7 @@ const ModalDemo = ({ children, ...args }: React.PropsWithChildren<Record<string,
 };
 
 export const Default: Story = {
-	render: (args) => (
+	render: (args: typeof meta.args) => (
 		<ModalDemo {...args}>
 			<div style={{ padding: 20 }}>
 				<Text variant="title">Modal Title</Text>
@@ -89,7 +89,7 @@ export const Sizes: Story = {
 };
 
 export const BottomSheet: Story = {
-	render: (args) => (
+	render: (args: typeof meta.args) => (
 		<ModalDemo {...args} variant="bottom-sheet">
 			<div style={{ padding: 20 }}>
 				<Text variant="title">Bottom Sheet</Text>
@@ -100,7 +100,7 @@ export const BottomSheet: Story = {
 };
 
 export const NotClosable: Story = {
-	render: (args) => (
+	render: (args: typeof meta.args) => (
 		<ModalDemo {...args} closable={false}>
 			<div style={{ padding: 20 }}>
 				<Text variant="title">Required Action</Text>
@@ -114,7 +114,7 @@ export const NotClosable: Story = {
 };
 
 export const NoBackdrop: Story = {
-	render: (args) => (
+	render: (args: typeof meta.args) => (
 		<ModalDemo {...args} backdrop={false}>
 			<div style={{ padding: 20 }}>
 				<Text variant="title">No Backdrop</Text>
@@ -125,7 +125,7 @@ export const NoBackdrop: Story = {
 };
 
 export const WithForm: Story = {
-	render: (args) => (
+	render: (args: typeof meta.args) => (
 		<ModalDemo {...args} size="md">
 			<div style={{ padding: 20 }}>
 				<Text variant="title" style={{ marginBottom: 20 }}>

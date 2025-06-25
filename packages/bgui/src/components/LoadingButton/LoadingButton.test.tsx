@@ -214,7 +214,7 @@ describe("LoadingButton", () => {
 		});
 
 		it("applies custom text style", () => {
-			const customTextStyle = { fontStyle: "italic", color: "blue" };
+			const customTextStyle = { fontStyle: "italic" as const, color: "blue" };
 			render(<LoadingButton title="Submit" textStyle={customTextStyle} onPress={vi.fn()} />);
 
 			const text = screen.getByText("Submit");
@@ -273,8 +273,7 @@ describe("LoadingButton", () => {
 		});
 
 		it("handles undefined onPress gracefully", () => {
-			// @ts-expect-error Testing edge case
-			render(<LoadingButton title="Submit" />);
+			render(<LoadingButton title="Submit" onPress={undefined} />);
 
 			const button = screen.getByText("Submit");
 			expect(() => fireEvent.press(button)).not.toThrow();

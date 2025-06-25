@@ -4,14 +4,26 @@ import { measureRenders } from "reassure";
 
 describe("Button Performance", () => {
 	test("Primary Button renders efficiently", async () => {
-		await measureRenders(<Button onPress={() => {}} variant="primary" title="Click me" />);
+		await measureRenders(
+			<Button onPress={() => {}} variant="primary">
+				Click me
+			</Button>,
+		);
 	});
 
 	test("Loading Button renders efficiently", async () => {
-		await measureRenders(<Button onPress={() => {}} variant="primary" title="Loading" loading />);
+		await measureRenders(
+			<Button onPress={() => {}} variant="primary" loading>
+				Loading
+			</Button>,
+		);
 	});
 
 	test("Disabled Button renders efficiently", async () => {
-		await measureRenders(<Button onPress={() => {}} variant="primary" title="Disabled" disabled />);
+		await measureRenders(
+			<Button onPress={() => {}} variant="primary" disabled>
+				Disabled
+			</Button>,
+		);
 	});
 });

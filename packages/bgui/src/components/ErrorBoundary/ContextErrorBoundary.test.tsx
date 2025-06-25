@@ -28,13 +28,13 @@ afterAll(() => {
 });
 
 // Mock __DEV__ for development mode testing
-const originalDev = global.__DEV__;
+const originalDev = (globalThis as Record<string, unknown>).__DEV__;
 const mockDevMode = (isDev: boolean) => {
-	global.__DEV__ = isDev;
+	(globalThis as Record<string, unknown>).__DEV__ = isDev;
 };
 
 afterEach(() => {
-	global.__DEV__ = originalDev;
+	(globalThis as Record<string, unknown>).__DEV__ = originalDev;
 	vi.clearAllMocks();
 });
 
