@@ -1,28 +1,23 @@
 ---
-name: "Bug Report"
-about: "Report a reproducible bug"
+name: Bug Report
+about: Report a bug
 labels: bug
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Bug Description**
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. See error
+**Steps to Reproduce**
+1. 
+2. 
+3. 
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Expected Behavior**
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Actual Behavior**
 
 **Environment**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+- OS: 
+- Browser: 
+- Version: 
 
-**Additional context**
-Add any other context about the problem here.
+**Screenshots** (if applicable)
