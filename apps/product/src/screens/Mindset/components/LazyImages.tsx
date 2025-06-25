@@ -111,20 +111,29 @@ export const LazyImages: React.FC<LazyImagesProps> = ({ onComplete, completed })
 
 	// Reduced image set to optimize bundle size
 	const imageNames = useMemo(() => {
-		return Object.keys(imageMap).sort(() => Math.random() - 0.5);
+		// Use Fisher-Yates shuffle for unbiased randomization
+		const names = Object.keys(imageMap);
+		for (let i = names.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[names[i], names[j]] = [names[j], names[i]];
+		}
+		return names;
 	}, []);
 
 	// Load image on demand
 	const loadImage = useCallback(
 		(imageName: string) => {
-			if (!loadedImages[imageName]) {
-				const source = getImageSource(imageName);
-				if (source) {
-					setLoadedImages((prev) => ({ ...prev, [imageName]: source }));
+			setLoadedImages((prev) => {
+				if (!prev[imageName]) {
+					const source = getImageSource(imageName);
+					if (source) {
+						return { ...prev, [imageName]: source };
+					}
 				}
-			}
+				return prev;
+			});
 		},
-		[loadedImages],
+		[],
 	);
 
 	// Preload current and next few images
