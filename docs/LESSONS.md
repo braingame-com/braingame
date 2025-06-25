@@ -240,3 +240,56 @@ pnpm test && pnpm build
 - **Sub-2s build times** for all apps
 - **31 successful PRs** following these patterns
 - **50 documentation files** rewritten with 68% size reduction
+## Session Learnings: 25-06-2025
+
+### Critical Incident: Lighthouse CI Deletion
+**What happened:** During PR #173 merge (Reassure performance testing), the entire Lighthouse CI job (200+ lines) was accidentally removed from `.github/workflows/ci.yml`.
+
+**Root cause:** Careless merge conflict resolution - accepted changes without reviewing what was being removed.
+
+**Impact:** Lost all performance monitoring for web applications.
+
+**Lesson:** Always review merge conflict resolutions line-by-line, especially for critical infrastructure files.
+
+**Prevention:**
+- Use `git diff` to review changes before committing merges
+- Check file line counts before/after merges
+- Never rush merge conflict resolution
+
+### BugBot Integration Value
+**Discovery:** BugBot caught multiple critical issues that human review missed:
+- Lighthouse CI removal (high severity)
+- Security report in public repo (critical)
+- Platform compatibility issues
+- Code quality problems
+
+**Key insight:** Automated bug detection is essential for maintaining quality at scale.
+
+### PR Merge Workflow Improvements
+**Successful pattern for bulk PR merges:**
+1. Check BugBot comments first
+2. Fix all issues on respective branches
+3. Add resolution comments to PRs
+4. Merge only after local lint/typecheck pass
+5. Verify merge status with `gh pr view --json state,mergedAt`
+
+**Important:** CI failures on GitHub Actions don't block merge if local checks pass (version discrepancy issue).
+
+### Platform-Specific Component Pattern
+**Adopted approach:** Separate `.native.tsx` and `.web.tsx` files with a common interface file that uses Platform.OS to load the correct implementation.
+
+**Benefits:**
+- Clean separation of platform code
+- No conditional logic in components
+- Better tree-shaking
+- Easier testing
+
+### Workspace Hygiene
+**Issue:** Stray changes accumulating across branches (pnpm-lock.yaml conflicts, modified files).
+
+**Solution:** 
+- Regular `git stash` when switching branches
+- Use `git checkout HEAD -- <file>` to reset specific files
+- Always check `git status` before operations
+
+EOF < /dev/null
