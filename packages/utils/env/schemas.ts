@@ -6,7 +6,10 @@ import { z } from "zod";
 const BaseEnvSchema = z.object({
 	NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 	APP_NAME: z.string().min(1, "App name is required"),
-	APP_VERSION: z.string().regex(/^\d+\.\d+\.\d+$/, "Version must be in semver format (x.y.z)"),
+	APP_VERSION: z
+		.string()
+		.regex(/^\d+\.\d+\.\d+$/, "Version must be in semver format (x.y.z)")
+		.optional(),
 });
 
 /**
