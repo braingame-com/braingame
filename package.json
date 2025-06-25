@@ -51,7 +51,12 @@
 		"docs": "node scripts/doc-generator.js",
 		"validate:env": "turbo validate:env",
 		"perf": "pnpm --filter @braingame/product reassure",
-		"perf:baseline": "pnpm --filter @braingame/product reassure:baseline"
+		"perf:baseline": "pnpm --filter @braingame/product reassure:baseline",
+		"lighthouse": "./scripts/lighthouse-local.sh all",
+		"lighthouse:main": "./scripts/lighthouse-local.sh main",
+		"lighthouse:docs": "./scripts/lighthouse-local.sh docs",
+		"lighthouse:product": "./scripts/lighthouse-local.sh product",
+		"lighthouse:ci": "lhci autorun"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.18.6",
