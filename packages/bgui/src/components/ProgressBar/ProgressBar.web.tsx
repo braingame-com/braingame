@@ -97,8 +97,7 @@ export const ProgressBar = ({
 						{
 							backgroundColor: progressColor,
 							width: `${animatedValue}%`,
-							transition: animated ? "width 0.5s ease" : "none",
-						} as React.CSSProperties,
+						} as any,
 					]}
 				/>
 			</View>
