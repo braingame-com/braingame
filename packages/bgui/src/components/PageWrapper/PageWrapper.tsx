@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "../View";
@@ -17,6 +18,7 @@ export const PageWrapper = ({ children }: PageWrapperProps) => {
 		<SafeAreaProvider>
 			<View style={pageWrapperStyles.container}>
 				{children}
+				<StatusBar style="auto" />
 			</View>
 		</SafeAreaProvider>
 	);
