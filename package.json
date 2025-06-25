@@ -50,6 +50,8 @@
 		"workspace": "node scripts/workspace-helper.js",
 		"docs": "node scripts/doc-generator.js",
 		"validate:env": "turbo validate:env",
+		"perf": "pnpm --filter @braingame/product reassure",
+		"perf:baseline": "pnpm --filter @braingame/product reassure:baseline",
 		"lighthouse": "./scripts/lighthouse-local.sh all",
 		"lighthouse:main": "./scripts/lighthouse-local.sh main",
 		"lighthouse:docs": "./scripts/lighthouse-local.sh docs",
