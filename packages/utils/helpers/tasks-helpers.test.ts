@@ -1,3 +1,4 @@
+import type { TextInput } from "react-native";
 import { Platform } from "react-native";
 import { describe, expect, it, vi } from "vitest";
 import { Colors } from "../constants/Colors";
@@ -25,7 +26,7 @@ describe("Task Helpers", () => {
 				preventDefault: vi.fn(),
 			} as unknown as KeyboardEvent;
 
-			handleSlashKeyPress(event, inputRef as any);
+			handleSlashKeyPress(event, inputRef as unknown as React.RefObject<TextInput>);
 
 			expect(event.preventDefault).toHaveBeenCalled();
 			expect(mockFocus).toHaveBeenCalled();
@@ -44,7 +45,7 @@ describe("Task Helpers", () => {
 				preventDefault: vi.fn(),
 			} as unknown as KeyboardEvent;
 
-			handleSlashKeyPress(event, inputRef as any);
+			handleSlashKeyPress(event, inputRef as unknown as React.RefObject<TextInput>);
 
 			expect(event.preventDefault).not.toHaveBeenCalled();
 			expect(mockFocus).not.toHaveBeenCalled();
@@ -60,7 +61,7 @@ describe("Task Helpers", () => {
 				preventDefault: vi.fn(),
 			} as unknown as KeyboardEvent;
 
-			handleSlashKeyPress(event, inputRef as any);
+			handleSlashKeyPress(event, inputRef as unknown as React.RefObject<TextInput>);
 
 			expect(event.preventDefault).toHaveBeenCalled();
 			// Should not throw error
@@ -82,13 +83,15 @@ describe("Task Helpers", () => {
 			} as unknown as KeyboardEvent;
 
 			// Should not throw
-			expect(() => handleSlashKeyPress(event, inputRef as any)).not.toThrow();
+			expect(() =>
+				handleSlashKeyPress(event, inputRef as unknown as React.RefObject<TextInput>),
+			).not.toThrow();
 			expect(mockFocus).toHaveBeenCalled();
 		});
 
 		it("should not handle slash key on non-web platforms", () => {
 			// Mock non-web platform
-			(Platform as any).OS = "ios";
+			(Platform as { OS: string }).OS = "ios";
 
 			const mockFocus = vi.fn();
 			const inputRef = {
@@ -102,13 +105,13 @@ describe("Task Helpers", () => {
 				preventDefault: vi.fn(),
 			} as unknown as KeyboardEvent;
 
-			handleSlashKeyPress(event, inputRef as any);
+			handleSlashKeyPress(event, inputRef as unknown as React.RefObject<TextInput>);
 
 			expect(event.preventDefault).not.toHaveBeenCalled();
 			expect(mockFocus).not.toHaveBeenCalled();
 
 			// Reset to web
-			(Platform as any).OS = "web";
+			(Platform as { OS: string }).OS = "web";
 		});
 	});
 

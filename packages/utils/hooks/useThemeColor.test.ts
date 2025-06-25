@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, type MockedFunction, vi } from "vitest";
 import { Colors } from "../constants/Colors";
 import { useThemeColor } from "./useThemeColor";
 
@@ -12,7 +12,7 @@ import { useColorScheme } from "./useColorScheme";
 
 describe("useThemeColor", () => {
 	it("should return light theme color when color scheme is light", () => {
-		(useColorScheme as any).mockReturnValue("light");
+		(useColorScheme as MockedFunction<typeof useColorScheme>).mockReturnValue("light");
 
 		const { result } = renderHook(() => useThemeColor("text"));
 
@@ -20,7 +20,7 @@ describe("useThemeColor", () => {
 	});
 
 	it("should return dark theme color when color scheme is dark", () => {
-		(useColorScheme as any).mockReturnValue("dark");
+		(useColorScheme as MockedFunction<typeof useColorScheme>).mockReturnValue("dark");
 
 		const { result } = renderHook(() => useThemeColor("text"));
 
@@ -28,7 +28,7 @@ describe("useThemeColor", () => {
 	});
 
 	it("should default to dark theme when color scheme is null", () => {
-		(useColorScheme as any).mockReturnValue(null);
+		(useColorScheme as MockedFunction<typeof useColorScheme>).mockReturnValue(null);
 
 		const { result } = renderHook(() => useThemeColor("background"));
 
@@ -36,7 +36,7 @@ describe("useThemeColor", () => {
 	});
 
 	it("should return correct color for different color names", () => {
-		(useColorScheme as any).mockReturnValue("light");
+		(useColorScheme as MockedFunction<typeof useColorScheme>).mockReturnValue("light");
 
 		// Test various color names
 		const { result: bgResult } = renderHook(() => useThemeColor("background"));
@@ -50,7 +50,7 @@ describe("useThemeColor", () => {
 	});
 
 	it("should update when color scheme changes", () => {
-		const mockUseColorScheme = useColorScheme as any;
+		const mockUseColorScheme = useColorScheme as MockedFunction<typeof useColorScheme>;
 
 		// Start with light theme
 		mockUseColorScheme.mockReturnValue("light");

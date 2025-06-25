@@ -5,7 +5,9 @@ import { vi } from "vitest";
 vi.mock("react-native", () => ({
 	Platform: {
 		OS: "ios",
-		select: vi.fn((obj: any) => obj.ios || obj.default),
+		select: vi.fn(
+			(obj: Record<string, unknown>) => (obj.ios as unknown) || (obj.default as unknown),
+		),
 	},
 	Dimensions: {
 		get: vi.fn(() => ({ width: 375, height: 812 })),
@@ -14,8 +16,8 @@ vi.mock("react-native", () => ({
 		alert: vi.fn(),
 	},
 	StyleSheet: {
-		create: (styles: any) => styles,
-		flatten: (style: any) => style,
+		create: (styles: Record<string, unknown>) => styles,
+		flatten: (style: Record<string, unknown>) => style,
 	},
 }));
 

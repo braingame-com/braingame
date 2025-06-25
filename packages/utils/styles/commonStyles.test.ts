@@ -116,7 +116,7 @@ describe("Common Styles", () => {
 	describe("platformStyles", () => {
 		it("should have platform-specific values", () => {
 			// Test iOS platform
-			(Platform as any).OS = "ios";
+			(Platform as { OS: string }).OS = "ios";
 			expect(platformStyles.keyboardAvoidingView.behavior).toBe("padding");
 			expect(platformStyles.statusBarHeight).toBe(44);
 			expect(platformStyles.navBarHeight).toBe(64);

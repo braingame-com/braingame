@@ -29,7 +29,7 @@ const mockAnimatedTiming = vi.fn(() => ({
 vi.mock("react-native", async () => {
 	const actual = (await vi.importActual("react-native")) as any;
 	return {
-		...(actual as object),
+		...actual,
 		Animated: {
 			...actual.Animated,
 			Value: mockAnimatedValue,
