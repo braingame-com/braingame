@@ -1,246 +1,176 @@
 # Environment Configuration
 
-This document describes the environment configuration system for the Brain Game product app.
+Centralized configuration management for the Brain Game app.
 
-## Overview
+## Architecture
 
-The Brain Game app uses a centralized environment configuration system that provides:
+```typescript
+// Single source of truth
+packages/config/
+├── src/
+│   ├── index.ts         Main config exports
+│   ├── env.ts           Environment detection
+│   ├── api.ts           API endpoints
+│   ├── features.ts      Feature flags
+│   └── constants.ts     App constants
+```
 
-- Type-safe access to environment variables
-- Validation using Zod schemas
-- Clear separation between development, production, and test environments
-- Centralized storage keys to avoid duplication
-- Feature flags for controlling app behavior
+## Usage
 
-## Setup
+### Import Configuration
 
-1. Copy `.env.example` to `.env.local`:
-   ```bash
-   cp .env.example .env.local
-   ```
+```typescript
+import { config } from '@braingame/config';
 
-2. Update the values in `.env.local` with your configuration
+// API endpoints
+const apiUrl = config.api.baseUrl;
+const authEndpoint = config.api.endpoints.auth;
 
-3. The environment is automatically validated when the app starts
+// Feature flags
+if (config.features.enablePremium) {
+  // Show premium features
+}
+
+// App constants
+const maxRetries = config.constants.MAX_RETRIES;
+```
+
+### Environment Detection
+
+```typescript
+import { env } from '@braingame/config';
+
+if (env.isDevelopment) {
+  console.log('Debug info');
+}
+
+if (env.isProduction) {
+  enableAnalytics();
+}
+```
 
 ## Configuration Structure
 
-### Main Configuration File
-
-All environment configuration is centralized in `src/config/env.ts`, which exports the following configuration objects:
-
-#### APP_CONFIG
-Basic app information and environment detection:
-- `name`: Application name
-- `version`: Application version
-- `environment`: Current environment (development/production/test)
-- `isProduction`, `isDevelopment`, `isTest`: Boolean flags for environment checks
-
-#### API_CONFIG
-API connection settings:
-- `baseUrl`: Base URL for API requests
-- `timeout`: Request timeout in milliseconds
-- `retryAttempts`: Number of retry attempts for failed requests
-
-#### AUTH_CONFIG
-Authentication and security settings:
-- `jwtSecret`: Secret key for JWT tokens
-- `sessionTimeout`: Session timeout in milliseconds
-- `encryptionKey`: Key for encrypting sensitive data
-- `storageKeys`: AsyncStorage keys for auth data
-
-#### ANALYTICS_CONFIG
-Analytics service configuration:
-- `enabled`: Whether analytics is enabled
-- `debugMode`: Debug mode for analytics logging
-- `providers`: API keys for analytics providers (Sentry, Amplitude, etc.)
-- `storageKeys`: AsyncStorage keys for analytics data
-
-#### ERROR_CONFIG
-Error tracking configuration:
-- `enabled`: Whether error reporting is enabled
-- `sentryDsn`: Sentry DSN for error reporting
-- `maxLocalLogs`: Maximum number of error logs to store locally
-- `storageKeys`: AsyncStorage keys for error logs
-
-#### PERFORMANCE_CONFIG
-Performance monitoring settings:
-- `enabled`: Whether performance monitoring is enabled
-- `bundleAnalyzer`: Whether bundle analyzer is enabled
-- Various timeout and limit settings
-
-#### DEV_TOOLS_CONFIG
-Development tool settings:
-- `flipperEnabled`: Enable Flipper debugging
-- `reactotronEnabled`: Enable Reactotron debugging
-- `devMenuEnabled`: Enable developer menu
-- `bundleAnalyzerEnabled`: Enable bundle size analysis
-
-#### DEEP_LINKING_CONFIG
-Deep linking URL configuration:
-- `prefixes`: URL schemes the app responds to
-- `webUrls`: Web URLs for different environments
-
-#### STORAGE_KEYS
-Centralized AsyncStorage keys organized by category:
-- `auth`: Authentication-related keys
-- `preferences`: User preference keys
-- `analytics`: Analytics-related keys
-- `errors`: Error tracking keys
-- `app`: General app state keys
-- `content`: Content-related keys
-
-#### FIREBASE_CONFIG
-Firebase service configuration:
-- `functionUrl`: Firebase Cloud Functions URL
-- `region`: Firebase region
-
-#### FEATURE_FLAGS
-Feature toggles for controlling app functionality:
-- `analytics`: Enable/disable analytics
-- `errorReporting`: Enable/disable error reporting
-- `debugMode`: Enable/disable debug mode
-- `performanceMonitoring`: Enable/disable performance monitoring
-- Additional flags for new features
-
-## Usage Examples
-
-### Checking Environment
+### API Configuration
 
 ```typescript
-import { APP_CONFIG } from '@/config/env';
-
-if (APP_CONFIG.isProduction) {
-  // Production-only code
-} else if (APP_CONFIG.isDevelopment) {
-  // Development-only code
-}
+export const api = {
+  baseUrl: process.env.API_URL || 'https://api.braingame.app',
+  timeout: 30000,
+  endpoints: {
+    auth: '/auth',
+    users: '/users',
+    tokens: '/tokens'
+  }
+};
 ```
 
-### Using Storage Keys
+### Feature Flags
 
 ```typescript
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { STORAGE_KEYS } from '@/config/env';
-
-// Save user token
-await AsyncStorage.setItem(STORAGE_KEYS.auth.token, userToken);
-
-// Get user preferences
-const theme = await AsyncStorage.getItem(STORAGE_KEYS.preferences.theme);
+export const features = {
+  enablePremium: process.env.ENABLE_PREMIUM === 'true',
+  enableAnalytics: process.env.NODE_ENV === 'production',
+  enableDebugMode: process.env.DEBUG === 'true',
+  maxFreeExercises: 3
+};
 ```
 
-### Checking Feature Flags
+### Constants
 
 ```typescript
-import { isFeatureEnabled } from '@/config/env';
-
-if (isFeatureEnabled('analytics')) {
-  // Track analytics event
-}
-```
-
-### Using API Configuration
-
-```typescript
-import { API_CONFIG } from '@/config/env';
-
-const response = await fetch(`${API_CONFIG.baseUrl}/users`, {
-  timeout: API_CONFIG.timeout,
-});
+export const constants = {
+  MAX_RETRIES: 3,
+  TOKEN_REFRESH_INTERVAL: 3600000, // 1 hour
+  CACHE_DURATION: 300000, // 5 minutes
+  MIN_PASSWORD_LENGTH: 8
+};
 ```
 
 ## Environment Variables
 
-All environment variables are defined in the `.env.example` file. Key variables include:
+### Development (.env.development)
 
-### App Configuration
-- `APP_NAME`: Application name
-- `APP_VERSION`: Application version (semver format)
-- `NODE_ENV`: Environment (development/production/test)
+```env
+NODE_ENV=development
+API_URL=http://localhost:3001
+ENABLE_PREMIUM=true
+DEBUG=true
+```
 
-### API Configuration
-- `API_BASE_URL`: Base URL for API requests
-- `API_TIMEOUT`: Request timeout in milliseconds
-- `API_RETRY_ATTEMPTS`: Number of retry attempts
+### Production (.env.production)
 
-### Security
-- `JWT_SECRET`: Secret for JWT tokens (min 32 characters)
-- `SESSION_TIMEOUT`: Session timeout in milliseconds
-- `ENCRYPTION_KEY`: Encryption key (exactly 32 characters)
+```env
+NODE_ENV=production
+API_URL=https://api.braingame.app
+ENABLE_PREMIUM=true
+DEBUG=false
+```
 
-### Third-Party Services
-- `ANALYTICS_KEY`: Analytics service API key
-- `SENTRY_DSN`: Sentry error tracking DSN
-- `AMPLITUDE_API_KEY`: Amplitude analytics API key
+## Platform-Specific Config
 
-### Feature Flags
-- `ENABLE_ANALYTICS`: Enable analytics tracking
-- `ENABLE_ERROR_REPORTING`: Enable error reporting
-- `ENABLE_DEBUG_MODE`: Enable debug mode
-- `ENABLE_PERFORMANCE_MONITORING`: Enable performance monitoring
+### iOS
 
-### Development Tools
-- `FLIPPER_ENABLED`: Enable Flipper debugging
-- `REACTOTRON_ENABLED`: Enable Reactotron debugging
-- `DEV_MENU_ENABLED`: Enable developer menu
+```typescript
+if (Platform.OS === 'ios') {
+  config.ui.statusBarStyle = 'dark-content';
+  config.ui.keyboardBehavior = 'padding';
+}
+```
 
-### Firebase
-- `FIREBASE_FUNCTION_URL`: Firebase Cloud Functions URL
-- `FIREBASE_REGION`: Firebase region
+### Android
 
-## Production Considerations
+```typescript
+if (Platform.OS === 'android') {
+  config.ui.statusBarStyle = 'light-content';
+  config.ui.keyboardBehavior = 'height';
+}
+```
 
-In production environments:
+## Build-Time Configuration
 
-1. All sensitive values must be properly secured
-2. Analytics and error reporting should be enabled
-3. Debug tools must be disabled
-4. JWT secrets must be at least 64 characters
-5. Sentry DSN is required for error tracking
+### Metro Config
 
-The `ProductionEnvSchema` enforces these requirements automatically.
+```javascript
+// metro.config.js
+module.exports = {
+  resolver: {
+    extraNodeModules: {
+      '@braingame/config': path.resolve(__dirname, '../../packages/config')
+    }
+  }
+};
+```
 
-## Adding New Configuration
+### TypeScript Paths
 
-To add new configuration values:
-
-1. Add the environment variable to `.env.example`
-2. Update the schema in `packages/utils/env/schemas.ts`
-3. Add the configuration to `src/config/env.ts`
-4. Update this documentation
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "paths": {
+      "@braingame/config": ["../../packages/config/src"]
+    }
+  }
+}
+```
 
 ## Best Practices
 
-1. **Never commit real secrets** to version control
-2. **Use environment-specific values** for URLs and API keys
-3. **Validate all configuration** using the Zod schemas
-4. **Centralize storage keys** to avoid duplication
-5. **Use feature flags** for gradual rollouts
-6. **Document all configuration** changes
+1. **Never hardcode** - Always use config
+2. **Type safety** - Export TypeScript interfaces
+3. **Validation** - Validate env vars on startup
+4. **Documentation** - Document each config option
+5. **Secrets** - Never commit sensitive values
 
-## Troubleshooting
+## Testing
 
-### Environment Validation Errors
-
-If you see validation errors on startup:
-
-1. Check that all required variables are set in `.env.local`
-2. Ensure values match the expected format (e.g., URLs, numbers)
-3. Check the error message for specific validation requirements
-
-### Missing Configuration
-
-If a configuration value is undefined:
-
-1. Ensure the variable is defined in `.env.local`
-2. Check that the variable name matches exactly
-3. Restart the Metro bundler after changing environment variables
-
-### Type Errors
-
-The configuration system is fully typed. If you see type errors:
-
-1. Ensure you're importing from the correct path
-2. Check that the configuration object has the expected property
-3. Update the TypeScript types if adding new configuration
+```typescript
+// Mock configuration for tests
+jest.mock('@braingame/config', () => ({
+  config: {
+    api: { baseUrl: 'http://localhost:3000' },
+    features: { enablePremium: false }
+  }
+}));
+```
