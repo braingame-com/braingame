@@ -4,36 +4,6 @@ import { useInteractiveState } from "../../hooks";
 import { getBaseCardStyle, getInteractiveCardStyle } from "./styles";
 import type { CardProps } from "./types";
 
-/**
- * Card component for displaying content in a contained, elevated surface.
- * Supports both static and interactive variants with hover states.
- *
- * @example
- * ```tsx
- * // Basic card
- * <Card>
- *   <Text>Card content</Text>
- * </Card>
- *
- * // Card with padding and elevation
- * <Card padding="large" elevation={2}>
- *   <Text>Elevated card</Text>
- * </Card>
- *
- * // Interactive card
- * <Card variant="interactive" onPress={handlePress}>
- *   <Text>Click me</Text>
- * </Card>
- *
- * // Card with custom styling
- * <Card style={{ backgroundColor: 'lightblue' }}>
- *   <Text>Custom styled card</Text>
- * </Card>
- * ```
- *
- * @component
- */
-
 export const Card = ({
 	children,
 	variant = "basic",

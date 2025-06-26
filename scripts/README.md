@@ -1,187 +1,213 @@
-# Scripts
+# Scripts Directory
 
-Development tools and automation for Brain Game.
+This directory contains development tools, automation scripts, and utilities for the Brain Game monorepo.
 
-## Component Development
+## 📋 Available Scripts
 
-### Create BGUI Component
+### Component Development
+
+#### `create-bgui-component.js`
+Creates new BGUI components with full boilerplate code.
+
 ```bash
-node scripts/create-bgui-component.js ComponentName
+# Create a standard component
+pnpm bgui:scaffold MyComponent
+
+# Create a simple component (minimal boilerplate)
+pnpm bgui:scaffold MyComponent --simple
+
+# Create a React hook
+pnpm bgui:scaffold useMyHook --hook
+
+# Create a utility function
+pnpm bgui:scaffold myUtility --util
 ```
 
-Generates:
-- Component file with TypeScript
-- Test file with Jest setup
-- Storybook story
-- Documentation template
+**Generated files:**
+- Component implementation (`MyComponent.tsx`)
+- Component styles (`MyComponent.styles.ts`)
+- Component tests (`MyComponent.test.tsx`)
+- Storybook stories (`MyComponent.stories.tsx`)
+- Barrel export updates
 
-## Development Tools
+### Development Tools
 
-### Interactive Menu
+#### `dev-tools.js`
+Interactive development utilities menu.
+
 ```bash
-node scripts/dev-tools.js
+# Open interactive menu
+pnpm dev:tools
+
+# Direct commands
+pnpm dev:stats      # Show project statistics
+pnpm dev:analyze    # Analyze component structure
+pnpm dev:deps       # Check dependency health
+pnpm dev:coverage   # Display test coverage
+pnpm dev:unused     # Find potentially unused files
 ```
 
-**Options:**
-- 📊 **Project Stats** - File counts, dependencies, bundle size
-- 🔍 **Code Analysis** - Dead code, duplicate files, complexity
-- 📦 **Dependencies** - Audit, outdated packages, security
-- 🧹 **Workspace** - Clean builds, reset dependencies
-- 📚 **Documentation** - Generate API docs, validate links
+**Features:**
+- Lines of code analysis by file type
+- Component and test coverage metrics
+- Dependency vulnerability scanning
+- Unused file detection
+- Interactive menu navigation
 
-## Workspace Management
+### Workspace Management
 
-### Clean Everything
+#### `workspace-helper.js`
+Monorepo workspace management utilities.
+
 ```bash
-node scripts/clean-workspace.js
-```
+# List all workspace packages
+pnpm workspace list
 
-Removes:
-- All node_modules directories
-- Build artifacts (.next, dist, build)
-- Cache files (.cache, .turbo)
-- Generated files
+# Show package information
+pnpm workspace info @braingame/bgui
 
-### Dependency Audit
-```bash
-node scripts/audit-deps.js
-```
+# List package scripts
+pnpm workspace scripts @braingame/bgui
 
-Checks:
-- Outdated packages
-- Security vulnerabilities  
-- Duplicate dependencies
-- License compliance
+# Run scripts in specific packages
+pnpm workspace run @braingame/bgui test
+pnpm workspace test @braingame/bgui  # Shortcut
+pnpm workspace build @braingame/bgui # Shortcut
+pnpm workspace dev @braingame/bgui   # Shortcut
 
-## Code Generation
-
-### Component Scaffolding
-```bash
-# Create component with all files
-scripts/create-bgui-component.js Button
-
-# Generated files:
-# - src/components/Button/Button.tsx
-# - src/components/Button/Button.test.tsx
-# - src/components/Button/Button.stories.tsx
-# - docs/Button.md
+# Show package dependencies
+pnpm workspace deps @braingame/bgui
 ```
 
 ### Documentation Generation
+
+#### `doc-generator.js`
+Automated documentation generation for components.
+
 ```bash
-node scripts/generate-docs.js
+# Generate component API documentation
+pnpm docs component-api Button
+
+# Generate README section for component
+pnpm docs readme-section Button
+
+# Generate quick reference guide
+pnpm docs quick-ref
 ```
 
-Creates:
-- API documentation from TypeScript
-- Component prop tables
-- Cross-reference links
-- README updates
+### Git Hooks & CI
 
-## Git Hooks & CI
+#### `pre-commit.sh`
+Automated pre-commit checks (runs automatically via git hook).
 
-### Pre-commit Validation
+**Checks performed:**
+1. **Secret scanning** - Prevents committing sensitive data
+2. **Linting** - Code style validation
+3. **Type checking** - TypeScript compilation
+4. **Formatting** - Auto-formats staged files
+5. **Testing** - Runs test suite
+
+#### `check-workspace.sh`
+Workspace verification script for git worktrees.
+
 ```bash
-# Runs automatically before commits
-scripts/pre-commit-check.js
+./scripts/check-workspace.sh
 ```
 
-Validates:
-- Lint passes (pnpm lint)
-- Types check (pnpm typecheck)
-- Tests pass (pnpm test)
-- Build succeeds (pnpm build)
+**Features:**
+- Displays current directory and git status
+- Lists all available worktrees
+- Prevents accidental work in wrong branches
+- Color-coded output for clarity
 
-### Workspace Verification
+### Code Transformation
+
+#### `primary-button-codemod.ts`
+Example codemod for automated code refactoring.
+
 ```bash
-node scripts/verify-workspace.js
+# Run with ts-node or build first
+npx ts-node scripts/primary-button-codemod.ts
 ```
 
-Ensures:
-- Correct workspace location
-- Git branch status
-- No uncommitted changes
-- Dependencies installed
+**Capabilities:**
+- AST-based code transformation
+- Automated import updates
+- Preserves code formatting
+- Batch file processing
 
-## Code Transformation
+## 🛠️ Utilities
 
-### Automated Refactoring
+### `utils/console.js` & `utils/console.ts`
+Shared console output utilities providing colored, formatted output.
+
+**Available methods:**
+- `log(message, symbol)` - General logging
+- `success(message)` - Success messages (✅)
+- `error(message)` - Error messages (❌)
+- `warning(message)` - Warning messages (⚠️)
+- `info(message)` - Info messages (ℹ️)
+- `clear()` - Clear console
+- Progress indicators and spinners
+
+## 📝 Script Development Guidelines
+
+### Adding New Scripts
+
+1. **Location**: Place scripts in `/scripts/` directory
+2. **Naming**: Use descriptive kebab-case names
+3. **Shebang**: Include appropriate shebang for shell scripts
+4. **Documentation**: Add usage comments at the top of the file
+5. **Error Handling**: Implement proper error handling and exit codes
+
+### Best Practices
+
+1. **Use Shared Utilities**: Import from `utils/console.js` for consistent output
+2. **Interactive Prompts**: Use inquirer for user interactions
+3. **Validation**: Validate inputs before performing actions
+4. **Idempotency**: Scripts should be safe to run multiple times
+5. **Progress Feedback**: Provide clear progress indicators
+6. **Error Messages**: Give actionable error messages
+
+### Testing Scripts
+
+Before adding new scripts:
+1. Test in isolation
+2. Test with various inputs (valid/invalid)
+3. Test error conditions
+4. Verify monorepo compatibility
+5. Update this README
+
+## 🔧 Configuration
+
+Scripts respect the following environment variables:
+- `NODE_ENV` - Development/production mode
+- `CI` - Continuous integration mode
+- `FORCE_COLOR` - Force colored output
+- `NO_COLOR` - Disable colored output
+
+## 🚀 Quick Start
+
 ```bash
-# Run codemods
-node scripts/codemods/migrate-to-tokens.js
+# Install dependencies
+pnpm install
+
+# Create a new component
+pnpm bgui:scaffold MyNewComponent
+
+# Check project health
+pnpm dev:tools
+
+# Run pre-commit checks manually
+pnpm precommit
+
+# Explore workspace packages
+pnpm workspace list
 ```
 
-**Available codemods:**
-- **migrate-to-tokens** - Replace hardcoded values with design tokens
-- **update-imports** - Modernize import statements
-- **extract-constants** - Move magic numbers to constants
-- **add-prop-types** - Add TypeScript interface definitions
+## 📚 Related Documentation
 
-### Bulk Operations
-```bash
-# Update all component documentation
-scripts/bulk-update-docs.js
-
-# Standardize file naming
-scripts/standardize-naming.js
-
-# Add missing test files
-scripts/add-missing-tests.js
-```
-
-## Performance Tools
-
-### Bundle Analysis
-```bash
-node scripts/analyze-bundle.js
-```
-
-Generates:
-- Bundle size reports
-- Dependency graphs
-- Tree shaking analysis
-- Performance recommendations
-
-### Code Metrics
-```bash
-node scripts/code-metrics.js
-```
-
-Reports:
-- Lines of code by package
-- Complexity scores
-- Test coverage percentages
-- Technical debt indicators
-
-## Automation Scripts
-
-### Daily Maintenance
-```bash
-# Automated daily tasks
-scripts/daily-maintenance.js
-```
-
-Performs:
-- Dependency updates
-- Security audit
-- Link validation
-- Performance benchmarks
-
-### Release Preparation
-```bash
-scripts/prepare-release.js
-```
-
-Tasks:
-- Update version numbers
-- Generate changelog
-- Run full test suite
-- Create release notes
-
-## Best Practices
-
-- **Run interactively** - Use dev-tools menu for exploration
-- **Automate repetitive tasks** - Create scripts for common operations
-- **Validate before commits** - Use pre-commit hooks
-- **Document new scripts** - Add to this README
-- **Test scripts thoroughly** - Include error handling
+- [Development Guide](/docs/DEVELOPMENT.md) - General development setup
+- [Contributing Guide](/.github/CONTRIBUTING.md) - Contribution guidelines
+- [BGUI Package](/packages/bgui/README.md) - Component library documentation
+- [Git Worktrees](/docs/WORKTREES.md) - Worktree workflow guide

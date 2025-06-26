@@ -4,56 +4,7 @@ import { Platform, View as RNView } from "react-native";
 import type { ViewProps } from "./types";
 
 /**
- * Theme-aware View component for creating containers.
- * Extends React Native View with theming, borders, and hover states.
- *
- * @example
- * ```tsx
- * // Basic container
- * <View>
- *   <Text>Content</Text>
- * </View>
- *
- * // Card container
- * <View type="card" rounded>
- *   <Text>Card content</Text>
- * </View>
- *
- * // Surface with border
- * <View type="surface" border>
- *   <Text>Surface content</Text>
- * </View>
- *
- * // Hoverable card
- * <View
- *   type="card"
- *   hoverable
- *   onPress={() => console.log('Clicked')}
- * >
- *   <Text>Click me</Text>
- * </View>
- *
- * // Transparent overlay
- * <View
- *   transparent
- *   style={{
- *     position: 'absolute',
- *     top: 0,
- *     left: 0,
- *     right: 0,
- *     bottom: 0,
- *   }}
- * >
- *   <Text>Overlay content</Text>
- * </View>
- *
- * // Grabbable element
- * <View grabbable rounded>
- *   <Text>Drag me</Text>
- * </View>
- * ```
- *
- * @component
+ * Theme-aware container component used throughout layouts.
  */
 export const View = ({
 	type = "background",

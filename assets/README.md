@@ -1,116 +1,187 @@
-# Assets Guide
+# Assets Directory
 
-Asset management for the Brain Game monorepo.
+This directory contains shared brand assets and resources used across the Brain Game monorepo.
 
-## Asset Locations
+## 📁 Asset Locations
+
+Brain Game uses a distributed asset structure organized by purpose:
+
+### 1. Shared Assets (`/assets/`)
+- **Purpose**: Brand assets used across all applications
+- **Contents**: 
+  - `logo.png` - Main Brain Game logo
+
+### 2. Application-Specific Assets
+
+#### Product App (`/apps/product/assets/`)
+- **App Icons**: `icon.png`, `adaptive-icon.png`, `splash-icon.png`, `favicon.png`
+- **Audio Content**: Affirmations and motivational audio in `/audio/`
+- **Visual Content**: Motivational images in `/images-section/`
+- **Development Assets**: `/apps/product/src/assets/` for placeholders
+
+#### Main Site (`/apps/main-site/public/`)
+- **Web Icons**: SVG icons for UI components
+- **Format**: Optimized SVG for web performance
+
+#### Documentation (`/docs/assets/`)
+- **Purpose**: Diagrams, screenshots, and visual aids for documentation
+- **Note**: Create subdirectories as needed (e.g., `/docs/assets/diagrams/`)
+
+## 🎨 Asset Guidelines
+
+### File Formats
+
+| Asset Type | Preferred Format | Alternative | Notes |
+|------------|-----------------|-------------|--------|
+| Photos | `.webp` | `.jpg`, `.jpeg` | Use WebP for better compression |
+| Icons | `.svg` | `.png` | SVG for scalability |
+| App Icons | `.png` | - | Required for mobile apps |
+| Audio | `.mp3` | `.m4a` | Compress for mobile |
+| Diagrams | `.svg` | `.png` | Editable formats preferred |
+
+### Naming Conventions
 
 ```
-braingame/
-├── packages/bgui/assets/     Shared UI assets
-├── apps/product/assets/      Mobile app assets
-├── apps/main-site/public/    Marketing assets
-└── docs/assets/              Documentation assets
+✅ Good Examples:
+- user-avatar-placeholder.png
+- success-audio-track.mp3
+- app-icon-1024x1024.png
+- dashboard-screenshot.webp
+
+❌ Avoid:
+- IMG_12345.jpg
+- untitled-1.png
+- NewImage.PNG
+- my image.jpg (spaces)
 ```
 
-## File Formats
+### Size Guidelines
 
-| Type | Format | Usage | Max Size |
-|------|--------|-------|----------|
-| Photos | WebP | Web images | 200KB |
-| Icons | SVG | Scalable graphics | 10KB |
-| App Icons | PNG | Mobile app icons | 1MB |
-| Audio | MP3 | Sound effects | 500KB |
+#### Mobile App Assets
+- **App Icon**: 1024×1024px (iOS), 512×512px (Android)
+- **Splash Screen**: 1242×2436px (iOS), 1920×1080px (Android)
+- **In-app Images**: Max 2048px on longest side
+- **Thumbnails**: 200×200px to 400×400px
 
-## Naming Conventions
+#### Web Assets
+- **Hero Images**: 1920×1080px max
+- **Content Images**: 800×600px standard
+- **Icons**: 24×24px, 32×32px, 48×48px
+- **Logos**: Provide multiple sizes
+
+### Optimization Requirements
+
+1. **Compression**: 
+   - Images: Use tools like `imageoptim` or `squoosh`
+   - Target: < 100KB for web images, < 500KB for hero images
+
+2. **Performance**:
+   - Lazy load non-critical images
+   - Use responsive images with srcset
+   - Provide 2x versions for retina displays
+
+3. **Accessibility**:
+   - Include alt text for all images
+   - Ensure sufficient color contrast
+   - Avoid text in images when possible
+
+## 📂 Directory Structure
 
 ```
-icon-arrow-left.svg       ✓ Correct
-IconArrowLeft.svg         ✗ Wrong
-arrow_left_icon.svg       ✗ Wrong
+/assets/                     # Shared brand assets
+├── logo.png                # Main logo
+└── README.md              # This file
+
+/apps/product/assets/       # Product app assets
+├── audio/                  # Audio content
+├── images/                 # App icons
+└── images-section/         # Content images
+
+/apps/main-site/public/     # Website assets
+└── *.svg                   # UI icons
+
+/docs/assets/              # Documentation assets
+├── diagrams/              # Architecture diagrams
+├── screenshots/           # UI screenshots
+└── videos/                # Demo videos
 ```
 
-Rules:
-- Lowercase only
-- Hyphen-separated
-- Descriptive names
-- Include dimensions for raster images
+## 🔧 Asset Management
 
-## Size Guidelines
+### Adding New Assets
 
-### Mobile Assets
-- App Icon: 1024×1024 (iOS source)
-- Splash Screen: 2732×2732 (centered)
-- In-app images: max 2x resolution
+1. **Determine Location**: 
+   - Shared across apps? → `/assets/`
+   - App-specific? → `/apps/[app-name]/assets/`
+   - Documentation? → `/docs/assets/`
 
-### Web Assets
-- Hero images: 1920×1080 max
-- Thumbnails: 400×300
-- Icons: 24×24, 48×48
+2. **Optimize Before Adding**:
+   ```bash
+   # Images
+   npx squoosh-cli --webp auto image.jpg
+   
+   # SVGs
+   npx svgo input.svg -o output.svg
+   ```
 
-## Optimization
+3. **Follow Naming Convention**:
+   - Use lowercase
+   - Separate words with hyphens
+   - Include dimensions for sized assets
+   - Be descriptive but concise
 
-### Before Adding Assets
-1. Export at correct size
-2. Optimize with tools
-3. Test on devices
-4. Check file size
+### Asset Workflow
 
-### Tools
-```bash
-# WebP conversion
-cwebp input.png -o output.webp -q 80
+1. **Design Phase**: Create assets in highest quality
+2. **Export Phase**: Export in required formats and sizes
+3. **Optimization Phase**: Compress and optimize
+4. **Integration Phase**: Add to appropriate directory
+5. **Documentation Phase**: Update relevant READMEs
 
-# SVG optimization
-svgo input.svg -o output.svg
+## 🛠️ Tools & Resources
 
-# PNG optimization
-pngquant input.png -o output.png
-```
+### Recommended Tools
+
+- **Image Optimization**: 
+  - [Squoosh](https://squoosh.app/) - Web-based optimizer
+  - [ImageOptim](https://imageoptim.com/) - Mac app
+  - [TinyPNG](https://tinypng.com/) - Online compression
+
+- **SVG Optimization**:
+  - [SVGO](https://github.com/svg/svgo) - Command line tool
+  - [SVGOMG](https://jakearchibald.github.io/svgomg/) - Web interface
+
+- **Icon Generation**:
+  - [App Icon Generator](https://appicon.co/) - Mobile app icons
+  - [RealFaviconGenerator](https://realfavicongenerator.net/) - Favicon sets
 
 ### Scripts
+
 ```bash
 # Find large assets
-find . -name "*.png" -size +500k
+find . -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | xargs ls -lh | awk '$5 ~ /M/ {print $5, $9}'
 
 # Convert images to WebP
-for f in *.png; do cwebp "$f" -o "${f%.png}.webp"; done
+for img in *.{jpg,jpeg,png}; do
+  npx squoosh-cli --webp auto "$img"
+done
 ```
 
-## Accessibility
+## 📋 Checklist for New Assets
 
-All images must have:
-- Alt text for content images
-- Empty alt="" for decorative images
-- Proper contrast ratios
-- Focus indicators for interactive elements
+- [ ] Asset is in the correct directory
+- [ ] File is properly named (lowercase, hyphens)
+- [ ] Image is optimized (< 100KB for web)
+- [ ] Multiple sizes provided if needed
+- [ ] Alt text documented
+- [ ] License/attribution noted if required
+- [ ] Added to .gitignore if generated
 
-## Workflow
+## 📄 Licensing
 
-1. **Design** - Create in Figma/Sketch
-2. **Export** - Use proper format/size
-3. **Optimize** - Compress and validate
-4. **Integrate** - Add to correct location
-5. **Document** - Update asset inventory
+Ensure all assets are either:
+1. Created in-house
+2. Properly licensed for commercial use
+3. Attributed according to license requirements
 
-## Checklist
-
-- [ ] Correct format for use case
-- [ ] Optimized file size
-- [ ] Proper naming convention
-- [ ] Accessibility attributes
-- [ ] License documented
-- [ ] Added to inventory
-
-## Licensing
-
-Track licenses in `assets-license.json`:
-```json
-{
-  "hero-image.webp": {
-    "source": "Unsplash",
-    "license": "Unsplash License",
-    "author": "John Doe",
-    "url": "https://unsplash.com/photos/xxx"
-  }
-}
-```
+Document any third-party assets in `ATTRIBUTIONS.md`.

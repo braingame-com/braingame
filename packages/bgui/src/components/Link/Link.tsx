@@ -1,72 +1,60 @@
-import { Platform } from "react-native";
+import { textStyles } from "@braingame/utils";
+import { Link as ExpoLink } from "expo-router";
+import { Linking, Platform, Pressable } from "react-native";
+import { Text } from "../Text";
+import { styles } from "./styles";
 import type { LinkProps } from "./types";
 
-// Platform-specific imports and implementations
-let LinkImplementation: React.ComponentType<LinkProps>;
+export const Link = ({
+	children,
+	href,
+	onPress,
+	external = false,
+	disabled = false,
+	variant = "inline",
+	"aria-label": ariaLabel,
+	...rest
+}: LinkProps) => {
+	const label = external && ariaLabel ? `${ariaLabel} (opens in new window)` : ariaLabel;
 
-if (Platform.OS === "web") {
-	const WebLink = require("./Link.web").Link;
-	LinkImplementation = WebLink;
-} else {
-	const NativeLink = require("./Link.native").Link;
-	LinkImplementation = NativeLink;
-}
+	const handlePress = () => {
+		if (disabled) return;
+		if (onPress) {
+			onPress();
+			return;
+		}
+		if (href) {
+			if (external || Platform.OS !== "web") {
+				Linking.openURL(href);
+			}
+		}
+	};
 
-/**
- * Link component for navigation and external URLs.
- * Handles internal routing and external links with proper accessibility.
- *
- * @example
- * ```tsx
- * // Internal navigation link
- * <Link href="/settings">Go to Settings</Link>
- *
- * // External link
- * <Link
- *   href="https://example.com"
- *   external
- * >
- *   Visit our website
- * </Link>
- *
- * // Custom press handler
- * <Link
- *   onPress={() => {
- *     analytics.track('link_clicked');
- *     navigate('/dashboard');
- *   }}
- * >
- *   Dashboard
- * </Link>
- *
- * // Standalone variant
- * <Link
- *   href="/docs"
- *   variant="standalone"
- * >
- *   View Documentation
- * </Link>
- *
- * // Disabled link
- * <Link
- *   href="/premium"
- *   disabled
- * >
- *   Premium Features (Coming Soon)
- * </Link>
- *
- * // Link with custom content
- * <Link href="/profile" aria-label="View profile">
- *   <View style={{ flexDirection: 'row' }}>
- *     <Icon name="user" />
- *     <Text>Profile</Text>
- *   </View>
- * </Link>
- * ```
- *
- * @component
- */
-export const Link = (props: LinkProps) => {
-	const Component = LinkImplementation as React.FC<LinkProps>;
-	return <Component {...props} />;
+	const text = <Text>{children}</Text>;
+	const style = [textStyles.link, variant === "standalone" && styles.standalone];
+
+	if (href && !external && Platform.OS === "web") {
+		return (
+			<ExpoLink
+				href={href as Parameters<typeof ExpoLink>[0]["href"]}
+				aria-label={label}
+				style={style}
+			>
+				{children}
+			</ExpoLink>
+		);
+	}
+
+	return (
+		<Pressable
+			accessibilityRole="link"
+			accessibilityLabel={label}
+			onPress={handlePress}
+			disabled={disabled}
+			style={style}
+			{...rest}
+		>
+			{text}
+		</Pressable>
+	);
 };

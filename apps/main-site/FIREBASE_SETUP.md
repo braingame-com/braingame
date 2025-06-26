@@ -1,108 +1,125 @@
-# Firebase Setup
+# Firebase Setup for Brain Game Website
 
-Email collection configuration for the marketing site.
+This guide explains how to set up Firebase for the Brain Game website's email collection feature.
 
 ## Prerequisites
 
-1. Firebase project with Firestore enabled
-2. Service account key for deployment
+1. Google account with access to Firebase Console
+2. Node.js and pnpm installed
+3. Firebase CLI installed globally: `npm install -g firebase-tools`
 
-## Firestore Configuration
+## Setup Steps
 
-### Database Structure
+### 1. Create Firebase Project
 
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Click "Create a project"
+3. Name it "braingame-website" (or similar)
+4. Enable Google Analytics if desired
+5. Wait for project creation to complete
+
+### 2. Enable Firestore
+
+1. In the Firebase Console, go to "Firestore Database"
+2. Click "Create database"
+3. Choose "Start in test mode" (we'll update rules later)
+4. Select a location close to your users
+
+### 3. Get Configuration Values
+
+1. Go to Project Settings (gear icon)
+2. In the "General" tab, scroll down to "Your apps"
+3. Click "Add app" and choose "Web"
+4. Register the app with name "Brain Game Website"
+5. Copy the configuration object values
+
+### 4. Configure Environment Variables
+
+1. In the website directory, copy `.env.example` to `.env.local`
+2. Fill in the Firebase configuration values:
+
+```bash
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
-early_access_emails/
-├── {email_hash}/
-│   ├── email: string
-│   ├── createdAt: timestamp
-│   └── source: string
-```
+
+### 5. Deploy Security Rules
+
+1. Initialize Firebase in the website directory:
+   ```bash
+   firebase init firestore
+   ```
+
+2. Select your project
+3. Use the existing `firestore.rules` file
+4. Deploy the rules:
+   ```bash
+   firebase deploy --only firestore:rules
+   ```
+
+### 6. Test the Setup
+
+1. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+2. Visit http://localhost:3000
+3. Test the email signup form
+4. Check the Firestore Console to see if emails are being stored
+
+## Database Structure
+
+### Collection: `email_signups`
+
+Each document contains:
+- `email` (string): The user's email address (sanitized)
+- `timestamp` (timestamp): When the signup occurred
+- `source` (string): Always "website_homepage"
+- `userAgent` (string, optional): Browser user agent for analytics
 
 ### Security Rules
 
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /early_access_emails/{email} {
-      allow write: if request.auth == null 
-        && request.resource.data.keys().hasAll(['email', 'createdAt', 'source'])
-        && request.resource.data.email is string
-        && request.resource.data.email.matches('^[^@]+@[^@]+\\.[^@]+$');
-      
-      allow read: if false;
-    }
-  }
-}
-```
+The `firestore.rules` file ensures:
+- Anyone can create email signups (for the form)
+- No one can read emails (privacy protection)
+- No updates or deletes from client side
+- Email format validation at the database level
 
-## Client Configuration
+## Development with Emulator (Optional)
 
-### Initialize Firebase
+For local development, you can use the Firestore emulator:
 
-```typescript
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+1. Install and start the emulator:
+   ```bash
+   firebase emulators:start --only firestore
+   ```
 
-const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY,
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VITE_FIREBASE_APP_ID
-};
+2. The website will automatically connect to the emulator in development mode
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-```
+## Production Considerations
 
-### Email Submission
+1. **Rate Limiting**: Consider adding rate limiting to prevent spam
+2. **Analytics**: Track signup conversion rates
+3. **Backup**: Set up automated backups for the email list
+4. **GDPR Compliance**: Ensure proper privacy policy and data handling
+5. **Email Validation**: Consider email verification before adding to marketing lists
 
-```typescript
-import { doc, setDoc } from 'firebase/firestore';
-import { sha256 } from '@/utils/crypto';
+## Troubleshooting
 
-async function submitEmail(email: string) {
-  const emailHash = await sha256(email.toLowerCase());
-  
-  await setDoc(doc(db, 'early_access_emails', emailHash), {
-    email: email.toLowerCase(),
-    createdAt: new Date(),
-    source: 'marketing_site'
-  });
-}
-```
+### Common Issues
 
-## Environment Variables
+1. **"Firebase not configured"**: Check that all environment variables are set
+2. **Permission denied**: Verify security rules are deployed correctly
+3. **CORS errors**: Ensure your domain is added to Firebase authorized domains
 
-```env
-VITE_FIREBASE_API_KEY=your-api-key
-VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
-VITE_FIREBASE_PROJECT_ID=your-project-id
-VITE_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-VITE_FIREBASE_APP_ID=your-app-id
-```
+### Getting Help
 
-## Security Considerations
-
-1. **Email hashing**: We hash emails for document IDs to prevent enumeration
-2. **Write-only access**: Public users can only write, never read
-3. **Validation**: Email format validated in security rules
-4. **Rate limiting**: Implement client-side throttling
-
-## Deployment
-
-Deploy security rules:
-```bash
-firebase deploy --only firestore:rules
-```
-
-## Testing
-
-Test security rules locally:
-```bash
-firebase emulators:start --only firestore
-```
+- Check Firebase Console logs
+- Review browser developer tools for errors
+- Ensure all dependencies are installed: `pnpm install`

@@ -65,7 +65,9 @@ if (
 	fs.existsSync(targetDir) ||
 	(isHook && fs.existsSync(path.join(targetDir, `${componentName}.ts`)))
 ) {
-	error(`${isHook ? "Hook" : isUtil ? "Utility" : "Component"} ${componentName} already exists`);
+	error(
+		`${isHook ? "Hook" : isUtil ? "Utility" : "Component"} ${componentName} already exists`,
+	);
 	process.exit(1);
 }
 
