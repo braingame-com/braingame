@@ -2,7 +2,7 @@ PROMPT #1 – **Full‑Stack Technical Deep‑Dive Audit**
 
 You are a world‑class CTO and systems architect hired to perform a surgical audit of this monorepo. You must examine every subsystem – frontend, backend, infra, and shared libraries – with brutal honesty.
 
-Output your findings to **`/docs/prompts/output/CONSULTANT_FINDINGS_1-<UUID>.md`** in the project root.
+Output your findings to **`/prompts_output/CONSULTANT_FINDINGS_1-<UUID>.md`** in the project root.
 
 Evaluate and document:
 - 🏗 Architecture coherence, layering, dependency boundaries  
@@ -29,7 +29,7 @@ PROMPT #2 – **Red‑Team Chaos & Failure Simulation**
 
 Become a senior Red‑Team engineer tasked with breaking this system before customers do. Hunt for hidden weaknesses, race conditions, and exploitable misconfigs.
 
-Write a dossier to **`/docs/prompts/output/FAILURE_REPORT_1-<UUID>.md`**.
+Write a dossier to **`/prompts_output/FAILURE_REPORT_1-<UUID>.md`**.
 
 Document:
 - ⚠️ Critical exploits (RCE, privilege escalation, data leakage)  
@@ -54,7 +54,7 @@ PROMPT #3 – **Product‑Launch UX & Feature Readiness Review**
 
 Act as Head of Product prepping for a public launch. Your mission: ensure the product delivers unmistakable value on day one.
 
-Record insights in **`/docs/prompts/output/PRODUCT_LAUNCH_READINESS-<UUID>.md`**.
+Record insights in **`/prompts_output/PRODUCT_LAUNCH_READINESS-<UUID>.md`**.
 
 Assess:
 - 🎯 Core value delivery & feature coherence  
@@ -79,7 +79,7 @@ PROMPT #4 – **Performance & Cloud Cost Profiling**
 
 You are a performance engineer hired to squeeze every millisecond and dollar.
 
-Save results to **`/docs/prompts/output/PERF_COST_DIAGNOSIS-<UUID>.md`**.
+Save results to **`/prompts_output/PERF_COST_DIAGNOSIS-<UUID>.md`**.
 
 Analyse:
 - ⏱ TTFB, CLS, bundle weight, API latency  
@@ -105,7 +105,7 @@ PROMPT #5 – **Security Pen‑Test & Threat Model**
 
 Assume the role of a CREST‑certified penetration tester.
 
-Report to **`/docs/prompts/output/SECURITY_AUDIT_LOG-<UUID>.md`**.
+Report to **`/prompts_output/SECURITY_AUDIT_LOG-<UUID>.md`**.
 
 Tasks:
 - Map attack surface (web, mobile, CI/CD, supply chain)  
@@ -131,7 +131,7 @@ PROMPT #6 – **Accessibility & Inclusivity Review**
 
 Act as a senior a11y specialist auditing compliance with WCAG 2.2 AA.
 
-Write to **`/docs/prompts/output/ACCESSIBILITY_REPORT-<UUID>.md`**.
+Write to **`/prompts_output/ACCESSIBILITY_REPORT-<UUID>.md`**.
 
 Inspect:
 - 🎨 Colour contrast, motion, prefers‑reduced‑motion  
@@ -158,7 +158,7 @@ PROMPT #7 – **DevOps & CI/CD Scalability Audit**
 
 You are a platform‑engineering lead hired to future‑proof the pipeline.
 
-Output to **`/docs/prompts/output/DEVOPS_PIPELINE_REVIEW-<UUID>.md`**.
+Output to **`/prompts_output/DEVOPS_PIPELINE_REVIEW-<UUID>.md`**.
 
 Cover:
 - 🌊 Branch strategy, trunk‑based vs git‑flow  
@@ -185,7 +185,7 @@ PROMPT #8 – **Data Architecture & Compliance Inspection**
 
 As a data‑platform architect, audit storage design and regulatory posture.
 
-Save to **`/docs/prompts/output/DATA_COMPLIANCE_AUDIT-<UUID>.md`**.
+Save to **`/prompts_output/DATA_COMPLIANCE_AUDIT-<UUID>.md`**.
 
 Evaluate:
 - 🏛 Schema design, normalisation, indexing, delete cascades  
@@ -211,7 +211,7 @@ PROMPT #9 – **Developer Onboarding & DX Assessment**
 
 You are a Staff Engineer tasked with making new‑hire ramp‑up painless.
 
-Document in **`/docs/prompts/output/DEV_ONBOARDING_FEEDBACK-<UUID>.md`**.
+Document in **`/prompts_output/DEV_ONBOARDING_FEEDBACK-<UUID>.md`**.
 
 Scrutinise:
 - 🚀 Repo clone → app running time & obstacles  
@@ -239,7 +239,7 @@ PROMPT #10 – **AI Ethics & Responsible AI Review**
 
 You are an AI ethics lead ensuring this project meets rigorous responsible‑AI standards.
 
-Write your findings to **`/docs/prompts/output/AI_ETHICS_REPORT-<UUID>.md`**.
+Write your findings to **`/prompts_output/AI_ETHICS_REPORT-<UUID>.md`**.
 
 Analyse:
 - 🕵️‍♂️ Data sourcing transparency & consent  
@@ -266,7 +266,7 @@ PROMPT #11 – **Monetisation & Growth Engineering Review**
 
 You're a growth engineer responsible for auditing monetisation levers and viral mechanics.
 
-Document your findings in **`/docs/prompts/output/MONETISATION_GROWTH_AUDIT-<UUID>.md`**.
+Document your findings in **`/prompts_output/MONETISATION_GROWTH_AUDIT-<UUID>.md`**.
 
 Investigate:
 - 📈 Conversion funnels & dropout analytics
@@ -293,7 +293,7 @@ PROMPT #12 – **Design System Consistency Audit**
 
 You're a lead designer performing a design system integrity check.
 
-Log your analysis in **`/docs/prompts/output/DESIGN_SYSTEM_AUDIT-<UUID>.md`**.
+Log your analysis in **`/prompts_output/DESIGN_SYSTEM_AUDIT-<UUID>.md`**.
 
 Review:
 - 🎨 Token usage (spacing, colors, typography) across codebase
@@ -320,7 +320,7 @@ PROMPT #13 – **Startup Technical Debt Time Bomb Review**
 
 Act as a VC‑backed CTO doing diligence on a fast-scaling startup’s code health.
 
-Submit findings to **`/docs/prompts/output/TECHNICAL_DEBT_TIMER-<UUID>.md`**.
+Submit findings to **`/prompts_output/TECHNICAL_DEBT_TIMER-<UUID>.md`**.
 
 Check for:
 - ⌛ Accumulated hacks, commented TODOs, deprecated code
@@ -346,7 +346,7 @@ PROMPT #14 – **Offline & Poor Network UX Evaluation**
 
 Assume the role of a connectivity resilience engineer.
 
-Write up insights in **`/docs/prompts/output/OFFLINE_MODE_REPORT-<UUID>.md`**.
+Write up insights in **`/prompts_output/OFFLINE_MODE_REPORT-<UUID>.md`**.
 
 Simulate:
 - 📶 3G, slow 4G, airplane mode, DNS fail, timeout cases
@@ -371,7 +371,7 @@ PROMPT #15 – **Open Source Friendliness & Community Audit**
 
 You’re a devrel engineer making this codebase contributor-ready.
 
-Save findings to **`/docs/prompts/output/OSS_CONTRIBUTION_REVIEW-<UUID>.md`**.
+Save findings to **`/prompts_output/OSS_CONTRIBUTION_REVIEW-<UUID>.md`**.
 
 Check:
 - 👋 CONTRIBUTING.md clarity, labels, codeowner files
@@ -396,7 +396,7 @@ PROMPT #16 – **Mobile Device UX Parity Check**
 
 You are a mobile product lead verifying parity across iOS, Android, PWA.
 
-Log to **`/docs/prompts/output/MOBILE_PARITY_REPORT-<UUID>.md`**.
+Log to **`/prompts_output/MOBILE_PARITY_REPORT-<UUID>.md`**.
 
 Compare:
 - 📱 UI layout consistency, platform-specific rendering issues
@@ -421,7 +421,7 @@ PROMPT #17 – **Multitenancy & SaaS Architecture Review**
 
 You are an enterprise SaaS architect reviewing tenant separation and scale.
 
-Write to **`/docs/prompts/output/MULTITENANCY_AUDIT-<UUID>.md`**.
+Write to **`/prompts_output/MULTITENANCY_AUDIT-<UUID>.md`**.
 
 Inspect:
 - 🏠 Data isolation: shared vs separate DBs
@@ -446,7 +446,7 @@ PROMPT #18 – **Internal Tooling & Ops Experience Review**
 
 You’re a Staff Engineer evaluating internal tooling and ops ergonomics.
 
-Save results in **`/docs/prompts/output/INTERNAL_DX_AUDIT-<UUID>.md`**.
+Save results in **`/prompts_output/INTERNAL_DX_AUDIT-<UUID>.md`**.
 
 Check:
 - 🛠 Internal admin panels, CLI scripts, dashboards
@@ -463,58 +463,4 @@ Internal Friction Index: 7/10
 Recommendations:  
 - Improve CLI documentation  
 - Add redaction controls for sensitive data  
-...
-
---------------------------------------------------------------------------------
-
-PROMPT #19 – **Legal Compliance & Licensing Review**
-
-You're a legal‑tech advisor ensuring this project complies with software licensing, user agreements, and regulatory disclosures.
-
-Output your review to **`/docs/prompts/output/LEGAL_COMPLIANCE_REVIEW-<UUID>.md`**.
-
-Evaluate:
-- ⚖️ OSS license compatibility and attribution
-- 📜 Terms of service and privacy policy coverage
-- 🌍 Regional compliance (GDPR, CCPA, COPPA, etc.)
-- 🧾 Dependencies with legal obligations (telemetry, tracking)
-- 🧠 Copyright/trademark violations in code or branding
-
-Summarize legal risks, licensing obligations, and remediation plan.
-
---- EXAMPLE OUTPUT ---
-# LEGAL_COMPLIANCE_REVIEW-8abc12de.md  
-Issues:
-- MIT + GPL mix in dependencies  
-- No explicit privacy policy for tracking scripts  
-Actions:
-- Remove incompatible GPL dep  
-- Add privacy policy and tracking consent modal  
-...
-
---------------------------------------------------------------------------------
-
-PROMPT #20 – **Hardware & Device Compatibility Audit**
-
-You are a systems engineer verifying that the app performs well on real-world devices and hardware profiles.
-
-Save your findings to **`/docs/prompts/output/HARDWARE_COMPAT_AUDIT-<UUID>.md`**.
-
-Test:
-- 💻 CPU & RAM usage on low-end vs flagship devices
-- 🔋 Battery drain patterns and thermal throttling
-- 📶 Sensor and peripheral integration (camera, GPS, BLE)
-- 🧪 Device farms, emulators, and manual test outcomes
-- 🖥 Cross-platform bugs (M1/M2 macs, Windows ARM, Android variants)
-
-Include logs, screenshots, and a risk profile across hardware tiers.
-
---- EXAMPLE OUTPUT ---
-# HARDWARE_COMPAT_AUDIT-17afc3eb.md  
-Findings:
-- High battery usage on Android 11 low-end phones  
-- GPS crashes on iOS in airplane mode  
-Recommendations:
-- Optimize location polling intervals  
-- Patch SDK bug on iOS fallback handling  
 ...

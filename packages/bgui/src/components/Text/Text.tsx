@@ -4,35 +4,9 @@ import { getFontFamily, getTextColor, getVariantWeight, textVariantStyles } from
 import type { TextProps } from "./types";
 
 /**
- * Enhanced Text component combining bg1's typography system with current architecture.
- * Uses Lexend font family with proper weights, supports monospace variant.
- * Maintains backward compatibility while providing improved semantic variants.
- *
- * @example
- * ```tsx
- * // Basic text
- * <Text>Hello World</Text>
- *
- * // Different variants
- * <Text variant="displayTitle">Hero Title</Text>
- * <Text variant="heading">Section Heading</Text>
- * <Text variant="caption">Small caption text</Text>
- *
- * // With color
- * <Text color="primary">Primary colored text</Text>
- * <Text color="danger">Error message</Text>
- *
- * // Monospace text
- * <Text mono>const code = 'example';</Text>
- *
- * // Truncated text
- * <Text numberOfLines={2}>Very long text that will be truncated...</Text>
- *
- * // Centered text
- * <Text align="center">Centered content</Text>
- * ```
- *
- * @component
+ * Enhanced Text component combining bg1's typography system with current architecture
+ * Uses Lexend font family with proper weights, supports monospace variant
+ * Maintains backward compatibility while providing improved semantic variants
  */
 export const Text = ({
 	children,

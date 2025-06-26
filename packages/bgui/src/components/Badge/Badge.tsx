@@ -5,38 +5,6 @@ import { getBackgroundColor, styles } from "./styles";
 import type { BadgeProps } from "./types";
 import { getAriaLabel } from "./utils";
 
-/**
- * Badge component for displaying counts, statuses, or notification indicators.
- * Supports different variants and colors with proper accessibility.
- *
- * @example
- * ```tsx
- * // Count badge
- * <Badge count={5} />
- *
- * // Text badge
- * <Badge text="NEW" color="success" />
- *
- * // Dot indicator
- * <Badge dot color="danger" />
- *
- * // Status badge
- * <Badge text="Active" variant="status" color="success" />
- *
- * // Notification badge
- * <Badge count={99} variant="notification" color="danger" />
- *
- * // Custom styled badge
- * <Badge
- *   text="Premium"
- *   color="warning"
- *   style={{ marginLeft: 8 }}
- * />
- * ```
- *
- * @component
- */
-
 export const Badge = ({
 	count,
 	text,
