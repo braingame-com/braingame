@@ -1,4 +1,3 @@
-import { vi } from "vitest";
 import { fireEvent, render } from "../../test-utils";
 import { Alert } from "./Alert";
 
@@ -10,7 +9,7 @@ describe("Alert", () => {
 	});
 
 	it("calls onDismiss when dismiss button pressed", () => {
-		const onDismiss = vi.fn();
+		const onDismiss = jest.fn();
 		const { getByLabelText } = render(<Alert message="bye" dismissible onDismiss={onDismiss} />);
 		fireEvent.press(getByLabelText("Dismiss"));
 		expect(onDismiss).toHaveBeenCalled();

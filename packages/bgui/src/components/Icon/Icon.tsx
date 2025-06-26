@@ -1,46 +1,31 @@
-import { Platform } from "react-native";
+import { useThemeColor } from "@braingame/utils";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { sizeMap } from "./styles";
 import type { IconProps } from "./types";
 
-// Platform-specific imports and implementations
-let IconImplementation: React.ComponentType<IconProps>;
+export function Icon({
+	name,
+	variant: _variant = "regular",
+	size = "md",
+	color,
+	decorative = false,
+	"aria-label": ariaLabel,
+	style,
+}: IconProps) {
+	const iconSize = typeof size === "number" ? size : sizeMap[size];
+	const iconColor = useThemeColor(color ?? "icon");
+	// FontAwesome6 handles variants internally via the 'name' prop
+	// No need to set fontFamily manually
 
-if (Platform.OS === "web") {
-	const WebIcon = require("./Icon.web").Icon;
-	IconImplementation = WebIcon;
-} else {
-	const NativeIcon = require("./Icon.native").Icon;
-	IconImplementation = NativeIcon;
-}
-
-/**
- * Icon component using FontAwesome 6 icons.
- * Supports different variants, sizes, and theme colors.
- *
- * @example
- * ```tsx
- * // Basic icon
- * <Icon name="home" />
- *
- * // With size and color
- * <Icon name="star" size="lg" color="primary" />
- *
- * // Custom size in pixels
- * <Icon name="heart" size={32} color="danger" />
- *
- * // Decorative icon (hidden from screen readers)
- * <Icon name="chevron-right" decorative />
- *
- * // Icon with accessibility label
- * <Icon name="trash" aria-label="Delete item" />
- *
- * // Brand icon
- * <Icon name="github" variant="brand" />
- * ```
- *
- * @see https://fontawesome.com/icons for available icon names
- * @component
- */
-export function Icon(props: IconProps) {
-	const Component = IconImplementation as React.FC<IconProps>;
-	return <Component {...props} />;
+	return (
+		<FontAwesome6
+			name={name}
+			size={iconSize}
+			color={iconColor}
+			accessibilityElementsHidden={decorative}
+			accessibilityRole="image"
+			accessibilityLabel={decorative ? undefined : ariaLabel}
+			style={style}
+		/>
+	);
 }

@@ -1,141 +1,248 @@
-# API Service
+# Brain Game API
 
-REST API for Brain Game, handling authentication, user data, and business logic.
+The REST API service for Brain Game, providing backend functionality for the universal client and web applications.
 
-## Stack
-- Express.js + TypeScript
-- PostgreSQL + Prisma
-- JWT authentication
-- Docker containerization
+## Overview
 
-## Quick Start
+This API serves as the backend for Brain Game applications, handling:
+- User authentication and session management
+- Analytics data collection and retrieval
+- Application configuration
+- Future expansion for additional features
+
+**Base URL**: `https://api.braingame.dev`
+
+## Architecture
+
+Built with:
+- **Express.js** - Web framework
+- **TypeScript** - Type safety and better developer experience
+- **Helmet** - Security headers
+- **CORS** - Cross-origin resource sharing
+- **Zod** - Runtime type validation
+- **Morgan** - HTTP request logging
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm 9+
+
+### Installation
+
+From the monorepo root:
 
 ```bash
-cd apps/api
-npm install
-npm run dev
+# Install all dependencies
+pnpm install
+
+# Start the API in development mode
+pnpm dev --filter api
+
+# Or start all apps
+pnpm dev
 ```
 
-Server runs at http://localhost:3001
+### Environment Variables
 
-## Environment Variables
+Copy `.env.example` to `.env` and configure:
 
-```env
-DATABASE_URL=postgresql://user:pass@localhost:5432/braingame
-JWT_SECRET=your-secret-key
+```bash
+# Node environment
 NODE_ENV=development
-PORT=3001
-```
 
-## Database
+# Server configuration
+PORT=8080
 
-```bash
-# Setup
-npm run db:push
+# CORS configuration (comma-separated list)
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8081
 
-# Migrations
-npm run db:migrate
+# API Security
+API_KEY=your-api-key-here
 
-# Studio
-npm run db:studio
+# Logging
+LOG_LEVEL=info
 ```
 
 ## API Endpoints
 
-### Authentication
-```
-POST   /auth/register    Create account
-POST   /auth/login       Login
-POST   /auth/refresh     Refresh token
-POST   /auth/logout      Logout
+### Health Check
+
+```bash
+GET /api/health
 ```
 
-### Users
-```
-GET    /users/me         Current user
-PATCH  /users/me         Update profile
-DELETE /users/me         Delete account
+Returns the health status of the API:
+
+```json
+{
+  "status": "healthy",
+  "timestamp": "2024-01-22T12:00:00.000Z",
+  "environment": "development",
+  "version": "1.0.0",
+  "uptime": 123.456
+}
 ```
 
-### Tokens
+### Readiness Check
+
+```bash
+GET /api/ready
 ```
-GET    /tokens/balance    Current balance
-POST   /tokens/purchase   Buy tokens
-GET    /tokens/history    Transaction history
+
+Returns whether the API is ready to accept requests:
+
+```json
+{
+  "ready": true
+}
 ```
+
+### Root Endpoint
+
+```bash
+GET /api/
+```
+
+Returns API information and available endpoints:
+
+```json
+{
+  "message": "Brain Game API",
+  "version": "v1",
+  "endpoints": {
+    "health": "/api/health",
+    "ready": "/api/ready"
+  },
+  "documentation": "https://api.braingame.dev/docs"
+}
+```
+
+### Placeholder Endpoints (Coming Soon)
+
+- `GET /api/v1/users` - User management
+- `GET /api/v1/sessions` - Session tracking
+- `GET /api/v1/analytics` - Analytics data
 
 ## Development
 
-### Project Structure
+### Running Tests
+
+```bash
+# Run tests
+pnpm test --filter api
+
+# Run tests in watch mode
+pnpm test:watch --filter api
+
+# Run tests with coverage
+pnpm test:coverage --filter api
+```
+
+### Linting and Type Checking
+
+```bash
+# Lint code
+pnpm lint --filter api
+
+# Fix lint issues
+pnpm lint:fix --filter api
+
+# Type check
+pnpm typecheck --filter api
+```
+
+### Building
+
+```bash
+# Build for production
+pnpm build --filter api
+
+# Start production server
+pnpm start --filter api
+```
+
+## Project Structure
+
 ```
 apps/api/
 ├── src/
-│   ├── controllers/     Request handlers
-│   ├── services/        Business logic
-│   ├── middleware/      Auth, validation
-│   ├── routes/          API routes
-│   └── utils/           Helpers
-├── prisma/              Database schema
-└── tests/               Test suites
+│   ├── config/          # Configuration management
+│   ├── middleware/      # Express middleware
+│   │   ├── cors.ts     # CORS configuration
+│   │   ├── error.ts    # Error handling
+│   │   └── logger.ts   # Request logging
+│   ├── routes/          # API routes
+│   │   ├── health.ts   # Health check endpoints
+│   │   └── index.ts    # Route aggregation
+│   ├── types/           # TypeScript type definitions
+│   └── index.ts         # Application entry point
+├── .env.example         # Environment variables template
+├── package.json         # Package configuration
+├── tsconfig.json        # TypeScript configuration
+└── README.md           # This file
 ```
 
-### Testing
+## Error Handling
 
-```bash
-npm test              # Unit tests
-npm run test:e2e      # Integration tests
-npm run test:coverage # Coverage report
-```
+The API uses a centralized error handling middleware that returns consistent error responses:
 
-### Error Handling
-
-We use standardized error responses:
 ```json
 {
   "error": {
-    "code": "AUTH_INVALID_TOKEN",
-    "message": "Invalid authentication token"
+    "message": "Error description",
+    "timestamp": "2024-01-22T12:00:00.000Z",
+    "path": "/api/endpoint",
+    "method": "GET"
   }
 }
 ```
 
-## Deployment
-
-### Production Build
-```bash
-npm run build
-npm start
-```
-
-### Docker
-```bash
-docker build -t braingame-api .
-docker run -p 3001:3001 braingame-api
-```
-
-### Health Check
-```
-GET /health → {"status": "ok", "timestamp": "..."}
-```
+In development mode, additional error details are included for debugging.
 
 ## Security
 
-- Rate limiting: 100 req/min per IP
-- CORS configured for known origins
-- Input validation with Zod
-- SQL injection prevention via Prisma
-- JWT tokens expire in 7 days
+- **Helmet** for security headers
+- **CORS** configured for allowed origins only
+- **Rate limiting** (planned)
+- **API key authentication** (planned)
+- Environment-based configuration
 
-## Monitoring
+## Deployment
 
-- Request logging with Winston
-- Error tracking with Sentry
-- Performance monitoring with New Relic
-- Database query analysis
+The API is deployed to Firebase Functions via the monorepo CI/CD pipeline:
+
+1. Push to `main` branch
+2. GitHub Actions builds and tests
+3. Deploys to Firebase Functions
+4. Available at `https://api.braingame.dev`
+
+### Manual Deployment
+
+```bash
+# Build the API
+pnpm build --filter api
+
+# Deploy to Firebase
+firebase deploy --only functions:api
+```
 
 ## Future Enhancements
 
-1. WebSocket support for real-time features
-2. GraphQL API layer
-3. Redis caching layer
-4. Horizontal scaling with load balancer
+- [ ] Database integration (Firestore)
+- [ ] Authentication middleware
+- [ ] Rate limiting
+- [ ] API versioning strategy
+- [ ] OpenAPI/Swagger documentation
+- [ ] Webhook support
+- [ ] GraphQL endpoint
+- [ ] WebSocket support for real-time features
+
+## Contributing
+
+See the main [DEVELOPMENT.md](../../docs/DEVELOPMENT.md) for contribution guidelines.
+
+## License
+
+Part of the Brain Game monorepo. See root LICENSE file.

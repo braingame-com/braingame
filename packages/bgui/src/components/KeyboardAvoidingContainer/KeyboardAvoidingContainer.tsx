@@ -9,8 +9,6 @@ import { KeyboardAvoidingView, Platform, type ViewProps } from "react-native";
 export interface KeyboardAvoidingContainerProps extends ViewProps {
 	children: React.ReactNode;
 	behavior?: "height" | "position" | "padding";
-	keyboardVerticalOffset?: number;
-	enabled?: boolean;
 }
 
 /**
@@ -30,16 +28,12 @@ export function KeyboardAvoidingContainer({
 	children,
 	behavior,
 	style,
-	keyboardVerticalOffset,
-	enabled,
 	...props
 }: KeyboardAvoidingContainerProps) {
 	return (
 		<KeyboardAvoidingView
 			behavior={behavior || (Platform.OS === "ios" ? "padding" : "height")}
 			style={[{ flex: 1 }, style]}
-			keyboardVerticalOffset={keyboardVerticalOffset}
-			enabled={enabled}
 			{...props}
 		>
 			{children}

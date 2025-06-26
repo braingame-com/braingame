@@ -1,9 +1,8 @@
 import { Tokens } from "@braingame/utils";
 import { fireEvent, render } from "@testing-library/react-native";
-import { vi } from "vitest";
 import { View } from "./View";
 
-vi.mock("../../utils/hooks/useThemeColor", () => ({
+jest.mock("../../utils/hooks/useThemeColor", () => ({
 	useThemeColor: jest.fn(() => "theme-color"),
 }));
 

@@ -1,99 +1,115 @@
-# Theme Colors Migration
+# Theme Colors Migration Guide
 
-Converting hardcoded colors to ThemeColors constants.
+This guide helps migrate hardcoded color values to use the new `ThemeColors` constants.
 
 ## Import Statement
 
-Add to all files using colors:
 ```typescript
-import { ThemeColors } from '@braingame/bgui';
+import { ThemeColors } from '@/packages/utils/constants';
 ```
 
-## Color Mapping
+## Color Mapping Reference
 
-| Hex Code | ThemeColors Constant |
-|----------|---------------------|
-| `#007AFF` | `ThemeColors.primary` |
-| `#34C759` | `ThemeColors.success` |
-| `#FF3B30` | `ThemeColors.error` |
-| `#FF9500` | `ThemeColors.warning` |
-| `#000000` | `ThemeColors.textPrimary` |
-| `#6B7280` | `ThemeColors.textSecondary` |
-| `#F3F4F6` | `ThemeColors.backgroundSecondary` |
-| `#FFFFFF` | `ThemeColors.backgroundPrimary` |
+### Primary Colors
+- `#007fff` → `ThemeColors.brand.primary`
+- `#4da3ff` → `ThemeColors.brand.primaryLight`
+- `#0059b3` → `ThemeColors.brand.primaryDark`
+
+### Neutral Colors
+- `#fff` or `#ffffff` → `ThemeColors.neutral.white`
+- `#000` or `#000000` → `ThemeColors.neutral.black`
+- `#f5f5f5` → `ThemeColors.neutral.gray100`
+- `#e1e1e1` → `ThemeColors.neutral.gray300`
+- `#666` → `ThemeColors.neutral.gray600`
+- `#101020` → `ThemeColors.neutral.darkGray950`
+- `#202030` → `ThemeColors.neutral.darkGray400`
+- `#505060` → `ThemeColors.neutral.darkGray50`
+
+### Semantic Colors
+- `#00a550` → `ThemeColors.semantic.successDark`
+- `#ff3b30` → `ThemeColors.semantic.errorDark`
+- `#28a745` → `ThemeColors.semantic.success`
+
+### Accent Colors
+- `#7712fa` → `ThemeColors.accent.purpleDark`
+- `#7c3aed` → `ThemeColors.accent.purple`
+- `#ff6d00` → `ThemeColors.accent.orange`
+
+### Text Colors
+- `#1a1a1a` → `ThemeColors.text.lightPrimary`
+- `#666` → `ThemeColors.text.lightTertiary`
+- `#aaa` → `ThemeColors.text.lightDisabled`
+
+### Effect Colors
+- `rgba(255, 255, 255, 0.05)` → `ThemeColors.effect.overlayLight`
+- `rgba(255, 0, 0, 0.1)` → `ThemeColors.effect.errorOverlay`
 
 ## Migration Examples
 
-### Before
+### Before:
 ```typescript
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#007AFF'
+    backgroundColor: '#007fff',
+    borderColor: '#e1e1e1',
   },
   text: {
-    color: '#000000'
+    color: '#666',
   }
 });
 ```
 
-### After
+### After:
 ```typescript
-import { ThemeColors } from '@braingame/bgui';
+import { ThemeColors } from '@/packages/utils/constants';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ThemeColors.backgroundPrimary,
-    borderColor: ThemeColors.primary
+    backgroundColor: ThemeColors.brand.primary,
+    borderColor: ThemeColors.neutral.gray300,
   },
   text: {
-    color: ThemeColors.textPrimary
+    color: ThemeColors.text.lightTertiary,
   }
 });
 ```
 
-## Custom Opacity
+## Using the `withOpacity` Helper
 
-Use `withOpacity` helper for transparency:
+For colors that need custom opacity:
+
 ```typescript
-import { ThemeColors, withOpacity } from '@braingame/bgui';
+import { ThemeColors, withOpacity } from '@/packages/utils/constants';
 
-const styles = StyleSheet.create({
-  overlay: {
-    backgroundColor: withOpacity(ThemeColors.primary, 0.1)
-  }
-});
+// Before: rgba(59, 115, 245, 0.4)
+// After:
+const fadedPrimary = withOpacity(ThemeColors.brand.primary, 0.4);
 ```
 
-## Files to Update
+## Files to Update (Priority Order)
 
-### Priority Order
-1. **Component files** in `packages/bgui/src/components/`
-2. **Screen styles** in `apps/product/src/screens/`
-3. **Navigation styles** in navigation config
-4. **Modal styles** in modal components
+1. **High Priority - Component Files with Inline Styles**
+   - `/apps/product/src/screens/Mindset/components/Images.tsx`
+   - `/apps/product/src/components/ErrorBoundary/ErrorBoundary.tsx`
 
-### Search & Replace
-```bash
-# Find hardcoded colors
-grep -r "#[0-9A-Fa-f]{6}" src/
+2. **Screen Style Files**
+   - `/apps/product/src/screens/Mindset/styles.ts`
+   - `/apps/product/src/screens/Auth/styles.ts`
+   - `/apps/product/src/screens/Dashboard/styles.ts`
 
-# Find specific color
-grep -r "#007AFF" src/
-```
+3. **Navigation Components**
+   - `/apps/product/src/navigation/TabNavigator.tsx`
+   - `/apps/product/src/navigation/NavigationContainer.tsx`
+   - `/apps/product/src/navigation/AuthNavigator.tsx`
+
+4. **Modal Components**
+   - `/apps/product/src/screens/Modals/PaymentModal.tsx`
+   - `/apps/product/src/screens/Modals/OnboardingModal.tsx`
+   - `/apps/product/src/screens/Modals/NotificationSettingsModal.tsx`
 
 ## Testing After Migration
 
-1. **Visual regression**: Compare before/after screenshots
-2. **Dark mode compatibility**: Verify theme switching works
-3. **Build verification**: Ensure no import errors
-4. **Component tests**: Update snapshots if needed
-
-## Completion Checklist
-
-- [ ] All hardcoded hex values replaced
-- [ ] ThemeColors import added to all files
-- [ ] Custom opacity values use `withOpacity`
-- [ ] Visual testing completed
-- [ ] Dark mode tested
-- [ ] Build successful
+1. Run type checking: `npm run typecheck`
+2. Run linting: `npm run lint`
+3. Test both light and dark themes
+4. Verify color consistency across screens

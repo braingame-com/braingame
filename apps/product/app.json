@@ -18,7 +18,6 @@
 			"bundleIdentifier": "com.braingame.app",
 			"buildNumber": "1",
 			"icon": "./assets/images/icon.png",
-			"jsEngine": "hermes",
 			"infoPlist": {
 				"NSCameraUsageDescription": "This app uses the camera for mindfulness exercises and progress tracking.",
 				"NSMicrophoneUsageDescription": "This app uses the microphone for guided meditation sessions.",
@@ -40,7 +39,6 @@
 			},
 			"package": "com.braingame.app",
 			"versionCode": 1,
-			"jsEngine": "hermes",
 			"permissions": [
 				"CAMERA",
 				"RECORD_AUDIO",
@@ -89,8 +87,8 @@
 					"backgroundColor": "#000000"
 				}
 			],
-			"expo-haptics",
 			"expo-font",
+			"expo-haptics",
 			[
 				"expo-clipboard",
 				{

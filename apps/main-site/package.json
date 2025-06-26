@@ -9,26 +9,21 @@
 		"lint": "biome check --fix --vcs-root=../.. --files-ignore-unknown=true src",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf .next",
-		"validate:env": "node scripts/validate-env.js",
-		"analyze": "ANALYZE=true npm run build"
+		"validate:env": "node scripts/validate-env.js"
 	},
 	"dependencies": {
 		"@braingame/bgui": "workspace:*",
 		"@braingame/utils": "workspace:*",
-		"@sentry/nextjs": "^9.31.0",
+		"@sentry/nextjs": "^9.30.0",
 		"firebase": "^11.9.1",
-		"next": "15.3.4",
-		"react": "19.1.0",
-		"react-dom": "19.1.0",
-		"react-native-web": "~0.20.0",
-		"react-native-svg-web": "^1.0.9"
+		"next": "15.3.3",
+		"react": "19.0.0",
+		"react-dom": "19.0.0"
 	},
 	"devDependencies": {
 		"@braingame/config": "workspace:*",
 		"@types/node": "^24",
 		"@types/react": "~19.1.8",
-		"@types/react-dom": "~19.1.6",
-		"file-loader": "^6.2.0",
-		"webpack": "^5.99.9"
+		"@types/react-dom": "~19.1.6"
 	}
 }

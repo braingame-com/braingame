@@ -6,59 +6,6 @@ import { useMountedState } from "../../hooks/useMountedState";
 import { getTooltipBackgroundColor, getTooltipTextColor, styles } from "./styles";
 import type { TooltipProps } from "./types";
 
-/**
- * Tooltip component for displaying contextual information on hover.
- * Provides accessible tooltips with customizable placement and styling.
- *
- * @example
- * ```tsx
- * // Basic tooltip
- * <Tooltip content="Click to save your changes">
- *   <Button onPress={handleSave}>Save</Button>
- * </Tooltip>
- *
- * // Tooltip with placement
- * <Tooltip
- *   content="This action cannot be undone"
- *   placement="bottom"
- * >
- *   <Icon name="trash" />
- * </Tooltip>
- *
- * // Info variant with delay
- * <Tooltip
- *   content="Premium feature - upgrade to access"
- *   variant="info"
- *   delay={1000}
- * >
- *   <Badge variant="locked">Pro</Badge>
- * </Tooltip>
- *
- * // Light variant tooltip
- * <Tooltip
- *   content="Last updated 2 hours ago"
- *   variant="light"
- *   placement="right"
- * >
- *   <Text>Status</Text>
- * </Tooltip>
- *
- * // Tooltip with custom content
- * <Tooltip
- *   content={
- *     <View>
- *       <Text>Keyboard shortcuts:</Text>
- *       <Text>Ctrl+S - Save</Text>
- *       <Text>Ctrl+Z - Undo</Text>
- *     </View>
- *   }
- * >
- *   <Icon name="help-circle" />
- * </Tooltip>
- * ```
- *
- * @component
- */
 export const Tooltip = ({
 	content,
 	children,

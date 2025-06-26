@@ -1,127 +1,187 @@
-# App Store Submission
+# App Store Submission Guide
+
+This guide outlines the steps to submit Brain Game to the Apple App Store and Google Play Store.
 
 ## Prerequisites
 
-### Apple Developer
-- [ ] Apple Developer account ($99/year)
-- [ ] App ID configured
-- [ ] Provisioning profiles created
-- [ ] App Store Connect access
-
-### Google Play
-- [ ] Google Play Console account ($25 one-time)
-- [ ] App created in console
-- [ ] Signing key generated
+1. **Apple Developer Account** ($99/year)
+2. **Google Play Developer Account** ($25 one-time)
+3. **EAS CLI** installed: `npm install -g eas-cli`
+4. **App icons and screenshots** prepared
 
 ## Build Configuration
 
+### 1. Update app.json
+- ✅ Bundle identifiers configured
+- ✅ App permissions set
+- ✅ Metadata added
+- ✅ Icons and splash screens referenced
+
+### 2. EAS Configuration
+- ✅ eas.json created with build profiles
+- ⚠️ Update with your actual credentials:
+  - Apple ID
+  - App Store Connect App ID
+  - Apple Team ID
+  - Google Service Account Key
+
+## Assets Checklist
+
+### Required Icons
+- [ ] App Icon (1024x1024) - `./assets/images/icon.png`
+- [ ] Adaptive Icon Foreground - `./assets/images/adaptive-icon.png`
+- [ ] Splash Screen - `./assets/images/splash-icon.png`
+- [ ] ~~Notification Icon - `./assets/images/notification-icon.png`~~ (file not present)
+- [ ] Favicon - `./assets/images/favicon.png`
+
+### Screenshots
+Create screenshots for each category listed in `store-info.json`:
+- [ ] iPhone (5 screenshots)
+- [ ] iPad (2 screenshots)
+- [ ] Android Phone (5 screenshots)
+- [ ] Android Tablet (2 screenshots)
+
+## Building for Stores
+
 ### iOS Build
-
 ```bash
-# Install dependencies
-cd apps/product/ios
-pod install
+# Login to EAS
+eas login
 
-# Production build
-npx react-native run-ios --configuration Release
+# Configure the project
+eas build:configure
 
-# Archive for App Store
-xcodebuild -workspace BrainGame.xcworkspace \
-  -scheme BrainGame \
-  -configuration Release \
-  -archivePath ./build/BrainGame.xcarchive \
-  archive
+# Build for iOS
+eas build --platform ios --profile production
 ```
 
 ### Android Build
-
 ```bash
-# Generate release APK
-cd apps/product/android
-./gradlew assembleRelease
-
-# Generate AAB for Play Store
-./gradlew bundleRelease
+# Build for Android
+eas build --platform android --profile production
 ```
 
-## App Store Connect Setup
+## Submission Process
 
-### 1. App Information
-- **Name**: Brain Game - Mindset Training
-- **Subtitle**: Transform Your Mindset Daily
-- **Category**: Health & Fitness
-- **Age Rating**: 4+
+### iOS App Store
 
-### 2. Version Information
-- **What's New**: Follow semantic versioning
-- **Keywords**: mindset, training, mental health, wellness
-- **Support URL**: https://braingame.app/support
-- **Privacy Policy**: https://braingame.app/privacy
+1. **Build and Download**
+   ```bash
+   eas build --platform ios --profile production
+   ```
 
-### 3. Screenshots (Required Sizes)
-- 6.7" (1290 × 2796)
-- 6.5" (1242 × 2688)
-- 5.5" (1242 × 2208)
-- iPad Pro 12.9" (2048 × 2732)
+2. **Submit to App Store Connect**
+   ```bash
+   eas submit -p ios
+   ```
 
-### 4. App Preview Video
-- 15-30 seconds
-- Show core features
-- No external hardware
+3. **In App Store Connect:**
+   - Add app information from `store-info.json`
+   - Upload screenshots
+   - Set pricing (Free/Paid)
+   - Submit for review
 
-## Google Play Console Setup
+### Google Play Store
 
-### 1. Store Listing
-- **Title**: Brain Game - Mindset Training
-- **Short Description**: Transform your mindset with daily training
-- **Category**: Health & Fitness
-- **Content Rating**: Everyone
+1. **Build and Download**
+   ```bash
+   eas build --platform android --profile production
+   ```
 
-### 2. Graphics Assets
-- **Icon**: 512 × 512 PNG
-- **Feature Graphic**: 1024 × 500
-- **Screenshots**: Min 2, max 8 per device type
+2. **Submit to Google Play**
+   ```bash
+   eas submit -p android
+   ```
 
-### 3. Release Management
-- **Testing Track**: Internal → Closed → Open beta
-- **Production**: Staged rollout (10% → 50% → 100%)
+3. **In Google Play Console:**
+   - Create app listing
+   - Add store listing details from `store-info.json`
+   - Upload screenshots
+   - Set content rating
+   - Configure pricing and distribution
 
-## Submission Checklist
+## Pre-submission Checklist
 
-### Pre-submission
-- [ ] Version numbers match (iOS/Android)
-- [ ] Remove all console.logs
-- [ ] Test on physical devices
-- [ ] Test offline functionality
-- [ ] Verify deep links work
-- [ ] Check push notifications
-- [ ] Review crash reports
+### Technical
+- [ ] All tests passing
+- [ ] No console errors/warnings
+- [ ] Performance optimized
+- [ ] Accessibility features working
+- [ ] Error boundaries in place
+- [ ] Analytics configured properly
 
-### Compliance
-- [ ] Privacy policy updated
-- [ ] Terms of service current
+### Legal
+- [ ] Privacy policy published
+- [ ] Terms of service ready
 - [ ] GDPR compliance
-- [ ] COPPA compliance
-- [ ] Export compliance (encryption)
+- [ ] COPPA compliance (if applicable)
+- [ ] Export compliance
 
-### Final Steps
-1. Submit for review
-2. Monitor review status
-3. Respond to feedback within 24h
-4. Plan phased rollout
+### Content
+- [ ] App descriptions finalized
+- [ ] Keywords optimized
+- [ ] Screenshots captured
+- [ ] App preview video (optional)
+- [ ] Release notes written
 
-## Common Rejection Reasons
+## Testing
 
-1. **Crashes on launch** - Test on all iOS versions
-2. **Placeholder content** - Remove all test data
-3. **Broken links** - Verify all URLs work
-4. **Missing features** - Ensure advertised features work
-5. **Privacy issues** - Clear data collection disclosure
+### Local Testing
+```bash
+# iOS Simulator
+npm run ios
+
+# Android Emulator
+npm run android
+```
+
+### Beta Testing
+1. **iOS TestFlight**
+   - Build with `preview` profile
+   - Upload to TestFlight
+   - Invite beta testers
+
+2. **Android Internal Testing**
+   - Build APK with `preview` profile
+   - Upload to Play Console
+   - Create internal test track
 
 ## Post-Launch
 
-1. Monitor crash reports
-2. Respond to reviews
-3. Track installation metrics
-4. Plan update schedule
-5. A/B test store listing
+1. **Monitor Reviews**
+   - Respond to user feedback
+   - Track crash reports
+   - Monitor analytics
+
+2. **Regular Updates**
+   - Bug fixes
+   - Performance improvements
+   - New features
+
+3. **Marketing**
+   - App Store Optimization (ASO)
+   - Social media presence
+   - User engagement
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Missing Provisioning Profile**
+   - Ensure you're logged into EAS
+   - Check Apple Developer account status
+
+2. **Build Failures**
+   - Check `eas build --platform ios --profile production --clear-cache`
+   - Verify all dependencies installed
+
+3. **Submission Rejected**
+   - Review rejection reasons
+   - Fix issues and resubmit
+   - Respond to review team if needed
+
+## Support
+
+- EAS Documentation: https://docs.expo.dev/eas/
+- Apple Developer: https://developer.apple.com/
+- Google Play Console: https://play.google.com/console/
