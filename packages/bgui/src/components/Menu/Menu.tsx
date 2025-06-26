@@ -22,6 +22,12 @@ interface MenuContextValue {
 
 const MenuContext = createContext<MenuContextValue | null>(null);
 
+/**
+ * Individual menu item within a Menu component.
+ * Must be used as a child of Menu.
+ *
+ * @component
+ */
 export const MenuItem = ({ children, onPress, disabled }: MenuItemProps) => {
 	const ctx = useContext(MenuContext);
 
@@ -47,6 +53,60 @@ export const MenuItem = ({ children, onPress, disabled }: MenuItemProps) => {
 	);
 };
 
+/**
+ * Menu component for displaying a list of actions or options.
+ * Supports dropdown and context menu variants with keyboard navigation.
+ *
+ * @example
+ * ```tsx
+ * // Basic dropdown menu
+ * <Menu
+ *   trigger={<Button>Options</Button>}
+ * >
+ *   <MenuItem onPress={() => console.log('Edit')}>Edit</MenuItem>
+ *   <MenuItem onPress={() => console.log('Delete')}>Delete</MenuItem>
+ *   <MenuItem disabled>Archive</MenuItem>
+ * </Menu>
+ *
+ * // Context menu (right-click)
+ * <Menu
+ *   trigger={<View>Right-click me</View>}
+ *   variant="context"
+ * >
+ *   <MenuItem onPress={handleCopy}>Copy</MenuItem>
+ *   <MenuItem onPress={handlePaste}>Paste</MenuItem>
+ *   <MenuItem onPress={handleCut}>Cut</MenuItem>
+ * </Menu>
+ *
+ * // Menu with custom placement
+ * <Menu
+ *   trigger={<Icon name="more-vertical" />}
+ *   placement="top-end"
+ *   closeOnSelect={false}
+ * >
+ *   <MenuItem>
+ *     <View>
+ *       <Text>Custom Item</Text>
+ *       <Switch value={enabled} onValueChange={setEnabled} />
+ *     </View>
+ *   </MenuItem>
+ *   <MenuItem onPress={handleSettings}>Settings</MenuItem>
+ * </Menu>
+ *
+ * // Accessible menu with label
+ * <Menu
+ *   trigger={<Button>File</Button>}
+ *   aria-label="File operations menu"
+ * >
+ *   <MenuItem onPress={handleNew}>New</MenuItem>
+ *   <MenuItem onPress={handleOpen}>Open</MenuItem>
+ *   <MenuItem onPress={handleSave}>Save</MenuItem>
+ *   <MenuItem onPress={handleSaveAs}>Save As...</MenuItem>
+ * </Menu>
+ * ```
+ *
+ * @component
+ */
 export const Menu = ({
 	trigger,
 	children,

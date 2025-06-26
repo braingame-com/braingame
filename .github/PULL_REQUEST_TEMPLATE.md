@@ -1,15 +1,11 @@
----
-name: "Pull Request"
-about: "Propose changes to the project"
----
-
 ## Summary
-Provide a short summary of your changes.
 
 ## Testing
-Explain how you tested your changes.
+- [ ] Unit tests pass
+- [ ] Manual testing completed
 
 ## Checklist
-- [ ] Lint and type checks pass
-- [ ] Tests pass
-- [ ] Documentation updated if needed
+- [ ] `npm run lint` passes
+- [ ] `npm run typecheck` passes
+- [ ] `npm test` passes
+- [ ] Documentation updated (if needed)
