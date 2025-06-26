@@ -24,6 +24,12 @@ Active task tracker for Brain Game development.
 - [ ] API documentation generation
 - [ ] Development tool enhancements
 - [ ] Legal Compliance Review (in_progress)
+- [ ] Hardware compatibility audit *(in_progress)*
+  - [ ] Document CPU/RAM usage across devices
+  - [ ] Record battery drain and thermal throttling
+  - [ ] Validate sensor and peripheral integration
+  - [ ] Verify cross-platform performance on M1/M2 Macs, Windows ARM, and Android variants
+  - [ ] Summarize device farm results
 
 ### Monitoring & Analytics
 - [ ] Error tracking with Sentry
