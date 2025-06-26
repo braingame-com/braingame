@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react-native";
+import { act, renderHook } from "@testing-library/react";
 import { vi } from "vitest";
 import { useDisclosure } from "./useDisclosure";
 

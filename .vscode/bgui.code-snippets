@@ -1,0 +1,452 @@
+{
+  // BGUI Component Snippets
+  // Usage: Type the prefix and press Tab to expand
+  
+  // Basic Components
+  "BGUI Button": {
+    "prefix": "bgui-button",
+    "body": [
+      "<Button",
+      "  onPress={$1}",
+      "  variant=\"${2|primary,secondary,success,danger,warning,info,light,dark|}\"",
+      "  size=\"${3|small,medium,large|}\"",
+      ">",
+      "  ${4:Button Text}",
+      "</Button>"
+    ],
+    "description": "BGUI Button component"
+  },
+  
+  "BGUI Text": {
+    "prefix": "bgui-text",
+    "body": [
+      "<Text variant=\"${1|body,heading,subheading,caption,overline|}\" ${2:size=\"${3|small,medium,large|}\"}>",
+      "  ${4:Your text here}",
+      "</Text>"
+    ],
+    "description": "BGUI Text component"
+  },
+  
+  "BGUI View": {
+    "prefix": "bgui-view",
+    "body": [
+      "<View style={${1:styles.container}}>",
+      "  $0",
+      "</View>"
+    ],
+    "description": "BGUI View component"
+  },
+  
+  "BGUI TextInput": {
+    "prefix": "bgui-textinput",
+    "body": [
+      "<TextInput",
+      "  value={${1:value}}",
+      "  onChangeText={${2:setValue}}",
+      "  placeholder=\"${3:Enter text...}\"",
+      "  variant=\"${4|default,error,success|}\"",
+      "/>"
+    ],
+    "description": "BGUI TextInput component"
+  },
+  
+  // Navigation Components
+  "BGUI Link": {
+    "prefix": "bgui-link",
+    "body": [
+      "<Link href=\"${1:/path}\" variant=\"${2|default,primary,secondary|}\">",
+      "  ${3:Link Text}",
+      "</Link>"
+    ],
+    "description": "BGUI Link component"
+  },
+  
+  "BGUI Breadcrumb": {
+    "prefix": "bgui-breadcrumb",
+    "body": [
+      "<Breadcrumb>",
+      "  <Breadcrumb.Item href=\"${1:/}\">Home</Breadcrumb.Item>",
+      "  <Breadcrumb.Item href=\"${2:/category}\">Category</Breadcrumb.Item>",
+      "  <Breadcrumb.Item active>Current Page</Breadcrumb.Item>",
+      "</Breadcrumb>"
+    ],
+    "description": "BGUI Breadcrumb component"
+  },
+  
+  // Form Components
+  "BGUI Checkbox": {
+    "prefix": "bgui-checkbox",
+    "body": [
+      "<Checkbox",
+      "  checked={${1:checked}}",
+      "  onChange={${2:setChecked}}",
+      "  label=\"${3:Checkbox label}\"",
+      "/>"
+    ],
+    "description": "BGUI Checkbox component"
+  },
+  
+  "BGUI Switch": {
+    "prefix": "bgui-switch",
+    "body": [
+      "<Switch",
+      "  value={${1:value}}",
+      "  onValueChange={${2:setValue}}",
+      "  trackColor={{ false: \"#767577\", true: \"#81b0ff\" }}",
+      "  thumbColor={${1:value} ? \"#f5dd4b\" : \"#f4f3f4\"}",
+      "/>"
+    ],
+    "description": "BGUI Switch component"
+  },
+  
+  "BGUI Select": {
+    "prefix": "bgui-select",
+    "body": [
+      "<Select",
+      "  value={${1:selectedValue}}",
+      "  onValueChange={${2:setSelectedValue}}",
+      "  items={[",
+      "    { label: \"${3:Option 1}\", value: \"${4:option1}\" },",
+      "    { label: \"${5:Option 2}\", value: \"${6:option2}\" }",
+      "  ]}",
+      "/>"
+    ],
+    "description": "BGUI Select component"
+  },
+  
+  "BGUI Slider": {
+    "prefix": "bgui-slider",
+    "body": [
+      "<Slider",
+      "  value={${1:value}}",
+      "  onValueChange={${2:setValue}}",
+      "  minimumValue={${3:0}}",
+      "  maximumValue={${4:100}}",
+      "  step={${5:1}}",
+      "/>"
+    ],
+    "description": "BGUI Slider component"
+  },
+  
+  "BGUI RadioGroup": {
+    "prefix": "bgui-radiogroup",
+    "body": [
+      "<RadioGroup",
+      "  value={${1:selectedValue}}",
+      "  onValueChange={${2:setSelectedValue}}",
+      ">",
+      "  <RadioGroup.Item value=\"${3:option1}\" label=\"${4:Option 1}\" />",
+      "  <RadioGroup.Item value=\"${5:option2}\" label=\"${6:Option 2}\" />",
+      "</RadioGroup>"
+    ],
+    "description": "BGUI RadioGroup component"
+  },
+  
+  // Layout Components
+  "BGUI Card": {
+    "prefix": "bgui-card",
+    "body": [
+      "<Card ${1:elevated}>",
+      "  <Card.Header>",
+      "    <Text variant=\"heading\">${2:Card Title}</Text>",
+      "  </Card.Header>",
+      "  <Card.Body>",
+      "    ${3:Card content}",
+      "  </Card.Body>",
+      "  <Card.Footer>",
+      "    ${4:Footer content}",
+      "  </Card.Footer>",
+      "</Card>"
+    ],
+    "description": "BGUI Card component"
+  },
+  
+  "BGUI Modal": {
+    "prefix": "bgui-modal",
+    "body": [
+      "<Modal",
+      "  visible={${1:visible}}",
+      "  onClose={() => ${2:setVisible(false)}}",
+      "  title=\"${3:Modal Title}\"",
+      ">",
+      "  ${4:Modal content}",
+      "</Modal>"
+    ],
+    "description": "BGUI Modal component"
+  },
+  
+  "BGUI Accordion": {
+    "prefix": "bgui-accordion",
+    "body": [
+      "<Accordion>",
+      "  <Accordion.Item id=\"${1:item1}\">",
+      "    <Accordion.Header>${2:Section 1}</Accordion.Header>",
+      "    <Accordion.Content>",
+      "      ${3:Content 1}",
+      "    </Accordion.Content>",
+      "  </Accordion.Item>",
+      "  <Accordion.Item id=\"${4:item2}\">",
+      "    <Accordion.Header>${5:Section 2}</Accordion.Header>",
+      "    <Accordion.Content>",
+      "      ${6:Content 2}",
+      "    </Accordion.Content>",
+      "  </Accordion.Item>",
+      "</Accordion>"
+    ],
+    "description": "BGUI Accordion component"
+  },
+  
+  "BGUI Tabs": {
+    "prefix": "bgui-tabs",
+    "body": [
+      "<Tabs defaultValue=\"${1:tab1}\">",
+      "  <Tabs.List>",
+      "    <Tabs.Tab value=\"${1:tab1}\">${2:Tab 1}</Tabs.Tab>",
+      "    <Tabs.Tab value=\"${3:tab2}\">${4:Tab 2}</Tabs.Tab>",
+      "  </Tabs.List>",
+      "  <Tabs.Panel value=\"${1:tab1}\">",
+      "    ${5:Tab 1 content}",
+      "  </Tabs.Panel>",
+      "  <Tabs.Panel value=\"${3:tab2}\">",
+      "    ${6:Tab 2 content}",
+      "  </Tabs.Panel>",
+      "</Tabs>"
+    ],
+    "description": "BGUI Tabs component"
+  },
+  
+  "BGUI Divider": {
+    "prefix": "bgui-divider",
+    "body": [
+      "<Divider ${1:orientation=\"${2|horizontal,vertical|}\"} />"
+    ],
+    "description": "BGUI Divider component"
+  },
+  
+  // Feedback Components
+  "BGUI Alert": {
+    "prefix": "bgui-alert",
+    "body": [
+      "<Alert variant=\"${1|info,success,warning,error|}\" ${2:dismissible}>",
+      "  ${3:Alert message}",
+      "</Alert>"
+    ],
+    "description": "BGUI Alert component"
+  },
+  
+  "BGUI Toast": {
+    "prefix": "bgui-toast",
+    "body": [
+      "Toast.show({",
+      "  message: \"${1:Toast message}\",",
+      "  type: \"${2|success,error,info,warning|}\",",
+      "  duration: ${3:3000}",
+      "})"
+    ],
+    "description": "BGUI Toast notification"
+  },
+  
+  "BGUI Badge": {
+    "prefix": "bgui-badge",
+    "body": [
+      "<Badge variant=\"${1|default,primary,success,danger,warning,info|}\">${2:Badge text}</Badge>"
+    ],
+    "description": "BGUI Badge component"
+  },
+  
+  "BGUI ProgressBar": {
+    "prefix": "bgui-progressbar",
+    "body": [
+      "<ProgressBar",
+      "  progress={${1:0.5}}",
+      "  variant=\"${2|default,primary,success,danger|}\"",
+      "  ${3:showLabel}",
+      "/>"
+    ],
+    "description": "BGUI ProgressBar component"
+  },
+  
+  "BGUI Spinner": {
+    "prefix": "bgui-spinner",
+    "body": [
+      "<Spinner",
+      "  size=\"${1|small,medium,large|}\"",
+      "  color=\"${2:#0000ff}\"",
+      "/>"
+    ],
+    "description": "BGUI Spinner component"
+  },
+  
+  // Media Components
+  "BGUI Image": {
+    "prefix": "bgui-image",
+    "body": [
+      "<Image",
+      "  source={{ uri: \"${1:https://example.com/image.jpg}\" }}",
+      "  style={{ width: ${2:200}, height: ${3:200} }}",
+      "  resizeMode=\"${4|cover,contain,stretch,center|}\"",
+      "/>"
+    ],
+    "description": "BGUI Image component"
+  },
+  
+  "BGUI Avatar": {
+    "prefix": "bgui-avatar",
+    "body": [
+      "<Avatar",
+      "  source={{ uri: \"${1:https://example.com/avatar.jpg}\" }}",
+      "  size=\"${2|small,medium,large|}\"",
+      "  ${3:fallback=\"${4:JD}\"}",
+      "/>"
+    ],
+    "description": "BGUI Avatar component"
+  },
+  
+  "BGUI Icon": {
+    "prefix": "bgui-icon",
+    "body": [
+      "<Icon",
+      "  name=\"${1:home}\"",
+      "  size={${2:24}}",
+      "  color=\"${3:#000000}\"",
+      "/>"
+    ],
+    "description": "BGUI Icon component"
+  },
+  
+  // Interactive Components
+  "BGUI Menu": {
+    "prefix": "bgui-menu",
+    "body": [
+      "<Menu>",
+      "  <Menu.Trigger>",
+      "    <Button>Open Menu</Button>",
+      "  </Menu.Trigger>",
+      "  <Menu.Content>",
+      "    <Menu.Item onPress={() => ${1:handleAction1()}}>",
+      "      ${2:Action 1}",
+      "    </Menu.Item>",
+      "    <Menu.Item onPress={() => ${3:handleAction2()}}>",
+      "      ${4:Action 2}",
+      "    </Menu.Item>",
+      "  </Menu.Content>",
+      "</Menu>"
+    ],
+    "description": "BGUI Menu component"
+  },
+  
+  "BGUI Tooltip": {
+    "prefix": "bgui-tooltip",
+    "body": [
+      "<Tooltip content=\"${1:Tooltip text}\">",
+      "  ${2:<Button>Hover me</Button>}",
+      "</Tooltip>"
+    ],
+    "description": "BGUI Tooltip component"
+  },
+  
+  "BGUI ActionList": {
+    "prefix": "bgui-actionlist",
+    "body": [
+      "<ActionList>",
+      "  <ActionList.Item onPress={() => ${1:handleAction1()}}>",
+      "    ${2:Action 1}",
+      "  </ActionList.Item>",
+      "  <ActionList.Item onPress={() => ${3:handleAction2()}}>",
+      "    ${4:Action 2}",
+      "  </ActionList.Item>",
+      "</ActionList>"
+    ],
+    "description": "BGUI ActionList component"
+  },
+  
+  // Special Components
+  "BGUI LoadingButton": {
+    "prefix": "bgui-loadingbutton",
+    "body": [
+      "<LoadingButton",
+      "  onPress={${1:handlePress}}",
+      "  loading={${2:isLoading}}",
+      "  variant=\"${3|primary,secondary,success,danger|}\"",
+      ">",
+      "  ${4:Submit}",
+      "</LoadingButton>"
+    ],
+    "description": "BGUI LoadingButton component"
+  },
+  
+  "BGUI KeyboardAvoidingContainer": {
+    "prefix": "bgui-keyboardavoiding",
+    "body": [
+      "<KeyboardAvoidingContainer>",
+      "  ${1:// Your content here}",
+      "</KeyboardAvoidingContainer>"
+    ],
+    "description": "BGUI KeyboardAvoidingContainer component"
+  },
+  
+  "BGUI ErrorBoundary": {
+    "prefix": "bgui-errorboundary",
+    "body": [
+      "<ErrorBoundary",
+      "  fallback={(error, reset) => (",
+      "    <View>",
+      "      <Text>Something went wrong</Text>",
+      "      <Button onPress={reset}>Try again</Button>",
+      "    </View>",
+      "  )}",
+      ">",
+      "  ${1:// Your components}",
+      "</ErrorBoundary>"
+    ],
+    "description": "BGUI ErrorBoundary component"
+  },
+  
+  "BGUI GlowingLogo": {
+    "prefix": "bgui-glowinglogo",
+    "body": [
+      "<GlowingLogo",
+      "  size={${1|\"small\",\"medium\",\"large\"|}}",
+      "  ${2:animated}",
+      "/>"
+    ],
+    "description": "BGUI GlowingLogo component"
+  },
+  
+  // Import Snippets
+  "Import BGUI Components": {
+    "prefix": "bgui-import",
+    "body": [
+      "import { ${1:Button, Text, View} } from \"@braingame/bgui\";"
+    ],
+    "description": "Import BGUI components"
+  },
+  
+  "Import All BGUI": {
+    "prefix": "bgui-import-all",
+    "body": [
+      "import {",
+      "  Button,",
+      "  Text,",
+      "  View,",
+      "  TextInput,",
+      "  Card,",
+      "  Modal,",
+      "  Alert,",
+      "  Badge,",
+      "  Icon,",
+      "  Image,",
+      "  Spinner,",
+      "  Switch,",
+      "  Select,",
+      "  Checkbox,",
+      "  RadioGroup,",
+      "  Tabs,",
+      "  Accordion,",
+      "  Menu,",
+      "  Toast",
+      "} from \"@braingame/bgui\";"
+    ],
+    "description": "Import all common BGUI components"
+  }
+}
