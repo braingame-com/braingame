@@ -7,11 +7,17 @@
 
 ### 🚨 Critical Priority
 
-- [ ] Production Deployment Preparation
+- [ ] Production Deployment Preparation (in_progress 24-06-2025)
   - [ ] Production Firebase configuration
   - [ ] App Store Connect setup
   - [ ] Google Play Console setup
   - [ ] SSL certificates and domain configuration
+
+### Integration Testing
+- [ ] E2E test suite completion
+- [ ] Cross-platform testing
+- [ ] API integration tests
+- [ ] User flow validation
 
 - [ ] Setup Integration Tests
   - [ ] E2E tests with Playwright (Web)
