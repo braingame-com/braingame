@@ -6,7 +6,10 @@ import { z } from "zod";
 const BaseEnvSchema = z.object({
 	NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 	APP_NAME: z.string().min(1, "App name is required"),
-	APP_VERSION: z.string().regex(/^\d+\.\d+\.\d+$/, "Version must be in semver format (x.y.z)"),
+	APP_VERSION: z
+		.string()
+		.regex(/^\d+\.\d+\.\d+$/, "Version must be in semver format (x.y.z)")
+		.optional(),
 });
 
 /**
@@ -100,7 +103,10 @@ export const ProductAppEnvSchema = BaseEnvSchema.merge(ApiConfigSchema)
 export const WebsiteEnvSchema = z.object({
 	// Next.js requires NEXT_PUBLIC_ prefix for client-side variables
 	NEXT_PUBLIC_APP_NAME: z.string().min(1, "App name is required"),
-	NEXT_PUBLIC_APP_VERSION: z.string().regex(/^\d+\.\d+\.\d+$/, "Version must be in semver format"),
+	NEXT_PUBLIC_APP_VERSION: z
+		.string()
+		.regex(/^\d+\.\d+\.\d+$/, "Version must be in semver format")
+		.optional(),
 	NEXT_PUBLIC_API_BASE_URL: z.string().url("API base URL must be a valid URL"),
 	NEXT_PUBLIC_API_TIMEOUT: z.coerce.number().min(1000).max(60000).default(30000),
 	NEXT_PUBLIC_ANALYTICS_KEY: z.string().optional(),

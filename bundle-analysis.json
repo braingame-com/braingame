@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-06-24T10:24:41.652Z",
+  "summary": {
+    "totalApps": 4,
+    "successfulBuilds": 0,
+    "failedBuilds": 4
+  },
+  "apps": [
+    {
+      "name": "api",
+      "framework": "node",
+      "dependencies": 7,
+      "devDependencies": 6,
+      "buildOutput": null,
+      "buildSuccess": false,
+      "buildError": "Command failed: npm run build"
+    },
+    {
+      "name": "docs-site",
+      "framework": "next",
+      "dependencies": 5,
+      "devDependencies": 4,
+      "buildOutput": null,
+      "buildSuccess": false,
+      "buildError": "Command failed: npm run build\nunhandledRejection [Error: Incompatible React versions: The \"react\" and \"react-dom\" packages must have the exact same version. Instead got:\n  - react:      19.1.0\n  - react-dom:  19.0.0\nLearn more: https://react.dev/warnings/version-mismatch] {"
+    },
+    {
+      "name": "main-site",
+      "framework": "next",
+      "dependencies": 7,
+      "devDependencies": 4,
+      "buildOutput": null,
+      "buildSuccess": false,
+      "buildError": "Command failed: npm run build\nFailed to compile.\n\n./src/lib/emailService.ts\nModule not found: Can't resolve 'firebase/firestore'"
+    },
+    {
+      "name": "product",
+      "framework": "expo",
+      "dependencies": 38,
+      "devDependencies": 11,
+      "buildOutput": null,
+      "buildSuccess": false,
+      "buildError": "Command failed: npm run build\nPluginError: Failed to resolve plugin for module \"expo-router\" relative to \"/Users/jordancrow-stewart/Desktop/code/braingame/apps/product\". Do you have node modules installed?\nPluginError: Failed to resolve plugin for module \"expo-router\" relative to \"/Users/jordancrow-stewart/Desktop/code/braingame/apps/product\". Do you have node modules installed?\n    at resolvePluginForModule (/Users/jordancrow-stewart/Desktop/code/braingame/node_modules/@expo/config-plugins/src/utils/plugin-resolver.ts:52:9)\n    at resolveConfigPluginFunctionWithInfo (/Users/jordancrow-stewart/Desktop/code/braingame/node_modules/@expo/config-plugins/src/utils/plugin-resolver.ts:110:50)"
+    }
+  ]
+}

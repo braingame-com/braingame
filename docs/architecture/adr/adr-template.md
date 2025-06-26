@@ -1,67 +1,39 @@
-# [ADR-XXXX] Title of Decision
+# ADR-XXX: [Title]
 
-Date: YYYY-MM-DD
-
-## Status
-
-[Proposed | Accepted | Deprecated | Superseded by ADR-XXXX]
+**Date**: YYYY-MM-DD  
+**Status**: Proposed
 
 ## Context
 
-Describe the context and problem statement. What is the issue that we're seeing that is motivating this decision or change?
-
-Include:
-- Current situation
-- Problems with current approach
-- Requirements and constraints
-- External factors
+[What problem are we solving? Why now?]
 
 ## Decision
 
-Describe the proposed solution. What is the change that we're proposing and/or doing?
-
-Include:
-- Clear statement of the decision
-- Technical details
-- Implementation approach
+[What are we doing? Include technical details.]
 
 ## Consequences
 
-What becomes easier or more difficult to do because of this change?
+### Positive
+- [Benefits and improvements]
 
-### Positive Consequences
-- List benefits
-- Improvements
-- New capabilities
+### Negative
+- [Trade-offs and costs]
 
-### Negative Consequences
-- Trade-offs
-- Technical debt
-- Limitations
-
-### Neutral Consequences
-- Changes that are neither good nor bad
-- Different but equivalent
+### Neutral
+- [Side effects and observations]
 
 ## Alternatives Considered
 
-What other options were considered? Why were they not chosen?
-
 ### Option 1: [Name]
-- Description
-- Pros
-- Cons
-- Why not chosen
+- **Pros**: [Benefits]
+- **Cons**: [Drawbacks]
+- **Reason rejected**: [Why not chosen]
 
 ### Option 2: [Name]
-- Description
-- Pros
-- Cons
-- Why not chosen
+- **Pros**: [Benefits]
+- **Cons**: [Drawbacks]
+- **Reason rejected**: [Why not chosen]
 
 ## References
-
-- Links to relevant documentation
-- Related ADRs
-- External resources
-- Discussion threads
+- [Relevant documentation]
+- [Related ADRs]

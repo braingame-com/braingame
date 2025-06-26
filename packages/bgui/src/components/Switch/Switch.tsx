@@ -3,6 +3,43 @@ import { Pressable, View } from "react-native";
 import { getSwitchDimensions, styles } from "./styles";
 import type { SwitchProps } from "./types";
 
+/**
+ * Switch component for binary on/off selections.
+ * Accessible toggle with smooth animations.
+ *
+ * @example
+ * ```tsx
+ * // Basic switch
+ * <Switch
+ *   checked={isEnabled}
+ *   onValueChange={setIsEnabled}
+ * />
+ *
+ * // Compact variant
+ * <Switch
+ *   checked={notifications}
+ *   onValueChange={setNotifications}
+ *   variant="compact"
+ * />
+ *
+ * // Disabled switch
+ * <Switch
+ *   checked={false}
+ *   onValueChange={() => {}}
+ *   disabled
+ * />
+ *
+ * // With accessibility label
+ * <Switch
+ *   checked={darkMode}
+ *   onValueChange={setDarkMode}
+ *   aria-label="Toggle dark mode"
+ * />
+ * ```
+ *
+ * @component
+ */
+
 export const Switch = ({
 	checked,
 	onValueChange,
