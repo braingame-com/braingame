@@ -1,71 +1,71 @@
-# @braingame/config
+# Config
 
-Shared configuration package for the Brain Game monorepo.
+Shared TypeScript configuration for Brain Game monorepo.
 
-## Overview
+## Purpose
 
-This package provides centralized TypeScript configuration that is shared across all packages and applications in the Brain Game monorepo. It ensures consistent compiler settings and type checking throughout the codebase.
-
-## What's Included
-
-- **TypeScript Configuration**: Base `tsconfig.json` that all other packages extend
-- **Path Aliases**: Pre-configured path mappings for all monorepo packages
-- **Strict Mode**: Enforces TypeScript strict mode for better type safety
+Centralized configuration providing:
+- Base TypeScript settings
+- Path aliases for imports
+- Strict type checking
+- Consistent compiler options
 
 ## Usage
 
-### In Packages
-
-Reference this configuration in your package's `tsconfig.json`:
-
+### Packages
 ```json
 {
-  "extends": "@braingame/config/tsconfig.base.json",
+  "extends": "@braingame/config/typescript",
   "compilerOptions": {
-    // Your package-specific overrides
-  }
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"]
 }
 ```
 
-### In Apps
-
-Apps can extend the base configuration with app-specific settings:
-
+### Apps
 ```json
 {
-  "extends": "@braingame/config/tsconfig.base.json",
+  "extends": "@braingame/config/typescript",
   "compilerOptions": {
-    // App-specific compiler options
+    "outDir": ".next",
+    "jsx": "preserve"
   },
-  "include": ["src/**/*", "app.config.ts"]
+  "include": ["src/**/*", "app/**/*"]
 }
 ```
 
 ## Configuration Details
 
-The base configuration includes:
+### Base Settings
+- **Strict mode**: Enabled for type safety
+- **Module resolution**: Node.js style
+- **Target**: ES2020 for modern features
+- **JSX**: React for component support
 
-- **Strict Type Checking**: All strict mode flags enabled
-- **Module Resolution**: Node module resolution with ES module interop
-- **JSX Support**: Configured for React Native
-- **Path Mappings**: Pre-configured aliases for:
-  - `@braingame/bgui/*` → UI component library
-  - `@braingame/utils/*` → Shared utilities
-  - `@braingame/config/*` → This configuration package
+### Path Aliases
+```typescript
+// Enables clean imports
+import { Button } from '@braingame/bgui';
+import { config } from '@braingame/config';
+```
 
-## Development
+### Quality Standards
+- No implicit any
+- Strict null checks
+- No unused variables/parameters
+- Exact optional property types
 
-This is a configuration-only package with no build step required. Changes to the configuration files take effect immediately when referenced by other packages.
+## Benefits
 
-### Scripts
+- **Consistency**: Same settings across all packages
+- **Maintenance**: Single source of configuration
+- **Type Safety**: Strict checking prevents runtime errors
+- **Developer Experience**: Better IDE support
 
-- `npm run typecheck` - Validates the TypeScript configuration
-
-## Future Enhancements
-
-This package is designed to eventually include:
+## Future Plans
 
 - ESLint configuration presets
-- Biome configuration presets
-- Jest configuration presets
-- Other shared development tool configurations
+- Biome shared configuration  
+- Jest testing configuration
+- Build tool configurations
