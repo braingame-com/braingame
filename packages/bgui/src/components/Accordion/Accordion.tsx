@@ -13,11 +13,41 @@ import { Platform, Pressable, Text, View } from "react-native";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
 import { ContextErrorBoundary } from "../ErrorBoundary";
 
+/**
+ * Props for the Accordion component
+ */
 export interface AccordionProps {
+	/**
+	 * Accordion items to display.
+	 * Should contain Accordion.Item components.
+	 */
 	children: ReactNode;
+
+	/**
+	 * Controlled expanded panel value(s).
+	 * Can be a single string or array of strings for multiple panels.
+	 * Must be used with onValueChange.
+	 */
 	value?: string | string[];
+
+	/**
+	 * Callback fired when panels are expanded/collapsed.
+	 * Receives the new expanded value(s).
+	 * Required when value is provided.
+	 */
 	onValueChange?: (value: string | string[]) => void;
+
+	/**
+	 * Default expanded panel value(s) for uncontrolled usage.
+	 * Can be a single string or array of strings.
+	 */
 	defaultValue?: string | string[];
+
+	/**
+	 * Whether multiple panels can be expanded simultaneously.
+	 * When false, expanding a panel collapses others.
+	 * @default false
+	 */
 	allowMultiple?: boolean;
 }
 
@@ -35,6 +65,71 @@ const toArray = (val?: string | string[]) => {
 	return Array.isArray(val) ? val : [val];
 };
 
+/**
+ * Accordion component for organizing content into collapsible panels.
+ * Provides accessible expandable sections with keyboard navigation.
+ *
+ * @example
+ * ```tsx
+ * // Basic single accordion
+ * <Accordion defaultValue="item1">
+ *   <Accordion.Item value="item1" title="Section 1">
+ *     <Text>Content for section 1</Text>
+ *   </Accordion.Item>
+ *   <Accordion.Item value="item2" title="Section 2">
+ *     <Text>Content for section 2</Text>
+ *   </Accordion.Item>
+ *   <Accordion.Item value="item3" title="Section 3">
+ *     <Text>Content for section 3</Text>
+ *   </Accordion.Item>
+ * </Accordion>
+ *
+ * // Controlled accordion with multiple panels
+ * <Accordion
+ *   value={expanded}
+ *   onValueChange={setExpanded}
+ *   allowMultiple
+ * >
+ *   <Accordion.Item value="general" title="General Settings">
+ *     <SettingsForm type="general" />
+ *   </Accordion.Item>
+ *   <Accordion.Item value="advanced" title="Advanced Settings">
+ *     <SettingsForm type="advanced" />
+ *   </Accordion.Item>
+ *   <Accordion.Item value="security" title="Security">
+ *     <SecuritySettings />
+ *   </Accordion.Item>
+ * </Accordion>
+ *
+ * // Custom title with icons
+ * <Accordion defaultValue={["notifications"]} allowMultiple>
+ *   <Accordion.Item
+ *     value="notifications"
+ *     title={
+ *       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+ *         <Icon name="bell" />
+ *         <Text>Notifications</Text>
+ *       </View>
+ *     }
+ *   >
+ *     <NotificationPreferences />
+ *   </Accordion.Item>
+ *   <Accordion.Item
+ *     value="privacy"
+ *     title={
+ *       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+ *         <Icon name="lock" />
+ *         <Text>Privacy</Text>
+ *       </View>
+ *     }
+ *   >
+ *     <PrivacySettings />
+ *   </Accordion.Item>
+ * </Accordion>
+ * ```
+ *
+ * @component
+ */
 const AccordionComponent = ({
 	children,
 	value,
@@ -93,12 +188,34 @@ const AccordionComponent = ({
 	);
 };
 
+/**
+ * Props for the Accordion.Item component
+ */
 interface ItemProps {
+	/**
+	 * Header content for the accordion item.
+	 * Can be text or custom React elements.
+	 */
 	title: ReactNode;
+
+	/**
+	 * Unique identifier for this panel.
+	 * Used to track expanded state.
+	 */
 	value: string;
+
+	/**
+	 * Content to display when the panel is expanded.
+	 */
 	children: ReactNode;
 }
 
+/**
+ * Individual accordion panel item.
+ * Must be used within an Accordion component.
+ *
+ * @component
+ */
 export const Item = ({ title, value: val, children }: ItemProps) => {
 	const context = useContext(AccordionContext);
 	if (!context) {
