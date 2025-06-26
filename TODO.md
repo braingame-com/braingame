@@ -20,6 +20,7 @@
   - [ ] Accessibility audits
 
 ## 🔥 High Priority
+- [ ] Legal Compliance Review (in_progress)
 
 
 ## 📋 Medium Priority

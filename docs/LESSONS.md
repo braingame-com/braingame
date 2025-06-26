@@ -1132,3 +1132,6 @@ This provides clear separation of concerns and single sources of truth.
 - It inevitably got out of sync (had references to deleted files)
 - Users can now access all documentation directly from the main README
 - Reduces maintenance burden of keeping two navigation structures in sync
+### 24-06-2025 - Legal Compliance Review Session
+- Documented OSS license and privacy policy status
+- Lint, typecheck, test, build failed due to network restrictions
