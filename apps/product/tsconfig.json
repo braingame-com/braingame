@@ -2,6 +2,7 @@
 	"extends": "../../packages/config/tsconfig.base.json",
 	"compilerOptions": {
 		"baseUrl": ".",
+		"resolveJsonModule": true,
 		"paths": {
 			"@/*": ["./*"],
 			"@braingame/bgui": ["../../packages/bgui"],
