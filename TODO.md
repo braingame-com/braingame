@@ -86,3 +86,56 @@ When working on tasks:
 2. Create new items for discovered work
 3. Reference related documentation
 4. Maintain priority ordering
+
+## 🎨 Nice to Have
+
+- [ ] Create Marketing Website Content
+  - [ ] Write compelling copy for landing page
+  - [ ] Design and implement feature sections
+  - [ ] Add testimonials section
+  - [ ] Create pricing page
+
+- [ ] Developer Experience Improvements
+  - [ ] Improve hot reload performance
+  - [ ] Create debugging guide
+
+- [ ] Advanced Testing
+  - [ ] 90% test coverage goal
+
+## 🚀 Next Steps
+
+### Immediate Actions Required:
+1. **Firebase Integration** - Website has TODO for Firebase email collection (HIGH)
+2. **Production Deployment** - Configure Firebase, App Store, Play Store (HIGH)
+
+### Production Path:
+1. **Firebase Setup** (HIGH PRIORITY)
+   - Configure Firebase project for production
+   - Implement email collection in website
+   - Set up Firestore for data persistence
+   - Configure authentication
+
+2. **App Store Preparation**
+   - Generate app icons and splash screens
+   - Create App Store screenshots
+   - Write app descriptions
+   - Configure app signing
+
+
+## 🔌 Extension Points
+- Plan new `apps/desktop` using Tauri with GitHub Release distribution
+- Add LaunchDarkly feature flag wrapper in `packages/utils`
+
+## 📝 Notes for AI Agents
+- Always update status when working on tasks
+- Add completion date when marking done
+- Include any blockers discovered
+- Reference relevant files changed
+- Create work session documentation for significant changes
+- [in_progress] Offline Mode Resilience Report (24-06-2025)
+
+## 🔗 Quick Links
+- Architecture: [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- AI Guide: [CLAUDE.md](./docs/CLAUDE.md)
+- Security: [SECURITY.md](./.github/SECURITY.md)
+- Worktrees: [WORKTREES.md](./docs/WORKTREES.md)
