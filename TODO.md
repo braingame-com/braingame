@@ -23,6 +23,7 @@ Active task tracker for Brain Game development.
 - [ ] Environment management improvements
 - [ ] API documentation generation
 - [ ] Development tool enhancements
+- [ ] Legal Compliance Review (in_progress)
 - [ ] Hardware compatibility audit *(in_progress)*
   - [ ] Document CPU/RAM usage across devices
   - [ ] Record battery drain and thermal throttling
