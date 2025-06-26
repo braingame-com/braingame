@@ -1132,3 +1132,40 @@ This provides clear separation of concerns and single sources of truth.
 - It inevitably got out of sync (had references to deleted files)
 - Users can now access all documentation directly from the main README
 - Reduces maintenance burden of keeping two navigation structures in sync
+### 24-06-2025 - Legal Compliance Review Session
+- Documented OSS license and privacy policy status
+- Lint, typecheck, test, build failed due to network restrictions
+
+### 26-06-2025 - Critical Git Merge Strategy Lesson
+**Incident**: Nearly used `git merge --strategy=ours` on 14 PRs, which would have **discarded all PR content**.
+
+**What --strategy=ours does**: 
+- Creates a merge commit but **completely ignores** the other branch's changes
+- Keeps only the current branch content
+- Results in **total data loss** of the merged branch
+
+**Why this is catastrophic**:
+- All work in PRs #188-#201 would have been silently deleted
+- Git history would show "merged" but content would be missing
+- Recovery would require git archaeology to find lost commits
+
+**Correct approach for merge conflicts**:
+```bash
+# For each PR:
+gh pr checkout <number>
+git merge origin/main --no-edit  # Normal merge, preserving both sides
+# Manually resolve conflicts in files like TODO.md
+# Keep BOTH sets of changes where appropriate
+git add resolved-files
+git commit
+git push
+gh pr merge --merge --admin
+```
+
+**Key principle**: When merging PRs, the goal is to **combine** work, not discard it. Always:
+1. Resolve conflicts by keeping both changes when sensible
+2. Review what's being merged with `git diff`
+3. Never use merge strategies that discard content
+4. If unsure, ask for help rather than risk data loss
+
+**Lesson**: Merge strategies like `--strategy=ours` or `--strategy=theirs` should almost never be used for PR merges. They're nuclear options that destroy work. Always preserve and combine changes properly.

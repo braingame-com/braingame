@@ -32,8 +32,8 @@
   - [ ] Add validation with zod
   - [ ] Document all required variables
 
-- [ ] Setup Monitoring & Analytics
-  - [ ] Add Mixpanel/Amplitude for analytics
+- [ ] Setup Monitoring & Analytics <!-- in_progress -->
+  - [ ] Add Mixpanel/Amplitude for analytics <!-- in_progress -->
   - [ ] Set up alerting rules
 
 - [ ] API Documentation
