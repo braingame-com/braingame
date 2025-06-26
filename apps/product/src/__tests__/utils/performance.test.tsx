@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react-native";
 import { InteractionManager, Text } from "react-native";
-import { vi } from "vitest";
 import {
 	animationOptimizations,
 	imageOptimizations,
@@ -9,12 +8,12 @@ import {
 } from "../../utils/performance";
 
 // Mock React Native modules
-vi.mock("react-native", () => ({
+jest.mock("react-native", () => ({
 	...jest.requireActual("react-native"),
 	InteractionManager: {
 		runAfterInteractions: jest.fn((callback) => {
 			callback();
-			return { cancel: vi.fn() };
+			return { cancel: jest.fn() };
 		}),
 	},
 }));
@@ -117,7 +116,7 @@ describe("Performance Utils", () => {
 		});
 
 		it("wraps InteractionManager correctly", () => {
-			const callback = vi.fn();
+			const callback = jest.fn();
 
 			animationOptimizations.runAfterInteractions(callback);
 

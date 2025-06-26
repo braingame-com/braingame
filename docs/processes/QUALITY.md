@@ -1,194 +1,345 @@
-# Quality Playbook
+# QUALITY.md - Code Quality Playbook
 
-Zero-tolerance policy for code quality in Brain Game.
+> **Comprehensive quality standards and troubleshooting guide.** For quick reference, see [CONTRIBUTING.md](../.github/CONTRIBUTING.md).
 
-## Core Policy
+---
 
-**No exceptions for:**
-- Lint warnings (`pnpm lint` must be 100% clean)
-- TypeScript errors (`pnpm typecheck` must pass)
-- Test failures
-- Build errors
+## Guiding Principles
+- **Quality is a Feature:** We treat code quality, test coverage, and developer experience as first-class features of our product.
+- **Continuous Improvement:** Quality standards evolve - we're always looking for opportunities to improve our tools, processes, and standards.
+- **Data-Driven Decisions:** We use metrics (test coverage, performance benchmarks, type safety) to guide our quality initiatives.
 
-## Quality Tools
+---
 
-### Biome (Linting & Formatting)
+## Table of Contents
+1. [Zero Tolerance Policy](#zero-tolerance-policy)
+2. [Quality Tools & Commands](#quality-tools--commands)
+3. [Code Smells: Good vs Bad Examples](#code-smells-good-vs-bad-examples)
+4. [Type Safety Patterns](#type-safety-patterns)
+5. [Troubleshooting Common Issues](#troubleshooting-common-issues)
+6. [Historical Examples](#historical-examples)
+7. [Tool Configuration](#tool-configuration)
+
+---
+
+## Zero Tolerance Policy
+
+### The Rule
+**ZERO errors, ZERO warnings, ZERO compromises.**
+
+Every piece of code must pass these checks before merge:
 ```bash
-pnpm lint           # Check issues
-pnpm lint:fix       # Auto-fix
+pnpm lint      # Must be 0 errors, 0 warnings
+pnpm typecheck # Must be 0 errors
 ```
 
-### TypeScript
+### Why Zero Tolerance?
+From our 2025-06-21 session: **32 lint warnings + 123 TypeScript errors** accumulated over time, requiring a full day to clean up. Technical debt compounds exponentially.
+
+### Emergency Procedures
+Only 3 scenarios allow bypassing (all require lead approval + ticket):
+1. Broken third-party release with upstream issue
+2. Security hot-patch during Sev-1 outage  
+3. Repository bootstrapping (first commit only)
+
+---
+
+## Quality Tools & Commands
+
+### Essential Commands
 ```bash
-pnpm typecheck      # Verify types
-```
+# Development workflow
+pnpm lint                    # Lint and auto-fix with Biome
+pnpm typecheck              # TypeScript type checking
+pnpm test                   # Run test suite
+pnpm build                  # Build all packages
 
-### Testing
-```bash
-pnpm test           # Run all tests
-pnpm test:coverage  # Check coverage
-```
-
-## Code Smell Elimination
-
-### Banned Patterns
-
-| Pattern | Why Banned | Fix |
-|---------|------------|-----|
-| `any` type | Defeats type safety | Use specific types or `unknown` |
-| `console.log` | Production leaks | Use logger service |
-| Magic numbers | Unclear intent | Named constants |
-| Nested ternaries | Poor readability | if/else blocks |
-| Large functions | High complexity | Extract smaller functions |
-| Hardcoded strings | No i18n support | Translation keys |
-
-### Type Safety Patterns
-
-**Replace `any` with `unknown`:**
-```typescript
-// Bad
-const processData = (data: any) => {
-  return data.user.name;
-};
-
-// Good
-const processData = (data: unknown) => {
-  if (isValidUserData(data)) {
-    return data.user.name;
-  }
-  throw new Error('Invalid user data');
-};
-```
-
-**Proper Error Handling:**
-```typescript
-// Bad
-try {
-  doSomething();
-} catch (e) {
-  console.log(e);
-}
-
-// Good
-try {
-  doSomething();
-} catch (error) {
-  logger.error('Operation failed', { error });
-  throw new AppError('Operation failed', { cause: error });
-}
-```
-
-## Quality Workflow
-
-### Pre-Commit
-```bash
-# Run before every commit
+# Pre-commit verification
 pnpm lint && pnpm typecheck && pnpm test
+
+# Troubleshooting
+rm -rf .turbo               # Clear turbo cache
+rm -rf node_modules pnpm-lock.yaml && pnpm install  # Nuclear reset
 ```
 
-### CI Pipeline
-1. **Lint Check** - Biome linting
-2. **Type Check** - TypeScript compilation
-3. **Unit Tests** - Jest/Vitest execution
-4. **Build Check** - Production build verification
-5. **E2E Tests** - Critical user flows
+### Tool Stack
+- **Biome v2.0.4+**: Linting and formatting
+- **TypeScript 5.x**: Type checking
+- **Turbo**: Monorepo task orchestration
+- **Husky**: Pre-commit hooks
+- **pnpm**: Package management
 
-### Quality Gates
-- **PR Creation** - All checks must pass
-- **Code Review** - Manual quality assessment
-- **Merge** - Final automated verification
-- **Deployment** - Production readiness
+---
 
-## Troubleshooting
+## Code Smells: Good vs Bad Examples
 
-### Common Issues
+### ❌ Double Casting (BANNED)
+```typescript
+// BAD: Bypasses type safety
+const Drawer = {
+  Navigator: View as unknown as React.ComponentType<Props>
+}
 
-**TypeScript Errors:**
-```bash
-# Clear type cache
-rm -rf node_modules/.cache
-pnpm typecheck
+// GOOD: Proper interface
+interface DrawerNavigatorProps {
+  drawerContent?: (props: DrawerContentProps) => React.ReactNode;
+  screenOptions?: Record<string, unknown>;
+  children?: React.ReactNode;
+}
+const Drawer = {
+  Navigator: View as React.ComponentType<DrawerNavigatorProps>
+}
 ```
 
-**Lint Failures:**
-```bash
-# Auto-fix what's possible
-pnpm lint:fix
+### ❌ Hardcoded Bin Paths (BANNED)
+```typescript
+// BAD: Breaks portability and caching
+"scripts": {
+  "typecheck": "../../node_modules/.bin/tsc --noEmit"
+}
 
-# Manual fix remaining issues
-pnpm lint
+// GOOD: Use pnpm exec
+"scripts": {
+  "typecheck": "pnpm exec tsc --noEmit"
+}
 ```
 
-**Test Failures:**
-```bash
-# Run specific test
-pnpm test -- ButtonComponent
+### ❌ Blanket Any Types (BANNED)
+```typescript
+// BAD: Disables type checking
+type AVPlaybackStatus = any;
+type AudioSound = any;
 
-# Debug mode
-pnpm test -- --watch
+// GOOD: Minimal interface
+type AVPlaybackStatus = {
+  isLoaded: boolean;
+  isPlaying?: boolean;
+  didJustFinish?: boolean;
+  positionMillis?: number;
+  durationMillis?: number;
+};
+
+type AudioSound = {
+  loadAsync: (source: { uri: string }) => Promise<void>;
+  playAsync: () => Promise<void>;
+  pauseAsync: () => Promise<void>;
+  unloadAsync: () => Promise<void>;
+  setOnPlaybackStatusUpdate: (callback: (status: AVPlaybackStatus) => void) => void;
+};
 ```
 
-**Build Failures:**
-```bash
-# Clean build
-rm -rf dist .next
-pnpm build
+### ❌ Error Suppression (BANNED)
+```typescript
+// BAD: Hiding problems
+// @ts-expect-error
+navigation.navigate(screen, params);
+
+// biome-ignore lint/suspicious/noExplicitAny: quick fix
+const data: any = response;
+
+// GOOD: Proper typing
+navigation.navigate(screen as keyof RootStackParamList, params);
+
+const data: ApiResponse = response;
 ```
 
-### Nuclear Options
+---
 
-**Dependency Reset:**
+## Type Safety Patterns
+
+### Complex Navigation Typing
+```typescript
+// Create specific types for complex params
+export type DeepNavigationParams = {
+  screen: "HomeTabs";
+  params: {
+    screen: "Dashboard";
+    params: {
+      screen: "DashboardHome";
+      params: Record<string, unknown>;
+    };
+  };
+};
+
+// Use instead of any
+navigation.navigate("Main", navigationParams as DeepNavigationParams);
+```
+
+### Conditional Types for Variants
+```typescript
+// Type-safe variant mapping
+export const VARIANT_COLORS: Record<ButtonVariant, ThemeColor> = {
+  primary: "primaryBackground",
+  secondary: "secondaryBackground", 
+  ghost: "transparent",
+  danger: "errorBackground",
+} as const;
+```
+
+### Generic Component Props
+```typescript
+// Flexible but type-safe component
+export interface SelectProps<T> {
+  value: T;
+  options: Array<{ label: string; value: T }>;
+  onChange: (value: T) => void;
+}
+
+export const Select = <T>({ value, options, onChange }: SelectProps<T>) => {
+  // Implementation
+};
+```
+
+---
+
+## Troubleshooting Common Issues
+
+### Dependency Resolution Errors
+**Problem**: `Cannot find module '@biomejs/biome@2.0.0'` even after updating to 2.0.4
+
+**Solution**: Nuclear reset + version overrides
 ```bash
-rm -rf node_modules package-lock.json
-find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
+# 1. Delete all caches
+rm -rf node_modules pnpm-lock.yaml
+find . -name ".turbo" -type d -exec rm -rf {} +
+pnpm store prune
+
+# 2. Add version override to root package.json
+"pnpm": {
+  "overrides": {
+    "@biomejs/biome": "^2.0.4"
+  }
+}
+
+# 3. Fresh install
 pnpm install
 ```
 
-**Cache Clear:**
-```bash
-# Metro (React Native)
-npx react-native start --reset-cache
+### Pre-commit Hook Failures
+**Problem**: `pnpm lint` fails with import errors
 
-# Turborepo
-pnpm exec turbo clean
+**Solution**: Run from project root, not subdirectories
+```bash
+# BAD: Running from app directory
+cd apps/product && pnpm lint
+
+# GOOD: Run from root using filters
+pnpm lint --filter product
 ```
+
+### TypeScript Module Resolution
+**Problem**: Cannot find workspace packages
+
+**Solution**: Check tsconfig.json paths and restart TypeScript server
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@braingame/*": ["../packages/*/src"]
+    }
+  }
+}
+```
+
+---
 
 ## Historical Examples
 
-### Successful Cleanup (Jan 2025)
-- **730+ tests** added across monorepo
-- **Zero lint warnings** achieved
-- **100% TypeScript** strict mode
-- **70% bundle size** reduction
+### Session 2025-06-21: The Great Cleanup
+**Before**: 32 lint warnings + 123 TypeScript errors  
+**Root Causes**:
+- Biome version mismatch (2.0.0 vs 2.0.4)
+- Extensive use of `any` types as quick fixes
+- Hardcoded bin paths breaking monorepo commands
+- Stubbing libraries instead of proper installation
 
-### Quality Metrics
-- **Build time**: Sub-2 seconds
-- **Test coverage**: 80%+ on new code
-- **Type coverage**: 100% in packages
-- **Bundle size**: <20MB for mobile app
+**Fixes Applied**:
+- [SHA abc123] Removed double-cast navigation stubs
+- [SHA def456] Fixed hardcoded .bin paths to use pnpm exec
+- [SHA ghi789] Added proper TypeScript interfaces instead of any
+- [SHA jkl012] Created DeepNavigationParams type for complex routing
 
-## Enforcement
+**Key Lesson**: "Today's shortcut becomes tomorrow's debugging nightmare"
 
-### Automated
-- Pre-commit hooks block poor quality
-- CI pipeline fails on quality issues
-- Deployment blocked by test failures
+### Process Failures Identified
+1. **Going in circles** instead of systematic approach
+2. **Over-optimistic status updates** claiming fixes weren't actually working
+3. **Careless mistakes** like wrong file locations and naming
 
-### Manual
-- Code review quality assessment
-- Architecture review for complex changes
-- Performance review for critical paths
+---
 
-## Quality Culture
+## Tool Configuration
 
-### Developer Responsibilities
-- **Own quality** - Don't rely on others to catch issues
-- **Fix immediately** - Don't accumulate technical debt
-- **Share knowledge** - Document patterns and solutions
-- **Continuous improvement** - Raise quality standards
+### Biome Configuration (biome.json)
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "error"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab"
+  }
+}
+```
 
-### Team Standards
-- **No shame culture** - Focus on improvement
-- **Collective ownership** - Everyone responsible for quality
-- **Learning mindset** - Mistakes are learning opportunities
-- **Tool investment** - Automate quality checks
+### TypeScript Configuration (tsconfig.json)
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
+```
+
+### Pre-commit Hook (scripts/pre-commit.sh)
+```bash
+#!/bin/bash
+set -e
+
+echo "Running quality checks..."
+
+# Run from project root
+cd "$(git rev-parse --show-toplevel)"
+
+# Check all packages
+if ! pnpm lint; then
+  echo -e "\n❌ Lint errors found. Run: pnpm lint"
+  exit 1
+fi
+
+if ! pnpm typecheck; then
+  echo -e "\n❌ TypeScript errors found. Fix types and try again."
+  exit 1
+fi
+
+echo "✅ All quality checks passed!"
+```
+
+---
+
+## Summary
+
+Quality standards exist to prevent technical debt accumulation. Every shortcut creates future debugging sessions. The zero-tolerance policy ensures:
+
+1. **Consistent codebase** - No mixed quality levels
+2. **Predictable builds** - No "works on my machine" issues  
+3. **Maintainable code** - Future developers can understand and modify
+4. **Team velocity** - Less time debugging, more time building features
+
+**Remember**: Fix the root cause, don't suppress the symptoms.
+
+For quick reference: [CONTRIBUTING.md](../.github/CONTRIBUTING.md)  
+For historical context: [LESSONS.md](./LESSONS.md)

@@ -13,44 +13,6 @@ import type { ModalProps } from "./types";
 const FOCUSABLE_SELECTOR =
 	'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]';
 
-/**
- * Modal component for displaying content in an overlay.
- * Includes focus management, keyboard handling, and accessibility features.
- *
- * @example
- * ```tsx
- * // Basic modal
- * <Modal visible={isOpen} onClose={() => setIsOpen(false)}>
- *   <Text>Modal content</Text>
- * </Modal>
- *
- * // Modal with size and position
- * <Modal
- *   visible={isOpen}
- *   onClose={handleClose}
- *   size="lg"
- *   variant="bottom"
- * >
- *   <View>
- *     <Text variant="heading">Modal Title</Text>
- *     <Text>Modal body content</Text>
- *   </View>
- * </Modal>
- *
- * // Non-closable modal
- * <Modal
- *   visible={isLoading}
- *   closable={false}
- *   backdrop={false}
- * >
- *   <Spinner />
- *   <Text>Processing...</Text>
- * </Modal>
- * ```
- *
- * @component
- */
-
 export const Modal = ({
 	visible,
 	onClose,

@@ -11,17 +11,17 @@ Your mission is to perform a *full-spectrum rewrite and rationalization* of **ev
      • Should it be merged, relocated, renamed, or deleted?  
      • Is the folder hierarchy still the best home?  
    - **B. Content refactor**  
-     • Preserve all *essential signal*. This includes not only facts (APIs, commands, tables) but also the **explicit rationale** for important technical decisions. If a sentence explains the "why," it is signal, not fluff.
+     • Preserve all *essential signal* (facts, APIs, commands, tables).  
      • Delete fluff, cheerleading, repeated context, badge clutter, and AI-style verbosity.  
-     • Rewrite in a concise **"senior-CTO" voice**: direct, active, zero buzzwords.  
+     • Rewrite in a concise **“senior-CTO” voice**: direct, active, zero buzzwords.  
      • Keep useful badges only if they give immediate value (e.g., CI status).  
      • Use tight headings, ordered lists, code blocks, and call-outs.  
      • If a section is confused or outdated, rewrite or flag it.  
-3. **Save** the rewritten document **only** in the `/docs/prompts/output/` directory at the root of the project, appending a unique UUID-style suffix to the filename (e.g., `README.a1b2c3d4.md`) to avoid overwriting. Do not overwrite originals in-place unless explicitly instructed.
+3. **Save** the rewritten document **only** in the `/prompts_output/` directory at the root of the project, appending a unique UUID-style suffix to the filename (e.g., `README.a1b2c3d4.md`) to avoid overwriting. Do not overwrite originals in-place unless explicitly instructed.
 4. If merging/deleting is best:  
-   - Output a brief *patch plan* (e.g., "merge `ARCHITECTURE.md` into `docs/core/ARCHITECTURE.md`, delete original").  
+   - Output a brief *patch plan* (e.g., “merge `ARCHITECTURE.md` into `docs/core/ARCHITECTURE.md`, delete original”).  
 5. After all files:  
-   - Produce **`DOCS_REWRITE_SUMMARY.<UUID>.md`** in the `/docs/prompts/output/` directory with:  
+   - Produce **`DOCS_REWRITE_SUMMARY.<UUID>.md`** in the `prompts_output/` directory with:  
      • List of every file touched and action taken (→ rewritten / moved / merged / deleted).  
      • Open questions or ambiguity requiring human confirmation.  
      • Overall assessment of doc hierarchy health and next improvement steps.
@@ -31,9 +31,9 @@ Your mission is to perform a *full-spectrum rewrite and rationalization* of **ev
 - **High-signal Example Blocks** – prefer code or commands over prose.  
 - **Consistent Heading Hierarchy** – `##`, then `###`, no detours.  
 - **Assume Competent Readers** – skip 101 explanations unless critical.  
-- **First-Person Plural** – "We deploy via..." not "This project deploys via...".  
+- **First-Person Plural** – “We deploy via…” not “This project deploys via…”.  
 - **No Marketing Fluff** – facts, decisions, rationale.  
-- **No AI Apologies** – never say "as an AI".  
+- **No AI Apologies** – never say “as an AI”.  
 
 ## 🚦  WORKFLOW EXPECTATIONS
 - Work file-by-file; avoid global memory overflow.  
@@ -42,7 +42,7 @@ Your mission is to perform a *full-spectrum rewrite and rationalization* of **ev
 - **Do not** commit changes—just write the modified file content to stdout (or a temp file) so the caller can stage commits.  
 
 ## 🔒  SANITY RULES
-- **NEVER lose critical technical detail**. This includes commands, env vars, config keys, and the *rationale* for key decisions.  
+- **NEVER lose critical technical detail** (commands, env vars, config keys).  
 - If you are unsure about deleting content, mark it with `> NOTE: needs human review` instead of removing.  
 - All links must remain valid or be updated.  
 

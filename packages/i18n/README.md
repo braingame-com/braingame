@@ -1,132 +1,137 @@
-# I18n
+# @braingame/i18n
 
-Internationalization package for Brain Game using i18next.
+Internationalization (i18n) package for the Brain Game application.
+
+## Overview
+
+This package provides internationalization support using [i18next](https://www.i18next.com/) and [react-i18next](https://react.i18next.com/). It enables the Brain Game application to support multiple languages with a centralized translation management system.
 
 ## Features
 
-- **Multi-language support**: English, Spanish
-- **TypeScript integration**: Type-safe translation keys
-- **Lazy loading**: Load translations on demand
-- **React Native + Web**: Cross-platform compatibility
+- 🌍 Multi-language support (currently English and Spanish)
+- ⚛️ React and React Native integration
+- 📦 TypeScript support with full type definitions
+- 🔄 Lazy loading ready
+- 🎯 Namespace-based translation organization
 
-## Quick Start
+## Installation
+
+This package is included in the monorepo and installed automatically. For standalone usage:
+
+```bash
+npm install @braingame/i18n
+```
+
+## Usage
+
+### Basic Setup
+
+Import and use the pre-configured i18n instance in your app:
 
 ```typescript
-import { useTranslation } from '@braingame/i18n';
+import i18n from '@braingame/i18n';
+import { I18nextProvider } from 'react-i18next';
 
-const Component = () => {
+function App() {
+  return (
+    <I18nextProvider i18n={i18n}>
+      {/* Your app components */}
+    </I18nextProvider>
+  );
+}
+```
+
+### Using Translations
+
+```typescript
+import { useTranslation } from 'react-i18next';
+
+function MyComponent() {
   const { t } = useTranslation();
   
-  return <Text>{t('welcome.title')}</Text>;
-};
-```
-
-## Current Languages
-
-- **English (en)**: Default language
-- **Spanish (es)**: Complete translation
-
-## Usage Patterns
-
-### Basic Translation
-```typescript
-const { t } = useTranslation();
-
-// Simple key
-const title = t('app.title');
-
-// Nested key
-const welcome = t('welcome.message');
-```
-
-### Translation with Variables
-```typescript
-const greeting = t('welcome.user', { name: 'John' });
-// "Welcome back, John!"
-```
-
-### Pluralization
-```typescript
-const itemCount = t('items.count', { count: 5 });
-// "5 items" or "1 item"
-```
-
-## Adding New Keys
-
-### 1. Add to English
-```json
-// packages/i18n/src/locales/en/common.json
-{
-  "buttons": {
-    "save": "Save",
-    "cancel": "Cancel"
-  }
+  return (
+    <View>
+      <Text>{t('welcome')}</Text>
+      <Text>{t('hello')}</Text>
+    </View>
+  );
 }
 ```
 
-### 2. Add Translation
+## Supported Languages
+
+- **English** (en) - Default language
+- **Spanish** (es)
+
+## Adding Translations
+
+### Adding a New Translation Key
+
+1. Add the key to all language files in `src/locales/[lang]/common.json`
+2. Rebuild the package: `npm run build`
+
+Example:
 ```json
-// packages/i18n/src/locales/es/common.json
 {
-  "buttons": {
-    "save": "Guardar", 
-    "cancel": "Cancelar"
-  }
+  "welcome": "Welcome",
+  "hello": "Hello",
+  "newKey": "New translation"
 }
 ```
 
-### 3. Update Types
-TypeScript automatically picks up new keys for type safety.
+### Adding a New Language
 
-## Adding New Languages
-
-### 1. Create Locale Directory
-```bash
-mkdir packages/i18n/src/locales/fr
-```
-
-### 2. Add Translation Files
-```json
-// packages/i18n/src/locales/fr/common.json
-{
-  "welcome": {
-    "title": "Bienvenue"
-  }
-}
-```
-
-### 3. Register Language
-```typescript
-// packages/i18n/src/config.ts
-const resources = {
-  en: { common: require('./locales/en/common.json') },
-  es: { common: require('./locales/es/common.json') },
-  fr: { common: require('./locales/fr/common.json') }
-};
-```
-
-## Best Practices
-
-### Do
-- Use meaningful key names (`auth.login.title` not `title1`)
-- Avoid hardcoded text in components
-- Test all languages regularly
-- Provide context for translators
-
-### Don't
-- Concatenate translated strings
-- Use translation keys as default values
-- Forget to update all language files
-- Mix languages in single file
+1. Create a new directory: `src/locales/[language-code]/`
+2. Add `common.json` with all translation keys
+3. Update the i18n configuration in `src/index.ts` to include the new language
+4. Rebuild the package
 
 ## Project Structure
 
 ```
 packages/i18n/
 ├── src/
-│   ├── locales/
-│   │   ├── en/           English translations
-│   │   └── es/           Spanish translations
-│   ├── config.ts         i18next configuration
-│   └── index.ts          Package exports
+│   ├── index.ts           # i18n configuration and exports
+│   └── locales/
+│       ├── en/
+│       │   └── common.json # English translations
+│       └── es/
+│           └── common.json # Spanish translations
+├── dist/                  # Built output
+├── package.json
+└── tsconfig.json
 ```
+
+## Development
+
+### Scripts
+
+- `npm run build` - Build the package
+- `npm run dev` - Watch mode for development
+- `npm run typecheck` - Type check the code
+- `npm run clean` - Clean build artifacts
+
+### Configuration
+
+The i18n instance is configured with:
+
+- **Fallback Language**: English (en)
+- **Debug Mode**: Enabled in development
+- **Interpolation**: Escaping disabled (handled by React)
+- **React Suspense**: Ready for use with React Suspense
+
+## Best Practices
+
+1. **Keep translations organized**: Use meaningful key names that describe the content
+2. **Avoid hardcoded text**: Always use translation keys instead of hardcoded strings
+3. **Test all languages**: Ensure all supported languages have complete translations
+4. **Use namespaces**: As the app grows, consider organizing translations into namespaces
+
+## Contributing
+
+When adding new features or text to the application:
+
+1. Add translation keys to all language files
+2. Use descriptive key names (e.g., `auth.login.button` instead of `btn1`)
+3. Test the translations in all supported languages
+4. Document any context-specific translations

@@ -1,111 +1,225 @@
-# Git Worktrees
+# Git Worktrees Guide
 
-Critical workspace isolation to prevent contamination.
+> **CRITICAL: This guide prevents workspace contamination and ensures clean development practices.**
 
-## Context
+![Status](https://img.shields.io/badge/status-critical-red?style=flat-square)
+![Updated](https://img.shields.io/badge/updated-20--01--2025-blue?style=flat-square)
 
-On 20-01-2025, we had workspace contamination that mixed experimental code with production. Never again.
+## 🚨 Why This Matters
 
-## Workspace Structure
+On 20-01-2025, we experienced a **workspace contamination incident** where experimental AI work accidentally polluted the main production codebase. This guide ensures that never happens again.
 
-```
-/workspace/
-├── braingame/                  # PRODUCTION (main branch)
-└── braingame-claude-sandbox/   # EXPERIMENTS (any branch)
-```
+---
 
-## Pre-Flight Checklist
+## 📍 Workspace Verification (MANDATORY)
 
-**MANDATORY**: Run before any work:
+**Before ANY work begins, ALL agents and developers MUST:**
 
 ```bash
-pwd                    # Verify location
-git branch --show-current    # Verify branch
-git status             # Check for uncommitted changes
+# 1. Verify current worktree location
+git worktree list
+
+# 2. Confirm you're in the correct directory
+pwd
+
+# 3. Check git status to ensure clean state
+git status
 ```
 
-## AI Agent Rules
+---
 
-1. **Always verify workspace** before any action
-2. **Experimental work** → sandbox only
-3. **Production changes** → main workspace only
-4. **Never mix** experimental and production code
+## 🗂️ Worktree Structure
 
-## Workflows
+| Worktree | Path | Purpose | Who Uses |
+|----------|------|---------|----------|
+| **main** | `/workspace/braingame/` | Production code, releases | Humans, production deployments |
+| **claude-sandbox** | `/workspace/braingame-claude-sandbox/` | AI experiments, prototypes | AI agents, experimental work |
 
-### Experimental Work
+---
+
+## 🛠️ Setting Up Worktrees
+
+### Initial Setup (One-time)
 ```bash
-# Create sandbox (if not exists)
-git worktree add ../braingame-claude-sandbox
-
-# Switch to sandbox
-cd ../braingame-claude-sandbox
-
-# Create experimental branch
-git checkout -b experiment/feature-test
-
-# Work freely without risk
-```
-
-### Production Work
-```bash
-# Always work in main workspace
+# From the main repository
 cd /workspace/braingame
 
-# Create proper feature branch
-git checkout -b feature/user-auth
+# Create the sandbox worktree
+git worktree add ../braingame-claude-sandbox -b claude-sandbox
 
-# Follow normal development process
-```
-
-## Worktree Management
-
-### List Worktrees
-```bash
+# Verify setup
 git worktree list
 ```
 
-### Remove Worktree
+### Switching Between Worktrees
 ```bash
-# Remove directory first
-rm -rf ../braingame-claude-sandbox
+# To main worktree (production)
+cd /workspace/braingame
 
-# Prune from Git
+# To sandbox (experiments)
+cd /workspace/braingame-claude-sandbox
+```
+
+---
+
+## 📋 Pre-Flight Checklist
+
+**Copy this checklist and run through it EVERY time before starting work:**
+
+```bash
+#!/bin/bash
+# Save as check-workspace.sh
+
+echo "🔍 Workspace Pre-Flight Check"
+echo "============================"
+
+# Check current directory
+echo "📍 Current directory: $(pwd)"
+
+# Check git worktree
+echo "🌳 Git worktrees:"
+git worktree list
+
+# Check branch
+echo "🔀 Current branch: $(git branch --show-current)"
+
+# Check for uncommitted changes
+echo "📝 Git status:"
+git status --short
+
+# Confirmation prompt
+read -p "✅ Is this the correct workspace for your task? (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "❌ Aborting - switch to correct workspace first!"
+    exit 1
+fi
+
+echo "✅ Workspace verified - proceed with work"
+```
+
+---
+
+## 🤖 AI Agent Rules
+
+1. **ALWAYS run workspace verification** before generating any code
+2. **Experimental work goes in sandbox** - no exceptions
+3. **Production commits only from main worktree**
+4. **Document worktree used** in all work session notes
+5. **Never mix worktree commits** - keep them isolated
+
+---
+
+## 🔄 Worktree Workflow
+
+### For Experimental AI Work
+```bash
+# 1. Switch to sandbox
+cd /workspace/braingame-claude-sandbox
+
+# 2. Create feature branch
+git checkout -b experiment/ai-feature
+
+# 3. Do experimental work
+# ... make changes ...
+
+# 4. Commit to sandbox
+git add .
+git commit -m "experiment: testing new AI approach"
+
+# 5. If successful, cherry-pick to main
+cd /workspace/braingame
+git cherry-pick <commit-hash>
+```
+
+### For Production Work
+```bash
+# 1. Ensure you're in main worktree
+cd /workspace/braingame
+
+# 2. Create feature branch from main
+git checkout main
+git pull origin main
+git checkout -b feature/production-feature
+
+# 3. Make production-ready changes
+# ... make changes ...
+
+# 4. Commit and push
+git add .
+git commit -m "feat: production-ready feature"
+git push origin feature/production-feature
+```
+
+---
+
+## 🧹 Cleanup & Maintenance
+
+### Remove Unused Worktrees
+```bash
+# List all worktrees
+git worktree list
+
+# Remove a worktree
+git worktree remove /path/to/worktree
+
+# Prune stale worktree information
 git worktree prune
 ```
 
-### Add New Worktree
+### Sync Worktrees
 ```bash
-git worktree add ../path-to-new-worktree branch-name
+# In main worktree
+cd /workspace/braingame
+git pull origin main
+
+# In sandbox
+cd /workspace/braingame-claude-sandbox
+git pull origin claude-sandbox
 ```
 
-## Common Mistakes
+---
 
-| Mistake | Prevention | Fix |
-|---------|------------|-----|
-| Wrong workspace | Check `pwd` first | Move to correct location |
-| Mixed branches | Verify branch before work | Stash and checkout correct |
-| Uncommitted changes | Run `git status` | Commit or stash |
-| Missing worktree | Check `git worktree list` | Add missing worktree |
+## ⚠️ Common Pitfalls
 
-## Quick Reference
+| Mistake | Consequence | Prevention |
+|---------|-------------|------------|
+| Working in wrong worktree | Production contamination | Run pre-flight check |
+| Mixing experimental/production | Unstable codebase | Keep strict separation |
+| Not documenting worktree | Lost context | Add to work session notes |
+| Committing to wrong branch | Git history pollution | Check branch before commit |
+
+---
+
+## 🚀 Quick Reference
 
 ```bash
-# Verify current state
-pwd && git branch --show-current && git status
+# Where am I?
+pwd && git worktree list
 
-# Create experimental worktree
-git worktree add ../braingame-claude-sandbox
+# Switch to production
+cd /workspace/braingame
 
-# Clean up worktree
-rm -rf ../braingame-claude-sandbox && git worktree prune
+# Switch to sandbox  
+cd /workspace/braingame-claude-sandbox
+
+# What branch?
+git branch --show-current
+
+# Clean state?
+git status
 ```
 
-## Emergency Recovery
+---
 
-If contamination occurs:
-1. **STOP** all work immediately
-2. **Document** current state
-3. **Stash** uncommitted changes
-4. **Reset** to last known good state
-5. **Review** all recent commits
+## 📞 Help & Support
+
+If you're unsure about worktrees:
+1. **Stop and verify** - better safe than sorry
+2. **Check this guide** - it has all the answers
+3. **Ask in Slack/Discord** - `#dev-help` channel
+4. **Email**: `hello@braingame.dev`
+
+---
+
+*Remember: A clean workspace is a productive workspace. When in doubt, check it out!*

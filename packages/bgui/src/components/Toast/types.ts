@@ -1,47 +1,14 @@
-/**
- * Props for the Toast component
- */
 export interface ToastProps {
-	/**
-	 * Message to display in the toast.
-	 * Will be announced to screen readers.
-	 */
+	/** Message to announce inside the toast */
 	message: string;
-
-	/**
-	 * Visual style determining background color.
-	 * - "success": Green background for positive feedback
-	 * - "warning": Yellow background for cautions
-	 * - "error": Red background for errors
-	 * - "info": Blue background for information
-	 * @default "info"
-	 */
+	/** Visual style of the toast */
 	type?: "success" | "warning" | "error" | "info";
-
-	/**
-	 * Auto-dismiss duration in milliseconds.
-	 * Set to 0 to disable auto-dismiss.
-	 * @default 3000
-	 */
+	/** Auto dismiss duration in milliseconds */
 	duration?: number;
-
-	/**
-	 * Label for optional action button.
-	 * Only displayed when variant is "with-action".
-	 */
+	/** Optional action button label */
 	actionLabel?: string;
-
-	/**
-	 * Callback when action button is pressed.
-	 * Required when actionLabel is provided.
-	 */
+	/** Callback when action button is pressed */
 	onActionPress?: () => void;
-
-	/**
-	 * Toast display variant.
-	 * - "simple": Message only
-	 * - "with-action": Message with action button
-	 * @default "simple"
-	 */
+	/** Toast variant */
 	variant?: "simple" | "with-action";
 }
