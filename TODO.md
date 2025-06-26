@@ -87,6 +87,7 @@
 - Include any blockers discovered
 - Reference relevant files changed
 - Create work session documentation for significant changes
+- [in_progress] Offline Mode Resilience Report (24-06-2025)
 
 ## 🔗 Quick Links
 - Architecture: [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
