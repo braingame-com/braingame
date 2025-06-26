@@ -2,6 +2,7 @@
 
 export * from "./useColorScheme";
 export * from "./useDisclosure";
-export * from "./useDraggableTaskHandlers";
+// Draggable task handlers are mobile-only, skip on web builds
+// export * from "./useDraggableTaskHandlers";
 export * from "./useTaskInput";
 export * from "./useThemeColor";

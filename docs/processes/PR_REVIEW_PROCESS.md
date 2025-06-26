@@ -1,313 +1,171 @@
 # PR Review Process
 
-This document outlines our systematic approach to reviewing and merging pull requests. The guiding principle is **correctness and preserving all intended functionality**, not speed or reducing human interaction.
+Systematic approach to reviewing and merging pull requests.
 
-## 1. PR Analysis & Grouping
+## Core Principles
 
-Start by analyzing all open PRs:
+- **Correctness over speed** - Better to be thorough than fast
+- **Zero tolerance** - No lint warnings, no TypeScript errors
+- **Preserve context** - Document all decisions
+- **Human oversight** - Complex decisions require human review
 
+## Review Checklist
+
+### BugBot Review (Check First!)
+- [ ] Check BugBot comments on PR
+- [ ] Address all HIGH/CRITICAL severity issues
+- [ ] Fix issues on feature branch before merging
+- [ ] Add resolution comments to PR
+
+### Code Quality
+- [ ] Passes all quality checks (`pnpm lint && pnpm typecheck && pnpm test`)
+- [ ] Follows established patterns
+- [ ] No hardcoded values
+- [ ] Proper error handling
+- [ ] Performance considerations addressed
+
+### Testing
+- [ ] Unit tests for business logic
+- [ ] Component tests for interactions
+- [ ] E2E tests for critical flows
+- [ ] Manual testing completed
+
+### Documentation
+- [ ] README updates (if needed)
+- [ ] JSDoc comments added
+- [ ] Architecture docs updated
+- [ ] Breaking changes documented
+
+## Conflict Resolution
+
+### Merge Conflicts
 ```bash
-# List all PRs with their merge status and size
-gh pr list --limit 50 --json number,title,mergeable,additions,deletions,author
-```
+# Fetch latest changes
+git fetch origin main
 
-Group PRs by:
-1. **Mergeable** (no conflicts) vs **Conflicting**
-2. Sort by size (lines changed) - start with smallest for momentum
-3. Note: Author is irrelevant - we judge code quality objectively
-
-## 2. Conflict Resolution Strategy
-
-For branches with conflicts:
-
-```bash
-# First, try rebasing on main to reduce conflicts
-gh pr checkout <number>
-git fetch origin
+# Rebase feature branch
 git rebase origin/main
+
+# Resolve conflicts
+git add .
+git rebase --continue
 ```
 
-**CRITICAL**: Before resolving any conflicts, understand the intent of BOTH branches:
-- What is main trying to achieve?
-- What is the feature branch trying to achieve?
-- Can both goals coexist?
+### Quality Failures
+1. **Identify root cause** - Don't mask symptoms
+2. **Fix systematically** - Address all related issues
+3. **Verify comprehensively** - Run full quality suite
+4. **Document solution** - Help future developers
 
-## 3. Intelligent Conflict Resolution
+## Decision Matrix
 
-**Zero tolerance policy for losing changes or breaking features.**
+### Auto-Merge (No Human Review Needed)
+- Documentation updates
+- Minor bug fixes
+- Dependency updates
+- Style adjustments
 
-### Types of Conflicts and Resolution Strategies
+### Human Review Required
+- New features
+- Breaking changes
+- Performance modifications
+- Security-related changes
+- Architecture decisions
 
-| Conflict Type | Resolution Strategy |
-|--------------|-------------------|
-| **Feature additions** | Often both versions should be kept - merge functionality |
-| **Bug fixes vs features** | Usually need to preserve both - apply fix to new feature |
-| **Duplicate implementations** | Choose the better one, but understand why both exist |
-| **Refactoring conflicts** | Ensure the refactoring intent is preserved across changes |
-| **Deletion conflicts** | Understand WHY something was deleted before accepting |
+### Close Without Merge
+- Quality checks failing after multiple attempts
+- Conflicts with project direction
+- Superseded by better solution
+- Author abandonment (30+ days inactive)
 
-### Conflict Resolution Process
+## Merge Strategies
 
-1. **Examine the conflict**:
-   ```bash
-   # See what changed in both branches
-   git log --oneline main..HEAD
-   git log --oneline HEAD..main
-   git diff main...HEAD
-   ```
-
-2. **Understand the context**:
-   - Read commit messages
-   - Check PR descriptions
-   - Look at surrounding code
-
-3. **Make intelligent decisions**:
-   - Preserve features from both branches when possible
-   - Don't blindly accept "ours" or "theirs"
-   - Consider the combined effect
-
-4. **When in doubt, ALWAYS ask for human input**:
-   - Present clear options: "Option A preserves X, Option B preserves Y"
-   - Explain the trade-offs
-   - This is encouraged and rewarded!
-
-## 4. Review Process for Each PR
-
-### 4.1 Understanding the Change
-
+### Pre-Merge Verification (MANDATORY)
 ```bash
-# Check out the PR locally
-gh pr checkout <number>
-
-# Read the PR description
-gh pr view <number>
-
-# See all changed files
-git diff main...HEAD --name-only
-
-# Review the changes
-git diff main...HEAD
-```
-
-### 4.2 Automated Quality Checks
-
-Run ALL of these checks:
-
-```bash
-# Ensure code style compliance
+# For EVERY PR before merging:
+git fetch origin
+git checkout <feature-branch>
 pnpm lint
-
-# Ensure type safety
 pnpm typecheck
+# Fix any issues found
+git add -A && git commit -m "fix: lint/type errors"
+git push origin <feature-branch>
+# Only then proceed with merge
+```
 
-# Run test suite
+**CRITICAL:** Never assume CI passing means branch is clean. Local verification prevents error accumulation on main.
+
+### Squash Merge (Default)
+- Cleans up commit history
+- Single commit per feature
+- Preserves PR context
+
+### Regular Merge
+- Multiple logical commits
+- Preserves detailed history
+- Complex features only
+
+## Human Collaboration Guidelines
+
+### For AI Reviewers
+1. **Flag complex decisions** for human review
+2. **Document uncertainty** clearly
+3. **Provide context** for recommendations
+4. **Respect human override** decisions
+
+### For Human Reviewers
+1. **Review AI analysis** before manual review
+2. **Override when necessary** with explanation
+3. **Provide learning feedback** to improve AI
+4. **Focus on strategic decisions** over tactical details
+
+## Quality Gates
+
+### Pre-Merge Requirements
+```bash
+# Must pass 100%
+pnpm lint
+pnpm typecheck  
 pnpm test
-
-# Ensure it builds
 pnpm build
 ```
 
-If any check fails, fix it before proceeding:
+### Post-Merge Actions
+- Deploy to staging
+- Monitor for regressions
+- Update documentation
+- Close related issues
 
-```bash
-# Fix linting issues
-pnpm lint --fix
+## Common Issues
 
-# After fixing, commit and push
-git add .
-git commit -m "fix: resolve linting and type errors"
-git push
-```
+### Build Failures
+1. Clear dependency cache
+2. Verify environment variables
+3. Check TypeScript compatibility
+4. Review recent package changes
 
-### 4.3 Manual Code Review
+### Test Failures
+1. Run tests locally
+2. Check for flaky tests
+3. Verify test data setup
+4. Review recent changes impact
 
-Check for:
-- ✅ No technical debt introduced
-- ✅ Code follows existing patterns
-- ✅ No hardcoded values that should be configurable
-- ✅ Proper error handling
-- ✅ Performance considerations
-- ✅ Security implications
-- ✅ Documentation updates if needed
+### Performance Regressions
+1. Bundle analysis comparison
+2. Load time measurements
+3. Memory usage profiling
+4. User experience testing
 
-## 5. Objective Quality Standards
+## Emergency Procedures
 
-All code is held to the same standards regardless of author:
+### Critical Bug Fix
+- Hotfix branch from main
+- Minimal change scope
+- Expedited review process
+- Immediate deployment
 
-- **Correctness**: Does it solve the intended problem without breaking anything?
-- **Maintainability**: Will future developers understand this code?
-- **Performance**: Are there any obvious performance issues?
-- **Security**: Are there any security vulnerabilities?
-- **Architecture**: Does it align with project structure and patterns?
-
-## 6. Human Collaboration Guidelines
-
-**Asking for help is GOOD** - correctness over autonomy.
-
-When to ask for human input:
-- Complex merge conflicts
-- Architectural decisions
-- Security implications
-- Performance trade-offs
-- Any uncertainty about the right approach
-
-How to ask effectively:
-- Present clear options with pros/cons
-- Show code examples
-- Explain what you understand and what you're unsure about
-- Flag any suspicious patterns
-
-Example:
-```
-"I'm reviewing PR #123 which refactors the auth system. There's a conflict where:
-- Main added email verification
-- The PR restructured the auth flow
-
-Option A: Integrate email verification into the new flow structure
-Option B: Keep email verification separate as a middleware
-
-I lean toward Option A for consistency, but want your input on the architectural choice."
-```
-
-## 7. PR Closure Policy
-
-### When to Close PRs (Not Merge)
-
-Close PRs in these scenarios:
-- **Redundant work**: PR duplicates changes already merged elsewhere
-- **Obsolete changes**: Original problem no longer exists or approach is deprecated  
-- **Major conflicts**: PR conflicts fundamentally with architectural decisions in main
-- **Abandoned work**: PR author confirms work is no longer needed
-
-### Standard Closure Process
-
-**CRITICAL**: Only use `gh pr close` for PRs that will NOT be merged. For PRs being merged, use `gh pr merge`.
-
-**ALWAYS comment before closing** to explain the decision:
-
-```bash
-# Template for redundant PRs
-gh pr close <number> --comment "Closing as redundant - this work was already completed and merged in PR #<other-number> (<title>), which included <explanation>."
-
-# Template for obsolete changes
-gh pr close <number> --comment "Closing as obsolete - <explanation of why no longer needed>. The original issue has been resolved by <alternative solution>."
-
-# Template for conflicting approaches  
-gh pr close <number> --comment "Closing due to architectural conflicts with recent changes in main. The approach in <conflicting changes> takes precedence. Consider reopening with updated approach if still needed."
-```
-
-### Documentation Requirements
-
-When closing PRs:
-1. **Always comment** with clear reasoning
-2. **Reference related PRs** that provide the functionality  
-3. **Suggest alternatives** if applicable
-4. **Update TODO.md** if the PR addressed items listed there
-5. **Tag the author** if they should be aware of alternatives
-
-### Example Scenarios
-
-**Merging a PR (Standard Case):**
-```bash
-# For feature additions or fixes that should be integrated
-gh pr merge 150 --merge --delete-branch
-# This shows as "Merged" on GitHub with purple badge ✅
-```
-
-**Closing Redundant Work:**
-```bash
-gh pr close 140 --comment "Closing as redundant - this work was already completed and merged in PR #144 (fix: add comprehensive try-catch blocks to AnalyticsService functions), which included try-catch blocks for both AnalyticsService and ErrorService."
-# This shows as "Closed" on GitHub with red badge ❌
-```
-
-**Closing Obsolete Changes:**
-```bash
-gh pr close 999 --comment "Closing as obsolete - console.log removal is no longer needed as this was completed in PR #136. All console.log statements have been replaced with appropriate logging mechanisms."
-# This shows as "Closed" on GitHub with red badge ❌
-```
-
-## 8. Merge Strategy
-
-Once all checks pass and conflicts are resolved:
-
-1. **Final verification**:
-   ```bash
-   # One more check that everything works
-   pnpm lint && pnpm typecheck && pnpm test && pnpm build
-   ```
-
-2. **Prepare clear commit message**:
-   - Summarize what changed
-   - Mention any important decisions made during conflict resolution
-
-3. **Get human confirmation**:
-   - Show the final diff
-   - Explain any conflict resolutions
-   - Confirm ready to merge
-
-4. **Merge the PR properly**:
-   ```bash
-   # Use GitHub's merge command to ensure proper tracking
-   gh pr merge <number> --squash --delete-branch
-   
-   # Alternative: regular merge to preserve all commits
-   gh pr merge <number> --merge --delete-branch
-   ```
-   
-   **IMPORTANT**: Use `gh pr merge` instead of local git merge + `gh pr close`
-   - This ensures GitHub shows the PR as "Merged" with purple badge
-   - Maintains accurate contribution statistics
-   - Creates clear audit trail
-
-5. **Document follow-up work** if needed
-
-### Merge vs Close Decision Tree
-
-```
-Is this PR being integrated into the codebase?
-├─ YES → Use: gh pr merge <number> --merge --delete-branch
-│        (Shows as "Merged" on GitHub)
-└─ NO → Use: gh pr close <number> --comment "[reason]"
-         (Shows as "Closed" on GitHub)
-```
-
-## 9. Common Scenarios
-
-### Scenario: Outdated Dependencies
-```bash
-# Update dependencies if needed
-pnpm install
-git add pnpm-lock.yaml
-git commit -m "chore: update lockfile"
-```
-
-### Scenario: Environment Variable Changes
-- Check if `.env.example` needs updating
-- Verify all env vars are documented
-- Ensure validation schemas are updated
-
-### Scenario: Database/API Changes
-- Check for migration files
-- Verify backward compatibility
-- Review API documentation updates
-
-## Remember
-
-**The goal is correctness and preserving all intended functionality, not speed or reducing human interaction.**
-
-- Take time to understand changes fully
-- Ask questions when unsure
-- Document your decisions
-- Learn from each PR review
-
-This process ensures we maintain high code quality while respecting the work and intentions of all contributors.
-
----
-
-## Related Documentation
-
-For comprehensive understanding of our quality standards and development practices:
-
-- **[CODING_STYLE.md](../development/CODING_STYLE.md)** - Code standards and patterns that all PRs must follow
-- **[TESTING.md](../development/TESTING.md)** - Testing requirements and strategies for ensuring code quality
-- **[QUALITY.md](../development/QUALITY.md)** - Zero-tolerance quality policy and comprehensive standards
+### Rollback Process
+- Revert commit on main
+- Deploy previous version
+- Create fix in separate PR
+- Document incident learnings

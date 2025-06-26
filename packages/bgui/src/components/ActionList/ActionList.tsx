@@ -3,6 +3,58 @@ import { Platform, View } from "react-native";
 import { ActionListItem } from "./ActionListItem";
 import type { ActionListItemProps, ActionListProps } from "./types";
 
+/**
+ * ActionList component for displaying lists of interactive items.
+ * Supports selection, keyboard navigation, and multiple visual variants.
+ *
+ * @example
+ * ```tsx
+ * // Basic action list
+ * <ActionList>
+ *   <ActionListItem onPress={() => console.log('Edit')}>Edit</ActionListItem>
+ *   <ActionListItem onPress={() => console.log('Delete')}>Delete</ActionListItem>
+ *   <ActionListDivider />
+ *   <ActionListItem onPress={() => console.log('Share')}>Share</ActionListItem>
+ * </ActionList>
+ *
+ * // Selectable list
+ * <ActionList
+ *   selectable
+ *   selectedItems={selected}
+ *   onSelectionChange={setSelected}
+ * >
+ *   <ActionListItem value="1" icon="file">Document 1</ActionListItem>
+ *   <ActionListItem value="2" icon="file">Document 2</ActionListItem>
+ *   <ActionListItem value="3" icon="file">Document 3</ActionListItem>
+ * </ActionList>
+ *
+ * // Menu variant with icons
+ * <ActionList variant="menu" aria-label="File menu">
+ *   <ActionListItem icon="file-plus" onPress={handleNew}>
+ *     New File
+ *   </ActionListItem>
+ *   <ActionListItem icon="folder-open" onPress={handleOpen}>
+ *     Open...
+ *   </ActionListItem>
+ *   <ActionListDivider />
+ *   <ActionListItem icon="save" onPress={handleSave}>
+ *     Save
+ *   </ActionListItem>
+ *   <ActionListItem icon="save" onPress={handleSaveAs} disabled>
+ *     Save As...
+ *   </ActionListItem>
+ * </ActionList>
+ *
+ * // Compact variant for dense layouts
+ * <ActionList variant="compact">
+ *   <ActionListItem>Option A</ActionListItem>
+ *   <ActionListItem>Option B</ActionListItem>
+ *   <ActionListItem>Option C</ActionListItem>
+ * </ActionList>
+ * ```
+ *
+ * @component
+ */
 export const ActionList = ({
 	children,
 	selectable = false,
