@@ -21,7 +21,7 @@ Content review comes later; right now we only care about *what exists, where it 
    - Versioning / changelog location strategy
 
 ## 📝  DELIVERABLE
-The report must be saved inside the `/prompts_output/` directory, and should include a UUID-style suffix (e.g., `DOCS_STRUCTURE_AUDIT_44a1b9e2.md`) to prevent filename collisions.
+The report must be saved inside the `/docs/prompts/output/` directory, and should include a UUID-style suffix (e.g., `DOCS_STRUCTURE_AUDIT_44a1b9e2.md`) to prevent filename collisions.
 
 - ### Inventory Table  
   | File Path | Doc Type | Notes (weird? missing? duplicate?) |
