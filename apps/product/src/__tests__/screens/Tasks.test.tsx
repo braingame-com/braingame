@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react-native";
 import React from "react";
+import { vi } from "vitest";
 import Tasks from "../../../app/tasks";
 
 // Mock expo-router
@@ -9,7 +10,7 @@ interface MockLinkProps {
 	asChild?: boolean;
 }
 
-jest.mock("expo-router", () => ({
+vi.mock("expo-router", () => ({
 	Link: ({ children, href, asChild }: MockLinkProps) => {
 		// If asChild is true, clone the child element with href prop
 		if (asChild && React.isValidElement(children)) {

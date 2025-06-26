@@ -1,92 +1,80 @@
-# Brain Game Documentation
+# Documentation
 
-Welcome to the Brain Game documentation. This directory contains comprehensive guides, references, and standards for developing and maintaining the Brain Game platform.
+Technical documentation for Brain Game development.
 
-## 📚 Documentation Categories
+## Quick Start
 
-### Getting Started
-- [Development Guide](./development/DEVELOPMENT.md) - Set up your development environment and get started
-- [Architecture Overview](./architecture/ARCHITECTURE.md) - Understand the system architecture and design decisions
-- [Coding Style Guide](./development/CODING_STYLE.md) - Code standards and best practices
+New developers start here:
+1. [Development Setup](./development/DEVELOPMENT.md)
+2. [Architecture Overview](./architecture/ARCHITECTURE.md)
+3. [Coding Standards](./development/CODING_STYLE.md)
 
-### Features & Integrations
-- [Agents System](./features/AGENTS.md) - AI agents architecture and implementation
-- [Token System](./features/TOKEN_SYSTEM.md) - Token economy and management
-- [Claude Integration](./features/CLAUDE.md) - Claude AI integration guide
-- [API Reference](./api/API.md) - API endpoints and usage
+## Documentation Structure
 
-### Development Workflows
-- [Testing Guide](./development/TESTING.md) - Testing strategies and frameworks
-- [Git Worktrees](./development/WORKTREES.md) - Managing multiple branches with git worktrees
-- [PR Review Process](./processes/PR_REVIEW_PROCESS.md) - Code review guidelines and process
-- [i18n Workflow](./processes/I18N_WORKFLOW.md) - Internationalization workflow and best practices
+### Architecture
+- [System Architecture](./architecture/ARCHITECTURE.md) - Technical blueprint
+- [Architecture Decisions](./architecture/adr/) - ADR records
+- [API Design](./api/API.md) - REST API documentation
 
-### Quality & Standards
-- [Quality Standards](./processes/QUALITY.md) - Quality assurance and code standards
-- [Brand Guidelines](./brand/BRAND.md) - Brand identity and design guidelines
+### Development
+- [Development Guide](./development/DEVELOPMENT.md) - Setup and workflow
+- [Coding Style](./development/CODING_STYLE.md) - Code standards
+- [Testing Strategy](./development/TESTING.md) - Testing approach
+- [Git Worktrees](./development/WORKTREES.md) - Workspace isolation
 
-### Architecture Decisions
-- [ADR Directory](./architecture/adr/README.md) - Architecture Decision Records
+### Features
+- [AI Agents](./features/AGENTS.md) - Agent guidelines
+- [Claude Integration](./features/CLAUDE.md) - Tactical guide
+- [Token System](./features/TOKEN_SYSTEM.md) - Design tokens
 
-### Learning & Improvement
-- [Lessons Learned](./LESSONS.md) - Key insights from development sessions
+### Processes
+- [PR Review](./processes/PR_REVIEW_PROCESS.md) - Review workflow
+- [Quality Standards](./processes/QUALITY.md) - Zero-tolerance policy
+- [i18n Workflow](./processes/I18N_WORKFLOW.md) - Internationalization
 
-## 🗂️ Related Documentation
+### References
+- [Lessons Learned](./LESSONS.md) - Critical knowledge
+- [Documentation Style](./DOCUMENTATION_STYLE_GUIDE.md) - Writing standards
+- [Brand Guidelines](./brand/BRAND.md) - Brand standards
 
-### Application Documentation
-- [API App](/apps/api/README.md) - Backend API documentation
-- [Documentation Site](/apps/docs-site/README.md) - Documentation website
-- [Main Site](/apps/main-site/README.md) - Marketing website
-- [Product App](/apps/product/README.md) - Main application
+## Navigation
 
-### Package Documentation
-- [UI Components (@braingame/bgui)](/packages/bgui/README.md) - Component library
-- [Configuration (@braingame/config)](/packages/config/README.md) - Shared configuration
-- [Internationalization (@braingame/i18n)](/packages/i18n/README.md) - i18n support
-- [Utilities (@braingame/utils)](/packages/utils/README.md) - Shared utilities
+### By Role
 
-### Project-Level Documentation
-- [Project README](../README.md) - Project overview and quick start
-- [Contributing Guide](../.github/CONTRIBUTING.md) - How to contribute
-- [Support](../SUPPORT.md) - Getting help and support
+**Backend Developer**
+- [API Documentation](./api/API.md)
+- [Architecture](./architecture/ARCHITECTURE.md)
+- [Testing](./development/TESTING.md)
 
-## 🔍 Quick Links
+**Frontend Developer**
+- [Component Library](/packages/bgui/)
+- [Token System](./features/TOKEN_SYSTEM.md)
+- [i18n Workflow](./processes/I18N_WORKFLOW.md)
 
-### For New Contributors
-1. Start with the [Contributing Guide](../.github/CONTRIBUTING.md)
-2. Set up your environment with the [Development Guide](./development/DEVELOPMENT.md)
-3. Review our [Coding Style Guide](./development/CODING_STYLE.md)
-4. Understand the [Architecture](./architecture/ARCHITECTURE.md)
+**DevOps/Platform**
+- [Environment Config](/apps/product/ENVIRONMENT_CONFIGURATION.md)
+- [Deployment](/apps/product/APP_STORE_SUBMISSION.md)
+- [Quality Gates](./processes/QUALITY.md)
 
-### For Developers
-1. [API Reference](./api/API.md) for backend development
-2. [Testing Guide](./development/TESTING.md) for writing tests
-3. [PR Review Process](./processes/PR_REVIEW_PROCESS.md) for submitting code
-4. [Quality Standards](./processes/QUALITY.md) for maintaining code quality
+### By Task
 
-### For Designers
-1. [Brand Guidelines](./brand/BRAND.md) for design consistency
-2. [UI Components Documentation](/packages/bgui/README.md)
+**Contributing Code**
+1. [Fork & Setup](./development/DEVELOPMENT.md)
+2. [Write Code](./development/CODING_STYLE.md)
+3. [Test Code](./development/TESTING.md)
+4. [Submit PR](./processes/PR_REVIEW_PROCESS.md)
 
-## 📝 Documentation Standards
+**Adding Features**
+1. [Architecture Decision](./architecture/adr/adr-template.md)
+2. [Implementation](./development/DEVELOPMENT.md)
+3. [Documentation](./DOCUMENTATION_STYLE_GUIDE.md)
 
-When contributing to documentation, follow our [Documentation Style Guide](./DOCUMENTATION_STYLE_GUIDE.md) which covers:
+## Standards
 
-1. **Writing Style** - Voice, tone, and language guidelines
-2. **Document Structure** - Standard sections and organization
-3. **Formatting** - Code examples, lists, tables, and emphasis
-4. **Linking** - Internal and external link conventions
-5. **Maintenance** - When and how to update documentation
+All documentation must:
+- Enable immediate action
+- Use clear, direct language
+- Include working examples
+- Stay current with code
 
-Quick tips:
-- Use clear, concise language
-- Include practical examples
-- Keep docs updated with code changes
-- Test all links before submitting
-- Follow the established patterns
-
-## 🚀 Need Help?
-
-- Check [SUPPORT.md](../SUPPORT.md) for support channels
-- Review [Lessons Learned](./LESSONS.md) for common issues and solutions
-- Submit issues for documentation improvements
+See [Documentation Style Guide](./DOCUMENTATION_STYLE_GUIDE.md) for details.
