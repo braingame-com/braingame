@@ -8,13 +8,12 @@
 		"start": "next start -p 3001",
 		"lint": "biome check --fix --files-ignore-unknown=true src",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf .next",
-		"analyze": "ANALYZE=true npm run build"
+		"clean": "rm -rf .next"
 	},
 	"dependencies": {
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
-		"next": "15.3.4",
+		"next": "15.3.3",
 		"@braingame/bgui": "workspace:*",
 		"@braingame/utils": "workspace:*"
 	},

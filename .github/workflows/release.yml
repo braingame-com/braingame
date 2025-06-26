@@ -70,7 +70,7 @@ jobs:
         run: pnpm build --filter website
       
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v14.8.0
+        uses: w9jds/firebase-action@v14.7.0
         with:
           args: deploy --only hosting:www
         env:

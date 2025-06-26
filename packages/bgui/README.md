@@ -1,49 +1,51 @@
-# BGUI
+# @braingame/bgui
 
-Enterprise-grade UI component library for Brain Game.
+> Enterprise-grade UI component library for React Native and web platforms
 
-## Features
+## Installation
 
-- **TypeScript**: 100% type coverage
-- **Cross-platform**: React Native + Web
-- **Accessible**: WCAG 2.1 AA compliance
-- **Themeable**: Design token system
-- **Performant**: Optimized bundle size
+```bash
+pnpm add @braingame/bgui
+```
 
 ## Quick Start
 
-```bash
-pnpm install @braingame/bgui
-```
-
-```typescript
+```tsx
 import { Button, Card, Text } from '@braingame/bgui';
 
-const App = () => (
-  <Card>
-    <Text variant="title">Welcome</Text>
-    <Button variant="primary" onPress={handlePress}>
-      Get Started
-    </Button>
-  </Card>
-);
+export function MyComponent() {
+  return (
+    <Card>
+      <Text variant="h2">Welcome to BGUI</Text>
+      <Button onPress={() => console.log('Pressed!')}>
+        Get Started
+      </Button>
+    </Card>
+  );
+}
 ```
 
 ## Components
 
-25+ production-ready components including:
-- Button, Text, View, Card
-- Modal, Toast, ErrorBoundary
-- Icon, Link, PageWrapper
-- TextInput, Alert, Breadcrumb
+25+ components across Layout, Forms, Display, Navigation, Feedback, and Utility categories.
+
+For detailed component documentation, see [Component Reference](./docs/BGUI_COMPONENT_PLAN.md).
+
+## Features
+
+- **TypeScript**: 100% type-safe with exported types
+- **Cross-Platform**: Works on iOS, Android, and Web
+- **Accessible**: WCAG 2.1 AA compliant
+- **Themeable**: Token-based design system
+- **Performant**: Optimized with React.memo and lazy loading
+- **Error Handling**: Built-in error boundaries
 
 ## Documentation
 
-- [Component Plan](./docs/BGUI_COMPONENT_PLAN.md) - Implementation roadmap
-- [Component Reference](./docs/COMPONENT_REFERENCE.md) - API docs
-- [Component Template](./docs/COMPONENT_TEMPLATE.md) - Documentation standards
-- [Error Boundary Guide](./docs/ErrorBoundary.md) - Error handling patterns
+- [Component Reference](./docs/BGUI_COMPONENT_PLAN.md) - Detailed API documentation
+- [Architecture](../../docs/ARCHITECTURE.md) - System design and patterns
+- [Development Guide](../../docs/DEVELOPMENT.md) - Setup and workflow
 
-## Design System
+---
 
-Built on Brain Game design tokens for consistent styling across all platforms.
+MIT © Brain Game

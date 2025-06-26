@@ -4,49 +4,6 @@ import { DEFAULT_SLIDER_MAX } from "../../constants";
 import { styles } from "./styles";
 import type { SliderProps } from "./types";
 
-/**
- * Slider component for selecting numeric values within a range.
- * Supports single value and range selection with drag gestures.
- *
- * @example
- * ```tsx
- * // Basic slider
- * <Slider
- *   value={volume}
- *   onValueChange={setVolume}
- *   min={0}
- *   max={100}
- * />
- *
- * // Range slider
- * <Slider
- *   value={[minPrice, maxPrice]}
- *   onValueChange={setPriceRange}
- *   min={0}
- *   max={1000}
- *   step={10}
- * />
- *
- * // Slider with custom range
- * <Slider
- *   value={temperature}
- *   onValueChange={setTemperature}
- *   min={-20}
- *   max={40}
- *   step={0.5}
- *   aria-label="Temperature adjustment"
- * />
- *
- * // Disabled slider
- * <Slider
- *   value={50}
- *   onValueChange={() => {}}
- *   disabled
- * />
- * ```
- *
- * @component
- */
 export const Slider = ({
 	value,
 	onValueChange,

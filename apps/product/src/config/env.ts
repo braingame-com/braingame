@@ -6,7 +6,6 @@
  */
 
 import { createEnvConfig, ProductAppEnvSchema } from "@braingame/utils";
-import packageJson from "../../package.json";
 
 // Create the validated environment configuration
 export const env = createEnvConfig(ProductAppEnvSchema);
@@ -16,7 +15,7 @@ export const env = createEnvConfig(ProductAppEnvSchema);
  */
 export const APP_CONFIG = {
 	name: env.APP_NAME,
-	version: packageJson.version,
+	version: env.APP_VERSION,
 	environment: env.NODE_ENV,
 	isProduction: env.NODE_ENV === "production",
 	isDevelopment: env.NODE_ENV === "development",
