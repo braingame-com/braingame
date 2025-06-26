@@ -6,6 +6,47 @@ import { Text } from "../Text";
 import { getCheckboxStyle, getContainerStyle, textStyle } from "./styles";
 import type { CheckboxProps } from "./types";
 
+/**
+ * Checkbox component for multi-selection interfaces.
+ * Supports checked, unchecked, and indeterminate states.
+ *
+ * @example
+ * ```tsx
+ * // Basic checkbox
+ * <Checkbox
+ *   checked={isSelected}
+ *   onValueChange={setIsSelected}
+ * />
+ *
+ * // With label
+ * <Checkbox
+ *   checked={acceptTerms}
+ *   onValueChange={setAcceptTerms}
+ * >
+ *   I accept the terms and conditions
+ * </Checkbox>
+ *
+ * // Indeterminate state
+ * <Checkbox
+ *   checked={false}
+ *   indeterminate={true}
+ *   onValueChange={handleChange}
+ * >
+ *   Select all
+ * </Checkbox>
+ *
+ * // Disabled checkbox
+ * <Checkbox
+ *   checked={true}
+ *   onValueChange={() => {}}
+ *   disabled
+ * >
+ *   Premium feature
+ * </Checkbox>
+ * ```
+ *
+ * @component
+ */
 const CheckboxComponent = ({
 	checked,
 	onValueChange,

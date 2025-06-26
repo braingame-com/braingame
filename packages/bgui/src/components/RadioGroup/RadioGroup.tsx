@@ -30,6 +30,54 @@ interface ContextValue {
 
 const RadioGroupContext = createContext<ContextValue | null>(null);
 
+/**
+ * RadioGroup component for single-selection from multiple options.
+ * Provides accessible radio button groups with keyboard navigation.
+ *
+ * @example
+ * ```tsx
+ * // Basic radio group
+ * <RadioGroup value={selected} onValueChange={setSelected}>
+ *   <RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+ *   <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
+ *   <RadioGroup.Item value="option3">Option 3</RadioGroup.Item>
+ * </RadioGroup>
+ *
+ * // Card variant
+ * <RadioGroup
+ *   value={plan}
+ *   onValueChange={setPlan}
+ *   variant="card"
+ * >
+ *   <RadioGroup.Item value="basic">
+ *     <Text>Basic Plan</Text>
+ *     <Text>$9.99/month</Text>
+ *   </RadioGroup.Item>
+ *   <RadioGroup.Item value="pro">
+ *     <Text>Pro Plan</Text>
+ *     <Text>$19.99/month</Text>
+ *   </RadioGroup.Item>
+ * </RadioGroup>
+ *
+ * // Uncontrolled with default value
+ * <RadioGroup defaultValue="medium">
+ *   <RadioGroup.Item value="small">Small</RadioGroup.Item>
+ *   <RadioGroup.Item value="medium">Medium</RadioGroup.Item>
+ *   <RadioGroup.Item value="large">Large</RadioGroup.Item>
+ * </RadioGroup>
+ *
+ * // With disabled items
+ * <RadioGroup value={tier} onValueChange={setTier}>
+ *   <RadioGroup.Item value="free">Free</RadioGroup.Item>
+ *   <RadioGroup.Item value="premium">Premium</RadioGroup.Item>
+ *   <RadioGroup.Item value="enterprise" disabled>
+ *     Enterprise (Coming Soon)
+ *   </RadioGroup.Item>
+ * </RadioGroup>
+ * ```
+ *
+ * @component
+ */
 const RadioGroupRoot = ({
 	children,
 	value: controlledValue,

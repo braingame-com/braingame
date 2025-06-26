@@ -2,10 +2,32 @@ import type React from "react";
 import { Component, type ReactNode } from "react";
 import { Text, View } from "react-native";
 
+/**
+ * Props for the ContextErrorBoundary component
+ */
 interface Props {
+	/**
+	 * Children components to wrap with error boundary.
+	 * Errors from these components will be caught.
+	 */
 	children: ReactNode;
+
+	/**
+	 * Custom fallback UI to display when error occurs.
+	 * If not provided, shows default error message.
+	 */
 	fallback?: ReactNode;
+
+	/**
+	 * Callback fired when an error is caught.
+	 * Useful for error logging or reporting.
+	 */
 	onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+
+	/**
+	 * Name of the context for error messages.
+	 * Helps identify which provider failed.
+	 */
 	contextName?: string;
 }
 
@@ -14,6 +36,55 @@ interface State {
 	error?: Error;
 }
 
+/**
+ * ContextErrorBoundary component for catching errors in context providers.
+ * Prevents entire app crashes when context providers encounter errors.
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <ContextErrorBoundary contextName="Theme">
+ *   <ThemeProvider>
+ *     <App />
+ *   </ThemeProvider>
+ * </ContextErrorBoundary>
+ *
+ * // With custom fallback
+ * <ContextErrorBoundary
+ *   contextName="Auth"
+ *   fallback={<Text>Authentication failed</Text>}
+ * >
+ *   <AuthProvider>
+ *     <SecureContent />
+ *   </AuthProvider>
+ * </ContextErrorBoundary>
+ *
+ * // With error logging
+ * <ContextErrorBoundary
+ *   contextName="Data"
+ *   onError={(error, info) => {
+ *     logErrorToService(error, info);
+ *   }}
+ * >
+ *   <DataProvider>
+ *     <Dashboard />
+ *   </DataProvider>
+ * </ContextErrorBoundary>
+ *
+ * // Nested providers
+ * <ContextErrorBoundary contextName="App">
+ *   <ThemeProvider>
+ *     <ContextErrorBoundary contextName="User">
+ *       <UserProvider>
+ *         <AppContent />
+ *       </UserProvider>
+ *     </ContextErrorBoundary>
+ *   </ThemeProvider>
+ * </ContextErrorBoundary>
+ * ```
+ *
+ * @component
+ */
 export class ContextErrorBoundary extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
