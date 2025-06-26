@@ -79,6 +79,10 @@ Future development areas:
 - **Content Management**: Dynamic exercise creation
 - **Social Features**: Community and sharing
 
+- [ ] Setup Monitoring & Analytics <!-- in_progress -->
+  - [ ] Add Mixpanel/Amplitude for analytics <!-- in_progress -->
+  - [ ] Set up alerting rules
+
 ## Notes for AI Agents
 
 When working on tasks:
