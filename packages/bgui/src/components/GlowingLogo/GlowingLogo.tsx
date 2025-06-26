@@ -13,6 +13,44 @@ const glowIntensityMap = {
 	high: { blur: 40, scale: 1.3 },
 };
 
+/**
+ * GlowingLogo component for displaying an animated brand logo.
+ * Features customizable glow effects and pulse animations.
+ *
+ * @example
+ * ```tsx
+ * // Basic glowing logo
+ * <GlowingLogo />
+ *
+ * // Large logo with custom glow
+ * <GlowingLogo
+ *   size={200}
+ *   glowColor="#00ff00"
+ *   glowIntensity="high"
+ * />
+ *
+ * // Interactive logo
+ * <GlowingLogo
+ *   onPress={() => navigation.navigate('Home')}
+ *   size={150}
+ * />
+ *
+ * // Static logo (no animation)
+ * <GlowingLogo
+ *   animate={false}
+ *   glowIntensity="low"
+ * />
+ *
+ * // Custom styled logo
+ * <GlowingLogo
+ *   size={80}
+ *   glowColor="#ff6b6b"
+ *   style={{ marginBottom: 20 }}
+ * />
+ * ```
+ *
+ * @component
+ */
 export const GlowingLogo: React.FC<GlowingLogoProps> = ({
 	size = DEFAULT_SIZE,
 	glowColor = DEFAULT_GLOW_COLOR,

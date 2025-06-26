@@ -54,16 +54,19 @@ export const spacing = {
 	xs: 4,
 	s: 8,
 	m: 16,
-	l: 20,
-	xl: 24,
-	xxl: 32,
-	xxxl: 48,
+	l: 24,
+	xl: 32,
+	xxl: 48,
+	xxxl: 64,
 } as const;
 
 /**
  * Font family constants
  */
 export const fonts = {
+	primary: "LexendRegular",
+	secondary: "LexendMedium",
+	mono: "Courier",
 	bold: "LexendBold",
 	semiBold: "LexendSemiBold",
 	medium: "LexendMedium",
@@ -75,17 +78,21 @@ export const fonts = {
  * Common dimensions used throughout the app
  */
 export const dimensions = {
-	buttonHeight: {
+	buttonHeight: 48,
+	inputHeight: 48,
+	borderRadius: 8,
+	borderWidth: 1,
+	buttonSizes: {
 		small: 40,
 		medium: 48,
 		large: 56,
 	},
-	inputHeight: {
+	inputSizes: {
 		small: 40,
 		medium: 48,
 		large: 56,
 	},
-	borderRadius: {
+	borderRadiusValues: {
 		none: 0,
 		small: 4,
 		medium: 8,
@@ -93,7 +100,7 @@ export const dimensions = {
 		xl: 16,
 		full: 9999,
 	},
-	borderWidth: {
+	borderWidthValues: {
 		thin: 1,
 		medium: 2,
 		thick: 3,
@@ -208,8 +215,8 @@ export const platformStyles = {
  * Helper function to create consistent button styles
  */
 export const createButtonStyle = (
-	height: number = dimensions.buttonHeight.medium,
-	borderRadius: number = dimensions.borderRadius.large,
+	height: number = dimensions.buttonSizes.medium,
+	borderRadius: number = dimensions.borderRadiusValues.large,
 ): ViewStyle => ({
 	height,
 	borderRadius,
@@ -222,13 +229,13 @@ export const createButtonStyle = (
  * Helper function to create consistent input styles
  */
 export const createInputStyle = (
-	height: number = dimensions.inputHeight.medium,
-	borderRadius: number = dimensions.borderRadius.medium,
+	height: number = dimensions.inputSizes.medium,
+	borderRadius: number = dimensions.borderRadiusValues.medium,
 ): ViewStyle => ({
 	height,
 	borderRadius,
 	paddingHorizontal: spacing.m,
-	borderWidth: dimensions.borderWidth.thin,
+	borderWidth: dimensions.borderWidthValues.thin,
 });
 
 /**

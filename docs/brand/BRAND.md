@@ -1,53 +1,72 @@
-# Brand Book: Brain Game
+# Brand Guidelines
 
-> **Single source of truth for our brand identity.**  
-> All communications, interfaces, and assets **must** align with these guidelines.
+Brain Game brand identity and usage standards.
 
----
+## Core Principles
 
-## 1. Core Principles
+### Authority
+We speak with confidence and expertise in mindset training.
 
-Our brand is built on **authority, clarity, and momentum.**
+### Clarity  
+Clear, direct communication without jargon or complexity.
 
-- **Authoritative, Not Arrogant:** We are experts, and our voice reflects that confidence. We state facts directly and avoid hedging language.
-- **Clear, Not Clever:** We prioritize understanding above all. We use simple words and active voice. We avoid jargon and overly clever marketing-speak.
-- **Momentum, Not Stagnation:** Our brand feels dynamic and forward-moving. The language is energetic and focused on action and results.
+### Momentum
+Emphasize progress, growth, and forward movement.
 
----
+## Voice & Tone
 
-## 2. Voice & Tone
+### Voice Characteristics
+- **Professional yet approachable** - Expert but not intimidating
+- **Encouraging** - Supportive of user growth
+- **Action-oriented** - Focus on doing, not just thinking
 
-| Do | Don't |
-|----|-------|
-| ✅ Be direct and concise. | ❌ Don't use weak or passive language ("maybe," "perhaps"). |
-| ✅ Use the active voice ("Build your focus," not "Focus can be built"). | ❌ Don't use buzzwords or corporate jargon. |
-| ✅ Use "we" to refer to Brain Game, "you" to refer to the user. | ❌ Don't be overly formal or robotic. |
-| ✅ Make bold, confident statements. | ❌ Don't apologize for our expert opinions. |
+### Tone Adaptation
+- **Marketing**: Inspiring and motivational
+- **Product**: Clear and instructional  
+- **Documentation**: Precise and helpful
+- **Support**: Empathetic and solution-focused
 
----
+### Documentation-Specific Voice
+- **Senior CTO perspective**: Write as if explaining to a competent peer
+- **Zero buzzwords**: Replace "leverage" → "use", "utilize" → "use"
+- **Direct and active**: "Configure the API" not "The API can be configured"
+- **Concise with depth**: Short sentences, complete information
 
-## 3. Brand Assets
+## Brand Assets
 
-| Asset | Value | Notes |
-|-------|-------|-------|
-| **Company Name** | `Brain Game` | Always with a space. |
-| **Technical Name** | `braingame` | Lowercase, for domains, code, etc. |
-| **Incorrect Variants** | `BrainGame`, `brainGame` | **Never use these.** |
-| **Tagline** | The world's most effective personal development company. | Use in marketing materials. |
-| **Contact Email** | `hello@braingame.dev` | For all public inquiries. |
-| **Website** | `www.braingame.dev` | Main marketing site. |
-| **App Domain** | `app.braingame.dev` | The product itself. |
+### Logo Usage
+- Minimum size: 24px height (digital), 0.5" (print)
+- Clear space: Logo height on all sides
+- Dark/light variations available
 
----
+### Color Palette
+```
+Primary: #007AFF (Brain Game Blue)
+Success: #34C759 (Growth Green)
+Warning: #FF9500 (Attention Orange)
+Error: #FF3B30 (Alert Red)
+```
 
-## 4. Logo & Visuals
+### Typography
+- **Headers**: System font, bold
+- **Body**: System font, regular
+- **UI**: System font, medium
 
- - **Primary Logo**: [logo.png](../../assets/logo.png)
-- **Usage**:
-  - Maintain clear space around the logo.
-  - Do not stretch, distort, or alter the logo.
-  - Use the appropriate variant (light/dark) for the background.
+## Content Guidelines
 
----
+### Do
+- Use active voice
+- Be specific and concrete
+- Focus on user benefits
+- Maintain consistent terminology
 
-*This document must be referenced by all AI agents and human contributors to ensure brand consistency across all platforms and touchpoints.*
+### Don't
+- Use passive voice
+- Include unnecessary jargon
+- Make unsupported claims
+- Mix metaphors or messaging
+
+## Contact
+
+**Brand Manager**: hello@braingame.dev
+**Asset Requests**: Assets available in design system
