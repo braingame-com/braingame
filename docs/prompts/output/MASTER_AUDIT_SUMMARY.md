@@ -13,7 +13,7 @@ Multiple domain experts have audited the braingame project. This document consol
 - [PR] **NoSQL injection vulnerability** - Unsanitized API inputs (CVSS 7.5) - PR #202
 - [PR] **Insecure session cookies** - Missing HttpOnly/Secure flags - PR #203
 - [PR] **Stack traces exposed** in production responses - PR #204
-- [ ] **Runtime logs committed to repo** - Privacy/security concern (6 Expo logs in apps/product)
+- [PR] **Runtime logs committed to repo** - Privacy/security concern (6 Expo logs in apps/product) - PR #205
 - [ ] **No encryption for PII** at rest or in backups
 
 ### 🟡 Launch Blockers (High Priority)
