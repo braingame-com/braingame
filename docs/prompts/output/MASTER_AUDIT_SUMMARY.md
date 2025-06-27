@@ -10,7 +10,7 @@ Multiple domain experts have audited the braingame project. This document consol
 ## Valid Concerns Requiring Action
 
 ### 🔴 Security (Critical)
-- [ ] **NoSQL injection vulnerability** - Unsanitized API inputs (CVSS 7.5)
+- [PR] **NoSQL injection vulnerability** - Unsanitized API inputs (CVSS 7.5) - PR #202
 - [ ] **Insecure session cookies** - Missing HttpOnly/Secure flags
 - [ ] **Stack traces exposed** in production responses
 - [ ] **Docker containers run as root** - Security risk
