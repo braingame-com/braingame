@@ -6,6 +6,7 @@ import { config } from "./config";
 import { corsMiddleware } from "./middleware/cors";
 import { errorHandler } from "./middleware/error";
 import { appLogger, logger } from "./middleware/logger";
+import { applySessionMiddleware } from "./middleware/session";
 import routes from "./routes";
 
 // Load environment variables
@@ -16,6 +17,9 @@ const PORT = process.env.PORT || 8080;
 
 // Security middleware
 app.use(helmet());
+
+// Session middleware (must come before routes)
+applySessionMiddleware(app);
 
 // CORS configuration
 app.use(corsMiddleware);
