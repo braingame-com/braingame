@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
-import helmet from "helmet";
 import morgan from "morgan";
 import { config } from "./config";
 import { corsMiddleware } from "./middleware/cors";
 import { errorHandler } from "./middleware/error";
 import { appLogger, logger } from "./middleware/logger";
+import { applySecurityMiddleware } from "./middleware/security";
 import routes from "./routes";
 
 // Load environment variables
@@ -14,8 +14,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Security middleware
-app.use(helmet());
+// Apply comprehensive security middleware
+applySecurityMiddleware(app);
 
 // CORS configuration
 app.use(corsMiddleware);
@@ -24,9 +24,9 @@ app.use(corsMiddleware);
 app.use(morgan("combined"));
 app.use(logger);
 
-// Body parsing
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Body parsing with size limits to prevent DoS
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // API routes
 app.use("/api", routes);
