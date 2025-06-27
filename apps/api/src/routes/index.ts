@@ -1,11 +1,15 @@
 import { type Request, type Response, Router } from "express";
 import { ApiError } from "../middleware/error";
+import authRoutes from "./auth";
 import healthRoutes from "./health";
 
 const router: Router = Router();
 
 // Mount health routes
 router.use("/", healthRoutes);
+
+// Mount auth routes
+router.use("/auth", authRoutes);
 
 // Root endpoint
 router.get("/", (_req: Request, res: Response) => {
@@ -15,6 +19,12 @@ router.get("/", (_req: Request, res: Response) => {
 		endpoints: {
 			health: "/api/health",
 			ready: "/api/ready",
+			auth: {
+				login: "/api/auth/login",
+				logout: "/api/auth/logout",
+				me: "/api/auth/me",
+				check: "/api/auth/check",
+			},
 		},
 		documentation: "https://api.braingame.dev/docs",
 	});
