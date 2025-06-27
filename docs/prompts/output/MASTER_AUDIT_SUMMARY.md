@@ -12,10 +12,8 @@ Multiple domain experts have audited the braingame project. This document consol
 ### 🔴 Security (Critical)
 - [PR] **NoSQL injection vulnerability** - Unsanitized API inputs (CVSS 7.5) - PR #202
 - [PR] **Insecure session cookies** - Missing HttpOnly/Secure flags - PR #203
-- [ ] **Stack traces exposed** in production responses
-- [ ] **Docker containers run as root** - Security risk
-- [ ] **S3 buckets have public-read ACLs** - Data exposure risk
-- [ ] **Runtime logs committed to repo** - Privacy/security concern
+- [PR] **Stack traces exposed** in production responses - PR #204
+- [ ] **Runtime logs committed to repo** - Privacy/security concern (6 Expo logs in apps/product)
 - [ ] **No encryption for PII** at rest or in backups
 
 ### 🟡 Launch Blockers (High Priority)
@@ -78,6 +76,10 @@ Multiple domain experts have audited the braingame project. This document consol
 - **"Consider serverless"** - Current infrastructure works well
 - **"Trim marketing content"** - Content team disagrees
 - **"Create growth dashboards"** - Premature optimization
+
+### 🚫 Not Applicable
+- **"Docker containers run as root"** - Project doesn't use Docker
+- **"S3 buckets have public-read ACLs"** - Project uses Firebase Storage, not AWS S3
 
 ### 🔄 In Progress (Per Current Branch)
 - **Technical debt evaluation** - Current branch already addressing
