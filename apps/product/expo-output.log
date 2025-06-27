@@ -1,9 +1,0 @@
-
-> @braingame/product@1.0.0 dev /Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox-1/apps/product
-> expo start "--clear"
-
-Starting project at /Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox-1/apps/product
-Starting Metro Bundler
-warning: Bundler cache is empty, rebuilding (this may take a minute)
-Waiting on http://localhost:8081
-Logs for your project will appear below.
