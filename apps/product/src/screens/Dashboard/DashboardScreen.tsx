@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { EmptyState, Text } from "@braingame/bgui";
 import type React from "react";
 import { useCallback, useMemo } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
@@ -172,7 +172,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 				case "header":
 					return <DashboardHeader />;
 				case "stats":
-					return (
+					return stats.length > 0 ? (
 						<FlatList
 							horizontal
 							data={stats}
@@ -182,6 +182,15 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 							showsHorizontalScrollIndicator={false}
 							{...listOptimizations.performanceConfig}
 						/>
+					) : (
+						<View style={dashboardStyles.emptyStateContainer}>
+							<EmptyState
+								icon="chart-bar"
+								title="No stats yet"
+								description="Complete some tasks to see your stats"
+								variant="compact"
+							/>
+						</View>
 					);
 				case "section-header":
 					return (
@@ -192,32 +201,52 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 				case "actions":
 					return (
 						<View style={dashboardStyles.section}>
-							<FlatList
-								data={actions}
-								renderItem={renderAction}
-								keyExtractor={listOptimizations.keyExtractor}
-								scrollEnabled={false}
-								{...listOptimizations.performanceConfig}
-							/>
+							{actions.length > 0 ? (
+								<FlatList
+									data={actions}
+									renderItem={renderAction}
+									keyExtractor={listOptimizations.keyExtractor}
+									scrollEnabled={false}
+									{...listOptimizations.performanceConfig}
+								/>
+							) : (
+								<EmptyState
+									icon="sparkles"
+									title="No actions available"
+									description="Check back later for suggested actions"
+									variant="compact"
+								/>
+							)}
 						</View>
 					);
 				case "activities":
 					return (
 						<View style={dashboardStyles.section}>
-							<FlatList
-								data={activities}
-								renderItem={renderActivity}
-								keyExtractor={listOptimizations.keyExtractor}
-								scrollEnabled={false}
-								{...listOptimizations.performanceConfig}
-							/>
+							{activities.length > 0 ? (
+								<FlatList
+									data={activities}
+									renderItem={renderActivity}
+									keyExtractor={listOptimizations.keyExtractor}
+									scrollEnabled={false}
+									{...listOptimizations.performanceConfig}
+								/>
+							) : (
+								<EmptyState
+									icon="clock"
+									title="No recent activity"
+									description="Start using the app to see your activity here"
+									actionLabel="Get Started"
+									onAction={navigateToMindset}
+									variant="compact"
+								/>
+							)}
 						</View>
 					);
 				default:
 					return null;
 			}
 		},
-		[stats, actions, activities, renderStat, renderAction, renderActivity],
+		[stats, actions, activities, renderStat, renderAction, renderActivity, navigateToMindset],
 	);
 
 	return (

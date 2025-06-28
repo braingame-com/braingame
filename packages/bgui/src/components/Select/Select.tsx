@@ -9,6 +9,7 @@ import {
 } from "../../constants";
 import { validateProps, validators } from "../../utils/validation";
 import { withErrorBoundary } from "../../utils/withErrorBoundary";
+import { EmptyState } from "../EmptyState";
 import { Text } from "../Text";
 import { View as BView } from "../View";
 import { SelectItem } from "./SelectItem";
@@ -93,19 +94,30 @@ const SelectComponent = ({
 		}
 	};
 
-	const renderItems = () => (
-		<ScrollView accessibilityRole="list" style={{ maxHeight: SELECT_DROPDOWN_MAX_HEIGHT }}>
-			{Children.map(children, (child) => {
-				if (!child) return null;
-				const element = child as ReactElement<SelectItemProps>;
-				const isSelected = selectedValues.includes(element.props.value);
-				return cloneElement(element, {
-					selected: isSelected,
-					onSelect: handleSelect,
-				});
-			})}
-		</ScrollView>
-	);
+	const renderItems = () => {
+		const childrenArray = Children.toArray(children).filter(Boolean);
+
+		if (childrenArray.length === 0) {
+			return (
+				<View style={{ paddingVertical: Tokens.l }}>
+					<EmptyState icon="list" title="No options available" variant="compact" />
+				</View>
+			);
+		}
+
+		return (
+			<ScrollView accessibilityRole="list" style={{ maxHeight: SELECT_DROPDOWN_MAX_HEIGHT }}>
+				{childrenArray.map((child) => {
+					const element = child as ReactElement<SelectItemProps>;
+					const isSelected = selectedValues.includes(element.props.value);
+					return cloneElement(element, {
+						selected: isSelected,
+						onSelect: handleSelect,
+					});
+				})}
+			</ScrollView>
+		);
+	};
 
 	const borderColorDefault = useThemeColor("border");
 	const background = useThemeColor("background");
