@@ -72,7 +72,7 @@ describe("Icon", () => {
 	});
 
 	it("applies variant", () => {
-		const variants = ["solid", "regular", "brand"] as const;
+		const variants = ["solid", "regular", "brands"] as const;
 		for (const variant of variants) {
 			const { getByLabelText } = render(<Icon name="home" variant={variant} />);
 			expect(getByLabelText("home icon")).toBeTruthy();
