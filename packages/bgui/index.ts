@@ -22,6 +22,8 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
+export type { EmptyStateProps } from "./src/components/EmptyState";
+export { EmptyState } from "./src/components/EmptyState";
 export {
 	ContextErrorBoundary,
 	ContextErrorBoundary as ErrorBoundary,

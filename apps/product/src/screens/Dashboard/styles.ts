@@ -154,4 +154,9 @@ export const dashboardStyles = StyleSheet.create({
 		color: "#999",
 		fontFamily: "LexendRegular",
 	},
+
+	emptyStateContainer: {
+		paddingVertical: 20,
+		paddingHorizontal: 16,
+	},
 });
