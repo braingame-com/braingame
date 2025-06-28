@@ -1,6 +1,6 @@
 # AGENTS.md - AI Agent Guidelines & Standards
 
-> **Last Updated**: 23-06-2025
+> **Last Updated**: 28-06-2025
 
 This document defines the roles, usage, and guard‑rails for **all AI agents, bots, or automations** that interact with the Brain Game monorepo.
 
@@ -56,6 +56,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 ```bash
 pnpm lint      # Must pass with 0 errors, 0 warnings
 pnpm typecheck # Must pass with 0 errors
+pnpm build     # Must complete successfully (catches web compatibility issues)
 ```
 
 **Before every PR merge:**

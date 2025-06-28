@@ -1,7 +1,7 @@
 # CLAUDE.md - AI Agent Cheatsheet
 
 > **This is your tactical guide.** It provides the essential commands and workflows for operating effectively within the Brain Game repository.
-> **Last Updated**: 23-06-2025
+> **Last Updated**: 28-06-2025
 
 ## 📚 **REQUIRED READING** (Read these docs before any development work)
 
@@ -162,10 +162,10 @@ pnpm install
 pnpm dev
 
 # Run only the Expo universal app
-pnpm dev --filter product
+pnpm dev --filter @braingame/product
 
 # Run only the Next.js website
-pnpm dev --filter website
+pnpm dev --filter @braingame/main-site
 ```
 
 ### Quality & Testing
@@ -260,6 +260,41 @@ pnpm --filter product web
 2. Advanced navigation patterns and authentication flows
 3. Ensuring proper worktree isolation and documentation
 4. Making the project enterprise-ready
+
+---
+
+## 9. Web Compatibility for React Native Components
+
+### Critical Learning (28-06-2025)
+When creating components in `packages/bgui` that import React Native packages, you MUST create `.web.tsx` versions for Next.js compatibility.
+
+### Pattern to Follow
+```bash
+# For each component that uses React Native:
+src/components/MyComponent/MyComponent.tsx      # React Native version
+src/components/MyComponent/MyComponent.web.tsx  # Web-compatible version
+```
+
+### Common Incompatibilities
+- **Imports to avoid in web versions:**
+  - `react-native` (use HTML elements instead)
+  - `react-native-svg` (use regular SVG)
+  - `expo-*` packages (create web alternatives)
+  - `react-native-reanimated` (use CSS transitions)
+  - `react-native-gesture-handler` (use DOM events)
+
+### Web Version Guidelines
+1. Replace `View` with `div`
+2. Replace `Text` with `span` or appropriate HTML element
+3. Replace `StyleSheet` styles with CSS-in-JS or style objects
+4. Replace `Alert.alert()` with `window.alert()` or custom modal
+5. Handle platform-specific code with environment checks
+
+### Build Verification
+**CRITICAL:** Always run `pnpm build` before committing to ensure:
+- All packages build successfully
+- Web versions are properly resolved
+- No React Native imports leak into Next.js apps
 
 ---
 
