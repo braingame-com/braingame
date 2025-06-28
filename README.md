@@ -56,8 +56,8 @@ pnpm install
 pnpm dev
 
 # Or run specific apps
-pnpm dev --filter product  # Expo app
-pnpm dev --filter website  # Next.js site
+pnpm dev --filter @braingame/product  # Expo app
+pnpm dev --filter @braingame/main-site  # Next.js site
 ```
 
 **🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/development/WORKTREES.md) for details.

@@ -11,5 +11,5 @@
 			"@braingame/utils": ["../utils"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", "vitest.config.ts"]
+	"include": ["**/*.ts", "**/*.tsx", "**/*.web.ts", "**/*.web.tsx", "vitest.config.ts"]
 }

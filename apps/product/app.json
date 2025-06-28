@@ -88,7 +88,6 @@
 				}
 			],
 			"expo-font",
-			"expo-haptics",
 			[
 				"expo-clipboard",
 				{
