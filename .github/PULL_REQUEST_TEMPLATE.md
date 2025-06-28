@@ -10,6 +10,8 @@ Provide a short summary of your changes.
 Explain how you tested your changes.
 
 ## Checklist
-- [ ] Lint and type checks pass
-- [ ] Tests pass
+- [ ] Ran `pnpm lint` - no errors or warnings
+- [ ] Ran `pnpm typecheck` - no errors
+- [ ] Ran `pnpm test` - all tests pass
+- [ ] Ran `pnpm build` - builds successfully
 - [ ] Documentation updated if needed
