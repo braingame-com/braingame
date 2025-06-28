@@ -84,3 +84,97 @@ Multiple security experts audited the braingame project and flagged various secu
    - Security improvements are features that deserve PR recognition
    - Preventive security work prevents future incidents
    - Time invested in security infrastructure pays compound interest
+
+## Developer Experience & Build Issues (2025-06-28)
+
+### Context
+After completing security fixes, addressed multiple developer experience issues that were blocking builds and hampering productivity.
+
+### Key Learnings
+
+#### 1. **React Native Web Compatibility**
+- **Problem:** Components importing React Native packages fail in Next.js builds
+- **Solution:** Create `.web.tsx` versions for all components using React Native imports
+- **Pattern:** Metro/Next.js automatically resolve platform-specific files
+- **Lesson:** Always consider web compatibility when creating shared components
+
+#### 2. **Monorepo Filter Syntax**
+- **Problem:** README had incorrect pnpm filter examples (`--filter product` instead of `--filter @braingame/product`)
+- **Fix:** Use full package names with @braingame prefix
+- **Lesson:** Documentation accuracy is critical for developer experience
+
+#### 3. **Build Dependencies**
+- **Problem:** Missing `expo-haptics` blocked product app builds despite being in app.json
+- **Fix:** Explicitly add to package.json dependencies
+- **Lesson:** Expo plugins must be installed as dependencies, not just configured
+
+#### 4. **Web Build Configuration**
+- **Problem:** Next.js couldn't handle .ttf fonts, React Native imports, __DEV__ global
+- **Solution:** Configure webpack to:
+  - Ignore font files with ignore-loader
+  - Alias React Native to react-native-web
+  - Define __DEV__ with DefinePlugin
+  - Prioritize .web.tsx extensions
+- **Lesson:** Web builds need explicit configuration for React Native compatibility
+
+### Technical Implementation Details
+
+1. **Platform-Specific Components**
+   ```typescript
+   // MyComponent.tsx - React Native version
+   import { View, Text } from 'react-native';
+   
+   // MyComponent.web.tsx - Web version
+   import React from 'react';
+   // Use div/span instead
+   ```
+
+2. **Webpack Configuration Pattern**
+   ```typescript
+   webpack: (config, { webpack }) => {
+     // Handle fonts
+     config.module.rules.push({
+       test: /\.(ttf|otf|eot|woff|woff2)$/,
+       loader: "ignore-loader",
+     });
+     
+     // Platform-specific extensions
+     config.resolve.extensions = [".web.tsx", ".web.ts", ...config.resolve.extensions];
+     
+     // Alias React Native packages
+     config.resolve.alias = {
+       "react-native$": "react-native-web",
+       // ... other aliases
+     };
+     
+     return config;
+   }
+   ```
+
+3. **Testing Considerations**
+   - Use `@testing-library/react` for web components
+   - Use `@testing-library/react-native` for React Native components
+   - Ensure test imports match the component type
+
+### Process Improvements
+
+1. **Build Verification**
+   - Always run `pnpm build` before committing
+   - Don't assume CI will catch build issues
+   - Test both development and production builds
+
+2. **Documentation Updates**
+   - Keep README examples accurate and tested
+   - Document platform-specific patterns
+   - Update CLAUDE.md with new learnings immediately
+
+3. **Dependency Management**
+   - Verify all configured plugins are installed
+   - Check for version compatibility
+   - Use exact versions for critical dependencies
+
+### Git Hygiene Reminder
+- Create separate branches for each type of fix
+- Use descriptive branch names (fix/developer-experience-issues)
+- Create focused PRs with clear descriptions
+- Don't mix unrelated changes in one PR
