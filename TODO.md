@@ -55,6 +55,14 @@
   - [ ] Set up API documentation site
   - [ ] Add request/response examples
 
+- [ ] Architecture Decision Records (ADR) Documentation
+  - [ ] Review GitHub commit history for architectural decisions
+  - [ ] Document key technology choices (pnpm, Turborepo, Expo, etc.)
+  - [ ] Record rationale for monorepo structure
+  - [ ] Document security architecture decisions
+  - [ ] Add decision dates and context from PRs
+  - [ ] Include migration paths and alternatives considered
+
 ## 🎨 Nice to Have
 
 - [ ] Create Marketing Website Content
@@ -66,6 +74,16 @@
 - [ ] Developer Experience Improvements
   - [ ] Improve hot reload performance
   - [ ] Create debugging guide
+  - [ ] Optimize Claude Custom Commands
+    - [ ] Review and optimize merge_prs.md command
+    - [ ] Audit all commands in .claude/commands for correctness
+    - [ ] Ensure consistent quality standards across commands
+    - [ ] Create new custom commands based on workflow patterns:
+      - [ ] Security audit automation command
+      - [ ] Worktree management command
+      - [ ] PR quality check command
+      - [ ] Session summary generator
+    - [ ] Document command best practices from LESSONS.md
 
 - [ ] Advanced Testing
   - [ ] 90% test coverage goal
