@@ -11,7 +11,7 @@
 
 ```bash
 # From monorepo root
-pnpm dev --filter product
+pnpm dev --filter @braingame/product
 
 # Or from this directory
 pnpm dev

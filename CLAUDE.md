@@ -189,13 +189,13 @@ pnpm clean
 ### Platform-Specific
 ```bash
 # Start the Expo app on the iOS Simulator
-pnpm --filter product ios
+pnpm --filter @braingame/product ios
 
 # Start the Expo app on an Android emulator
-pnpm --filter product android
+pnpm --filter @braingame/product android
 
 # Start the Expo app in a web browser
-pnpm --filter product web
+pnpm --filter @braingame/product web
 ```
 
 ---

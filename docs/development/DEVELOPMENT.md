@@ -64,8 +64,8 @@ These are the commands you will use most often. They are run from the monorepo r
 | Command | Description |
 |---|---|
 | `pnpm dev` | Starts all apps (Expo & Next.js) in development mode. |
-| `pnpm dev --filter <app>` | Runs a specific app (e.g., `product` or `website`). |
-| `pnpm --filter product <platform>` | Runs the Expo app on a specific platform (`ios`, `android`, `web`). |
+| `pnpm dev --filter <app>` | Runs a specific app (e.g., `@braingame/product` or `@braingame/main-site`). |
+| `pnpm --filter @braingame/product <platform>` | Runs the Expo app on a specific platform (`ios`, `android`, `web`). |
 | `pnpm lint` | Lints and formats all code with Biome. |
 | `pnpm test` | Runs all unit tests with Jest. |
 | `pnpm test:watch` | Runs tests in watch mode for TDD. |
@@ -103,10 +103,10 @@ These are the commands you will use most often. They are run from the monorepo r
 
 ```bash
 # Add a dependency to a specific app/package
-pnpm add react-query --filter product
+pnpm add react-query --filter @braingame/product
 
 # Add a dev dependency
-pnpm add -D @types/node --filter website
+pnpm add -D @types/node --filter @braingame/main-site
 
 # Add a dependency to the root (for tooling like Turbo)
 pnpm add -w turbo
@@ -160,13 +160,13 @@ braingame/
 pnpm dev
 
 # Run specific app
-pnpm dev --filter product  # Expo app
-pnpm dev --filter website  # Next.js site
+pnpm dev --filter @braingame/product  # Expo app
+pnpm dev --filter @braingame/main-site  # Next.js site
 
 # Platform-specific commands (Expo)
-pnpm --filter product ios
-pnpm --filter product android
-pnpm --filter product web
+pnpm --filter @braingame/product ios
+pnpm --filter @braingame/product android
+pnpm --filter @braingame/product web
 ```
 
 ### 2. Working with Components
@@ -194,7 +194,7 @@ pnpm test:watch
 pnpm test:coverage
 
 # Run tests for specific package
-pnpm test --filter bgui
+pnpm test --filter @braingame/bgui
 ```
 
 ### 4. Code Quality
@@ -241,8 +241,8 @@ pnpm clean
 pnpm add -w turbo
 
 # Add to specific app/package
-pnpm add react-query --filter product
-pnpm add -D @types/node --filter website
+pnpm add react-query --filter @braingame/product
+pnpm add -D @types/node --filter @braingame/main-site
 
 # Add to all workspaces
 pnpm add typescript -r

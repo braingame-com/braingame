@@ -12,7 +12,7 @@
 
 ```bash
 # From monorepo root
-pnpm dev --filter website
+pnpm dev --filter @braingame/main-site
 
 # Or from this directory
 pnpm dev
