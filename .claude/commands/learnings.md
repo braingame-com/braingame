@@ -1,0 +1,1 @@
+What have learnt from todays sessions so far? Make sure to update LESSONS.md, CLAUDE.md and AGENTS.md with important and valuable insight, so that we can improve processes and efficiency in future!

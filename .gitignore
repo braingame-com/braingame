@@ -44,11 +44,10 @@ yarn-error.*
 
 # Temporary files
 *.log
-
-# Claude configuration
-.claude/
-**/dist/
 **/*.tmp
+
+# Build
+**/dist/
 
 # Package managers
 package-lock.json

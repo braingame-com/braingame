@@ -1,0 +1,1 @@
+run lint and typecheck commands and fix anything that comes up. no errors or warnings are allowed.

@@ -1,0 +1,1 @@
+review the current projects TODO.md and tell me what's left to do.
