@@ -276,6 +276,9 @@ pnpm install
 # In VS Code: Cmd+Shift+P → "TypeScript: Restart TS Server"
 ```
 
+**Issue**: Lint/typecheck fails offline
+See [Offline Development Guide](./OFFLINE_DEVELOPMENT.md) for solutions.
+
 **Issue**: Expo app not loading
 ```bash
 # Clear Expo cache
