@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
 jobs:
   lint:
     name: Lint
@@ -25,6 +29,9 @@ jobs:
       
       - name: Run Biome lint
         run: pnpm lint
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
   test:
     name: Test
@@ -44,6 +51,9 @@ jobs:
       
       - name: Run tests
         run: pnpm test
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
   build:
     name: Build
@@ -64,6 +74,9 @@ jobs:
       
       - name: Build all packages
         run: pnpm build
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -92,3 +105,6 @@ jobs:
       
       - name: Run type checking
         run: pnpm typecheck
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
