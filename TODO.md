@@ -7,6 +7,14 @@
 
 ### 🚨 Critical Priority
 
+- [ ] Create MVP Components and Product
+  - [ ] Define core MVP feature set
+  - [ ] Build essential UI components in packages/bgui
+  - [ ] Implement core product functionality in apps/product
+  - [ ] Create minimal viable authentication flow
+  - [ ] Set up basic data persistence
+  - [ ] Implement essential user workflows
+
 - [ ] Production Deployment Preparation (in_progress 24-06-2025)
   - [ ] Production Firebase configuration
   - [ ] App Store Connect setup
