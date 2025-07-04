@@ -1,5 +1,0 @@
-
-> @braingame/product@1.0.0 start
-> expo start --web --port 8085
-
-sh: expo: command not found
