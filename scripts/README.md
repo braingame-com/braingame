@@ -95,6 +95,32 @@ pnpm docs readme-section Button
 pnpm docs quick-ref
 ```
 
+### Setup & Environment
+
+#### `setup.sh`
+One-command setup script for new developers.
+
+```bash
+# Run from repository root
+bash scripts/setup.sh
+```
+
+**What it does:**
+1. **Node.js version** - Ensures correct version via nvm
+2. **pnpm installation** - Installs pnpm if not present
+3. **Dependencies** - Installs all package dependencies
+4. **Build utilities** - Builds core packages (@braingame/utils, etc.)
+5. **Environment setup** - Creates .env.local files from examples
+6. **Validation** - Runs environment validation checks
+7. **Git hooks** - Sets up pre-commit hooks
+8. **Health check** - Verifies setup with linting
+
+**Features:**
+- Safe to run multiple times (idempotent)
+- Colored output for clarity
+- Helpful error messages
+- Next steps guidance
+
 ### Git Hooks & CI
 
 #### `pre-commit.sh`

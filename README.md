@@ -45,6 +45,10 @@ New contributors should review **[docs/features/AGENTS.md](./docs/features/AGENT
 git clone https://github.com/braingame-com/braingame.git
 cd braingame
 
+# Quick setup (recommended)
+bash scripts/setup.sh
+
+# Or manual setup:
 # Verify workspace (CRITICAL - prevents contamination)
 bash scripts/check-workspace.sh
 
