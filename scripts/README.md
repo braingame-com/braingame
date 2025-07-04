@@ -146,6 +146,25 @@ Workspace verification script for git worktrees.
 - Prevents accidental work in wrong branches
 - Color-coded output for clarity
 
+#### `verify-turbo-cache.sh`
+Verification script for Turbo remote cache setup.
+
+```bash
+./scripts/verify-turbo-cache.sh
+```
+
+**What it checks:**
+1. **Environment variables** - TURBO_TOKEN and TURBO_TEAM
+2. **Turbo installation** - Version and availability
+3. **Remote cache connection** - Tests access to cache API
+4. **Cache statistics** - Shows local cache size and entries
+
+**Features:**
+- Security-conscious (hides tokens)
+- Provides actionable next steps
+- Shows cache performance metrics
+- Links to documentation
+
 ### Code Transformation
 
 #### `primary-button-codemod.ts`

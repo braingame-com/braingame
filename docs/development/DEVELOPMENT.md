@@ -286,6 +286,29 @@ cd apps/product
 npx expo start -c
 ```
 
+## Performance Optimization
+
+### Turbo Remote Caching
+Speed up builds by sharing cache across team members and CI:
+
+```bash
+# Verify setup
+./scripts/verify-turbo-cache.sh
+
+# See full guide
+docs/development/TURBO_REMOTE_CACHING.md
+```
+
+Benefits:
+- 50-70% faster CI builds
+- Share cache between developers
+- Reduce redundant computations
+
+### Build Performance Tips
+- Use `--filter` to build only what you need
+- Enable remote caching for team collaboration
+- Run `pnpm clean` if builds get slow
+
 ## AI Development
 
 When using AI assistants (like Claude):
