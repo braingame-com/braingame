@@ -7,9 +7,15 @@
 
 ### 🚨 Critical Priority
 
-- [ ] Create MVP Components and Product
-  - [ ] Define core MVP feature set
-  - [ ] Build essential UI components in packages/bgui
+- [ ] Create MVP Components and Product (in_progress 03-07-2025)
+  - [x] Define core MVP feature set (completed 03-07-2025)
+  - [ ] Build essential UI components in packages/bgui (in_progress 03-07-2025)
+    - [x] VisionCard component
+    - [x] EmptyState component  
+    - [x] OnboardingSlide component
+    - [ ] AffirmationCard component
+    - [ ] StreakCounter component
+    - [ ] CalendarGrid component
   - [ ] Implement core product functionality in apps/product
   - [ ] Create minimal viable authentication flow
   - [ ] Set up basic data persistence

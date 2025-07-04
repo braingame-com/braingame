@@ -22,6 +22,8 @@ export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
+export { EmptyState } from "./src/components/EmptyState";
+export type { EmptyStateProps } from "./src/components/EmptyState/types";
 export {
 	ContextErrorBoundary,
 	ContextErrorBoundary as ErrorBoundary,
@@ -42,6 +44,8 @@ export { Menu, MenuItem } from "./src/components/Menu";
 export type { MenuItemProps, MenuProps } from "./src/components/Menu/types";
 export { Modal, ModalFooter, ModalHeader } from "./src/components/Modal";
 export type { ModalProps } from "./src/components/Modal/types";
+export { OnboardingSlide } from "./src/components/OnboardingSlide";
+export type { OnboardingSlideProps } from "./src/components/OnboardingSlide/types";
 export { PageWrapper } from "./src/components/PageWrapper";
 export type { PageWrapperProps } from "./src/components/PageWrapper/types";
 export { ProgressBar } from "./src/components/ProgressBar";
@@ -68,6 +72,9 @@ export { Tooltip } from "./src/components/Tooltip";
 export type { TooltipProps } from "./src/components/Tooltip/types";
 export { View } from "./src/components/View";
 export type { ViewProps } from "./src/components/View/types";
+export { VisionCard } from "./src/components/VisionCard";
+export { LIFE_AREA_CONFIGS } from "./src/components/VisionCard/constants";
+export type { LifeArea, LifeAreaConfig, VisionCardProps } from "./src/components/VisionCard/types";
 
 // Constants
 export { Fonts } from "./src/constants/Fonts";
