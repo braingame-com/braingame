@@ -5,25 +5,25 @@ export const LIFE_AREA_CONFIGS: LifeAreaConfigs = {
 	health: {
 		title: "Health",
 		icon: "heart",
-		color: Colors.universal.status.error, // Red for health/heart
+		color: Colors.universal.negative, // Red for health/heart
 		description: "Physical and mental wellness",
 	},
 	wealth: {
 		title: "Wealth",
 		icon: "dollar-sign",
-		color: Colors.universal.status.success, // Green for money
+		color: Colors.universal.positive, // Green for money
 		description: "Financial abundance and security",
 	},
 	relationships: {
 		title: "Relationships",
 		icon: "users",
-		color: Colors.universal.status.info, // Blue for connections
+		color: Colors.universal.primary, // Blue for connections
 		description: "Love, family, and friendships",
 	},
 	happiness: {
 		title: "Happiness",
 		icon: "smile",
-		color: Colors.universal.status.warning, // Yellow/orange for joy
+		color: Colors.universal.warn, // Yellow/orange for joy
 		description: "Joy, fulfillment, and satisfaction",
 	},
 	self: {

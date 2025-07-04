@@ -1,4 +1,4 @@
-import type { ImageSourcePropType, ViewStyle } from "react-native";
+import type { ViewStyle } from "react-native";
 
 export interface OnboardingSlideProps {
 	/**
@@ -14,7 +14,7 @@ export interface OnboardingSlideProps {
 	/**
 	 * Optional image or illustration
 	 */
-	image?: ImageSourcePropType;
+	image?: string;
 
 	/**
 	 * Whether this is the last slide

@@ -1,4 +1,4 @@
-import { Colors, Tokens } from "@braingame/utils";
+import { Tokens } from "@braingame/utils";
 import { StyleSheet, View } from "react-native";
 import { Button } from "../Button";
 import { Icon } from "../Icon";
@@ -10,7 +10,7 @@ export function EmptyState({ icon, title, description, action, style }: EmptySta
 		<View style={[styles.container, style]}>
 			{icon && (
 				<View style={styles.iconContainer}>
-					<Icon name={icon} size={64} color={Colors.universal.neutral[400]} />
+					<Icon name={icon} size="lg" color="icon" />
 				</View>
 			)}
 
@@ -25,7 +25,7 @@ export function EmptyState({ icon, title, description, action, style }: EmptySta
 			)}
 
 			{action && (
-				<Button variant="primary" size="medium" onPress={action.onPress} style={styles.button}>
+				<Button variant="primary" size="md" onPress={action.onPress}>
 					{action.label}
 				</Button>
 			)}

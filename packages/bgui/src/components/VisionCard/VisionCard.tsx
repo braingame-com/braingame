@@ -24,7 +24,7 @@ export function VisionCard({
 			{/* Header with icon and title */}
 			<View style={styles.header}>
 				<View style={[styles.iconContainer, { backgroundColor: `${config.color}20` }]}>
-					<Icon name={config.icon} size="md" color={config.color} />
+					<Icon name={config.icon} size="md" color="text" />
 				</View>
 				<View style={styles.headerText}>
 					<Text variant="subtitle" style={{ color: config.color }}>
@@ -36,7 +36,7 @@ export function VisionCard({
 				</View>
 				<Button
 					variant="ghost"
-					size="small"
+					size="sm"
 					onPress={onEdit}
 					icon="edit"
 					loading={loading}
@@ -68,7 +68,7 @@ export function VisionCard({
 							{progress}%
 						</Text>
 					</View>
-					<ProgressBar value={progress} maxValue={100} color={config.color} />
+					<ProgressBar value={progress} color={config.color} />
 				</View>
 			)}
 		</Card>

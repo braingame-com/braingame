@@ -335,6 +335,40 @@ git clean -fdx             # Nuclear option: clean everything
 
 ## Component Architecture
 
+### ❌ React Native Web Misconception (03-07-2025)
+**Learning**: Creating separate `.web.tsx` files for React Native components defeats the entire purpose of React Native Web.
+
+**What Went Wrong**:
+- Created unnecessary View.web.tsx, Text.web.tsx, Link.web.tsx, Icon.web.tsx files
+- Duplicated component logic instead of letting React Native Web handle transformations
+- Misunderstood that RNW's value is automatic web compatibility
+
+**Root Cause**:
+- Next.js app was missing `react-native-web` dependency
+- Incorrect webpack configuration tried to work around this with .web.tsx extensions
+- This led to creating manual web versions instead of fixing the real issue
+
+**Correct Approach**:
+1. **Install react-native-web** in Next.js apps that use React Native components
+2. **Use Platform.OS** for platform-specific code within a single component
+3. **Let RNW handle transformations** automatically
+4. **No separate .web.tsx files needed** (except for truly platform-specific implementations)
+
+**Example of Correct Pattern**:
+```typescript
+// Single component works everywhere
+export function MyComponent() {
+  // Platform-specific logic when needed
+  if (Platform.OS === 'web') {
+    // Web-specific behavior
+  }
+  
+  return <View>...</View>; // RNW transforms this automatically
+}
+```
+
+**Key Takeaway**: React Native Web's entire value proposition is "write once, run everywhere". Creating separate web files defeats this purpose and creates unnecessary maintenance burden.
+
 ### Evolution Pattern
 **Learning**: Moving from many specialized components to fewer, more flexible ones provides:
 - Better maintainability

@@ -2,7 +2,6 @@ import { Colors, Tokens } from "@braingame/utils";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Button } from "../Button";
 import { Image } from "../Image";
-import { PageWrapper } from "../PageWrapper";
 import { Text } from "../Text";
 import type { OnboardingSlideProps } from "./types";
 
@@ -20,11 +19,11 @@ export function OnboardingSlide({
 	style,
 }: OnboardingSlideProps) {
 	return (
-		<PageWrapper style={[styles.container, style]}>
+		<View style={[styles.container, style]}>
 			{/* Skip button in top right */}
 			{!isLast && onSkip && (
 				<View style={styles.skipContainer}>
-					<Button variant="ghost" size="small" onPress={onSkip}>
+					<Button variant="ghost" size="sm" onPress={onSkip}>
 						Skip
 					</Button>
 				</View>
@@ -35,7 +34,7 @@ export function OnboardingSlide({
 				{/* Image */}
 				{image && (
 					<View style={styles.imageContainer}>
-						<Image source={image} style={styles.image} resizeMode="contain" />
+						<Image src={image} style={styles.image} alt="Onboarding illustration" />
 					</View>
 				)}
 
@@ -57,6 +56,7 @@ export function OnboardingSlide({
 					<View style={styles.dotsContainer}>
 						{Array.from({ length: totalSlides }).map((_, index) => (
 							<View
+								// biome-ignore lint/suspicious/noArrayIndexKey: Dots are static visual indicators
 								key={`dot-${index}`}
 								style={[styles.dot, index === currentIndex && styles.activeDot]}
 							/>
@@ -68,24 +68,24 @@ export function OnboardingSlide({
 				{onNext && (
 					<Button
 						variant="primary"
-						size="large"
+						size="lg"
 						onPress={onNext}
-						style={styles.button}
 						icon={!isLast ? "arrow-right" : undefined}
 						iconPosition="right"
+						fullWidth
 					>
 						{isLast ? "Get Started" : "Next"}
 					</Button>
 				)}
 			</View>
-		</PageWrapper>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: Colors.universal.background,
+		backgroundColor: Colors.light.background,
 	},
 	skipContainer: {
 		position: "absolute",
@@ -131,14 +131,11 @@ const styles = StyleSheet.create({
 		width: 8,
 		height: 8,
 		borderRadius: 4,
-		backgroundColor: Colors.universal.neutral[300],
+		backgroundColor: Colors.light.border,
 		marginHorizontal: 4,
 	},
 	activeDot: {
 		backgroundColor: Colors.universal.primary,
 		width: 24,
-	},
-	button: {
-		minWidth: 200,
 	},
 });
