@@ -1,20 +1,23 @@
 {
 	"name": "@braingame/config",
 	"version": "1.0.0",
-	"description": "Brain Game shared configuration - ESLint, TypeScript, Biome presets",
-	"main": "index.js",
+	"description": "Brain Game shared configuration - ESLint, TypeScript, Biome presets, and theme system",
+	"main": "src/index.ts",
+	"types": "src/index.ts",
 	"scripts": {
 		"dev": "echo 'Config package ready'",
-		"build": "echo 'No build needed for config'",
-		"lint": "echo 'Config package ready'",
-		"typecheck": "echo 'No typecheck needed for config'",
+		"build": "tsc",
+		"lint": "biome check --fix --vcs-root=../..",
+		"typecheck": "tsc --noEmit",
 		"test": "echo 'No tests for config'",
-		"clean": "echo 'No cleanup needed for config'"
+		"clean": "rm -rf dist"
 	},
 	"files": [
 		"*.json",
 		"*.js",
-		"*.ts"
+		"*.ts",
+		"src/**/*",
+		"dist/**/*"
 	],
 	"publishConfig": {
 		"access": "public"
