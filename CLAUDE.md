@@ -42,6 +42,7 @@ Follow these steps for every development task.
 1.  **Create PR:** Use `gh pr create` with clear title and description
 2.  **Follow PR Review Process:** See [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) for complete merge procedures
 3.  **Quality Validation:** Ensure each branch passes quality checks before merging
+4.  **PR Closure Restriction:** ⚠️ **CRITICAL: AI agents are PROHIBITED from closing PRs.** You may only recommend PR closure with reasoning. Both merging AND closing PRs require explicit human approval
 
 **Phase 4: Completion & Handoff**
 1.  **Final Checks:** Run `pnpm lint` and `pnpm test` one last time.
@@ -110,6 +111,28 @@ git branch --contains <commit-hash>
 ```
 
 **Lesson from 21-06-2025 incident:** Agent incorrectly reported PR as merged when it was only closed. See [LESSONS.md](./LESSONS.md#pr-merge-status-confusion-21-06-2025) for details.
+
+### PR Closure Prohibition (CRITICAL)
+**⚠️ CRITICAL: AI agents are PROHIBITED from closing PRs without explicit human approval.**
+
+**Why this matters:**
+- Closing PRs risks losing valuable work
+- Closed PRs can be easily overlooked
+- Work may need to be recreated from scratch
+- Human judgment is required to determine if work is truly redundant or obsolete
+
+**What AI agents CAN do:**
+- Analyze PR status and conflicts
+- Recommend PR closure with clear reasoning
+- Document why a PR might be redundant or obsolete
+- Suggest alternatives or related PRs
+
+**What AI agents CANNOT do:**
+- Execute `gh pr close` commands
+- Make final decisions about PR closure
+- Determine work is "not needed" without human confirmation
+
+**Always present findings to humans for the final decision on PR closure.**
 
 ### Workflow for AI Agents
 1. **Start Here:** Always begin work in `/Users/jordancrow-stewart/Desktop/code/braingame-claude-sandbox`

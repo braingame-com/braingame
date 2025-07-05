@@ -1,5 +1,5 @@
 import type { Colors } from "@braingame/utils";
-import type { StyleProp, ViewStyle } from "react-native";
+import type { StyleProp, TextStyle } from "react-native";
 
 export type IconVariant = "solid" | "regular" | "brand";
 export type IconSize = "sm" | "md" | "lg";
@@ -9,8 +9,8 @@ export interface IconProps {
 	name: string;
 	variant?: IconVariant;
 	size?: IconSize | number;
-	color?: ThemeColor;
+	color?: ThemeColor | string;
 	decorative?: boolean;
 	"aria-label"?: string;
-	style?: StyleProp<ViewStyle>;
+	style?: StyleProp<TextStyle>;
 }
