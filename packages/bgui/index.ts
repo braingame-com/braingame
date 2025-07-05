@@ -20,6 +20,8 @@ export { Card } from "./src/components/Card";
 export type { CardProps } from "./src/components/Card/types";
 export { Checkbox } from "./src/components/Checkbox";
 export type { CheckboxProps } from "./src/components/Checkbox/types";
+export { Chip } from "./src/components/Chip";
+export type { ChipColor, ChipProps, ChipSize, ChipVariant } from "./src/components/Chip/types";
 export { Divider } from "./src/components/Divider";
 export type { DividerProps } from "./src/components/Divider/types";
 export { EmptyState } from "./src/components/EmptyState";

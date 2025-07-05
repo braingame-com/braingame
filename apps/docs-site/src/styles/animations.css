@@ -1,0 +1,301 @@
+/* Material Design Motion System from animation-tokens.json */
+
+:root {
+	/* Transition Durations */
+	--duration-micro: 100ms;
+	--duration-small: 150ms;
+	--duration-medium: 300ms;
+	--duration-macro: 450ms;
+
+	/* Material Motion Web Specific */
+	--duration-hover-ripple: 100ms;
+	--duration-enter-screen: 225ms;
+	--duration-exit-screen: 195ms;
+	--duration-complex-motion: 375ms;
+
+	/* Easing Functions */
+	--easing-linear: linear;
+	--easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+	--easing-sharp: cubic-bezier(0.4, 0, 1, 1);
+	--easing-complex: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+	/* Tooltip Delays */
+	--tooltip-show-delay: 300ms;
+	--tooltip-hide-delay: 100ms;
+}
+
+/* Transition Classes */
+.transition-micro {
+	transition-duration: var(--duration-micro);
+	transition-timing-function: var(--easing-linear);
+}
+
+.transition-small {
+	transition-duration: var(--duration-small);
+	transition-timing-function: var(--easing-standard);
+}
+
+.transition-medium {
+	transition-duration: var(--duration-medium);
+	transition-timing-function: var(--easing-standard);
+}
+
+.transition-macro {
+	transition-duration: var(--duration-macro);
+	transition-timing-function: var(--easing-standard);
+}
+
+/* Material Motion Patterns */
+.transition-hover {
+	transition-duration: var(--duration-hover-ripple);
+	transition-timing-function: var(--easing-sharp);
+}
+
+.transition-enter {
+	transition-duration: var(--duration-enter-screen);
+	transition-timing-function: var(--easing-standard);
+}
+
+.transition-exit {
+	transition-duration: var(--duration-exit-screen);
+	transition-timing-function: var(--easing-standard);
+}
+
+.transition-complex {
+	transition-duration: var(--duration-complex-motion);
+	transition-timing-function: var(--easing-complex);
+}
+
+/* Common Animation Properties */
+.transition-all {
+	transition-property: all;
+}
+
+.transition-opacity {
+	transition-property: opacity;
+}
+
+.transition-transform {
+	transition-property: transform;
+}
+
+.transition-colors {
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+/* Hover States */
+.hover-lift {
+	transition:
+		transform var(--duration-small) var(--easing-standard),
+		box-shadow var(--duration-small) var(--easing-standard);
+}
+
+.hover-lift:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+}
+
+/* Focus States */
+.focus-ring {
+	transition:
+		outline var(--duration-micro) var(--easing-linear),
+		outline-offset var(--duration-micro) var(--easing-linear);
+}
+
+.focus-ring:focus {
+	outline: 2px solid var(--color-focus);
+	outline-offset: 2px;
+}
+
+.focus-ring:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+	to {
+		transform: scale(4);
+		opacity: 0;
+	}
+}
+
+.ripple {
+	position: relative;
+	overflow: hidden;
+}
+
+.ripple::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: currentColor;
+	opacity: 0.1;
+	transform: translate(-50%, -50%);
+	transition:
+		width var(--duration-hover-ripple) var(--easing-sharp),
+		height var(--duration-hover-ripple) var(--easing-sharp);
+}
+
+.ripple:active::before {
+	width: 100%;
+	height: 100%;
+}
+
+/* Fade Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+.fade-in {
+	animation: fadeIn var(--duration-enter-screen) var(--easing-standard);
+}
+
+.fade-out {
+	animation: fadeOut var(--duration-exit-screen) var(--easing-standard);
+}
+
+/* Slide Animations */
+@keyframes slideInUp {
+	from {
+		transform: translateY(16px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideInDown {
+	from {
+		transform: translateY(-16px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		transform: translateX(-16px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		transform: translateX(16px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.slide-in-up {
+	animation: slideInUp var(--duration-enter-screen) var(--easing-standard);
+}
+
+.slide-in-down {
+	animation: slideInDown var(--duration-enter-screen) var(--easing-standard);
+}
+
+.slide-in-left {
+	animation: slideInLeft var(--duration-enter-screen) var(--easing-standard);
+}
+
+.slide-in-right {
+	animation: slideInRight var(--duration-enter-screen) var(--easing-standard);
+}
+
+/* Scale Animations */
+@keyframes scaleIn {
+	from {
+		transform: scale(0.9);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes scaleOut {
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: scale(0.9);
+		opacity: 0;
+	}
+}
+
+.scale-in {
+	animation: scaleIn var(--duration-medium) var(--easing-standard);
+}
+
+.scale-out {
+	animation: scaleOut var(--duration-medium) var(--easing-standard);
+}
+
+/* Loading States */
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+.pulse {
+	animation: pulse 2s var(--easing-standard) infinite;
+}
+
+/* Skeleton Loading */
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.skeleton {
+	background: linear-gradient(
+		90deg,
+		var(--color-skeleton) 25%,
+		var(--color-skeleton-highlight) 50%,
+		var(--color-skeleton) 75%
+	);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+}

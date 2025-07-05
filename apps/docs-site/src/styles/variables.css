@@ -1,0 +1,116 @@
+/* CSS Custom Properties for Brain Game Docs */
+/* Import the theme variables from the centralized theme system */
+@import "./theme-variables.css";
+
+:root {
+	/* Legacy color mappings for backwards compatibility */
+	--color-primary-light: var(--color-primary-container);
+	--color-primary-dark: var(--color-on-primary-container);
+	--color-danger: var(--color-error);
+
+	/* Neutral Colors (for components that haven't been updated yet) */
+	--color-white: #ffffff;
+	--color-black: #000000;
+	--color-gray-50: var(--color-surface-container-lowest);
+	--color-gray-100: var(--color-surface-container-low);
+	--color-gray-200: var(--color-surface-variant);
+	--color-gray-300: var(--color-outline-variant);
+	--color-gray-400: var(--color-on-surface-variant);
+	--color-gray-500: var(--color-outline);
+	--color-gray-600: var(--color-on-surface-variant);
+	--color-gray-700: var(--color-surface-variant);
+	--color-gray-800: var(--color-surface-container-high);
+	--color-gray-900: var(--color-on-background);
+
+	/* Override some theme colors with existing values */
+	--color-border: var(--color-outline-variant);
+	--color-text: var(--color-on-surface);
+	--color-text-secondary: var(--color-on-surface-variant);
+	--color-text-muted: var(--color-outline);
+	--color-surface-hover: var(--color-surface-container-high);
+
+	/* Typography */
+	--font-display: var(--font-lexend), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-body: var(--font-lexend), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-mono: var(--font-roboto-mono), "SF Mono", Consolas, monospace;
+
+	/* Font Weights */
+	--font-light: 300;
+	--font-regular: 400;
+	--font-medium: 500;
+	--font-semibold: 600;
+	--font-bold: 700;
+
+	/* Font Sizes */
+	--text-xs: 0.75rem; /* 12px */
+	--text-sm: 0.875rem; /* 14px */
+	--text-base: 1rem; /* 16px */
+	--text-lg: 1.125rem; /* 18px */
+	--text-xl: 1.25rem; /* 20px */
+	--text-2xl: 1.5rem; /* 24px */
+	--text-3xl: 1.875rem; /* 30px */
+	--text-4xl: 2.25rem; /* 36px */
+	--text-5xl: 3rem; /* 48px */
+
+	/* Line Heights */
+	--leading-tight: 1.25;
+	--leading-normal: 1.5;
+	--leading-relaxed: 1.75;
+
+	/* Spacing */
+	--space-0: 0;
+	--space-1: 0.25rem; /* 4px */
+	--space-2: 0.5rem; /* 8px */
+	--space-3: 0.75rem; /* 12px */
+	--space-4: 1rem; /* 16px */
+	--space-5: 1.25rem; /* 20px */
+	--space-6: 1.5rem; /* 24px */
+	--space-8: 2rem; /* 32px */
+	--space-10: 2.5rem; /* 40px */
+	--space-12: 3rem; /* 48px */
+	--space-16: 4rem; /* 64px */
+	--space-20: 5rem; /* 80px */
+	--space-24: 6rem; /* 96px */
+
+	/* Border Radius */
+	--radius-sm: 0.25rem; /* 4px */
+	--radius-md: 0.375rem; /* 6px */
+	--radius-lg: 0.5rem; /* 8px */
+	--radius-xl: 0.75rem; /* 12px */
+	--radius-full: 9999px;
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+	/* Z-index */
+	--z-base: 0;
+	--z-dropdown: 1000;
+	--z-sticky: 1020;
+	--z-fixed: 1030;
+	--z-modal-backdrop: 1040;
+	--z-modal: 1050;
+	--z-popover: 1060;
+	--z-tooltip: 1070;
+
+	/* Transitions */
+	--transition-fast: 150ms ease-in-out;
+	--transition-base: 200ms ease-in-out;
+	--transition-slow: 300ms ease-in-out;
+
+	/* Breakpoints */
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
+	--breakpoint-2xl: 1536px;
+
+	/* Layout */
+	--header-height: 64px;
+	--sidebar-width: 260px;
+	--content-max-width: 1200px;
+}
+
+/* Dark Theme - handled by theme-variables.css */
