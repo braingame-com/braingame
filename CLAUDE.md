@@ -286,38 +286,47 @@ pnpm --filter product web
 
 ---
 
-## 9. Web Compatibility for React Native Components
+## 9. Universal Component Philosophy
 
-### Critical Learning (28-06-2025)
-When creating components in `packages/bgui` that import React Native packages, you MUST create `.web.tsx` versions for Next.js compatibility.
+### Critical Principle (Updated 08-07-2025)
+BGUI follows a **strict universal component philosophy** - all components must work seamlessly across React Native (iOS/Android) and React Native Web WITHOUT requiring platform-specific files.
 
-### Pattern to Follow
-```bash
-# For each component that uses React Native:
-src/components/MyComponent/MyComponent.tsx      # React Native version
-src/components/MyComponent/MyComponent.web.tsx  # Web-compatible version
+### Key Guidelines
+```typescript
+// ✅ CORRECT - Universal component using Platform.select
+export const MyComponent = () => {
+  const shadowStyle = Platform.select({
+    ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 2 } },
+    android: { elevation: 4 },
+    web: { boxShadow: '0 2px 4px rgba(0,0,0,0.1)' },
+  });
+  
+  return <View style={[styles.container, shadowStyle]} />;
+};
+
+// ❌ WRONG - Platform-specific files
+// MyComponent.tsx (native)
+// MyComponent.web.tsx (web)
 ```
 
-### Common Incompatibilities
-- **Imports to avoid in web versions:**
-  - `react-native` (use HTML elements instead)
-  - `react-native-svg` (use regular SVG)
-  - `expo-*` packages (create web alternatives)
-  - `react-native-reanimated` (use CSS transitions)
-  - `react-native-gesture-handler` (use DOM events)
+### Platform Differences
+When you need platform-specific behavior:
+1. Use `Platform.OS` or `Platform.select()` for conditional logic
+2. Keep all logic in a single file
+3. Use React Native Web's built-in compatibility layer
+4. Test on all platforms before committing
 
-### Web Version Guidelines
-1. Replace `View` with `div`
-2. Replace `Text` with `span` or appropriate HTML element
-3. Replace `StyleSheet` styles with CSS-in-JS or style objects
-4. Replace `Alert.alert()` with `window.alert()` or custom modal
-5. Handle platform-specific code with environment checks
+### Benefits
+- **Single source of truth** - One component, one file
+- **Reduced maintenance** - No duplicate code
+- **Consistent behavior** - Same component everywhere
+- **Better DX** - No platform switching needed
 
 ### Build Verification
 **CRITICAL:** Always run `pnpm build` before committing to ensure:
 - All packages build successfully
-- Web versions are properly resolved
-- No React Native imports leak into Next.js apps
+- Components work on all platforms
+- No platform-specific imports break the build
 
 ---
 

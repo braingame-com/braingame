@@ -8,6 +8,8 @@ export { ActionList, ActionListDivider, ActionListItem } from "./src/components/
 export type { ActionListItemProps, ActionListProps } from "./src/components/ActionList/types";
 export type { AlertProps, AlertType, AlertVariant } from "./src/components/Alert";
 export { Alert } from "./src/components/Alert";
+export { AnimatedGradientBackground } from "./src/components/AnimatedGradientBackground";
+export type { AnimatedGradientBackgroundProps } from "./src/components/AnimatedGradientBackground/types";
 export { Avatar } from "./src/components/Avatar";
 export type { AvatarProps } from "./src/components/Avatar/types";
 export { Badge } from "./src/components/Badge";
@@ -30,6 +32,8 @@ export {
 	ContextErrorBoundary,
 	ContextErrorBoundary as ErrorBoundary,
 } from "./src/components/ErrorBoundary";
+export { GlowingLogo } from "./src/components/GlowingLogo";
+export type { GlowingLogoProps } from "./src/components/GlowingLogo/types";
 export { Icon } from "./src/components/Icon";
 export type { IconProps } from "./src/components/Icon/types";
 export { Image } from "./src/components/Image";
@@ -77,7 +81,6 @@ export type { ViewProps } from "./src/components/View/types";
 export { VisionCard } from "./src/components/VisionCard";
 export { LIFE_AREA_CONFIGS } from "./src/components/VisionCard/constants";
 export type { LifeArea, LifeAreaConfig, VisionCardProps } from "./src/components/VisionCard/types";
-
 // Constants
 export { Fonts } from "./src/constants/Fonts";
 
