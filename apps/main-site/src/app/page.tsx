@@ -1,8 +1,11 @@
 "use client";
 
 import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useToast } from "../contexts/ToastContext";
+import { useNetworkStatus } from "../hooks/useNetworkStatus";
 import { submitEmail } from "../lib/emailService";
+import { getErrorMessage, retryWithBackoff } from "../lib/networkStatus";
 
 export default function HomePage() {
 	const [email, setEmail] = useState("");
@@ -10,7 +13,30 @@ export default function HomePage() {
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [isSuccess, setIsSuccess] = useState(false);
 
+	const networkStatus = useNetworkStatus();
+	const { showToast } = useToast();
+
+	// Show offline notification
+	useEffect(() => {
+		if (!networkStatus.isOnline) {
+			showToast({
+				message: "You're offline. Changes will be saved when you reconnect.",
+				type: "warning",
+				duration: 5000,
+			});
+		}
+	}, [networkStatus.isOnline, showToast]);
+
 	const handleSubmit = async () => {
+		// Check network status first
+		if (!networkStatus.isOnline) {
+			showToast({
+				message: "You're offline. Please check your connection.",
+				type: "error",
+			});
+			return;
+		}
+
 		if (!email.trim()) {
 			setSubmitMessage("Please enter your email address");
 			setIsSuccess(false);
@@ -21,16 +47,35 @@ export default function HomePage() {
 		setSubmitMessage("");
 
 		try {
-			const result = await submitEmail(email);
+			const result = await retryWithBackoff(() => submitEmail(email), {
+				maxAttempts: 3,
+				initialDelay: 1000,
+			});
+
 			setSubmitMessage(result.message);
 			setIsSuccess(result.success);
 
 			if (result.success) {
 				setEmail("");
+				showToast({
+					message: "Successfully subscribed! 🎉",
+					type: "success",
+				});
 			}
-		} catch (_error) {
-			setSubmitMessage("Something went wrong. Please try again.");
+		} catch (error) {
+			const errorMessage = getErrorMessage(error);
+			setSubmitMessage(errorMessage);
 			setIsSuccess(false);
+
+			// Show toast for better visibility
+			showToast({
+				message: errorMessage,
+				type: "error",
+				duration: 5000,
+			});
+
+			// Log to error tracking
+			console.error("Email submission error:", error);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -47,7 +92,29 @@ export default function HomePage() {
 				padding: 20,
 			}}
 		>
-			{/* Logo placeholder */}
+			{/* Offline indicator */}
+			{!networkStatus.isOnline && (
+				<View
+					style={{
+						position: "absolute",
+						top: 20,
+						left: 20,
+						right: 20,
+						backgroundColor: "#dc2626",
+						paddingVertical: 8,
+						paddingHorizontal: 16,
+						borderRadius: 8,
+						flexDirection: "row",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<Text style={{ color: "#fff", marginRight: 8 }}>⚠</Text>
+					<Text variant="body" style={{ color: "#fff" }}>
+						You're offline
+					</Text>
+				</View>
+			)}
 
 			{/* Title */}
 			<Text
@@ -121,16 +188,22 @@ export default function HomePage() {
 						autoComplete="email"
 					/>
 
-					<Button
-						onPress={handleSubmit}
-						disabled={isSubmitting || !email.trim()}
-						variant="primary"
-						loading={isSubmitting}
+					<View
+						style={{
+							opacity: !networkStatus.isOnline ? 0.5 : 1,
+						}}
 					>
-						<Text variant="bold" style={{ color: "#fff" }}>
-							{isSubmitting ? "..." : "Join"}
-						</Text>
-					</Button>
+						<Button
+							onPress={handleSubmit}
+							disabled={isSubmitting || !email.trim() || !networkStatus.isOnline}
+							variant="primary"
+							loading={isSubmitting}
+						>
+							<Text variant="bold" style={{ color: "#fff" }}>
+								{isSubmitting ? "Joining..." : "Join"}
+							</Text>
+						</Button>
+					</View>
 				</View>
 
 				{submitMessage && (
