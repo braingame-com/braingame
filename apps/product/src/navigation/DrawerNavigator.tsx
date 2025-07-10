@@ -8,6 +8,7 @@ import { Text } from "@braingame/bgui";
 // } from "@react-navigation/drawer";
 import type React from "react";
 import { TouchableOpacity, View } from "react-native";
+import { ComponentShowcase } from "../screens/ComponentShowcase";
 import { ThemedSettingsScreen } from "../screens/Settings/ThemedSettingsScreen";
 import { useAuth } from "./AuthContext";
 import { TabNavigator } from "./TabNavigator";
@@ -116,6 +117,18 @@ export const DrawerNavigator: React.FC = () => {
 					drawerIcon: ({ color: _color }: { color: string }) => (
 						<Text style={{ fontSize: 20 }}>🏠</Text>
 					),
+				}}
+			/>
+			<Drawer.Screen
+				name="ComponentShowcase"
+				component={ComponentShowcase}
+				options={{
+					drawerLabel: "UI Components",
+					drawerIcon: ({ color: _color }: { color: string }) => (
+						<Text style={{ fontSize: 20 }}>🎨</Text>
+					),
+					headerShown: true,
+					headerTitle: "Component Showcase",
 				}}
 			/>
 			<Drawer.Screen

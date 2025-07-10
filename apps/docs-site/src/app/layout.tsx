@@ -1,9 +1,26 @@
 import type { Metadata } from "next";
+import { Lexend, Roboto_Mono } from "next/font/google";
+import { Header } from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
 import "./globals.css";
 
+const lexend = Lexend({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-lexend",
+	weight: ["300", "400", "500", "600", "700"],
+});
+
+const robotoMono = Roboto_Mono({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-roboto-mono",
+	weight: ["400", "500", "700"],
+});
+
 export const metadata: Metadata = {
-	title: "BrainGame Documentation",
-	description: "Documentation for BrainGame components and APIs",
+	title: "Brain Game UI Documentation",
+	description: "Enterprise-grade component library documentation for Brain Game",
 };
 
 export default function RootLayout({
@@ -12,8 +29,22 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body>{children}</body>
+		<html lang="en" className={`${lexend.variable} ${robotoMono.variable}`}>
+			<head>
+				<link
+					href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+					rel="stylesheet"
+				/>
+			</head>
+			<body className={lexend.className}>
+				<div className="layout">
+					<Header />
+					<Sidebar />
+					<main className="layout__main">
+						<div className="layout__content">{children}</div>
+					</main>
+				</div>
+			</body>
 		</html>
 	);
 }

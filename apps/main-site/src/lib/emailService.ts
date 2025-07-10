@@ -8,6 +8,11 @@ import {
 	where,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import {
+	emailRateLimiter,
+	sanitizeInput,
+	validateEmail as validateEmailFormat,
+} from "./validation";
 
 export interface EmailSignup {
 	email: string;
@@ -24,19 +29,26 @@ export interface EmailSubmissionResult {
 }
 
 /**
- * Validates an email address using a comprehensive regex pattern
+ * Validates an email address using comprehensive validation
  */
 export function validateEmail(email: string): boolean {
-	const emailRegex =
-		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-	return emailRegex.test(email);
+	const result = validateEmailFormat(email);
+	return result.isValid;
+}
+
+/**
+ * Gets validation error message for email
+ */
+export function getEmailValidationError(email: string): string | null {
+	const result = validateEmailFormat(email);
+	return result.error || null;
 }
 
 /**
  * Sanitizes an email address by trimming and converting to lowercase
  */
 export function sanitizeEmail(email: string): string {
-	return email.trim().toLowerCase();
+	return sanitizeInput(email).toLowerCase();
 }
 
 /**
@@ -60,11 +72,23 @@ export async function checkEmailExists(email: string): Promise<boolean> {
  */
 export async function submitEmail(email: string): Promise<EmailSubmissionResult> {
 	try {
-		// Validate email format
-		if (!validateEmail(email)) {
+		// Rate limiting check
+		const clientId =
+			typeof window !== "undefined" ? window.navigator.userAgent || "unknown" : "server";
+		if (!emailRateLimiter.isAllowed(clientId)) {
+			const remainingTime = emailRateLimiter.getRemainingTime(clientId);
 			return {
 				success: false,
-				message: "Please enter a valid email address.",
+				message: `Too many attempts. Please try again in ${remainingTime} seconds.`,
+			};
+		}
+
+		// Validate email format
+		const validationError = getEmailValidationError(email);
+		if (validationError) {
+			return {
+				success: false,
+				message: validationError,
 			};
 		}
 
