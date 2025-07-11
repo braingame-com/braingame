@@ -1,0 +1,88 @@
+name: Test Main Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/main-site/**"
+      - "packages/**"
+      - ".github/workflows/test-main-site.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "apps/main-site/**"
+      - "packages/**"
+      - ".github/workflows/test-main-site.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run lint
+        run: pnpm --filter @braingame/main-site lint
+
+      - name: Run type check
+        run: pnpm --filter @braingame/main-site typecheck
+
+      - name: Run unit tests
+        run: pnpm --filter @braingame/main-site test:ci
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./apps/main-site/coverage
+          flags: main-site
+          name: main-site-coverage
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm --filter @braingame/main-site exec playwright install --with-deps
+
+      - name: Run E2E tests
+        run: pnpm --filter @braingame/main-site test:e2e
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: apps/main-site/playwright-report/
+          retention-days: 30
