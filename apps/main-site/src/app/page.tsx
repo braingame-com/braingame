@@ -164,6 +164,39 @@ export default function HomePage() {
 					View on GitHub
 				</Text>
 			</Link>
+
+			{/* Footer Links */}
+			<View
+				style={{
+					position: "absolute",
+					bottom: 20,
+					flexDirection: "row",
+					gap: 24,
+					alignItems: "center",
+				}}
+			>
+				<Link href="/privacy">
+					<Text variant="small" style={{ color: "#666" }}>
+						Privacy
+					</Text>
+				</Link>
+				<Text variant="small" style={{ color: "#333" }}>
+					•
+				</Text>
+				<Link href="/terms">
+					<Text variant="small" style={{ color: "#666" }}>
+						Terms
+					</Text>
+				</Link>
+				<Text variant="small" style={{ color: "#333" }}>
+					•
+				</Text>
+				<Link href="/cookies">
+					<Text variant="small" style={{ color: "#666" }}>
+						Cookies
+					</Text>
+				</Link>
+			</View>
 		</View>
 	);
 }
