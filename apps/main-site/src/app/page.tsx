@@ -2,6 +2,7 @@
 
 import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
 import { useState } from "react";
+import { useAnalytics } from "../hooks/useAnalytics";
 import { submitEmail } from "../lib/emailService";
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [isSuccess, setIsSuccess] = useState(false);
+	const { trackFormSubmit, trackClick, trackException } = useAnalytics();
 
 	const handleSubmit = async () => {
 		if (!email.trim()) {
@@ -21,16 +23,31 @@ export default function HomePage() {
 		setSubmitMessage("");
 
 		try {
+			const startTime = performance.now();
 			const result = await submitEmail(email);
+			const duration = performance.now() - startTime;
+
 			setSubmitMessage(result.message);
 			setIsSuccess(result.success);
+
+			// Track form submission
+			trackFormSubmit("waitlist_email", result.success, {
+				duration,
+				email_domain: email.split("@")[1],
+			});
 
 			if (result.success) {
 				setEmail("");
 			}
-		} catch (_error) {
+		} catch (error) {
 			setSubmitMessage("Something went wrong. Please try again.");
 			setIsSuccess(false);
+
+			// Track error
+			trackException(error instanceof Error ? error : new Error("Email submission failed"));
+			trackFormSubmit("waitlist_email", false, {
+				error: error instanceof Error ? error.message : "Unknown error",
+			});
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -153,6 +170,7 @@ export default function HomePage() {
 				style={{
 					marginTop: 32,
 				}}
+				onPress={() => trackClick("github_link", { destination: "repository" })}
 			>
 				<Text
 					variant="body"
