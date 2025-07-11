@@ -2,13 +2,19 @@
 
 import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
 import { useState } from "react";
-import { submitEmail } from "../lib/emailService";
+import { useAnalytics } from "../hooks/useAnalytics";
+import { emailService } from "../lib/email-service";
+import { validateEmail } from "../lib/email-validation";
 
 export default function HomePage() {
 	const [email, setEmail] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [isSuccess, setIsSuccess] = useState(false);
+
+	const { trackEvent } = useAnalytics();
+	const [showSuggestion, setShowSuggestion] = useState(false);
+	const [suggestedEmail, setSuggestedEmail] = useState("");
 
 	const handleSubmit = async () => {
 		if (!email.trim()) {
@@ -17,23 +23,74 @@ export default function HomePage() {
 			return;
 		}
 
+		// Validate email
+		const validation = validateEmail(email);
+		if (!validation.isValid) {
+			setSubmitMessage(validation.reason || "Please enter a valid email address");
+			setIsSuccess(false);
+			return;
+		}
+
+		// Show suggestion if available
+		if (validation.suggestions && validation.suggestions.length > 0) {
+			setSuggestedEmail(validation.suggestions[0]);
+			setShowSuggestion(true);
+			setSubmitMessage(`Did you mean ${validation.suggestions[0]}?`);
+			setIsSuccess(false);
+			return;
+		}
+
+		// Check risk score
+		if (validation.riskScore > 70) {
+			trackEvent("high_risk_email_attempt", {
+				email_domain: email.split("@")[1],
+				risk_score: validation.riskScore,
+			});
+		}
+
 		setIsSubmitting(true);
 		setSubmitMessage("");
+		setShowSuggestion(false);
 
 		try {
-			const result = await submitEmail(email);
+			const startTime = performance.now();
+			const result = await emailService.subscribe(email, "landing_page");
+			const duration = performance.now() - startTime;
+
+			trackEvent("email_subscription_attempt", {
+				success: result.success,
+				requires_confirmation: result.requiresConfirmation,
+				duration,
+				email_domain: email.split("@")[1],
+				risk_score: validation.riskScore,
+			});
+
 			setSubmitMessage(result.message);
 			setIsSuccess(result.success);
 
 			if (result.success) {
 				setEmail("");
 			}
-		} catch (_error) {
+		} catch (error) {
+			console.error("Subscription error:", error);
 			setSubmitMessage("Something went wrong. Please try again.");
 			setIsSuccess(false);
+			trackEvent("email_subscription_error", {
+				error: error instanceof Error ? error.message : "Unknown error",
+			});
 		} finally {
 			setIsSubmitting(false);
 		}
+	};
+
+	const handleUseSuggestion = () => {
+		setEmail(suggestedEmail);
+		setShowSuggestion(false);
+		setSubmitMessage("");
+		trackEvent("email_suggestion_accepted", {
+			original: email,
+			suggested: suggestedEmail,
+		});
 	};
 
 	return (
@@ -134,36 +191,104 @@ export default function HomePage() {
 				</View>
 
 				{submitMessage && (
-					<Text
-						variant="small"
-						style={{
-							color: isSuccess ? "#22c55e" : "#ef4444",
-							marginTop: 12,
-							textAlign: "center",
-						}}
-					>
-						{submitMessage}
-					</Text>
+					<View style={{ marginTop: 12 }}>
+						<Text
+							variant="small"
+							style={{
+								color: isSuccess ? "#22c55e" : "#ef4444",
+								textAlign: "center",
+							}}
+						>
+							{submitMessage}
+						</Text>
+						{showSuggestion && (
+							<View style={{ marginTop: 8, alignSelf: "center" }}>
+								<Button onPress={handleUseSuggestion} variant="ghost" size="sm">
+									<Text style={{ color: "#0074D9", textDecorationLine: "underline" }}>
+										Use suggested email
+									</Text>
+								</Button>
+							</View>
+						)}
+					</View>
 				)}
 			</View>
 
-			{/* GitHub Link */}
-			<Link
-				href="https://github.com/braingame-com/braingame"
+			{/* Footer Links */}
+			<View
 				style={{
-					marginTop: 32,
+					marginTop: 48,
+					alignItems: "center",
 				}}
 			>
-				<Text
-					variant="body"
+				{/* GitHub Link */}
+				<Link
+					href="https://github.com/braingame-com/braingame"
 					style={{
-						color: "#666",
-						textDecorationLine: "underline",
+						marginBottom: 24,
 					}}
 				>
-					View on GitHub
-				</Text>
-			</Link>
+					<Text
+						variant="body"
+						style={{
+							color: "#666",
+							textDecorationLine: "underline",
+						}}
+					>
+						View on GitHub
+					</Text>
+				</Link>
+
+				{/* Legal Links */}
+				<View
+					style={{
+						flexDirection: "row",
+						gap: 16,
+						flexWrap: "wrap",
+						justifyContent: "center",
+					}}
+				>
+					<Link href="/privacy">
+						<Text
+							variant="small"
+							style={{
+								color: "#666",
+								textDecorationLine: "underline",
+							}}
+						>
+							Privacy Policy
+						</Text>
+					</Link>
+					<Text variant="small" style={{ color: "#333" }}>
+						•
+					</Text>
+					<Link href="/terms">
+						<Text
+							variant="small"
+							style={{
+								color: "#666",
+								textDecorationLine: "underline",
+							}}
+						>
+							Terms of Service
+						</Text>
+					</Link>
+					<Text variant="small" style={{ color: "#333" }}>
+						•
+					</Text>
+					<Link href="/cookies">
+						<Text
+							variant="small"
+							style={{
+								color: "#666",
+								textDecorationLine: "underline",
+							}}
+						>
+							Cookie Policy
+						</Text>
+					</Link>
+				</View>
+			</View>
 		</View>
 	);
 }
