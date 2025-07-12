@@ -140,7 +140,7 @@ export function AnimatedBackground() {
 							top: 0,
 							bottom: 0,
 							width: 1,
-							backgroundColor: color,
+							backgroundColor: "#0074D9",
 						}}
 					/>
 				))}
@@ -154,7 +154,7 @@ export function AnimatedBackground() {
 							left: 0,
 							right: 0,
 							height: 1,
-							backgroundColor: color,
+							backgroundColor: "#0074D9",
 						}}
 					/>
 				))}

@@ -120,9 +120,9 @@ export function HighlightText({
 
 	return (
 		<Text style={style} {...props}>
-			{parts.map((part) =>
+			{parts.map((part, index) =>
 				part.toLowerCase() === highlight.toLowerCase() ? (
-					<Text key={part} style={{ color: highlightColor, fontWeight: "bold" }}>
+					<Text key={`highlight-${index}`} style={{ color: highlightColor, fontWeight: "bold" }}>
 						{part}
 					</Text>
 				) : (

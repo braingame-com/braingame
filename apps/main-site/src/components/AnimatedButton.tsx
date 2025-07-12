@@ -1,6 +1,8 @@
 import { type ButtonProps, Text, View } from "@braingame/bgui";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Animated, Pressable } from "react-native";
+
+type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "icon";
 
 interface AnimatedButtonProps extends Omit<ButtonProps, "onPress"> {
 	onPress?: () => void;
@@ -20,6 +22,22 @@ export function AnimatedButton({
 	const scaleAnim = useRef(new Animated.Value(1)).current;
 	const rippleAnim = useRef(new Animated.Value(0)).current;
 	const rippleScale = useRef(new Animated.Value(0)).current;
+	const rotateAnim = useRef(new Animated.Value(0)).current;
+
+	// Rotation animation for loading spinner
+	useEffect(() => {
+		if (loading) {
+			Animated.loop(
+				Animated.timing(rotateAnim, {
+					toValue: 1,
+					duration: 1000,
+					useNativeDriver: true,
+				}),
+			).start();
+		} else {
+			rotateAnim.setValue(0);
+		}
+	}, [loading, rotateAnim]);
 
 	const handlePressIn = () => {
 		Animated.spring(scaleAnim, {
@@ -64,7 +82,7 @@ export function AnimatedButton({
 			overflow: "hidden" as const,
 		};
 
-		const variantStyles = {
+		const variantStyles: Record<ButtonVariant, any> = {
 			primary: {
 				backgroundColor: disabled ? "#666" : "#0074D9",
 			},
@@ -75,6 +93,13 @@ export function AnimatedButton({
 			},
 			ghost: {
 				backgroundColor: "transparent",
+			},
+			danger: {
+				backgroundColor: disabled ? "#666" : "#dc3545",
+			},
+			icon: {
+				backgroundColor: "transparent",
+				padding: 8,
 			},
 		};
 
@@ -121,7 +146,7 @@ export function AnimatedButton({
 						style={{
 							transform: [
 								{
-									rotate: scaleAnim.interpolate({
+									rotate: rotateAnim.interpolate({
 										inputRange: [0, 1],
 										outputRange: ["0deg", "360deg"],
 									}),
