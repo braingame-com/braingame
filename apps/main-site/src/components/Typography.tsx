@@ -51,18 +51,18 @@ export function AnimatedText({
 	}, [fadeIn, slideUp, delay, duration, fadeAnim, slideAnim]);
 
 	return (
-		<Animated.Text
-			{...props}
+		<Animated.View
 			style={[
-				style,
 				{
 					opacity: fadeAnim,
 					transform: [{ translateY: slideAnim }],
 				},
 			]}
 		>
-			{children}
-		</Animated.Text>
+			<Text {...props} style={style}>
+				{children}
+			</Text>
+		</Animated.View>
 	);
 }
 
@@ -118,17 +118,21 @@ export function HighlightText({
 
 	const parts = children.split(new RegExp(`(${highlight})`, "gi"));
 
+	let cumulativeIndex = 0;
 	return (
 		<Text style={style} {...props}>
-			{parts.map((part, index) =>
-				part.toLowerCase() === highlight.toLowerCase() ? (
-					<Text key={`highlight-${index}`} style={{ color: highlightColor, fontWeight: "bold" }}>
-						{part}
-					</Text>
-				) : (
-					part
-				),
-			)}
+			{parts.map((part) => {
+				const currentIndex = cumulativeIndex;
+				cumulativeIndex += part.length;
+				if (part.toLowerCase() === highlight.toLowerCase()) {
+					return (
+						<Text key={currentIndex} style={{ color: highlightColor, fontWeight: "bold" }}>
+							{part}
+						</Text>
+					);
+				}
+				return <Text key={currentIndex}>{part}</Text>;
+			})}
 		</Text>
 	);
 }

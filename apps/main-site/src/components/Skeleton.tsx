@@ -72,7 +72,7 @@ export function SkeletonText({ lines = 3, width, spacing = 8 }: SkeletonTextProp
 		<View>
 			{Array.from({ length: lines }).map((_, index) => (
 				<Skeleton
-					key={`skeleton-line-${index}`}
+					key={`line-${index}-w${widths[index] || "100%"}`}
 					width={widths[index] || "100%"}
 					height={16}
 					style={{ marginBottom: index < lines - 1 ? spacing : 0 }}

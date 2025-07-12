@@ -116,7 +116,7 @@ export function AnimatedBackground() {
 
 			{/* Particles */}
 			{Array.from({ length: 20 }).map((_, i) => (
-				<Particle key={`particle-${i}`} delay={i * 800} />
+				<Particle key={`particle-delay-${i * 800}`} delay={i * 800} />
 			))}
 
 			{/* Grid pattern using individual lines */}
@@ -133,7 +133,7 @@ export function AnimatedBackground() {
 				{/* Vertical lines */}
 				{Array.from({ length: Math.floor(width / 50) }).map((_, i) => (
 					<View
-						key={`v-line-${i}`}
+						key={`vline-${i * 50}`}
 						style={{
 							position: "absolute",
 							left: i * 50,
@@ -147,7 +147,7 @@ export function AnimatedBackground() {
 				{/* Horizontal lines */}
 				{Array.from({ length: Math.floor(height / 50) }).map((_, i) => (
 					<View
-						key={`h-line-${i}`}
+						key={`hline-${i * 50}`}
 						style={{
 							position: "absolute",
 							top: i * 50,

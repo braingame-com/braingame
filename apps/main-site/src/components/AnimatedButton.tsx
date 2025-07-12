@@ -82,7 +82,7 @@ export function AnimatedButton({
 			overflow: "hidden" as const,
 		};
 
-		const variantStyles: Record<ButtonVariant, any> = {
+		const variantStyles: Record<ButtonVariant, object> = {
 			primary: {
 				backgroundColor: disabled ? "#666" : "#0074D9",
 			},
