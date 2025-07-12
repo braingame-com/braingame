@@ -5,11 +5,16 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
+		"build:analyze": "ANALYZE=true next build --config ./analyze.js",
+		"build:production": "NODE_ENV=production next build && pnpm postbuild",
+		"postbuild": "next-sitemap && node scripts/generate-robots.js",
 		"start": "next start",
 		"lint": "biome check --fix --vcs-root=../.. --files-ignore-unknown=true src",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf .next",
-		"validate:env": "node scripts/validate-env.js"
+		"clean": "rm -rf .next out",
+		"validate:env": "node scripts/validate-env.js",
+		"deploy": "pnpm build:production && firebase deploy --only hosting",
+		"preview": "firebase hosting:channel:deploy preview"
 	},
 	"dependencies": {
 		"@braingame/bgui": "workspace:*",
@@ -25,6 +30,8 @@
 		"@braingame/config": "workspace:*",
 		"@types/node": "^24",
 		"@types/react": "~19.1.8",
-		"@types/react-dom": "~19.1.6"
+		"@types/react-dom": "~19.1.6",
+		"next-sitemap": "^4.2.3",
+		"webpack-bundle-analyzer": "^4.10.1"
 	}
 }

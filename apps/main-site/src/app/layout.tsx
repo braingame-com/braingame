@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ErrorBoundary } from "../components/ErrorBoundary";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,7 +26,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<main>{children}</main>
+				<ErrorBoundary>
+					<main>{children}</main>
+				</ErrorBoundary>
 			</body>
 		</html>
 	);
