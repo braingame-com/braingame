@@ -144,44 +144,48 @@ export default function ButtonDocs() {
 					code={`<Button onPress={() => {}} icon="home">
   Home
 </Button>
-<Button onPress={() => {}} icon="arrow_forward" iconPosition="right">
+<Button onPress={() => {}} icon="arrow_forward">
   Continue
 </Button>
-<Button onPress={() => {}} variant="icon" icon="settings" aria-label="Settings" />`}
+<Button onPress={() => {}} variant="icon" icon="settings" aria-label="Settings">
+  {" "}
+</Button>`}
 				>
 					<div className="flex flex--gap-3 flex--wrap">
 						<Button onPress={() => {}} icon="home">
 							Home
 						</Button>
-						<Button onPress={() => {}} icon="arrow_forward" iconPosition="right">
+						<Button onPress={() => {}} icon="arrow_forward">
 							Continue
 						</Button>
-						<Button onPress={() => {}} variant="icon" icon="settings" aria-label="Settings" />
+						<Button onPress={() => {}} variant="icon" icon="settings" aria-label="Settings">
+							{" "}
+						</Button>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="States"
-					code={`<Button onPress={() => {}} loading>
-  Loading
+					code={`<Button onPress={() => {}} disabled>
+  Loading...
 </Button>
 <Button onPress={() => {}} disabled>
   Disabled
 </Button>
-<Button onPress={() => {}} fullWidth>
+<Button onPress={() => {}} style={{ width: "100%" }}>
   Full Width Button
 </Button>`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<div className="flex flex--gap-3">
-							<Button onPress={() => {}} loading>
-								Loading
+							<Button onPress={() => {}} disabled>
+								Loading...
 							</Button>
 							<Button onPress={() => {}} disabled>
 								Disabled
 							</Button>
 						</div>
-						<Button onPress={() => {}} fullWidth>
+						<Button onPress={() => {}} style={{ width: "100%" }}>
 							Full Width Button
 						</Button>
 					</div>

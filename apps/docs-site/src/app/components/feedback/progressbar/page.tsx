@@ -329,7 +329,9 @@ export default function ProgressBarDocs() {
 							<div className="progress__fill progress__fill--animated" style={{ width: "45%" }} />
 						</div>
 						<div className="flex flex--row flex--justify-end mt-3">
-							<button className="button button--ghost button--small">Cancel</button>
+							<button type="button" className="button button--ghost button--small">
+								Cancel
+							</button>
 						</div>
 					</div>
 				</LiveExample>

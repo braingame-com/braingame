@@ -30,7 +30,7 @@ export function Icon({
 			accessibilityElementsHidden={decorative}
 			accessibilityRole="image"
 			accessibilityLabel={decorative ? undefined : ariaLabel}
-			style={[{ fontFamily: "Material Icons Rounded" } as any, style]}
+			style={[{ fontFamily: "Material Icons Rounded" }, style]}
 		/>
 	);
 }

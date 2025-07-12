@@ -180,7 +180,12 @@ export default function SpinnerDocs() {
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<button className="button button--primary" disabled style={{ gap: "var(--space-2)" }}>
+						<button
+							type="button"
+							className="button button--primary"
+							disabled
+							style={{ gap: "var(--space-2)" }}
+						>
 							<div className="spinner spinner--small" style={{ borderTopColor: "white" }} />
 							Saving...
 						</button>

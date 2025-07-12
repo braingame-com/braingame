@@ -123,6 +123,8 @@ export default function IconDocs() {
 								<div
 									key={icon.name}
 									className="card"
+									role="button"
+									tabIndex={0}
 									style={{
 										display: "flex",
 										flexDirection: "column",
@@ -236,6 +238,8 @@ export default function IconDocs() {
 							<span className="text-small text-secondary">Disabled</span>
 						</div>
 						<div
+							role="button"
+							tabIndex={0}
 							style={{ cursor: "pointer" }}
 							onMouseDown={(e) => {
 								const svg = e.currentTarget.querySelector("svg");

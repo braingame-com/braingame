@@ -66,7 +66,7 @@ export function Header() {
 					>
 						<MaterialIcon
 							name={theme === "light" ? "dark_mode" : "light_mode"}
-							size="small"
+							size="sm"
 							color="var(--color-on-surface)"
 						/>
 					</button>

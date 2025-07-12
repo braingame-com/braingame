@@ -328,6 +328,7 @@ return (
 							</p>
 						)}
 						<button
+							type="button"
 							className="button button--primary"
 							style={{ marginTop: 16 }}
 							onClick={() => {

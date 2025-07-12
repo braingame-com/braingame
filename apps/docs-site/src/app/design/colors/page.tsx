@@ -110,7 +110,7 @@ export default function ColorsPage() {
 				<h2 className="text-title mb-4">Color Principles</h2>
 				<div className="grid grid--cols-1 md:grid--cols-3 gap-4 mb-8">
 					<div className="principle-card">
-						<MaterialIcon name="palette" size="large" color="var(--color-primary)" />
+						<MaterialIcon name="palette" size="lg" color="var(--color-primary)" />
 						<h3 className="text-heading mt-3 mb-2">Semantic Naming</h3>
 						<p className="text-body text-secondary">
 							Colors are named by their purpose, not their appearance. This ensures consistency
@@ -118,14 +118,14 @@ export default function ColorsPage() {
 						</p>
 					</div>
 					<div className="principle-card">
-						<MaterialIcon name="visibility" size="large" color="var(--color-primary)" />
+						<MaterialIcon name="visibility" size="lg" color="var(--color-primary)" />
 						<h3 className="text-heading mt-3 mb-2">Accessibility First</h3>
 						<p className="text-body text-secondary">
 							All color combinations meet WCAG AA standards with proper contrast ratios.
 						</p>
 					</div>
 					<div className="principle-card">
-						<MaterialIcon name="brightness_4" size="large" color="var(--color-primary)" />
+						<MaterialIcon name="brightness_4" size="lg" color="var(--color-primary)" />
 						<h3 className="text-heading mt-3 mb-2">Theme Adaptive</h3>
 						<p className="text-body text-secondary">
 							Colors automatically adjust for light and dark themes while maintaining visual
@@ -171,7 +171,7 @@ export default function ColorsPage() {
 					<div className="guideline">
 						<div className="guideline-colors">
 							<div className="color-circle" style={{ backgroundColor: "var(--color-primary)" }} />
-							<MaterialIcon name="arrow_forward" size="small" />
+							<MaterialIcon name="arrow_forward" size="sm" />
 							<div
 								className="color-circle"
 								style={{ backgroundColor: "var(--color-on-primary)" }}
@@ -186,7 +186,7 @@ export default function ColorsPage() {
 					<div className="guideline">
 						<div className="guideline-colors">
 							<div className="color-circle" style={{ backgroundColor: "var(--color-secondary)" }} />
-							<MaterialIcon name="arrow_forward" size="small" />
+							<MaterialIcon name="arrow_forward" size="sm" />
 							<div
 								className="color-circle"
 								style={{ backgroundColor: "var(--color-on-secondary)" }}
@@ -201,7 +201,7 @@ export default function ColorsPage() {
 					<div className="guideline">
 						<div className="guideline-colors">
 							<div className="color-circle" style={{ backgroundColor: "var(--color-error)" }} />
-							<MaterialIcon name="arrow_forward" size="small" />
+							<MaterialIcon name="arrow_forward" size="sm" />
 							<div className="color-circle" style={{ backgroundColor: "var(--color-on-error)" }} />
 						</div>
 						<h4 className="text-body font-medium mb-1">Error States</h4>
@@ -213,7 +213,7 @@ export default function ColorsPage() {
 					<div className="guideline">
 						<div className="guideline-colors">
 							<div className="color-circle" style={{ backgroundColor: "var(--color-surface)" }} />
-							<MaterialIcon name="arrow_forward" size="small" />
+							<MaterialIcon name="arrow_forward" size="sm" />
 							<div
 								className="color-circle"
 								style={{ backgroundColor: "var(--color-on-surface)" }}

@@ -16,7 +16,7 @@ export default function HomePage() {
 					<h3 className="text-heading mb-3">
 						<MaterialIcon
 							name="palette"
-							size="small"
+							size="sm"
 							color="var(--color-tertiary)"
 							style={{ marginRight: 8 }}
 						/>
@@ -32,7 +32,7 @@ export default function HomePage() {
 					<h3 className="text-heading mb-3">
 						<MaterialIcon
 							name="accessibility_new"
-							size="small"
+							size="sm"
 							color="var(--color-success)"
 							style={{ marginRight: 8 }}
 						/>
@@ -48,7 +48,7 @@ export default function HomePage() {
 					<h3 className="text-heading mb-3">
 						<MaterialIcon
 							name="devices"
-							size="small"
+							size="sm"
 							color="var(--color-info)"
 							style={{ marginRight: 8 }}
 						/>

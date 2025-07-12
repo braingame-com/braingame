@@ -123,7 +123,7 @@ export default function TooltipDocs() {
 				>
 					<div className="flex flex--row flex--gap-4 flex--align-center">
 						<div className="tooltip-container">
-							<button className="icon-button" aria-label="Delete">
+							<button type="button" className="icon-button" aria-label="Delete">
 								<Icon name="delete" />
 							</button>
 							<div className="tooltip tooltip--top">
@@ -245,7 +245,7 @@ export default function TooltipDocs() {
 				>
 					<div className="flex flex--row flex--gap-4 flex--align-center">
 						<div className="tooltip-container">
-							<button className="icon-button" aria-label="Keyboard shortcuts">
+							<button type="button" className="icon-button" aria-label="Keyboard shortcuts">
 								<Icon name="keyboard" />
 							</button>
 							<div className="tooltip tooltip--top" style={{ width: 150 }}>
@@ -423,7 +423,10 @@ export default function TooltipDocs() {
 				>
 					<div className="flex flex--column flex--gap-4">
 						<div>
-							<label className="flex flex--row flex--align-center flex--gap-2 mb-2">
+							<label
+								htmlFor="password-input"
+								className="flex flex--row flex--align-center flex--gap-2 mb-2"
+							>
 								<span className="text-body">Password</span>
 								<div className="tooltip-container">
 									<Icon name="help" size="sm" color="var(--color-on-surface-variant)" />
@@ -433,11 +436,19 @@ export default function TooltipDocs() {
 									</div>
 								</div>
 							</label>
-							<input type="password" placeholder="Enter password" className="textinput__input" />
+							<input
+								id="password-input"
+								type="password"
+								placeholder="Enter password"
+								className="textinput__input"
+							/>
 						</div>
 
 						<div>
-							<label className="flex flex--row flex--align-center flex--gap-2 mb-2">
+							<label
+								htmlFor="api-key-input"
+								className="flex flex--row flex--align-center flex--gap-2 mb-2"
+							>
 								<span className="text-body">API Key</span>
 								<div className="tooltip-container">
 									<Icon name="info" size="sm" color="var(--color-on-surface-variant)" />
@@ -447,7 +458,12 @@ export default function TooltipDocs() {
 									</div>
 								</div>
 							</label>
-							<input type="text" placeholder="sk_live_..." className="textinput__input" />
+							<input
+								id="api-key-input"
+								type="text"
+								placeholder="sk_live_..."
+								className="textinput__input"
+							/>
 						</div>
 					</div>
 				</LiveExample>

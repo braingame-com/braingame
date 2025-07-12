@@ -10,7 +10,7 @@ export interface ButtonProps {
 	onClick?: () => void;
 	children: React.ReactNode;
 	variant?: "primary" | "secondary" | "ghost" | "danger" | "icon";
-	size?: "small" | "medium" | "large";
+	size?: "sm" | "md" | "lg";
 	icon?: string;
 	disabled?: boolean;
 	"aria-label"?: string;
@@ -22,7 +22,7 @@ export function Button({
 	onClick,
 	children,
 	variant = "primary",
-	size = "medium",
+	size = "md",
 	icon,
 	disabled = false,
 	"aria-label": ariaLabel,
@@ -51,7 +51,7 @@ export function Button({
 			aria-label={ariaLabel}
 			style={style}
 		>
-			{icon && <MaterialIcon name={icon} size="small" style={{ marginRight: 8 }} />}
+			{icon && <MaterialIcon name={icon} size="sm" style={{ marginRight: 8 }} />}
 			{children}
 		</button>
 	);
@@ -214,22 +214,24 @@ export function Chip({
 	return (
 		<div
 			className={classNames}
-			onClick={handleClick}
-			onKeyDown={
-				onPress && !disabled
-					? (e) => {
-							if (e.key === "Enter" || e.key === " ") {
-								e.preventDefault();
-								onPress();
-							}
-						}
-					: undefined
-			}
 			style={style}
-			role={onPress ? "button" : undefined}
-			tabIndex={onPress && !disabled ? 0 : undefined}
+			{...(onPress
+				? {
+						onClick: handleClick,
+						role: "button",
+						tabIndex: disabled ? undefined : 0,
+						onKeyDown: !disabled
+							? (e) => {
+									if (e.key === "Enter" || e.key === " ") {
+										e.preventDefault();
+										onPress();
+									}
+								}
+							: undefined,
+					}
+				: {})}
 		>
-			{icon && <MaterialIcon name={icon} size="small" className="chip__icon" />}
+			{icon && <MaterialIcon name={icon} size="sm" className="chip__icon" />}
 			<span className="chip__label">{label}</span>
 			{onRemove && (
 				<button
@@ -238,7 +240,7 @@ export function Chip({
 					onClick={handleRemove}
 					aria-label={`Remove ${label}`}
 				>
-					<MaterialIcon name="close" size="small" />
+					<MaterialIcon name="close" size="sm" />
 				</button>
 			)}
 		</div>
@@ -302,9 +304,9 @@ export function Checkbox({
 				/>
 				<div className="checkbox__box">
 					{indeterminate ? (
-						<MaterialIcon name="remove" size="small" className="checkbox__icon" />
+						<MaterialIcon name="remove" size="sm" className="checkbox__icon" />
 					) : value ? (
-						<MaterialIcon name="check" size="small" className="checkbox__icon" />
+						<MaterialIcon name="check" size="sm" className="checkbox__icon" />
 					) : null}
 				</div>
 			</div>
@@ -369,7 +371,7 @@ export function Switch({
 					{thumbIcon && (
 						<MaterialIcon
 							name={value ? thumbIcon.on || "check" : thumbIcon.off || "close"}
-							size="small"
+							size="sm"
 							className="switch__icon"
 						/>
 					)}
@@ -423,7 +425,6 @@ export function TextInput({
 	keyboardType = "default",
 	autoCapitalize = "sentences",
 	autoComplete,
-	autoFocus = false,
 	leftIcon,
 	rightIcon,
 	onRightIconPress,
@@ -468,7 +469,7 @@ export function TextInput({
 				{leftIcon && (
 					<MaterialIcon
 						name={leftIcon}
-						size="small"
+						size="sm"
 						className="textinput__icon textinput__icon--left"
 					/>
 				)}
@@ -506,7 +507,7 @@ export function TextInput({
 						disabled={disabled}
 						tabIndex={onRightIconPress ? 0 : -1}
 					>
-						<MaterialIcon name={rightIcon} size="small" />
+						<MaterialIcon name={rightIcon} size="sm" />
 					</button>
 				)}
 			</div>
@@ -637,16 +638,18 @@ export function Select({
 					</span>
 					<div className="select__icons">
 						{clearable && displayValue && (
-							<MaterialIcon
-								name="close"
-								size="small"
+							<button
+								type="button"
 								className="select__clear"
 								onClick={handleClear}
-							/>
+								aria-label="Clear selection"
+							>
+								<MaterialIcon name="close" size="sm" />
+							</button>
 						)}
 						<MaterialIcon
 							name={isOpen ? "expand_less" : "expand_more"}
-							size="small"
+							size="sm"
 							className="select__arrow"
 						/>
 					</div>
@@ -656,7 +659,7 @@ export function Select({
 					<div className="select__dropdown" style={{ maxHeight }}>
 						{searchable && (
 							<div className="select__search">
-								<MaterialIcon name="search" size="small" />
+								<MaterialIcon name="search" size="sm" />
 								<input
 									type="text"
 									value={searchQuery}
@@ -824,17 +827,17 @@ export function Modal({
 		<div className="modal__container" data-testid={testID}>
 			<div
 				className={backdropClassNames}
-				onClick={closeOnBackdropPress ? onClose : undefined}
-				role={closeOnBackdropPress ? "button" : undefined}
-				tabIndex={closeOnBackdropPress ? 0 : undefined}
-				onKeyDown={
-					closeOnBackdropPress
-						? (e) => {
+				{...(closeOnBackdropPress
+					? {
+							onClick: onClose,
+							role: "button",
+							tabIndex: 0,
+							onKeyDown: (e) => {
 								if (e.key === "Enter" || e.key === " ") onClose();
-							}
-						: undefined
-				}
-				aria-label={closeOnBackdropPress ? "Close modal" : undefined}
+							},
+							"aria-label": "Close modal backdrop",
+						}
+					: {})}
 			/>
 			<div className={modalClassNames}>
 				{(title || showCloseButton) && (
@@ -847,7 +850,7 @@ export function Modal({
 								onClick={onClose}
 								aria-label="Close modal"
 							>
-								<MaterialIcon name="close" size="medium" />
+								<MaterialIcon name="close" size="md" />
 							</button>
 						)}
 					</div>
@@ -937,7 +940,9 @@ export interface ViewProps {
 	accessible?: boolean;
 	accessibilityLabel?: string;
 	accessibilityRole?: string;
-	onLayout?: (event: any) => void;
+	onLayout?: (event: {
+		nativeEvent: { layout: { x: number; y: number; width: number; height: number } };
+	}) => void;
 	pointerEvents?: "box-none" | "none" | "box-only" | "auto";
 }
 
@@ -945,10 +950,8 @@ export function View({
 	children,
 	style,
 	testID,
-	accessible,
 	accessibilityLabel,
 	accessibilityRole,
-	onLayout,
 	pointerEvents = "auto",
 }: ViewProps) {
 	const pointerEventsStyle: React.CSSProperties =
@@ -1029,7 +1032,7 @@ export function Alert({
 
 	return (
 		<div className={classNames} style={style} data-testid={testID} role="alert">
-			{iconName && <MaterialIcon name={iconName} size="medium" className="alert__icon" />}
+			{iconName && <MaterialIcon name={iconName} size="md" className="alert__icon" />}
 			<div className="alert__content">
 				<div className="alert__title">{title}</div>
 				{description && <div className="alert__description">{description}</div>}
@@ -1042,7 +1045,7 @@ export function Alert({
 					onClick={handleClose}
 					aria-label="Close alert"
 				>
-					<MaterialIcon name="close" size="small" />
+					<MaterialIcon name="close" size="sm" />
 				</button>
 			)}
 		</div>
