@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import type { ButtonProps } from "./types";
 
 const variantStyles = {
@@ -87,9 +87,7 @@ export function Button({
 			}}
 			{...props}
 		>
-			{loading ? (
-				<span style={{ marginRight: 8 }}>...</span>
-			) : null}
+			{loading ? <span style={{ marginRight: 8 }}>...</span> : null}
 			{children}
 		</button>
 	);

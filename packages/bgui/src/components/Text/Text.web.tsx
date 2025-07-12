@@ -50,13 +50,13 @@ const variantStyles = {
 	},
 };
 
-export function Text({ 
-	children, 
-	variant = "body", 
-	style, 
-	highlight, 
+export function Text({
+	children,
+	variant = "body",
+	style,
+	highlight,
 	highlightColor = "#007bff",
-	...props 
+	...props
 }: TextProps) {
 	const baseStyle = variantStyles[variant] || variantStyles.body;
 

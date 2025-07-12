@@ -65,9 +65,8 @@ export function Icon({
 	const icon = iconMap[name] || "•";
 
 	// Handle different size types
-	const iconSize = typeof size === "string" 
-		? size === "small" ? 16 : size === "large" ? 32 : 24
-		: size;
+	const iconSize =
+		typeof size === "string" ? (size === "small" ? 16 : size === "large" ? 32 : 24) : size;
 
 	return (
 		<span
