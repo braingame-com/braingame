@@ -5,17 +5,17 @@ const nextConfig: NextConfig = {
 	trailingSlash: true,
 	reactStrictMode: true,
 	transpilePackages: ["react-native-web", "@braingame/bgui", "@braingame/utils"],
-	
+
 	// Image optimization for static export
 	images: {
 		unoptimized: true,
 	},
-	
+
 	// Production optimizations
 	poweredByHeader: false,
 	compress: true,
 	generateEtags: true,
-	
+
 	// Security headers (applied by Firebase hosting)
 	async headers() {
 		return [
@@ -46,13 +46,13 @@ const nextConfig: NextConfig = {
 			},
 		];
 	},
-	
+
 	// Environment variables validation
 	env: {
 		NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
 		NEXT_PUBLIC_BUILD_ID: process.env.VERCEL_GIT_COMMIT_SHA || "local",
 	},
-	
+
 	// Webpack configuration
 	webpack: (config, { isServer, dev }) => {
 		// Configure React Native Web aliases
@@ -60,15 +60,15 @@ const nextConfig: NextConfig = {
 			...config.resolve.alias,
 			"react-native$": "react-native-web",
 		};
-		
+
 		// Production optimizations
 		if (!dev && !isServer) {
 			// Enable tree shaking for ES modules
 			config.optimization.usedExports = true;
-			
+
 			// Minimize bundle size
 			config.optimization.minimize = true;
-			
+
 			// Split chunks for better caching
 			config.optimization.splitChunks = {
 				chunks: "all",
@@ -104,7 +104,7 @@ const nextConfig: NextConfig = {
 
 		return config;
 	},
-	
+
 	// Experimental features for production
 	experimental: {
 		// Enable optimized package imports
