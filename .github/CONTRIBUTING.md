@@ -78,6 +78,7 @@ Only **3 scenarios** allow bypassing quality checks (all require lead approval +
 - **Components:** UI components go in `packages/bgui`. Follow the existing folder-per-component structure.
 - **Utilities:** Shared helpers go in `packages/utils`.
 - **Imports:** Use absolute imports for workspace packages (e.g., `@braingame/bgui`).
+- **Universal Components:** BGUI components must work on all platforms (iOS, Android, Web) without platform-specific files (.web.tsx, .native.tsx). Use `Platform.select()` for platform differences.
 
 ### Commit Messages
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:

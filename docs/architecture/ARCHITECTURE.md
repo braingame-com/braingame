@@ -42,6 +42,10 @@ This repository uses git worktrees for workspace isolation:
 | **Hosting** | **Firebase Hosting multi‑site** (`www` & `app` targets) | Simple CDN, same auth/config |
 | **Caching** | Local + optional **Vercel remote cache** | Fast CI across PRs |
 | **Secrets** | `.env` (local), CI secret manager (prod) | Never commit credentials |
+| **Icons** | **Material Icons Rounded** | Consistent, comprehensive, accessible icon set |
+| **Typography** | **Lexend** (primary), **Roboto Mono** (code), **Noto** (i18n) | Optimized for readability and global support |
+
+For detailed design rationale, see [DESIGN_DECISIONS.md](./DESIGN_DECISIONS.md).
 
 ---
 

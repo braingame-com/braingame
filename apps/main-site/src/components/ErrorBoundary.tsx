@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Text, View } from "@braingame/bgui";
-import React, { Component, type ErrorInfo, type ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 import { env } from "../lib/env";
 
 interface Props {
