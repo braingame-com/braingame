@@ -51,12 +51,7 @@ export default function CookiesPage() {
 						marginBottom: 40,
 					}}
 				>
-					Last updated:{" "}
-					{new Date().toLocaleDateString("en-US", {
-						year: "numeric",
-						month: "long",
-						day: "numeric",
-					})}
+					Last updated: July 12, 2025
 				</Text>
 
 				{/* What Are Cookies */}
