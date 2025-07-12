@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 		siteName: "Brain Game",
 		images: [
 			{
-				url: "https://braingame.dev/og-image.png",
+				url: "https://braingame.dev/opengraph-image",
 				width: 1200,
 				height: 630,
 				alt: "Brain Game - Personal Development Platform",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 		title: "Brain Game - The Future of Personal Development",
 		description: "Join the waitlist for early access to our transformative platform.",
-		images: ["https://braingame.dev/twitter-image.png"],
+		images: ["https://braingame.dev/twitter-image"],
 		creator: "@braingame",
 	},
 	icons: {
