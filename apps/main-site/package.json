@@ -19,9 +19,9 @@
 	"dependencies": {
 		"@braingame/bgui": "workspace:*",
 		"@braingame/utils": "workspace:*",
-		"@sentry/nextjs": "^9.33.0",
-		"firebase": "^11.9.1",
-		"next": "15.3.4",
+		"@sentry/nextjs": "^9.38.0",
+		"firebase": "^11.10.0",
+		"next": "15.3.5",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
 		"react-native-web": "~0.20.0"
