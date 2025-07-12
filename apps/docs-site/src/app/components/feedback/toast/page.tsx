@@ -176,22 +176,22 @@ toast.info("Bottom left", { position: "bottom-left" });
 toast.info("Bottom right", { position: "bottom-right" });`}
 				>
 					<div className="grid grid--cols-3 gap-3">
-						<Button size="small" onPress={() => console.log("Top left")}>
+						<Button size="sm" onPress={() => console.log("Top left")}>
 							Top Left
 						</Button>
-						<Button size="small" onPress={() => console.log("Top")}>
+						<Button size="sm" onPress={() => console.log("Top")}>
 							Top
 						</Button>
-						<Button size="small" onPress={() => console.log("Top right")}>
+						<Button size="sm" onPress={() => console.log("Top right")}>
 							Top Right
 						</Button>
-						<Button size="small" onPress={() => console.log("Bottom left")}>
+						<Button size="sm" onPress={() => console.log("Bottom left")}>
 							Bottom Left
 						</Button>
-						<Button size="small" onPress={() => console.log("Bottom")}>
+						<Button size="sm" onPress={() => console.log("Bottom")}>
 							Bottom
 						</Button>
-						<Button size="small" onPress={() => console.log("Bottom right")}>
+						<Button size="sm" onPress={() => console.log("Bottom right")}>
 							Bottom Right
 						</Button>
 					</div>

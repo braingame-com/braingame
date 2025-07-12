@@ -159,7 +159,7 @@ export default function BadgeDocs() {
 import { Badge, Icon } from '@braingame/bgui';
 
 <View style={{ position: 'relative', display: 'inline-block' }}>
-  <Icon name="notifications" size="large" />
+  <Icon name="notifications" size="lg" />
   <Badge 
     text={3} 
     variant="danger" 
@@ -173,7 +173,7 @@ import { Badge, Icon } from '@braingame/bgui';
 </View>
 
 <View style={{ position: 'relative', display: 'inline-block' }}>
-  <Icon name="email" size="large" />
+  <Icon name="email" size="lg" />
   <Badge 
     dot 
     variant="primary" 
@@ -187,7 +187,7 @@ import { Badge, Icon } from '@braingame/bgui';
 				>
 					<div className="flex flex--gap-6">
 						<div style={{ position: "relative", display: "inline-block" }}>
-							<Icon name="notifications" size="large" color="var(--color-on-surface)" />
+							<Icon name="notifications" size="lg" color="var(--color-on-surface)" />
 							<Badge
 								text={3}
 								variant="danger"
@@ -200,7 +200,7 @@ import { Badge, Icon } from '@braingame/bgui';
 							/>
 						</div>
 						<div style={{ position: "relative", display: "inline-block" }}>
-							<Icon name="email" size="large" color="var(--color-on-surface)" />
+							<Icon name="email" size="lg" color="var(--color-on-surface)" />
 							<Badge
 								dot
 								variant="primary"
@@ -212,7 +212,7 @@ import { Badge, Icon } from '@braingame/bgui';
 							/>
 						</div>
 						<div style={{ position: "relative", display: "inline-block" }}>
-							<Icon name="shopping_cart" size="large" color="var(--color-on-surface)" />
+							<Icon name="shopping_cart" size="lg" color="var(--color-on-surface)" />
 							<Badge
 								text={12}
 								variant="success"
@@ -255,7 +255,7 @@ function NotificationIcon() {
   
   return (
     <View style={styles.container}>
-      <Icon name="notifications" size="large" />
+      <Icon name="notifications" size="lg" />
       {unreadCount > 0 && (
         <Badge 
           text={unreadCount} 

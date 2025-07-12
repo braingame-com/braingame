@@ -122,18 +122,18 @@ export default function ButtonDocs() {
 
 				<LiveExample
 					title="Sizes"
-					code={`<Button onPress={() => {}} size="small">Small</Button>
-<Button onPress={() => {}} size="medium">Medium</Button>
-<Button onPress={() => {}} size="large">Large</Button>`}
+					code={`<Button onPress={() => {}} size="sm">Small</Button>
+<Button onPress={() => {}} size="md">Medium</Button>
+<Button onPress={() => {}} size="lg">Large</Button>`}
 				>
 					<div className="flex flex--gap-3 flex--wrap" style={{ alignItems: "center" }}>
-						<Button onPress={() => {}} size="small">
+						<Button onPress={() => {}} size="sm">
 							Small
 						</Button>
-						<Button onPress={() => {}} size="medium">
+						<Button onPress={() => {}} size="md">
 							Medium
 						</Button>
-						<Button onPress={() => {}} size="large">
+						<Button onPress={() => {}} size="lg">
 							Large
 						</Button>
 					</div>

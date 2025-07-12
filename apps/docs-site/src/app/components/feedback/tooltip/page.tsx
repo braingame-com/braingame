@@ -176,7 +176,7 @@ export default function TooltipDocs() {
 					<div className="grid grid--cols-3 gap-4" style={{ maxWidth: 300 }}>
 						<div />
 						<div className="tooltip-container">
-							<Button size="small">Top</Button>
+							<Button size="sm">Top</Button>
 							<div className="tooltip tooltip--top">
 								Top tooltip
 								<div className="tooltip__arrow" />
@@ -185,7 +185,7 @@ export default function TooltipDocs() {
 						<div />
 
 						<div className="tooltip-container">
-							<Button size="small">Left</Button>
+							<Button size="sm">Left</Button>
 							<div className="tooltip tooltip--left">
 								Left tooltip
 								<div className="tooltip__arrow" />
@@ -193,7 +193,7 @@ export default function TooltipDocs() {
 						</div>
 						<div />
 						<div className="tooltip-container">
-							<Button size="small">Right</Button>
+							<Button size="sm">Right</Button>
 							<div className="tooltip tooltip--right">
 								Right tooltip
 								<div className="tooltip__arrow" />
@@ -202,7 +202,7 @@ export default function TooltipDocs() {
 
 						<div />
 						<div className="tooltip-container">
-							<Button size="small">Bottom</Button>
+							<Button size="sm">Bottom</Button>
 							<div className="tooltip tooltip--bottom">
 								Bottom tooltip
 								<div className="tooltip__arrow" />
@@ -232,7 +232,7 @@ export default function TooltipDocs() {
 <Tooltip 
   content={
     <View style={styles.tooltipContent}>
-      <Icon name="info" size="small" color="white" />
+      <Icon name="info" size="sm" color="white" />
       <Text variant="caption" color="white">
         Click to learn more about this feature
       </Text>
@@ -259,7 +259,7 @@ export default function TooltipDocs() {
 							<Button variant="ghost">Help</Button>
 							<div className="tooltip tooltip--top" style={{ maxWidth: 300 }}>
 								<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-									<Icon name="info" size="small" color="white" />
+									<Icon name="info" size="sm" color="white" />
 									<span>Click to learn more about this feature</span>
 								</div>
 								<div className="tooltip__arrow" />
@@ -291,9 +291,9 @@ export default function TooltipDocs() {
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button size="small">Hover me</Button>
-						<Button size="small">Click me</Button>
-						<Button size="small">Hold me</Button>
+						<Button size="sm">Hover me</Button>
+						<Button size="sm">Click me</Button>
+						<Button size="sm">Hold me</Button>
 						<input
 							type="text"
 							placeholder="Focus me"
@@ -333,7 +333,7 @@ export default function TooltipDocs() {
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
 						<div className="tooltip-container">
-							<Button variant="secondary" size="small">
+							<Button variant="secondary" size="sm">
 								Dark
 							</Button>
 							<div
@@ -352,7 +352,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="secondary" size="small">
+							<Button variant="secondary" size="sm">
 								Primary
 							</Button>
 							<div
@@ -367,7 +367,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="secondary" size="small">
+							<Button variant="secondary" size="sm">
 								Large
 							</Button>
 							<div
@@ -397,7 +397,7 @@ export default function TooltipDocs() {
       content="Must be at least 8 characters with uppercase, lowercase, and numbers"
       placement="right"
     >
-      <Icon name="help" size="small" />
+      <Icon name="help" size="sm" />
     </Tooltip>
   </Label>
   <TextInput 
@@ -413,7 +413,7 @@ export default function TooltipDocs() {
       content="Find your API key in Settings > Developer"
       placement="right"
     >
-      <Icon name="info" size="small" />
+      <Icon name="info" size="sm" />
     </Tooltip>
   </Label>
   <TextInput 
@@ -426,7 +426,7 @@ export default function TooltipDocs() {
 							<label className="flex flex--row flex--align-center flex--gap-2 mb-2">
 								<span className="text-body">Password</span>
 								<div className="tooltip-container">
-									<Icon name="help" size="small" color="var(--color-on-surface-variant)" />
+									<Icon name="help" size="sm" color="var(--color-on-surface-variant)" />
 									<div className="tooltip tooltip--right">
 										Must be at least 8 characters with uppercase, lowercase, and numbers
 										<div className="tooltip__arrow" />
@@ -440,7 +440,7 @@ export default function TooltipDocs() {
 							<label className="flex flex--row flex--align-center flex--gap-2 mb-2">
 								<span className="text-body">API Key</span>
 								<div className="tooltip-container">
-									<Icon name="info" size="small" color="var(--color-on-surface-variant)" />
+									<Icon name="info" size="sm" color="var(--color-on-surface-variant)" />
 									<div className="tooltip tooltip--right">
 										Find your API key in Settings {">"} Developer
 										<div className="tooltip__arrow" />
@@ -489,7 +489,7 @@ function FormField({ label, error, help, ...inputProps }) {
         <Text>{label}</Text>
         {help && (
           <Tooltip content={help} placement="top">
-            <Icon name="help_outline" size="small" />
+            <Icon name="help_outline" size="sm" />
           </Tooltip>
         )}
       </View>

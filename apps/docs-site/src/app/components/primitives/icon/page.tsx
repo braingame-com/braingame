@@ -109,7 +109,7 @@ export default function IconDocs() {
 						key={category}
 						title={category.charAt(0).toUpperCase() + category.slice(1)}
 						code={`<div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-  ${icons.map((icon) => `<Icon name="${icon.name}" size="large" />`).join("\n  ")}
+  ${icons.map((icon) => `<Icon name="${icon.name}" size="lg" />`).join("\n  ")}
 </div>`}
 					>
 						<div
@@ -141,7 +141,7 @@ export default function IconDocs() {
 										e.currentTarget.style.boxShadow = "";
 									}}
 								>
-									<Icon name={icon.name} size="large" color="var(--color-on-surface)" />
+									<Icon name={icon.name} size="lg" color="var(--color-on-surface)" />
 									<span className="text-small" style={{ fontFamily: "var(--font-mono)" }}>
 										{icon.name}
 									</span>
@@ -158,15 +158,15 @@ export default function IconDocs() {
 
 				<LiveExample
 					title="Sizes"
-					code={`<Icon name="favorite" size="small" />
-<Icon name="favorite" size="medium" />
-<Icon name="favorite" size="large" />
+					code={`<Icon name="favorite" size="sm" />
+<Icon name="favorite" size="md" />
+<Icon name="favorite" size="lg" />
 <Icon name="favorite" size={48} />`}
 				>
 					<div className="flex flex--gap-3" style={{ alignItems: "center" }}>
-						<Icon name="favorite" size="small" color="var(--color-tertiary)" />
-						<Icon name="favorite" size="medium" color="var(--color-tertiary)" />
-						<Icon name="favorite" size="large" color="var(--color-tertiary)" />
+						<Icon name="favorite" size="sm" color="var(--color-tertiary)" />
+						<Icon name="favorite" size="md" color="var(--color-tertiary)" />
+						<Icon name="favorite" size="lg" color="var(--color-tertiary)" />
 						<Icon name="favorite" size={48} color="var(--color-tertiary)" />
 					</div>
 				</LiveExample>
@@ -181,12 +181,12 @@ export default function IconDocs() {
 <Icon name="circle" color="var(--color-error)" />`}
 				>
 					<div className="flex flex--gap-3">
-						<Icon name="circle" size="large" color="var(--color-primary)" />
-						<Icon name="circle" size="large" color="var(--color-secondary)" />
-						<Icon name="circle" size="large" color="var(--color-tertiary)" />
-						<Icon name="circle" size="large" color="var(--color-success)" />
-						<Icon name="circle" size="large" color="var(--color-warning)" />
-						<Icon name="circle" size="large" color="var(--color-error)" />
+						<Icon name="circle" size="lg" color="var(--color-primary)" />
+						<Icon name="circle" size="lg" color="var(--color-secondary)" />
+						<Icon name="circle" size="lg" color="var(--color-tertiary)" />
+						<Icon name="circle" size="lg" color="var(--color-success)" />
+						<Icon name="circle" size="lg" color="var(--color-warning)" />
+						<Icon name="circle" size="lg" color="var(--color-error)" />
 					</div>
 				</LiveExample>
 
@@ -232,7 +232,7 @@ export default function IconDocs() {
 				>
 					<div className="flex flex--gap-4">
 						<div style={{ opacity: 0.38 }}>
-							<Icon name="edit" size="large" color="var(--color-on-surface)" />
+							<Icon name="edit" size="lg" color="var(--color-on-surface)" />
 							<span className="text-small text-secondary">Disabled</span>
 						</div>
 						<div
@@ -246,7 +246,7 @@ export default function IconDocs() {
 								if (svg) svg.style.color = "var(--color-outline)";
 							}}
 						>
-							<Icon name="favorite" size="large" color="var(--color-outline)" />
+							<Icon name="favorite" size="lg" color="var(--color-outline)" />
 							<span className="text-small text-secondary">Press me</span>
 						</div>
 					</div>
@@ -261,7 +261,7 @@ export default function IconDocs() {
 function MyComponent() {
   return (
     <View style={styles.container}>
-      <Icon name="home" size="large" color="#3b73f5" />
+      <Icon name="home" size="lg" color="#3b73f5" />
       <Text>Welcome Home</Text>
     </View>
   );

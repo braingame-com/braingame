@@ -82,9 +82,9 @@ export default function SpinnerDocs() {
 
 				<LiveExample
 					title="Sizes"
-					code={`<Spinner size="small" />
-<Spinner size="medium" />
-<Spinner size="large" />
+					code={`<Spinner size="sm" />
+<Spinner size="md" />
+<Spinner size="lg" />
 <Spinner size={60} /> // Custom size`}
 				>
 					<div className="flex flex--row flex--gap-6 flex--align-center">
@@ -135,7 +135,7 @@ export default function SpinnerDocs() {
 <Spinner 
   label="Please wait" 
   labelPosition="right" 
-  size="small"
+  size="sm"
 />`}
 				>
 					<div className="flex flex--row flex--gap-8 flex--align-center">
@@ -158,7 +158,7 @@ export default function SpinnerDocs() {
 					title="Loading States"
 					code={`// Loading button
 <Button disabled>
-  <Spinner size="small" color="white" />
+  <Spinner size="sm" color="white" />
   <Text>Saving...</Text>
 </Button>
 
@@ -176,7 +176,7 @@ export default function SpinnerDocs() {
 <ListItem
   title="Document.pdf"
   subtitle="Uploading..."
-  right={<Spinner size="small" />}
+  right={<Spinner size="sm" />}
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
@@ -273,7 +273,7 @@ export default function SpinnerDocs() {
 function LoadingScreen() {
   return (
     <View style={styles.container}>
-      <Spinner size="large" />
+      <Spinner size="lg" />
       <Text style={styles.loadingText}>Loading...</Text>
     </View>
   );
@@ -342,7 +342,7 @@ function LoadingButton({ loading, onPress, children }) {
     >
       {loading ? (
         <>
-          <Spinner size="small" color="white" />
+          <Spinner size="sm" color="white" />
           <Text>Processing...</Text>
         </>
       ) : (
@@ -379,7 +379,7 @@ if (loading && !data.length) {
 
 // Load more
 ListFooterComponent={() => 
-  loadingMore ? <Spinner size="small" /> : null
+  loadingMore ? <Spinner size="sm" /> : null
 }`}
 					language="tsx"
 				/>
@@ -405,7 +405,7 @@ ListFooterComponent={() =>
       style={styles.submitButton}
     >
       {submitting ? (
-        <Spinner size="small" color="white" />
+        <Spinner size="sm" color="white" />
       ) : (
         <Text>Submit</Text>
       )}
@@ -424,7 +424,7 @@ ListFooterComponent={() =>
     <View style={styles.imageContainer}>
       {loading && (
         <View style={[styles.imagePlaceholder, props.style]}>
-          <Spinner size="small" />
+          <Spinner size="sm" />
         </View>
       )}
       <Image

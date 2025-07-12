@@ -140,7 +140,7 @@ export default function ProgressBarDocs() {
   value={72} 
   showLabel 
   labelPosition="inside" 
-  size="large"
+  size="lg"
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
@@ -160,9 +160,9 @@ export default function ProgressBarDocs() {
 
 				<LiveExample
 					title="Sizes"
-					code={`<ProgressBar value={60} size="small" />
-<ProgressBar value={60} size="medium" />
-<ProgressBar value={60} size="large" />`}
+					code={`<ProgressBar value={60} size="sm" />
+<ProgressBar value={60} size="md" />
+<ProgressBar value={60} size="lg" />`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<div className="progress progress--small">
@@ -223,7 +223,7 @@ export default function ProgressBarDocs() {
 
 <ProgressBar 
   variant="indeterminate" 
-  size="small" 
+  size="sm" 
   striped 
 />`}
 				>
@@ -304,7 +304,7 @@ export default function ProgressBarDocs() {
       />
       
       <View style={styles.actions}>
-        <Button variant="ghost" size="small">
+        <Button variant="ghost" size="sm">
           {status === 'uploading' ? 'Pause' : 'Cancel'}
         </Button>
       </View>
@@ -527,7 +527,7 @@ function PageLoader() {
     <View style={styles.pageLoader}>
       <ProgressBar 
         value={progress}
-        size="small"
+        size="sm"
         style={styles.topBar}
       />
     </View>
@@ -545,7 +545,7 @@ function PageLoader() {
     <View>
       <ProgressBar 
         value={progress}
-        size="small"
+        size="sm"
         style={styles.formProgress}
       />
       <View style={styles.stepIndicators}>
@@ -584,7 +584,7 @@ function PageLoader() {
       </View>
       <ProgressBar 
         value={percentage}
-        size="small"
+        size="sm"
         color={
           percentage >= 80 ? 'var(--color-success)' :
           percentage >= 60 ? 'var(--color-primary)' :

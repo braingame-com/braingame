@@ -249,7 +249,7 @@ return visible ? (
   title="Unsaved Changes"
   description="You have unsaved changes that will be lost."
   action={
-    <Button size="medium" onPress={() => {}}>
+    <Button size="md" onPress={() => {}}>
       Save Now
     </Button>
   }
@@ -261,10 +261,10 @@ return visible ? (
   description="We couldn't process your payment."
   action={
     <View style={{ flexDirection: 'row', gap: 8 }}>
-      <Button size="medium" variant="ghost" onPress={() => {}}>
+      <Button size="md" variant="ghost" onPress={() => {}}>
         Cancel
       </Button>
-      <Button size="medium" onPress={() => {}}>
+      <Button size="md" onPress={() => {}}>
         Retry
       </Button>
     </View>
@@ -275,7 +275,7 @@ return visible ? (
   type="success" 
   title="File Uploaded"
   action={
-    <Button size="medium" variant="ghost" onPress={() => {}}>
+    <Button size="md" variant="ghost" onPress={() => {}}>
       View File
     </Button>
   }
@@ -287,7 +287,7 @@ return visible ? (
 							title="Unsaved Changes"
 							description="You have unsaved changes that will be lost."
 							action={
-								<Button size="medium" onPress={() => {}}>
+								<Button size="md" onPress={() => {}}>
 									Save Now
 								</Button>
 							}
@@ -299,10 +299,10 @@ return visible ? (
 							description="We couldn't process your payment."
 							action={
 								<div style={{ display: "flex", gap: 8 }}>
-									<Button size="medium" variant="ghost" onPress={() => {}}>
+									<Button size="md" variant="ghost" onPress={() => {}}>
 										Cancel
 									</Button>
-									<Button size="medium" onPress={() => {}}>
+									<Button size="md" onPress={() => {}}>
 										Retry
 									</Button>
 								</div>
@@ -313,7 +313,7 @@ return visible ? (
 							type="success"
 							title="File Uploaded"
 							action={
-								<Button size="medium" variant="ghost" onPress={() => {}}>
+								<Button size="md" variant="ghost" onPress={() => {}}>
 									View File
 								</Button>
 							}
@@ -425,7 +425,7 @@ function FormWithValidation() {
   description="System will be unavailable from 2-4 AM EST."
   icon="engineering"
   action={
-    <Button size="medium" variant="ghost" onPress={viewDetails}>
+    <Button size="md" variant="ghost" onPress={viewDetails}>
       Learn More
     </Button>
   }
@@ -452,7 +452,7 @@ function FormWithValidation() {
     title="Account Created!"
     description="Check your email to verify your account."
     action={
-      <Button size="medium" onPress={navigateToLogin}>
+      <Button size="md" onPress={navigateToLogin}>
         Go to Login
       </Button>
     }
@@ -471,7 +471,7 @@ function FormWithValidation() {
   closable
   onClose={dismissUpdate}
   action={
-    <Button size="medium" variant="primary" onPress={updateApp}>
+    <Button size="md" variant="primary" onPress={updateApp}>
       Update Now
     </Button>
   }

@@ -233,7 +233,7 @@ export default function CardDocs() {
 					title="Complex Card Layouts"
 					code={`<Card>
   <View style={styles.cardHeader}>
-    <Avatar source={{ uri: 'https://i.pravatar.cc/150' }} size="medium" />
+    <Avatar source={{ uri: 'https://i.pravatar.cc/150' }} size="md" />
     <View style={styles.headerText}>
       <Text variant="subtitle">John Doe</Text>
       <Text variant="caption" color="secondary">Software Engineer</Text>
@@ -261,19 +261,19 @@ export default function CardDocs() {
 <Card variant="outlined">
   <View style={styles.statsCard}>
     <View style={styles.stat}>
-      <Icon name="trending_up" color="success" size="large" />
+      <Icon name="trending_up" color="success" size="lg" />
       <Text variant="heading">24.5%</Text>
       <Text variant="caption" color="secondary">Growth</Text>
     </View>
     <Divider orientation="vertical" />
     <View style={styles.stat}>
-      <Icon name="people" color="info" size="large" />
+      <Icon name="people" color="info" size="lg" />
       <Text variant="heading">1.2K</Text>
       <Text variant="caption" color="secondary">Users</Text>
     </View>
     <Divider orientation="vertical" />
     <View style={styles.stat}>
-      <Icon name="star" color="warning" size="large" />
+      <Icon name="star" color="warning" size="lg" />
       <Text variant="heading">4.8</Text>
       <Text variant="caption" color="secondary">Rating</Text>
     </View>
@@ -310,13 +310,13 @@ export default function CardDocs() {
 							</p>
 
 							<div style={{ display: "flex", gap: "var(--space-2)", marginTop: "var(--space-4)" }}>
-								<Button variant="ghost" icon="thumb_up" size="small">
+								<Button variant="ghost" icon="thumb_up" size="sm">
 									Like
 								</Button>
-								<Button variant="ghost" icon="comment" size="small">
+								<Button variant="ghost" icon="comment" size="sm">
 									Comment
 								</Button>
-								<Button variant="ghost" icon="share" size="small">
+								<Button variant="ghost" icon="share" size="sm">
 									Share
 								</Button>
 							</div>
@@ -327,19 +327,19 @@ export default function CardDocs() {
 								style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}
 							>
 								<div style={{ textAlign: "center", padding: "var(--space-3)" }}>
-									<Icon name="trending_up" color="var(--color-success)" size="large" />
+									<Icon name="trending_up" color="var(--color-success)" size="lg" />
 									<h3 className="text-heading">24.5%</h3>
 									<p className="text-caption text-secondary">Growth</p>
 								</div>
 								<div style={{ width: 1, height: 60, backgroundColor: "var(--color-outline)" }} />
 								<div style={{ textAlign: "center", padding: "var(--space-3)" }}>
-									<Icon name="people" color="var(--color-info)" size="large" />
+									<Icon name="people" color="var(--color-info)" size="lg" />
 									<h3 className="text-heading">1.2K</h3>
 									<p className="text-caption text-secondary">Users</p>
 								</div>
 								<div style={{ width: 1, height: 60, backgroundColor: "var(--color-outline)" }} />
 								<div style={{ textAlign: "center", padding: "var(--space-3)" }}>
-									<Icon name="star" color="var(--color-warning)" size="large" />
+									<Icon name="star" color="var(--color-warning)" size="lg" />
 									<h3 className="text-heading">4.8</h3>
 									<p className="text-caption text-secondary">Rating</p>
 								</div>

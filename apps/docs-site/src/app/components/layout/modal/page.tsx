@@ -492,7 +492,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
     <Modal
       visible={visible}
       onClose={onClose}
-      size="medium"
+      size="md"
     >
       <ModalHeader
         title={item ? 'Edit Item' : 'New Item'}
