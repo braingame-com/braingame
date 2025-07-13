@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { Button, Icon } from "../../../../components/BGUIDemo";
 import { CodeBlock } from "../../../../components/CodeBlock";
 import { LiveExample } from "../../../../components/LiveExample";
@@ -96,6 +97,9 @@ const tooltipProps = [
 ];
 
 export default function TooltipDocs() {
+	const passwordFieldId = useId();
+	const apiKeyFieldId = useId();
+
 	return (
 		<div>
 			<h1 className="text-display mb-4">Tooltip</h1>
@@ -114,7 +118,7 @@ export default function TooltipDocs() {
 </Tooltip>
 
 <Tooltip content="Save your changes">
-  <Button>Save</Button>
+  <Button onPress={() => {}}>Save</Button>
 </Tooltip>
 
 <Tooltip content="This field is required">
@@ -133,7 +137,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button>Save</Button>
+							<Button onPress={() => {}}>Save</Button>
 							<div className="tooltip tooltip--top">
 								Save your changes
 								<div className="tooltip__arrow" />
@@ -158,25 +162,27 @@ export default function TooltipDocs() {
 				<LiveExample
 					title="Placement Options"
 					code={`<Tooltip content="Top tooltip" placement="top">
-  <Button>Top</Button>
+  <Button onPress={() => {}}>Top</Button>
 </Tooltip>
 
 <Tooltip content="Bottom tooltip" placement="bottom">
-  <Button>Bottom</Button>
+  <Button onPress={() => {}}>Bottom</Button>
 </Tooltip>
 
 <Tooltip content="Left tooltip" placement="left">
-  <Button>Left</Button>
+  <Button onPress={() => {}}>Left</Button>
 </Tooltip>
 
 <Tooltip content="Right tooltip" placement="right">
-  <Button>Right</Button>
+  <Button onPress={() => {}}>Right</Button>
 </Tooltip>`}
 				>
 					<div className="grid grid--cols-3 gap-4" style={{ maxWidth: 300 }}>
 						<div />
 						<div className="tooltip-container">
-							<Button size="sm">Top</Button>
+							<Button size="sm" onPress={() => {}}>
+								Top
+							</Button>
 							<div className="tooltip tooltip--top">
 								Top tooltip
 								<div className="tooltip__arrow" />
@@ -185,7 +191,9 @@ export default function TooltipDocs() {
 						<div />
 
 						<div className="tooltip-container">
-							<Button size="sm">Left</Button>
+							<Button size="sm" onPress={() => {}}>
+								Left
+							</Button>
 							<div className="tooltip tooltip--left">
 								Left tooltip
 								<div className="tooltip__arrow" />
@@ -193,7 +201,9 @@ export default function TooltipDocs() {
 						</div>
 						<div />
 						<div className="tooltip-container">
-							<Button size="sm">Right</Button>
+							<Button size="sm" onPress={() => {}}>
+								Right
+							</Button>
 							<div className="tooltip tooltip--right">
 								Right tooltip
 								<div className="tooltip__arrow" />
@@ -202,7 +212,9 @@ export default function TooltipDocs() {
 
 						<div />
 						<div className="tooltip-container">
-							<Button size="sm">Bottom</Button>
+							<Button size="sm" onPress={() => {}}>
+								Bottom
+							</Button>
 							<div className="tooltip tooltip--bottom">
 								Bottom tooltip
 								<div className="tooltip__arrow" />
@@ -240,7 +252,7 @@ export default function TooltipDocs() {
   }
   maxWidth={300}
 >
-  <Button variant="ghost">Help</Button>
+  <Button variant="ghost" onPress={() => {}}>Help</Button>
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-4 flex--align-center">
@@ -256,7 +268,9 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="ghost">Help</Button>
+							<Button variant="ghost" onPress={() => {}}>
+								Help
+							</Button>
 							<div className="tooltip tooltip--top" style={{ maxWidth: 300 }}>
 								<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
 									<Icon name="info" size="sm" color="white" />
@@ -272,17 +286,17 @@ export default function TooltipDocs() {
 					title="Trigger Methods"
 					code={`// Hover (default)
 <Tooltip content="Hover to see" trigger="hover">
-  <Button>Hover me</Button>
+  <Button onPress={() => {}}>Hover me</Button>
 </Tooltip>
 
 // Press/Click
 <Tooltip content="Click to see" trigger="press">
-  <Button>Click me</Button>
+  <Button onPress={() => {}}>Click me</Button>
 </Tooltip>
 
 // Long press (mobile)
 <Tooltip content="Long press to see" trigger="longPress">
-  <Button>Hold me</Button>
+  <Button onPress={() => {}}>Hold me</Button>
 </Tooltip>
 
 // Focus (keyboard navigation)
@@ -291,9 +305,15 @@ export default function TooltipDocs() {
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button size="sm">Hover me</Button>
-						<Button size="sm">Click me</Button>
-						<Button size="sm">Hold me</Button>
+						<Button size="sm" onPress={() => {}}>
+							Hover me
+						</Button>
+						<Button size="sm" onPress={() => {}}>
+							Click me
+						</Button>
+						<Button size="sm" onPress={() => {}}>
+							Hold me
+						</Button>
 						<input
 							type="text"
 							placeholder="Focus me"
@@ -310,7 +330,7 @@ export default function TooltipDocs() {
   backgroundColor="var(--color-surface-inverse)"
   textColor="var(--color-on-surface-inverse)"
 >
-  <Button variant="secondary">Dark</Button>
+  <Button variant="secondary" onPress={() => {}}>Dark</Button>
 </Tooltip>
 
 <Tooltip 
@@ -319,7 +339,7 @@ export default function TooltipDocs() {
   textColor="var(--color-on-primary)"
   arrow={false}
 >
-  <Button variant="secondary">Primary</Button>
+  <Button variant="secondary" onPress={() => {}}>Primary</Button>
 </Tooltip>
 
 <Tooltip 
@@ -328,12 +348,12 @@ export default function TooltipDocs() {
   textColor="var(--color-on-tertiary-container)"
   maxWidth={350}
 >
-  <Button variant="secondary">Large</Button>
+  <Button variant="secondary" onPress={() => {}}>Large</Button>
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
 						<div className="tooltip-container">
-							<Button variant="secondary" size="sm">
+							<Button variant="secondary" size="sm" onPress={() => {}}>
 								Dark
 							</Button>
 							<div
@@ -352,7 +372,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="secondary" size="sm">
+							<Button variant="secondary" size="sm" onPress={() => {}}>
 								Primary
 							</Button>
 							<div
@@ -367,7 +387,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="secondary" size="sm">
+							<Button variant="secondary" size="sm" onPress={() => {}}>
 								Large
 							</Button>
 							<div
@@ -424,7 +444,7 @@ export default function TooltipDocs() {
 					<div className="flex flex--column flex--gap-4">
 						<div>
 							<label
-								htmlFor="password-input"
+								htmlFor={passwordFieldId}
 								className="flex flex--row flex--align-center flex--gap-2 mb-2"
 							>
 								<span className="text-body">Password</span>
@@ -437,7 +457,7 @@ export default function TooltipDocs() {
 								</div>
 							</label>
 							<input
-								id="password-input"
+								id={passwordFieldId}
 								type="password"
 								placeholder="Enter password"
 								className="textinput__input"
@@ -446,7 +466,7 @@ export default function TooltipDocs() {
 
 						<div>
 							<label
-								htmlFor="api-key-input"
+								htmlFor={apiKeyFieldId}
 								className="flex flex--row flex--align-center flex--gap-2 mb-2"
 							>
 								<span className="text-body">API Key</span>
@@ -459,7 +479,7 @@ export default function TooltipDocs() {
 								</div>
 							</label>
 							<input
-								id="api-key-input"
+								id={apiKeyFieldId}
 								type="text"
 								placeholder="sk_live_..."
 								className="textinput__input"

@@ -35,7 +35,10 @@ export function GoogleAnalytics() {
 	}, [pathname, searchParams]);
 
 	// Don't render in development unless explicitly enabled
-	if (!GA_MEASUREMENT_ID || (process.env.NODE_ENV !== "production" && !process.env.NEXT_PUBLIC_ENABLE_ANALYTICS)) {
+	if (
+		!GA_MEASUREMENT_ID ||
+		(process.env.NODE_ENV !== "production" && !process.env.NEXT_PUBLIC_ENABLE_ANALYTICS)
+	) {
 		return null;
 	}
 

@@ -1,6 +1,6 @@
-import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { POST } from "../subscribe/route";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { NextRequest } from "next/server";
+import { POST } from "../subscribe/route";
 
 // Mock EmailService
 jest.mock("../../../lib/email-service", () => ({
@@ -19,9 +19,9 @@ jest.mock("../../../lib/analytics", () => ({
 	trackEvent: jest.fn(),
 }));
 
+import { trackEvent } from "../../../lib/analytics";
 import { EmailService } from "../../../lib/email-service";
 import { checkRateLimit } from "../../../lib/rate-limiter";
-import { trackEvent } from "../../../lib/analytics";
 
 describe("Subscribe API Route", () => {
 	let mockEmailService: jest.Mocked<EmailService>;
@@ -56,10 +56,7 @@ describe("Subscribe API Route", () => {
 			message: "Please check your email to confirm your subscription.",
 		});
 
-		expect(mockEmailService.subscribe).toHaveBeenCalledWith(
-			"test@example.com",
-			"api",
-		);
+		expect(mockEmailService.subscribe).toHaveBeenCalledWith("test@example.com", "api");
 		expect(trackEvent).toHaveBeenCalledWith("email_subscribe_attempt", {
 			email: "test@example.com",
 			source: "api",

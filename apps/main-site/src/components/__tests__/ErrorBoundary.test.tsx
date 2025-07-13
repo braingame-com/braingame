@@ -1,4 +1,4 @@
-import { describe, expect, it, jest, beforeEach } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { render, screen } from "@testing-library/react";
 import { ErrorBoundary } from "../ErrorBoundary";
 

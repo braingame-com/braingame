@@ -78,6 +78,7 @@ export function CodeBlock({ code, language = "tsx", filename }: CodeBlockProps) 
 					{copied ? "Copied!" : "Copy"}
 				</button>
 			</div>
+			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki sanitizes the HTML output */}
 			<div className="code-block__content" dangerouslySetInnerHTML={{ __html: html }} />
 		</div>
 	);

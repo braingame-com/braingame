@@ -14,7 +14,7 @@ const textInputProps = [
 		description: "The input value.",
 	},
 	{
-		name: "onChangeText",
+		name: "onValueChange",
 		type: "(text: string) => void",
 		required: true,
 		description: "Callback function called when the text changes.",
@@ -24,38 +24,6 @@ const textInputProps = [
 		type: "string",
 		required: false,
 		description: "Placeholder text shown when the input is empty.",
-	},
-	{
-		name: "label",
-		type: "string",
-		required: false,
-		description: "Label displayed above the input.",
-	},
-	{
-		name: "helperText",
-		type: "string",
-		required: false,
-		description: "Helper text displayed below the input.",
-	},
-	{
-		name: "error",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description: "Whether the input is in an error state.",
-	},
-	{
-		name: "errorText",
-		type: "string",
-		required: false,
-		description: "Error message displayed when error is true.",
-	},
-	{
-		name: "disabled",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description: "Whether the input is disabled.",
 	},
 	{
 		name: "multiline",
@@ -124,24 +92,11 @@ const textInputProps = [
 		description: "Material icon name to display on the right.",
 	},
 	{
-		name: "onRightIconPress",
-		type: "() => void",
-		required: false,
-		description: "Callback when right icon is pressed (makes it interactive).",
-	},
-	{
 		name: "variant",
-		type: '"outlined" | "filled"',
+		type: '"standard" | "flat" | "error"',
 		required: false,
-		default: '"outlined"',
+		default: '"standard"',
 		description: "Visual style variant of the input.",
-	},
-	{
-		name: "size",
-		type: '"sm" | "md" | "lg"',
-		required: false,
-		default: '"md"',
-		description: "Size of the input.",
 	},
 	{
 		name: "testID",
@@ -196,52 +151,43 @@ export default function TextInputDocs() {
 return (
   <TextInput
     value={text}
-    onChangeText={setText}
+    onValueChange={setText}
     placeholder="Enter your name"
     label="Name"
   />
 );`}
 				>
-					<TextInput
-						value={text1}
-						onChangeText={setText1}
-						placeholder="Enter your name"
-						label="Name"
-					/>
+					<TextInput value={text1} onValueChange={setText1} placeholder="Enter your name" />
 				</LiveExample>
 
 				<LiveExample
 					title="Variants"
 					code={`<TextInput
   value={text}
-  onChangeText={setText}
-  placeholder="Outlined input"
-  label="Outlined"
-  variant="outlined"
+  onValueChange={setText}
+  placeholder="Standard input"
+  variant="standard"
 />
 
 <TextInput
   value={text}
-  onChangeText={setText}
-  placeholder="Filled input"
-  label="Filled"
-  variant="filled"
+  onValueChange={setText}
+  placeholder="Flat input"
+  variant="flat"
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
 						<TextInput
 							value={text1}
-							onChangeText={setText1}
-							placeholder="Outlined input"
-							label="Outlined"
-							variant="outlined"
+							onValueChange={setText1}
+							placeholder="Standard input"
+							variant="standard"
 						/>
 						<TextInput
 							value={text1}
-							onChangeText={setText1}
-							placeholder="Filled input"
-							label="Filled"
-							variant="filled"
+							onValueChange={setText1}
+							placeholder="Flat input"
+							variant="flat"
 						/>
 					</div>
 				</LiveExample>
@@ -250,48 +196,36 @@ return (
 					title="States"
 					code={`<TextInput
   value=""
-  onChangeText={() => {}}
+  onValueChange={() => {}}
   placeholder="Normal state"
-  label="Normal"
 />
 
-<TextInput
-  value="Disabled input"
-  onChangeText={() => {}}
-  label="Disabled"
-  disabled
-/>
 
 <TextInput
   value="Error state"
-  onChangeText={() => {}}
-  label="Error"
-  error
-  errorText="This field is required"
+  onValueChange={() => {}}
+  variant="error"
+  placeholder="This field is required"
 />
 
 <TextInput
   value="With helper text"
-  onChangeText={() => {}}
-  label="Helper"
-  helperText="This is helper text"
+  onValueChange={() => {}}
+  placeholder="This is helper text"
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<TextInput value="" onChangeText={() => {}} placeholder="Normal state" label="Normal" />
-						<TextInput value="Disabled input" onChangeText={() => {}} label="Disabled" disabled />
+						<TextInput value="" onValueChange={() => {}} placeholder="Normal state" />
 						<TextInput
 							value="Error state"
-							onChangeText={() => {}}
-							label="Error"
-							error
-							errorText="This field is required"
+							onValueChange={() => {}}
+							variant="error"
+							placeholder="This field is required"
 						/>
 						<TextInput
 							value="With helper text"
-							onChangeText={() => {}}
-							label="Helper"
-							helperText="This is helper text"
+							onValueChange={() => {}}
+							placeholder="This is helper text"
 						/>
 					</div>
 				</LiveExample>
@@ -300,110 +234,68 @@ return (
 					title="With Icons"
 					code={`<TextInput
   value={search}
-  onChangeText={setSearch}
+  onValueChange={setSearch}
   placeholder="Search..."
   leftIcon="search"
   rightIcon={search ? "close" : undefined}
-  onRightIconPress={search ? () => setSearch("") : undefined}
 />
 
 <TextInput
   value={email}
-  onChangeText={setEmail}
+  onValueChange={setEmail}
   placeholder="Enter email"
-  label="Email"
   leftIcon="email"
   keyboardType="email-address"
 />
 
 <TextInput
   value={password}
-  onChangeText={setPassword}
+  onValueChange={setPassword}
   placeholder="Enter password"
-  label="Password"
   leftIcon="lock"
   rightIcon={showPassword ? "visibility_off" : "visibility"}
-  onRightIconPress={() => setShowPassword(!showPassword)}
   secureTextEntry={!showPassword}
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
 						<TextInput
 							value={search}
-							onChangeText={setSearch}
+							onValueChange={setSearch}
 							placeholder="Search..."
 							leftIcon="search"
 							rightIcon={search ? "close" : undefined}
-							onRightIconPress={search ? () => setSearch("") : undefined}
 						/>
 						<TextInput
 							value={email}
-							onChangeText={setEmail}
+							onValueChange={setEmail}
 							placeholder="Enter email"
-							label="Email"
 							leftIcon="email"
 							keyboardType="email-address"
 						/>
 						<TextInput
 							value={password}
-							onChangeText={setPassword}
+							onValueChange={setPassword}
 							placeholder="Enter password"
-							label="Password"
 							leftIcon="lock"
 							rightIcon={showPassword ? "visibility_off" : "visibility"}
-							onRightIconPress={() => setShowPassword(!showPassword)}
 							secureTextEntry={!showPassword}
 						/>
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Sizes"
+					title="Basic Input"
 					code={`<TextInput
   value={text}
-  onChangeText={setText}
-  placeholder="Small input"
-  label="Small"
-  size="sm"
-/>
-
-<TextInput
-  value={text}
-  onChangeText={setText}
-  placeholder="Medium input"
-  label="Medium"
-  size="md"
-/>
-
-<TextInput
-  value={text}
-  onChangeText={setText}
-  placeholder="Large input"
-  label="Large"
-  size="lg"
+  onValueChange={setText}
+  placeholder="Standard input example"
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
 						<TextInput
 							value={text1}
-							onChangeText={setText1}
-							placeholder="Small input"
-							label="Small"
-							size="sm"
-						/>
-						<TextInput
-							value={text1}
-							onChangeText={setText1}
-							placeholder="Medium input"
-							label="Medium"
-							size="md"
-						/>
-						<TextInput
-							value={text1}
-							onChangeText={setText1}
-							placeholder="Large input"
-							label="Large"
-							size="lg"
+							onValueChange={setText1}
+							placeholder="Standard input example"
 						/>
 					</div>
 				</LiveExample>
@@ -412,27 +304,24 @@ return (
 					title="Input Types"
 					code={`<TextInput
   value={phone}
-  onChangeText={setPhone}
+  onValueChange={setPhone}
   placeholder="(555) 123-4567"
-  label="Phone"
   keyboardType="phone-pad"
   leftIcon="phone"
 />
 
 <TextInput
   value={website}
-  onChangeText={setWebsite}
+  onValueChange={setWebsite}
   placeholder="https://example.com"
-  label="Website"
   keyboardType="url"
   leftIcon="language"
 />
 
 <TextInput
   value={amount}
-  onChangeText={setAmount}
+  onValueChange={setAmount}
   placeholder="0.00"
-  label="Amount"
   keyboardType="numeric"
   leftIcon="attach_money"
 />`}
@@ -440,25 +329,22 @@ return (
 					<div className="flex flex--column flex--gap-4">
 						<TextInput
 							value={phone}
-							onChangeText={setPhone}
+							onValueChange={setPhone}
 							placeholder="(555) 123-4567"
-							label="Phone"
 							keyboardType="phone-pad"
 							leftIcon="phone"
 						/>
 						<TextInput
 							value=""
-							onChangeText={() => {}}
+							onValueChange={() => {}}
 							placeholder="https://example.com"
-							label="Website"
 							keyboardType="url"
 							leftIcon="language"
 						/>
 						<TextInput
 							value=""
-							onChangeText={() => {}}
+							onValueChange={() => {}}
 							placeholder="0.00"
-							label="Amount"
 							keyboardType="numeric"
 							leftIcon="attach_money"
 						/>
@@ -469,24 +355,21 @@ return (
 					title="Multiline Input"
 					code={`<TextInput
   value={bio}
-  onChangeText={setBio}
+  onValueChange={setBio}
   placeholder="Tell us about yourself..."
-  label="Bio"
   multiline
   numberOfLines={4}
   maxLength={200}
-  helperText={\`\${bio.length}/200 characters\`}
+  placeholder={\`\${bio.length}/200 characters\`}
 />`}
 				>
 					<TextInput
 						value={bio}
-						onChangeText={setBio}
+						onValueChange={setBio}
 						placeholder="Tell us about yourself..."
-						label="Bio"
 						multiline
 						numberOfLines={4}
 						maxLength={200}
-						helperText={`${bio.length}/200 characters`}
 					/>
 				</LiveExample>
 
@@ -509,32 +392,29 @@ const validateEmail = (email: string) => {
 return (
   <TextInput
     value={email}
-    onChangeText={(text) => {
+    onValueChange={(text) => {
       setEmail(text);
       validateEmail(text);
     }}
     placeholder="Enter email"
-    label="Email"
     keyboardType="email-address"
     autoComplete="email"
     error={!!emailError}
-    errorText={emailError}
+    errorMessage={emailError}
     leftIcon="email"
   />
 );`}
 				>
 					<TextInput
 						value={email}
-						onChangeText={(text) => {
+						onValueChange={(text) => {
 							setEmail(text);
 							validateEmail(text);
 						}}
-						placeholder="Enter email"
-						label="Email"
+						placeholder={emailError || "Enter your email"}
 						keyboardType="email-address"
 						autoComplete="email"
-						error={!!emailError}
-						errorText={emailError}
+						variant={emailError ? "error" : "standard"}
 						leftIcon="email"
 					/>
 				</LiveExample>
@@ -589,30 +469,28 @@ function LoginForm() {
       
       <TextInput
         value={formData.email}
-        onChangeText={(text) => 
+        onValueChange={(text) => 
           setFormData({ ...formData, email: text })
         }
         placeholder="Enter your email"
-        label="Email"
         keyboardType="email-address"
         autoCapitalize="none"
         autoComplete="email"
-        error={!!errors.email}
-        errorText={errors.email}
+        variant={errors.email ? "error" : "standard"}
+        placeholder={errors.email || "Enter email"}
         leftIcon="email"
       />
       
       <TextInput
         value={formData.password}
-        onChangeText={(text) => 
+        onValueChange={(text) => 
           setFormData({ ...formData, password: text })
         }
         placeholder="Enter your password"
-        label="Password"
         secureTextEntry
         autoComplete="password"
-        error={!!errors.password}
-        errorText={errors.password}
+        variant={errors.password ? "error" : "standard"}
+        placeholder={errors.password || "Enter password"}
         leftIcon="lock"
       />
       
@@ -672,14 +550,10 @@ function LoginForm() {
 				<CodeBlock
 					code={`<TextInput
   value={searchQuery}
-  onChangeText={handleSearch}
+  onValueChange={handleSearch}
   placeholder="Search products..."
   leftIcon="search"
   rightIcon={searchQuery ? "close" : undefined}
-  onRightIconPress={() => {
-    setSearchQuery("");
-    clearResults();
-  }}
   autoFocus
 />`}
 					language="tsx"
@@ -691,13 +565,11 @@ function LoginForm() {
 
 <TextInput
   value={password}
-  onChangeText={setPassword}
+  onValueChange={setPassword}
   placeholder="Enter password"
-  label="Password"
   secureTextEntry={!showPassword}
   rightIcon={showPassword ? "visibility_off" : "visibility"}
-  onRightIconPress={() => setShowPassword(!showPassword)}
-  helperText="Must be at least 8 characters"
+  placeholder="Must be at least 8 characters"
 />`}
 					language="tsx"
 				/>
@@ -713,7 +585,7 @@ function LoginForm() {
 
 <TextInput
   value={cardNumber}
-  onChangeText={(text) => setCardNumber(formatCardNumber(text))}
+  onValueChange={(text) => setCardNumber(formatCardNumber(text))}
   placeholder="1234 5678 9012 3456"
   label="Card Number"
   keyboardType="numeric"

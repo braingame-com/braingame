@@ -8,7 +8,7 @@ import { PropsTable } from "../../../../components/PropsTable";
 
 const switchProps = [
 	{
-		name: "value",
+		name: "checked",
 		type: "boolean",
 		required: true,
 		description: "The on/off state of the switch.",
@@ -20,12 +20,6 @@ const switchProps = [
 		description: "Callback function called when the switch state changes.",
 	},
 	{
-		name: "label",
-		type: "string",
-		required: false,
-		description: "Text label displayed next to the switch.",
-	},
-	{
 		name: "disabled",
 		type: "boolean",
 		required: false,
@@ -33,24 +27,11 @@ const switchProps = [
 		description: "Whether the switch is disabled. Prevents interaction and reduces opacity.",
 	},
 	{
-		name: "size",
-		type: '"sm" | "md" | "lg"',
+		name: "variant",
+		type: '"standard" | "compact"',
 		required: false,
-		default: '"md"',
-		description: "Size of the switch.",
-	},
-	{
-		name: "color",
-		type: '"primary" | "secondary" | "success" | "warning" | "error"',
-		required: false,
-		default: '"primary"',
-		description: "Color scheme of the switch when on.",
-	},
-	{
-		name: "thumbIcon",
-		type: "{ on?: string; off?: string }",
-		required: false,
-		description: "Material icon names to display on the thumb for on/off states.",
+		default: '"standard"',
+		description: "Size variant of the switch.",
 	},
 	{
 		name: "testID",
@@ -93,100 +74,98 @@ export default function SwitchDocs() {
 
 return (
   <Switch
-    value={enabled}
+    checked={enabled}
     onValueChange={setEnabled}
-    label="Enable notifications"
   />
 );`}
 				>
-					<Switch value={enabled1} onValueChange={setEnabled1} label="Enable notifications" />
+					<div className="flex flex--gap-2 flex--align-center">
+						<Switch checked={enabled1} onValueChange={setEnabled1} />
+						<span className="text-body">Enable notifications</span>
+					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="States"
-					code={`<Switch value={false} onValueChange={() => {}} label="Off" />
-<Switch value={true} onValueChange={() => {}} label="On" />
-<Switch value={false} onValueChange={() => {}} label="Disabled Off" disabled />
-<Switch value={true} onValueChange={() => {}} label="Disabled On" disabled />`}
+					code={`<Switch checked={false} onValueChange={() => {}} />
+<Switch checked={true} onValueChange={() => {}} />
+<Switch checked={false} onValueChange={() => {}} disabled />
+<Switch checked={true} onValueChange={() => {}} disabled />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Switch value={false} onValueChange={() => {}} label="Off" />
-						<Switch value={true} onValueChange={() => {}} label="On" />
-						<Switch value={false} onValueChange={() => {}} label="Disabled Off" disabled />
-						<Switch value={true} onValueChange={() => {}} label="Disabled On" disabled />
+						<div className="flex flex--gap-2 flex--align-center">
+							<Switch checked={false} onValueChange={() => {}} />
+							<span className="text-body">Off</span>
+						</div>
+						<div className="flex flex--gap-2 flex--align-center">
+							<Switch checked={true} onValueChange={() => {}} />
+							<span className="text-body">On</span>
+						</div>
+						<div className="flex flex--gap-2 flex--align-center">
+							<Switch checked={false} onValueChange={() => {}} disabled />
+							<span className="text-body text-secondary">Disabled Off</span>
+						</div>
+						<div className="flex flex--gap-2 flex--align-center">
+							<Switch checked={true} onValueChange={() => {}} disabled />
+							<span className="text-body text-secondary">Disabled On</span>
+						</div>
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Sizes"
-					code={`<Switch value={enabled} onValueChange={setEnabled} label="Small" size="sm" />
-<Switch value={enabled} onValueChange={setEnabled} label="Medium" size="md" />
-<Switch value={enabled} onValueChange={setEnabled} label="Large" size="lg" />`}
+					title="Basic Usage"
+					code={`<Switch checked={enabled} onValueChange={setEnabled} />
+<Switch checked={enabled} onValueChange={setEnabled} />
+<Switch checked={enabled} onValueChange={setEnabled} />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Switch value={enabled2} onValueChange={setEnabled2} label="Small" size="sm" />
-						<Switch value={enabled2} onValueChange={setEnabled2} label="Medium" size="md" />
-						<Switch value={enabled2} onValueChange={setEnabled2} label="Large" size="lg" />
+						<Switch checked={enabled2} onValueChange={setEnabled2} />
+						<Switch checked={enabled2} onValueChange={setEnabled2} />
+						<Switch checked={enabled2} onValueChange={setEnabled2} />
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Colors"
-					code={`<Switch value={true} onValueChange={() => {}} label="Primary" color="primary" />
-<Switch value={true} onValueChange={() => {}} label="Secondary" color="secondary" />
-<Switch value={true} onValueChange={() => {}} label="Success" color="success" />
-<Switch value={true} onValueChange={() => {}} label="Warning" color="warning" />
-<Switch value={true} onValueChange={() => {}} label="Error" color="error" />`}
+					title="Checked State"
+					code={`<Switch checked={true} onValueChange={() => {}} />
+<Switch checked={true} onValueChange={() => {}} />
+<Switch checked={true} onValueChange={() => {}} />
+<Switch checked={true} onValueChange={() => {}} />
+<Switch checked={true} onValueChange={() => {}} />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Switch value={true} onValueChange={() => {}} label="Primary" color="primary" />
-						<Switch value={true} onValueChange={() => {}} label="Secondary" color="secondary" />
-						<Switch value={true} onValueChange={() => {}} label="Success" color="success" />
-						<Switch value={true} onValueChange={() => {}} label="Warning" color="warning" />
-						<Switch value={true} onValueChange={() => {}} label="Error" color="error" />
+						<Switch checked={true} onValueChange={() => {}} />
+						<Switch checked={true} onValueChange={() => {}} />
+						<Switch checked={true} onValueChange={() => {}} />
+						<Switch checked={true} onValueChange={() => {}} />
+						<Switch checked={true} onValueChange={() => {}} />
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="With Thumb Icons"
+					title="Size Variants"
 					code={`<Switch 
-  value={darkMode} 
-  onValueChange={setDarkMode}
-  label="Dark mode"
-  thumbIcon={{
-    on: "dark_mode",
-    off: "light_mode"
-  }}
+  checked={enabled} 
+  onValueChange={setEnabled}
+  variant="standard"
 />
 
 <Switch 
-  value={soundEnabled} 
-  onValueChange={setSoundEnabled}
-  label="Sound"
-  thumbIcon={{
-    on: "volume_up",
-    off: "volume_off"
-  }}
+  checked={enabled} 
+  onValueChange={setEnabled}
+  variant="compact"
 />`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<Switch
-							value={settings.darkMode}
+							checked={settings.darkMode}
 							onValueChange={(value) => setSettings({ ...settings, darkMode: value })}
-							label="Dark mode"
-							thumbIcon={{
-								on: "dark_mode",
-								off: "light_mode",
-							}}
+							variant="standard"
 						/>
 						<Switch
-							value={settings.notifications}
+							checked={settings.notifications}
 							onValueChange={(value) => setSettings({ ...settings, notifications: value })}
-							label="Sound"
-							thumbIcon={{
-								on: "volume_up",
-								off: "volume_off",
-							}}
+							variant="compact"
 						/>
 					</div>
 				</LiveExample>
@@ -210,7 +189,7 @@ return (
         </Text>
       </View>
       <Switch
-        value={settings.notifications}
+        checked={settings.notifications}
         onValueChange={(value) => 
           setSettings({ ...settings, notifications: value })
         }
@@ -225,7 +204,7 @@ return (
         </Text>
       </View>
       <Switch
-        value={settings.darkMode}
+        checked={settings.darkMode}
         onValueChange={(value) => 
           setSettings({ ...settings, darkMode: value })
         }
@@ -240,7 +219,7 @@ return (
         </Text>
       </View>
       <Switch
-        value={settings.autoSave}
+        checked={settings.autoSave}
         onValueChange={(value) => 
           setSettings({ ...settings, autoSave: value })
         }
@@ -255,7 +234,7 @@ return (
         </Text>
       </View>
       <Switch
-        value={settings.analytics}
+        checked={settings.analytics}
         onValueChange={(value) => 
           setSettings({ ...settings, analytics: value })
         }
@@ -271,7 +250,7 @@ return (
 								<p className="text-caption text-secondary">Receive alerts for important updates</p>
 							</div>
 							<Switch
-								value={settings.notifications}
+								checked={settings.notifications}
 								onValueChange={(value) => setSettings({ ...settings, notifications: value })}
 							/>
 						</div>
@@ -282,7 +261,7 @@ return (
 								<p className="text-caption text-secondary">Reduce eye strain in low light</p>
 							</div>
 							<Switch
-								value={settings.darkMode}
+								checked={settings.darkMode}
 								onValueChange={(value) => setSettings({ ...settings, darkMode: value })}
 							/>
 						</div>
@@ -293,7 +272,7 @@ return (
 								<p className="text-caption text-secondary">Automatically save your changes</p>
 							</div>
 							<Switch
-								value={settings.autoSave}
+								checked={settings.autoSave}
 								onValueChange={(value) => setSettings({ ...settings, autoSave: value })}
 							/>
 						</div>
@@ -304,7 +283,7 @@ return (
 								<p className="text-caption text-secondary">Help us improve by sharing usage data</p>
 							</div>
 							<Switch
-								value={settings.analytics}
+								checked={settings.analytics}
 								onValueChange={(value) => setSettings({ ...settings, analytics: value })}
 							/>
 						</div>
@@ -336,27 +315,23 @@ function PrivacySettings() {
       <Text variant="heading">Privacy Settings</Text>
       
       <Switch
-        value={privacy.location}
+        checked={privacy.location}
         onValueChange={(value) => updatePrivacy('location', value)}
-        label="Location access"
       />
       
       <Switch
-        value={privacy.camera}
+        checked={privacy.camera}
         onValueChange={(value) => updatePrivacy('camera', value)}
-        label="Camera access"
       />
       
       <Switch
-        value={privacy.microphone}
+        checked={privacy.microphone}
         onValueChange={(value) => updatePrivacy('microphone', value)}
-        label="Microphone access"
       />
       
       <Switch
-        value={privacy.contacts}
+        checked={privacy.contacts}
         onValueChange={(value) => updatePrivacy('contacts', value)}
-        label="Contacts access"
       />
     </View>
   );
@@ -440,7 +415,7 @@ function PrivacySettings() {
         </Text>
       </View>
       <Switch
-        value={feature.enabled}
+        checked={feature.enabled}
         onValueChange={(value) => toggleFeature(feature.id, value)}
         color="secondary"
       />
@@ -463,11 +438,8 @@ const notificationTypes = [
 return (
   <View>
     <Switch
-      value={masterNotifications}
+      checked={masterNotifications}
       onValueChange={setMasterNotifications}
-      label="All notifications"
-      size="lg"
-      color="primary"
     />
     
     {masterNotifications && (
@@ -475,12 +447,10 @@ return (
         {notificationTypes.map(type => (
           <Switch
             key={type.id}
-            value={notifications[type.id]}
+            checked={notifications[type.id]}
             onValueChange={(value) => 
               updateNotification(type.id, value)
             }
-            label={type.label}
-            size="sm"
           />
         ))}
       </View>

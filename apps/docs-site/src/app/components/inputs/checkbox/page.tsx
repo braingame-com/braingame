@@ -8,7 +8,7 @@ import { PropsTable } from "../../../../components/PropsTable";
 
 const checkboxProps = [
 	{
-		name: "value",
+		name: "checked",
 		type: "boolean",
 		required: true,
 		description: "The checked state of the checkbox.",
@@ -45,20 +45,6 @@ const checkboxProps = [
 		required: false,
 		default: "false",
 		description: "Whether the checkbox is in an indeterminate state (partially checked).",
-	},
-	{
-		name: "size",
-		type: '"sm" | "md" | "lg"',
-		required: false,
-		default: '"md"',
-		description: "Size of the checkbox.",
-	},
-	{
-		name: "color",
-		type: '"primary" | "secondary" | "success" | "warning" | "error"',
-		required: false,
-		default: '"primary"',
-		description: "Color scheme of the checkbox when checked.",
 	},
 	{
 		name: "testID",
@@ -102,65 +88,45 @@ export default function CheckboxDocs() {
 
 return (
   <Checkbox
-    value={checked}
+    checked={checked}
     onValueChange={setChecked}
-    label="I agree to the terms and conditions"
+    children="I agree to the terms and conditions"
   />
 );`}
 				>
-					<Checkbox
-						value={checked1}
-						onValueChange={setChecked1}
-						label="I agree to the terms and conditions"
-					/>
+					<Checkbox checked={checked1} onValueChange={setChecked1}>
+						I agree to the terms and conditions
+					</Checkbox>
 				</LiveExample>
 
 				<LiveExample
 					title="States"
-					code={`<Checkbox value={false} onValueChange={() => {}} label="Unchecked" />
-<Checkbox value={true} onValueChange={() => {}} label="Checked" />
-<Checkbox value={false} onValueChange={() => {}} label="Disabled" disabled />
-<Checkbox value={true} onValueChange={() => {}} label="Disabled Checked" disabled />
-<Checkbox value={false} onValueChange={() => {}} label="Error" error />
-<Checkbox value={false} onValueChange={() => {}} label="Indeterminate" indeterminate />`}
+					code={`<Checkbox checked={false} onValueChange={() => {}}>Unchecked</Checkbox>
+<Checkbox checked={true} onValueChange={() => {}}>Checked</Checkbox>
+<Checkbox checked={false} onValueChange={() => {}} disabled>Disabled</Checkbox>
+<Checkbox checked={true} onValueChange={() => {}} children="Disabled Checked" disabled />
+<Checkbox checked={false} onValueChange={() => {}} error>Error</Checkbox>
+<Checkbox checked={false} onValueChange={() => {}} children="Indeterminate" indeterminate />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Checkbox value={false} onValueChange={() => {}} label="Unchecked" />
-						<Checkbox value={true} onValueChange={() => {}} label="Checked" />
-						<Checkbox value={false} onValueChange={() => {}} label="Disabled" disabled />
-						<Checkbox value={true} onValueChange={() => {}} label="Disabled Checked" disabled />
-						<Checkbox value={false} onValueChange={() => {}} label="Error" error />
-						<Checkbox value={false} onValueChange={() => {}} label="Indeterminate" indeterminate />
-					</div>
-				</LiveExample>
-
-				<LiveExample
-					title="Sizes"
-					code={`<Checkbox value={checked} onValueChange={setChecked} label="Small" size="sm" />
-<Checkbox value={checked} onValueChange={setChecked} label="Medium" size="md" />
-<Checkbox value={checked} onValueChange={setChecked} label="Large" size="lg" />`}
-				>
-					<div className="flex flex--column flex--gap-3">
-						<Checkbox value={checked2} onValueChange={setChecked2} label="Small" size="sm" />
-						<Checkbox value={checked2} onValueChange={setChecked2} label="Medium" size="md" />
-						<Checkbox value={checked2} onValueChange={setChecked2} label="Large" size="lg" />
-					</div>
-				</LiveExample>
-
-				<LiveExample
-					title="Colors"
-					code={`<Checkbox value={true} onValueChange={() => {}} label="Primary" color="primary" />
-<Checkbox value={true} onValueChange={() => {}} label="Secondary" color="secondary" />
-<Checkbox value={true} onValueChange={() => {}} label="Success" color="success" />
-<Checkbox value={true} onValueChange={() => {}} label="Warning" color="warning" />
-<Checkbox value={true} onValueChange={() => {}} label="Error" color="error" />`}
-				>
-					<div className="flex flex--column flex--gap-3">
-						<Checkbox value={true} onValueChange={() => {}} label="Primary" color="primary" />
-						<Checkbox value={true} onValueChange={() => {}} label="Secondary" color="secondary" />
-						<Checkbox value={true} onValueChange={() => {}} label="Success" color="success" />
-						<Checkbox value={true} onValueChange={() => {}} label="Warning" color="warning" />
-						<Checkbox value={true} onValueChange={() => {}} label="Error" color="error" />
+						<Checkbox checked={false} onValueChange={() => {}}>
+							Unchecked
+						</Checkbox>
+						<Checkbox checked={true} onValueChange={() => {}}>
+							Checked
+						</Checkbox>
+						<Checkbox checked={false} onValueChange={() => {}} disabled>
+							Disabled
+						</Checkbox>
+						<Checkbox checked={true} onValueChange={() => {}} disabled>
+							Disabled Checked
+						</Checkbox>
+						<Checkbox checked={false} onValueChange={() => {}} error>
+							Error
+						</Checkbox>
+						<Checkbox checked={false} onValueChange={() => {}} indeterminate>
+							Indeterminate
+						</Checkbox>
 					</div>
 				</LiveExample>
 
@@ -178,25 +144,25 @@ return (
       Notification Preferences
     </Text>
     <Checkbox
-      value={notifications.email}
+      checked={notifications.email}
       onValueChange={(value) => 
         setNotifications({ ...notifications, email: value })
       }
-      label="Email notifications"
+      children="Email notifications"
     />
     <Checkbox
-      value={notifications.sms}
+      checked={notifications.sms}
       onValueChange={(value) => 
         setNotifications({ ...notifications, sms: value })
       }
-      label="SMS notifications"
+      children="SMS notifications"
     />
     <Checkbox
-      value={notifications.push}
+      checked={notifications.push}
       onValueChange={(value) => 
         setNotifications({ ...notifications, push: value })
       }
-      label="Push notifications"
+      children="Push notifications"
     />
   </View>
 );`}
@@ -205,20 +171,23 @@ return (
 						<h4 className="text-heading mb-3">Notification Preferences</h4>
 						<div className="flex flex--column flex--gap-3">
 							<Checkbox
-								value={notifications.email}
+								checked={notifications.email}
 								onValueChange={(value) => setNotifications({ ...notifications, email: value })}
-								label="Email notifications"
-							/>
+							>
+								Email notifications
+							</Checkbox>
 							<Checkbox
-								value={notifications.sms}
+								checked={notifications.sms}
 								onValueChange={(value) => setNotifications({ ...notifications, sms: value })}
-								label="SMS notifications"
-							/>
+							>
+								SMS notifications
+							</Checkbox>
 							<Checkbox
-								value={notifications.push}
+								checked={notifications.push}
 								onValueChange={(value) => setNotifications({ ...notifications, push: value })}
-								label="Push notifications"
-							/>
+							>
+								Push notifications
+							</Checkbox>
 						</div>
 					</div>
 				</LiveExample>
@@ -245,9 +214,9 @@ return (
     {options.map(option => (
       <Checkbox
         key={option.id}
-        value={selectedOptions.includes(option.id)}
+        checked={selectedOptions.includes(option.id)}
         onValueChange={() => toggleOption(option.id)}
-        label={option.label}
+        children={option.label}
       />
     ))}
   </View>
@@ -261,7 +230,7 @@ return (
 						].map((option) => (
 							<Checkbox
 								key={option.id}
-								value={selectedOptions.includes(option.id)}
+								checked={selectedOptions.includes(option.id)}
 								onValueChange={() => {
 									setSelectedOptions((prev) =>
 										prev.includes(option.id)
@@ -269,8 +238,9 @@ return (
 											: [...prev, option.id],
 									);
 								}}
-								label={option.label}
-							/>
+							>
+								{option.label}
+							</Checkbox>
 						))}
 					</div>
 				</LiveExample>
@@ -291,12 +261,12 @@ const handleSubmit = () => {
 return (
   <View>
     <Checkbox
-      value={acceptTerms}
+      checked={acceptTerms}
       onValueChange={(value) => {
         setAcceptTerms(value);
         setHasError(false);
       }}
-      label="I accept the terms and conditions"
+      children="I accept the terms and conditions"
       error={hasError}
     />
     {hasError && (
@@ -315,13 +285,14 @@ return (
 				>
 					<div>
 						<Checkbox
-							value={acceptTerms}
+							checked={acceptTerms}
 							onValueChange={(value) => {
 								setAcceptTerms(value);
 							}}
-							label="I accept the terms and conditions"
 							error={!acceptTerms}
-						/>
+						>
+							I accept the terms and conditions
+						</Checkbox>
 						{!acceptTerms && (
 							<p className="text-caption" style={{ color: "var(--color-error)", marginTop: 4 }}>
 								You must accept the terms to continue
@@ -363,27 +334,27 @@ function SettingsScreen() {
       <Text variant="heading">Preferences</Text>
       
       <Checkbox
-        value={settings.darkMode}
+        checked={settings.darkMode}
         onValueChange={(value) => 
           setSettings({ ...settings, darkMode: value })
         }
-        label="Dark mode"
+        children="Dark mode"
       />
       
       <Checkbox
-        value={settings.notifications}
+        checked={settings.notifications}
         onValueChange={(value) => 
           setSettings({ ...settings, notifications: value })
         }
-        label="Enable notifications"
+        children="Enable notifications"
       />
       
       <Checkbox
-        value={settings.autoSave}
+        checked={settings.autoSave}
         onValueChange={(value) => 
           setSettings({ ...settings, autoSave: value })
         }
-        label="Auto-save changes"
+        children="Auto-save changes"
       />
     </View>
   );
@@ -447,18 +418,18 @@ const handleItemToggle = (id: number) => {
 return (
   <View>
     <Checkbox
-      value={allSelected}
+      checked={allSelected}
       onValueChange={handleSelectAll}
-      label="Select all"
+      children="Select all"
       indeterminate={someSelected && !allSelected}
     />
     <Divider />
     {items.map(item => (
       <Checkbox
         key={item.id}
-        value={item.selected}
+        checked={item.selected}
         onValueChange={() => handleItemToggle(item.id)}
-        label={item.name}
+        children={item.name}
       />
     ))}
   </View>
@@ -476,7 +447,7 @@ return (
     </Text>
   </View>
   <Checkbox
-    value={marketingEnabled}
+    checked={marketingEnabled}
     onValueChange={setMarketingEnabled}
   />
 </View>`}

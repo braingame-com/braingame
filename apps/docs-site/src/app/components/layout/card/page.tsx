@@ -14,44 +14,30 @@ const cardProps = [
 	},
 	{
 		name: "variant",
-		type: '"elevated" | "filled" | "outlined"',
+		type: '"basic" | "interactive"',
 		required: false,
-		default: '"elevated"',
-		description: "Visual style variant of the card.",
+		default: '"basic"',
+		description: "Behavior variant of the card.",
 	},
 	{
 		name: "padding",
-		type: '"none" | "sm" | "md" | "lg"',
+		type: '"none" | "small" | "medium" | "large"',
 		required: false,
-		default: '"md"',
+		default: '"medium"',
 		description: "Padding size inside the card.",
 	},
 	{
-		name: "interactive",
-		type: "boolean",
+		name: "elevation",
+		type: "number",
 		required: false,
-		default: "false",
-		description: "Whether the card responds to hover/press interactions.",
+		default: "0",
+		description: "Shadow elevation level for the card.",
 	},
 	{
 		name: "onPress",
 		type: "() => void",
 		required: false,
 		description: "Callback when the card is pressed. Automatically sets interactive to true.",
-	},
-	{
-		name: "disabled",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description: "Whether the card is disabled (only applies to interactive cards).",
-	},
-	{
-		name: "selected",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description: "Whether the card is in a selected state.",
 	},
 	{
 		name: "style",
@@ -88,14 +74,14 @@ export default function CardDocs() {
   </Text>
 </Card>
 
-<Card variant="filled">
+<Card variant="interactive">
   <Text variant="heading">Filled Card</Text>
   <Text variant="body" color="secondary">
-    This card uses the filled variant for a subtle background.
+    This card uses the interactive variant for a subtle background.
   </Text>
 </Card>
 
-<Card variant="outlined">
+<Card variant="basic">
   <Text variant="heading">Outlined Card</Text>
   <Text variant="body" color="secondary">
     This card uses the outlined variant with a border.
@@ -111,14 +97,14 @@ export default function CardDocs() {
 							</p>
 						</Card>
 
-						<Card variant="filled">
+						<Card variant="interactive">
 							<h3 className="text-heading mb-2">Filled Card</h3>
 							<p className="text-body text-secondary">
-								This card uses the filled variant for a subtle background.
+								This card uses the interactive variant for a subtle background.
 							</p>
 						</Card>
 
-						<Card variant="outlined">
+						<Card variant="basic">
 							<h3 className="text-heading mb-2">Outlined Card</h3>
 							<p className="text-body text-secondary">
 								This card uses the outlined variant with a border.
@@ -129,21 +115,21 @@ export default function CardDocs() {
 
 				<LiveExample
 					title="Interactive Cards"
-					code={`<Card interactive onPress={() => alert('Card pressed!')}>
+					code={`<Card variant="interactive" onPress={() => alert('Card pressed!')}>
   <Text variant="heading">Interactive Card</Text>
   <Text variant="body" color="secondary">
     This card responds to hover and press interactions. Try clicking it!
   </Text>
 </Card>
 
-<Card interactive selected>
+<Card variant="interactive">
   <Text variant="heading">Selected Card</Text>
   <Text variant="body" color="secondary">
     This card is in a selected state with visual indication.
   </Text>
 </Card>
 
-<Card interactive disabled>
+<Card variant="interactive">
   <Text variant="heading">Disabled Card</Text>
   <Text variant="body" color="secondary">
     This interactive card is disabled and won't respond to interactions.
@@ -151,21 +137,21 @@ export default function CardDocs() {
 </Card>`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<Card interactive onPress={() => alert("Card pressed!")}>
+						<Card variant="interactive" onPress={() => alert("Card pressed!")}>
 							<h3 className="text-heading mb-2">Interactive Card</h3>
 							<p className="text-body text-secondary">
 								This card responds to hover and press interactions. Try clicking it!
 							</p>
 						</Card>
 
-						<Card interactive selected>
+						<Card variant="interactive">
 							<h3 className="text-heading mb-2">Selected Card</h3>
 							<p className="text-body text-secondary">
 								This card is in a selected state with visual indication.
 							</p>
 						</Card>
 
-						<Card interactive disabled>
+						<Card variant="basic" style={{ opacity: 0.5 }}>
 							<h3 className="text-heading mb-2">Disabled Card</h3>
 							<p className="text-body text-secondary">
 								This interactive card is disabled and won't respond to interactions.
@@ -215,15 +201,15 @@ export default function CardDocs() {
 							</div>
 						</Card>
 
-						<Card padding="sm">
+						<Card padding="small">
 							<p className="text-body">Small padding</p>
 						</Card>
 
-						<Card padding="md">
+						<Card padding="medium">
 							<p className="text-body">Medium padding (default)</p>
 						</Card>
 
-						<Card padding="lg">
+						<Card padding="large">
 							<p className="text-body">Large padding</p>
 						</Card>
 					</div>
@@ -238,7 +224,7 @@ export default function CardDocs() {
       <Text variant="subtitle">John Doe</Text>
       <Text variant="caption" color="secondary">Software Engineer</Text>
     </View>
-    <Badge text="PRO" variant="primary" size="sm" />
+    <Badge text="PRO" variant="status" size="small" />
   </View>
   
   <Text variant="body" style={styles.cardContent}>
@@ -258,7 +244,7 @@ export default function CardDocs() {
   </View>
 </Card>
 
-<Card variant="outlined">
+<Card variant="basic">
   <View style={styles.statsCard}>
     <View style={styles.stat}>
       <Icon name="trending_up" color="success" size="lg" />
@@ -302,7 +288,7 @@ export default function CardDocs() {
 									<h4 className="text-subtitle">John Doe</h4>
 									<p className="text-caption text-secondary">Software Engineer</p>
 								</div>
-								<Badge text="PRO" variant="primary" size="sm" />
+								<Badge text="PRO" variant="status" />
 							</div>
 
 							<p className="text-body mb-4">
@@ -310,19 +296,19 @@ export default function CardDocs() {
 							</p>
 
 							<div style={{ display: "flex", gap: "var(--space-2)", marginTop: "var(--space-4)" }}>
-								<Button variant="ghost" icon="thumb_up" size="sm">
+								<Button variant="ghost" icon="thumb_up" size="sm" onPress={() => {}}>
 									Like
 								</Button>
-								<Button variant="ghost" icon="comment" size="sm">
+								<Button variant="ghost" icon="comment" size="sm" onPress={() => {}}>
 									Comment
 								</Button>
-								<Button variant="ghost" icon="share" size="sm">
+								<Button variant="ghost" icon="share" size="sm" onPress={() => {}}>
 									Share
 								</Button>
 							</div>
 						</Card>
 
-						<Card variant="outlined">
+						<Card variant="basic">
 							<div
 								style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}
 							>
@@ -385,7 +371,11 @@ return (
 							{ id: 2, title: "Second Item", description: "Description for the second item" },
 							{ id: 3, title: "Third Item", description: "Description for the third item" },
 						].map((item) => (
-							<Card key={item.id} interactive onPress={() => console.log("Selected:", item.id)}>
+							<Card
+								key={item.id}
+								variant="interactive"
+								onPress={() => console.log("Selected:", item.id)}
+							>
 								<div
 									style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
 								>
@@ -532,7 +522,7 @@ const styles = StyleSheet.create({
 
 				<h3 className="text-heading mb-3 mt-6">Dashboard Card</h3>
 				<CodeBlock
-					code={`<Card variant="filled">
+					code={`<Card variant="interactive">
   <View style={styles.dashboardHeader}>
     <Text variant="subtitle">Total Revenue</Text>
     <Icon name="more_vert" color="secondary" />
@@ -552,7 +542,7 @@ const styles = StyleSheet.create({
 
 				<h3 className="text-heading mb-3 mt-6">Settings Card</h3>
 				<CodeBlock
-					code={`<Card variant="outlined">
+					code={`<Card variant="basic">
   <View style={styles.settingItem}>
     <Icon name="notifications" color="primary" />
     <View style={styles.settingText}>

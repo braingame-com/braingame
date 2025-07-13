@@ -12,11 +12,11 @@ import {
 import dynamic from "next/dynamic";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { StructuredData } from "../components/StructuredData";
+import { useToast } from "../contexts/ToastContext";
 import { useAnalytics } from "../hooks/useAnalytics";
+import { useNetworkStatus } from "../hooks/useNetworkStatus";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useServiceWorker } from "../hooks/useServiceWorker";
-import { useToast } from "../contexts/ToastContext";
-import { useNetworkStatus } from "../hooks/useNetworkStatus";
 import { emailService } from "../lib/email-service";
 import { validateEmail } from "../lib/email-validation";
 import { getErrorMessage, retryWithBackoff } from "../lib/networkStatus";
@@ -137,13 +137,10 @@ export default function HomePage() {
 
 		try {
 			const startTime = performance.now();
-			const result = await retryWithBackoff(
-				() => emailService.subscribe(email, "landing_page"),
-				{
-					maxAttempts: 3,
-					initialDelay: 1000,
-				}
-			);
+			const result = await retryWithBackoff(() => emailService.subscribe(email, "landing_page"), {
+				maxAttempts: 3,
+				initialDelay: 1000,
+			});
 			const duration = performance.now() - startTime;
 
 			trackEvent("email_subscription_attempt", {
@@ -161,9 +158,7 @@ export default function HomePage() {
 
 			if (result.success) {
 				if (result.requiresConfirmation) {
-					setSubmitMessage(
-						"Almost there! Please check your email to confirm your subscription.",
-					);
+					setSubmitMessage("Almost there! Please check your email to confirm your subscription.");
 				} else {
 					setSubmitMessage("Welcome aboard! 🚀 We'll notify you when we launch.");
 				}
@@ -354,7 +349,9 @@ export default function HomePage() {
 								/>
 								<Button
 									onPress={handleSubmit}
-									disabled={isSubmitting || !email.trim() || !!validationError || !networkStatus.isOnline}
+									disabled={
+										isSubmitting || !email.trim() || !!validationError || !networkStatus.isOnline
+									}
 									variant="primary"
 									loading={isSubmitting}
 									style={{
@@ -441,44 +438,26 @@ export default function HomePage() {
 							}}
 						>
 							<View style={{ alignItems: "center" }}>
-								<Text
-									variant="h2"
-									style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}
-								>
+								<Text variant="h2" style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}>
 									10K+
 								</Text>
-								<Text
-									variant="small"
-									style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}
-								>
+								<Text variant="small" style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}>
 									Early Adopters
 								</Text>
 							</View>
 							<View style={{ alignItems: "center" }}>
-								<Text
-									variant="h2"
-									style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}
-								>
+								<Text variant="h2" style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}>
 									2025
 								</Text>
-								<Text
-									variant="small"
-									style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}
-								>
+								<Text variant="small" style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}>
 									Launch Year
 								</Text>
 							</View>
 							<View style={{ alignItems: "center" }}>
-								<Text
-									variant="h2"
-									style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}
-								>
+								<Text variant="h2" style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}>
 									∞
 								</Text>
-								<Text
-									variant="small"
-									style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}
-								>
+								<Text variant="small" style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}>
 									Possibilities
 								</Text>
 							</View>
@@ -493,22 +472,22 @@ export default function HomePage() {
 							marginTop: 40,
 						}}
 					>
-						<Link 
-							href="/privacy" 
+						<Link
+							href="/privacy"
 							style={{ color: "rgba(255, 255, 255, 0.6)" }}
 							onPress={() => trackClick("footer_link", { destination: "privacy" })}
 						>
 							<Text variant="small">Privacy</Text>
 						</Link>
-						<Link 
-							href="/terms" 
+						<Link
+							href="/terms"
 							style={{ color: "rgba(255, 255, 255, 0.6)" }}
 							onPress={() => trackClick("footer_link", { destination: "terms" })}
 						>
 							<Text variant="small">Terms</Text>
 						</Link>
-						<Link 
-							href="/cookies" 
+						<Link
+							href="/cookies"
 							style={{ color: "rgba(255, 255, 255, 0.6)" }}
 							onPress={() => trackClick("footer_link", { destination: "cookies" })}
 						>
