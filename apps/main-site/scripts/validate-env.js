@@ -1,64 +1,64 @@
 #!/usr/bin/env node
 
-/**
- * Environment Variable Validation Script for Website
- * Validates Next.js environment variables against schema
- */
+const fs = require("fs");
+const path = require("path");
 
-const { validateEnv, WebsiteEnvSchema } = require("@braingame/utils");
-
-// Colors for console output
-const colors = {
-	blue: "\x1b[34m",
-	green: "\x1b[32m",
-	yellow: "\x1b[33m",
-	red: "\x1b[31m",
-	reset: "\x1b[0m",
+// Required environment variables for production
+const requiredEnvVars = {
+	production: [
+		"NEXT_PUBLIC_GA_MEASUREMENT_ID",
+		"NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+		"NEXT_PUBLIC_API_URL",
+	],
+	development: [],
 };
 
-// Colored output helpers
-const log = {
-	info: (msg) => console.log(`${colors.blue}[INFO]${colors.reset}`, msg),
-	success: (msg) => console.log(`${colors.green}[SUCCESS]${colors.reset}`, msg),
-	warning: (msg) => console.log(`${colors.yellow}[WARNING]${colors.reset}`, msg),
-	error: (msg) => console.log(`${colors.red}[ERROR]${colors.reset}`, msg),
-};
+// Check if .env file exists
+const envPath = path.join(__dirname, "..", ".env");
+const envExamplePath = path.join(__dirname, "..", ".env.example");
 
-// Validate environment
-log.info("Validating website environment variables...\n");
-
-const result = validateEnv(WebsiteEnvSchema, process.env, {
-	reportMissing: true,
-	checkSecurity: true,
-});
-
-// Report validation results
-if (result.success) {
-	log.success("✅ Environment validation passed!\n");
-
-	// Show validated values (masked for security)
-	console.log(`${colors.reset}\x1b[1mValidated Configuration:\x1b[0m`);
-	Object.entries(result.data).forEach(([key, value]) => {
-		const displayValue = key.includes("KEY") || key.includes("SECRET") ? "***" : value;
-		console.log(`  ${key}: \x1b[36m${displayValue}${colors.reset}`);
-	});
-} else {
-	log.error("❌ Environment validation failed!\n");
-
-	// Show errors
-	console.log(`${colors.reset}\x1b[1mErrors:\x1b[0m`);
-	result.errors.forEach((error) => {
-		console.log(`  • ${error}`);
-	});
+if (!fs.existsSync(envPath) && process.env.NODE_ENV === "production") {
+	console.error("❌ .env file not found in production!");
+	console.error("Please create a .env file based on .env.example");
+	process.exit(1);
 }
 
-// Show warnings if any
-if (result.warnings.length > 0) {
-	console.log(`\n${colors.reset}\x1b[1mWarnings:\x1b[0m`);
-	result.warnings.forEach((warning) => {
-		log.warning(`  • ${warning}`);
-	});
+// Validate required variables
+const env = process.env.NODE_ENV || "development";
+const required = requiredEnvVars[env] || [];
+const missing = [];
+
+for (const varName of required) {
+	if (!process.env[varName]) {
+		missing.push(varName);
+	}
 }
 
-// Exit with appropriate code
-process.exit(result.success ? 0 : 1);
+if (missing.length > 0) {
+	console.error("❌ Missing required environment variables:");
+	missing.forEach((varName) => {
+		console.error(`  - ${varName}`);
+	});
+	console.error("\nPlease set these variables in your .env file or environment");
+	process.exit(1);
+}
+
+// Warn about example values
+const exampleValues = ["G-XXXXXXXXXX", "your-api-key-here", ""];
+const warnings = [];
+
+for (const [key, value] of Object.entries(process.env)) {
+	if (key.startsWith("NEXT_PUBLIC_") && exampleValues.includes(value)) {
+		warnings.push(key);
+	}
+}
+
+if (warnings.length > 0) {
+	console.warn("⚠️  Environment variables with example values:");
+	warnings.forEach((varName) => {
+		console.warn(`  - ${varName}`);
+	});
+	console.warn("\nMake sure to update these with real values before deploying");
+}
+
+console.log("✅ Environment validation passed!");

@@ -1,7 +1,7 @@
 import { useThemeColor } from "@braingame/utils";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { sizeMap } from "./styles";
-import type { IconProps } from "./types";
+import type { IconProps, ThemeColor } from "./types";
 
 export function Icon({
 	name,
@@ -13,19 +13,24 @@ export function Icon({
 	style,
 }: IconProps) {
 	const iconSize = typeof size === "number" ? size : sizeMap[size];
-	const iconColor = useThemeColor(color ?? "icon");
-	// FontAwesome6 handles variants internally via the 'name' prop
-	// No need to set fontFamily manually
+	const defaultColor = useThemeColor("icon");
+	// Always call useThemeColor with a safe value
+	const isThemeColor = color && typeof color === "string" && !color.startsWith("#");
+	const colorKey = isThemeColor ? color : "icon";
+	const themeColor = useThemeColor(colorKey as ThemeColor);
+	const iconColor = isThemeColor ? themeColor : color || defaultColor;
+	// Material Icons Rounded - using rounded variants by default
 
 	return (
-		<FontAwesome6
+		<MaterialIcons
+			// @ts-expect-error - MaterialIcons name prop types are incomplete
 			name={name}
 			size={iconSize}
 			color={iconColor}
 			accessibilityElementsHidden={decorative}
 			accessibilityRole="image"
 			accessibilityLabel={decorative ? undefined : ariaLabel}
-			style={style}
+			style={[{ fontFamily: "Material Icons Rounded" }, style]}
 		/>
 	);
 }

@@ -35,7 +35,7 @@ export function GoogleAnalytics() {
 	}, [pathname, searchParams]);
 
 	// Don't render in development unless explicitly enabled
-	if (!GA_MEASUREMENT_ID) {
+	if (!GA_MEASUREMENT_ID || (process.env.NODE_ENV !== "production" && !process.env.NEXT_PUBLIC_ENABLE_ANALYTICS)) {
 		return null;
 	}
 
@@ -50,10 +50,19 @@ export function GoogleAnalytics() {
 					window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
+					
 					gtag('config', '${GA_MEASUREMENT_ID}', {
+						page_path: window.location.pathname,
 						anonymize_ip: true,
 						cookie_flags: 'SameSite=None;Secure',
 						send_page_view: false // We'll send manually for better control
+					});
+
+					// Default consent mode
+					gtag('consent', 'default', {
+						analytics_storage: 'denied',
+						ad_storage: 'denied',
+						wait_for_update: 500,
 					});
 				`}
 			</Script>

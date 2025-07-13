@@ -9,6 +9,20 @@ import { analytics } from "../lib/analytics";
 export function useAnalytics() {
 	const trackEvent = useCallback((eventName: string, properties?: Record<string, unknown>) => {
 		analytics.track(eventName, properties);
+		
+		// Also send to Google Analytics 4 if available
+		if (typeof window !== "undefined" && "gtag" in window) {
+			// @ts-expect-error - gtag is added by Google Analytics
+			window.gtag("event", eventName, {
+				...properties,
+				timestamp: new Date().toISOString(),
+			});
+		}
+
+		// Log in development
+		if (process.env.NODE_ENV === "development") {
+			console.log("[Analytics]", eventName, properties);
+		}
 	}, []);
 
 	const trackClick = useCallback((elementName: string, properties?: Record<string, unknown>) => {
@@ -54,6 +68,29 @@ export function useAnalytics() {
 		analytics.outboundLink(url);
 	}, []);
 
+	const trackPageView = useCallback(
+		(path: string) => {
+			trackEvent("page_view", {
+				page_path: path,
+				page_location: window.location.href,
+				page_title: document.title,
+			});
+		},
+		[trackEvent],
+	);
+
+	const trackError = useCallback(
+		(error: Error, componentStack?: string) => {
+			trackEvent("exception", {
+				description: error.message,
+				stack: error.stack,
+				component_stack: componentStack,
+				fatal: false,
+			});
+		},
+		[trackEvent],
+	);
+
 	return {
 		trackEvent,
 		trackClick,
@@ -62,5 +99,7 @@ export function useAnalytics() {
 		trackException,
 		trackSocial,
 		trackOutboundLink,
+		trackPageView,
+		trackError,
 	};
 }
