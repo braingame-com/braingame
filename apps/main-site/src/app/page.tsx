@@ -15,8 +15,11 @@ import { StructuredData } from "../components/StructuredData";
 import { useAnalytics } from "../hooks/useAnalytics";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useServiceWorker } from "../hooks/useServiceWorker";
+import { useToast } from "../contexts/ToastContext";
+import { useNetworkStatus } from "../hooks/useNetworkStatus";
 import { emailService } from "../lib/email-service";
 import { validateEmail } from "../lib/email-validation";
+import { getErrorMessage, retryWithBackoff } from "../lib/networkStatus";
 import { generateStructuredData, generateWaitlistStructuredData } from "./metadata";
 
 // Lazy load components for better performance
@@ -65,7 +68,30 @@ export default function HomePage() {
 	const [showSuggestion, setShowSuggestion] = useState(false);
 	const [suggestedEmail, setSuggestedEmail] = useState("");
 
+	const networkStatus = useNetworkStatus();
+	const { showToast } = useToast();
+
+	// Show offline notification
+	useEffect(() => {
+		if (!networkStatus.isOnline) {
+			showToast({
+				message: "You're offline. Changes will be saved when you reconnect.",
+				type: "warning",
+				duration: 5000,
+			});
+		}
+	}, [networkStatus.isOnline, showToast]);
+
 	const handleSubmit = async () => {
+		// Check network status first
+		if (!networkStatus.isOnline) {
+			showToast({
+				message: "You're offline. Please check your connection.",
+				type: "error",
+			});
+			return;
+		}
+
 		// Check honeypot (if filled, it's likely a bot)
 		if (honeypot) {
 			// Silently fail for bots
@@ -111,7 +137,13 @@ export default function HomePage() {
 
 		try {
 			const startTime = performance.now();
-			const result = await emailService.subscribe(email, "landing_page");
+			const result = await retryWithBackoff(
+				() => emailService.subscribe(email, "landing_page"),
+				{
+					maxAttempts: 3,
+					initialDelay: 1000,
+				}
+			);
 			const duration = performance.now() - startTime;
 
 			trackEvent("email_subscription_attempt", {
@@ -138,6 +170,11 @@ export default function HomePage() {
 				setIsSuccess(true);
 				setEmail("");
 
+				showToast({
+					message: "Successfully subscribed! 🎉",
+					type: "success",
+				});
+
 				// Track successful submission
 				trackEvent("email_subscription_success", {
 					source: "landing_page",
@@ -154,9 +191,16 @@ export default function HomePage() {
 				});
 			}
 		} catch (error) {
-			console.error("Email submission error:", error);
-			setSubmitMessage("Unable to connect. Please check your connection and try again.");
+			const errorMessage = getErrorMessage(error);
+			setSubmitMessage(errorMessage);
 			setIsSuccess(false);
+
+			// Show toast for better visibility
+			showToast({
+				message: errorMessage,
+				type: "error",
+				duration: 5000,
+			});
 
 			// Track error
 			trackException(error instanceof Error ? error : new Error("Email submission failed"));
@@ -201,6 +245,31 @@ export default function HomePage() {
 				}}
 			>
 				<AnimatedGradientBackground />
+
+				{/* Offline indicator */}
+				{!networkStatus.isOnline && (
+					<View
+						style={{
+							position: "absolute",
+							top: 20,
+							left: 20,
+							right: 20,
+							backgroundColor: "#dc2626",
+							paddingVertical: 8,
+							paddingHorizontal: 16,
+							borderRadius: 8,
+							flexDirection: "row",
+							alignItems: "center",
+							justifyContent: "center",
+							zIndex: 10,
+						}}
+					>
+						<Text style={{ color: "#fff", marginRight: 8 }}>⚠</Text>
+						<Text variant="body" style={{ color: "#fff" }}>
+							You're offline
+						</Text>
+					</View>
+				)}
 
 				{/* Content Container */}
 				<View
@@ -264,6 +333,7 @@ export default function HomePage() {
 									backgroundColor: "rgba(255, 255, 255, 0.1)",
 									borderRadius: 12,
 									padding: 4,
+									opacity: !networkStatus.isOnline ? 0.5 : 1,
 								}}
 							>
 								<TextInput
@@ -280,10 +350,11 @@ export default function HomePage() {
 										fontSize: 16,
 									}}
 									placeholderTextColor="rgba(255, 255, 255, 0.5)"
+									editable={!isSubmitting && networkStatus.isOnline}
 								/>
 								<Button
 									onPress={handleSubmit}
-									disabled={isSubmitting || !email.trim() || !!validationError}
+									disabled={isSubmitting || !email.trim() || !!validationError || !networkStatus.isOnline}
 									variant="primary"
 									loading={isSubmitting}
 									style={{

@@ -45,14 +45,24 @@ export class ErrorBoundary extends Component<Props, State> {
 			errorInfo,
 		});
 
-		// Report to error tracking service in production
-		if (env.IS_PRODUCTION && env.ENABLE_ERROR_TRACKING) {
-			this.reportError(error, errorInfo);
-		}
+		// Report to error tracking services
+		this.reportError(error, errorInfo);
 	}
 
 	reportError(error: Error, errorInfo: ErrorInfo) {
-		// Send error to analytics
+		// Report to Sentry if available
+		if (typeof window !== "undefined" && "Sentry" in window) {
+			// @ts-expect-error - Sentry is added by script tag
+			window.Sentry.captureException(error, {
+				contexts: {
+					react: {
+						componentStack: errorInfo.componentStack,
+					},
+				},
+			});
+		}
+
+		// Send error to Google Analytics
 		if (typeof window !== "undefined" && "gtag" in window) {
 			// @ts-expect-error - gtag is added by Google Analytics
 			window.gtag("event", "exception", {
@@ -62,9 +72,6 @@ export class ErrorBoundary extends Component<Props, State> {
 				fatal: false,
 			});
 		}
-
-		// In production, you would also send to a service like Sentry
-		// Example: Sentry.captureException(error, { extra: errorInfo });
 	}
 
 	handleReset = () => {

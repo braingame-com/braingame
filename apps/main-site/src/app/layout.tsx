@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "../components/GoogleAnalytics";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { WebVitals } from "../components/WebVitals";
 import { AnalyticsProvider } from "../providers/AnalyticsProvider";
+import { ToastProvider } from "../contexts/ToastContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -142,7 +143,9 @@ export default function RootLayout({
 					<GoogleAnalytics />
 					<WebVitals />
 					<ErrorBoundary>
-						<main>{children}</main>
+						<ToastProvider>
+							<main>{children}</main>
+						</ToastProvider>
 					</ErrorBoundary>
 					<CookieConsent />
 				</AnalyticsProvider>
