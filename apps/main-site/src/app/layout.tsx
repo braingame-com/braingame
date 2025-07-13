@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CookieConsent } from "../components/CookieConsent";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import "./globals.css";
 
@@ -129,6 +130,7 @@ export default function RootLayout({
 				<ErrorBoundary>
 					<main>{children}</main>
 				</ErrorBoundary>
+				<CookieConsent />
 			</body>
 		</html>
 	);

@@ -1,3 +1,5 @@
+"use client";
+
 import { Tokens, useThemeColor, viewStyles } from "@braingame/utils";
 import { useState } from "react";
 import type { ViewProps } from "./types";

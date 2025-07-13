@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
 		"expo-status-bar",
 		"react-native-safe-area-context",
 	],
-
 	// Image optimization for static export
 	images: {
 		unoptimized: true,
@@ -26,37 +25,7 @@ const nextConfig: NextConfig = {
 	compress: true,
 	generateEtags: true,
 
-	// Security headers (applied by Firebase hosting)
-	async headers() {
-		return [
-			{
-				source: "/:path*",
-				headers: [
-					{
-						key: "X-Frame-Options",
-						value: "DENY",
-					},
-					{
-						key: "X-Content-Type-Options",
-						value: "nosniff",
-					},
-					{
-						key: "X-XSS-Protection",
-						value: "1; mode=block",
-					},
-					{
-						key: "Referrer-Policy",
-						value: "strict-origin-when-cross-origin",
-					},
-					{
-						key: "Permissions-Policy",
-						value: "camera=(), microphone=(), geolocation=()",
-					},
-				],
-			},
-		];
-	},
-
+	// Security headers (Note: headers don't work with static export, apply these in Firebase hosting)
 	// Environment variables validation
 	env: {
 		NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
@@ -69,8 +38,22 @@ const nextConfig: NextConfig = {
 		config.resolve.alias = {
 			...config.resolve.alias,
 			"react-native$": "react-native-web",
+			"@expo/vector-icons": false,
+			"expo-router": false,
+			"expo-modules-core": false,
+			"expo-linking": false,
+			"expo-status-bar": false,
+			"react-native-safe-area-context": false,
 		};
 
+		// Configure extensions to prefer .web.tsx files
+		config.resolve.extensions = [
+			".web.tsx",
+			".web.ts",
+			".web.jsx",
+			".web.js",
+			...config.resolve.extensions,
+		];
 		// Production optimizations
 		if (!dev && !isServer) {
 			// Enable tree shaking for ES modules

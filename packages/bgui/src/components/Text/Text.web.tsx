@@ -1,3 +1,5 @@
+"use client";
+
 import { useThemeColor } from "@braingame/utils";
 import { getFontFamily, getTextColor, getVariantWeight, textVariantStyles } from "./styles";
 import type { TextProps } from "./types";

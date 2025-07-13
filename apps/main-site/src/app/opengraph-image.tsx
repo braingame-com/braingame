@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
+export const dynamic = "force-static";
 
 export const alt = "Brain Game - The Future of Personal Development";
 export const size = {
