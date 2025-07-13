@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { CookieConsent } from "../components/CookieConsent";
+import { GoogleAnalytics } from "../components/GoogleAnalytics";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import "./globals.css";
 
@@ -127,6 +128,7 @@ export default function RootLayout({
 				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 			</head>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<GoogleAnalytics />
 				<ErrorBoundary>
 					<main>{children}</main>
 				</ErrorBoundary>
