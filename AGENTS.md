@@ -82,6 +82,7 @@ gh pr merge <number> --squash --delete-branch
   ```
   ⚠️ **CRITICAL:** Working in wrong directory has caused major incidents. See [LESSONS.md](./LESSONS.md#workspace-contamination-20-06-2025).
 - **Human Review is Mandatory:** All agent-generated code must be reviewed and approved by a human maintainer before merging.
+- **PR Closure Prohibition:** ⚠️ **CRITICAL: AI agents are PROHIBITED from closing PRs without explicit human approval.** Closing PRs risks losing valuable work. AI agents may only recommend PR closure with clear reasoning, but the actual closure decision and action MUST be performed by a human. Both merging AND closing PRs require human review and approval.
 - **Read-Only by Default:** Agents should operate with the minimum necessary permissions. Write access is a privilege, gated by CI checks.
 - **Secure by Design:** Credentials and secrets must be stored in the CI provider's secret manager, never in the repository.
 - **Log Everything:** All significant agent actions must be logged and auditable, with anomalies surfaced in CI summaries.

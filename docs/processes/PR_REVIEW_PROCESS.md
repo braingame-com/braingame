@@ -2,6 +2,10 @@
 
 This document outlines our systematic approach to reviewing and merging pull requests. The guiding principle is **correctness and preserving all intended functionality**, not speed or reducing human interaction.
 
+## ⚠️ CRITICAL: AI Agent PR Restrictions
+
+**AI agents are PROHIBITED from closing PRs without explicit human approval.** Both merging AND closing PRs require human review and decision-making. AI agents may analyze, recommend, and document findings, but the final action MUST be taken by a human to prevent loss of valuable work.
+
 ## 1. PR Analysis & Grouping
 
 Start by analyzing all open PRs:
@@ -171,15 +175,31 @@ I lean toward Option A for consistency, but want your input on the architectural
 
 ## 7. PR Closure Policy
 
-### When to Close PRs (Not Merge)
+### ⚠️ CRITICAL: AI Agent Restrictions on PR Closure
 
-Close PRs in these scenarios:
+**AI agents are PROHIBITED from closing PRs without explicit human approval.** This is a zero-tolerance policy to prevent loss of valuable work.
+
+**What AI agents MUST do:**
+1. **Analyze** the PR and identify potential reasons for closure
+2. **Document** findings with clear reasoning and evidence
+3. **Recommend** closure to a human with detailed explanation
+4. **Wait** for human approval before any closure action
+
+**What AI agents MUST NOT do:**
+- Execute `gh pr close` commands
+- Make unilateral decisions about PR relevance
+- Assume work is redundant without human verification
+- Close PRs based solely on automated analysis
+
+### When to Recommend PR Closure (Not Close Directly)
+
+AI agents may RECOMMEND closing PRs in these scenarios:
 - **Redundant work**: PR duplicates changes already merged elsewhere
 - **Obsolete changes**: Original problem no longer exists or approach is deprecated  
 - **Major conflicts**: PR conflicts fundamentally with architectural decisions in main
 - **Abandoned work**: PR author confirms work is no longer needed
 
-### Standard Closure Process
+### Standard Closure Process (For Humans Only)
 
 **CRITICAL**: Only use `gh pr close` for PRs that will NOT be merged. For PRs being merged, use `gh pr merge`.
 

@@ -1,22 +1,53 @@
 "use client";
 
-import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
-import { useState } from "react";
+import {
+	AnimatedGradientBackground,
+	Button,
+	GlowingLogo,
+	Link,
+	Text,
+	TextInput,
+	View,
+} from "@braingame/bgui";
+import { useCallback, useState } from "react";
+import { StructuredData } from "../components/StructuredData";
 import { useAnalytics } from "../hooks/useAnalytics";
 import { emailService } from "../lib/email-service";
 import { validateEmail } from "../lib/email-validation";
+import { generateStructuredData, generateWaitlistStructuredData } from "./metadata";
 
 export default function HomePage() {
 	const [email, setEmail] = useState("");
+	const [honeypot, setHoneypot] = useState(""); // Bot trap
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [isSuccess, setIsSuccess] = useState(false);
+	const [validationError, setValidationError] = useState("");
+
+	// Validate email as user types
+	const handleEmailChange = useCallback((value: string) => {
+		setEmail(value);
+		if (value?.includes("@")) {
+			const validation = validateEmail(value);
+			setValidationError(!validation.isValid && validation.reason ? validation.reason : "");
+		} else {
+			setValidationError("");
+		}
+	}, []);
 
 	const { trackEvent } = useAnalytics();
 	const [showSuggestion, setShowSuggestion] = useState(false);
 	const [suggestedEmail, setSuggestedEmail] = useState("");
 
 	const handleSubmit = async () => {
+		// Check honeypot (if filled, it's likely a bot)
+		if (honeypot) {
+			// Silently fail for bots
+			setSubmitMessage("Thanks! We'll notify you when we launch.");
+			setIsSuccess(true);
+			return;
+		}
+
 		if (!email.trim()) {
 			setSubmitMessage("Please enter your email address");
 			setIsSuccess(false);
@@ -61,20 +92,40 @@ export default function HomePage() {
 				success: result.success,
 				requires_confirmation: result.requiresConfirmation,
 				duration,
-				email_domain: email.split("@")[1],
-				risk_score: validation.riskScore,
 			});
 
-			setSubmitMessage(result.message);
-			setIsSuccess(result.success);
-
 			if (result.success) {
+				if (result.requiresConfirmation) {
+					setSubmitMessage(
+						"Almost there! Please check your email to confirm your subscription.",
+					);
+				} else {
+					setSubmitMessage("Welcome aboard! 🚀 We'll notify you when we launch.");
+				}
+				setIsSuccess(true);
 				setEmail("");
+
+				// Track successful submission
+				trackEvent("email_subscription_success", {
+					source: "landing_page",
+					requires_confirmation: result.requiresConfirmation,
+				});
+			} else {
+				setSubmitMessage(result.message || "Something went wrong. Please try again.");
+				setIsSuccess(false);
+
+				// Track failure
+				trackEvent("email_subscription_failure", {
+					reason: result.reason,
+					message: result.message,
+				});
 			}
 		} catch (error) {
-			console.error("Subscription error:", error);
-			setSubmitMessage("Something went wrong. Please try again.");
+			console.error("Email submission error:", error);
+			setSubmitMessage("Unable to connect. Please check your connection and try again.");
 			setIsSuccess(false);
+
+			// Track error
 			trackEvent("email_subscription_error", {
 				error: error instanceof Error ? error.message : "Unknown error",
 			});
@@ -83,212 +134,270 @@ export default function HomePage() {
 		}
 	};
 
-	const handleUseSuggestion = () => {
+	const handleSuggestionClick = () => {
 		setEmail(suggestedEmail);
 		setShowSuggestion(false);
 		setSubmitMessage("");
-		trackEvent("email_suggestion_accepted", {
-			original: email,
-			suggested: suggestedEmail,
-		});
+		handleEmailChange(suggestedEmail);
 	};
 
 	return (
-		<View
-			style={{
-				flex: 1,
-				height: "100%",
-				backgroundColor: "#000",
-				alignItems: "center",
-				justifyContent: "center",
-				padding: 20,
-			}}
-		>
-			{/* Logo placeholder */}
-
-			{/* Title */}
-			<Text
-				variant="displayTitle"
-				style={{
-					color: "#fff",
-					marginTop: 40,
-					marginBottom: 16,
-					textAlign: "center",
-				}}
-			>
-				Brain Game
-			</Text>
-
-			{/* Subtitle */}
-			<Text
-				variant="subtitle"
-				style={{
-					color: "#999",
-					marginBottom: 48,
-					textAlign: "center",
-					maxWidth: 600,
-				}}
-			>
-				A new era of personal development technology is coming soon.
-			</Text>
-
-			{/* Email Capture Form */}
+		<>
+			<StructuredData data={generateStructuredData()} />
+			<StructuredData data={generateWaitlistStructuredData()} />
 			<View
 				style={{
-					width: "100%",
-					maxWidth: 400,
-					marginBottom: 16,
+					flex: 1,
+					position: "relative",
+					minHeight: "100vh",
 				}}
 			>
-				<Text
-					variant="body"
-					style={{
-						color: "#ccc",
-						marginBottom: 12,
-						textAlign: "center",
-					}}
-				>
-					Subscribe to be alerted when we go live
-				</Text>
+				<AnimatedGradientBackground />
 
+				{/* Content Container */}
 				<View
 					style={{
-						flexDirection: "row",
-						gap: 12,
+						flex: 1,
+						justifyContent: "center",
+						alignItems: "center",
+						padding: 20,
+						position: "relative",
+						zIndex: 1,
 					}}
 				>
-					<TextInput
-						value={email}
-						onValueChange={setEmail}
-						placeholder="Enter your email"
+					{/* Glowing Logo */}
+					<GlowingLogo size={120} glowColor="#007fff" glowIntensity="medium" animate={true} />
+
+					{/* Main Content Card */}
+					<View
 						style={{
-							flex: 1,
-							backgroundColor: "#111",
-							borderColor: "#333",
-							borderWidth: 1,
-							borderRadius: 8,
-							padding: 12,
-							color: "#fff",
-							fontSize: 16,
+							backgroundColor: "rgba(0, 0, 0, 0.6)",
+							backdropFilter: "blur(10px)",
+							borderRadius: 24,
+							padding: 40,
+							maxWidth: 480,
+							width: "100%",
+							alignItems: "center",
+							boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
 						}}
-						placeholderTextColor="#666"
-						keyboardType="email-address"
-						autoCapitalize="none"
-						editable={!isSubmitting}
-						autoComplete="email"
-					/>
-
-					<Button
-						onPress={handleSubmit}
-						disabled={isSubmitting || !email.trim()}
-						variant="primary"
-						loading={isSubmitting}
 					>
-						<Text variant="bold" style={{ color: "#fff" }}>
-							{isSubmitting ? "..." : "Join"}
-						</Text>
-					</Button>
-				</View>
-
-				{submitMessage && (
-					<View style={{ marginTop: 12 }}>
 						<Text
-							variant="small"
+							variant="h1"
 							style={{
-								color: isSuccess ? "#22c55e" : "#ef4444",
+								color: "#fff",
+								fontSize: 48,
+								marginBottom: 16,
 								textAlign: "center",
+								fontWeight: "700",
 							}}
 						>
-							{submitMessage}
+							Brain Game
 						</Text>
-						{showSuggestion && (
-							<View style={{ marginTop: 8, alignSelf: "center" }}>
-								<Button onPress={handleUseSuggestion} variant="ghost" size="sm">
-									<Text style={{ color: "#0074D9", textDecorationLine: "underline" }}>
-										Use suggested email
+
+						<Text
+							variant="body"
+							style={{
+								color: "rgba(255, 255, 255, 0.8)",
+								fontSize: 18,
+								marginBottom: 32,
+								textAlign: "center",
+								lineHeight: 1.6,
+							}}
+						>
+							The future of personal development is here. Join the revolution.
+						</Text>
+
+						{/* Email Input Section */}
+						<View style={{ width: "100%", marginBottom: 24 }}>
+							<View
+								style={{
+									flexDirection: "row",
+									alignItems: "center",
+									backgroundColor: "rgba(255, 255, 255, 0.1)",
+									borderRadius: 12,
+									padding: 4,
+								}}
+							>
+								<TextInput
+									placeholder="Enter your email"
+									value={email}
+									onChangeText={handleEmailChange}
+									keyboardType="email-address"
+									autoCapitalize="none"
+									style={{
+										flex: 1,
+										paddingHorizontal: 20,
+										paddingVertical: 16,
+										color: "#fff",
+										fontSize: 16,
+									}}
+									placeholderTextColor="rgba(255, 255, 255, 0.5)"
+								/>
+								<Button
+									onPress={handleSubmit}
+									disabled={isSubmitting || !email.trim() || !!validationError}
+									variant="primary"
+									loading={isSubmitting}
+									style={{
+										paddingHorizontal: 32,
+										paddingVertical: 16,
+										backgroundColor: "#007fff",
+										borderRadius: 8,
+									}}
+								>
+									<Text variant="bold" style={{ color: "#fff", fontSize: 16 }}>
+										{isSubmitting ? "..." : "Join"}
 									</Text>
 								</Button>
 							</View>
-						)}
-					</View>
-				)}
-			</View>
 
-			{/* Footer Links */}
-			<View
-				style={{
-					marginTop: 48,
-					alignItems: "center",
-				}}
-			>
-				{/* GitHub Link */}
-				<Link
-					href="https://github.com/braingame-com/braingame"
-					style={{
-						marginBottom: 24,
-					}}
-				>
-					<Text
-						variant="body"
+							{/* Validation Error */}
+							{validationError && (
+								<Text
+									variant="small"
+									style={{
+										color: "#ef4444",
+										marginTop: 8,
+										textAlign: "center",
+									}}
+								>
+									{validationError}
+								</Text>
+							)}
+
+							{/* Honeypot field (hidden) */}
+							<input
+								type="text"
+								name="website"
+								value={honeypot}
+								onChange={(e) => setHoneypot(e.target.value)}
+								style={{
+									position: "absolute",
+									left: "-9999px",
+									width: "1px",
+									height: "1px",
+								}}
+								tabIndex={-1}
+								autoComplete="off"
+							/>
+						</View>
+
+						{/* Submit Message */}
+						{submitMessage && (
+							<View style={{ marginBottom: 16 }}>
+								<Text
+									variant="small"
+									style={{
+										color: isSuccess ? "#22c55e" : "#ef4444",
+										textAlign: "center",
+									}}
+								>
+									{submitMessage}
+								</Text>
+								{showSuggestion && (
+									<Button
+										onPress={handleSuggestionClick}
+										variant="ghost"
+										size="sm"
+										style={{ marginTop: 8 }}
+									>
+										<Text variant="small" style={{ color: "#007fff" }}>
+											Use suggested email
+										</Text>
+									</Button>
+								)}
+							</View>
+						)}
+
+						{/* Stats */}
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "space-around",
+								width: "100%",
+								marginTop: 32,
+								paddingTop: 32,
+								borderTopWidth: 1,
+								borderTopColor: "rgba(255, 255, 255, 0.1)",
+							}}
+						>
+							<View style={{ alignItems: "center" }}>
+								<Text
+									variant="h2"
+									style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}
+								>
+									10K+
+								</Text>
+								<Text
+									variant="small"
+									style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}
+								>
+									Early Adopters
+								</Text>
+							</View>
+							<View style={{ alignItems: "center" }}>
+								<Text
+									variant="h2"
+									style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}
+								>
+									2025
+								</Text>
+								<Text
+									variant="small"
+									style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}
+								>
+									Launch Year
+								</Text>
+							</View>
+							<View style={{ alignItems: "center" }}>
+								<Text
+									variant="h2"
+									style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}
+								>
+									∞
+								</Text>
+								<Text
+									variant="small"
+									style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}
+								>
+									Possibilities
+								</Text>
+							</View>
+						</View>
+					</View>
+
+					{/* Footer Links */}
+					<View
 						style={{
-							color: "#666",
-							textDecorationLine: "underline",
+							flexDirection: "row",
+							gap: 24,
+							marginTop: 40,
 						}}
 					>
-						View on GitHub
-					</Text>
-				</Link>
+						<Link href="/privacy" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
+							<Text variant="small">Privacy</Text>
+						</Link>
+						<Link href="/terms" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
+							<Text variant="small">Terms</Text>
+						</Link>
+						<Link href="/cookies" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
+							<Text variant="small">Cookies</Text>
+						</Link>
+					</View>
 
-				{/* Legal Links */}
-				<View
-					style={{
-						flexDirection: "row",
-						gap: 16,
-						flexWrap: "wrap",
-						justifyContent: "center",
-					}}
-				>
-					<Link href="/privacy">
-						<Text
-							variant="small"
-							style={{
-								color: "#666",
-								textDecorationLine: "underline",
-							}}
-						>
-							Privacy Policy
-						</Text>
-					</Link>
-					<Text variant="small" style={{ color: "#333" }}>
-						•
+					{/* Copyright */}
+					<Text
+						variant="small"
+						style={{
+							color: "rgba(255, 255, 255, 0.4)",
+							marginTop: 16,
+							textAlign: "center",
+						}}
+					>
+						© 2025 Brain Game. All rights reserved.
 					</Text>
-					<Link href="/terms">
-						<Text
-							variant="small"
-							style={{
-								color: "#666",
-								textDecorationLine: "underline",
-							}}
-						>
-							Terms of Service
-						</Text>
-					</Link>
-					<Text variant="small" style={{ color: "#333" }}>
-						•
-					</Text>
-					<Link href="/cookies">
-						<Text
-							variant="small"
-							style={{
-								color: "#666",
-								textDecorationLine: "underline",
-							}}
-						>
-							Cookie Policy
-						</Text>
-					</Link>
 				</View>
 			</View>
-		</View>
+		</>
 	);
 }
