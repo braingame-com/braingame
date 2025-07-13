@@ -14,17 +14,17 @@ const badgeProps = [
 	},
 	{
 		name: "variant",
-		type: '"default" | "primary" | "secondary" | "success" | "warning" | "danger" | "info"',
+		type: '"notification" | "status" | "count"',
 		required: false,
-		default: '"default"',
+		default: '"notification"',
 		description:
 			"Visual style variant of the badge. Each variant has specific colors for different contexts.",
 	},
 	{
 		name: "size",
-		type: '"sm" | "md"',
+		type: '"small" | "medium"',
 		required: false,
-		default: '"md"',
+		default: '"medium"',
 		description: "Size of the badge. Small for compact UI elements, medium for standard usage.",
 	},
 	{
@@ -73,81 +73,73 @@ export default function BadgeDocs() {
 
 				<LiveExample
 					title="Variants"
-					code={`<Badge text="Default" />
-<Badge text="Primary" variant="primary" />
-<Badge text="Secondary" variant="secondary" />
-<Badge text="Success" variant="success" />
-<Badge text="Warning" variant="warning" />
-<Badge text="Danger" variant="danger" />
-<Badge text="Info" variant="info" />`}
+					code={`<Badge text="5" variant="notification" />
+<Badge text="Active" variant="status" />
+<Badge text="99+" variant="count" />`}
 				>
 					<div className="flex flex--gap-3 flex--wrap">
-						<Badge text="Default" />
-						<Badge text="Primary" variant="primary" />
-						<Badge text="Secondary" variant="secondary" />
-						<Badge text="Success" variant="success" />
-						<Badge text="Warning" variant="warning" />
-						<Badge text="Danger" variant="danger" />
-						<Badge text="Info" variant="info" />
+						<Badge text="5" variant="notification" />
+						<Badge text="Active" variant="status" />
+						<Badge text="99+" variant="count" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Numeric Badges"
-					code={`<Badge text={5} variant="primary" />
-<Badge text={42} variant="danger" />
-<Badge text={100} variant="success" max={99} />
-<Badge text={0} showZero variant="secondary" />
-<Badge text={0} variant="warning" /> {/* Hidden by default */}`}
+					code={`<Badge text={5} variant="notification" />
+<Badge text={42} variant="count" />
+<Badge text={100} variant="count" max={99} />
+<Badge text={0} showZero variant="notification" />
+<Badge text={0} variant="notification" /> {/* Hidden by default */}`}
 				>
 					<div className="flex flex--gap-3 flex--wrap" style={{ alignItems: "center" }}>
-						<Badge text={5} variant="primary" />
-						<Badge text={42} variant="danger" />
-						<Badge text={100} variant="success" max={99} />
-						<Badge text={0} showZero variant="secondary" />
+						<Badge text="5" variant="notification" />
+						<Badge text="42" variant="count" />
+						<Badge text="100" variant="count" max={99} />
+						<Badge text="0" showZero variant="notification" />
 						<span className="text-small text-secondary">(Zero hidden by default)</span>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Sizes"
-					code={`<Badge text="Small" size="sm" variant="primary" />
-<Badge text="Medium" size="md" variant="primary" />
-<Badge text={8} size="sm" variant="danger" />
-<Badge text={8} size="md" variant="danger" />`}
+					code={`<Badge text="Small" variant="notification" />
+<Badge text="Medium" variant="notification" />
+<Badge text={8} variant="count" />
+<Badge text={8} variant="count" />`}
 				>
 					<div className="flex flex--gap-3 flex--wrap" style={{ alignItems: "center" }}>
-						<Badge text="Small" size="sm" variant="primary" />
-						<Badge text="Medium" size="md" variant="primary" />
+						<Badge text="Small" variant="notification" />
+						<Badge text="Medium" variant="notification" />
 						<div style={{ width: 20 }} />
-						<Badge text={8} size="sm" variant="danger" />
-						<Badge text={8} size="md" variant="danger" />
+						<Badge text="8" variant="count" />
+						<Badge text="8" variant="count" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Dot Indicators"
-					code={`<Badge dot variant="primary" />
-<Badge dot variant="success" />
-<Badge dot variant="warning" />
-<Badge dot variant="danger" />
-<Badge dot size="sm" variant="info" />`}
+					code={`<Badge dot variant="notification" />
+<Badge dot variant="status" />
+<Badge dot variant="notification" />
+<Badge dot variant="status" />
+<Badge dot size="small" variant="notification" />`}
 				>
 					<div className="flex flex--gap-4 flex--wrap" style={{ alignItems: "center" }}>
 						<div className="flex flex--gap-2" style={{ alignItems: "center" }}>
-							<Badge dot variant="primary" />
+							<Badge dot variant="notification" />
 							<span className="text-small">Online</span>
 						</div>
 						<div className="flex flex--gap-2" style={{ alignItems: "center" }}>
-							<Badge dot variant="success" />
+							<Badge dot variant="status" />
 							<span className="text-small">Available</span>
 						</div>
 						<div className="flex flex--gap-2" style={{ alignItems: "center" }}>
-							<Badge dot variant="warning" />
+							<Badge dot variant="notification" />
 							<span className="text-small">Away</span>
 						</div>
 						<div className="flex flex--gap-2" style={{ alignItems: "center" }}>
-							<Badge dot variant="danger" />
+							<Badge dot variant="status" />
 							<span className="text-small">Busy</span>
 						</div>
 					</div>
@@ -162,8 +154,8 @@ import { Badge, Icon } from '@braingame/bgui';
   <Icon name="notifications" size="lg" />
   <Badge 
     text={3} 
-    variant="danger" 
-    size="sm"
+    variant="notification" 
+    size="small"
     style={{ 
       position: 'absolute', 
       top: -4, 
@@ -176,7 +168,7 @@ import { Badge, Icon } from '@braingame/bgui';
   <Icon name="email" size="lg" />
   <Badge 
     dot 
-    variant="primary" 
+    variant="status" 
     style={{ 
       position: 'absolute', 
       top: 0, 
@@ -189,9 +181,8 @@ import { Badge, Icon } from '@braingame/bgui';
 						<div style={{ position: "relative", display: "inline-block" }}>
 							<Icon name="notifications" size="lg" color="var(--color-on-surface)" />
 							<Badge
-								text={3}
-								variant="danger"
-								size="sm"
+								text="3"
+								variant="notification"
 								style={{
 									position: "absolute",
 									top: -4,
@@ -203,7 +194,7 @@ import { Badge, Icon } from '@braingame/bgui';
 							<Icon name="email" size="lg" color="var(--color-on-surface)" />
 							<Badge
 								dot
-								variant="primary"
+								variant="status"
 								style={{
 									position: "absolute",
 									top: 0,
@@ -214,9 +205,8 @@ import { Badge, Icon } from '@braingame/bgui';
 						<div style={{ position: "relative", display: "inline-block" }}>
 							<Icon name="shopping_cart" size="lg" color="var(--color-on-surface)" />
 							<Badge
-								text={12}
-								variant="success"
-								size="sm"
+								text="12"
+								variant="count"
 								style={{
 									position: "absolute",
 									top: -4,
@@ -229,18 +219,18 @@ import { Badge, Icon } from '@braingame/bgui';
 
 				<LiveExample
 					title="Status Labels"
-					code={`<Badge text="NEW" variant="primary" />
-<Badge text="BETA" variant="info" />
-<Badge text="PRO" variant="success" />
-<Badge text="SALE" variant="danger" />
-<Badge text="COMING SOON" variant="secondary" />`}
+					code={`<Badge text="NEW" variant="status" />
+<Badge text="BETA" variant="status" />
+<Badge text="PRO" variant="status" />
+<Badge text="SALE" variant="notification" />
+<Badge text="COMING SOON" variant="status" />`}
 				>
 					<div className="flex flex--gap-3 flex--wrap">
-						<Badge text="NEW" variant="primary" />
-						<Badge text="BETA" variant="info" />
-						<Badge text="PRO" variant="success" />
-						<Badge text="SALE" variant="danger" />
-						<Badge text="COMING SOON" variant="secondary" />
+						<Badge text="NEW" variant="status" />
+						<Badge text="BETA" variant="status" />
+						<Badge text="PRO" variant="status" />
+						<Badge text="SALE" variant="notification" />
+						<Badge text="COMING SOON" variant="status" />
 					</div>
 				</LiveExample>
 			</section>
@@ -259,8 +249,8 @@ function NotificationIcon() {
       {unreadCount > 0 && (
         <Badge 
           text={unreadCount} 
-          variant="danger"
-          size="sm"
+          variant="notification"
+          size="small"
           style={styles.badge}
         />
       )}
@@ -294,7 +284,7 @@ const styles = StyleSheet.create({
       tabBarIcon: ({ color }) => (
         <View>
           <Icon name="email" color={color} />
-          <Badge text={unreadMessages} variant="danger" size="sm" />
+          <Badge text={unreadMessages} variant="notification" size="small" />
         </View>
       ),
     }}
@@ -311,7 +301,7 @@ const styles = StyleSheet.create({
     <ListItem.Title>System Update</ListItem.Title>
     <ListItem.Subtitle>Version 2.0 available</ListItem.Subtitle>
   </ListItem.Content>
-  <Badge text="NEW" variant="primary" />
+  <Badge text="NEW" variant="status" />
 </ListItem>`}
 					language="tsx"
 				/>

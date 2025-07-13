@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button } from "../../../../components/BGUIDemo";
+import { Alert } from "../../../../components/BGUIDemo";
 import { CodeBlock } from "../../../../components/CodeBlock";
 import { LiveExample } from "../../../../components/LiveExample";
 import { PropsTable } from "../../../../components/PropsTable";
@@ -14,49 +14,17 @@ const alertProps = [
 		description: "The type of alert which determines its color and default icon.",
 	},
 	{
-		name: "title",
+		name: "message",
 		type: "string",
 		required: true,
-		description: "The main message or title of the alert.",
-	},
-	{
-		name: "description",
-		type: "string",
-		required: false,
-		description: "Additional descriptive text for the alert.",
-	},
-	{
-		name: "icon",
-		type: "string | boolean",
-		required: false,
-		default: "true",
-		description: "Material icon name to display, or boolean to show/hide default icon.",
+		description: "The main message to display in the alert.",
 	},
 	{
 		name: "variant",
-		type: '"filled" | "outlined" | "standard"',
+		type: '"banner" | "inline" | "floating"',
 		required: false,
-		default: '"standard"',
+		default: '"inline"',
 		description: "Visual style variant of the alert.",
-	},
-	{
-		name: "closable",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description: "Whether the alert can be dismissed.",
-	},
-	{
-		name: "onClose",
-		type: "() => void",
-		required: false,
-		description: "Callback when the alert is closed. Required if closable is true.",
-	},
-	{
-		name: "action",
-		type: "React.ReactNode",
-		required: false,
-		description: "Optional action button or custom component.",
 	},
 	{
 		name: "style",
@@ -88,52 +56,41 @@ export default function AlertDocs() {
 					title="Alert Types"
 					code={`<Alert 
   type="info" 
-  title="Info Alert"
-  description="This is additional information that might be helpful." 
+  message="Info Alert: This is additional information that might be helpful."
 />
 
 <Alert 
   type="success" 
-  title="Success Alert"
-  description="Your changes have been saved successfully." 
+  message="Success Alert: Your changes have been saved successfully."
 />
 
 <Alert 
   type="warning" 
-  title="Warning Alert"
-  description="Please review your input before proceeding." 
+  message="Warning Alert: Please review your input before proceeding."
 />
 
 <Alert 
   type="error" 
-  title="Error Alert"
-  description="Something went wrong. Please try again." 
+  message="Error Alert: Something went wrong. Please try again."
 />`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<Alert
 							type="info"
-							title="Info Alert"
-							description="This is additional information that might be helpful."
+							message="Info Alert: This is additional information that might be helpful."
 						/>
 
 						<Alert
 							type="success"
-							title="Success Alert"
-							description="Your changes have been saved successfully."
+							message="Success Alert: Your changes have been saved successfully."
 						/>
 
 						<Alert
 							type="warning"
-							title="Warning Alert"
-							description="Please review your input before proceeding."
+							message="Warning Alert: Please review your input before proceeding."
 						/>
 
-						<Alert
-							type="error"
-							title="Error Alert"
-							description="Something went wrong. Please try again."
-						/>
+						<Alert type="error" message="Error Alert: Something went wrong. Please try again." />
 					</div>
 				</LiveExample>
 
@@ -141,200 +98,129 @@ export default function AlertDocs() {
 					title="Alert Variants"
 					code={`<Alert 
   type="info" 
-  title="Standard Alert"
-  variant="standard"
+  message="Banner Alert"
+  variant="banner"
 />
 
 <Alert 
   type="info" 
-  title="Filled Alert"
-  variant="filled"
+  message="Inline Alert"
+  variant="inline"
 />
 
 <Alert 
   type="info" 
-  title="Outlined Alert"
-  variant="outlined"
+  message="Floating Alert"
+  variant="floating"
 />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert type="info" title="Standard Alert" variant="standard" />
+						<Alert type="info" message="Banner Alert" variant="banner" />
 
-						<Alert type="info" title="Filled Alert" variant="filled" />
+						<Alert type="info" message="Inline Alert" variant="inline" />
 
-						<Alert type="info" title="Outlined Alert" variant="outlined" />
+						<Alert type="info" message="Floating Alert" variant="floating" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Custom Icons"
+					title="Different Alert Types"
 					code={`<Alert 
   type="info" 
-  title="System Update Available"
-  description="Version 2.0 includes performance improvements."
-  icon="system_update"
+  message="System Update Available: Version 2.0 includes performance improvements."
 />
 
 <Alert 
   type="success" 
-  title="Payment Received"
-  icon="payments"
+  message="Payment Received"
 />
 
 <Alert 
   type="warning" 
-  title="Low Battery"
-  description="Connect charger to continue."
-  icon="battery_alert"
+  message="Low Battery: Connect charger to continue."
 />
 
 <Alert 
   type="error" 
-  title="No Internet Connection"
-  icon="wifi_off"
+  message="No Internet Connection"
 />`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<Alert
 							type="info"
-							title="System Update Available"
-							description="Version 2.0 includes performance improvements."
-							icon="system_update"
+							message="System Update Available: Version 2.0 includes performance improvements."
 						/>
 
-						<Alert type="success" title="Payment Received" icon="payments" />
+						<Alert type="success" message="Payment Received" />
 
-						<Alert
-							type="warning"
-							title="Low Battery"
-							description="Connect charger to continue."
-							icon="battery_alert"
-						/>
+						<Alert type="warning" message="Low Battery: Connect charger to continue." />
 
-						<Alert type="error" title="No Internet Connection" icon="wifi_off" />
+						<Alert type="error" message="No Internet Connection" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Closable Alerts"
-					code={`const [visible, setVisible] = useState(true);
+					title="Alert Messages"
+					code={`<Alert 
+  type="info" 
+  message="New Feature Available: Try our new dark mode in settings."
+/>
 
-return visible ? (
-  <Alert 
-    type="info" 
-    title="New Feature Available"
-    description="Try our new dark mode in settings."
-    closable
-    onClose={() => setVisible(false)}
-  />
-) : (
-  <Button onPress={() => setVisible(true)}>
-    Show Alert
-  </Button>
-);`}
+<Alert 
+  type="warning" 
+  message="Your session will expire in 5 minutes."
+/>`}
 				>
-					<Alert
-						type="info"
-						title="New Feature Available"
-						description="Try our new dark mode in settings."
-						closable
-						onClose={() => {}}
-					/>
+					<div className="flex flex--column flex--gap-3">
+						<Alert
+							type="info"
+							message="New Feature Available: Try our new dark mode in settings."
+						/>
+						<Alert type="warning" message="Your session will expire in 5 minutes." />
+					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Alerts with Actions"
+					title="Simple Alerts"
 					code={`<Alert 
   type="warning" 
-  title="Unsaved Changes"
-  description="You have unsaved changes that will be lost."
-  action={
-    <Button size="md" onPress={() => {}}>
-      Save Now
-    </Button>
-  }
+  message="Unsaved Changes: You have unsaved changes that will be lost."
 />
 
 <Alert 
   type="error" 
-  title="Payment Failed"
-  description="We couldn't process your payment."
-  action={
-    <View style={{ flexDirection: 'row', gap: 8 }}>
-      <Button size="md" variant="ghost" onPress={() => {}}>
-        Cancel
-      </Button>
-      <Button size="md" onPress={() => {}}>
-        Retry
-      </Button>
-    </View>
-  }
+  message="Payment Failed: We couldn't process your payment."
 />
 
 <Alert 
   type="success" 
-  title="File Uploaded"
-  action={
-    <Button size="md" variant="ghost" onPress={() => {}}>
-      View File
-    </Button>
-  }
+  message="File Uploaded"
 />`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<Alert
 							type="warning"
-							title="Unsaved Changes"
-							description="You have unsaved changes that will be lost."
-							action={
-								<Button size="md" onPress={() => {}}>
-									Save Now
-								</Button>
-							}
+							message="Unsaved Changes: You have unsaved changes that will be lost."
 						/>
 
-						<Alert
-							type="error"
-							title="Payment Failed"
-							description="We couldn't process your payment."
-							action={
-								<div style={{ display: "flex", gap: 8 }}>
-									<Button size="md" variant="ghost" onPress={() => {}}>
-										Cancel
-									</Button>
-									<Button size="md" onPress={() => {}}>
-										Retry
-									</Button>
-								</div>
-							}
-						/>
+						<Alert type="error" message="Payment Failed: We couldn't process your payment." />
 
-						<Alert
-							type="success"
-							title="File Uploaded"
-							action={
-								<Button size="md" variant="ghost" onPress={() => {}}>
-									View File
-								</Button>
-							}
-						/>
+						<Alert type="success" message="File Uploaded" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="No Icon"
+					title="Floating Variant"
 					code={`<Alert 
   type="info" 
-  title="Simple Message"
-  description="This alert has no icon for a cleaner look."
-  icon={false}
+  message="Simple Message: This alert uses the floating variant for a cleaner look."
+  variant="floating"
 />`}
 				>
 					<Alert
 						type="info"
-						title="Simple Message"
-						description="This alert has no icon for a cleaner look."
-						icon={false}
+						message="Simple Message: This alert uses the floating variant for a cleaner look."
+						variant="floating"
 					/>
 				</LiveExample>
 			</section>
@@ -373,10 +259,7 @@ function FormWithValidation() {
       {error && (
         <Alert
           type="error"
-          title="Validation Error"
-          description={error}
-          closable
-          onClose={() => setError(null)}
+          message={\`Validation Error: \${error}\`}
           style={styles.alert}
         />
       )}
@@ -384,10 +267,7 @@ function FormWithValidation() {
       {success && (
         <Alert
           type="success"
-          title="Form Submitted"
-          description="We'll get back to you within 24 hours."
-          closable
-          onClose={() => setSuccess(false)}
+          message="Form Submitted: We'll get back to you within 24 hours."
           style={styles.alert}
         />
       )}
@@ -412,23 +292,14 @@ function FormWithValidation() {
 {!isOnline && (
   <Alert
     type="warning"
-    title="Offline Mode"
-    description="Some features may be limited."
-    icon="cloud_off"
+    message="Offline Mode: Some features may be limited."
   />
 )}
 
 // Maintenance notice
 <Alert
   type="info"
-  title="Scheduled Maintenance"
-  description="System will be unavailable from 2-4 AM EST."
-  icon="engineering"
-  action={
-    <Button size="md" variant="ghost" onPress={viewDetails}>
-      Learn More
-    </Button>
-  }
+  message="Scheduled Maintenance: System will be unavailable from 2-4 AM EST."
 />`}
 					language="tsx"
 				/>
@@ -439,9 +310,8 @@ function FormWithValidation() {
 {errors.password && (
   <Alert
     type="error"
-    title={errors.password}
-    variant="outlined"
-    icon="lock"
+    message={errors.password}
+    variant="inline"
   />
 )}
 
@@ -449,13 +319,7 @@ function FormWithValidation() {
 {submitted && (
   <Alert
     type="success"
-    title="Account Created!"
-    description="Check your email to verify your account."
-    action={
-      <Button size="md" onPress={navigateToLogin}>
-        Go to Login
-      </Button>
-    }
+    message="Account Created! Check your email to verify your account."
   />
 )}`}
 					language="tsx"
@@ -466,25 +330,13 @@ function FormWithValidation() {
 					code={`// Update notification
 <Alert
   type="info"
-  title="New Version Available"
-  description="Update to get the latest features and improvements."
-  closable
-  onClose={dismissUpdate}
-  action={
-    <Button size="md" variant="primary" onPress={updateApp}>
-      Update Now
-    </Button>
-  }
+  message="New Version Available: Update to get the latest features and improvements."
 />
 
 // Feature announcement
 <Alert
   type="success"
-  title="New Feature: Dark Mode"
-  description="You can now switch to dark mode in settings."
-  icon="dark_mode"
-  closable
-  onClose={dismissAnnouncement}
+  message="New Feature: Dark Mode - You can now switch to dark mode in settings."
 />`}
 					language="tsx"
 				/>

@@ -120,11 +120,10 @@ export default function IconDocs() {
 							}}
 						>
 							{icons.map((icon) => (
-								<div
+								<button
 									key={icon.name}
+									type="button"
 									className="card"
-									role="button"
-									tabIndex={0}
 									style={{
 										display: "flex",
 										flexDirection: "column",
@@ -133,6 +132,9 @@ export default function IconDocs() {
 										padding: "var(--space-4)",
 										cursor: "pointer",
 										transition: "all 150ms cubic-bezier(0.4, 0, 0.2, 1)",
+										border: "none",
+										background: "var(--color-surface)",
+										width: "100%",
 									}}
 									onMouseEnter={(e) => {
 										e.currentTarget.style.transform = "translateY(-2px)";
@@ -148,7 +150,7 @@ export default function IconDocs() {
 										{icon.name}
 									</span>
 									<span className="text-small text-secondary">{icon.label}</span>
-								</div>
+								</button>
 							))}
 						</div>
 					</LiveExample>
@@ -237,10 +239,18 @@ export default function IconDocs() {
 							<Icon name="edit" size="lg" color="var(--color-on-surface)" />
 							<span className="text-small text-secondary">Disabled</span>
 						</div>
-						<div
-							role="button"
-							tabIndex={0}
-							style={{ cursor: "pointer" }}
+						<button
+							type="button"
+							style={{
+								cursor: "pointer",
+								border: "none",
+								background: "none",
+								padding: 0,
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "center",
+								gap: "var(--space-1)",
+							}}
 							onMouseDown={(e) => {
 								const svg = e.currentTarget.querySelector("svg");
 								if (svg) svg.style.color = "var(--color-error)";
@@ -252,7 +262,7 @@ export default function IconDocs() {
 						>
 							<Icon name="favorite" size="lg" color="var(--color-outline)" />
 							<span className="text-small text-secondary">Press me</span>
-						</div>
+						</button>
 					</div>
 				</LiveExample>
 			</section>

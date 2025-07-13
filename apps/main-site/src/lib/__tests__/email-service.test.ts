@@ -1,7 +1,7 @@
-import { describe, expect, it, jest, beforeEach, afterEach } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { addDoc, getDocs, query, updateDoc } from "firebase/firestore";
 import { EmailService } from "../email-service";
 import { db } from "../firebase";
-import { addDoc, getDocs, query, updateDoc } from "firebase/firestore";
 
 // Mock Firebase
 jest.mock("../firebase", () => ({

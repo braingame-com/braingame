@@ -1,5 +1,5 @@
-import { describe, expect, it, jest, beforeEach, afterEach } from "@jest/globals";
-import { initAnalytics, trackEvent, trackPageView, setUserId } from "../analytics";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { initAnalytics, setUserId, trackEvent, trackPageView } from "../analytics";
 
 // Mock gtag
 declare global {
@@ -41,7 +41,7 @@ describe("Analytics", () => {
 
 		it("should not initialize if gtag is not available", () => {
 			window.gtag = undefined;
-			
+
 			// Should not throw
 			expect(() => initAnalytics("G-TEST123")).not.toThrow();
 		});
@@ -165,10 +165,12 @@ describe("Analytics", () => {
 			trackEvent("test_event");
 
 			// Should still track but with limited data
-			expect(window.gtag).toHaveBeenCalledWith("event", "test_event", 
+			expect(window.gtag).toHaveBeenCalledWith(
+				"event",
+				"test_event",
 				expect.objectContaining({
 					anonymize_ip: true,
-				})
+				}),
 			);
 
 			// Clean up

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import {
-	validateEmail,
-	detectTypo,
-	checkDisposableEmail,
 	calculateRiskScore,
+	checkDisposableEmail,
+	detectTypo,
+	validateEmail,
 } from "../email-validation";
 
 describe("Email Validation", () => {
@@ -74,11 +74,7 @@ describe("Email Validation", () => {
 		});
 
 		it("should accept legitimate email domains", () => {
-			const legitimateEmails = [
-				"test@gmail.com",
-				"user@company.com",
-				"person@university.edu",
-			];
+			const legitimateEmails = ["test@gmail.com", "user@company.com", "person@university.edu"];
 
 			for (const email of legitimateEmails) {
 				expect(checkDisposableEmail(email)).toBe(false);

@@ -9,7 +9,7 @@ import { analytics } from "../lib/analytics";
 export function useAnalytics() {
 	const trackEvent = useCallback((eventName: string, properties?: Record<string, unknown>) => {
 		analytics.track(eventName, properties);
-		
+
 		// Also send to Google Analytics 4 if available
 		if (typeof window !== "undefined" && "gtag" in window) {
 			// @ts-expect-error - gtag is added by Google Analytics

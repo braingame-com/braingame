@@ -1,8 +1,8 @@
-import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import HomePage from "../page";
 import { submitEmail } from "../../lib/emailService";
+import HomePage from "../page";
 
 // Mock the email service
 jest.mock("../../lib/emailService", () => ({
@@ -104,9 +104,7 @@ describe("HomePage", () => {
 		await user.click(submitButton);
 
 		await waitFor(() => {
-			expect(
-				screen.getByText("Something went wrong. Please try again."),
-			).toBeInTheDocument();
+			expect(screen.getByText("Something went wrong. Please try again.")).toBeInTheDocument();
 		});
 	});
 
@@ -126,9 +124,7 @@ describe("HomePage", () => {
 
 	it("should disable form during submission", async () => {
 		const mockSubmitEmail = submitEmail as jest.MockedFunction<typeof submitEmail>;
-		mockSubmitEmail.mockImplementation(
-			() => new Promise((resolve) => setTimeout(resolve, 1000)),
-		);
+		mockSubmitEmail.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 1000)));
 
 		const user = userEvent.setup();
 		render(<HomePage />);

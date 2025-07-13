@@ -41,16 +41,16 @@ const chipProps = [
 	},
 	{
 		name: "variant",
-		type: '"default" | "primary" | "secondary" | "success" | "warning" | "danger" | "info"',
+		type: '"filled" | "outlined"',
 		required: false,
-		default: '"default"',
+		default: '"filled"',
 		description: "Visual style variant of the chip. Each variant has specific colors.",
 	},
 	{
 		name: "size",
-		type: '"sm" | "md" | "lg"',
+		type: '"small" | "medium" | "large"',
 		required: false,
-		default: '"md"',
+		default: '"medium"',
 		description: "Size of the chip affecting padding and font size.",
 	},
 	{
@@ -109,22 +109,12 @@ export default function ChipDocs() {
 
 				<LiveExample
 					title="Variants"
-					code={`<Chip label="Default" variant="default" />
-<Chip label="Primary" variant="primary" />
-<Chip label="Secondary" variant="secondary" />
-<Chip label="Success" variant="success" />
-<Chip label="Warning" variant="warning" />
-<Chip label="Danger" variant="danger" />
-<Chip label="Info" variant="info" />`}
+					code={`<Chip label="Filled" variant="filled" />
+<Chip label="Outlined" variant="outlined" />`}
 				>
 					<div className="flex flex--gap-2 flex--wrap">
-						<Chip label="Default" variant="default" />
-						<Chip label="Primary" variant="primary" />
-						<Chip label="Secondary" variant="secondary" />
-						<Chip label="Success" variant="success" />
-						<Chip label="Warning" variant="warning" />
-						<Chip label="Danger" variant="danger" />
-						<Chip label="Info" variant="info" />
+						<Chip label="Filled" variant="filled" />
+						<Chip label="Outlined" variant="outlined" />
 					</div>
 				</LiveExample>
 
@@ -135,24 +125,24 @@ export default function ChipDocs() {
 <Chip label="Large" size="lg" />`}
 				>
 					<div className="flex flex--gap-2 flex--wrap" style={{ alignItems: "center" }}>
-						<Chip label="Small" size="sm" variant="primary" />
-						<Chip label="Medium" size="md" variant="primary" />
-						<Chip label="Large" size="lg" variant="primary" />
+						<Chip label="Small" size="sm" />
+						<Chip label="Medium" size="md" />
+						<Chip label="Large" size="lg" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="With Icons"
 					code={`<Chip label="Filter" icon="filter_list" />
-<Chip label="Location" icon="location_on" variant="info" />
-<Chip label="Time" icon="schedule" variant="secondary" />
-<Chip label="Favorite" icon="favorite" variant="danger" />`}
+<Chip label="Location" icon="location_on" variant="outlined" />
+<Chip label="Time" icon="schedule" variant="outlined" />
+<Chip label="Favorite" icon="favorite" variant="filled" />`}
 				>
 					<div className="flex flex--gap-2 flex--wrap">
 						<Chip label="Filter" icon="filter_list" />
-						<Chip label="Location" icon="location_on" variant="info" />
-						<Chip label="Time" icon="schedule" variant="secondary" />
-						<Chip label="Favorite" icon="favorite" variant="danger" />
+						<Chip label="Location" icon="location_on" variant="outlined" />
+						<Chip label="Time" icon="schedule" variant="outlined" />
+						<Chip label="Favorite" icon="favorite" variant="filled" />
 					</div>
 				</LiveExample>
 
@@ -167,7 +157,7 @@ return (
         key={tag}
         label={tag}
         onRemove={() => setTags(tags.filter(t => t !== tag))}
-        variant="secondary"
+        variant="outlined"
       />
     ))}
   </View>
@@ -175,7 +165,7 @@ return (
 				>
 					<div className="flex flex--gap-2 flex--wrap">
 						{tags.map((tag) => (
-							<Chip key={tag} label={tag} onRemove={() => removeTag(tag)} variant="secondary" />
+							<Chip key={tag} label={tag} onRemove={() => removeTag(tag)} variant="outlined" />
 						))}
 						{tags.length === 0 && (
 							<span className="text-small text-secondary">All tags removed!</span>
@@ -224,9 +214,9 @@ return (
 </View>`}
 				>
 					<div className="flex flex--gap-2 flex--wrap">
-						<Chip label="john@example.com" icon="email" onRemove={() => {}} variant="primary" />
-						<Chip label="+1 (555) 123-4567" icon="phone" onRemove={() => {}} variant="primary" />
-						<Chip label="New York" icon="location_on" onRemove={() => {}} variant="primary" />
+						<Chip label="john@example.com" icon="email" onRemove={() => {}} variant="filled" />
+						<Chip label="+1 (555) 123-4567" icon="phone" onRemove={() => {}} variant="filled" />
+						<Chip label="New York" icon="location_on" onRemove={() => {}} variant="filled" />
 					</div>
 				</LiveExample>
 			</section>
@@ -266,7 +256,7 @@ function TagInput() {
             key={tag}
             label={tag}
             onRemove={() => removeTag(tag)}
-            variant="secondary"
+            variant="outlined"
             size="sm"
           />
         ))}

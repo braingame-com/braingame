@@ -93,57 +93,57 @@ export default function SwitchDocs() {
 
 return (
   <Switch
-    value={enabled}
+    checked={enabled}
     onValueChange={setEnabled}
     label="Enable notifications"
   />
 );`}
 				>
-					<Switch value={enabled1} onValueChange={setEnabled1} label="Enable notifications" />
+					<Switch checked={enabled1} onValueChange={setEnabled1} label="Enable notifications" />
 				</LiveExample>
 
 				<LiveExample
 					title="States"
-					code={`<Switch value={false} onValueChange={() => {}} label="Off" />
-<Switch value={true} onValueChange={() => {}} label="On" />
-<Switch value={false} onValueChange={() => {}} label="Disabled Off" disabled />
-<Switch value={true} onValueChange={() => {}} label="Disabled On" disabled />`}
+					code={`<Switch checked={false} onValueChange={() => {}} label="Off" />
+<Switch checked={true} onValueChange={() => {}} label="On" />
+<Switch checked={false} onValueChange={() => {}} label="Disabled Off" disabled />
+<Switch checked={true} onValueChange={() => {}} label="Disabled On" disabled />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Switch value={false} onValueChange={() => {}} label="Off" />
-						<Switch value={true} onValueChange={() => {}} label="On" />
-						<Switch value={false} onValueChange={() => {}} label="Disabled Off" disabled />
-						<Switch value={true} onValueChange={() => {}} label="Disabled On" disabled />
+						<Switch checked={false} onValueChange={() => {}} label="Off" />
+						<Switch checked={true} onValueChange={() => {}} label="On" />
+						<Switch checked={false} onValueChange={() => {}} label="Disabled Off" disabled />
+						<Switch checked={true} onValueChange={() => {}} label="Disabled On" disabled />
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Sizes"
-					code={`<Switch value={enabled} onValueChange={setEnabled} label="Small" size="sm" />
-<Switch value={enabled} onValueChange={setEnabled} label="Medium" size="md" />
-<Switch value={enabled} onValueChange={setEnabled} label="Large" size="lg" />`}
+					code={`<Switch checked={enabled} onValueChange={setEnabled} label="Small" size="sm" />
+<Switch checked={enabled} onValueChange={setEnabled} label="Medium" size="md" />
+<Switch checked={enabled} onValueChange={setEnabled} label="Large" size="lg" />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Switch value={enabled2} onValueChange={setEnabled2} label="Small" size="sm" />
-						<Switch value={enabled2} onValueChange={setEnabled2} label="Medium" size="md" />
-						<Switch value={enabled2} onValueChange={setEnabled2} label="Large" size="lg" />
+						<Switch checked={enabled2} onValueChange={setEnabled2} label="Small" size="sm" />
+						<Switch checked={enabled2} onValueChange={setEnabled2} label="Medium" size="md" />
+						<Switch checked={enabled2} onValueChange={setEnabled2} label="Large" size="lg" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Colors"
-					code={`<Switch value={true} onValueChange={() => {}} label="Primary" color="primary" />
-<Switch value={true} onValueChange={() => {}} label="Secondary" color="secondary" />
-<Switch value={true} onValueChange={() => {}} label="Success" color="success" />
-<Switch value={true} onValueChange={() => {}} label="Warning" color="warning" />
-<Switch value={true} onValueChange={() => {}} label="Error" color="error" />`}
+					code={`<Switch checked={true} onValueChange={() => {}} label="Primary" color="primary" />
+<Switch checked={true} onValueChange={() => {}} label="Secondary" color="secondary" />
+<Switch checked={true} onValueChange={() => {}} label="Success" color="success" />
+<Switch checked={true} onValueChange={() => {}} label="Warning" color="warning" />
+<Switch checked={true} onValueChange={() => {}} label="Error" color="error" />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Switch value={true} onValueChange={() => {}} label="Primary" color="primary" />
-						<Switch value={true} onValueChange={() => {}} label="Secondary" color="secondary" />
-						<Switch value={true} onValueChange={() => {}} label="Success" color="success" />
-						<Switch value={true} onValueChange={() => {}} label="Warning" color="warning" />
-						<Switch value={true} onValueChange={() => {}} label="Error" color="error" />
+						<Switch checked={true} onValueChange={() => {}} label="Primary" color="primary" />
+						<Switch checked={true} onValueChange={() => {}} label="Secondary" color="secondary" />
+						<Switch checked={true} onValueChange={() => {}} label="Success" color="success" />
+						<Switch checked={true} onValueChange={() => {}} label="Warning" color="warning" />
+						<Switch checked={true} onValueChange={() => {}} label="Error" color="error" />
 					</div>
 				</LiveExample>
 

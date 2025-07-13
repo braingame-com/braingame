@@ -194,10 +194,15 @@ return (
 					<Select
 						value={country}
 						onValueChange={(value) => setCountry(value as string)}
-						options={countries.slice(0, 5)}
 						placeholder="Choose a country"
 						label="Country"
-					/>
+					>
+						{countries.slice(0, 5).map((c) => (
+							<Select.Item key={c.value} value={c.value}>
+								{c.label}
+							</Select.Item>
+						))}
+					</Select>
 				</LiveExample>
 
 				<LiveExample
@@ -207,7 +212,7 @@ return (
   onValueChange={(value) => setValue(value as string)}
   options={options}
   label="Outlined"
-  variant="outlined"
+  variant="dropdown"
 />
 
 <Select
@@ -223,15 +228,13 @@ return (
 							value={language}
 							onValueChange={(value) => setLanguage(value as string)}
 							options={languages.slice(0, 5)}
-							label="Outlined"
-							variant="outlined"
+							variant="dropdown"
 						/>
 						<Select
 							value={language}
 							onValueChange={(value) => setLanguage(value as string)}
 							options={languages.slice(0, 5)}
-							label="Filled"
-							variant="filled"
+							variant="modal"
 						/>
 					</div>
 				</LiveExample>

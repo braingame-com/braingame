@@ -238,7 +238,7 @@ export default function CardDocs() {
       <Text variant="subtitle">John Doe</Text>
       <Text variant="caption" color="secondary">Software Engineer</Text>
     </View>
-    <Badge text="PRO" variant="primary" size="sm" />
+    <Badge text="PRO" variant="status" size="small" />
   </View>
   
   <Text variant="body" style={styles.cardContent}>
