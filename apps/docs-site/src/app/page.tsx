@@ -1,45 +1,156 @@
-import Link from "next/link";
+"use client";
 
-export default function DocsPage() {
+import { MaterialIcon } from "../components/MaterialIcon";
+
+export default function HomePage() {
 	return (
-		<div className="min-h-screen bg-black text-white">
-			<div className="max-w-4xl mx-auto px-6 py-16">
-				<div className="text-center space-y-8">
-					<div className="space-y-4">
-						<h1 className="text-4xl font-bold text-white">Documentation</h1>
-						<p className="text-lg text-gray-400">Brain Game Platform Documentation</p>
-					</div>
+		<div>
+			<h1 className="text-display mb-4">Brain Game UI</h1>
+			<p className="text-subtitle text-secondary mb-8">
+				Enterprise-grade React Native component library for building accessible, cross-platform
+				applications.
+			</p>
 
-					<div className="bg-gray-900 border border-gray-700 rounded-lg p-8 space-y-4">
-						<h2 className="text-2xl font-semibold text-cyan-400">Coming Soon</h2>
-						<p className="text-gray-300">
-							Our comprehensive documentation is currently being written.
-							<br />
-							In the meantime, check out our source code on GitHub.
-						</p>
-					</div>
+			<div className="grid grid--cols-3 mb-8">
+				<div className="card">
+					<h3 className="text-heading mb-3">
+						<MaterialIcon
+							name="palette"
+							size="sm"
+							color="var(--color-tertiary)"
+							style={{ marginRight: 8 }}
+						/>
+						Beautiful by Default
+					</h3>
+					<p className="text-body text-secondary">
+						Thoughtfully designed components that look great out of the box, with support for light
+						and dark themes.
+					</p>
+				</div>
 
-					<div className="space-y-4">
-						<p className="text-gray-400">For now, you can explore:</p>
-						<div className="flex gap-4 justify-center">
-							<a
-								href="https://github.com/braingame-com/braingame"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 font-medium border border-gray-600"
-							>
-								View on GitHub
-							</a>
-							<Link
-								href="/"
-								className="px-6 py-3 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-800 hover:border-gray-500 transition-all duration-300 font-medium"
-							>
-								Back to Home
-							</Link>
-						</div>
-					</div>
+				<div className="card">
+					<h3 className="text-heading mb-3">
+						<MaterialIcon
+							name="accessibility_new"
+							size="sm"
+							color="var(--color-success)"
+							style={{ marginRight: 8 }}
+						/>
+						Accessible
+					</h3>
+					<p className="text-body text-secondary">
+						Built with accessibility in mind. All components follow WCAG 2.1 guidelines and support
+						screen readers.
+					</p>
+				</div>
+
+				<div className="card">
+					<h3 className="text-heading mb-3">
+						<MaterialIcon
+							name="devices"
+							size="sm"
+							color="var(--color-info)"
+							style={{ marginRight: 8 }}
+						/>
+						Cross-Platform
+					</h3>
+					<p className="text-body text-secondary">
+						Write once, run everywhere. Components work seamlessly on iOS, Android, and Web
+						platforms.
+					</p>
 				</div>
 			</div>
+
+			<section className="mb-8">
+				<h2 className="text-title mb-4">Quick Start</h2>
+				<div className="code-block">
+					<div className="code-block__header">
+						<span>Terminal</span>
+						<button type="button" className="code-block__copy">
+							Copy
+						</button>
+					</div>
+					<pre>
+						<code>{"npm install @braingame/bgui"}</code>
+					</pre>
+				</div>
+
+				<p className="text-body mb-4">
+					Import and use components in your React Native application:
+				</p>
+
+				<div className="code-block">
+					<div className="code-block__header">
+						<span>JavaScript</span>
+						<button type="button" className="code-block__copy">
+							Copy
+						</button>
+					</div>
+					<pre>
+						<code>{`import { Button, Text, Card } from '@braingame/bgui';
+
+export function MyComponent() {
+  return (
+    <Card>
+      <Text variant="heading">Welcome!</Text>
+      <Button onPress={() => alert('Hello!')}>
+        Get Started
+      </Button>
+    </Card>
+  );
+}`}</code>
+					</pre>
+				</div>
+			</section>
+
+			<section className="mb-8">
+				<h2 className="text-title mb-4">Design Principles</h2>
+				<ul>
+					<li>
+						<strong>Consistency</strong> - Components follow a unified design language
+					</li>
+					<li>
+						<strong>Flexibility</strong> - Highly customizable with sensible defaults
+					</li>
+					<li>
+						<strong>Performance</strong> - Optimized for 60fps animations and interactions
+					</li>
+					<li>
+						<strong>Developer Experience</strong> - TypeScript support with excellent IDE
+						integration
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2 className="text-title mb-4">Component Categories</h2>
+				<div className="grid grid--cols-2">
+					<div>
+						<h4 className="font-semibold mb-2">Primitives</h4>
+						<p className="text-small text-secondary mb-4">
+							Essential building blocks like Button, Text, Icon, Badge, and Chip
+						</p>
+					</div>
+					<div>
+						<h4 className="font-semibold mb-2">Inputs</h4>
+						<p className="text-small text-secondary mb-4">
+							Form controls including TextInput, Checkbox, Switch, and Select
+						</p>
+					</div>
+					<div>
+						<h4 className="font-semibold mb-2">Layout</h4>
+						<p className="text-small text-secondary mb-4">
+							Structural components like View, Card, Divider, and Tabs
+						</p>
+					</div>
+					<div>
+						<h4 className="font-semibold mb-2">Feedback</h4>
+						<p className="text-small text-secondary mb-4">
+							User feedback components including Alert, Toast, and Spinner
+						</p>
+					</div>
+				</div>
+			</section>
 		</div>
 	);
 }

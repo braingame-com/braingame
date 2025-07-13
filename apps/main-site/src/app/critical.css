@@ -1,0 +1,57 @@
+/* Critical CSS for above-the-fold content */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	height: 100%;
+	background-color: #000;
+	color: #fff;
+	font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+	overflow-x: hidden;
+}
+
+main {
+	min-height: 100vh;
+}
+
+/* Prevent layout shift from fonts */
+.antialiased {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Critical typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+/* Hide elements until JS loads */
+.no-js .js-only {
+	display: none;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
