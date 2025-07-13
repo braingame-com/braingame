@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { CookieConsent } from "../components/CookieConsent";
 import { GoogleAnalytics } from "../components/GoogleAnalytics";
 import { ErrorBoundary } from "../components/ErrorBoundary";
+import { WebVitals } from "../components/WebVitals";
+import { AnalyticsProvider } from "../providers/AnalyticsProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -128,11 +130,14 @@ export default function RootLayout({
 				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 			</head>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<GoogleAnalytics />
-				<ErrorBoundary>
-					<main>{children}</main>
-				</ErrorBoundary>
-				<CookieConsent />
+				<AnalyticsProvider>
+					<GoogleAnalytics />
+					<WebVitals />
+					<ErrorBoundary>
+						<main>{children}</main>
+					</ErrorBoundary>
+					<CookieConsent />
+				</AnalyticsProvider>
 			</body>
 		</html>
 	);

@@ -35,7 +35,7 @@ export default function HomePage() {
 		}
 	}, []);
 
-	const { trackEvent } = useAnalytics();
+	const { trackEvent, trackFormSubmit, trackClick, trackException } = useAnalytics();
 	const [showSuggestion, setShowSuggestion] = useState(false);
 	const [suggestedEmail, setSuggestedEmail] = useState("");
 
@@ -94,6 +94,13 @@ export default function HomePage() {
 				duration,
 			});
 
+			// Track form submission
+			trackFormSubmit("waitlist_email", result.success, {
+				duration,
+				email_domain: email.split("@")[1],
+				requires_confirmation: result.requiresConfirmation,
+			});
+
 			if (result.success) {
 				if (result.requiresConfirmation) {
 					setSubmitMessage(
@@ -126,6 +133,7 @@ export default function HomePage() {
 			setIsSuccess(false);
 
 			// Track error
+			trackException(error instanceof Error ? error : new Error("Email submission failed"));
 			trackEvent("email_subscription_error", {
 				error: error instanceof Error ? error.message : "Unknown error",
 			});
@@ -139,6 +147,7 @@ export default function HomePage() {
 		setShowSuggestion(false);
 		setSubmitMessage("");
 		handleEmailChange(suggestedEmail);
+		trackClick("email_suggestion", { suggested_email: suggestedEmail });
 	};
 
 	return (
@@ -374,14 +383,33 @@ export default function HomePage() {
 							marginTop: 40,
 						}}
 					>
-						<Link href="/privacy" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
+						<Link 
+							href="/privacy" 
+							style={{ color: "rgba(255, 255, 255, 0.6)" }}
+							onPress={() => trackClick("footer_link", { destination: "privacy" })}
+						>
 							<Text variant="small">Privacy</Text>
 						</Link>
-						<Link href="/terms" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
+						<Link 
+							href="/terms" 
+							style={{ color: "rgba(255, 255, 255, 0.6)" }}
+							onPress={() => trackClick("footer_link", { destination: "terms" })}
+						>
 							<Text variant="small">Terms</Text>
 						</Link>
-						<Link href="/cookies" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
+						<Link 
+							href="/cookies" 
+							style={{ color: "rgba(255, 255, 255, 0.6)" }}
+							onPress={() => trackClick("footer_link", { destination: "cookies" })}
+						>
 							<Text variant="small">Cookies</Text>
+						</Link>
+						<Link
+							href="https://github.com/braingame-com/braingame"
+							style={{ color: "rgba(255, 255, 255, 0.6)" }}
+							onPress={() => trackClick("github_link", { destination: "repository" })}
+						>
+							<Text variant="small">GitHub</Text>
 						</Link>
 					</View>
 
