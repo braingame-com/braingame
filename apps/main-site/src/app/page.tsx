@@ -9,14 +9,40 @@ import {
 	TextInput,
 	View,
 } from "@braingame/bgui";
-import { useCallback, useState } from "react";
+import dynamic from "next/dynamic";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { StructuredData } from "../components/StructuredData";
 import { useAnalytics } from "../hooks/useAnalytics";
+import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
+import { useServiceWorker } from "../hooks/useServiceWorker";
 import { emailService } from "../lib/email-service";
 import { validateEmail } from "../lib/email-validation";
 import { generateStructuredData, generateWaitlistStructuredData } from "./metadata";
 
+// Lazy load components for better performance
+const EmailCaptureForm = dynamic(
+	() => import("../components/EmailCaptureForm").then((mod) => mod.EmailCaptureForm),
+	{
+		loading: () => (
+			<View style={{ height: 150, justifyContent: "center", alignItems: "center" }}>
+				<Text style={{ color: "#666" }}>Loading...</Text>
+			</View>
+		),
+		ssr: true,
+	},
+);
+
 export default function HomePage() {
+	// Register service worker for offline support
+	useServiceWorker();
+
+	// Monitor performance metrics
+	usePerformanceMonitor((metrics) => {
+		if (process.env.NODE_ENV === "development") {
+			console.log("Performance metrics:", metrics);
+		}
+	});
+
 	const [email, setEmail] = useState("");
 	const [honeypot, setHoneypot] = useState(""); // Bot trap
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -141,6 +167,19 @@ export default function HomePage() {
 			setIsSubmitting(false);
 		}
 	};
+
+	// Preload critical resources
+	useEffect(() => {
+		// Preconnect to email service domain if different
+		const link = document.createElement("link");
+		link.rel = "preconnect";
+		link.href = "https://api.braingame.dev";
+		document.head.appendChild(link);
+
+		return () => {
+			document.head.removeChild(link);
+		};
+	}, []);
 
 	const handleSuggestionClick = () => {
 		setEmail(suggestedEmail);

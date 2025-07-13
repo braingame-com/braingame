@@ -15,24 +15,74 @@ const nextConfig: NextConfig = {
 		"expo-status-bar",
 		"react-native-safe-area-context",
 	],
-	// Image optimization for static export
-	images: {
-		unoptimized: true,
-	},
 
-	// Production optimizations
-	poweredByHeader: false,
+	// Performance optimizations
 	compress: true,
+	poweredByHeader: false,
 	generateEtags: true,
 
+	// Image optimization with performance settings
+	images: {
+		unoptimized: true, // Required for static export
+		formats: ["image/avif", "image/webp"],
+		minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
+	},
+
 	// Security headers (Note: headers don't work with static export, apply these in Firebase hosting)
+	headers: async () => [
+		{
+			source: "/:path*",
+			headers: [
+				{
+					key: "X-DNS-Prefetch-Control",
+					value: "on",
+				},
+				{
+					key: "X-Content-Type-Options",
+					value: "nosniff",
+				},
+				{
+					key: "X-Frame-Options",
+					value: "DENY",
+				},
+				{
+					key: "X-XSS-Protection",
+					value: "1; mode=block",
+				},
+				{
+					key: "Referrer-Policy",
+					value: "strict-origin-when-cross-origin",
+				},
+				{
+					key: "Permissions-Policy",
+					value: "camera=(), microphone=(), geolocation=()",
+				},
+			],
+		},
+		{
+			source: "/(.*)",
+			headers: [
+				{
+					key: "Cache-Control",
+					value: "public, max-age=31536000, immutable",
+				},
+			],
+		},
+	],
+
 	// Environment variables validation
 	env: {
 		NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
 		NEXT_PUBLIC_BUILD_ID: process.env.VERCEL_GIT_COMMIT_SHA || "local",
 	},
 
-	// Webpack configuration
+	// Experimental features for better performance
+	experimental: {
+		optimizeCss: true,
+		optimizePackageImports: ["@braingame/bgui", "@braingame/utils"],
+		optimizeServerReact: true,
+	},
+
 	webpack: (config, { isServer, dev }) => {
 		// Configure React Native Web aliases
 		config.resolve.alias = {
@@ -54,10 +104,12 @@ const nextConfig: NextConfig = {
 			".web.js",
 			...config.resolve.extensions,
 		];
+
 		// Production optimizations
 		if (!dev && !isServer) {
 			// Enable tree shaking for ES modules
 			config.optimization.usedExports = true;
+			config.optimization.sideEffects = false;
 
 			// Minimize bundle size
 			config.optimization.minimize = true;
@@ -102,12 +154,6 @@ const nextConfig: NextConfig = {
 		});
 
 		return config;
-	},
-
-	// Experimental features for production
-	experimental: {
-		// Enable optimized package imports
-		optimizePackageImports: ["@braingame/bgui", "@braingame/utils"],
 	},
 };
 
