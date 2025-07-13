@@ -179,7 +179,7 @@ export default function ViewDocs() {
   </View>
 </View>`}
 				>
-					<View style={{ border: "1px solid var(--color-outline)", borderRadius: 8 }}>
+					<View style={{ borderWidth: 1, borderColor: "var(--color-outline)", borderRadius: 8 }}>
 						<View style={{ padding: 16, backgroundColor: "var(--color-primary-container)" }}>
 							<h3 className="text-heading">Header</h3>
 						</View>
@@ -187,7 +187,7 @@ export default function ViewDocs() {
 						<View style={{ display: "flex", flexDirection: "row", minHeight: 150 }}>
 							<View
 								style={{
-									flex: "0 0 150px",
+									width: 150,
 									padding: 16,
 									backgroundColor: "var(--color-surface-container)",
 								}}
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
 							<View
 								key={item}
 								style={{
-									width: "calc(33.333% - 11px)",
+									width: "31%",
 									minWidth: 150,
 								}}
 							>
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
 					title="Accessibility"
 					code={`<View
   accessible={true}
-  accessibilityRole="navigation"
+  accessibilityRole="none"
   accessibilityLabel="Main navigation"
 >
   <Button onPress={() => {}}>Home</Button>
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
 
 <View
   accessible={true}
-  accessibilityRole="article"
+  accessibilityRole="none"
   accessibilityLabel="Featured article"
 >
   <Text variant="heading">Article Title</Text>
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
 					<div className="flex flex--column flex--gap-4">
 						<View
 							accessible={true}
-							accessibilityRole="navigation"
+							accessibilityRole="none"
 							accessibilityLabel="Main navigation"
 							style={{
 								display: "flex",
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
 
 						<View
 							accessible={true}
-							accessibilityRole="article"
+							accessibilityRole="none"
 							accessibilityLabel="Featured article"
 							style={{
 								padding: 16,

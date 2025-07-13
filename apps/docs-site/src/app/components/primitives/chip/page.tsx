@@ -48,9 +48,9 @@ const chipProps = [
 	},
 	{
 		name: "size",
-		type: '"small" | "medium" | "large"',
+		type: '"sm" | "md"',
 		required: false,
-		default: '"medium"',
+		default: '"md"',
 		description: "Size of the chip affecting padding and font size.",
 	},
 	{
@@ -121,13 +121,11 @@ export default function ChipDocs() {
 				<LiveExample
 					title="Sizes"
 					code={`<Chip label="Small" size="sm" />
-<Chip label="Medium" size="md" />
-<Chip label="Large" size="lg" />`}
+<Chip label="Medium" size="md" />`}
 				>
 					<div className="flex flex--gap-2 flex--wrap" style={{ alignItems: "center" }}>
 						<Chip label="Small" size="sm" />
 						<Chip label="Medium" size="md" />
-						<Chip label="Large" size="lg" />
 					</div>
 				</LiveExample>
 

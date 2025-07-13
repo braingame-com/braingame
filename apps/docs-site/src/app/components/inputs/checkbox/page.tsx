@@ -8,7 +8,7 @@ import { PropsTable } from "../../../../components/PropsTable";
 
 const checkboxProps = [
 	{
-		name: "value",
+		name: "checked",
 		type: "boolean",
 		required: true,
 		description: "The checked state of the checkbox.",
@@ -45,20 +45,6 @@ const checkboxProps = [
 		required: false,
 		default: "false",
 		description: "Whether the checkbox is in an indeterminate state (partially checked).",
-	},
-	{
-		name: "size",
-		type: '"sm" | "md" | "lg"',
-		required: false,
-		default: '"md"',
-		description: "Size of the checkbox.",
-	},
-	{
-		name: "color",
-		type: '"primary" | "secondary" | "success" | "warning" | "error"',
-		required: false,
-		default: '"primary"',
-		description: "Color scheme of the checkbox when checked.",
 	},
 	{
 		name: "testID",
@@ -140,52 +126,6 @@ return (
 						</Checkbox>
 						<Checkbox checked={false} onValueChange={() => {}} indeterminate>
 							Indeterminate
-						</Checkbox>
-					</div>
-				</LiveExample>
-
-				<LiveExample
-					title="Sizes"
-					code={`<Checkbox checked={checked} onValueChange={setChecked} children="Small" size="sm" />
-<Checkbox checked={checked} onValueChange={setChecked} children="Medium" size="md" />
-<Checkbox checked={checked} onValueChange={setChecked} children="Large" size="lg" />`}
-				>
-					<div className="flex flex--column flex--gap-3">
-						<Checkbox checked={checked2} onValueChange={setChecked2} size="sm">
-							Small
-						</Checkbox>
-						<Checkbox checked={checked2} onValueChange={setChecked2} size="md">
-							Medium
-						</Checkbox>
-						<Checkbox checked={checked2} onValueChange={setChecked2} size="lg">
-							Large
-						</Checkbox>
-					</div>
-				</LiveExample>
-
-				<LiveExample
-					title="Colors"
-					code={`<Checkbox checked={true} onValueChange={() => {}} color="primary">Primary</Checkbox>
-<Checkbox checked={true} onValueChange={() => {}} children="Secondary" color="secondary" />
-<Checkbox checked={true} onValueChange={() => {}} color="success">Success</Checkbox>
-<Checkbox checked={true} onValueChange={() => {}} color="warning">Warning</Checkbox>
-<Checkbox checked={true} onValueChange={() => {}} color="error">Error</Checkbox>`}
-				>
-					<div className="flex flex--column flex--gap-3">
-						<Checkbox checked={true} onValueChange={() => {}} color="primary">
-							Primary
-						</Checkbox>
-						<Checkbox checked={true} onValueChange={() => {}} color="secondary">
-							Secondary
-						</Checkbox>
-						<Checkbox checked={true} onValueChange={() => {}} color="success">
-							Success
-						</Checkbox>
-						<Checkbox checked={true} onValueChange={() => {}} color="warning">
-							Warning
-						</Checkbox>
-						<Checkbox checked={true} onValueChange={() => {}} color="error">
-							Error
 						</Checkbox>
 					</div>
 				</LiveExample>

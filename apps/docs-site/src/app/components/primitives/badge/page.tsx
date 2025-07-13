@@ -36,21 +36,6 @@ const badgeProps = [
 			"Display as a simple dot indicator instead of showing text. Useful for notification indicators.",
 	},
 	{
-		name: "max",
-		type: "number",
-		required: false,
-		default: "99",
-		description: "Maximum number to display. Numbers above this will show as 'max+' (e.g., '99+').",
-	},
-	{
-		name: "showZero",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description:
-			"Whether to display the badge when the value is 0. By default, zero values are hidden.",
-	},
-	{
 		name: "style",
 		type: "StyleProp<ViewStyle>",
 		required: false,
@@ -88,15 +73,15 @@ export default function BadgeDocs() {
 					title="Numeric Badges"
 					code={`<Badge text={5} variant="notification" />
 <Badge text={42} variant="count" />
-<Badge text={100} variant="count" max={99} />
-<Badge text={0} showZero variant="notification" />
+<Badge text="99+" variant="count" />
+<Badge text="0" variant="notification" />
 <Badge text={0} variant="notification" /> {/* Hidden by default */}`}
 				>
 					<div className="flex flex--gap-3 flex--wrap" style={{ alignItems: "center" }}>
 						<Badge text="5" variant="notification" />
 						<Badge text="42" variant="count" />
-						<Badge text="100" variant="count" max={99} />
-						<Badge text="0" showZero variant="notification" />
+						<Badge text="99+" variant="count" />
+						<Badge text="0" variant="notification" />
 						<span className="text-small text-secondary">(Zero hidden by default)</span>
 					</div>
 				</LiveExample>

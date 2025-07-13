@@ -26,14 +26,8 @@ const modalProps = [
 		description: "Content to be displayed inside the modal.",
 	},
 	{
-		name: "title",
-		type: "string",
-		required: false,
-		description: "Title displayed in the modal header.",
-	},
-	{
 		name: "size",
-		type: '"sm" | "md" | "lg" | "full"',
+		type: '"sm" | "md" | "lg" | "fullscreen"',
 		required: false,
 		default: '"md"',
 		description: "Size of the modal.",
@@ -72,13 +66,6 @@ const modalProps = [
 		required: false,
 		default: '"dark"',
 		description: "Backdrop style variant.",
-	},
-	{
-		name: "scrollBehavior",
-		type: '"inside" | "outside"',
-		required: false,
-		default: '"inside"',
-		description: "How scrolling is handled for long content.",
 	},
 	{
 		name: "testID",
@@ -120,7 +107,6 @@ return (
     <Modal
       visible={visible}
       onClose={() => setVisible(false)}
-      title="Welcome!"
     >
       <Text variant="body">
         This is a basic modal with a title and some content. 
@@ -132,7 +118,7 @@ return (
 				>
 					<Button onPress={() => setBasicModal(true)}>Open Modal</Button>
 
-					<Modal visible={basicModal} onClose={() => setBasicModal(false)} title="Welcome!">
+					<Modal visible={basicModal} onClose={() => setBasicModal(false)}>
 						<p className="text-body">
 							This is a basic modal with a title and some content. Click the close button or outside
 							the modal to dismiss it.
@@ -146,13 +132,12 @@ return (
   <Button onPress={() => openModal('sm')}>Small</Button>
   <Button onPress={() => openModal('md')}>Medium</Button>
   <Button onPress={() => openModal('lg')}>Large</Button>
-  <Button onPress={() => openModal('full')}>Full</Button>
+  <Button onPress={() => openModal('fullscreen')}>Fullscreen</Button>
 </View>
 
 <Modal
   visible={visible}
   onClose={closeModal}
-  title={\`\${size} Modal\`}
   size={size}
 >
   <Text variant="body">
@@ -164,17 +149,19 @@ return (
 						<Button onPress={() => setSizeModal("sm")}>Small</Button>
 						<Button onPress={() => setSizeModal("md")}>Medium</Button>
 						<Button onPress={() => setSizeModal("lg")}>Large</Button>
-						<Button onPress={() => setSizeModal("full")}>Full</Button>
+						<Button onPress={() => setSizeModal("fullscreen")}>Fullscreen</Button>
 					</div>
 
 					{sizeModal && (
 						<Modal
 							visible={true}
 							onClose={() => setSizeModal("")}
-							title={`${sizeModal.toUpperCase()} Modal`}
-							size={sizeModal as "sm" | "md" | "lg" | "full"}
+							size={sizeModal as "sm" | "md" | "lg" | "fullscreen"}
 						>
-							<p className="text-body">This modal is using the {sizeModal} size variant.</p>
+							<p className="text-body">
+								This modal is using the {sizeModal === "fullscreen" ? "fullscreen" : sizeModal} size
+								variant.
+							</p>
 						</Modal>
 					)}
 				</LiveExample>
@@ -202,22 +189,19 @@ return (
     <Modal
       visible={visible}
       onClose={() => setVisible(false)}
-      title="Edit Profile"
     >
       <View style={styles.form}>
         <TextInput
-          label="Name"
-          value={formData.name}
-          onChangeText={(text) => 
+                  value={formData.name}
+          onValueChange={(text) => 
             setFormData({ ...formData, name: text })
           }
           placeholder="Enter your name"
         />
         
         <TextInput
-          label="Email"
-          value={formData.email}
-          onChangeText={(text) => 
+                  value={formData.email}
+          onValueChange={(text) => 
             setFormData({ ...formData, email: text })
           }
           placeholder="Enter your email"
@@ -252,19 +236,18 @@ return (
 				>
 					<Button onPress={() => setFormModal(true)}>Edit Profile</Button>
 
-					<Modal visible={formModal} onClose={() => setFormModal(false)} title="Edit Profile">
+					<Modal visible={formModal} onClose={() => setFormModal(false)}>
+						<h2 className="text-title mb-4">Edit Profile</h2>
 						<div className="flex flex--column flex--gap-4">
 							<TextInput
-								label="Name"
 								value={formData.name}
-								onChangeText={(text) => setFormData({ ...formData, name: text })}
+								onValueChange={(text) => setFormData({ ...formData, name: text })}
 								placeholder="Enter your name"
 							/>
 
 							<TextInput
-								label="Email"
 								value={formData.email}
-								onChangeText={(text) => setFormData({ ...formData, email: text })}
+								onValueChange={(text) => setFormData({ ...formData, email: text })}
 								placeholder="Enter your email"
 								keyboardType="email-address"
 							/>
@@ -272,7 +255,7 @@ return (
 							<div className="flex flex--justify-between flex--align-center">
 								<span className="text-body">Email notifications</span>
 								<Switch
-									value={formData.notifications}
+									checked={formData.notifications}
 									onValueChange={(value) => setFormData({ ...formData, notifications: value })}
 								/>
 							</div>
@@ -307,7 +290,6 @@ return (
     <Modal
       visible={visible}
       onClose={() => setVisible(false)}
-      title="Delete Account?"
       size="sm"
     >
       <Icon 
@@ -328,7 +310,7 @@ return (
       <TextInput
         placeholder="Type DELETE"
         value={confirmText}
-        onChangeText={setConfirmText}
+        onValueChange={setConfirmText}
         style={{ marginTop: 16 }}
       />
       
@@ -355,12 +337,8 @@ return (
 						Delete Account
 					</Button>
 
-					<Modal
-						visible={deleteModal}
-						onClose={() => setDeleteModal(false)}
-						title="Delete Account?"
-						size="sm"
-					>
+					<Modal visible={deleteModal} onClose={() => setDeleteModal(false)} size="sm">
+						<h2 className="text-title mb-4 text-center">Delete Account?</h2>
 						<div style={{ textAlign: "center" }}>
 							<div style={{ marginBottom: "var(--space-4)" }}>
 								<span
@@ -378,7 +356,7 @@ return (
 							<p className="text-caption text-secondary mb-4">Type "DELETE" to confirm</p>
 						</div>
 
-						<TextInput placeholder="Type DELETE" value="" onChangeText={() => {}} />
+						<TextInput placeholder="Type DELETE" value="" onValueChange={() => {}} />
 
 						<div className="modal__footer">
 							<Button variant="ghost" onPress={() => setDeleteModal(false)}>
@@ -396,8 +374,6 @@ return (
 					code={`<Modal
   visible={visible}
   onClose={() => setVisible(false)}
-  title="Terms of Service"
-  scrollBehavior="inside"
 >
   <Text variant="body" style={{ marginBottom: 16 }}>
     Please read and accept our terms of service to continue.
@@ -422,12 +398,8 @@ return (
 				>
 					<Button onPress={() => setScrollModal(true)}>View Terms</Button>
 
-					<Modal
-						visible={scrollModal}
-						onClose={() => setScrollModal(false)}
-						title="Terms of Service"
-						scrollBehavior="inside"
-					>
+					<Modal visible={scrollModal} onClose={() => setScrollModal(false)}>
+						<h2 className="text-title mb-4">Terms of Service</h2>
 						<p className="text-body mb-4">
 							Please read and accept our terms of service to continue.
 						</p>
@@ -501,9 +473,8 @@ function EditItemModal({ item, visible, onClose, onSave }) {
       
       <View style={styles.modalContent}>
         <TextInput
-          label="Title"
           value={formData.title}
-          onChangeText={(text) => 
+          onValueChange={(text) => 
             setFormData({ ...formData, title: text })
           }
           placeholder="Enter item title"
@@ -512,9 +483,8 @@ function EditItemModal({ item, visible, onClose, onSave }) {
         />
         
         <TextInput
-          label="Description"
           value={formData.description}
-          onChangeText={(text) => 
+          onValueChange={(text) => 
             setFormData({ ...formData, description: text })
           }
           placeholder="Enter description (optional)"
@@ -523,7 +493,6 @@ function EditItemModal({ item, visible, onClose, onSave }) {
         />
         
         <Select
-          label="Priority"
           value={formData.priority}
           onValueChange={(value) => 
             setFormData({ ...formData, priority: value })
@@ -595,7 +564,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
 					code={`<Modal
   visible={galleryVisible}
   onClose={() => setGalleryVisible(false)}
-  size="full"
+  size="fullscreen"
   animationType="zoom"
   backdrop="blur"
 >

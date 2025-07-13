@@ -20,10 +20,10 @@ const selectProps = [
 		description: "Callback function called when the selection changes.",
 	},
 	{
-		name: "options",
-		type: "Array<{ label: string; value: string; disabled?: boolean }>",
+		name: "children",
+		type: "React.ReactNode",
 		required: true,
-		description: "Array of options to display in the dropdown.",
+		description: "SelectItem components to display as options.",
 	},
 	{
 		name: "placeholder",
@@ -31,12 +31,6 @@ const selectProps = [
 		required: false,
 		default: '"Select..."',
 		description: "Placeholder text shown when no value is selected.",
-	},
-	{
-		name: "label",
-		type: "string",
-		required: false,
-		description: "Label displayed above the select.",
 	},
 	{
 		name: "helperText",
@@ -52,7 +46,7 @@ const selectProps = [
 		description: "Whether the select is in an error state.",
 	},
 	{
-		name: "errorText",
+		name: "errorMessage",
 		type: "string",
 		required: false,
 		description: "Error message displayed when error is true.",
@@ -185,17 +179,20 @@ return (
   <Select
     value={country}
     onValueChange={(value) => setCountry(value as string)}
-    options={countries}
     placeholder="Choose a country"
-    label="Country"
-  />
+  >
+    {countries.map((c) => (
+      <Select.Item key={c.value} value={c.value}>
+        {c.label}
+      </Select.Item>
+    ))}
+  </Select>
 );`}
 				>
 					<Select
 						value={country}
 						onValueChange={(value) => setCountry(value as string)}
 						placeholder="Choose a country"
-						label="Country"
 					>
 						{countries.slice(0, 5).map((c) => (
 							<Select.Item key={c.value} value={c.value}>
@@ -210,32 +207,52 @@ return (
 					code={`<Select
   value={value}
   onValueChange={(value) => setValue(value as string)}
-  options={options}
-  label="Outlined"
   variant="dropdown"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />
 
 <Select
   value={value}
   onValueChange={(value) => setValue(value as string)}
-  options={options}
-  label="Filled"
   variant="filled"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
 						<Select
 							value={language}
 							onValueChange={(value) => setLanguage(value as string)}
-							options={languages.slice(0, 5)}
 							variant="dropdown"
-						/>
+						>
+							{languages.slice(0, 5).map((lang) => (
+								<Select.Item key={lang.value} value={lang.value}>
+									{lang.label}
+								</Select.Item>
+							))}
+						</Select>
 						<Select
 							value={language}
 							onValueChange={(value) => setLanguage(value as string)}
-							options={languages.slice(0, 5)}
 							variant="modal"
-						/>
+						>
+							{languages.slice(0, 5).map((lang) => (
+								<Select.Item key={lang.value} value={lang.value}>
+									{lang.label}
+								</Select.Item>
+							))}
+						</Select>
 					</div>
 				</LiveExample>
 
@@ -244,66 +261,89 @@ return (
 					code={`<Select
   value=""
   onValueChange={() => {}}
-  options={options}
   placeholder="Normal state"
-  label="Normal"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />
 
 <Select
   value="disabled"
   onValueChange={() => {}}
-  options={options}
-  label="Disabled"
   disabled
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />
 
 <Select
   value=""
   onValueChange={() => {}}
-  options={options}
-  label="Error"
   error
-  errorText="Please select an option"
+  errorMessage="Please select an option"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />
 
 <Select
   value="value"
   onValueChange={() => {}}
-  options={options}
-  label="With helper text"
   helperText="Choose your preferred option"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<Select
-							value=""
-							onValueChange={() => {}}
-							options={priorities}
-							placeholder="Normal state"
-							label="Normal"
-						/>
-						<Select
-							value="high"
-							onValueChange={() => {}}
-							options={priorities}
-							label="Disabled"
-							disabled
-						/>
-						<Select
-							value=""
-							onValueChange={() => {}}
-							options={priorities}
-							label="Error"
-							error
-							errorText="Please select an option"
-						/>
+						<Select value="" onValueChange={() => {}} placeholder="Normal state">
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
+						<Select value="high" onValueChange={() => {}} disabled>
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
+						<Select value="" onValueChange={() => {}} error errorMessage="Please select an option">
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
 						<Select
 							value="medium"
 							onValueChange={() => {}}
-							options={priorities}
-							label="With helper text"
 							helperText="Choose your preferred option"
-						/>
+						>
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
 					</div>
 				</LiveExample>
 
@@ -326,23 +366,31 @@ return (
   <Select
     value={skills}
     onValueChange={(value) => setSkills(value as string[])}
-    options={programmingLanguages}
     placeholder="Select your skills"
-    label="Programming Skills"
     multiple
     clearable
+  >
+    {programmingLanguages.map((lang) => (
+      <Select.Item key={lang.value} value={lang.value}>
+        {lang.label}
+      </Select.Item>
+    ))}
+  </Select>
   />
 );`}
 				>
 					<Select
 						value={skills}
 						onValueChange={(value) => setSkills(value as string[])}
-						options={languages}
 						placeholder="Select your skills"
-						label="Programming Skills"
 						multiple
-						clearable
-					/>
+					>
+						{languages.map((lang) => (
+							<Select.Item key={lang.value} value={lang.value}>
+								{lang.label}
+							</Select.Item>
+						))}
+					</Select>
 				</LiveExample>
 
 				<LiveExample
@@ -350,22 +398,30 @@ return (
 					code={`<Select
   value={country}
   onValueChange={(value) => setCountry(value as string)}
-  options={countries}
   placeholder="Search and select a country"
-  label="Country"
   searchable
   clearable
+>
+  {countries.map((c) => (
+    <Select.Item key={c.value} value={c.value}>
+      {c.label}
+    </Select.Item>
+  ))}
+</Select>
 />`}
 				>
 					<Select
 						value={country}
 						onValueChange={(value) => setCountry(value as string)}
-						options={countries}
 						placeholder="Search and select a country"
-						label="Country"
 						searchable
-						clearable
-					/>
+					>
+						{countries.map((c) => (
+							<Select.Item key={c.value} value={c.value}>
+								{c.label}
+							</Select.Item>
+						))}
+					</Select>
 				</LiveExample>
 
 				<LiveExample
@@ -373,49 +429,64 @@ return (
 					code={`<Select
   value={value}
   onValueChange={(value) => setValue(value as string)}
-  options={options}
-  label="Small"
   size="sm"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />
 
 <Select
   value={value}
   onValueChange={(value) => setValue(value as string)}
-  options={options}
-  label="Medium"
   size="md"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />
 
 <Select
   value={value}
   onValueChange={(value) => setValue(value as string)}
-  options={options}
-  label="Large"
   size="lg"
+>
+  {options.map((opt) => (
+    <Select.Item key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Item>
+  ))}
+</Select>
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<Select
-							value={priority}
-							onValueChange={(value) => setPriority(value as string)}
-							options={priorities}
-							label="Small"
-							size="sm"
-						/>
-						<Select
-							value={priority}
-							onValueChange={(value) => setPriority(value as string)}
-							options={priorities}
-							label="Medium"
-							size="md"
-						/>
-						<Select
-							value={priority}
-							onValueChange={(value) => setPriority(value as string)}
-							options={priorities}
-							label="Large"
-							size="lg"
-						/>
+						<Select value={priority} onValueChange={(value) => setPriority(value as string)}>
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
+						<Select value={priority} onValueChange={(value) => setPriority(value as string)}>
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
+						<Select value={priority} onValueChange={(value) => setPriority(value as string)}>
+							{priorities.map((p) => (
+								<Select.Item key={p.value} value={p.value}>
+									{p.label}
+								</Select.Item>
+							))}
+						</Select>
 					</div>
 				</LiveExample>
 
@@ -452,38 +523,37 @@ return (
   <Select
     value={country}
     onValueChange={(value) => setCountry(value as string)}
-    options={groupedOptions}
     placeholder="Select a country"
-    label="Country by Region"
     searchable
+  >
+    {groupedOptions.map((group) => (
+      <Select.Group key={group.label} label={group.label}>
+        {group.options.map((opt) => (
+          <Select.Item key={opt.value} value={opt.value}>
+            {opt.label}
+          </Select.Item>
+        ))}
+      </Select.Group>
+    ))}
+  </Select>
   />
 );`}
 				>
 					<Select
 						value={country}
 						onValueChange={(value) => setCountry(value as string)}
-						options={[
-							{
-								label: "North America",
-								options: [
-									{ label: "United States", value: "us" },
-									{ label: "Canada", value: "ca" },
-									{ label: "Mexico", value: "mx" },
-								],
-							},
-							{
-								label: "Europe",
-								options: [
-									{ label: "United Kingdom", value: "uk" },
-									{ label: "Germany", value: "de" },
-									{ label: "France", value: "fr" },
-								],
-							},
-						]}
 						placeholder="Select a country"
-						label="Country by Region"
 						searchable
-					/>
+					>
+						{/* North America */}
+						<Select.Item value="us">United States</Select.Item>
+						<Select.Item value="ca">Canada</Select.Item>
+						<Select.Item value="mx">Mexico</Select.Item>
+						{/* Europe */}
+						<Select.Item value="uk">United Kingdom</Select.Item>
+						<Select.Item value="de">Germany</Select.Item>
+						<Select.Item value="fr">France</Select.Item>
+					</Select>
 				</LiveExample>
 			</section>
 
@@ -525,12 +595,17 @@ function UserProfileForm() {
         onValueChange={(value) => 
           setFormData({ ...formData, country: value })
         }
-        options={countries}
-        label="Country"
         placeholder="Select your country"
+      >
+        {countries.map((c) => (
+          <Select.Item key={c.value} value={c.value}>
+            {c.label}
+          </Select.Item>
+        ))}
+      </Select>
         searchable
         error={!formData.country}
-        errorText="Country is required"
+        errorMessage="Country is required"
       />
 
       <Select
@@ -538,9 +613,14 @@ function UserProfileForm() {
         onValueChange={(value) => 
           setFormData({ ...formData, timezone: value })
         }
-        options={timezones}
-        label="Timezone"
         placeholder="Select your timezone"
+      >
+        {timezones.map((tz) => (
+          <Select.Item key={tz.value} value={tz.value}>
+            {tz.label}
+          </Select.Item>
+        ))}
+      </Select>
         helperText="Used for scheduling and notifications"
       />
 
@@ -549,9 +629,14 @@ function UserProfileForm() {
         onValueChange={(value) => 
           setFormData({ ...formData, interests: value })
         }
-        options={interests}
-        label="Interests"
         placeholder="Select your interests"
+      >
+        {interests.map((interest) => (
+          <Select.Item key={interest.value} value={interest.value}>
+            {interest.label}
+          </Select.Item>
+        ))}
+      </Select>
         multiple
         clearable
         helperText="Select up to 5 interests"
@@ -621,8 +706,13 @@ return (
         setState(''); // Reset dependent fields
         setCity('');
       }}
-      options={countries}
-      label="Country"
+    >
+      {countries.map((c) => (
+        <Select.Item key={c.value} value={c.value}>
+          {c.label}
+        </Select.Item>
+      ))}
+    </Select>
     />
     
     <Select
@@ -631,18 +721,28 @@ return (
         setState(value);
         setCity(''); // Reset dependent field
       }}
-      options={states}
-      label="State/Province"
       disabled={!country}
+    >
+      {states.map((state) => (
+        <Select.Item key={state.value} value={state.value}>
+          {state.label}
+        </Select.Item>
+      ))}
+    </Select>
       placeholder={country ? "Select state" : "Select country first"}
     />
     
     <Select
       value={city}
       onValueChange={setCity}
-      options={cities}
-      label="City"
       disabled={!state}
+    >
+      {cities.map((city) => (
+        <Select.Item key={city.value} value={city.value}>
+          {city.label}
+        </Select.Item>
+      ))}
+    </Select>
       placeholder={state ? "Select city" : "Select state first"}
     />
   </>
@@ -679,9 +779,14 @@ return (
   <Select
     value={selectedUser}
     onValueChange={setSelectedUser}
-    options={users}
-    label="Assign to"
     placeholder="Search for a user..."
+  >
+    {users.map((user) => (
+      <Select.Item key={user.value} value={user.value}>
+        {user.label}
+      </Select.Item>
+    ))}
+  </Select>
     searchable
     onSearchChange={setSearchTerm}
     loading={loading}

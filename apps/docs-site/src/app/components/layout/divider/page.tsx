@@ -15,17 +15,10 @@ const dividerProps = [
 	},
 	{
 		name: "variant",
-		type: '"solid" | "dashed" | "dotted"',
+		type: '"solid" | "dashed"',
 		required: false,
 		default: '"solid"',
 		description: "Visual style of the divider line.",
-	},
-	{
-		name: "spacing",
-		type: '"none" | "sm" | "md" | "lg"',
-		required: false,
-		default: '"md"',
-		description: "Amount of space around the divider.",
 	},
 	{
 		name: "thickness",
@@ -40,26 +33,6 @@ const dividerProps = [
 		required: false,
 		default: "var(--color-outline-variant)",
 		description: "Color of the divider line. Accepts any valid CSS color.",
-	},
-	{
-		name: "label",
-		type: "string",
-		required: false,
-		description: "Optional text label to display in the center of the divider.",
-	},
-	{
-		name: "labelPosition",
-		type: '"start" | "center" | "end"',
-		required: false,
-		default: '"center"',
-		description: "Position of the label along the divider.",
-	},
-	{
-		name: "inset",
-		type: "boolean | number",
-		required: false,
-		default: "false",
-		description: "Inset from edges. Boolean for default inset or number for custom pixels.",
 	},
 	{
 		name: "style",
@@ -99,7 +72,7 @@ export default function DividerDocs() {
   <Text>Section 1</Text>
   <Divider variant="dashed" />
   <Text>Section 2</Text>
-  <Divider variant="dotted" />
+  <Divider variant="dashed" />
   <Text>Section 3</Text>
 </View>`}
 				>
@@ -113,67 +86,22 @@ export default function DividerDocs() {
 						<p className="text-body">Section 1</p>
 						<Divider variant="dashed" />
 						<p className="text-body">Section 2</p>
-						<Divider variant="dotted" />
+						<Divider variant="dashed" />
 						<p className="text-body">Section 3</p>
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Spacing Variants"
-					code={`<Divider spacing="none" />
-<Text>No spacing</Text>
+					title="Custom Styling"
+					code={`<Divider color="var(--color-primary)" thickness={2} />
 
-<Divider spacing="sm" />
-<Text>Small spacing</Text>
-
-<Divider spacing="md" />
-<Text>Medium spacing (default)</Text>
-
-<Divider spacing="lg" />
-<Text>Large spacing</Text>`}
+<Divider color="var(--color-secondary)" thickness={3} variant="dashed" />`}
 				>
 					<div>
-						<Divider spacing="none" />
-						<p className="text-body">No spacing</p>
-
-						<Divider spacing="sm" />
-						<p className="text-body">Small spacing</p>
-
-						<Divider spacing="md" />
-						<p className="text-body">Medium spacing (default)</p>
-
-						<Divider spacing="lg" />
-						<p className="text-body">Large spacing</p>
-					</div>
-				</LiveExample>
-
-				<LiveExample
-					title="Labeled Dividers"
-					code={`<Divider label="OR" />
-
-<Divider label="Section Title" labelPosition="start" />
-
-<Divider label="End Label" labelPosition="end" />
-
-<Divider 
-  label="Custom Style" 
-  color="var(--color-primary)" 
-  thickness={2}
-/>`}
-				>
-					<div>
-						<Divider label="OR" />
+						<Divider color="var(--color-primary)" thickness={2} />
 
 						<div className="mt-6">
-							<Divider label="Section Title" labelPosition="start" />
-						</div>
-
-						<div className="mt-6">
-							<Divider label="End Label" labelPosition="end" />
-						</div>
-
-						<div className="mt-6">
-							<Divider label="Custom Style" color="var(--color-primary)" thickness={2} />
+							<Divider color="var(--color-secondary)" thickness={3} variant="dashed" />
 						</div>
 					</div>
 				</LiveExample>
@@ -195,64 +123,6 @@ export default function DividerDocs() {
 						<Divider orientation="vertical" variant="dashed" />
 						<span className="text-body">Right</span>
 					</div>
-				</LiveExample>
-
-				<LiveExample
-					title="Inset Dividers"
-					code={`<Card padding="none">
-  <View style={styles.listItem}>
-    <Icon name="person" />
-    <Text>Profile Settings</Text>
-  </View>
-  <Divider inset />
-  <View style={styles.listItem}>
-    <Icon name="notifications" />
-    <Text>Notifications</Text>
-  </View>
-  <Divider inset={48} />
-  <View style={styles.listItem}>
-    <Icon name="security" />
-    <Text>Privacy & Security</Text>
-  </View>
-</Card>`}
-				>
-					<Card padding="none">
-						<div
-							style={{
-								display: "flex",
-								alignItems: "center",
-								gap: "var(--space-3)",
-								padding: "var(--space-4)",
-							}}
-						>
-							<Icon name="person" color="var(--color-on-surface-variant)" />
-							<span className="text-body">Profile Settings</span>
-						</div>
-						<Divider inset />
-						<div
-							style={{
-								display: "flex",
-								alignItems: "center",
-								gap: "var(--space-3)",
-								padding: "var(--space-4)",
-							}}
-						>
-							<Icon name="notifications" color="var(--color-on-surface-variant)" />
-							<span className="text-body">Notifications</span>
-						</div>
-						<Divider inset={48} />
-						<div
-							style={{
-								display: "flex",
-								alignItems: "center",
-								gap: "var(--space-3)",
-								padding: "var(--space-4)",
-							}}
-						>
-							<Icon name="security" color="var(--color-on-surface-variant)" />
-							<span className="text-body">Privacy & Security</span>
-						</div>
-					</Card>
 				</LiveExample>
 
 				<LiveExample
@@ -299,11 +169,19 @@ export default function DividerDocs() {
 							<Button onPress={() => {}}>Sign In</Button>
 						</div>
 
-						<Divider label="OR" spacing="lg" />
+						<div className="flex flex--align-center flex--gap-3">
+							<Divider />
+							<span className="text-body text-secondary">OR</span>
+							<Divider />
+						</div>
 
 						<div className="flex flex--column flex--gap-3">
-							<Button variant="secondary">Continue with Google</Button>
-							<Button variant="secondary">Continue with Apple</Button>
+							<Button variant="secondary" onPress={() => {}}>
+								Continue with Google
+							</Button>
+							<Button variant="secondary" onPress={() => {}}>
+								Continue with Apple
+							</Button>
 						</div>
 					</div>
 				</LiveExample>
