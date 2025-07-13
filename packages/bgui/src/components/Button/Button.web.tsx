@@ -1,3 +1,5 @@
+"use client";
+
 import { memo, useMemo } from "react";
 import { useInteractiveState } from "../../hooks";
 import { validateProps } from "../../utils/validation";

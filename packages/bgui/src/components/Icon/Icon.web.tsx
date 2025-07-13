@@ -1,3 +1,5 @@
+"use client";
+
 import { useThemeColor } from "@braingame/utils";
 import { sizeMap } from "./styles";
 import type { IconProps, ThemeColor } from "./types";
