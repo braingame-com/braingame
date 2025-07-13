@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "your-project-id"
+    "default": "braingame-prod"
   },
   "targets": {
     "your-project-id": {
