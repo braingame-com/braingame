@@ -8,26 +8,30 @@ const nextConfig: NextConfig = {
 		"react-native-web",
 		"@braingame/bgui",
 		"@braingame/utils",
+		"@expo/vector-icons",
+		"expo-router",
+		"expo-modules-core",
+		"expo-linking",
+		"expo-status-bar",
+		"react-native-safe-area-context",
 	],
-	
 	// Image optimization for static export
 	images: {
 		unoptimized: true,
 	},
-	
+
 	// Production optimizations
 	poweredByHeader: false,
 	compress: true,
 	generateEtags: true,
-	
+
 	// Security headers (Note: headers don't work with static export, apply these in Firebase hosting)
-	
 	// Environment variables validation
 	env: {
 		NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
 		NEXT_PUBLIC_BUILD_ID: process.env.VERCEL_GIT_COMMIT_SHA || "local",
 	},
-	
+
 	// Webpack configuration
 	webpack: (config, { isServer, dev }) => {
 		// Configure React Native Web aliases
@@ -50,15 +54,14 @@ const nextConfig: NextConfig = {
 			".web.js",
 			...config.resolve.extensions,
 		];
-		
 		// Production optimizations
 		if (!dev && !isServer) {
 			// Enable tree shaking for ES modules
 			config.optimization.usedExports = true;
-			
+
 			// Minimize bundle size
 			config.optimization.minimize = true;
-			
+
 			// Split chunks for better caching
 			config.optimization.splitChunks = {
 				chunks: "all",
@@ -100,7 +103,7 @@ const nextConfig: NextConfig = {
 
 		return config;
 	},
-	
+
 	// Experimental features for production
 	experimental: {
 		// Enable optimized package imports

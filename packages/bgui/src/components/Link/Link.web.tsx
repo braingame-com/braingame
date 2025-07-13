@@ -1,38 +1,53 @@
-"use client";
-
-import React from "react";
+import type React from "react";
 import type { LinkProps } from "./types";
 
-export function Link({ href, children, style, disabled, ...props }: LinkProps) {
-	// Handle disabled state
-	if (disabled) {
-		return (
-			<span
-				style={{
-					...style,
-					opacity: 0.6,
-					cursor: "not-allowed",
-					textDecoration: "none",
-				}}
-				{...props}
-			>
-				{children}
-			</span>
-		);
-	}
+export const Link = ({
+	children,
+	href,
+	onPress,
+	external = false,
+	disabled = false,
+	variant = "inline",
+	"aria-label": ariaLabel,
+	style,
+}: LinkProps) => {
+	const label = external && ariaLabel ? `${ariaLabel} (opens in new window)` : ariaLabel;
 
-	// For Next.js compatibility, render as a standard anchor tag
+	const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		if (disabled) {
+			e.preventDefault();
+			return;
+		}
+		if (onPress) {
+			e.preventDefault();
+			onPress();
+		}
+	};
+
+	const linkStyle: React.CSSProperties = {
+		textDecoration: "underline",
+		cursor: disabled ? "not-allowed" : "pointer",
+		opacity: disabled ? 0.5 : 1,
+		color: "#007AFF",
+		fontWeight: variant === "standalone" ? 600 : 400,
+		fontSize: "inherit",
+		padding: variant === "standalone" ? "8px 16px" : 0,
+		borderRadius: variant === "standalone" ? 8 : 0,
+		display: variant === "standalone" ? "inline-block" : "inline",
+		transition: "opacity 0.2s ease",
+		...((style as React.CSSProperties) || {}),
+	};
+
 	return (
 		<a
-			href={href}
-			style={{
-				textDecoration: "none",
-				color: "inherit",
-				...style,
-			}}
-			{...props}
+			href={disabled ? undefined : href}
+			onClick={handleClick}
+			aria-label={label}
+			style={linkStyle}
+			target={external ? "_blank" : undefined}
+			rel={external ? "noopener noreferrer" : undefined}
 		>
 			{children}
 		</a>
 	);
-}
+};
