@@ -35,7 +35,7 @@ export const ModalHeader = ({ children, closable = true, onClose }: ModalHeaderP
 						borderRadius: Tokens.xs,
 					}}
 				>
-					<Icon name="x" size="md" />
+					<Icon name="close" size="md" />
 				</Pressable>
 			)}
 		</View>
