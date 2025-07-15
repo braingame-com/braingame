@@ -26,16 +26,16 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
     - [x] Create a new `packages/bgui/jest.config.js` that aligns with your monorepo's root testing configuration.
     - [x] ~~Review the test files and update imports and test utilities to work within the `braingame` monorepo.~~ (Will create new tests with Platform Adapter Pattern)
 
-- [ ] **Integrate `bgui` into the Monorepo**
-    - [ ] Overhaul `packages/bgui/package.json` to match the structure of other packages in the monorepo (e.g., `packages/utils`).
-        - [ ] Ensure `name` is `@braingame/bgui`.
-        - [ ] Add explicit versioning for dependencies (`^1.2.3`).
-        - [ ] Define `peerDependencies` for `react` and `react-native`.
-        - [ ] Remove all MUI-specific scripts.
-        - [ ] Add a `build` script that aligns with the Turborepo setup.
-        - [ ] Set `"main": "src/index.ts"` for now.
-    - [ ] Create a new `packages/bgui/tsconfig.json` that simply extends the root `tsconfig.json`.
-    - [ ] **Critical:** Update the root CI pipeline (`.github/workflows/...`) to include `packages/bgui` in its build and test runs.
+- [x] **Integrate `bgui` into the Monorepo** *(Completed 15-07-2025)*
+    - [x] Overhaul `packages/bgui/package.json` to match the structure of other packages in the monorepo (e.g., `packages/utils`).
+        - [x] Ensure `name` is `@braingame/bgui`.
+        - [x] Add explicit versioning for dependencies (`^1.2.3`).
+        - [x] Define `peerDependencies` for `react` and `react-native`.
+        - [x] Remove all MUI-specific scripts.
+        - [x] Add a `build` script that aligns with the Turborepo setup.
+        - [x] Set `"main": "src/index.ts"` for now.
+    - [x] Create a new `packages/bgui/tsconfig.json` that simply extends the root `tsconfig.json`.
+    - [x] ~~**Critical:** Update the root CI pipeline (`.github/workflows/...`) to include `packages/bgui` in its build and test runs.~~ (Already included via packages/* pattern)
 
 - [ ] **Setup `bgui` Package Structure**
     - [ ] Create the component directory: `packages/bgui/src/components`.

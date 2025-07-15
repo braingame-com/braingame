@@ -69,3 +69,38 @@ This document tracks the detailed implementation history of the BGUI migration p
 
 **Next Task:**
 - Integrate bgui into the Monorepo
+
+### Integrate bgui into the Monorepo
+**Date:** 15-07-2025 17:15  
+**Engineer:** Claude (AI Agent)  
+**Commit:** (pending)
+
+**Steps Taken:**
+1. Created new `packages/bgui/package.json` matching monorepo structure
+2. Changed name to `@braingame/bgui`
+3. Added @mui dependencies needed for Joy UI source
+4. Added @shopify/restyle for future native styling
+5. Created `packages/bgui/tsconfig.json` extending root config
+6. Ran `pnpm install` to install all dependencies
+
+**Files Modified:**
+- Replaced: `packages/bgui/package.json` (was MUI package.json)
+- Created: `packages/bgui/tsconfig.json`
+- Updated: `docs/todo/BGUI_TODO.md` (marked task complete)
+
+**Dependencies Added:**
+- @mui/base@^5.0.0-beta.63
+- @mui/system@^6.2.2
+- @mui/types@^7.2.21
+- @mui/utils@^6.2.2
+- @shopify/restyle@^2.4.5
+- clsx@^2.1.1
+- prop-types@^15.8.1
+
+**Notes:**
+- CI pipeline already includes packages/* so no workflow updates needed
+- Verified pnpm workspace includes all packages
+- Fixed version constraints for @testing-library/jest-dom and @shopify/restyle
+
+**Next Task:**
+- Setup bgui Package Structure
