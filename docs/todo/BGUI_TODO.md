@@ -175,9 +175,9 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Card Component** *(Completed 15-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Avatar Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Avatar Component** *(Completed 15-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 - [ ] **Badge Component**
     - [ ] Replicate logic from the relevant headless hook.
     - [ ] Verify accessibility standards are met (labels, roles, etc.).

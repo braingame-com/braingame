@@ -447,6 +447,100 @@ const theme = createTheme({
         },
       },
     },
+    Avatar: {
+      variants: {
+        'plain-primary': {
+          backgroundColor: 'transparent' as const,
+          color: 'primary',
+        },
+        'plain-neutral': {
+          backgroundColor: 'transparent' as const,
+          color: 'onSurface',
+        },
+        'plain-danger': {
+          backgroundColor: 'transparent' as const,
+          color: 'error',
+        },
+        'plain-success': {
+          backgroundColor: 'transparent' as const,
+          color: 'success',
+        },
+        'plain-warning': {
+          backgroundColor: 'transparent' as const,
+          color: 'warning',
+        },
+        'outlined-primary': {
+          backgroundColor: 'surface',
+          borderColor: 'primary',
+          borderWidth: 1,
+          color: 'primary',
+        },
+        'outlined-neutral': {
+          backgroundColor: 'surface',
+          borderColor: 'outline',
+          borderWidth: 1,
+          color: 'onSurface',
+        },
+        'outlined-danger': {
+          backgroundColor: 'surface',
+          borderColor: 'error',
+          borderWidth: 1,
+          color: 'error',
+        },
+        'outlined-success': {
+          backgroundColor: 'surface',
+          borderColor: 'success',
+          borderWidth: 1,
+          color: 'success',
+        },
+        'outlined-warning': {
+          backgroundColor: 'surface',
+          borderColor: 'warning',
+          borderWidth: 1,
+          color: 'warning',
+        },
+        'soft-primary': {
+          backgroundColor: 'primaryContainer',
+          color: 'onPrimaryContainer',
+        },
+        'soft-neutral': {
+          backgroundColor: 'surfaceVariant',
+          color: 'onSurfaceVariant',
+        },
+        'soft-danger': {
+          backgroundColor: 'errorContainer',
+          color: 'onErrorContainer',
+        },
+        'soft-success': {
+          backgroundColor: 'successContainer',
+          color: 'onSuccessContainer',
+        },
+        'soft-warning': {
+          backgroundColor: 'warningContainer',
+          color: 'onWarningContainer',
+        },
+        'solid-primary': {
+          backgroundColor: 'primary',
+          color: 'onPrimary',
+        },
+        'solid-neutral': {
+          backgroundColor: 'surface',
+          color: 'onSurface',
+        },
+        'solid-danger': {
+          backgroundColor: 'error',
+          color: 'onError',
+        },
+        'solid-success': {
+          backgroundColor: 'success',
+          color: 'onSuccess',
+        },
+        'solid-warning': {
+          backgroundColor: 'warning',
+          color: 'onWarning',
+        },
+      },
+    },
   },
   
   breakpoints: {

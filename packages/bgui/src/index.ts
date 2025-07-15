@@ -15,6 +15,9 @@ export * from './hooks';
 
 
 // Components
+export { Avatar } from './components/Avatar';
+export type { AvatarProps } from './components/Avatar';
+
 export { Card } from './components/Card';
 export type { CardProps } from './components/Card';
 
