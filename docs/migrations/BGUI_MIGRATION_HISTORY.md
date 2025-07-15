@@ -187,3 +187,50 @@ This document tracks the detailed implementation history of the BGUI migration p
 
 **Next Task:**
 - Phase 0.75: Salvage bgui_legacy Assets
+
+### Phase 0.75: Salvage bgui_legacy Assets
+**Date:** 15-07-2025 19:00  
+**Engineer:** Claude (AI Agent)  
+**Commit:** `eee68f52691cf0b8bdeae1e414a6ca8f267b58d4`
+
+**Steps Taken:**
+1. Audited bgui_legacy source code structure
+2. Created necessary directories in new bgui package:
+   - src/theme/
+   - src/icons/
+   - src/constants/
+   - src/hooks/
+   - docs/
+3. Migrated key assets:
+   - bgui-theme.json → m3-theme.json (Material 3 theme definition)
+   - iconRegistry.ts (Material Symbols icon paths)
+   - Fonts.ts (Lexend and Roboto Mono configuration)
+   - UIConstants.ts (layout and styling constants)
+   - All hooks (useInteractiveState, useControlledState, etc.)
+   - All documentation files
+4. Created index files for proper exports
+
+**Files Migrated:**
+- `src/theme/m3-theme.json` - Complete M3 color scheme with light/dark variants
+- `src/icons/iconRegistry.ts` - Material Symbols SVG path data
+- `src/constants/Fonts.ts` - Font family configuration
+- `src/constants/UIConstants.ts` - UI layout constants
+- `src/hooks/*.ts` - All utility hooks
+- `docs/*.md` - All architecture and design documentation
+
+**Value Preserved:**
+- Complete Material 3 theme with all color schemes
+- Icon system ready for Platform Adapter Pattern
+- Font configuration for consistent typography
+- Useful hooks for interactive components
+- Extensive documentation on design decisions
+
+**Notes:**
+- M3 theme will be primary source of truth for colors
+- Joy UI tokens will be merged into this theme in Phase 1
+- Icon system uses react-native-svg with 960x960 viewBox
+- Hooks are ready to use in both web and native components
+- Did not delete bgui_legacy yet (final cleanup task pending)
+
+**Next Task:**
+- Phase 1: Theme and restyle Implementation
