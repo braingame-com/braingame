@@ -316,3 +316,32 @@ Received definitive guidance from Gemini that the web-bgui folder is temporary:
 - Complete Stack component migration
 - Fix Box and Text components similarly
 - Continue with Divider and Container components
+
+### Fix Box and Text Web Implementations
+**Date:** 15-07-2025 21:00  
+**Engineer:** Claude (AI Agent)  
+**Commit:** `587d02fe704d703a136e52a34c50c2f3b978b063`
+
+**Steps Taken:**
+1. Created proper Box.web.tsx implementation that maps Restyle props to CSS
+2. Created proper Text.web.tsx implementation with variant support
+3. Fixed TypeScript issues with React Native specific types
+4. Both components now handle theme tokens for colors, spacing, typography
+5. Text component uses appropriate HTML elements based on variant
+
+**Files Modified:**
+- Modified: packages/bgui/src/components/Box/Box.web.tsx (complete rewrite)
+- Modified: packages/bgui/src/components/Text/Text.web.tsx (complete rewrite)
+- Modified: packages/bgui/src/components/Stack/Stack.web.tsx (minor type fix)
+
+**Key Implementation Details:**
+- Box maps all Restyle layout, spacing, color, and border props to CSS
+- Text applies theme variants and supports typography overrides
+- Both handle shorthand props (p, m, px, py, etc.)
+- Type assertions used to bridge Restyle's complex type system
+- All three foundational components now properly implemented
+
+**Next Task:**
+- Phase 2: Create Divider Component
+- Phase 2: Create Container Component
+- Consider removing Box, Stack, and Text from web-bgui

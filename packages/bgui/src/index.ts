@@ -15,6 +15,9 @@ export * from './hooks';
 
 
 // Components
+export { Divider } from './components/Divider';
+export type { DividerProps } from './components/Divider';
+
 export { Stack } from './components/Stack';
 export type { StackProps } from './components/Stack';
 
