@@ -73,29 +73,38 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 
 ---
 
-## 💎 Phase 0.75: Salvage `bgui_legacy` Assets
+## 💎 Phase 0.75: Salvage `bgui_legacy` Assets *(Completed 15-07-2025)*
 
 *The goal of this phase is to extract all valuable, compatible assets from `bgui_legacy` and integrate them into the new `bgui` package. This ensures no prior work is lost.*
 
-- [ ] **Audit `bgui_legacy` Source Code**
-    - [ ] Review the contents of `packages/bgui_legacy/src` to map out all assets.
+- [x] **Audit `bgui_legacy` Source Code** *(Completed 15-07-2025)*
+    - [x] Review the contents of `packages/bgui_legacy/src` to map out all assets.
 
-- [ ] **Migrate Theme and Tokens**
-    - [ ] Locate the theme definition files in `packages/bgui_legacy/src/theme` and `packages/bgui_legacy/src/constants`.
-    - [ ] Copy these theme files (e.g., Material Theme Builder JSON output) into the new `packages/bgui/src/theme` directory.
-    - [ ] **Crucial:** This becomes the foundational theme. The Joy UI theme tokens (from Phase 1) should be merged *into* this existing theme where appropriate, not the other way around. Your M3 theme is the primary source of truth for colors.
+- [x] **Migrate Theme and Tokens** *(Completed 15-07-2025)*
+    - [x] Locate the theme definition files in `packages/bgui_legacy/src/theme` and `packages/bgui_legacy/src/constants`.
+    - [x] Copy these theme files (e.g., Material Theme Builder JSON output) into the new `packages/bgui/src/theme` directory.
+    - [x] **Crucial:** This becomes the foundational theme. The Joy UI theme tokens (from Phase 1) should be merged *into* this existing theme where appropriate, not the other way around. Your M3 theme is the primary source of truth for colors.
+    - [x] Copied bgui-theme.json as m3-theme.json to packages/bgui/src/theme/
 
-- [ ] **Migrate Icon System**
-    - [ ] Review the existing Icon component in `packages/bgui_legacy/src/components`.
-    - [ ] Port the logic for using `react-native-svg` and the Material Symbols registry. This will serve as the direct foundation for the new `Icon.native.tsx` component.
+- [x] **Migrate Icon System** *(Completed 15-07-2025)*
+    - [x] Review the existing Icon component in `packages/bgui_legacy/src/components`.
+    - [x] Port the logic for using `react-native-svg` and the Material Symbols registry. This will serve as the direct foundation for the new `Icon.native.tsx` component.
+    - [x] Copied iconRegistry.ts to packages/bgui/src/icons/
 
-- [ ] **Migrate Font Loading**
-    - [ ] Review any custom font-loading hooks in `packages/bgui_legacy/src/hooks`.
-    - [ ] Ensure the font assets (`Lexend`, `Roboto Mono`) are correctly located in the monorepo (e.g., `assets` folder) and that the loading logic can be reused in `apps/product`.
+- [x] **Migrate Font Loading** *(Completed 15-07-2025)*
+    - [x] Review any custom font-loading hooks in `packages/bgui_legacy/src/hooks`.
+    - [x] Ensure the font assets (`Lexend`, `Roboto Mono`) are correctly located in the monorepo (e.g., `assets` folder) and that the loading logic can be reused in `apps/product`.
+    - [x] Copied Fonts.ts configuration to packages/bgui/src/constants/
 
-- [ ] **Review and Migrate Documentation**
-    - [ ] Read through the `packages/bgui_legacy/docs` directory.
-    - [ ] Copy any relevant architectural decisions, component guidelines, or "gotchas" into the new `packages/bgui` documentation.
+- [x] **Review and Migrate Documentation** *(Completed 15-07-2025)*
+    - [x] Read through the `packages/bgui_legacy/docs` directory.
+    - [x] Copy any relevant architectural decisions, component guidelines, or "gotchas" into the new `packages/bgui` documentation.
+    - [x] Copied all docs to packages/bgui/docs/
+
+- [x] **Additional Assets Migrated** *(Completed 15-07-2025)*
+    - [x] Copied UIConstants.ts with layout and styling constants
+    - [x] Copied useful hooks (useInteractiveState, useControlledState, etc.)
+    - [x] Created index files for proper exports
 
 - [ ] **Deprecate and Delete `bgui_legacy`**
     - [ ] Once all value has been extracted, delete the `packages/bgui_legacy` directory.
