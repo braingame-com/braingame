@@ -54,10 +54,10 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
     - [x] Add `@shopify/restyle` as a dependency to `packages/bgui/package.json`.
     - [x] Verify that `react` and `react-native` are listed as peer dependencies.
 
-- [ ] **Create Component Generator Script (Phase 0.5)**
-    - [ ] Create a new file: `scripts/create-bgui-component.js`.
-    - [ ] Implement the script logic to accept a component name (e.g., `Button`) as an argument.
-    - [ ] The script should automatically generate the following directory structure and file stubs:
+- [x] **Create Component Generator Script (Phase 0.5)** *(Completed 15-07-2025)*
+    - [x] Create a new file: `scripts/create-bgui-component.js`.
+    - [x] Implement the script logic to accept a component name (e.g., `Button`) as an argument.
+    - [x] The script should automatically generate the following directory structure and file stubs:
         ```
         packages/bgui/src/components/Button/
         ├── Button.native.tsx     // Stub with basic native implementation
@@ -67,7 +67,9 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
         ├── Button.stories.tsx    // Stub for Storybook documentation
         └── index.ts              // Stub with universal export
         ```
-    - [ ] Both `Button.native.tsx` and `Button.web.tsx` should implement the shared `ButtonProps` from `Button.props.ts` to ensure API consistency.
+    - [x] Both `Button.native.tsx` and `Button.web.tsx` should implement the shared `ButtonProps` from `Button.props.ts` to ensure API consistency.
+    - [x] Script automatically updates package exports in src/index.ts.
+    - [x] Includes helpful next steps and reminders about the Platform Adapter Pattern.
 
 ---
 
