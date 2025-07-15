@@ -30,3 +30,7 @@ export type { TextProps } from './components/Text';
 export { Box } from './components/Box';
 export type { BoxProps } from './components/Box';
 
+// Performance utilities (for development/testing)
+export { perfMeasurement } from './utils/performance';
+export type { ComponentPerfResult } from './utils/performance';
+

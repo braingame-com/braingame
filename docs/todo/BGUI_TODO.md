@@ -163,10 +163,10 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Container Component** *(Completed 15-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Establish Performance Baseline**
-    - [ ] Integrate `react-native-performance`.
-    - [ ] Measure and record the render times for `Box`, `Text`, `Stack`, and `Divider` on a target device.
-    - [ ] Document this baseline. It will be the benchmark for all future components.
+- [x] **Establish Performance Baseline** *(Completed 15-07-2025)*
+    - [x] Integrate `react-native-performance`.
+    - [x] Measure and record the render times for `Box`, `Text`, `Stack`, `Divider`, and `Container` on a target device.
+    - [x] Document this baseline. It will be the benchmark for all future components.
 
 ### Tier 2: Minor Adaptations (Core Interactive Elements)
 - [ ] **Button Component**

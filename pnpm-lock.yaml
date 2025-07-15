@@ -154,7 +154,7 @@ importers:
     dependencies:
       '@braingame/bgui':
         specifier: workspace:*
-        version: link:../../packages/bgui_legacy
+        version: link:../../packages/bgui
       '@braingame/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -194,7 +194,7 @@ importers:
     dependencies:
       '@braingame/bgui':
         specifier: workspace:*
-        version: link:../../packages/bgui_legacy
+        version: link:../../packages/bgui
       '@braingame/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -425,6 +425,9 @@ importers:
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
+      react-native-performance:
+        specifier: ^5.1.4
+        version: 5.1.4(react-native@0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0))
     devDependencies:
       '@testing-library/jest-dom':
         specifier: ^6.6.3
@@ -8126,6 +8129,11 @@ packages:
     resolution: {integrity: sha512-EH6i7E8epJGIcu7KpfXYXiV2JFIYITtq+rVS8uEb+92naMRBdxhTuS8Wn2Q7j9sqyO0B+Xbaaf9VdipIAmGW4w==}
     peerDependencies:
       react: 19.0.0
+      react-native: '*'
+
+  react-native-performance@5.1.4:
+    resolution: {integrity: sha512-ydqDe8EFlA9iuhA/DBYAnt4Hs3lpmLKcaXPsDfQJwowT4dXPgLgUDqJUuDIYEVsEsjZybloSmUj0fvUuUogqpw==}
+    peerDependencies:
       react-native: '*'
 
   react-native-reanimated@3.18.0:
@@ -19576,6 +19584,10 @@ snapshots:
     dependencies:
       react: 19.0.0
       react-native: 0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)
+
+  react-native-performance@5.1.4(react-native@0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0)):
+    dependencies:
+      react-native: 0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0)
 
   react-native-reanimated@3.18.0(@babel/core@7.28.0)(react-native@0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:
