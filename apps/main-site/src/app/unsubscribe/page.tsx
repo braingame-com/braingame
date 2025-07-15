@@ -37,7 +37,7 @@ export default function UnsubscribePage() {
 			handleUnsubscribe();
 		}
 		// biome-ignore lint/correctness/useExhaustiveDependencies: handleUnsubscribe is stable
-	}, [emailParam]);
+	}, [emailParam, handleUnsubscribe]);
 
 	return (
 		<View
