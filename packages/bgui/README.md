@@ -1,88 +1,53 @@
-# @braingame/bgui
+<!-- markdownlint-disable-next-line -->
+<p align="center">
+  <a href="https://mui.com/joy-ui/getting-started/" rel="noopener" target="_blank"><img width="150" height="133" src="https://mui.com/static/logo.svg" alt="Joy UI logo"></a>
+</p>
 
-> Enterprise-grade UI component library for React Native and web platforms
+<h1 align="center">Joy UI</h1>
+
+Joy UI is an open-source React component library that implements MUI's own design principles. It's comprehensive and can be used in production out of the box.
 
 ## Installation
 
+Install the package in your project directory with:
+
 ```bash
-pnpm add @braingame/bgui
-```
-
-## Quick Start
-
-```tsx
-import { Button, Card, Text } from '@braingame/bgui';
-
-export function MyComponent() {
-  return (
-    <Card>
-      <Text variant="h2">Welcome to BGUI</Text>
-      <Button onPress={() => console.log('Pressed!')}>
-        Get Started
-      </Button>
-    </Card>
-  );
-}
-```
-
-## Components
-
-25+ components across Layout, Forms, Display, Navigation, Feedback, and Utility categories.
-
-For detailed component documentation, see [Component Reference](./docs/BGUI_COMPONENT_PLAN.md).
-
-## Features
-
-- **TypeScript**: 100% type-safe with exported types
-- **Cross-Platform**: Works on iOS, Android, and Web
-- **Accessible**: WCAG 2.1 AA compliant
-- **Themeable**: Token-based design system
-- **Performant**: Optimized with React.memo and lazy loading
-- **Error Handling**: Built-in error boundaries
-
-## Universal Component Philosophy
-
-BGUI follows a **strict universal component philosophy** - all components are designed to work seamlessly across React Native (iOS/Android) and React Native Web without requiring platform-specific files.
-
-### Key Principles:
-
-1. **No .web.tsx or .native.tsx files** - All components use a single implementation
-2. **Platform checks when necessary** - Use `Platform.OS` for platform-specific behavior
-3. **CSS-in-JS compatibility** - All styles work with both React Native and React Native Web
-4. **Single source of truth** - One component, one file, all platforms
-
-### Benefits:
-
-- **Reduced maintenance** - No duplicate code across platforms
-- **Consistent behavior** - Same component works identically everywhere
-- **Simplified testing** - Test once, run everywhere
-- **Better DX** - Developers don't need to think about platform differences
-
-### Example:
-
-```tsx
-// ✅ Good - Universal component
-export const MyComponent = () => {
-  const shadowStyle = Platform.select({
-    ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 2 } },
-    android: { elevation: 4 },
-    web: { boxShadow: '0 2px 4px rgba(0,0,0,0.1)' },
-  });
-  
-  return <View style={[styles.container, shadowStyle]} />;
-};
-
-// ❌ Bad - Platform-specific files
-// MyComponent.tsx (native)
-// MyComponent.web.tsx (web)
+npm install @mui/joy @emotion/react @emotion/styled
 ```
 
 ## Documentation
 
-- [Component Reference](./docs/BGUI_COMPONENT_PLAN.md) - Detailed API documentation
-- [Architecture](../../docs/ARCHITECTURE.md) - System design and patterns
-- [Development Guide](../../docs/DEVELOPMENT.md) - Setup and workflow
+Visit [https://mui.com/joy-ui/getting-started/](https://mui.com/joy-ui/getting-started/) to view the full documentation.
 
----
+## Questions
 
-MIT © Brain Game
+For how-to questions that don't involve making changes to the code base, please use [Stack Overflow](https://stackoverflow.com/questions/tagged/joy-ui) instead of GitHub issues.
+Use the "joy-ui" tag on Stack Overflow to make it easier for the community to find your question.
+
+## Examples
+
+The documentation features [a collection of example projects using Joy UI](https://github.com/mui/material-ui/tree/master/examples).
+
+## Contributing
+
+Read the [contributing guide](/CONTRIBUTING.md) to learn about the development process, how to propose bug fixes and improvements, and how to build and test your changes.
+
+Contributing to Joy UI is about more than just issues and pull requests!
+There are many other ways to [support Joy UI](https://mui.com/material-ui/getting-started/faq/#mui-is-awesome-how-can-i-support-the-project) beyond contributing to the code base.
+
+## Changelog
+
+The [changelog](https://github.com/mui/material-ui/releases) is regularly updated to reflect what's changed in each new release.
+
+## Roadmap
+
+Future plans and high-priority features and enhancements can be found in the [roadmap](https://mui.com/material-ui/discover-more/roadmap/).
+
+## License
+
+This project is licensed under the terms of the
+[MIT license](/LICENSE).
+
+## Security
+
+For details of supported versions and contact details for reporting security issues, please refer to the [security policy](https://github.com/mui/material-ui/security/policy).

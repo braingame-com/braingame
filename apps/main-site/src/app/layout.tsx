@@ -1,5 +1,6 @@
+import { ThemeProvider } from "@braingame/bgui";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lexend, Roboto_Mono } from "next/font/google";
 import { CookieConsent } from "../components/CookieConsent";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { GoogleAnalytics } from "../components/GoogleAnalytics";
@@ -9,16 +10,16 @@ import { ToastProvider } from "../contexts/ToastContext";
 import { AnalyticsProvider } from "../providers/AnalyticsProvider";
 import "./globals.css";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
+const lexend = Lexend({
+	variable: "--font-lexend",
 	subsets: ["latin"],
 	display: "swap",
 	preload: true,
 	fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
 });
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
+	variable: "--font-roboto-mono",
 	subsets: ["latin"],
 	display: "swap",
 	preload: true,
@@ -137,18 +138,20 @@ export default function RootLayout({
 				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+			<body className={`${lexend.variable} ${robotoMono.variable} antialiased`}>
 				<ResourceHints />
-				<AnalyticsProvider>
-					<GoogleAnalytics />
-					<WebVitals />
-					<ErrorBoundary>
-						<ToastProvider>
-							<main>{children}</main>
-						</ToastProvider>
-					</ErrorBoundary>
-					<CookieConsent />
-				</AnalyticsProvider>
+				<ThemeProvider>
+					<AnalyticsProvider>
+						<GoogleAnalytics />
+						<WebVitals />
+						<ErrorBoundary>
+							<ToastProvider>
+								<main>{children}</main>
+							</ToastProvider>
+						</ErrorBoundary>
+						<CookieConsent />
+					</AnalyticsProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

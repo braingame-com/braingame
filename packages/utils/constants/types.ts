@@ -93,7 +93,7 @@ export type DraggableTaskHandlersProps = {
 // Token types
 export type SpacingToken = keyof typeof import("./Tokens").Tokens;
 export type OpacityToken = keyof typeof import("./Tokens").Opacity;
-export type ColorToken = keyof typeof import("./Colors").Colors.light;
+// ColorToken type removed - use M3ColorScheme from @braingame/bgui instead
 export type BorderRadiusToken = keyof typeof import("./BorderRadius").BorderRadius;
 export type AnimationDurationToken = keyof typeof import("./Animation").Animation.duration;
 export type AnimationEasingToken = keyof typeof import("./Animation").Animation.easing;
@@ -108,14 +108,9 @@ export type SpacingValue = number;
 export type ColorValue = string;
 export type OpacityValue = number;
 
-// Theme type
+// Theme type - colors now use M3ColorScheme from @braingame/bgui
 export type Theme = {
 	spacing: Record<SpacingToken, SpacingValue>;
-	colors: {
-		light: Record<ColorToken, ColorValue>;
-		dark: Record<ColorToken, ColorValue>;
-		universal: Record<string, ColorValue>;
-	};
 	opacity: Record<OpacityToken, OpacityValue>;
 	borderRadius: Record<BorderRadiusToken, number>;
 	animation: {

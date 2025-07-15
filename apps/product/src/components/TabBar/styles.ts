@@ -51,14 +51,16 @@ export const tabBarStyles = StyleSheet.create({
 
 	label: {
 		fontSize: 12,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		color: "#666",
 		marginTop: 2,
 	},
 
 	labelActive: {
 		color: "#007fff",
-		fontFamily: "LexendMedium",
+		fontFamily: "Lexend",
+		fontWeight: "500",
 	},
 
 	// Platform specific adjustments

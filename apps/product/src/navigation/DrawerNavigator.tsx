@@ -103,7 +103,8 @@ export const DrawerNavigator: React.FC = () => {
 				drawerActiveTintColor: "#007fff",
 				drawerInactiveTintColor: "#666",
 				drawerLabelStyle: {
-					fontFamily: "LexendRegular",
+					fontFamily: "Lexend",
+					fontWeight: "400",
 					fontSize: 16,
 				},
 				headerShown: false,

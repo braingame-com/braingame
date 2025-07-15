@@ -97,7 +97,7 @@ const AuthErrorFallback: React.FC<AuthErrorFallbackProps> = ({ error, resetError
 						marginTop: 20,
 						fontSize: 12,
 						color: "#999",
-						fontFamily: "monospace",
+						fontFamily: "Roboto Mono",
 					}}
 				>
 					{error.message}

@@ -159,7 +159,8 @@ const styles = StyleSheet.create({
 	skipButton: {
 		fontSize: 16,
 		color: "#007fff",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	stepContainer: {
 		width: SCREEN_WIDTH,
@@ -177,14 +178,15 @@ const styles = StyleSheet.create({
 	stepTitle: {
 		fontSize: 28,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		marginBottom: 16,
 		textAlign: "center",
 	},
 	stepDescription: {
 		fontSize: 16,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		textAlign: "center",
 		lineHeight: 24,
 	},
@@ -218,6 +220,6 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 });

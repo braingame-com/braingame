@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
 	headerTitle: {
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 	content: {
 		flex: 1,
@@ -152,13 +152,13 @@ const styles = StyleSheet.create({
 	planName: {
 		fontSize: 24,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		marginBottom: 8,
 	},
 	planPrice: {
 		fontSize: 36,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		color: "#007fff",
 		marginBottom: 12,
 	},
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
 	sectionTitle: {
 		fontSize: 16,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		marginBottom: 16,
 	},
 	paymentMethod: {
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
 	methodText: {
 		flex: 1,
 		fontSize: 16,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	checkmark: {
 		fontSize: 20,
@@ -229,6 +230,6 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 });

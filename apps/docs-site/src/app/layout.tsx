@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@braingame/bgui";
 import type { Metadata } from "next";
 import { Lexend, Roboto_Mono } from "next/font/google";
 import { Header } from "../components/Header";
@@ -31,19 +32,17 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`${lexend.variable} ${robotoMono.variable}`}>
 			<head>
-				<link
-					href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
-					rel="stylesheet"
-				/>
 			</head>
 			<body className={lexend.className}>
-				<div className="layout">
-					<Header />
-					<Sidebar />
-					<main className="layout__main">
-						<div className="layout__content">{children}</div>
-					</main>
-				</div>
+				<ThemeProvider>
+					<div className="layout">
+						<Header />
+						<Sidebar />
+						<main className="layout__main">
+							<div className="layout__content">{children}</div>
+						</main>
+					</div>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

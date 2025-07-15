@@ -116,7 +116,7 @@ const TabItem = withMemo<{
 						{
 							color: focused ? theme.colors.primary : theme.colors.textSecondary,
 							fontWeight: focused ? "600" : "400",
-							fontFamily: focused ? "LexendSemibold" : "LexendRegular",
+							fontFamily: "Lexend",
 						},
 					]}
 					numberOfLines={1}

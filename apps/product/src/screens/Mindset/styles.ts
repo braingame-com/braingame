@@ -63,13 +63,14 @@ export const mindsetStyles = StyleSheet.create({
 		fontSize: Tokens.l * 1.5, // 1.5rem
 		fontWeight: "700",
 		color: colors.text,
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 	},
 
 	cardDescription: {
 		fontSize: Tokens.m,
 		color: colors.textSecondary,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		marginBottom: Tokens.m,
 	},
 
@@ -94,7 +95,7 @@ export const mindsetStyles = StyleSheet.create({
 		fontSize: Tokens.s,
 		fontWeight: "600",
 		color: colors.text,
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 
 	// Form styles
@@ -110,7 +111,7 @@ export const mindsetStyles = StyleSheet.create({
 		fontSize: Tokens.m,
 		fontWeight: "600",
 		color: colors.text,
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		marginBottom: Tokens.xs,
 	},
 
@@ -120,7 +121,8 @@ export const mindsetStyles = StyleSheet.create({
 		padding: Tokens.m,
 		fontSize: Tokens.m,
 		color: colors.text,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		minHeight: 80, // Multi-line support
 		textAlignVertical: "top",
 		borderWidth: 1,
@@ -160,7 +162,7 @@ export const mindsetStyles = StyleSheet.create({
 		fontSize: Tokens.l * 1.25, // 1.25rem
 		fontWeight: "700",
 		color: colors.text,
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		marginLeft: Tokens.xs,
 	},
 
@@ -168,7 +170,8 @@ export const mindsetStyles = StyleSheet.create({
 	errorText: {
 		fontSize: Tokens.s,
 		color: colors.orange,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		marginTop: Tokens.xs,
 		textAlign: "center",
 	},
@@ -177,7 +180,8 @@ export const mindsetStyles = StyleSheet.create({
 	successText: {
 		fontSize: Tokens.s,
 		color: colors.green,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		marginTop: Tokens.xs,
 		textAlign: "center",
 	},
@@ -186,7 +190,7 @@ export const mindsetStyles = StyleSheet.create({
 	completionCounter: {
 		fontSize: Tokens.m,
 		color: colors.text,
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		textAlign: "center",
 		marginBottom: Tokens.l,
 	},

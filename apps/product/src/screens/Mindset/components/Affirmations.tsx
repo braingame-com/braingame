@@ -212,7 +212,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							style={{
 								color: "#fff",
 								fontWeight: "600",
-								fontFamily: "LexendSemiBold",
+								fontFamily: "Lexend",
 							}}
 						>
 							{option.label}
@@ -246,7 +246,8 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 									color: "#aaa",
 									fontSize: 14,
 									textAlign: "center",
-									fontFamily: "LexendRegular",
+									fontFamily: "Lexend",
+									fontWeight: "400",
 								}}
 							>
 								Listen to the complete Sam Ovens affirmations with background music
@@ -276,7 +277,8 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								fontSize: 16,
 								color: "#fff",
 								lineHeight: 24,
-								fontFamily: "LexendRegular",
+								fontFamily: "Lexend",
+								fontWeight: "400",
 								marginBottom: 16,
 							}}
 						>
@@ -300,7 +302,8 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								fontSize: 14,
 								color: "#aaa",
 								textAlign: "right",
-								fontFamily: "LexendRegular",
+								fontFamily: "Lexend",
+								fontWeight: "400",
 								marginBottom: 32,
 							}}
 						>
@@ -317,7 +320,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								fontSize: 18,
 								color: "#fff",
 								fontWeight: "600",
-								fontFamily: "LexendSemiBold",
+								fontFamily: "Lexend",
 								marginBottom: 16,
 							}}
 						>
@@ -329,7 +332,8 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								fontSize: 16,
 								color: "#fff",
 								lineHeight: 24,
-								fontFamily: "LexendRegular",
+								fontFamily: "Lexend",
+								fontWeight: "400",
 								marginBottom: 24,
 							}}
 						>
@@ -341,7 +345,8 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								fontSize: 14,
 								color: "#aaa",
 								textAlign: "right",
-								fontFamily: "LexendRegular",
+								fontFamily: "Lexend",
+								fontWeight: "400",
 								fontStyle: "italic",
 							}}
 						>

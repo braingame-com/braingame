@@ -27,7 +27,7 @@ export const authStyles = StyleSheet.create({
 	brandName: {
 		fontSize: 36,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		color: "#1a1a1a",
 		marginBottom: 12,
 	},
@@ -35,7 +35,8 @@ export const authStyles = StyleSheet.create({
 	tagline: {
 		fontSize: 16,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		textAlign: "center",
 		paddingHorizontal: 40,
 		lineHeight: 24,
@@ -61,7 +62,7 @@ export const authStyles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 16,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 
 	secondaryButton: {
@@ -72,7 +73,7 @@ export const authStyles = StyleSheet.create({
 		color: "#1a1a1a",
 		fontSize: 16,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 
 	skipButton: {
@@ -84,7 +85,8 @@ export const authStyles = StyleSheet.create({
 	skipButtonText: {
 		color: "#007fff",
 		fontSize: 14,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	footer: {
@@ -95,7 +97,8 @@ export const authStyles = StyleSheet.create({
 	footerText: {
 		fontSize: 12,
 		color: "#999",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		textAlign: "center",
 		lineHeight: 18,
 	},
@@ -114,7 +117,7 @@ export const authStyles = StyleSheet.create({
 	formTitle: {
 		fontSize: 28,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		color: "#1a1a1a",
 		marginBottom: 8,
 	},
@@ -122,7 +125,8 @@ export const authStyles = StyleSheet.create({
 	formSubtitle: {
 		fontSize: 16,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		marginBottom: 32,
 	},
 
@@ -132,8 +136,8 @@ export const authStyles = StyleSheet.create({
 
 	inputLabel: {
 		fontSize: 14,
+		fontFamily: "Lexend",
 		fontWeight: "500",
-		fontFamily: "LexendMedium",
 		color: "#1a1a1a",
 		marginBottom: 8,
 	},
@@ -145,7 +149,8 @@ export const authStyles = StyleSheet.create({
 		borderRadius: 8,
 		paddingHorizontal: 16,
 		fontSize: 16,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		color: "#1a1a1a",
 	},
 
@@ -160,7 +165,8 @@ export const authStyles = StyleSheet.create({
 	errorText: {
 		fontSize: 12,
 		color: "#ff3b30",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		marginTop: 4,
 	},
 
@@ -172,7 +178,8 @@ export const authStyles = StyleSheet.create({
 	forgotPasswordText: {
 		fontSize: 14,
 		color: "#007fff",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	divider: {
@@ -191,7 +198,8 @@ export const authStyles = StyleSheet.create({
 		marginHorizontal: 16,
 		fontSize: 14,
 		color: "#999",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	socialButton: {
@@ -212,7 +220,8 @@ export const authStyles = StyleSheet.create({
 
 	socialButtonText: {
 		fontSize: 14,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		color: "#1a1a1a",
 	},
 });

@@ -25,7 +25,7 @@ export const dashboardStyles = StyleSheet.create({
 	title: {
 		fontSize: 32,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		color: "#1a1a1a",
 		marginBottom: 4,
 	},
@@ -33,7 +33,8 @@ export const dashboardStyles = StyleSheet.create({
 	subtitle: {
 		fontSize: 16,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	statsContainer: {
@@ -59,7 +60,7 @@ export const dashboardStyles = StyleSheet.create({
 	statValue: {
 		fontSize: 28,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		color: "#007fff",
 		marginBottom: 4,
 	},
@@ -67,7 +68,8 @@ export const dashboardStyles = StyleSheet.create({
 	statLabel: {
 		fontSize: 12,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	section: {
@@ -78,7 +80,7 @@ export const dashboardStyles = StyleSheet.create({
 	sectionTitle: {
 		fontSize: 20,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		color: "#1a1a1a",
 		marginBottom: 16,
 	},
@@ -109,7 +111,7 @@ export const dashboardStyles = StyleSheet.create({
 	actionTitle: {
 		fontSize: 16,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		color: "#1a1a1a",
 		marginBottom: 4,
 	},
@@ -117,13 +119,15 @@ export const dashboardStyles = StyleSheet.create({
 	actionDescription: {
 		fontSize: 14,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	actionArrow: {
 		fontSize: 20,
 		color: "#ccc",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 
 	activityItem: {
@@ -145,13 +149,15 @@ export const dashboardStyles = StyleSheet.create({
 	activityText: {
 		flex: 1,
 		fontSize: 14,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		color: "#1a1a1a",
 	},
 
 	activityTime: {
 		fontSize: 12,
 		color: "#999",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 });

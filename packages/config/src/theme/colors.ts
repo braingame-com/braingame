@@ -1,5 +1,5 @@
 // Import the base Material Design 3 theme
-import bguiTheme from "../../../../assets/bgui-theme.json";
+import { bguiThemeConfig as bguiTheme } from "@braingame/bgui";
 import type { ColorPalette, ExtendedColorScheme } from "./types";
 
 // Define additional color palettes for semantic colors

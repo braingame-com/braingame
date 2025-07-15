@@ -1,0 +1,16 @@
+{
+	"extends": "../config/tsconfig.base.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"outDir": "./dist",
+		"declaration": true,
+		"declarationMap": true,
+		"module": "esnext",
+		"lib": ["esnext", "dom"],
+		"resolveJsonModule": true,
+		"paths": {
+			"@braingame/utils": ["../utils"]
+		}
+	},
+	"include": ["**/*.ts", "**/*.tsx", "**/*.json", "vitest.config.ts"]
+}

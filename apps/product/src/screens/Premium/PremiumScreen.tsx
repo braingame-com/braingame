@@ -159,13 +159,14 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 32,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		marginBottom: 12,
 	},
 	subtitle: {
 		fontSize: 16,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		textAlign: "center",
 	},
 	featuresSection: {
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
 	sectionTitle: {
 		fontSize: 20,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		marginBottom: 24,
 	},
 	feature: {
@@ -192,13 +193,14 @@ const styles = StyleSheet.create({
 	featureTitle: {
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		marginBottom: 4,
 	},
 	featureDescription: {
 		fontSize: 14,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	pricingSection: {
 		flexDirection: "row",
@@ -231,19 +233,19 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 12,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 	pricingTitle: {
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		marginBottom: 8,
 		color: "#fff",
 	},
 	pricingPrice: {
 		fontSize: 28,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		color: "#fff",
 	},
 	pricingPeriod: {
@@ -256,7 +258,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "#fff",
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 	ctaButton: {
 		backgroundColor: "#007fff",
@@ -270,20 +272,22 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 20,
 		fontWeight: "700",
-		fontFamily: "LexendBold",
+		fontFamily: "Lexend",
 		marginBottom: 4,
 	},
 	ctaSubtext: {
 		color: "#fff",
 		fontSize: 14,
 		opacity: 0.9,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	terms: {
 		textAlign: "center",
 		fontSize: 12,
 		color: "#999",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		paddingHorizontal: 40,
 		paddingBottom: 40,
 	},

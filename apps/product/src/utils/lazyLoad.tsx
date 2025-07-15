@@ -27,7 +27,8 @@ const LoadingFallback: React.FC<LoadingFallbackProps> = ({ message = "Loading...
 					marginTop: 16,
 					fontSize: 16,
 					color: theme.colors.textSecondary,
-					fontFamily: "LexendRegular",
+					fontFamily: "Lexend",
+					fontWeight: "400",
 				}}
 			>
 				{message}

@@ -164,7 +164,7 @@ Time: ${new Date().toISOString()}
 							<AccessibleThemedText
 								variant="secondary"
 								size="xs"
-								style={{ fontFamily: Platform.select({ ios: "Menlo", android: "monospace" }) }}
+								style={{ fontFamily: "Roboto Mono" }}
 							>
 								{error.toString()}
 							</AccessibleThemedText>
@@ -175,7 +175,7 @@ Time: ${new Date().toISOString()}
 									size="xs"
 									style={{
 										marginTop: 10,
-										fontFamily: Platform.select({ ios: "Menlo", android: "monospace" }),
+										fontFamily: "Roboto Mono",
 									}}
 								>
 									{error.stack}

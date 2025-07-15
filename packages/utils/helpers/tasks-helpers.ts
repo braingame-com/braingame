@@ -1,6 +1,5 @@
 import type { TextInput } from "react-native";
 import { Platform } from "react-native";
-import { Colors } from "../constants/Colors";
 
 export const handleSlashKeyPress = (e: KeyboardEvent, inputRef: React.RefObject<TextInput>) => {
 	if (Platform.OS !== "web") return;
@@ -22,13 +21,17 @@ export const handleSlashKeyPress = (e: KeyboardEvent, inputRef: React.RefObject<
 	}
 };
 
-export const getTaskInputWrapperColor = (inputError: boolean, isFocused: boolean) => {
+export const getTaskInputWrapperColor = (
+	inputError: boolean,
+	isFocused: boolean,
+	colors: { error: string; primary: string },
+) => {
 	if (inputError) {
-		return Colors.universal.negative;
+		return colors.error;
 	}
 
 	if (isFocused) {
-		return Colors.universal.primary;
+		return colors.primary;
 	}
 
 	return undefined;

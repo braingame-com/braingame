@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
 		"react-native-web",
 		"@braingame/bgui",
 		"@braingame/utils",
-		"@expo/vector-icons",
 		"expo-router",
 		"expo-modules-core",
 		"expo-linking",

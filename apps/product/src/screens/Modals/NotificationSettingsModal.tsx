@@ -146,17 +146,18 @@ const styles = StyleSheet.create({
 	cancelButton: {
 		fontSize: 16,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	saveButton: {
 		fontSize: 16,
 		color: "#007fff",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 	headerTitle: {
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 	},
 	content: {
 		flex: 1,
@@ -171,13 +172,14 @@ const styles = StyleSheet.create({
 	masterTitle: {
 		fontSize: 18,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		marginBottom: 4,
 	},
 	masterDescription: {
 		fontSize: 14,
 		color: "#666",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	settingsSection: {
 		backgroundColor: "#fff",
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
 	sectionTitle: {
 		fontSize: 14,
 		fontWeight: "600",
-		fontFamily: "LexendSemiBold",
+		fontFamily: "Lexend",
 		color: "#666",
 		paddingHorizontal: 20,
 		paddingTop: 20,
@@ -203,13 +205,15 @@ const styles = StyleSheet.create({
 	},
 	settingTitle: {
 		fontSize: 16,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 		marginBottom: 2,
 	},
 	settingDescription: {
 		fontSize: 12,
 		color: "#999",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	quietHours: {
 		backgroundColor: "#fff",
@@ -225,11 +229,13 @@ const styles = StyleSheet.create({
 	},
 	quietHoursLabel: {
 		fontSize: 16,
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 	quietHoursTime: {
 		fontSize: 16,
 		color: "#007fff",
-		fontFamily: "LexendRegular",
+		fontFamily: "Lexend",
+		fontWeight: "400",
 	},
 });

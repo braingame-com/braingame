@@ -37,10 +37,8 @@ if (__DEV__) {
 
 // Font assets
 const fonts = {
-	LexendRegular: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendMedium: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendSemibold: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
-	LexendBold: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	Lexend: require("@braingame/utils/assets/fonts/Lexend-VariableFont_wght.ttf"),
+	"Roboto Mono": require("@braingame/utils/assets/fonts/RobotoMono-VariableFont_wght.ttf"),
 };
 
 export default function App() {

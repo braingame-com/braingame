@@ -275,7 +275,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						style={{
 							color: "#fff",
 							fontWeight: "600",
-							fontFamily: "LexendSemiBold",
+							fontFamily: "Lexend",
 						}}
 					>
 						← Prev
@@ -286,7 +286,8 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 					style={{
 						color: "#aaa",
 						fontSize: 14,
-						fontFamily: "LexendRegular",
+						fontFamily: "Lexend",
+						fontWeight: "400",
 					}}
 				>
 					{currentIndex + 1} of {shuffledImages.length}
@@ -308,7 +309,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						style={{
 							color: "#fff",
 							fontWeight: "600",
-							fontFamily: "LexendSemiBold",
+							fontFamily: "Lexend",
 						}}
 					>
 						Next →
@@ -345,7 +346,8 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 					fontSize: 12,
 					textAlign: "center",
 					marginTop: 16,
-					fontFamily: "LexendRegular",
+					fontFamily: "Lexend",
+					fontWeight: "400",
 				}}
 			>
 				{completed

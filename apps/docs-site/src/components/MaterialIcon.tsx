@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@braingame/bgui";
 import type React from "react";
 
 interface MaterialIconProps {
@@ -10,12 +11,6 @@ interface MaterialIconProps {
 	style?: React.CSSProperties;
 }
 
-const sizeMap = {
-	sm: 18,
-	md: 24,
-	lg: 32,
-};
-
 export function MaterialIcon({
 	name,
 	size = "md",
@@ -23,19 +18,12 @@ export function MaterialIcon({
 	className = "",
 	style = {},
 }: MaterialIconProps) {
-	const fontSize = typeof size === "number" ? size : sizeMap[size];
-
 	return (
-		<span
-			className={`material-icons-round ${className}`}
-			style={{
-				fontSize,
-				color,
-				...style,
-			}}
-			aria-hidden="true"
-		>
-			{name}
-		</span>
+		<Icon
+			name={name as any}
+			size={size}
+			color={color}
+			style={style}
+		/>
 	);
 }

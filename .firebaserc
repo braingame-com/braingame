@@ -3,11 +3,12 @@
     "default": "braingame-prod"
   },
   "targets": {
-    "your-project-id": {
+    "braingame-prod": {
       "hosting": {
         "www": ["braingame-website"],
         "app": ["braingame-app"],
-        "docs": ["braingame-docs"]
+        "docs": ["braingame-docs"],
+        "api": ["braingame-api"]
       }
     }
   }
