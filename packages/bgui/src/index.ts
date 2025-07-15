@@ -1,6 +1,9 @@
 export { default as colors } from './colors';
 export * from './styles';
 
+// Export bgui theme config for backward compatibility
+export { default as bguiThemeConfig } from './bgui-theme.json';
+
 export { default as GlobalStyles } from './GlobalStyles';
 
 export { default as Accordion } from './Accordion';

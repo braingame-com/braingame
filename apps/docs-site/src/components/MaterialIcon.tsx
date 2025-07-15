@@ -18,12 +18,5 @@ export function MaterialIcon({
 	className = "",
 	style = {},
 }: MaterialIconProps) {
-	return (
-		<Icon
-			name={name as any}
-			size={size}
-			color={color}
-			style={style}
-		/>
-	);
+	return <Icon name={name as any} size={size} color={color} style={style} />;
 }

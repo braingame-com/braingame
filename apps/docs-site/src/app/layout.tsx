@@ -31,8 +31,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={`${lexend.variable} ${robotoMono.variable}`}>
-			<head>
-			</head>
+			<head />
 			<body className={lexend.className}>
 				<ThemeProvider>
 					<div className="layout">

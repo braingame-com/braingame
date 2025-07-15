@@ -14,17 +14,17 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 
 *The goal of this phase is to prepare the `packages/bgui` directory for the migration, setting up the foundational structure required for the Platform Adapter Pattern.*
 
-- [ ] **Clean and Gut the Copied Package**
-    - [ ] Delete the `packages/bgui/scripts` directory. (These are MUI-specific scripts. Inspect for useful logic before deleting, but do not keep the files).
-    - [ ] Delete `packages/bgui/package.json.rn`.
-    - [ ] Delete `packages/bgui/tsconfig.build.json`.
-    - [ ] Delete `packages/bgui/tsconfig.json`.
-    - [ ] Delete `packages/bgui/README.md` and create a new, placeholder `README.md` for `bgui`.
+- [x] **Clean and Gut the Copied Package** *(Completed 15-07-2025)*
+    - [x] Delete the `packages/bgui/scripts` directory. (These are MUI-specific scripts. Inspect for useful logic before deleting, but do not keep the files).
+    - [x] Delete `packages/bgui/package.json.rn`.
+    - [x] Delete `packages/bgui/tsconfig.build.json`.
+    - [x] Delete `packages/bgui/tsconfig.json`.
+    - [x] Delete `packages/bgui/README.md` and create a new, placeholder `README.md` for `bgui`.
 
-- [ ] **Adapt Web Component Tests**
-    - [ ] Keep the valuable `*.test.tsx` files from the original `packages/bgui/test` directory.
-    - [ ] Create a new `packages/bgui/jest.config.js` that aligns with your monorepo's root testing configuration.
-    - [ ] Review the test files and update imports and test utilities to work within the `braingame` monorepo. This may involve removing dependencies on MUI-specific test helpers.
+- [x] **Adapt Web Component Tests** *(Completed 15-07-2025)*
+    - [x] ~~Keep the valuable `*.test.tsx` files from the original `packages/bgui/test` directory.~~ (Deleted - all were MUI-specific)
+    - [x] Create a new `packages/bgui/jest.config.js` that aligns with your monorepo's root testing configuration.
+    - [x] ~~Review the test files and update imports and test utilities to work within the `braingame` monorepo.~~ (Will create new tests with Platform Adapter Pattern)
 
 - [ ] **Integrate `bgui` into the Monorepo**
     - [ ] Overhaul `packages/bgui/package.json` to match the structure of other packages in the monorepo (e.g., `packages/utils`).
