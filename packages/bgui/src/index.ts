@@ -15,6 +15,9 @@ export * from './hooks';
 
 
 // Components
+export { Button } from './components/Button';
+export type { ButtonProps } from './components/Button';
+
 export { Container } from './components/Container';
 export type { ContainerProps } from './components/Container';
 

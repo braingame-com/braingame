@@ -421,3 +421,46 @@ Received definitive guidance from Gemini that the web-bgui folder is temporary:
 **Next Task:**
 - Phase 2: Establish Performance Baseline
 - Phase 2: Tier 2 Components (Button, Card, Avatar, Badge, Chip)
+
+### Phase 2: Establish Performance Baseline
+**Date:** 15-07-2025 22:30  
+**Engineer:** Claude (AI Agent)  
+**Commit:** `721d28ed48eb9fbce1181e852741e90182e29c4f`
+
+**Steps Taken:**
+1. Installed react-native-performance package
+2. Created performance measurement utilities with reporting
+3. Built PerformanceBaseline component for native platform
+4. Built PerformanceBaseline.web.tsx for web platform
+5. Added Storybook story for easy testing
+6. Created PERFORMANCE_BASELINE.md documentation
+7. Exported performance utilities from bgui package
+
+**Files Created:**
+- packages/bgui/src/utils/performance.ts
+- packages/bgui/src/tests/PerformanceBaseline.tsx
+- packages/bgui/src/tests/PerformanceBaseline.web.tsx
+- packages/bgui/src/tests/PerformanceBaseline.stories.tsx
+- packages/bgui/docs/PERFORMANCE_BASELINE.md
+
+**Key Features:**
+- Measures render time from mount to paint completion
+- Collects 50 samples per component
+- Calculates avg/min/max render times
+- Generates detailed markdown reports
+- Tests all Tier 1 components: Box, Text, Stack, Divider, Container
+- Works on both web (Browser Performance API) and native (react-native-performance)
+
+**Performance Targets Established:**
+- Simple Components (Divider): < 2ms average
+- Layout Components (Box, Stack, Container): < 5ms average
+- Text Components: < 3ms average
+- Complex Components (future): < 10ms average
+
+**Notes:**
+- Actual baseline measurements to be recorded when tests are run
+- Performance varies by device and debug vs release builds
+- Baseline should be re-established quarterly or after major updates
+
+**Next Task:**
+- Phase 2: Tier 2 Components - Button Component
