@@ -37,18 +37,22 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
     - [x] Create a new `packages/bgui/tsconfig.json` that simply extends the root `tsconfig.json`.
     - [x] ~~**Critical:** Update the root CI pipeline (`.github/workflows/...`) to include `packages/bgui` in its build and test runs.~~ (Already included via packages/* pattern)
 
-- [ ] **Setup `bgui` Package Structure**
-    - [ ] Create the component directory: `packages/bgui/src/components`.
+- [x] **Setup `bgui` Package Structure** *(Completed 15-07-2025)*
+    - [x] Create the component directory: `packages/bgui/src/components`.
     - [x] Create the web source directory: `packages/bgui/src/web-bgui`. *(Decision: Renamed from `web-joy` for brand alignment)*
-    - [x] Move the entire unmodified Joy UI source code into `packages/bgui/src/web-bgui`. *(Completed)*
+    - [x] Move the entire unmodified Joy UI source code into `packages/bgui/src/web-bgui`.
+    - [x] Create web-bgui/index.ts to export all Joy UI components.
+    - [x] Fix import paths (@mui/joy → relative imports).
+    - [x] Update bgui_legacy package name to avoid conflicts.
+    - [x] Verify package builds successfully.
 
 - [x] **Archive Legacy Code** *(Completed)*
     - [x] Rename the existing `packages/bgui` to `packages/bgui_legacy`.
     - [x] Update `pnpm-workspace.yaml` to reflect this change if necessary.
 
-- [ ] **Install Core Dependencies**
-    - [ ] Add `@shopify/restyle` as a dependency to `packages/bgui/package.json`.
-    - [ ] Verify that `react` and `react-native` are listed as peer dependencies.
+- [x] **Install Core Dependencies** *(Completed 15-07-2025)*
+    - [x] Add `@shopify/restyle` as a dependency to `packages/bgui/package.json`.
+    - [x] Verify that `react` and `react-native` are listed as peer dependencies.
 
 - [ ] **Create Component Generator Script (Phase 0.5)**
     - [ ] Create a new file: `scripts/create-bgui-component.js`.

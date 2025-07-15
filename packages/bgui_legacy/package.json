@@ -1,5 +1,5 @@
 {
-	"name": "@braingame/bgui",
+	"name": "@braingame/bgui-legacy",
 	"version": "1.0.0",
 	"private": true,
 	"description": "Brain Game UI Kit - React Native components that work on web and mobile",

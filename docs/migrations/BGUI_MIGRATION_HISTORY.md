@@ -73,7 +73,7 @@ This document tracks the detailed implementation history of the BGUI migration p
 ### Integrate bgui into the Monorepo
 **Date:** 15-07-2025 17:15  
 **Engineer:** Claude (AI Agent)  
-**Commit:** (pending)
+**Commit:** `6741d545ae3065cf769482919100d16450ecf397`
 
 **Steps Taken:**
 1. Created new `packages/bgui/package.json` matching monorepo structure
