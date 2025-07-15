@@ -33,9 +33,9 @@ export const Stack: React.FC<StackProps> = ({
   // Base styles for the container
   const containerStyle: React.CSSProperties = {
     display: 'flex',
-    flexDirection: direction,
+    flexDirection: direction as any,
     ...(useFlexGap && spacing ? { gap: spacingValue } : {}),
-    ...style,
+    ...(style as React.CSSProperties || {}),
   };
 
   // If we have a divider, insert it between children

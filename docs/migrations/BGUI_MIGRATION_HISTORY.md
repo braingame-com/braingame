@@ -282,7 +282,7 @@ This document tracks the detailed implementation history of the BGUI migration p
 ### Architectural Clarification and Stack Component Fix
 **Date:** 15-07-2025 20:30  
 **Engineer:** Claude (AI Agent)  
-**Commit:** Pending
+**Commit:** `fda361e00705aa965849475a13a93950cff63ca7`
 
 **Important Architecture Clarification:**
 Received definitive guidance from Gemini that the web-bgui folder is temporary:
