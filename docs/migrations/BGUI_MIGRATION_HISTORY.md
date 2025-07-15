@@ -46,7 +46,7 @@ This document tracks the detailed implementation history of the BGUI migration p
 ### Adapt Web Component Tests
 **Date:** 15-07-2025 17:00  
 **Engineer:** Claude (AI Agent)  
-**Commit:** (pending)
+**Commit:** `26677840de5e2aab6eeb53f7fe062c81445a53c9`
 
 **Steps Taken:**
 1. Investigated `packages/bgui/test` directory - contained only MUI-specific test helpers
