@@ -1,0 +1,46 @@
+import React from 'react';
+import { ThemeProvider } from '@shopify/restyle';
+import { useColorScheme } from 'react-native';
+import theme, { darkTheme, type Theme } from './theme';
+
+interface BGUIThemeProviderProps {
+  children: React.ReactNode;
+  /**
+   * Force a specific theme regardless of system preference
+   */
+  forceTheme?: 'light' | 'dark';
+}
+
+/**
+ * BGUI Theme Provider
+ * 
+ * Wraps the application with Restyle's ThemeProvider and automatically
+ * switches between light and dark themes based on system preference.
+ * 
+ * @example
+ * ```tsx
+ * import { BGUIThemeProvider } from '@braingame/bgui';
+ * 
+ * function App() {
+ *   return (
+ *     <BGUIThemeProvider>
+ *       <YourApp />
+ *     </BGUIThemeProvider>
+ *   );
+ * }
+ * ```
+ */
+export function BGUIThemeProvider({ children, forceTheme }: BGUIThemeProviderProps) {
+  const systemColorScheme = useColorScheme();
+  
+  // Determine which theme to use
+  const activeTheme = forceTheme 
+    ? (forceTheme === 'dark' ? darkTheme : theme)
+    : (systemColorScheme === 'dark' ? darkTheme : theme);
+  
+  return (
+    <ThemeProvider theme={activeTheme}>
+      {children}
+    </ThemeProvider>
+  );
+}

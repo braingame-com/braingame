@@ -112,32 +112,38 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 
 ---
 
-## 🎨 Phase 1: Theme and `restyle` Implementation
+## 🎨 Phase 1: Theme and `restyle` Implementation *(Completed 15-07-2025)*
 
 *The goal of this phase is to establish the single source of truth for the design system and wire it up for our native components. This will now build upon the salvaged theme from Phase 0.75.*
 
-- [ ] **Isolate Design Tokens from Joy UI**
-    - [ ] Create the theme directory: `packages/bgui/src/theme`. *(This should already exist from the salvage phase)*.
-    - [ ] Systematically review the `src/web-bgui` directory to identify all theme and token definition files.
-    - [ ] **Reconcile Themes:** Merge the Joy UI tokens into your existing, salvaged M3 theme.
-        - [ ] **Merge Strategy:** Your M3 theme is the **primary source of truth for colors**. Joy UI color variants should only be added if they don't conflict. For all other tokens (typography, spacing, variants, radii, shadows), the more comprehensive **Joy UI definitions are the primary source of truth**.
+- [x] **Isolate Design Tokens from Joy UI** *(Completed 15-07-2025)*
+    - [x] Create the theme directory: `packages/bgui/src/theme`. *(This should already exist from the salvage phase)*.
+    - [x] Systematically review the `src/web-bgui` directory to identify all theme and token definition files.
+    - [x] **Reconcile Themes:** Merge the Joy UI tokens into your existing, salvaged M3 theme.
+        - [x] **Merge Strategy:** Your M3 theme is the **primary source of truth for colors**. Joy UI color variants should only be added if they don't conflict. For all other tokens (typography, spacing, variants, radii, shadows), the more comprehensive **Joy UI definitions are the primary source of truth**.
 
-- [ ] **Implement `restyle` Theme**
-    - [ ] Create `packages/bgui/src/theme/theme.ts`.
-    - [ ] Import the raw tokens and use `createTheme` from `@shopify/restyle` to define the theme contract.
-    - [ ] **Crucial:** Create a `components` section in the theme to map Joy UI's `variant` and `color` props to `restyle` variants (e.g., `BGUI_Button: { variants: { solid: {...}, soft: {...} } }`).
-    - [ ] Ensure the theme type is exported for use throughout the native library.
+- [x] **Implement `restyle` Theme** *(Completed 15-07-2025)*
+    - [x] Create `packages/bgui/src/theme/theme.ts`.
+    - [x] Import the raw tokens and use `createTheme` from `@shopify/restyle` to define the theme contract.
+    - [x] **Crucial:** Create a `components` section in the theme to map Joy UI's `variant` and `color` props to `restyle` variants (e.g., `BGUI_Button: { variants: { solid: {...}, soft: {...} } }`).
+    - [x] Ensure the theme type is exported for use throughout the native library.
+    - [x] Created complete theme with M3 colors, Joy UI spacing/typography/radii
+    - [x] Implemented component variants for Button (solid, soft, outlined, plain)
+    - [x] Created dark theme variant
 
-- [ ] **Create BGUI Theme Provider**
-    - [ ] Create a `BGUIThemeProvider.tsx` component in `packages/bgui/src`.
-    - [ ] This component should wrap `@shopify/restyle`'s `ThemeProvider` and pass the defined theme.
-    - [ ] This provider will be used to wrap the React Native application (`apps/product`).
+- [x] **Create BGUI Theme Provider** *(Completed 15-07-2025)*
+    - [x] Create a `BGUIThemeProvider.tsx` component in `packages/bgui/src`.
+    - [x] This component should wrap `@shopify/restyle`'s `ThemeProvider` and pass the defined theme.
+    - [x] This provider will be used to wrap the React Native application (`apps/product`).
+    - [x] Added automatic dark mode support based on system preference
 
-- [ ] **Build Foundational Primitives**
-    - [ ] Use the component generator script to create the `Box` component.
-    - [ ] Implement `Box.native.tsx` using `createBox` from `@shopify/restyle`.
-    - [ ] Use the component generator script to create the `Text` component.
-    - [ ] Implement `Text.native.tsx` using `createText` from `@shopify/restyle`.
+- [x] **Build Foundational Primitives** *(Completed 15-07-2025)*
+    - [x] Use the component generator script to create the `Box` component.
+    - [x] Implement `Box.native.tsx` using `createBox` from `@shopify/restyle`.
+    - [x] Use the component generator script to create the `Text` component.
+    - [x] Implement `Text.native.tsx` using `createText` from `@shopify/restyle`.
+    - [x] Updated props to use Restyle types
+    - [x] Web implementations properly mapped to Joy UI components
 
 ---
 
