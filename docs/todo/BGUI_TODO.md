@@ -160,9 +160,9 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Divider Component** *(Completed 15-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Container Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Container Component** *(Completed 15-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 - [ ] **Establish Performance Baseline**
     - [ ] Integrate `react-native-performance`.
     - [ ] Measure and record the render times for `Box`, `Text`, `Stack`, and `Divider` on a target device.

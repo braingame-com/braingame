@@ -15,6 +15,9 @@ export * from './hooks';
 
 
 // Components
+export { Container } from './components/Container';
+export type { ContainerProps } from './components/Container';
+
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 
