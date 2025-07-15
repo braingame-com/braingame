@@ -7,6 +7,16 @@
 
 This document provides step-by-step instructions for engineers working on the BGUI migration project. Follow these instructions exactly to ensure consistent progress tracking and quality standards.
 
+### Important Architecture Clarification
+
+The `web-bgui` folder containing Joy UI source code is **temporary**. Think of it as a "quarry" from which we extract and adapt implementations:
+
+1. **DO NOT** re-export components from web-bgui
+2. **DO** copy the implementation into your .web.tsx file
+3. **DO** adapt imports to work with our structure
+4. **DO** ensure it works with our shared ComponentProps interface
+5. The web-bgui folder will be deleted once all components are migrated
+
 ## Prerequisites
 
 Before starting any BGUI migration work:
@@ -48,8 +58,10 @@ Before writing any code, review the monorepo guidelines:
    - Code examples with proper syntax highlighting
 
 3. **Component Standards:**
-   - Universal components only (no .web.tsx/.native.tsx split files)
-   - Use Platform.select() for platform differences
+   - Platform Adapter Pattern with .web.tsx and .native.tsx files
+   - Shared props in ComponentNameProps.ts files
+   - Copy Joy UI implementations, don't re-export
+   - web-bgui is temporary and will be deleted
    - Must work on web, iOS, and Android
    - Follow Joy UI visual patterns
 
@@ -65,7 +77,11 @@ Before writing any code, review the monorepo guidelines:
 1. **Work directly on main branch** (no feature branches needed)
 
 2. **Follow the Platform Adapter Pattern:**
-   - For components: Use the component generator script when available
+   - For components: Use the component generator script
+   - Copy Joy UI implementation from web-bgui into .web.tsx files
+   - Adapt imports to use relative paths
+   - Build native implementation studying Joy UI's behavioral logic
+   - web-bgui folder is a temporary "quarry" for extraction
    - For theme work: Ensure tokens work across all platforms
    - For infrastructure: Test on both web and native
 

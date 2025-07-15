@@ -5,8 +5,8 @@
  * Creates the following structure:
  * packages/bgui/src/components/Button/
  * ├── Button.native.tsx     // Native implementation using Restyle
- * ├── Button.web.tsx        // Web re-export from Joy UI
- * ├── Button.props.ts       // Shared props interface
+ * ├── Button.web.tsx        // Web implementation (copy from Joy UI)
+ * ├── ButtonProps.ts        // Shared props interface
  * ├── Button.test.tsx       // Component tests
  * ├── Button.stories.tsx    // Storybook documentation
  * └── index.ts              // Universal export
@@ -49,7 +49,7 @@ fs.mkdirSync(componentDir, { recursive: true });
 // File templates
 const templates = {
   // Shared props interface
-  'Button.props.ts': `import type { ColorPaletteProp, VariantProp } from '../../web-bgui/styles/types';
+  'ButtonProps.ts': `import type { ColorPaletteProp, VariantProp } from '../../web-bgui/styles/types';
 
 /**
  * Shared props interface for ${componentName} component
@@ -103,16 +103,26 @@ export interface ${componentName}Props {
 }
 `.replace(/Button/g, componentName),
 
-  // Web implementation (re-export from Joy UI)
+  // Web implementation (will be copied from Joy UI)
   'Button.web.tsx': `'use client';
-import Joy${componentName} from '../../web-bgui/${componentName}';
-import type { ${componentName}Props } from './${componentName}.props';
+// TODO: Copy the implementation from web-bgui/${componentName}/${componentName}.tsx
+// and adapt imports to work with our structure
+// Remember: web-bgui is temporary and will be deleted once all components are migrated
+
+import type { ${componentName}Props } from './${componentName}Props';
 
 /**
- * Web implementation of ${componentName} - re-exports Joy UI component
- * The Joy UI implementation is the source of truth for visual design
+ * Web implementation of ${componentName}
+ * 
+ * TODO: Copy implementation from web-bgui/${componentName}/${componentName}.tsx
+ * - Update imports to use relative paths
+ * - Ensure it works with our shared ${componentName}Props interface
+ * - The Joy UI implementation is the source of truth for visual design
  */
-export const ${componentName} = Joy${componentName} as React.FC<${componentName}Props>;
+export const ${componentName}: React.FC<${componentName}Props> = (props) => {
+  // TODO: Copy Joy UI implementation here
+  return <div>TODO: Copy from web-bgui/${componentName}</div>;
+};
 `.replace(/Button/g, componentName),
 
   // Native implementation stub
@@ -120,7 +130,7 @@ export const ${componentName} = Joy${componentName} as React.FC<${componentName}
 import { Pressable, Text } from 'react-native';
 import { createBox, createText, useTheme } from '@shopify/restyle';
 import type { Theme } from '../../theme/theme';
-import type { ${componentName}Props } from './${componentName}.props';
+import type { ${componentName}Props } from './${componentName}Props';
 
 const Box = createBox<Theme>();
 const ThemedText = createText<Theme>();
@@ -176,7 +186,7 @@ export function ${componentName}({
   // Universal index file
   'index.ts': `// Platform-specific exports handled by Metro bundler
 export { ${componentName} } from './${componentName}';
-export type { ${componentName}Props } from './${componentName}.props';
+export type { ${componentName}Props } from './${componentName}Props';
 `.replace(/Button/g, componentName),
 
   // Test file stub
@@ -316,57 +326,61 @@ export const FullWidth: Story = {
     fullWidth: true,
   },
 };
-`.replace(/Button/g, componentName)
+`.replace(/Button/g, componentName),
+
+  // Platform-specific component file for Metro bundler
+  'Button.tsx': `// This file enables platform-specific imports
+// Metro bundler will automatically pick .native.tsx for React Native
+// and .web.tsx for web builds
+
+export { ${componentName} } from './${componentName}.native';
+export type { ${componentName}Props } from './${componentName}Props';
+`.replace(/Button/g, componentName),
 };
 
-// Write all files
+// Create files
 Object.entries(templates).forEach(([filename, content]) => {
-  const filepath = path.join(componentDir, filename.replace('Button', componentName));
-  fs.writeFileSync(filepath, content, 'utf8');
-  success(`Created ${filepath}`);
+  const filePath = path.join(componentDir, filename.replace('Button', componentName));
+  fs.writeFileSync(filePath, content, 'utf8');
+  success(`Created ${filePath}`);
 });
 
-// Update the main bgui index file
-const bguiIndexPath = path.join(rootDir, 'packages', 'bgui', 'src', 'index.ts');
-if (fs.existsSync(bguiIndexPath)) {
-  let indexContent = fs.readFileSync(bguiIndexPath, 'utf8');
+// Update package exports
+const indexPath = path.join(rootDir, 'packages', 'bgui', 'src', 'index.ts');
+const indexContent = fs.readFileSync(indexPath, 'utf8');
+
+// Find where to insert the new export
+const exportMarker = '// Components';
+const exportLines = indexContent.split('\n');
+const insertIndex = exportLines.findIndex(line => line.includes(exportMarker));
+
+if (insertIndex !== -1) {
+  // Insert the new component export after the marker
+  exportLines.splice(insertIndex + 1, 0, 
+    `export { ${componentName} } from './components/${componentName}';`,
+    `export type { ${componentName}Props } from './components/${componentName}';`,
+    ''
+  );
   
-  // Check if components section exists
-  if (!indexContent.includes('// Components')) {
-    indexContent += '\n// Components\n';
-  }
-  
-  // Add the new component export
-  const componentExport = `export { ${componentName} } from './components/${componentName}';\n`;
-  const typeExport = `export type { ${componentName}Props } from './components/${componentName}';\n`;
-  
-  if (!indexContent.includes(componentExport)) {
-    // Find the right place to insert (after other component exports)
-    const lines = indexContent.split('\n');
-    const componentSectionIndex = lines.findIndex(line => line.includes('// Components'));
-    
-    if (componentSectionIndex !== -1) {
-      // Insert after the components comment
-      lines.splice(componentSectionIndex + 1, 0, componentExport + typeExport);
-      indexContent = lines.join('\n');
-    } else {
-      // Just append at the end
-      indexContent += '\n' + componentExport + typeExport;
-    }
-    
-    fs.writeFileSync(bguiIndexPath, indexContent, 'utf8');
-    success('Updated bgui package exports');
-  }
+  fs.writeFileSync(indexPath, exportLines.join('\n'), 'utf8');
+  success('Updated bgui package exports');
 }
 
-console.log('');
-success(`Component ${componentName} created successfully!`);
-console.log('');
-info('Next steps:');
-info(`1. Implement the native version by studying web-bgui/${componentName}/use${componentName} hook`);
-info('2. Map Joy UI behavioral logic to React Native patterns');
-info('3. Implement theme variants in native version');
-info('4. Run tests: pnpm test');
-info('5. Add to Storybook: pnpm storybook');
-console.log('');
-info('Remember: The web-bgui implementation is the source of truth for visual design!');
+// Success message with next steps
+console.log(`
+✅ Component ${componentName} created successfully!
+
+📝 Next steps:
+📝 1. Copy the implementation from web-bgui/${componentName} into ${componentName}.web.tsx
+📝 2. Update imports in the web implementation to use relative paths
+📝 3. Implement the native version by studying web-bgui/${componentName}/use${componentName} hook
+📝 4. Map Joy UI behavioral logic to React Native patterns
+📝 5. Implement theme variants in native version
+📝 6. Run tests: pnpm test
+📝 7. Add to Storybook: pnpm storybook
+
+📝 Remember: 
+📝 - The web-bgui folder is temporary and will be deleted after migration
+📝 - Copy the Joy UI code, don't re-export it
+📝 - The web implementation is the source of truth for visual design!
+`);

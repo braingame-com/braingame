@@ -1,6 +1,6 @@
 'use client';
 import JoyTypography from '../../web-bgui/Typography';
-import type { TextProps } from './Text.props';
+import type { TextProps } from './TextProps';
 
 /**
  * Web implementation of Text - re-exports Joy UI Typography component

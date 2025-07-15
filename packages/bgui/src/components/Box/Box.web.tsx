@@ -1,6 +1,6 @@
 'use client';
 import JoyBox from '../../web-bgui/Box';
-import type { BoxProps } from './Box.props';
+import type { BoxProps } from './BoxProps';
 
 /**
  * Web implementation of Box - re-exports Joy UI component

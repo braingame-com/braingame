@@ -15,6 +15,9 @@ export * from './hooks';
 
 
 // Components
+export { Stack } from './components/Stack';
+export type { StackProps } from './components/Stack';
+
 export { Text } from './components/Text';
 export type { TextProps } from './components/Text';
 

@@ -278,3 +278,41 @@ This document tracks the detailed implementation history of the BGUI migration p
 
 **Next Task:**
 - Phase 2: Systematic Component Implementation (Tier 1)
+
+### Architectural Clarification and Stack Component Fix
+**Date:** 15-07-2025 20:30  
+**Engineer:** Claude (AI Agent)  
+**Commit:** Pending
+
+**Important Architecture Clarification:**
+Received definitive guidance from Gemini that the web-bgui folder is temporary:
+- It's a "quarry" for extracting implementations, not a permanent dependency
+- Components should COPY Joy UI code into .web.tsx files, not re-export
+- All imports must be adapted to our structure
+- Once migration is complete, web-bgui will be deleted
+- This creates truly self-contained universal components
+
+**Steps Taken:**
+1. Updated all props file names from Component.props.ts to ComponentProps.ts (MUI pattern)
+2. Updated component generator script to follow new patterns
+3. Fixed Stack.web.tsx to copy Joy UI implementation instead of re-exporting
+4. Updated BGUI_MIGRATION_INSTRUCTIONS.md with architecture clarification
+5. Removed outdated "no split files" instruction
+
+**Files Modified:**
+- Renamed: All .props.ts files to ComponentProps.ts pattern
+- Modified: scripts/create-bgui-component.js (new patterns and clarifications)
+- Modified: packages/bgui/src/components/Stack/Stack.web.tsx (proper implementation)
+- Modified: docs/migrations/BGUI_MIGRATION_INSTRUCTIONS.md (architecture clarification)
+- Updated: All component imports to use new props file names
+
+**Key Decisions:**
+- Follow MUI naming convention (ComponentProps.ts)
+- Copy, don't re-export from web-bgui
+- web-bgui is temporary and will be deleted
+- Each component folder is completely self-contained
+
+**Next Task:**
+- Complete Stack component migration
+- Fix Box and Text components similarly
+- Continue with Divider and Container components
