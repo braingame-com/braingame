@@ -192,12 +192,12 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Modal Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the `useModal` headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Select Component** (will require a custom native implementation, likely using a Modal)
-    - [ ] Replicate logic from the `useSelect` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Tabs Component**
-    - [ ] Replicate logic from the `useTabs` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Select Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useSelect` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Tabs Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useTabs` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ### Additional Form Components *(Added 16-07-2025)*
 - [x] **Checkbox Component** *(Completed 16-07-2025)*
@@ -261,9 +261,9 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [ ] **Drawer Component**
     - [ ] Replicate logic from the `useDrawer` headless hook.
     - [ ] Verify accessibility standards are met (labels, roles,etc.).
-- [ ] **Tooltip Component**
-    - [ ] Replicate logic from the `useTooltip` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Tooltip Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useTooltip` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ---
 
