@@ -1,6 +1,6 @@
-import { expectType } from '@mui/types';
-import * as React from 'react';
-import Breadcrumbs, { BreadcrumbsOwnerState } from '@mui/joy/Breadcrumbs';
+import Breadcrumbs, { type BreadcrumbsOwnerState } from "@mui/joy/Breadcrumbs";
+import { expectType } from "@mui/types";
+import * as React from "react";
 
 <Breadcrumbs />;
 
@@ -17,58 +17,58 @@ import Breadcrumbs, { BreadcrumbsOwnerState } from '@mui/joy/Breadcrumbs';
 <Breadcrumbs size="xl" />;
 
 <Breadcrumbs
-  slots={{
-    root: 'div',
-    ol: 'div',
-    li: 'div',
-    separator: 'div',
-  }}
+	slots={{
+		root: "div",
+		ol: "div",
+		li: "div",
+		separator: "div",
+	}}
 />;
 
 <Breadcrumbs
-  slotProps={{
-    root: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    ol: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    li: {
-      component: 'div',
-    },
-    separator: {
-      'data-testid': 'test',
-    },
-  }}
+	slotProps={{
+		root: {
+			component: "div",
+			"data-testid": "test",
+		},
+		ol: {
+			component: "div",
+			"data-testid": "test",
+		},
+		li: {
+			component: "div",
+		},
+		separator: {
+			"data-testid": "test",
+		},
+	}}
 />;
 
 <Breadcrumbs
-  slotProps={{
-    root: (ownerState) => {
-      expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    ol: (ownerState) => {
-      expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    li: (ownerState) => {
-      expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    separator: (ownerState) => {
-      expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-  }}
+	slotProps={{
+		root: (ownerState) => {
+			expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		ol: (ownerState) => {
+			expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		li: (ownerState) => {
+			expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		separator: (ownerState) => {
+			expectType<BreadcrumbsOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+	}}
 />;

@@ -1,12 +1,12 @@
-import { OverrideProps } from '@mui/types';
-import { BoxTypeMap } from '@mui/system';
-import { Theme } from '../styles/types';
+import type { BoxTypeMap } from "@mui/system";
+import type { OverrideProps } from "@mui/types";
+import type { Theme } from "../styles/types";
 
-export type BoxSlot = 'root';
+export type BoxSlot = "root";
 
 export type BoxProps<
-  D extends React.ElementType = BoxTypeMap['defaultComponent'],
-  P = {},
+	D extends React.ElementType = BoxTypeMap["defaultComponent"],
+	P = {},
 > = OverrideProps<BoxTypeMap<P, D, Theme>, D>;
 
 export interface BoxOwnerState extends BoxProps {}

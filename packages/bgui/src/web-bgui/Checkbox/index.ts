@@ -1,4 +1,4 @@
-export { default } from './Checkbox';
-export { default as checkboxClasses } from './checkboxClasses';
-export * from './checkboxClasses';
-export * from './CheckboxProps';
+export { default } from "./Checkbox";
+export * from "./CheckboxProps";
+export * from "./checkboxClasses";
+export { default as checkboxClasses } from "./checkboxClasses";

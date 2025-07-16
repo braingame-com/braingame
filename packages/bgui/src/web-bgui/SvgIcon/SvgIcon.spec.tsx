@@ -1,66 +1,66 @@
-import * as React from 'react';
-import SvgIcon from '@mui/joy/SvgIcon';
+import SvgIcon from "@mui/joy/SvgIcon";
+import * as React from "react";
 
 function HomeIcon() {
-  return <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />;
+	return <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />;
 }
 
 <SvgIcon>
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 
 <SvgIcon component="div">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 
 <SvgIcon data-testid="any">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 
 // `color`
 <SvgIcon color="primary">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon color="danger">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon color="success">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon color="warning">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon color="neutral">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 
 // `fontSize`
 <SvgIcon fontSize="xs">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="sm">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="md">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="lg">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="xl">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="xl2">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="xl3">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 <SvgIcon fontSize="xl4">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;
 
 // @ts-expect-error there is no fontSize `small`
 <SvgIcon fontSize="small">
-  <HomeIcon />
+	<HomeIcon />
 </SvgIcon>;

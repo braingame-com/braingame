@@ -1,62 +1,62 @@
-import * as React from 'react';
-import { expectType } from '@mui/types';
-import Tooltip, { TooltipOwnerState } from '@mui/joy/Tooltip';
+import Tooltip, { type TooltipOwnerState } from "@mui/joy/Tooltip";
+import { expectType } from "@mui/types";
+import * as React from "react";
 
 <Tooltip title="title" open component="div">
-  <div />
+	<div />
 </Tooltip>;
 
 <Tooltip title="title" open data-testid="any">
-  <div />
+	<div />
 </Tooltip>;
 
 <Tooltip
-  title="title"
-  open
-  slots={{
-    root: 'div',
-    arrow: 'div',
-  }}
+	title="title"
+	open
+	slots={{
+		root: "div",
+		arrow: "div",
+	}}
 >
-  <div />
+	<div />
 </Tooltip>;
 
 <Tooltip
-  title="title"
-  open
-  slotProps={{
-    root: {
-      component: 'div',
-      'data-testid': 'test',
-      open: false,
-    },
-    arrow: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-  }}
+	title="title"
+	open
+	slotProps={{
+		root: {
+			component: "div",
+			"data-testid": "test",
+			open: false,
+		},
+		arrow: {
+			component: "div",
+			"data-testid": "test",
+		},
+	}}
 >
-  <div />
+	<div />
 </Tooltip>;
 
 <Tooltip
-  title="title"
-  open
-  slotProps={{
-    root: (ownerState) => {
-      expectType<TooltipOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-        open: false,
-      };
-    },
-    arrow: (ownerState) => {
-      expectType<TooltipOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-  }}
+	title="title"
+	open
+	slotProps={{
+		root: (ownerState) => {
+			expectType<TooltipOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+				open: false,
+			};
+		},
+		arrow: (ownerState) => {
+			expectType<TooltipOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+	}}
 >
-  <div />
+	<div />
 </Tooltip>;

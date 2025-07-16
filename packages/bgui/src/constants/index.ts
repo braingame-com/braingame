@@ -1,2 +1,2 @@
-export * from './Fonts';
-export * from './UIConstants';
+export * from "./Fonts";
+export * from "./UIConstants";

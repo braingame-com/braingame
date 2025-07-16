@@ -2,5 +2,5 @@
 // Metro bundler will automatically pick .native.tsx for React Native
 // and .web.tsx for web builds
 
-export { Text } from './Text.native';
-export type { TextProps } from './TextProps';
+export { Text } from "./Text.native";
+export type { TextProps } from "./TextProps";

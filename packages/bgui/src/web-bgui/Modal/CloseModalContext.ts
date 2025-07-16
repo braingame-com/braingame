@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ModalProps } from './ModalProps';
+import * as React from "react";
+import type { ModalProps } from "./ModalProps";
 
-const CloseModalContext = React.createContext<undefined | ModalProps['onClose']>(undefined);
+const CloseModalContext = React.createContext<undefined | ModalProps["onClose"]>(undefined);
 
-if (process.env.NODE_ENV !== 'production') {
-  CloseModalContext.displayName = 'CloseModalContext';
+if (process.env.NODE_ENV !== "production") {
+	CloseModalContext.displayName = "CloseModalContext";
 }
 
 export default CloseModalContext;

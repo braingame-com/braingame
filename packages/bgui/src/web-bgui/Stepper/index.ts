@@ -1,4 +1,4 @@
-export { default } from './Stepper';
-export * from './stepperClasses';
-export { default as stepperClasses } from './stepperClasses';
-export * from './StepperProps';
+export { default } from "./Stepper";
+export * from "./StepperProps";
+export * from "./stepperClasses";
+export { default as stepperClasses } from "./stepperClasses";

@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { expectType } from '@mui/types';
-import Avatar, { AvatarOwnerState } from '@mui/joy/Avatar';
+import Avatar, { type AvatarOwnerState } from "@mui/joy/Avatar";
+import { expectType } from "@mui/types";
+import * as React from "react";
 
 <Avatar />;
 
@@ -34,49 +34,49 @@ import Avatar, { AvatarOwnerState } from '@mui/joy/Avatar';
 <Avatar size="xl2" />;
 
 <Avatar
-  slots={{
-    root: 'div',
-    img: 'div',
-    fallback: 'div',
-  }}
+	slots={{
+		root: "div",
+		img: "div",
+		fallback: "div",
+	}}
 />;
 
 <Avatar
-  slotProps={{
-    root: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    img: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    fallback: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-  }}
+	slotProps={{
+		root: {
+			component: "div",
+			"data-testid": "test",
+		},
+		img: {
+			component: "div",
+			"data-testid": "test",
+		},
+		fallback: {
+			component: "div",
+			"data-testid": "test",
+		},
+	}}
 />;
 
 <Avatar
-  slotProps={{
-    root: (ownerState) => {
-      expectType<AvatarOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    img: (ownerState) => {
-      expectType<AvatarOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    fallback: (ownerState) => {
-      expectType<AvatarOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-  }}
+	slotProps={{
+		root: (ownerState) => {
+			expectType<AvatarOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		img: (ownerState) => {
+			expectType<AvatarOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		fallback: (ownerState) => {
+			expectType<AvatarOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+	}}
 />;

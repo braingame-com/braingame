@@ -1,5 +1,5 @@
-import * as React from 'react';
-import ButtonGroup from '@mui/joy/ButtonGroup';
+import ButtonGroup from "@mui/joy/ButtonGroup";
+import * as React from "react";
 
 <ButtonGroup />;
 

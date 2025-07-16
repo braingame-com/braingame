@@ -1,4 +1,4 @@
-export { default } from './Tab';
-export * from './tabClasses';
-export { default as tabClasses } from './tabClasses';
-export * from './TabProps';
+export { default } from "./Tab";
+export * from "./TabProps";
+export * from "./tabClasses";
+export { default as tabClasses } from "./tabClasses";

@@ -1,20 +1,20 @@
-import { OverridableStringUnion } from '@mui/types';
-import { CSSObject } from '@mui/system';
-import { ColorPaletteProp } from './colorSystem';
+import type { CSSObject } from "@mui/system";
+import type { OverridableStringUnion } from "@mui/types";
+import type { ColorPaletteProp } from "./colorSystem";
 
-export interface VariantPropOverrides {}
+export type VariantPropOverrides = {};
 
-export type DefaultVariantProp = 'plain' | 'outlined' | 'soft' | 'solid';
+export type DefaultVariantProp = "plain" | "outlined" | "soft" | "solid";
 
 export type VariantProp = OverridableStringUnion<DefaultVariantProp, VariantPropOverrides>;
 
-type State = 'Hover' | 'Active' | 'Disabled';
+type State = "Hover" | "Active" | "Disabled";
 
 export type VariantKey = DefaultVariantProp | `${DefaultVariantProp}${State}`;
 
 export type DefaultVariantKey =
-  | Exclude<DefaultVariantProp, 'solid'>
-  | `${Exclude<DefaultVariantProp, 'solid'>}${State}`;
+	| Exclude<DefaultVariantProp, "solid">
+	| `${Exclude<DefaultVariantProp, "solid">}${State}`;
 
 // Split interfaces into multiple chunks so that they can be augmented independently
 
@@ -39,25 +39,25 @@ export interface VariantSolidActive extends Record<ColorPaletteProp, CSSObject> 
 export interface VariantSolidDisabled extends Record<ColorPaletteProp, CSSObject> {}
 
 export interface Variants {
-  plain: VariantPlain;
-  plainHover: VariantPlainHover;
-  plainActive: VariantPlainActive;
-  plainDisabled: VariantPlainDisabled;
+	plain: VariantPlain;
+	plainHover: VariantPlainHover;
+	plainActive: VariantPlainActive;
+	plainDisabled: VariantPlainDisabled;
 
-  outlined: VariantOutlined;
-  outlinedHover: VariantOutlinedHover;
-  outlinedActive: VariantOutlinedActive;
-  outlinedDisabled: VariantOutlinedDisabled;
+	outlined: VariantOutlined;
+	outlinedHover: VariantOutlinedHover;
+	outlinedActive: VariantOutlinedActive;
+	outlinedDisabled: VariantOutlinedDisabled;
 
-  soft: VariantSoft;
-  softHover: VariantSoftHover;
-  softActive: VariantSoftActive;
-  softDisabled: VariantSoftDisabled;
+	soft: VariantSoft;
+	softHover: VariantSoftHover;
+	softActive: VariantSoftActive;
+	softDisabled: VariantSoftDisabled;
 
-  solid: VariantSolid;
-  solidHover: VariantSolidHover;
-  solidActive: VariantSolidActive;
-  solidDisabled: VariantSolidDisabled;
+	solid: VariantSolid;
+	solidHover: VariantSolidHover;
+	solidActive: VariantSolidActive;
+	solidDisabled: VariantSolidDisabled;
 }
 
 export interface VariantPlainInversion extends Record<ColorPaletteProp, CSSObject> {}

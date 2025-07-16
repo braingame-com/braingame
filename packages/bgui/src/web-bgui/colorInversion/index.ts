@@ -1,1 +1,1 @@
-export { applySolidInversion, applySoftInversion } from './colorInversionUtils';
+export { applySoftInversion, applySolidInversion } from "./colorInversionUtils";

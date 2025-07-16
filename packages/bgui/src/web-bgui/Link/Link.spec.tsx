@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { expectType } from '@mui/types';
-import Link, { LinkOwnerState } from '@mui/joy/Link';
+import Link, { type LinkOwnerState } from "@mui/joy/Link";
+import { expectType } from "@mui/types";
+import * as React from "react";
 
 <Link />;
 <Link component="div" />;
@@ -54,49 +54,49 @@ import Link, { LinkOwnerState } from '@mui/joy/Link';
 <Link underline="never" />;
 
 <Link
-  slots={{
-    root: 'div',
-    startDecorator: 'div',
-    endDecorator: 'div',
-  }}
+	slots={{
+		root: "div",
+		startDecorator: "div",
+		endDecorator: "div",
+	}}
 />;
 
 <Link
-  slotProps={{
-    root: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    startDecorator: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    endDecorator: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-  }}
+	slotProps={{
+		root: {
+			component: "div",
+			"data-testid": "test",
+		},
+		startDecorator: {
+			component: "div",
+			"data-testid": "test",
+		},
+		endDecorator: {
+			component: "div",
+			"data-testid": "test",
+		},
+	}}
 />;
 
 <Link
-  slotProps={{
-    root: (ownerState) => {
-      expectType<LinkOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    startDecorator: (ownerState) => {
-      expectType<LinkOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    endDecorator: (ownerState) => {
-      expectType<LinkOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-  }}
+	slotProps={{
+		root: (ownerState) => {
+			expectType<LinkOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		startDecorator: (ownerState) => {
+			expectType<LinkOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		endDecorator: (ownerState) => {
+			expectType<LinkOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+	}}
 />;

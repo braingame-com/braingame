@@ -1,4 +1,4 @@
-export { default } from './AccordionDetails';
-export * from './accordionDetailsClasses';
-export { default as accordionDetailsClasses } from './accordionDetailsClasses';
-export * from './AccordionDetailsProps';
+export { default } from "./AccordionDetails";
+export * from "./AccordionDetailsProps";
+export * from "./accordionDetailsClasses";
+export { default as accordionDetailsClasses } from "./accordionDetailsClasses";

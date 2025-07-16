@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ColorPaletteProp, VariantProp } from './types';
+import * as React from "react";
+import type { ColorPaletteProp, VariantProp } from "./types";
 
 const VariantColorContext = React.createContext<string | undefined>(undefined);
 
-if (process.env.NODE_ENV !== 'production') {
-  VariantColorContext.displayName = 'VariantColorContext';
+if (process.env.NODE_ENV !== "production") {
+	VariantColorContext.displayName = "VariantColorContext";
 }
 
 /**
@@ -13,19 +13,19 @@ if (process.env.NODE_ENV !== 'production') {
  * Use this function in a slot to get the matched default variant and color when the parent's variant and/or color changes.
  */
 export function getChildVariantAndColor(
-  parentVariant: VariantProp | undefined,
-  parentColor: ColorPaletteProp | undefined,
+	parentVariant: VariantProp | undefined,
+	parentColor: ColorPaletteProp | undefined,
 ) {
-  let childColor = parentColor;
-  let childVariant = parentVariant;
-  if (parentVariant === 'outlined') {
-    childColor = 'neutral';
-    childVariant = 'plain';
-  }
-  if (parentVariant === 'plain') {
-    childColor = 'neutral';
-  }
-  return { variant: childVariant, color: childColor };
+	let childColor = parentColor;
+	let childVariant = parentVariant;
+	if (parentVariant === "outlined") {
+		childColor = "neutral";
+		childVariant = "plain";
+	}
+	if (parentVariant === "plain") {
+		childColor = "neutral";
+	}
+	return { variant: childVariant, color: childColor };
 }
 
 /**
@@ -37,33 +37,33 @@ export function getChildVariantAndColor(
  * For example, the `Option` component in `Select` component is using this function.
  */
 export function useVariantColor(
-  instanceVariant: VariantProp | undefined,
-  instanceColor: ColorPaletteProp | undefined,
-  alwaysInheritColor: boolean = false,
+	instanceVariant: VariantProp | undefined,
+	instanceColor: ColorPaletteProp | undefined,
+	alwaysInheritColor = false,
 ) {
-  const value = React.useContext(VariantColorContext);
-  const [variant, color] =
-    typeof value === 'string' ? (value.split(':') as [VariantProp, ColorPaletteProp]) : [];
-  const result = getChildVariantAndColor(variant || undefined, color || undefined);
-  result.variant = instanceVariant || result.variant;
-  result.color = instanceColor || (alwaysInheritColor ? color : result.color);
-  return result;
+	const value = React.useContext(VariantColorContext);
+	const [variant, color] =
+		typeof value === "string" ? (value.split(":") as [VariantProp, ColorPaletteProp]) : [];
+	const result = getChildVariantAndColor(variant || undefined, color || undefined);
+	result.variant = instanceVariant || result.variant;
+	result.color = instanceColor || (alwaysInheritColor ? color : result.color);
+	return result;
 }
 
 /**
  * @internal For internal usage only.
  */
 export function VariantColorProvider({
-  children,
-  color,
-  variant,
+	children,
+	color,
+	variant,
 }: React.PropsWithChildren<{
-  variant: VariantProp | undefined;
-  color: ColorPaletteProp | undefined;
+	variant: VariantProp | undefined;
+	color: ColorPaletteProp | undefined;
 }>) {
-  return (
-    <VariantColorContext.Provider value={`${variant || ''}:${color || ''}`}>
-      {children}
-    </VariantColorContext.Provider>
-  );
+	return (
+		<VariantColorContext.Provider value={`${variant || ""}:${color || ""}`}>
+			{children}
+		</VariantColorContext.Provider>
+	);
 }

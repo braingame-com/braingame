@@ -2,5 +2,5 @@
 // Metro bundler will automatically pick .native.tsx for React Native
 // and .web.tsx for web builds
 
-export { Divider } from './Divider.native';
-export type { DividerProps } from './DividerProps';
+export { Divider } from "./Divider.native";
+export type { DividerProps } from "./DividerProps";

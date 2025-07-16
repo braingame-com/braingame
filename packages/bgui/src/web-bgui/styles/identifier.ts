@@ -1,1 +1,1 @@
-export default '$$joy';
+export default "$$joy";

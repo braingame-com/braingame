@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { expectType } from '@mui/types';
-import Alert, { AlertOwnerState } from '@mui/joy/Alert';
+import Alert, { type AlertOwnerState } from "@mui/joy/Alert";
+import { expectType } from "@mui/types";
+import * as React from "react";
 
 <Alert />;
 
@@ -34,47 +34,47 @@ import Alert, { AlertOwnerState } from '@mui/joy/Alert';
 <Alert size="xl2" />;
 
 <Alert
-  slots={{
-    root: 'div',
-    startDecorator: 'div',
-    endDecorator: 'div',
-  }}
+	slots={{
+		root: "div",
+		startDecorator: "div",
+		endDecorator: "div",
+	}}
 />;
 <Alert
-  slotProps={{
-    root: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    startDecorator: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    endDecorator: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-  }}
+	slotProps={{
+		root: {
+			component: "div",
+			"data-testid": "test",
+		},
+		startDecorator: {
+			component: "div",
+			"data-testid": "test",
+		},
+		endDecorator: {
+			component: "div",
+			"data-testid": "test",
+		},
+	}}
 />;
 <Alert
-  slotProps={{
-    root: (ownerState) => {
-      expectType<AlertOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    startDecorator: (ownerState) => {
-      expectType<AlertOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    endDecorator: (ownerState) => {
-      expectType<AlertOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-  }}
+	slotProps={{
+		root: (ownerState) => {
+			expectType<AlertOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		startDecorator: (ownerState) => {
+			expectType<AlertOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		endDecorator: (ownerState) => {
+			expectType<AlertOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+	}}
 />;

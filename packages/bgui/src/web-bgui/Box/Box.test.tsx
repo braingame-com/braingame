@@ -1,242 +1,243 @@
 /* eslint-disable material-ui/no-empty-box */
-import * as React from 'react';
-import { expect } from 'chai';
-import { createRenderer } from '@mui/internal-test-utils';
-import { ThemeProvider, CssVarsProvider, extendTheme, PalettePrimary } from '@mui/joy/styles';
-import { unstable_ClassNameGenerator as ClassNameGenerator } from '@mui/joy/className';
-import Box from '@mui/joy/Box';
-import describeConformance from '../../test/describeConformance';
 
-describe('Joy <Box />', () => {
-  const { render } = createRenderer();
+import { createRenderer } from "@mui/internal-test-utils";
+import Box from "@mui/joy/Box";
+import { unstable_ClassNameGenerator as ClassNameGenerator } from "@mui/joy/className";
+import { CssVarsProvider, extendTheme, type PalettePrimary, ThemeProvider } from "@mui/joy/styles";
+import { expect } from "chai";
+import * as React from "react";
+import describeConformance from "../../test/describeConformance";
 
-  describeConformance(<Box />, () => ({
-    muiName: 'JoyBox',
-    classes: { root: ClassNameGenerator.generate('JoyBox') },
-    render,
-    ThemeProvider,
-    inheritComponent: 'div',
-    skip: [
-      'componentProp',
-      'componentsProp',
-      'rootClass',
-      'themeVariants',
-      'themeStyleOverrides',
-      'themeDefaultProps',
-    ],
-    refInstanceof: window.HTMLDivElement,
-  }));
+describe("Joy <Box />", () => {
+	const { render } = createRenderer();
 
-  it('respects theme from context', function test() {
-    const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+	describeConformance(<Box />, () => ({
+		muiName: "JoyBox",
+		classes: { root: ClassNameGenerator.generate("JoyBox") },
+		render,
+		ThemeProvider,
+		inheritComponent: "div",
+		skip: [
+			"componentProp",
+			"componentsProp",
+			"rootClass",
+			"themeVariants",
+			"themeStyleOverrides",
+			"themeDefaultProps",
+		],
+		refInstanceof: window.HTMLDivElement,
+	}));
 
-    if (isJSDOM) {
-      this.skip();
-    }
+	it("respects theme from context", function test() {
+		const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-    const theme = extendTheme({
-      colorSchemes: {
-        light: {
-          palette: {
-            primary: {
-              ['main' as keyof PalettePrimary]: 'rgb(255, 0, 0)',
-            },
-          },
-        },
-      },
-    });
-    const { container } = render(
-      <CssVarsProvider theme={theme}>
-        <Box color="primary.main" />
-      </CssVarsProvider>,
-    );
+		if (isJSDOM) {
+			this.skip();
+		}
 
-    expect(container.firstChild).toHaveComputedStyle({
-      color: 'rgb(255, 0, 0)',
-    });
-  });
+		const theme = extendTheme({
+			colorSchemes: {
+				light: {
+					palette: {
+						primary: {
+							["main" as keyof PalettePrimary]: "rgb(255, 0, 0)",
+						},
+					},
+				},
+			},
+		});
+		const { container } = render(
+			<CssVarsProvider theme={theme}>
+				<Box color="primary.main" />
+			</CssVarsProvider>,
+		);
 
-  describe('ClassNameGenerator', () => {
-    afterEach(() => {
-      ClassNameGenerator.reset();
-    });
+		expect(container.firstChild).toHaveComputedStyle({
+			color: "rgb(255, 0, 0)",
+		});
+	});
 
-    it('get custom className', () => {
-      const { container, rerender } = render(<Box />);
-      expect(container.firstChild).to.have.class('MuiBox-root');
+	describe("ClassNameGenerator", () => {
+		afterEach(() => {
+			ClassNameGenerator.reset();
+		});
 
-      ClassNameGenerator.configure((name) => name.replace('Mui', 'Company'));
+		it("get custom className", () => {
+			const { container, rerender } = render(<Box />);
+			expect(container.firstChild).to.have.class("MuiBox-root");
 
-      rerender(<Box />);
+			ClassNameGenerator.configure((name) => name.replace("Mui", "Company"));
 
-      expect(container.firstChild).to.have.class('CompanyBox-root');
-    });
-  });
+			rerender(<Box />);
 
-  describe('sx', () => {
-    const theme = extendTheme({
-      colorSchemes: {
-        light: {
-          palette: {
-            primary: {
-              500: 'rgb(0, 0, 255)',
-            },
-          },
-        },
-      },
-      radius: {
-        md: '77px',
-      },
-      shadow: {
-        md: 'rgb(0, 0, 0) 0px 0px 10px 0px',
-      },
-    });
+			expect(container.firstChild).to.have.class("CompanyBox-root");
+		});
+	});
 
-    it('color', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+	describe("sx", () => {
+		const theme = extendTheme({
+			colorSchemes: {
+				light: {
+					palette: {
+						primary: {
+							500: "rgb(0, 0, 255)",
+						},
+					},
+				},
+			},
+			radius: {
+				md: "77px",
+			},
+			shadow: {
+				md: "rgb(0, 0, 0) 0px 0px 10px 0px",
+			},
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("color", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ color: 'primary.500' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        color: 'rgb(0, 0, 255)',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ color: "primary.500" }} />
+				</CssVarsProvider>,
+			);
 
-    it('bgcolor', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				color: "rgb(0, 0, 255)",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("bgcolor", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ bgcolor: 'primary.500' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        backgroundColor: 'rgb(0, 0, 255)',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ bgcolor: "primary.500" }} />
+				</CssVarsProvider>,
+			);
 
-    it('backgroundColor', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				backgroundColor: "rgb(0, 0, 255)",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("backgroundColor", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ backgroundColor: 'primary.500' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        backgroundColor: 'rgb(0, 0, 255)',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ backgroundColor: "primary.500" }} />
+				</CssVarsProvider>,
+			);
 
-    it('borderRadius', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				backgroundColor: "rgb(0, 0, 255)",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("borderRadius", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ borderRadius: 'md' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        borderTopLeftRadius: '77px',
-        borderTopRightRadius: '77px',
-        borderBottomLeftRadius: '77px',
-        borderBottomRightRadius: '77px',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ borderRadius: "md" }} />
+				</CssVarsProvider>,
+			);
 
-    it('boxShadow', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				borderTopLeftRadius: "77px",
+				borderTopRightRadius: "77px",
+				borderBottomLeftRadius: "77px",
+				borderBottomRightRadius: "77px",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("boxShadow", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ boxShadow: 'md' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        boxShadow: 'rgb(0, 0, 0) 0px 0px 10px 0px',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ boxShadow: "md" }} />
+				</CssVarsProvider>,
+			);
 
-    it('fontSize', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				boxShadow: "rgb(0, 0, 0) 0px 0px 10px 0px",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("fontSize", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ fontSize: 'md' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        fontSize: '16px',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ fontSize: "md" }} />
+				</CssVarsProvider>,
+			);
 
-    it('fontWeight', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				fontSize: "16px",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("fontWeight", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ fontWeight: 'md' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        fontWeight: '500',
-      });
-    });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ fontWeight: "md" }} />
+				</CssVarsProvider>,
+			);
 
-    it('lineHeight', function test() {
-      const isJSDOM = /jsdom/.test(window.navigator.userAgent);
+			expect(container.firstChild).toHaveComputedStyle({
+				fontWeight: "500",
+			});
+		});
 
-      if (isJSDOM) {
-        this.skip();
-      }
+		it("lineHeight", function test() {
+			const isJSDOM = /jsdom/.test(window.navigator.userAgent);
 
-      const { container } = render(
-        <CssVarsProvider theme={theme}>
-          <Box sx={{ lineHeight: 'md' }} />
-        </CssVarsProvider>,
-      );
+			if (isJSDOM) {
+				this.skip();
+			}
 
-      expect(container.firstChild).toHaveComputedStyle({
-        lineHeight: '24px',
-      });
-    });
-  });
+			const { container } = render(
+				<CssVarsProvider theme={theme}>
+					<Box sx={{ lineHeight: "md" }} />
+				</CssVarsProvider>,
+			);
+
+			expect(container.firstChild).toHaveComputedStyle({
+				lineHeight: "24px",
+			});
+		});
+	});
 });

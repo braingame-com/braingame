@@ -1,4 +1,4 @@
-export { default } from './CardCover';
-export * from './cardCoverClasses';
-export { default as cardCoverClasses } from './cardCoverClasses';
-export * from './CardCoverProps';
+export { default } from "./CardCover";
+export * from "./CardCoverProps";
+export * from "./cardCoverClasses";
+export { default as cardCoverClasses } from "./cardCoverClasses";

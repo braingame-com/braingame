@@ -1,4 +1,4 @@
-export { default } from './Divider';
-export { default as dividerClasses } from './dividerClasses';
-export * from './dividerClasses';
-export * from './DividerProps';
+export { default } from "./Divider";
+export * from "./DividerProps";
+export * from "./dividerClasses";
+export { default as dividerClasses } from "./dividerClasses";

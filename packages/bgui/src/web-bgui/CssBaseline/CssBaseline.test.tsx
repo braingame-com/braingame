@@ -1,1 +1,1 @@
-describe('<CssBaseline />', () => {});
+describe("<CssBaseline />", () => {});

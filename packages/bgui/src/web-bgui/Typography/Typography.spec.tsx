@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { expectType } from '@mui/types';
-import Typography, { TypographyOwnerState } from '@mui/joy/Typography';
+import Typography, { type TypographyOwnerState } from "@mui/joy/Typography";
+import { expectType } from "@mui/types";
+import type * as React from "react";
 
 <Typography component="a" href="/">
-  Text
+	Text
 </Typography>;
 
-function Link(props: React.JSX.IntrinsicElements['a']) {
-  return <a {...props} />;
+function Link(props: React.JSX.IntrinsicElements["a"]) {
+	return <a {...props} />;
 }
 <Typography component={Link} href="/">
-  Text
+	Text
 </Typography>;
 
 // @ts-expect-error href is not exist in div
 <Typography component="div" href="/">
-  Text
+	Text
 </Typography>;
 
 <Typography color="primary" />;
@@ -28,49 +28,49 @@ function Link(props: React.JSX.IntrinsicElements['a']) {
 <Typography textColor="#fff" />; // should support plain string
 
 <Typography
-  slots={{
-    root: 'div',
-    startDecorator: 'div',
-    endDecorator: 'div',
-  }}
+	slots={{
+		root: "div",
+		startDecorator: "div",
+		endDecorator: "div",
+	}}
 />;
 
 <Typography
-  slotProps={{
-    root: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    startDecorator: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-    endDecorator: {
-      component: 'div',
-      'data-testid': 'test',
-    },
-  }}
+	slotProps={{
+		root: {
+			component: "div",
+			"data-testid": "test",
+		},
+		startDecorator: {
+			component: "div",
+			"data-testid": "test",
+		},
+		endDecorator: {
+			component: "div",
+			"data-testid": "test",
+		},
+	}}
 />;
 
 <Typography
-  slotProps={{
-    root: (ownerState) => {
-      expectType<TypographyOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    startDecorator: (ownerState) => {
-      expectType<TypographyOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-    endDecorator: (ownerState) => {
-      expectType<TypographyOwnerState, typeof ownerState>(ownerState);
-      return {
-        'data-testid': 'test',
-      };
-    },
-  }}
+	slotProps={{
+		root: (ownerState) => {
+			expectType<TypographyOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		startDecorator: (ownerState) => {
+			expectType<TypographyOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+		endDecorator: (ownerState) => {
+			expectType<TypographyOwnerState, typeof ownerState>(ownerState);
+			return {
+				"data-testid": "test",
+			};
+		},
+	}}
 />;

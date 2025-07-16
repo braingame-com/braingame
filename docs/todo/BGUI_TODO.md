@@ -178,12 +178,12 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Avatar Component** *(Completed 15-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Badge Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Chip Component**
-    - [ ] Replicate logic from the `useChip` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Badge Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Chip Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useChip` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ### Tier 3: Platform Differences (More Complex Logic)
 - [ ] **Input Component** (will map to `TextInput`)

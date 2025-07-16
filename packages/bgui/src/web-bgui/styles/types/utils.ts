@@ -6,8 +6,8 @@ type FilterConditionally<T, U> = { [K in keyof T]: T[K] extends U ? K : never }[
 // Cannot use `OverridableStringUnion` from @mui/system because it excludes number
 // which cause module augmentation test to fail.
 type OverridableStringUnion<T extends string | number | symbol, U = {}> =
-  | FilterConditionally<U, true>
-  | Exclude<T, FilterConditionally<U, false>>;
+	| FilterConditionally<U, true>
+	| Exclude<T, FilterConditionally<U, false>>;
 
 /**
  * The new type will be overridable by the provided `Overrides`.
@@ -17,9 +17,9 @@ type OverridableStringUnion<T extends string | number | symbol, U = {}> =
  * @param {Overrides} overrideInterface - The interface that users will interact with to extend or remove keys
  */
 export type OverridableImplicitRecord<DefaultRecord extends Record<string, any>, Overrides = {}> = {
-  [k in OverridableStringUnion<keyof DefaultRecord, Overrides>]: k extends keyof DefaultRecord
-    ? DefaultRecord[k]
-    : any;
+	[k in OverridableStringUnion<keyof DefaultRecord, Overrides>]: k extends keyof DefaultRecord
+		? DefaultRecord[k]
+		: any;
 };
 
 /**
@@ -30,11 +30,11 @@ export type OverridableImplicitRecord<DefaultRecord extends Record<string, any>,
  * @param {Value} value - The value of the extended keys
  */
 export type OverridableRecord<
-  DefaultRecord extends Record<string, any>,
-  Overrides = {},
-  Value = any,
+	DefaultRecord extends Record<string, any>,
+	Overrides = {},
+	Value = any,
 > = {
-  [k in OverridableStringUnion<keyof DefaultRecord, Overrides>]: Value;
+	[k in OverridableStringUnion<keyof DefaultRecord, Overrides>]: Value;
 };
 
 /**
@@ -68,5 +68,5 @@ export type OverridableRecord<
  * @param {U} defaultType - The default structure defined by Joy UI
  */
 export type MergeDefault<T, U> = { [k in keyof T]: k extends keyof U ? U[k] & T[k] : T[k] } & {
-  [k in Exclude<keyof U, keyof T>]: undefined | null;
+	[k in Exclude<keyof U, keyof T>]: undefined | null;
 };

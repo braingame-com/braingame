@@ -1,9 +1,9 @@
-import { OverridableStringUnion } from '@mui/types';
+import type { OverridableStringUnion } from "@mui/types";
 
 /**
  * default Joy color-schemes
  */
-export type DefaultColorScheme = 'light' | 'dark';
+export type DefaultColorScheme = "light" | "dark";
 
 /**
  * The application can add more color-scheme by extending this interface via module augmentation
@@ -17,7 +17,7 @@ export type DefaultColorScheme = 'light' | 'dark';
  *
  * // SupportedColorScheme = 'light' | 'dark' | 'foo';
  */
-export interface ColorSchemeOverrides {}
+export type ColorSchemeOverrides = {};
 export type ExtendedColorScheme = OverridableStringUnion<never, ColorSchemeOverrides>;
 
 /**

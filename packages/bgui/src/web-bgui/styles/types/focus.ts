@@ -1,7 +1,7 @@
-import { CSSObject } from '@mui/system';
+import type { CSSObject } from "@mui/system";
 
 export interface Focus {
-  thickness: string;
-  selector: string;
-  default: CSSObject;
+	thickness: string;
+	selector: string;
+	default: CSSObject;
 }

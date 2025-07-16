@@ -13,7 +13,8 @@
 		"test:coverage": "jest --coverage",
 		"lint": "biome check --fix --vcs-root=../..",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf dist",
+		"generate:component": "node scripts/generate-component.js"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.27.6",

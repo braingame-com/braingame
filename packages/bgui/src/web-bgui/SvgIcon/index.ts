@@ -1,4 +1,4 @@
-export { default } from './SvgIcon';
-export * from './SvgIconProps';
-export { default as svgIconClasses } from './svgIconClasses';
-export * from './svgIconClasses';
+export { default } from "./SvgIcon";
+export * from "./SvgIconProps";
+export * from "./svgIconClasses";
+export { default as svgIconClasses } from "./svgIconClasses";

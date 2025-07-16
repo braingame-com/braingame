@@ -1,4 +1,4 @@
-export { default } from './StepButton';
-export * from './stepButtonClasses';
-export { default as stepButtonClasses } from './stepButtonClasses';
-export * from './StepButtonProps';
+export { default } from "./StepButton";
+export * from "./StepButtonProps";
+export * from "./stepButtonClasses";
+export { default as stepButtonClasses } from "./stepButtonClasses";
