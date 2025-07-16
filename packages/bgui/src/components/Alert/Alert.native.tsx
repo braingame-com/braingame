@@ -1,48 +1,171 @@
-import { createBox, createText, useTheme } from "@shopify/restyle";
-import React from "react";
-import { Pressable, Text } from "react-native";
-import type { Theme } from "../../theme/theme";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import { StyleSheet, type View } from "react-native";
+import { theme } from "../../theme";
+import { Box } from "../Box";
+import { Text } from "../Text";
 import type { AlertProps } from "./AlertProps";
 
-const Box = createBox<Theme>();
-const ThemedText = createText<Theme>();
-
 /**
- * Native implementation of Alert using Shopify Restyle
+ * Native implementation of Alert component
  *
- * TODO: Implement by replicating the behavioral logic from Joy UI's useAlert hook
- * Focus on accessibility, state management, and event handling
+ * Alerts display brief messages for the user without interrupting their workflow.
+ * This implementation provides contextual feedback with proper theming and accessibility.
  */
-export function Alert({
-	children,
-	color = "neutral",
-	variant = "solid",
-	size = "md",
-	disabled = false,
-	onClick,
-	"aria-label": ariaLabel,
-}: AlertProps) {
-	const theme = useTheme<Theme>();
 
-	// TODO: Extract behavioral logic from web-bgui/Alert/useAlert hook
-	// TODO: Implement variant styles based on theme.components.BGUI_Alert
-	// TODO: Implement size variants
-	// TODO: Implement color palette support
+export const Alert = forwardRef<View, AlertProps>(
+	(
+		{
+			children,
+			color = "neutral",
+			variant = "soft",
+			size = "md",
+			startDecorator,
+			endDecorator,
+			invertedColors = false,
+			role = "alert",
+			style,
+			testID,
+			"aria-label": ariaLabel,
+		},
+		ref,
+	) => {
+		const alertRef = useRef<View>(null);
 
-	return (
-		<Pressable
-			onPress={disabled ? undefined : onClick}
-			disabled={disabled}
-			accessible
-			accessibilityLabel={ariaLabel}
-			accessibilityRole="button"
-			accessibilityState={{ disabled }}
-		>
-			<Box backgroundColor="primary" padding="m" borderRadius="m" opacity={disabled ? 0.5 : 1}>
-				<ThemedText variant="button" color="onPrimary">
-					{children}
-				</ThemedText>
+		// Merge refs
+		useImperativeHandle(ref, () => alertRef.current!);
+
+		// Get variant styles from theme
+		const getVariantStyles = () => {
+			const variantKey = `${variant}-${color}` as keyof typeof theme.components.Alert.variants;
+			return (
+				theme.components.Alert.variants[variantKey] ||
+				theme.components.Alert.variants["soft-neutral"]
+			);
+		};
+
+		// Get size configurations
+		const getSizeConfig = () => {
+			const sizeConfigs = {
+				sm: {
+					paddingHorizontal: theme.spacing.sm,
+					paddingVertical: theme.spacing.xs,
+					borderRadius: theme.radii.xs,
+					fontSize: theme.fontSizes.sm,
+					gap: theme.spacing.xs,
+				},
+				md: {
+					paddingHorizontal: theme.spacing.md,
+					paddingVertical: theme.spacing.sm,
+					borderRadius: theme.radii.sm,
+					fontSize: theme.fontSizes.md,
+					gap: theme.spacing.sm,
+				},
+				lg: {
+					paddingHorizontal: theme.spacing.lg,
+					paddingVertical: theme.spacing.md,
+					borderRadius: theme.radii.md,
+					fontSize: theme.fontSizes.lg,
+					gap: theme.spacing.md,
+				},
+			};
+			return sizeConfigs[size];
+		};
+
+		// Get icon color based on variant and color
+		const getIconColor = () => {
+			const colorMap = {
+				primary: theme.colors.primary,
+				neutral: theme.colors.onSurface,
+				danger: theme.colors.error,
+				success: theme.colors.success,
+				warning: theme.colors.warning,
+			};
+
+			if (variant === "solid") {
+				return invertedColors ? colorMap[color] : theme.colors.onPrimary;
+			}
+
+			return colorMap[color] || theme.colors.onSurface;
+		};
+
+		// Get text color based on variant and color
+		const getTextColor = () => {
+			if (variant === "solid") {
+				return invertedColors ? theme.colors[color] : theme.colors.onPrimary;
+			}
+
+			const colorMap = {
+				primary: theme.colors.primary,
+				neutral: theme.colors.onSurface,
+				danger: theme.colors.error,
+				success: theme.colors.success,
+				warning: theme.colors.warning,
+			};
+
+			return colorMap[color] || theme.colors.onSurface;
+		};
+
+		const variantStyles = getVariantStyles();
+		const sizeConfig = getSizeConfig();
+		const iconColor = getIconColor();
+		const textColor = getTextColor();
+
+		// Container styles
+		const containerStyles = [
+			styles.container,
+			{
+				backgroundColor: variantStyles.backgroundColor,
+				borderColor: variantStyles.borderColor,
+				borderWidth: variantStyles.borderWidth || 0,
+				borderRadius: sizeConfig.borderRadius,
+				paddingHorizontal: sizeConfig.paddingHorizontal,
+				paddingVertical: sizeConfig.paddingVertical,
+				gap: sizeConfig.gap,
+			},
+			style,
+		];
+
+		return (
+			<Box
+				ref={alertRef}
+				style={containerStyles}
+				testID={testID}
+				accessibilityRole={role as any}
+				accessibilityLabel={ariaLabel}
+				accessibilityLiveRegion="polite"
+				accessible={true}
+			>
+				<Box flexDirection="row" alignItems="flex-start" gap={sizeConfig.gap}>
+					{startDecorator && <Box style={{ color: iconColor }}>{startDecorator}</Box>}
+
+					<Box flex={1}>
+						{typeof children === "string" ? (
+							<Text
+								variant="body1"
+								style={{
+									fontSize: sizeConfig.fontSize,
+									color: textColor,
+									lineHeight: sizeConfig.fontSize * 1.5,
+								}}
+							>
+								{children}
+							</Text>
+						) : (
+							children
+						)}
+					</Box>
+
+					{endDecorator && <Box style={{ color: iconColor }}>{endDecorator}</Box>}
+				</Box>
 			</Box>
-		</Pressable>
-	);
-}
+		);
+	},
+);
+
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: "column",
+		alignItems: "stretch",
+		width: "100%",
+	},
+});
