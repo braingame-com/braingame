@@ -14,7 +14,12 @@ import type { RadioProps } from "./RadioProps";
 
 // Simple radio dot component
 const RadioDot = ({ size = 8, color = "#fff" }) => (
-	<View style={[styles.radioDot, { width: size, height: size, backgroundColor: color, borderRadius: size / 2 }]} />
+	<View
+		style={[
+			styles.radioDot,
+			{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 },
+		]}
+	/>
 );
 
 export const Radio = forwardRef<View, RadioProps>(
@@ -58,7 +63,10 @@ export const Radio = forwardRef<View, RadioProps>(
 		// Get variant styles from theme
 		const getVariantStyles = () => {
 			const variantKey = `${variant}-${color}` as keyof typeof theme.components.Radio.variants;
-			return theme.components.Radio.variants[variantKey] || theme.components.Radio.variants["outlined-neutral"];
+			return (
+				theme.components.Radio.variants[variantKey] ||
+				theme.components.Radio.variants["outlined-neutral"]
+			);
 		};
 
 		// Get size configurations
@@ -94,7 +102,7 @@ export const Radio = forwardRef<View, RadioProps>(
 			if (checkedValue) return;
 
 			const newChecked = true;
-			
+
 			if (!isControlled) {
 				setInternalChecked(newChecked);
 			}
@@ -141,12 +149,7 @@ export const Radio = forwardRef<View, RadioProps>(
 
 			if (checkedValue) {
 				if (checkedIcon) return checkedIcon;
-				return (
-					<RadioDot 
-						size={sizeConfig.dotSize} 
-						color={variantStyles.color || "#fff"} 
-					/>
-				);
+				return <RadioDot size={sizeConfig.dotSize} color={variantStyles.color || "#fff"} />;
 			}
 
 			return uncheckedIcon || null;
@@ -170,7 +173,7 @@ export const Radio = forwardRef<View, RadioProps>(
 				disabled={disabled}
 				testID={testID}
 				accessibilityRole="radio"
-				accessibilityLabel={ariaLabel || (typeof label === 'string' ? label : undefined)}
+				accessibilityLabel={ariaLabel || (typeof label === "string" ? label : undefined)}
 				accessibilityHint={ariaDescribedby}
 				accessibilityLabelledBy={ariaLabelledby}
 				accessibilityState={{
@@ -179,14 +182,9 @@ export const Radio = forwardRef<View, RadioProps>(
 					busy: false,
 				}}
 				accessibilityRequired={required}
-				style={({ pressed }) => [
-					containerStyles,
-					pressed && !disabled && { opacity: 0.7 },
-				]}
+				style={({ pressed }) => [containerStyles, pressed && !disabled && { opacity: 0.7 }]}
 			>
-				<View style={radioStyles}>
-					{renderIcon()}
-				</View>
+				<View style={radioStyles}>{renderIcon()}</View>
 
 				{label && (
 					<Text
@@ -206,12 +204,12 @@ export const Radio = forwardRef<View, RadioProps>(
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'flex-start',
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "flex-start",
 	},
 	overlay: {
-		position: 'absolute',
+		position: "absolute",
 		top: 0,
 		left: 0,
 		right: 0,
@@ -219,11 +217,14 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 	},
 	radio: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 		flexShrink: 0,
 	},
 	radioDot: {
 		// Dot styling handled inline
 	},
 });
+
+// Set display name for component identification
+Radio.displayName = 'Radio';

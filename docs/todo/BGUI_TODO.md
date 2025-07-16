@@ -209,20 +209,20 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Switch Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the `useSwitch` headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **RadioGroup Component**
-    - [ ] Replicate logic from the `useRadioGroup` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Textarea Component**
-    - [ ] Replicate logic from the `useTextarea` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **RadioGroup Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useRadioGroup` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Textarea Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useTextarea` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ### Progress Components *(Added 16-07-2025)*
 - [x] **CircularProgress Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **LinearProgress Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **LinearProgress Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 - [ ] **Skeleton Component**
     - [ ] Replicate logic from the relevant headless hook.
     - [ ] Verify accessibility standards are met (labels, roles, etc.).

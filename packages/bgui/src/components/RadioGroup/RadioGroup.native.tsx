@@ -1,48 +1,127 @@
-import { createBox, createText, useTheme } from "@shopify/restyle";
-import React from "react";
-import { Pressable, Text } from "react-native";
-import type { Theme } from "../../theme/theme";
+import React, { Children, forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { View } from "react-native";
+import { theme } from "../../theme";
+import { Box } from "../Box";
 import type { RadioGroupProps } from "./RadioGroupProps";
 
-const Box = createBox<Theme>();
-const ThemedText = createText<Theme>();
-
 /**
- * Native implementation of RadioGroup using Shopify Restyle
+ * Native implementation of RadioGroup component
  *
- * TODO: Implement by replicating the behavioral logic from Joy UI's useRadioGroup hook
- * Focus on accessibility, state management, and event handling
+ * RadioGroup is a wrapper used to group multiple Radio components.
+ * It manages the selection state and ensures only one radio can be selected at a time.
  */
-export function RadioGroup({
-	children,
-	color = "neutral",
-	variant = "solid",
-	size = "md",
-	disabled = false,
-	onClick,
-	"aria-label": ariaLabel,
-}: RadioGroupProps) {
-	const theme = useTheme<Theme>();
 
-	// TODO: Extract behavioral logic from web-bgui/RadioGroup/useRadioGroup hook
-	// TODO: Implement variant styles based on theme.components.BGUI_RadioGroup
-	// TODO: Implement size variants
-	// TODO: Implement color palette support
+export const RadioGroup = forwardRef<View, RadioGroupProps>(
+	(
+		{
+			children,
+			value,
+			defaultValue,
+			name,
+			disabled = false,
+			color = "neutral",
+			variant = "plain",
+			size = "md",
+			orientation = "vertical",
+			required = false,
+			readOnly = false,
+			disableIcon = false,
+			overlay = false,
+			onChange,
+			style,
+			testID,
+			"aria-label": ariaLabel,
+			"aria-describedby": ariaDescribedby,
+			"aria-labelledby": ariaLabelledby,
+		},
+		ref,
+	) => {
+		const radioGroupRef = useRef<View>(null);
+		const [internalValue, setInternalValue] = useState(defaultValue);
 
-	return (
-		<Pressable
-			onPress={disabled ? undefined : onClick}
-			disabled={disabled}
-			accessible
-			accessibilityLabel={ariaLabel}
-			accessibilityRole="button"
-			accessibilityState={{ disabled }}
-		>
-			<Box backgroundColor="primary" padding="m" borderRadius="m" opacity={disabled ? 0.5 : 1}>
-				<ThemedText variant="button" color="onPrimary">
-					{children}
-				</ThemedText>
+		// Determine if controlled or uncontrolled
+		const isControlled = value !== undefined;
+		const currentValue = isControlled ? value : internalValue;
+
+		// Generate a unique name for the radio group if not provided
+		const radioGroupName = name || `radio-group-${Math.random().toString(36).substr(2, 9)}`;
+
+		// Merge refs
+		useImperativeHandle(ref, () => radioGroupRef.current!);
+
+		// Handle radio selection
+		const handleRadioChange = (event: any) => {
+			const newValue = event.target.value;
+			
+			if (!isControlled) {
+				setInternalValue(newValue);
+			}
+
+			// Create a mock event for the RadioGroup
+			const mockEvent = {
+				target: {
+					value: newValue,
+					name: radioGroupName,
+				},
+				currentTarget: {
+					value: newValue,
+					name: radioGroupName,
+				},
+				preventDefault: () => {},
+				stopPropagation: () => {},
+			};
+
+			onChange?.(mockEvent);
+		};
+
+		// Clone radio children with shared props
+		const clonedChildren = Children.map(children, (child) => {
+			if (React.isValidElement(child) && child.type && (child.type as any).displayName === 'Radio') {
+				return React.cloneElement(child, {
+					...child.props,
+					name: radioGroupName,
+					checked: child.props.value === currentValue,
+					onChange: handleRadioChange,
+					disabled: disabled || child.props.disabled,
+					color: child.props.color || color,
+					variant: child.props.variant || variant,
+					size: child.props.size || size,
+					required: required || child.props.required,
+					readOnly: readOnly || child.props.readOnly,
+					disableIcon: disableIcon || child.props.disableIcon,
+					overlay: overlay || child.props.overlay,
+				});
+			}
+			return child;
+		});
+
+		// Container styles
+		const containerStyles = [
+			{
+				flexDirection: orientation === "horizontal" ? "row" : "column",
+				gap: theme.spacing.sm,
+				opacity: disabled ? 0.6 : 1,
+			},
+			style,
+		];
+
+		return (
+			<Box
+				ref={radioGroupRef}
+				style={containerStyles}
+				testID={testID}
+				accessibilityRole="radiogroup"
+				accessibilityLabel={ariaLabel}
+				accessibilityState={{
+					disabled: disabled,
+				}}
+				accessibilityRequired={required}
+			>
+				{clonedChildren}
 			</Box>
-		</Pressable>
-	);
-}
+		);
+	},
+);
+
+// Set display name for component identification
+RadioGroup.displayName = 'RadioGroup';
