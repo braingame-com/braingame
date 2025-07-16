@@ -1,48 +1,148 @@
-import { createBox, createText, useTheme } from "@shopify/restyle";
-import React from "react";
-import { Pressable, Text } from "react-native";
+import { createBox, useTheme } from "@shopify/restyle";
+import React, { forwardRef } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 import type { Theme } from "../../theme/theme";
+import { theme } from "../../theme";
 import type { ListProps } from "./ListProps";
 
 const Box = createBox<Theme>();
-const ThemedText = createText<Theme>();
 
 /**
- * Native implementation of List using Shopify Restyle
+ * Native implementation of List component
  *
- * TODO: Implement by replicating the behavioral logic from Joy UI's useList hook
- * Focus on accessibility, state management, and event handling
+ * Lists are continuous, vertical indexes of text or images.
+ * Container component that manages list items.
  */
-export function List({
-	children,
-	color = "neutral",
-	variant = "solid",
-	size = "md",
-	disabled = false,
-	onClick,
-	"aria-label": ariaLabel,
-}: ListProps) {
-	const theme = useTheme<Theme>();
+export const List = forwardRef<View, ListProps>(
+	(
+		{
+			children,
+			color = "neutral",
+			variant = "plain",
+			size = "md",
+			orientation = "vertical",
+			marker = "none",
+			wrap = false,
+			style,
+			testID,
+			role = "list",
+			"aria-label": ariaLabel,
+			"aria-describedby": ariaDescribedBy,
+			"aria-labelledby": ariaLabelledBy,
+			...props
+		},
+		ref,
+	) => {
+		const restyleTheme = useTheme<Theme>();
 
-	// TODO: Extract behavioral logic from web-bgui/List/useList hook
-	// TODO: Implement variant styles based on theme.components.BGUI_List
-	// TODO: Implement size variants
-	// TODO: Implement color palette support
+		// Get variant styles from theme
+		const getVariantStyles = () => {
+			const variantKey = `${variant}-${color}` as keyof typeof theme.components.List.variants;
+			const variantStyle = theme.components.List.variants[variantKey];
 
-	return (
-		<Pressable
-			onPress={disabled ? undefined : onClick}
-			disabled={disabled}
-			accessible
-			accessibilityLabel={ariaLabel}
-			accessibilityRole="button"
-			accessibilityState={{ disabled }}
-		>
-			<Box backgroundColor="primary" padding="m" borderRadius="m" opacity={disabled ? 0.5 : 1}>
-				<ThemedText variant="button" color="onPrimary">
-					{children}
-				</ThemedText>
-			</Box>
-		</Pressable>
-	);
-}
+			if (!variantStyle) {
+				// Fallback to plain-neutral
+				return theme.components.List.variants["plain-neutral"];
+			}
+
+			return variantStyle;
+		};
+
+		// Get size-based padding
+		const getSizePadding = () => {
+			switch (size) {
+				case "sm":
+					return theme.spacing.xs;
+				case "lg":
+					return theme.spacing.lg;
+				default:
+					return theme.spacing.sm;
+			}
+		};
+
+		const variantStyles = getVariantStyles();
+		const padding = getSizePadding();
+
+		// Build container styles
+		const containerStyles = [
+			styles.container,
+			orientation === "horizontal" && styles.horizontal,
+			{
+				backgroundColor: variantStyles.backgroundColor
+					? restyleTheme.colors[variantStyles.backgroundColor as keyof Theme["colors"]]
+					: "transparent",
+				borderWidth: variantStyles.borderWidth || 0,
+				borderColor: variantStyles.borderColor
+					? restyleTheme.colors[variantStyles.borderColor as keyof Theme["colors"]]
+					: "transparent",
+				padding,
+			},
+			style,
+		];
+
+		// Determine if we need a scrollable container for horizontal lists
+		const content = React.Children.map(children, (child, index) =>
+			React.isValidElement(child)
+				? React.cloneElement(child as React.ReactElement<any>, {
+						// Pass context props to children
+						__listContext: {
+							size,
+							color,
+							variant,
+							marker,
+							orientation,
+							index,
+						},
+				  })
+				: child,
+		);
+
+		if (orientation === "horizontal" && wrap) {
+			return (
+				<ScrollView
+					ref={ref as any}
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					contentContainerStyle={containerStyles}
+					accessible
+					accessibilityRole={role as any}
+					accessibilityLabel={ariaLabel}
+					accessibilityLabelledBy={ariaLabelledBy}
+					accessibilityHint={ariaDescribedBy}
+					testID={testID}
+					{...props}
+				>
+					{content}
+				</ScrollView>
+			);
+		}
+
+		return (
+			<View
+				ref={ref}
+				style={containerStyles}
+				accessible
+				accessibilityRole={role as any}
+				accessibilityLabel={ariaLabel}
+				accessibilityLabelledBy={ariaLabelledBy}
+				accessibilityHint={ariaDescribedBy}
+				testID={testID}
+				{...props}
+			>
+				{content}
+			</View>
+		);
+	},
+);
+
+List.displayName = "List";
+
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: "column",
+	},
+	horizontal: {
+		flexDirection: "row",
+		flexWrap: "wrap",
+	},
+});

@@ -189,11 +189,11 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **Input Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the `useInput` headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Modal Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the `useModal` headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 - [ ] **Select Component** (will require a custom native implementation, likely using a Modal)
     - [ ] Replicate logic from the `useSelect` headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Modal Component** (will wrap React Native's `Modal`)
-    - [ ] Replicate logic from the `useModal` headless hook.
     - [ ] Verify accessibility standards are met (labels, roles, etc.).
 - [ ] **Tabs Component**
     - [ ] Replicate logic from the `useTabs` headless hook.
@@ -223,32 +223,32 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **LinearProgress Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Skeleton Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Skeleton Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ### Typography and Navigation Components *(Added 16-07-2025)*
-- [ ] **Typography Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Link Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **List Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **ListItem Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Grid Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **IconButton Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
-- [ ] **Alert Component**
-    - [ ] Replicate logic from the relevant headless hook.
-    - [ ] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Typography Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Alert Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Link Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **List Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **ListItem Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **Grid Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
+- [x] **IconButton Component** *(Completed 16-07-2025)*
+    - [x] Replicate logic from the relevant headless hook.
+    - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ### Tier 4: Post-MVP / Stretch Goals (Heaviest Lifts)
 *Note: This entire tier is considered a stretch goal and should be deferred until a stable, usable library with Tiers 1-3 is complete and in use. The primary mission is to deliver the core library first.*
