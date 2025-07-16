@@ -227,4 +227,4 @@ const styles = StyleSheet.create({
 });
 
 // Set display name for component identification
-Radio.displayName = 'Radio';
+Radio.displayName = "Radio";

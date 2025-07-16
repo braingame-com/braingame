@@ -1,5 +1,5 @@
 import React, { Children, forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { View } from "react-native";
+import type { View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { RadioGroupProps } from "./RadioGroupProps";
@@ -52,7 +52,7 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 		// Handle radio selection
 		const handleRadioChange = (event: any) => {
 			const newValue = event.target.value;
-			
+
 			if (!isControlled) {
 				setInternalValue(newValue);
 			}
@@ -76,7 +76,11 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 
 		// Clone radio children with shared props
 		const clonedChildren = Children.map(children, (child) => {
-			if (React.isValidElement(child) && child.type && (child.type as any).displayName === 'Radio') {
+			if (
+				React.isValidElement(child) &&
+				child.type &&
+				(child.type as any).displayName === "Radio"
+			) {
 				return React.cloneElement(child, {
 					...child.props,
 					name: radioGroupName,
@@ -124,4 +128,4 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 );
 
 // Set display name for component identification
-RadioGroup.displayName = 'RadioGroup';
+RadioGroup.displayName = "RadioGroup";

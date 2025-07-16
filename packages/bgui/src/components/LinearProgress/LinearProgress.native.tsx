@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import type React from "react";
+import { useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 import type { LinearProgressProps } from "./LinearProgressProps";
@@ -29,8 +30,12 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 
 	// Get variant styles from theme
 	const getVariantStyles = () => {
-		const variantKey = `${variant}-${color}` as keyof typeof theme.components.LinearProgress.variants;
-		return theme.components.LinearProgress.variants[variantKey] || theme.components.LinearProgress.variants["soft-primary"];
+		const variantKey =
+			`${variant}-${color}` as keyof typeof theme.components.LinearProgress.variants;
+		return (
+			theme.components.LinearProgress.variants[variantKey] ||
+			theme.components.LinearProgress.variants["soft-primary"]
+		);
 	};
 
 	// Get size configurations
@@ -96,20 +101,20 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 	const progressWidth = determinate
 		? progressValue.interpolate({
 				inputRange: [0, 100],
-				outputRange: ['0%', '100%'],
-				extrapolate: 'clamp',
+				outputRange: ["0%", "100%"],
+				extrapolate: "clamp",
 			})
 		: indeterminateValue.interpolate({
 				inputRange: [0, 0.5, 1],
-				outputRange: ['0%', '50%', '100%'],
-				extrapolate: 'clamp',
+				outputRange: ["0%", "50%", "100%"],
+				extrapolate: "clamp",
 			});
 
 	// Calculate indeterminate position
 	const indeterminateTranslateX = indeterminateValue.interpolate({
 		inputRange: [0, 1],
-		outputRange: ['-100%', '100%'],
-		extrapolate: 'clamp',
+		outputRange: ["-100%", "100%"],
+		extrapolate: "clamp",
 	});
 
 	// Track styles
@@ -131,7 +136,7 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 			height: progressHeight,
 			borderRadius: sizeConfig.borderRadius,
 			backgroundColor: variantStyles.color || theme.colors[color],
-			width: determinate ? progressWidth : '50%',
+			width: determinate ? progressWidth : "50%",
 			...(determinate ? {} : { transform: [{ translateX: indeterminateTranslateX }] }),
 		},
 	];
@@ -155,11 +160,11 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 
 const styles = StyleSheet.create({
 	track: {
-		overflow: 'hidden',
-		position: 'relative',
+		overflow: "hidden",
+		position: "relative",
 	},
 	progress: {
-		position: 'absolute',
+		position: "absolute",
 		top: 0,
 		left: 0,
 		bottom: 0,

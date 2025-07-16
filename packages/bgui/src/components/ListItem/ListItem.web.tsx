@@ -1,19 +1,52 @@
 "use client";
-// TODO: Copy the implementation from web-bgui/ListItem/ListItem.tsx
-// and adapt imports to work with our structure
-// Remember: web-bgui is temporary and will be deleted once all components are migrated
-
+import React from "react";
+import { theme as restyleTheme } from "../../theme";
 import type { ListItemProps } from "./ListItemProps";
 
 /**
- * Web implementation of ListItem
+ * Web implementation of ListItem component
  *
- * TODO: Copy implementation from web-bgui/ListItem/ListItem.tsx
- * - Update imports to use relative paths
- * - Ensure it works with our shared ListItemProps interface
- * - The Joy UI implementation is the source of truth for visual design
+ * List items are used to represent items in a list.
+ * Based on Joy UI's ListItem implementation.
  */
-export const ListItem: React.FC<ListItemProps> = (props) => {
-	// TODO: Copy Joy UI implementation here
-	return <div>TODO: Copy from web-bgui/ListItem</div>;
-};
+
+export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
+	(
+		{ children, variant = "plain", className, style, testID, "aria-label": ariaLabel, ...props },
+		ref,
+	) => {
+		// Get variant styles
+		const variantKey = `${variant}-${color}`;
+		const variantStyles = restyleTheme.components.ListItem?.variants?.[variantKey] || {};
+
+		// Build styles
+		const listitemStyles: React.CSSProperties = {
+			// Base styles
+			fontFamily: restyleTheme.textVariants.body1.fontFamily,
+			fontSize: size === "sm" ? "14px" : size === "lg" ? "18px" : "16px",
+
+			// Variant styles
+			backgroundColor: variantStyles.backgroundColor || "transparent",
+			color: variantStyles.color || restyleTheme.colors.onSurface,
+			border: variantStyles.borderColor ? `1px solid ${variantStyles.borderColor}` : undefined,
+
+			// Additional styles
+			...style,
+		};
+
+		return (
+			<li
+				ref={ref}
+				className={className}
+				style={listitemStyles}
+				data-testid={testID}
+				aria-label={ariaLabel}
+				{...props}
+			>
+				{children}
+			</li>
+		);
+	},
+);
+
+ListItem.displayName = "ListItem";

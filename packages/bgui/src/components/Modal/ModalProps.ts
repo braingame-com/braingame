@@ -3,42 +3,83 @@ import type { CSSProperties, ReactNode } from "react";
 /**
  * Shared props interface for Modal component
  *
- * TODO: Add description of what Modal is used for
+ * Modals inform users about a task and can contain critical information, require decisions, or involve multiple tasks.
  */
 export interface ModalProps {
 	/**
-	 * The content of the component
+	 * A single child content element.
 	 */
-	children?: ReactNode;
+	children: ReactNode;
 
 	/**
-	 * The color of the component.
-	 * @default 'primary'
+	 * If `true`, the component is shown.
 	 */
-	color?: "primary" | "neutral" | "danger" | "success" | "warning";
+	open: boolean;
 
 	/**
-	 * The variant to use.
-	 * @default 'solid'
+	 * Callback fired when the component requests to be closed.
+	 * The `reason` parameter can optionally be used to control the response to `onClose`.
+	 *
+	 * @param {object} event The event source of the callback.
+	 * @param {string} reason Can be: `"escapeKeyDown"`, `"backdropClick"`, `"closeClick"`.
 	 */
-	variant?: "plain" | "outlined" | "soft" | "solid";
+	onClose?: (event: any, reason?: "backdropClick" | "escapeKeyDown" | "closeClick") => void;
 
 	/**
-	 * The size of the component.
-	 * @default 'md'
-	 */
-	size?: "sm" | "md" | "lg";
-
-	/**
-	 * If true, the component is disabled
+	 * If `true`, the modal will not automatically shift focus to itself when it opens, and
+	 * replace it to the last focused element when it closes.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disableAutoFocus?: boolean;
 
 	/**
-	 * Click handler
+	 * If `true`, the modal will not prevent focus from leaving the modal while open.
+	 * @default false
 	 */
-	onClick?: (event: any) => void;
+	disableEnforceFocus?: boolean;
+
+	/**
+	 * If `true`, hitting escape will not fire the onClose callback.
+	 * @default false
+	 */
+	disableEscapeKeyDown?: boolean;
+
+	/**
+	 * If `true`, the modal will not restore focus to previously focused element once modal is hidden.
+	 * @default false
+	 */
+	disableRestoreFocus?: boolean;
+
+	/**
+	 * Disable the scroll lock behavior.
+	 * @default false
+	 */
+	disableScrollLock?: boolean;
+
+	/**
+	 * If `true`, the backdrop is not rendered.
+	 * @default false
+	 */
+	hideBackdrop?: boolean;
+
+	/**
+	 * Always keep the children in the DOM.
+	 * @default false
+	 */
+	keepMounted?: boolean;
+
+	/**
+	 * The container will be under the DOM hierarchy of the parent component.
+	 * @default false
+	 */
+	disablePortal?: boolean;
+
+	/**
+	 * An HTML element or function that returns one.
+	 * The `container` will have the portal children appended to it.
+	 * @default document.body
+	 */
+	container?: HTMLElement | (() => HTMLElement | null) | null;
 
 	/**
 	 * Additional styles
@@ -51,7 +92,23 @@ export interface ModalProps {
 	testID?: string;
 
 	/**
+	 * The ARIA role attribute.
+	 * @default 'dialog'
+	 */
+	role?: string;
+
+	/**
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The id of the element describing the modal.
+	 */
+	"aria-describedby"?: string;
+
+	/**
+	 * The id of the element labeling the modal.
+	 */
+	"aria-labelledby"?: string;
 }

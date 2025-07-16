@@ -5,7 +5,7 @@ module.exports = {
 		"^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
 	},
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-	setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
+	setupFilesAfterEnv: ["@testing-library/jest-dom"],
 	testPathIgnorePatterns: ["/node_modules/", "/dist/"],
 	testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|tsx)$",
 	collectCoverageFrom: [

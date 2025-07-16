@@ -3,23 +3,34 @@ import type { CSSProperties, ReactNode } from "react";
 /**
  * Shared props interface for Radio component
  *
- * TODO: Add description of what Radio is used for
+ * Radio buttons allow users to select a single option from a set.
  */
 export interface RadioProps {
 	/**
-	 * The content of the component
+	 * If `true`, the component is checked.
 	 */
-	children?: ReactNode;
+	checked?: boolean;
+
+	/**
+	 * The default checked state. Use when the component is not controlled.
+	 */
+	defaultChecked?: boolean;
+
+	/**
+	 * If `true`, the component is disabled.
+	 * @default false
+	 */
+	disabled?: boolean;
 
 	/**
 	 * The color of the component.
-	 * @default 'primary'
+	 * @default 'neutral'
 	 */
 	color?: "primary" | "neutral" | "danger" | "success" | "warning";
 
 	/**
 	 * The variant to use.
-	 * @default 'solid'
+	 * @default 'outlined'
 	 */
 	variant?: "plain" | "outlined" | "soft" | "solid";
 
@@ -30,15 +41,65 @@ export interface RadioProps {
 	size?: "sm" | "md" | "lg";
 
 	/**
-	 * If true, the component is disabled
-	 * @default false
+	 * The label element next to the radio button.
 	 */
-	disabled?: boolean;
+	label?: ReactNode;
 
 	/**
-	 * Click handler
+	 * The `name` attribute of the input.
 	 */
-	onClick?: (event: any) => void;
+	name?: string;
+
+	/**
+	 * The value of the component. The DOM API casts this to a string.
+	 */
+	value?: string | number;
+
+	/**
+	 * If `true`, the checked icon is removed and the selected variant is applied on the `action` element instead.
+	 * @default false
+	 */
+	disableIcon?: boolean;
+
+	/**
+	 * If `true`, the root element's position is set to initial which allows the action area to fill the nearest positioned parent.
+	 * This prop is useful for composing Radio with ListItem component.
+	 * @default false
+	 */
+	overlay?: boolean;
+
+	/**
+	 * If `true`, the component is required.
+	 * @default false
+	 */
+	required?: boolean;
+
+	/**
+	 * If `true`, the input element is focused during the first mount.
+	 * @default false
+	 */
+	autoFocus?: boolean;
+
+	/**
+	 * If `true`, the component is read-only.
+	 * @default false
+	 */
+	readOnly?: boolean;
+
+	/**
+	 * The icon to display when the component is checked.
+	 */
+	checkedIcon?: ReactNode;
+
+	/**
+	 * The icon when `checked` is false.
+	 */
+	uncheckedIcon?: ReactNode;
+
+	/**
+	 * Callback fired when the state is changed.
+	 */
+	onChange?: (event: any) => void;
 
 	/**
 	 * Additional styles
@@ -54,4 +115,14 @@ export interface RadioProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The id of the element describing the radio button.
+	 */
+	"aria-describedby"?: string;
+
+	/**
+	 * The id of the element labeling the radio button.
+	 */
+	"aria-labelledby"?: string;
 }

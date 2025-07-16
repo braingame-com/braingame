@@ -1,19 +1,139 @@
 "use client";
-// TODO: Copy the implementation from web-bgui/Alert/Alert.tsx
-// and adapt imports to work with our structure
-// Remember: web-bgui is temporary and will be deleted once all components are migrated
-
+import type React from "react";
+import { forwardRef } from "react";
+import { theme as restyleTheme } from "../../theme";
 import type { AlertProps } from "./AlertProps";
 
 /**
- * Web implementation of Alert
+ * Web implementation of Alert component
  *
- * TODO: Copy implementation from web-bgui/Alert/Alert.tsx
- * - Update imports to use relative paths
- * - Ensure it works with our shared AlertProps interface
- * - The Joy UI implementation is the source of truth for visual design
+ * Alerts display brief messages for the user without interrupting their workflow.
+ * Based on Joy UI's Alert implementation.
  */
-export const Alert: React.FC<AlertProps> = (props) => {
-	// TODO: Copy Joy UI implementation here
-	return <div>TODO: Copy from web-bgui/Alert</div>;
-};
+
+export const Alert = forwardRef<HTMLDivElement, AlertProps>(
+	(
+		{
+			children,
+			color = "neutral",
+			variant = "soft",
+			size = "md",
+			startDecorator,
+			endDecorator,
+			invertedColors = false,
+			role = "alert",
+			style,
+			testID,
+			"aria-label": ariaLabel,
+			...props
+		},
+		ref,
+	) => {
+		// Get theme values
+		const getColorValue = (colorKey: string) => {
+			return restyleTheme.colors[colorKey as keyof typeof restyleTheme.colors] || colorKey;
+		};
+
+		// Calculate padding based on size
+		const getPadding = () => {
+			switch (size) {
+				case "sm":
+					return "8px";
+				case "lg":
+					return "16px";
+				default:
+					return "12px";
+			}
+		};
+
+		// Calculate gap based on size
+		const getGap = () => {
+			switch (size) {
+				case "sm":
+					return "8px";
+				case "lg":
+					return "14px";
+				default:
+					return "10px";
+			}
+		};
+
+		// Calculate font size based on size
+		const getFontSize = () => {
+			switch (size) {
+				case "sm":
+					return "14px";
+				case "lg":
+					return "16px";
+				default:
+					return "15px";
+			}
+		};
+
+		// Build styles based on variant and color
+		const getAlertStyles = (): React.CSSProperties => {
+			const baseStyles: React.CSSProperties = {
+				display: "flex",
+				alignItems: "center",
+				gap: getGap(),
+				padding: getPadding(),
+				borderRadius: restyleTheme.radii.sm,
+				fontSize: getFontSize(),
+				fontFamily: restyleTheme.textVariants.body1.fontFamily,
+				lineHeight: 1.5,
+				position: "relative",
+				...getVariantStyles(),
+				...style,
+			};
+
+			return baseStyles;
+		};
+
+		const getVariantStyles = (): React.CSSProperties => {
+			const variantKey = `${variant}-${color}`;
+			const variantStyles = restyleTheme.components.Alert?.variants?.[variantKey];
+
+			if (!variantStyles) {
+				// Fallback styles
+				return {
+					backgroundColor: restyleTheme.colors.surface,
+					color: restyleTheme.colors.onSurface,
+				};
+			}
+
+			const styles: React.CSSProperties = {
+				backgroundColor: getColorValue(variantStyles.backgroundColor),
+				color: getColorValue(variantStyles.color),
+			};
+
+			if (variantStyles.borderColor) {
+				styles.border = `1px solid ${getColorValue(variantStyles.borderColor)}`;
+			}
+
+			return styles;
+		};
+
+		return (
+			<div
+				ref={ref}
+				role={role}
+				style={getAlertStyles()}
+				data-testid={testID}
+				aria-label={ariaLabel}
+				{...props}
+			>
+				{startDecorator && (
+					<span style={{ display: "flex", alignItems: "center" }}>{startDecorator}</span>
+				)}
+				<span style={{ flex: 1 }}>{children}</span>
+				{endDecorator && (
+					<span style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}>
+						{endDecorator}
+					</span>
+				)}
+			</div>
+		);
+	},
+);
+
+Alert.displayName = "Alert";

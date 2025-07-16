@@ -1,19 +1,62 @@
 "use client";
-// TODO: Copy the implementation from web-bgui/Skeleton/Skeleton.tsx
-// and adapt imports to work with our structure
-// Remember: web-bgui is temporary and will be deleted once all components are migrated
-
+import React from "react";
+import { theme as restyleTheme } from "../../theme";
 import type { SkeletonProps } from "./SkeletonProps";
 
 /**
- * Web implementation of Skeleton
+ * Web implementation of Skeleton component
  *
- * TODO: Copy implementation from web-bgui/Skeleton/Skeleton.tsx
- * - Update imports to use relative paths
- * - Ensure it works with our shared SkeletonProps interface
- * - The Joy UI implementation is the source of truth for visual design
+ * Skeleton displays a placeholder preview of content before the data gets loaded.
+ * Based on Joy UI's Skeleton implementation.
  */
-export const Skeleton: React.FC<SkeletonProps> = (props) => {
-	// TODO: Copy Joy UI implementation here
-	return <div>TODO: Copy from web-bgui/Skeleton</div>;
-};
+
+export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
+	(
+		{
+			children,
+			variant = "text",
+			animation = "pulse",
+			level = "body-md",
+			className,
+			style,
+			testID,
+			"aria-label": ariaLabel,
+			...props
+		},
+		ref,
+	) => {
+		// Get variant styles
+		const variantKey = `${variant}-${color}`;
+		const variantStyles = restyleTheme.components.Skeleton?.variants?.[variantKey] || {};
+
+		// Build styles
+		const skeletonStyles: React.CSSProperties = {
+			// Base styles
+			fontFamily: restyleTheme.textVariants.body1.fontFamily,
+			fontSize: size === "sm" ? "14px" : size === "lg" ? "18px" : "16px",
+
+			// Variant styles
+			backgroundColor: variantStyles.backgroundColor || "transparent",
+			color: variantStyles.color || restyleTheme.colors.onSurface,
+			border: variantStyles.borderColor ? `1px solid ${variantStyles.borderColor}` : undefined,
+
+			// Additional styles
+			...style,
+		};
+
+		return (
+			<span
+				ref={ref}
+				className={className}
+				style={skeletonStyles}
+				data-testid={testID}
+				aria-label={ariaLabel}
+				{...props}
+			>
+				{children}
+			</span>
+		);
+	},
+);
+
+Skeleton.displayName = "Skeleton";

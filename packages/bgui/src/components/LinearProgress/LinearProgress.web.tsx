@@ -1,19 +1,67 @@
 "use client";
-// TODO: Copy the implementation from web-bgui/LinearProgress/LinearProgress.tsx
-// and adapt imports to work with our structure
-// Remember: web-bgui is temporary and will be deleted once all components are migrated
-
+import React from "react";
+import { theme as restyleTheme } from "../../theme";
 import type { LinearProgressProps } from "./LinearProgressProps";
 
 /**
- * Web implementation of LinearProgress
+ * Web implementation of LinearProgress component
  *
- * TODO: Copy implementation from web-bgui/LinearProgress/LinearProgress.tsx
- * - Update imports to use relative paths
- * - Ensure it works with our shared LinearProgressProps interface
- * - The Joy UI implementation is the source of truth for visual design
+ * Linear progress indicators express an unspecified wait time or display the length of a process.
+ * Based on Joy UI's LinearProgress implementation.
  */
-export const LinearProgress: React.FC<LinearProgressProps> = (props) => {
-	// TODO: Copy Joy UI implementation here
-	return <div>TODO: Copy from web-bgui/LinearProgress</div>;
-};
+
+export const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressProps>(
+	(
+		{
+			children,
+			size = "md",
+			variant = "soft",
+			color = "primary",
+			value = 0,
+			determinate = false,
+			className,
+			style,
+			testID,
+			"aria-label": ariaLabel,
+			...props
+		},
+		ref,
+	) => {
+		// Get variant styles
+		const variantKey = `${variant}-${color}`;
+		const variantStyles = restyleTheme.components.LinearProgress?.variants?.[variantKey] || {};
+
+		// Build styles
+		const linearprogressStyles: React.CSSProperties = {
+			// Base styles
+			fontFamily: restyleTheme.textVariants.body1.fontFamily,
+			fontSize: size === "sm" ? "14px" : size === "lg" ? "18px" : "16px",
+
+			// Variant styles
+			backgroundColor: variantStyles.backgroundColor || "transparent",
+			color: variantStyles.color || restyleTheme.colors.onSurface,
+			border: variantStyles.borderColor ? `1px solid ${variantStyles.borderColor}` : undefined,
+
+			// Additional styles
+			...style,
+		};
+
+		return (
+			<div
+				className={className}
+				style={{
+					display: "inline-flex",
+					alignItems: "center",
+					position: "relative",
+				}}
+				data-testid={testID}
+			>
+				<div ref={ref} style={linearprogressStyles} aria-label={ariaLabel} {...props}>
+					{children}
+				</div>
+			</div>
+		);
+	},
+);
+
+LinearProgress.displayName = "LinearProgress";

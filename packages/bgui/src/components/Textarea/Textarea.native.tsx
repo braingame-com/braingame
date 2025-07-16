@@ -1,5 +1,12 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { type NativeSyntheticEvent, StyleSheet, TextInput, type TextInputChangeEventData, type TextInputFocusEventData, View } from "react-native";
+import {
+	type NativeSyntheticEvent,
+	StyleSheet,
+	TextInput,
+	type TextInputChangeEventData,
+	type TextInputFocusEventData,
+	View,
+} from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { TextareaProps } from "./TextareaProps";
@@ -57,12 +64,16 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 		useImperativeHandle(ref, () => textareaRef.current!);
 
 		// Use error color if error prop is true
-		const effectiveColor = error ? 'danger' : color;
+		const effectiveColor = error ? "danger" : color;
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
-			const variantKey = `${variant}-${effectiveColor}` as keyof typeof theme.components.Textarea.variants;
-			return theme.components.Textarea.variants[variantKey] || theme.components.Textarea.variants["outlined-neutral"];
+			const variantKey =
+				`${variant}-${effectiveColor}` as keyof typeof theme.components.Textarea.variants;
+			return (
+				theme.components.Textarea.variants[variantKey] ||
+				theme.components.Textarea.variants["outlined-neutral"]
+			);
 		};
 
 		// Get size configurations
@@ -115,10 +126,13 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 		const calculateHeight = () => {
 			const baseHeight = sizeConfig.minHeight;
 			if (rows) {
-				return Math.max(baseHeight, (rows * sizeConfig.lineHeight) + (sizeConfig.paddingVertical * 2));
+				return Math.max(baseHeight, rows * sizeConfig.lineHeight + sizeConfig.paddingVertical * 2);
 			}
 			if (maxRows) {
-				return Math.min(baseHeight * 4, (maxRows * sizeConfig.lineHeight) + (sizeConfig.paddingVertical * 2));
+				return Math.min(
+					baseHeight * 4,
+					maxRows * sizeConfig.lineHeight + sizeConfig.paddingVertical * 2,
+				);
 			}
 			return baseHeight;
 		};
@@ -137,10 +151,10 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 				opacity: disabled ? 0.6 : 1,
 			},
 			focused && {
-				borderColor: theme.colors[effectiveColor === 'neutral' ? 'primary' : effectiveColor],
+				borderColor: theme.colors[effectiveColor === "neutral" ? "primary" : effectiveColor],
 				borderWidth: 2,
 			},
-			fullWidth && { width: '100%' },
+			fullWidth && { width: "100%" },
 			style,
 		];
 
@@ -151,7 +165,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 				fontSize: sizeConfig.fontSize,
 				lineHeight: sizeConfig.lineHeight,
 				color: variantStyles.color || theme.colors.onSurface,
-				textAlignVertical: 'top',
+				textAlignVertical: "top",
 				flex: 1,
 			},
 		];
@@ -207,8 +221,8 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 
 const styles = StyleSheet.create({
 	container: {
-		justifyContent: 'flex-start',
-		alignItems: 'stretch',
+		justifyContent: "flex-start",
+		alignItems: "stretch",
 	},
 	textarea: {
 		flex: 1,

@@ -1,6 +1,7 @@
 import { createTheme } from "@shopify/restyle";
 import { ColorPaletteProp, VariantProp } from "../web-bgui/styles/types";
 import m3Theme from "./m3-theme.json";
+import { generateComponentVariants } from "./variants";
 
 /**
  * BGUI Restyle Theme
@@ -728,6 +729,75 @@ const theme = createTheme({
 					color: "onWarning",
 				},
 			},
+		},
+		Alert: {
+			variants: generateComponentVariants(),
+		},
+		Checkbox: {
+			variants: generateComponentVariants(),
+		},
+		Radio: {
+			variants: generateComponentVariants(),
+		},
+		RadioGroup: {
+			variants: generateComponentVariants(),
+		},
+		Switch: {
+			variants: generateComponentVariants(),
+		},
+		Input: {
+			variants: generateComponentVariants(),
+		},
+		Textarea: {
+			variants: generateComponentVariants(),
+		},
+		Select: {
+			variants: generateComponentVariants(),
+		},
+		CircularProgress: {
+			variants: generateComponentVariants(),
+		},
+		LinearProgress: {
+			variants: generateComponentVariants(),
+		},
+		Skeleton: {
+			variants: generateComponentVariants(),
+		},
+		Link: {
+			variants: generateComponentVariants(),
+		},
+		Tabs: {
+			variants: generateComponentVariants(),
+		},
+		TabList: {
+			variants: generateComponentVariants(),
+		},
+		Tab: {
+			variants: generateComponentVariants(),
+		},
+		TabPanel: {
+			variants: generateComponentVariants(),
+		},
+		Typography: {
+			variants: generateComponentVariants(),
+		},
+		List: {
+			variants: generateComponentVariants(),
+		},
+		ListItem: {
+			variants: generateComponentVariants(),
+		},
+		Grid: {
+			variants: generateComponentVariants(),
+		},
+		Tooltip: {
+			variants: generateComponentVariants(),
+		},
+		Modal: {
+			variants: generateComponentVariants(),
+		},
+		IconButton: {
+			variants: generateComponentVariants(),
 		},
 	},
 

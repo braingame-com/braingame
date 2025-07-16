@@ -3,17 +3,28 @@ import type { CSSProperties, ReactNode } from "react";
 /**
  * Shared props interface for Switch component
  *
- * TODO: Add description of what Switch is used for
+ * Switches toggle the state of a single setting on or off.
  */
 export interface SwitchProps {
 	/**
-	 * The content of the component
+	 * If `true`, the component is checked.
 	 */
-	children?: ReactNode;
+	checked?: boolean;
+
+	/**
+	 * The default checked state. Use when the component is not controlled.
+	 */
+	defaultChecked?: boolean;
+
+	/**
+	 * If `true`, the component is disabled.
+	 * @default false
+	 */
+	disabled?: boolean;
 
 	/**
 	 * The color of the component.
-	 * @default 'primary'
+	 * @default 'neutral'
 	 */
 	color?: "primary" | "neutral" | "danger" | "success" | "warning";
 
@@ -30,15 +41,53 @@ export interface SwitchProps {
 	size?: "sm" | "md" | "lg";
 
 	/**
-	 * If true, the component is disabled
-	 * @default false
+	 * The label element at the start of the switch.
 	 */
-	disabled?: boolean;
+	startDecorator?: ReactNode;
 
 	/**
-	 * Click handler
+	 * The label element at the end of the switch.
 	 */
-	onClick?: (event: any) => void;
+	endDecorator?: ReactNode;
+
+	/**
+	 * The element that appears on the track.
+	 */
+	trackChild?: ReactNode;
+
+	/**
+	 * The `name` attribute of the input.
+	 */
+	name?: string;
+
+	/**
+	 * The value of the component. The DOM API casts this to a string.
+	 * The browser uses "on" as the default value.
+	 */
+	value?: string | number | readonly string[];
+
+	/**
+	 * If `true`, the component is required.
+	 * @default false
+	 */
+	required?: boolean;
+
+	/**
+	 * If `true`, the input element is focused during the first mount.
+	 * @default false
+	 */
+	autoFocus?: boolean;
+
+	/**
+	 * If `true`, the component is read-only.
+	 * @default false
+	 */
+	readOnly?: boolean;
+
+	/**
+	 * Callback fired when the state is changed.
+	 */
+	onChange?: (event: any) => void;
 
 	/**
 	 * Additional styles
@@ -54,4 +103,14 @@ export interface SwitchProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The id of the element describing the switch.
+	 */
+	"aria-describedby"?: string;
+
+	/**
+	 * The id of the element labeling the switch.
+	 */
+	"aria-labelledby"?: string;
 }

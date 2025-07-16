@@ -1,16 +1,11 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 
 /**
  * Shared props interface for CircularProgress component
  *
- * TODO: Add description of what CircularProgress is used for
+ * Circular progress indicators display progress by animating along an invisible circular track.
  */
 export interface CircularProgressProps {
-	/**
-	 * The content of the component
-	 */
-	children?: ReactNode;
-
 	/**
 	 * The color of the component.
 	 * @default 'primary'
@@ -19,7 +14,7 @@ export interface CircularProgressProps {
 
 	/**
 	 * The variant to use.
-	 * @default 'solid'
+	 * @default 'soft'
 	 */
 	variant?: "plain" | "outlined" | "soft" | "solid";
 
@@ -30,15 +25,47 @@ export interface CircularProgressProps {
 	size?: "sm" | "md" | "lg";
 
 	/**
-	 * If true, the component is disabled
+	 * The determinate prop can be used to indicate how long an operation will take.
 	 * @default false
 	 */
-	disabled?: boolean;
+	determinate?: boolean;
 
 	/**
-	 * Click handler
+	 * The value of the progress indicator for the determinate variant.
+	 * Value between 0 and 100.
+	 * @default 0
 	 */
-	onClick?: (event: any) => void;
+	value?: number;
+
+	/**
+	 * The thickness of the circle.
+	 * @default 6
+	 */
+	thickness?: number;
+
+	/**
+	 * The button label for screen readers.
+	 * @default 'Loading…'
+	 */
+	"aria-label"?: string;
+
+	/**
+	 * If provided, the value will be announced to screen readers.
+	 * Takes precedence over `aria-label`.
+	 */
+	"aria-valuenow"?: number;
+
+	/**
+	 * The minimum value for the determinate variant.
+	 * @default 0
+	 */
+	"aria-valuemin"?: number;
+
+	/**
+	 * The maximum value for the determinate variant.
+	 * @default 100
+	 */
+	"aria-valuemax"?: number;
 
 	/**
 	 * Additional styles
@@ -49,9 +76,4 @@ export interface CircularProgressProps {
 	 * Test ID for testing
 	 */
 	testID?: string;
-
-	/**
-	 * Accessibility label
-	 */
-	"aria-label"?: string;
 }

@@ -1,19 +1,134 @@
 "use client";
-// TODO: Copy the implementation from web-bgui/RadioGroup/RadioGroup.tsx
-// and adapt imports to work with our structure
-// Remember: web-bgui is temporary and will be deleted once all components are migrated
-
+import React from "react";
+import { theme as restyleTheme } from "../../theme";
 import type { RadioGroupProps } from "./RadioGroupProps";
 
 /**
- * Web implementation of RadioGroup
+ * Web implementation of RadioGroup component
  *
- * TODO: Copy implementation from web-bgui/RadioGroup/RadioGroup.tsx
- * - Update imports to use relative paths
- * - Ensure it works with our shared RadioGroupProps interface
- * - The Joy UI implementation is the source of truth for visual design
+ * RadioGroup manages selection state for a group of radio buttons.
+ * Based on Joy UI's RadioGroup implementation.
  */
-export const RadioGroup: React.FC<RadioGroupProps> = (props) => {
-	// TODO: Copy Joy UI implementation here
-	return <div>TODO: Copy from web-bgui/RadioGroup</div>;
-};
+
+// Context for radio group state
+export const RadioGroupContext = React.createContext<{
+	value: string | number | null;
+	onChange: (value: string | number | null) => void;
+	name: string;
+	size: "sm" | "md" | "lg";
+	color: string;
+	variant: string;
+	disabled?: boolean;
+	disableIcon?: boolean;
+	overlay?: boolean;
+} | null>(null);
+
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+	(
+		{
+			children,
+			name: nameProp,
+			value: valueProp,
+			defaultValue,
+			onChange,
+			orientation = "vertical",
+			size = "md",
+			color = "neutral",
+			variant = "plain",
+			disabled = false,
+			disableIcon = false,
+			overlay = false,
+			className,
+			style,
+			testID,
+			"aria-label": ariaLabel,
+			"aria-labelledby": ariaLabelledby,
+			...props
+		},
+		ref,
+	) => {
+		const [internalValue, setInternalValue] = React.useState<string | number | null>(
+			valueProp ?? defaultValue ?? null,
+		);
+
+		const isControlled = valueProp !== undefined;
+		const value = isControlled ? valueProp : internalValue;
+
+		// Generate unique name if not provided
+		const name = nameProp || `radio-group-${React.useId()}`;
+
+		const handleChange = (newValue: string | number | null) => {
+			if (disabled) return;
+
+			if (!isControlled) {
+				setInternalValue(newValue);
+			}
+			onChange?.(newValue);
+		};
+
+		// Get variant styles
+		const variantKey = `${variant}-${color}`;
+		const variantStyles = restyleTheme.components.RadioGroup?.variants?.[variantKey] || {};
+
+		// Size configurations
+		const sizeConfig = {
+			sm: { gap: "10px" },
+			md: { gap: "14px" },
+			lg: { gap: "20px" },
+		}[size];
+
+		// Build styles
+		const radioGroupStyles: React.CSSProperties = {
+			// Base styles
+			display: "flex",
+			flexDirection: orientation === "horizontal" ? "row" : "column",
+			gap: sizeConfig.gap,
+			borderRadius: restyleTheme.radii.sm,
+
+			// Variant styles
+			backgroundColor: variantStyles.backgroundColor || "transparent",
+			color: variantStyles.color || restyleTheme.colors.onSurface,
+			border: variantStyles.borderColor ? `1px solid ${variantStyles.borderColor}` : undefined,
+			padding: variantStyles.padding || undefined,
+
+			// Disabled state
+			opacity: disabled ? 0.6 : 1,
+			pointerEvents: disabled ? "none" : undefined,
+
+			// Custom styles
+			...style,
+		};
+
+		const contextValue = {
+			value,
+			onChange: handleChange,
+			name,
+			size,
+			color,
+			variant,
+			disabled,
+			disableIcon,
+			overlay,
+		};
+
+		return (
+			<RadioGroupContext.Provider value={contextValue}>
+				<div
+					ref={ref}
+					className={className}
+					style={radioGroupStyles}
+					role="radiogroup"
+					aria-label={ariaLabel}
+					aria-labelledby={ariaLabelledby}
+					aria-disabled={disabled}
+					data-testid={testID}
+					{...props}
+				>
+					{children}
+				</div>
+			</RadioGroupContext.Provider>
+		);
+	},
+);
+
+RadioGroup.displayName = "RadioGroup";

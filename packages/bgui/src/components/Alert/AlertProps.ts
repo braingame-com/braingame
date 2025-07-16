@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 /**
  * Shared props interface for Alert component
  *
- * TODO: Add description of what Alert is used for
+ * Alerts display brief messages for the user without interrupting their workflow.
  */
 export interface AlertProps {
 	/**
@@ -13,13 +13,13 @@ export interface AlertProps {
 
 	/**
 	 * The color of the component.
-	 * @default 'primary'
+	 * @default 'neutral'
 	 */
 	color?: "primary" | "neutral" | "danger" | "success" | "warning";
 
 	/**
 	 * The variant to use.
-	 * @default 'solid'
+	 * @default 'soft'
 	 */
 	variant?: "plain" | "outlined" | "soft" | "solid";
 
@@ -30,15 +30,26 @@ export interface AlertProps {
 	size?: "sm" | "md" | "lg";
 
 	/**
-	 * If true, the component is disabled
-	 * @default false
+	 * Element placed before the children.
 	 */
-	disabled?: boolean;
+	startDecorator?: ReactNode;
 
 	/**
-	 * Click handler
+	 * Element placed after the children.
 	 */
-	onClick?: (event: any) => void;
+	endDecorator?: ReactNode;
+
+	/**
+	 * If `true`, the children with an implicit color prop invert their colors to match the component's variant and color.
+	 * @default false
+	 */
+	invertedColors?: boolean;
+
+	/**
+	 * The ARIA role attribute of the element.
+	 * @default 'alert'
+	 */
+	role?: string;
 
 	/**
 	 * Additional styles

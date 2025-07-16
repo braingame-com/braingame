@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import type React from "react";
+import { useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet, View } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import { theme } from "../../theme";
@@ -32,8 +33,12 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
 
 	// Get variant styles from theme
 	const getVariantStyles = () => {
-		const variantKey = `${variant}-${color}` as keyof typeof theme.components.CircularProgress.variants;
-		return theme.components.CircularProgress.variants[variantKey] || theme.components.CircularProgress.variants["soft-primary"];
+		const variantKey =
+			`${variant}-${color}` as keyof typeof theme.components.CircularProgress.variants;
+		return (
+			theme.components.CircularProgress.variants[variantKey] ||
+			theme.components.CircularProgress.variants["soft-primary"]
+		);
 	};
 
 	// Get size configurations
@@ -95,14 +100,14 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
 		? progressValue.interpolate({
 				inputRange: [0, 100],
 				outputRange: [circumference, 0],
-				extrapolate: 'clamp',
+				extrapolate: "clamp",
 			})
 		: circumference * 0.75; // For indeterminate, show 25% of circle
 
 	// Calculate rotation for indeterminate progress
 	const rotation = rotationValue.interpolate({
 		inputRange: [0, 1],
-		outputRange: ['0deg', '360deg'],
+		outputRange: ["0deg", "360deg"],
 	});
 
 	// Container styles
@@ -147,7 +152,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
 						strokeWidth={strokeWidth}
 						opacity={0.3}
 					/>
-					
+
 					{/* Progress circle */}
 					<AnimatedCircle
 						cx={circleSize / 2}
@@ -169,11 +174,11 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		justifyContent: 'center',
-		alignItems: 'center',
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	svg: {
-		width: '100%',
-		height: '100%',
+		width: "100%",
+		height: "100%",
 	},
 });

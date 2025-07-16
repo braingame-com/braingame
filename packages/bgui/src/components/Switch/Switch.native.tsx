@@ -51,7 +51,10 @@ export const Switch = forwardRef<View, SwitchProps>(
 		// Get variant styles from theme
 		const getVariantStyles = () => {
 			const variantKey = `${variant}-${color}` as keyof typeof theme.components.Switch.variants;
-			return theme.components.Switch.variants[variantKey] || theme.components.Switch.variants["solid-neutral"];
+			return (
+				theme.components.Switch.variants[variantKey] ||
+				theme.components.Switch.variants["solid-neutral"]
+			);
 		};
 
 		// Get size configurations
@@ -87,7 +90,7 @@ export const Switch = forwardRef<View, SwitchProps>(
 			if (disabled || readOnly) return;
 
 			const newChecked = !checkedValue;
-			
+
 			if (!isControlled) {
 				setInternalChecked(newChecked);
 			}
@@ -133,7 +136,10 @@ export const Switch = forwardRef<View, SwitchProps>(
 		// Calculate thumb position
 		const thumbTranslateX = animatedValue.interpolate({
 			inputRange: [0, 1],
-			outputRange: [sizeConfig.thumbOffset, sizeConfig.trackWidth - sizeConfig.thumbSize - sizeConfig.thumbOffset],
+			outputRange: [
+				sizeConfig.thumbOffset,
+				sizeConfig.trackWidth - sizeConfig.thumbSize - sizeConfig.thumbOffset,
+			],
 		});
 
 		// Calculate track colors
@@ -191,21 +197,14 @@ export const Switch = forwardRef<View, SwitchProps>(
 					busy: false,
 				}}
 				accessibilityRequired={required}
-				style={({ pressed }) => [
-					containerStyles,
-					pressed && !disabled && { opacity: 0.7 },
-				]}
+				style={({ pressed }) => [containerStyles, pressed && !disabled && { opacity: 0.7 }]}
 			>
 				<Box flexDirection="row" alignItems="center" gap={sizeConfig.gap}>
 					{startDecorator}
 
 					<View style={styles.switchContainer}>
 						<Animated.View style={trackStyles}>
-							{trackChild && (
-								<View style={styles.trackChild}>
-									{trackChild}
-								</View>
-							)}
+							{trackChild && <View style={styles.trackChild}>{trackChild}</View>}
 						</Animated.View>
 						<Animated.View style={thumbStyles} />
 					</View>
@@ -219,32 +218,32 @@ export const Switch = forwardRef<View, SwitchProps>(
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'flex-start',
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "flex-start",
 	},
 	switchContainer: {
-		position: 'relative',
-		justifyContent: 'center',
+		position: "relative",
+		justifyContent: "center",
 	},
 	track: {
-		position: 'relative',
-		justifyContent: 'center',
+		position: "relative",
+		justifyContent: "center",
 	},
 	trackChild: {
-		position: 'absolute',
+		position: "absolute",
 		top: 0,
 		left: 0,
 		right: 0,
 		bottom: 0,
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	thumb: {
-		position: 'absolute',
+		position: "absolute",
 		top: 0,
-		backgroundColor: '#fff',
-		shadowColor: '#000',
+		backgroundColor: "#fff",
+		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.3,
 		shadowRadius: 2,

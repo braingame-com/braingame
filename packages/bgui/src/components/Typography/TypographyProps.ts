@@ -3,42 +3,76 @@ import type { CSSProperties, ReactNode } from "react";
 /**
  * Shared props interface for Typography component
  *
- * TODO: Add description of what Typography is used for
+ * Typography components present your design and content clearly and efficiently.
  */
 export interface TypographyProps {
 	/**
-	 * The content of the component
+	 * The content of the component.
 	 */
 	children?: ReactNode;
 
 	/**
 	 * The color of the component.
-	 * @default 'primary'
 	 */
 	color?: "primary" | "neutral" | "danger" | "success" | "warning";
 
 	/**
 	 * The variant to use.
-	 * @default 'solid'
 	 */
 	variant?: "plain" | "outlined" | "soft" | "solid";
 
 	/**
-	 * The size of the component.
-	 * @default 'md'
+	 * Applies the theme typography styles.
+	 * @default 'body-md'
 	 */
-	size?: "sm" | "md" | "lg";
+	level?:
+		| "h1"
+		| "h2"
+		| "h3"
+		| "h4"
+		| "title-lg"
+		| "title-md"
+		| "title-sm"
+		| "body-lg"
+		| "body-md"
+		| "body-sm"
+		| "body-xs"
+		| "inherit";
 
 	/**
-	 * If true, the component is disabled
+	 * Element placed before the children.
+	 */
+	startDecorator?: ReactNode;
+
+	/**
+	 * Element placed after the children.
+	 */
+	endDecorator?: ReactNode;
+
+	/**
+	 * If `true`, the text will have a bottom margin.
 	 * @default false
 	 */
-	disabled?: boolean;
+	gutterBottom?: boolean;
 
 	/**
-	 * Click handler
+	 * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+	 * Note that text overflow can only happen with block or inline-block level elements
+	 * (the element needs to have a width in order to overflow).
+	 * @default false
 	 */
-	onClick?: (event: any) => void;
+	noWrap?: boolean;
+
+	/**
+	 * The text alignment.
+	 */
+	textAlign?: "left" | "center" | "right" | "justify";
+
+	/**
+	 * The component used for the root node.
+	 * Either a string to use a HTML element or a component.
+	 */
+	component?: string;
 
 	/**
 	 * Additional styles
@@ -54,4 +88,14 @@ export interface TypographyProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The id of the element describing the typography.
+	 */
+	"aria-describedby"?: string;
+
+	/**
+	 * The id of the element labeling the typography.
+	 */
+	"aria-labelledby"?: string;
 }

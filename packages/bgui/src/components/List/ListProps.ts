@@ -3,23 +3,23 @@ import type { CSSProperties, ReactNode } from "react";
 /**
  * Shared props interface for List component
  *
- * TODO: Add description of what List is used for
+ * Lists are continuous, vertical indexes of text or images.
  */
 export interface ListProps {
 	/**
-	 * The content of the component
+	 * The content of the component.
 	 */
 	children?: ReactNode;
 
 	/**
 	 * The color of the component.
-	 * @default 'primary'
+	 * @default 'neutral'
 	 */
 	color?: "primary" | "neutral" | "danger" | "success" | "warning";
 
 	/**
 	 * The variant to use.
-	 * @default 'solid'
+	 * @default 'plain'
 	 */
 	variant?: "plain" | "outlined" | "soft" | "solid";
 
@@ -30,15 +30,28 @@ export interface ListProps {
 	size?: "sm" | "md" | "lg";
 
 	/**
-	 * If true, the component is disabled
-	 * @default false
+	 * The component orientation.
+	 * @default 'vertical'
 	 */
-	disabled?: boolean;
+	orientation?: "horizontal" | "vertical";
 
 	/**
-	 * Click handler
+	 * The marker to use for each list item.
+	 * @default 'none'
 	 */
-	onClick?: (event: any) => void;
+	marker?: "disc" | "circle" | "square" | "decimal" | "none";
+
+	/**
+	 * The component used for the root node.
+	 * @default 'ul'
+	 */
+	component?: string;
+
+	/**
+	 * If `true`, the component will have a margin around it.
+	 * @default false
+	 */
+	wrap?: boolean;
 
 	/**
 	 * Additional styles
@@ -51,7 +64,23 @@ export interface ListProps {
 	testID?: string;
 
 	/**
+	 * The ARIA role attribute.
+	 * @default 'list'
+	 */
+	role?: string;
+
+	/**
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The id of the element describing the list.
+	 */
+	"aria-describedby"?: string;
+
+	/**
+	 * The id of the element labeling the list.
+	 */
+	"aria-labelledby"?: string;
 }

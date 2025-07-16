@@ -1,19 +1,105 @@
 "use client";
-// TODO: Copy the implementation from web-bgui/TabPanel/TabPanel.tsx
-// and adapt imports to work with our structure
-// Remember: web-bgui is temporary and will be deleted once all components are migrated
-
+import React from "react";
+import { theme as restyleTheme } from "../../theme";
+import { TabsContext } from "../Tabs/Tabs.web";
 import type { TabPanelProps } from "./TabPanelProps";
 
 /**
- * Web implementation of TabPanel
+ * Web implementation of TabPanel component
  *
- * TODO: Copy implementation from web-bgui/TabPanel/TabPanel.tsx
- * - Update imports to use relative paths
- * - Ensure it works with our shared TabPanelProps interface
- * - The Joy UI implementation is the source of truth for visual design
+ * TabPanel displays content associated with a specific tab.
+ * Based on Joy UI's TabPanel implementation.
  */
-export const TabPanel: React.FC<TabPanelProps> = (props) => {
-	// TODO: Copy Joy UI implementation here
-	return <div>TODO: Copy from web-bgui/TabPanel</div>;
-};
+
+export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
+	(
+		{
+			children,
+			value,
+			keepMounted = false,
+			size: sizeProp,
+			color: colorProp,
+			variant: variantProp,
+			className,
+			style,
+			testID,
+			"aria-labelledby": ariaLabelledby,
+			...props
+		},
+		ref,
+	) => {
+		const tabsContext = React.useContext(TabsContext);
+
+		if (!tabsContext) {
+			throw new Error("TabPanel must be used within a Tabs component");
+		}
+
+		const {
+			value: selectedValue,
+			size: contextSize,
+			color: contextColor,
+			variant: contextVariant,
+		} = tabsContext;
+
+		const isSelected = selectedValue === value;
+		const size = sizeProp || contextSize;
+		const color = colorProp || contextColor;
+		const variant = variantProp || contextVariant;
+
+		// Don't render if not selected and not keeping mounted
+		if (!isSelected && !keepMounted) {
+			return null;
+		}
+
+		// Get variant styles
+		const variantKey = `${variant}-${color}`;
+		const variantStyles = restyleTheme.components.TabPanel?.variants?.[variantKey] || {};
+
+		// Size configurations
+		const sizeConfig = {
+			sm: { padding: "12px" },
+			md: { padding: "16px" },
+			lg: { padding: "20px" },
+		}[size];
+
+		// Build styles
+		const tabPanelStyles: React.CSSProperties = {
+			// Base styles
+			display: isSelected ? "block" : "none",
+			width: "100%",
+			padding: sizeConfig.padding,
+
+			// Variant styles
+			backgroundColor: variantStyles.backgroundColor || "transparent",
+			color: variantStyles.color || restyleTheme.colors.onSurface,
+			border: variantStyles.borderColor ? `1px solid ${variantStyles.borderColor}` : undefined,
+			borderRadius: variantStyles.borderRadius || restyleTheme.radii.sm,
+
+			// Typography
+			fontFamily: restyleTheme.textVariants.body1.fontFamily,
+			fontSize: restyleTheme.textVariants[`body-${size}`]?.fontSize || "16px",
+			lineHeight: restyleTheme.textVariants[`body-${size}`]?.lineHeight || 1.5,
+
+			// Custom styles
+			...style,
+		};
+
+		return (
+			<div
+				ref={ref}
+				className={className}
+				style={tabPanelStyles}
+				role="tabpanel"
+				aria-labelledby={ariaLabelledby}
+				aria-hidden={!isSelected}
+				tabIndex={isSelected ? 0 : -1}
+				data-testid={testID}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+
+TabPanel.displayName = "TabPanel";

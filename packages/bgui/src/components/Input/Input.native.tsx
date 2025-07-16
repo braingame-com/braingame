@@ -1,5 +1,12 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { type NativeSyntheticEvent, StyleSheet, TextInput, type TextInputFocusEventData, type TextInputChangeEventData, View } from "react-native";
+import {
+	type NativeSyntheticEvent,
+	StyleSheet,
+	TextInput,
+	type TextInputChangeEventData,
+	type TextInputFocusEventData,
+	View,
+} from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { InputProps } from "./InputProps";
@@ -54,12 +61,16 @@ export const Input = forwardRef<TextInput, InputProps>(
 		useImperativeHandle(ref, () => inputRef.current!);
 
 		// Use error color if error prop is true
-		const effectiveColor = error ? 'danger' : color;
+		const effectiveColor = error ? "danger" : color;
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
-			const variantKey = `${variant}-${effectiveColor}` as keyof typeof theme.components.Input.variants;
-			return theme.components.Input.variants[variantKey] || theme.components.Input.variants["outlined-neutral"];
+			const variantKey =
+				`${variant}-${effectiveColor}` as keyof typeof theme.components.Input.variants;
+			return (
+				theme.components.Input.variants[variantKey] ||
+				theme.components.Input.variants["outlined-neutral"]
+			);
 		};
 
 		// Get size configurations
@@ -126,7 +137,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 		// Get auto complete type
 		const getAutoCompleteType = () => {
 			if (autoComplete) return autoComplete;
-			
+
 			switch (type) {
 				case "email":
 					return "email";
@@ -155,10 +166,10 @@ export const Input = forwardRef<TextInput, InputProps>(
 				opacity: disabled ? 0.6 : 1,
 			},
 			focused && {
-				borderColor: theme.colors[effectiveColor === 'neutral' ? 'primary' : effectiveColor],
+				borderColor: theme.colors[effectiveColor === "neutral" ? "primary" : effectiveColor],
 				borderWidth: 2,
 			},
-			fullWidth && { width: '100%' },
+			fullWidth && { width: "100%" },
 			style,
 		];
 
@@ -173,17 +184,8 @@ export const Input = forwardRef<TextInput, InputProps>(
 		];
 
 		return (
-			<Box
-				flexDirection="row"
-				alignItems="center"
-				style={containerStyles}
-				testID={testID}
-			>
-				{startDecorator && (
-					<Box marginRight="xs">
-						{startDecorator}
-					</Box>
-				)}
+			<Box flexDirection="row" alignItems="center" style={containerStyles} testID={testID}>
+				{startDecorator && <Box marginRight="xs">{startDecorator}</Box>}
 
 				<TextInput
 					ref={inputRef}
@@ -211,11 +213,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 					}}
 				/>
 
-				{endDecorator && (
-					<Box marginLeft="xs">
-						{endDecorator}
-					</Box>
-				)}
+				{endDecorator && <Box marginLeft="xs">{endDecorator}</Box>}
 			</Box>
 		);
 	},
@@ -223,14 +221,14 @@ export const Input = forwardRef<TextInput, InputProps>(
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
 	},
 	input: {
 		flex: 1,
 		paddingVertical: 0, // Remove default padding to control with container
 		margin: 0,
-		textAlignVertical: 'center',
+		textAlignVertical: "center",
 	},
 });

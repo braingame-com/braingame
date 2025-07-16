@@ -69,7 +69,10 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 		// Get variant styles from theme
 		const getVariantStyles = () => {
 			const variantKey = `${variant}-${color}` as keyof typeof theme.components.Checkbox.variants;
-			return theme.components.Checkbox.variants[variantKey] || theme.components.Checkbox.variants["solid-neutral"];
+			return (
+				theme.components.Checkbox.variants[variantKey] ||
+				theme.components.Checkbox.variants["solid-neutral"]
+			);
 		};
 
 		// Get size configurations
@@ -102,7 +105,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 			if (disabled || readOnly) return;
 
 			const newChecked = !checkedValue;
-			
+
 			if (!isControlled) {
 				setInternalChecked(newChecked);
 			}
@@ -139,8 +142,14 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 			{
 				width: sizeConfig.checkboxSize,
 				height: sizeConfig.checkboxSize,
-				backgroundColor: effectiveChecked || showIndeterminate ? variantStyles.backgroundColor : theme.colors.surface,
-				borderColor: effectiveChecked || showIndeterminate ? variantStyles.backgroundColor : theme.colors.outline,
+				backgroundColor:
+					effectiveChecked || showIndeterminate
+						? variantStyles.backgroundColor
+						: theme.colors.surface,
+				borderColor:
+					effectiveChecked || showIndeterminate
+						? variantStyles.backgroundColor
+						: theme.colors.outline,
 				borderWidth: 1,
 				borderRadius: theme.radii.xs,
 				opacity: disabled ? 0.6 : 1,
@@ -154,21 +163,13 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 			if (showIndeterminate) {
 				if (indeterminateIcon) return indeterminateIcon;
 				return (
-					<IndeterminateIcon 
-						size={sizeConfig.iconSize} 
-						color={variantStyles.color || "#fff"} 
-					/>
+					<IndeterminateIcon size={sizeConfig.iconSize} color={variantStyles.color || "#fff"} />
 				);
 			}
 
 			if (effectiveChecked) {
 				if (checkedIcon) return checkedIcon;
-				return (
-					<CheckIcon 
-						size={sizeConfig.iconSize} 
-						color={variantStyles.color || "#fff"} 
-					/>
-				);
+				return <CheckIcon size={sizeConfig.iconSize} color={variantStyles.color || "#fff"} />;
 			}
 
 			return uncheckedIcon || null;
@@ -192,7 +193,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 				disabled={disabled}
 				testID={testID}
 				accessibilityRole="checkbox"
-				accessibilityLabel={ariaLabel || (typeof label === 'string' ? label : undefined)}
+				accessibilityLabel={ariaLabel || (typeof label === "string" ? label : undefined)}
 				accessibilityHint={ariaDescribedby}
 				accessibilityLabelledBy={ariaLabelledby}
 				accessibilityState={{
@@ -201,14 +202,9 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 					busy: false,
 				}}
 				accessibilityRequired={required}
-				style={({ pressed }) => [
-					containerStyles,
-					pressed && !disabled && { opacity: 0.7 },
-				]}
+				style={({ pressed }) => [containerStyles, pressed && !disabled && { opacity: 0.7 }]}
 			>
-				<View style={checkboxStyles}>
-					{renderIcon()}
-				</View>
+				<View style={checkboxStyles}>{renderIcon()}</View>
 
 				{label && (
 					<Text
@@ -228,12 +224,12 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'flex-start',
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "flex-start",
 	},
 	overlay: {
-		position: 'absolute',
+		position: "absolute",
 		top: 0,
 		left: 0,
 		right: 0,
@@ -241,30 +237,30 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 	},
 	checkbox: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 		flexShrink: 0,
 	},
 	checkIcon: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	checkMark: {
 		width: 3,
 		height: 8,
 		borderRightWidth: 2,
 		borderBottomWidth: 2,
-		borderRightColor: '#fff',
-		borderBottomColor: '#fff',
-		transform: [{ rotate: '45deg' }],
+		borderRightColor: "#fff",
+		borderBottomColor: "#fff",
+		transform: [{ rotate: "45deg" }],
 	},
 	indeterminateIcon: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	indeterminateMark: {
 		width: 10,
 		height: 2,
-		backgroundColor: '#fff',
+		backgroundColor: "#fff",
 	},
 });

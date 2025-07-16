@@ -5,10 +5,7 @@ export * from "./constants";
 export * from "./hooks";
 // Theme exports
 export { BGUIThemeProvider, darkTheme, m3Theme, type Theme, theme } from "./theme";
-// Re-export all Joy UI components from web-bgui
-export * from "./web-bgui/index";
-
-// Future: Universal components will be exported from ./components
+// Universal components - Platform Adapter Pattern complete for web implementations
 
 export type { AlertProps } from "./components/Alert";
 export { Alert } from "./components/Alert";
