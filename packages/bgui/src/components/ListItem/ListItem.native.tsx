@@ -1,8 +1,8 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
 import React, { forwardRef, useState } from "react";
 import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
-import type { Theme } from "../../theme/theme";
 import { theme } from "../../theme";
+import type { Theme } from "../../theme/theme";
 import type { ListItemProps } from "./ListItemProps";
 
 const Box = createBox<Theme>();
@@ -60,7 +60,8 @@ export const ListItem = forwardRef<View, ListItemProps & { __listContext?: ListC
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
-			const variantKey = `${effectiveVariant}-${effectiveColor}` as keyof typeof theme.components.ListItem.variants;
+			const variantKey =
+				`${effectiveVariant}-${effectiveColor}` as keyof typeof theme.components.ListItem.variants;
 			const variantStyle = theme.components.ListItem.variants[variantKey];
 
 			if (!variantStyle) {
@@ -155,12 +156,7 @@ export const ListItem = forwardRef<View, ListItemProps & { __listContext?: ListC
 			};
 
 			return (
-				<ThemedText
-					style={[
-						styles.marker,
-						{ color: textColor, fontSize: sizeStyles.fontSize },
-					]}
-				>
+				<ThemedText style={[styles.marker, { color: textColor, fontSize: sizeStyles.fontSize }]}>
 					{markerSymbols[marker]}
 				</ThemedText>
 			);
@@ -199,7 +195,7 @@ export const ListItem = forwardRef<View, ListItemProps & { __listContext?: ListC
 					onPressOut={handlePressOut}
 					disabled={disabled}
 					accessible
-					accessibilityRole={button ? "button" : role as any}
+					accessibilityRole={button ? "button" : (role as any)}
 					accessibilityLabel={ariaLabel}
 					accessibilityLabelledBy={ariaLabelledBy}
 					accessibilityHint={ariaDescribedBy}

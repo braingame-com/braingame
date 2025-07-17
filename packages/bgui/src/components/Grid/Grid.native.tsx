@@ -1,5 +1,5 @@
 import React, { Children, forwardRef, useImperativeHandle, useRef } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, type View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { GridProps } from "./GridProps";
@@ -60,15 +60,15 @@ export const Grid = forwardRef<View, GridProps>(
 		const getColumnSpan = () => {
 			const breakpointOrder = ["xl", "lg", "md", "sm", "xs"];
 			const breakpointValues = { xs, sm, md, lg, xl };
-			
+
 			let span: boolean | "auto" | number = false;
-			
+
 			// Find the first defined breakpoint value
 			for (const bp of breakpointOrder) {
 				if (breakpointValues[bp as keyof typeof breakpointValues] !== undefined) {
 					const index = breakpointOrder.indexOf(bp);
 					const currentIndex = breakpointOrder.indexOf(currentBreakpoint);
-					
+
 					// Use this value if it's for current or larger breakpoint
 					if (currentIndex >= index) {
 						span = breakpointValues[bp as keyof typeof breakpointValues] as any;
@@ -85,14 +85,14 @@ export const Grid = forwardRef<View, GridProps>(
 			if (!item) return undefined;
 
 			const span = getColumnSpan();
-			
+
 			if (span === false) return undefined;
 			if (span === "auto") return "auto";
 			if (span === true) return "100%";
 			if (typeof span === "number") {
 				return `${(span / GRID_SIZE) * 100}%`;
 			}
-			
+
 			return undefined;
 		};
 
@@ -109,31 +109,35 @@ export const Grid = forwardRef<View, GridProps>(
 		const verticalSpacing = parseSpacing(rowSpacing ?? spacing);
 
 		// Container styles
-		const containerStyles = container ? [
-			styles.container,
-			{
-				flexDirection: direction,
-				justifyContent,
-				alignItems,
-				flexWrap: wrap,
-				marginHorizontal: horizontalSpacing ? -horizontalSpacing / 2 : 0,
-				marginVertical: verticalSpacing ? -verticalSpacing / 2 : 0,
-			},
-			style,
-		] : undefined;
+		const containerStyles = container
+			? [
+					styles.container,
+					{
+						flexDirection: direction,
+						justifyContent,
+						alignItems,
+						flexWrap: wrap,
+						marginHorizontal: horizontalSpacing ? -horizontalSpacing / 2 : 0,
+						marginVertical: verticalSpacing ? -verticalSpacing / 2 : 0,
+					},
+					style,
+				]
+			: undefined;
 
 		// Item styles
-		const itemStyles = item ? [
-			styles.item,
-			{
-				flexBasis: getFlexBasis(),
-				flexGrow: getColumnSpan() === true ? 1 : 0,
-				flexShrink: 0,
-				paddingHorizontal: horizontalSpacing ? horizontalSpacing / 2 : 0,
-				paddingVertical: verticalSpacing ? verticalSpacing / 2 : 0,
-			},
-			style,
-		] : undefined;
+		const itemStyles = item
+			? [
+					styles.item,
+					{
+						flexBasis: getFlexBasis(),
+						flexGrow: getColumnSpan() === true ? 1 : 0,
+						flexShrink: 0,
+						paddingHorizontal: horizontalSpacing ? horizontalSpacing / 2 : 0,
+						paddingVertical: verticalSpacing ? verticalSpacing / 2 : 0,
+					},
+					style,
+				]
+			: undefined;
 
 		// Final styles
 		const finalStyles = container ? containerStyles : itemStyles || [style];
@@ -151,12 +155,7 @@ export const Grid = forwardRef<View, GridProps>(
 			});
 
 			return (
-				<Box
-					ref={gridRef}
-					style={finalStyles}
-					testID={testID}
-					accessibilityLabel={ariaLabel}
-				>
+				<Box ref={gridRef} style={finalStyles} testID={testID} accessibilityLabel={ariaLabel}>
 					{childrenWithSpacing}
 				</Box>
 			);
@@ -172,12 +171,7 @@ export const Grid = forwardRef<View, GridProps>(
 		}
 
 		return (
-			<Box
-				ref={gridRef}
-				style={finalStyles}
-				testID={testID}
-				accessibilityLabel={ariaLabel}
-			>
+			<Box ref={gridRef} style={finalStyles} testID={testID} accessibilityLabel={ariaLabel}>
 				{children}
 			</Box>
 		);

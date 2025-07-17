@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, type View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { IconButtonProps } from "./IconButtonProps";
@@ -50,7 +50,10 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 		// Get variant styles from theme
 		const getVariantStyles = () => {
 			const variantKey = `${variant}-${color}` as keyof typeof theme.components.Button.variants;
-			return theme.components.Button.variants[variantKey] || theme.components.Button.variants["plain-neutral"];
+			return (
+				theme.components.Button.variants[variantKey] ||
+				theme.components.Button.variants["plain-neutral"]
+			);
 		};
 
 		// Get size configurations
@@ -118,13 +121,15 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 				borderRadius: sizeConfig.borderRadius,
 				opacity: isDisabled ? 0.4 : 1,
 			},
-			pressed && !isDisabled && {
-				transform: [{ scale: 0.95 }],
-			},
-			focused && !isDisabled && {
-				borderColor: theme.colors.primary,
-				borderWidth: 2,
-			},
+			pressed &&
+				!isDisabled && {
+					transform: [{ scale: 0.95 }],
+				},
+			focused &&
+				!isDisabled && {
+					borderColor: theme.colors.primary,
+					borderWidth: 2,
+				},
 			style,
 		];
 
@@ -133,10 +138,7 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 			if (!loading) return null;
 
 			const indicator = loadingIndicator || (
-				<ActivityIndicator
-					size="small"
-					color={variantStyles.color || theme.colors.onSurface}
-				/>
+				<ActivityIndicator size="small" color={variantStyles.color || theme.colors.onSurface} />
 			);
 
 			return indicator;
@@ -158,16 +160,14 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 					{loading && loadingPosition === "start" && (
 						<Box marginRight="xs">{renderLoadingIndicator()}</Box>
 					)}
-					
-					{React.isValidElement(children) ? (
-						React.cloneElement(children as React.ReactElement<any>, {
-							size: sizeConfig.iconSize,
-							color: variantStyles.color || theme.colors.onSurface,
-						})
-					) : (
-						children
-					)}
-					
+
+					{React.isValidElement(children)
+						? React.cloneElement(children as React.ReactElement<any>, {
+								size: sizeConfig.iconSize,
+								color: variantStyles.color || theme.colors.onSurface,
+							})
+						: children}
+
 					{loading && loadingPosition === "end" && (
 						<Box marginLeft="xs">{renderLoadingIndicator()}</Box>
 					)}

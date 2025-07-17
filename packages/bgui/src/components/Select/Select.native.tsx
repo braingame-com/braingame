@@ -223,9 +223,7 @@ export const Select = React.forwardRef<View, SelectProps>(
 
 		// Determine if placeholder is shown
 		const showPlaceholder =
-			value === null ||
-			value === undefined ||
-			(Array.isArray(value) && value.length === 0);
+			value === null || value === undefined || (Array.isArray(value) && value.length === 0);
 
 		// Context value
 		const contextValue: SelectContextType = {
@@ -242,7 +240,8 @@ export const Select = React.forwardRef<View, SelectProps>(
 		};
 
 		// Get variant props
-		const variantKey = `${variant}-${resolvedColor}` as keyof Theme["components"]["Select"]["variants"];
+		const variantKey =
+			`${variant}-${resolvedColor}` as keyof Theme["components"]["Select"]["variants"];
 		const variantProps = theme.components?.Select?.variants?.[variantKey] || {};
 
 		return (
@@ -270,15 +269,11 @@ export const Select = React.forwardRef<View, SelectProps>(
 						style={[
 							variant === "outlined" && {
 								borderWidth: 1,
-								borderColor: theme.colors[
-									variantProps.borderColor || "outline"
-								] as string,
+								borderColor: theme.colors[variantProps.borderColor || "outline"] as string,
 							},
 						]}
 					>
-						{startDecorator && (
-							<Box marginRight="sm">{startDecorator}</Box>
-						)}
+						{startDecorator && <Box marginRight="sm">{startDecorator}</Box>}
 
 						<Box flex={1}>
 							<ThemedText
@@ -315,10 +310,7 @@ export const Select = React.forwardRef<View, SelectProps>(
 					animationType="none"
 					onRequestClose={() => handleOpenChange(false)}
 				>
-					<Pressable
-						style={StyleSheet.absoluteFillObject}
-						onPress={() => handleOpenChange(false)}
-					>
+					<Pressable style={StyleSheet.absoluteFillObject} onPress={() => handleOpenChange(false)}>
 						<Animated.View
 							style={[
 								StyleSheet.absoluteFillObject,
@@ -356,11 +348,7 @@ export const Select = React.forwardRef<View, SelectProps>(
 							>
 								<ScrollView>
 									{options.map((option, index) => (
-										<OptionItem
-											key={option.value}
-											option={option}
-											index={index}
-										/>
+										<OptionItem key={option.value} option={option} index={index} />
 									))}
 								</ScrollView>
 							</Box>
@@ -413,23 +401,13 @@ const OptionItem: React.FC<{ option: any; index: number }> = ({ option, index })
 				paddingHorizontal="md"
 				paddingVertical="sm"
 				backgroundColor={
-					highlighted
-						? "primaryContainer"
-						: selected
-						? "surfaceVariant"
-						: "transparent"
+					highlighted ? "primaryContainer" : selected ? "surfaceVariant" : "transparent"
 				}
 				opacity={option.disabled ? 0.6 : 1}
 			>
 				<ThemedText
 					variant="body1"
-					color={
-						option.disabled
-							? "onSurfaceVariant"
-							: selected
-							? "primary"
-							: "onSurface"
-					}
+					color={option.disabled ? "onSurfaceVariant" : selected ? "primary" : "onSurface"}
 				>
 					{option.label}
 				</ThemedText>

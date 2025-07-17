@@ -69,7 +69,7 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 						width: width || "100%",
 					};
 
-				case "circular":
+				case "circular": {
 					const size = width || height || typographyStyles.fontSize * 3;
 					return {
 						backgroundColor,
@@ -77,6 +77,7 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 						width: size,
 						height: size,
 					};
+				}
 
 				case "rectangular":
 					return {
@@ -168,16 +169,15 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 		const variantStyles = getVariantStyles();
 
 		// Container styles
-		const containerStyles = [
-			styles.container,
-			variantStyles,
-			style,
-		];
+		const containerStyles = [styles.container, variantStyles, style];
 
 		// Animated styles
-		const animatedStyles = animation === "pulse" ? {
-			opacity: pulseAnim,
-		} : {};
+		const animatedStyles =
+			animation === "pulse"
+				? {
+						opacity: pulseAnim,
+					}
+				: {};
 
 		// For overlay variant, render absolutely positioned skeleton
 		if (variant === "overlay" && loading) {
@@ -194,12 +194,14 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 							style={[
 								styles.wave,
 								{
-									transform: [{
-										translateX: waveAnim.interpolate({
-											inputRange: [0, 1],
-											outputRange: [-200, 200],
-										}),
-									}],
+									transform: [
+										{
+											translateX: waveAnim.interpolate({
+												inputRange: [0, 1],
+												outputRange: [-200, 200],
+											}),
+										},
+									],
 								},
 							]}
 						/>
@@ -223,22 +225,20 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 							style={[
 								styles.wave,
 								{
-									transform: [{
-										translateX: waveAnim.interpolate({
-											inputRange: [0, 1],
-											outputRange: [-200, 200],
-										}),
-									}],
+									transform: [
+										{
+											translateX: waveAnim.interpolate({
+												inputRange: [0, 1],
+												outputRange: [-200, 200],
+											}),
+										},
+									],
 								},
 							]}
 						/>
 					)}
 				</Animated.View>
-				{children && (
-					<View style={styles.hiddenContent}>
-						{children}
-					</View>
-				)}
+				{children && <View style={styles.hiddenContent}>{children}</View>}
 			</Box>
 		);
 	},

@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Text } from './Text';
+import { Typography } from './Typography';
 
 const meta = {
-  title: 'Components/Text',
-  component: Text,
+  title: 'Components/Typography',
+  component: Typography,
   parameters: {
     docs: {
       description: {
-        component: 'A Text component that works across web and native platforms.',
+        component: 'A Typography component that works across web and native platforms.',
       },
     },
   },
@@ -31,24 +31,24 @@ const meta = {
       control: 'boolean',
     },
   },
-} satisfies Meta<typeof Text>;
+} satisfies Meta<typeof Typography>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Text',
+    children: 'Typography',
   },
 };
 
 export const Variants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-      <Text variant="solid">Solid</Text>
-      <Text variant="soft">Soft</Text>
-      <Text variant="outlined">Outlined</Text>
-      <Text variant="plain">Plain</Text>
+      <Typography variant="solid">Solid</Typography>
+      <Typography variant="soft">Soft</Typography>
+      <Typography variant="outlined">Outlined</Typography>
+      <Typography variant="plain">Plain</Typography>
     </div>
   ),
 };
@@ -56,9 +56,9 @@ export const Variants: Story = {
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-      <Text size="sm">Small</Text>
-      <Text size="md">Medium</Text>
-      <Text size="lg">Large</Text>
+      <Typography size="sm">Small</Typography>
+      <Typography size="md">Medium</Typography>
+      <Typography size="lg">Large</Typography>
     </div>
   ),
 };
@@ -66,25 +66,25 @@ export const Sizes: Story = {
 export const Colors: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-      <Text color="primary">Primary</Text>
-      <Text color="neutral">Neutral</Text>
-      <Text color="danger">Danger</Text>
-      <Text color="success">Success</Text>
-      <Text color="warning">Warning</Text>
+      <Typography color="primary">Primary</Typography>
+      <Typography color="neutral">Neutral</Typography>
+      <Typography color="danger">Danger</Typography>
+      <Typography color="success">Success</Typography>
+      <Typography color="warning">Warning</Typography>
     </div>
   ),
 };
 
 export const Disabled: Story = {
   args: {
-    children: 'Disabled Text',
+    children: 'Disabled Typography',
     disabled: true,
   },
 };
 
 export const FullWidth: Story = {
   args: {
-    children: 'Full Width Text',
+    children: 'Full Width Typography',
     fullWidth: true,
   },
 };

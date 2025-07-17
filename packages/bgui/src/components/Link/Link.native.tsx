@@ -45,29 +45,32 @@ export const Link = forwardRef<View, LinkProps>(
 		useImperativeHandle(ref, () => linkRef.current!);
 
 		// Handle link press
-		const handlePress = useCallback(async (event: any) => {
-			if (disabled) return;
+		const handlePress = useCallback(
+			async (event: any) => {
+				if (disabled) return;
 
-			// Call onClick if provided
-			if (onClick) {
-				onClick(event);
-			}
-
-			// Handle external URLs
-			if (href) {
-				try {
-					// Check if URL can be handled
-					const supported = await Linking.canOpenURL(href);
-					if (supported) {
-						await Linking.openURL(href);
-					} else {
-						console.warn(`Don't know how to open URL: ${href}`);
-					}
-				} catch (error) {
-					console.error("Failed to open URL:", error);
+				// Call onClick if provided
+				if (onClick) {
+					onClick(event);
 				}
-			}
-		}, [href, onClick, disabled]);
+
+				// Handle external URLs
+				if (href) {
+					try {
+						// Check if URL can be handled
+						const supported = await Linking.canOpenURL(href);
+						if (supported) {
+							await Linking.openURL(href);
+						} else {
+							console.warn(`Don't know how to open URL: ${href}`);
+						}
+					} catch (error) {
+						console.error("Failed to open URL:", error);
+					}
+				}
+			},
+			[href, onClick, disabled],
+		);
 
 		// Get color styles
 		const getColorStyles = () => {
@@ -85,7 +88,7 @@ export const Link = forwardRef<View, LinkProps>(
 		// Get variant styles
 		const getVariantStyles = () => {
 			const linkColor = getColorStyles();
-			
+
 			switch (variant) {
 				case "plain":
 					return {
@@ -130,7 +133,8 @@ export const Link = forwardRef<View, LinkProps>(
 		const getUnderlineStyle = () => {
 			if (underline === "none") return {};
 			if (underline === "always") return { textDecorationLine: "underline" as const };
-			if (underline === "hover" && (hovered || pressed)) return { textDecorationLine: "underline" as const };
+			if (underline === "hover" && (hovered || pressed))
+				return { textDecorationLine: "underline" as const };
 			return {};
 		};
 
@@ -206,30 +210,17 @@ export const Link = forwardRef<View, LinkProps>(
 				accessibilityHint={href ? `Opens ${href}` : undefined}
 			>
 				<Box flexDirection="row" alignItems="center">
-					{startDecorator && (
-						<Box marginRight="xs">
-							{startDecorator}
-						</Box>
-					)}
-					
+					{startDecorator && <Box marginRight="xs">{startDecorator}</Box>}
+
 					{typeof children === "string" ? (
-						<Typography
-							level={level}
-							style={textStyles}
-						>
+						<Typography level={level} style={textStyles}>
 							{children}
 						</Typography>
 					) : (
-						<View style={textStyles}>
-							{children}
-						</View>
+						<View style={textStyles}>{children}</View>
 					)}
-					
-					{endDecorator && (
-						<Box marginLeft="xs">
-							{endDecorator}
-						</Box>
-					)}
+
+					{endDecorator && <Box marginLeft="xs">{endDecorator}</Box>}
 				</Box>
 			</Pressable>
 		);

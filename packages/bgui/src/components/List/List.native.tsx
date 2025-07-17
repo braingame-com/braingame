@@ -1,8 +1,8 @@
 import { createBox, useTheme } from "@shopify/restyle";
 import React, { forwardRef } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import type { Theme } from "../../theme/theme";
 import { theme } from "../../theme";
+import type { Theme } from "../../theme/theme";
 import type { ListProps } from "./ListProps";
 
 const Box = createBox<Theme>();
@@ -93,7 +93,7 @@ export const List = forwardRef<View, ListProps>(
 							orientation,
 							index,
 						},
-				  })
+					})
 				: child,
 		);
 

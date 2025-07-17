@@ -12,7 +12,6 @@ export { Alert } from "./components/Alert";
 export type { AvatarProps } from "./components/Avatar";
 export { Avatar } from "./components/Avatar";
 export type { BadgeProps } from "./components/Badge";
-// Components
 export { Badge } from "./components/Badge";
 export type { BoxProps } from "./components/Box";
 export { Box } from "./components/Box";
@@ -72,6 +71,8 @@ export type { TextareaProps } from "./components/Textarea";
 export { Textarea } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
 export { Tooltip } from "./components/Tooltip";
+export type { TypographyProps } from "./components/Typography";
+export { Typography } from "./components/Typography";
 export type { ComponentPerfResult } from "./utils/performance";
 // Performance utilities (for development/testing)
 export { perfMeasurement } from "./utils/performance";
