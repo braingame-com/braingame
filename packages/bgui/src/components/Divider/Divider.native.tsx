@@ -3,7 +3,7 @@ import type React from "react";
 import { View } from "react-native";
 import type { Theme } from "../../theme";
 import { theme } from "../../theme";
-import { Text } from "../Text";
+import { Typography } from "../Typography";
 import type { DividerProps } from "./DividerProps";
 
 const Box = createBox<Theme>();
@@ -59,9 +59,9 @@ export const Divider: React.FC<DividerProps> = ({
 					backgroundColor={dividerColor as any}
 				/>
 				{typeof children === "string" ? (
-					<Text variant="caption" color="onSurfaceVariant">
+					<Typography level="body-xs" style={{ color: theme.colors.onSurfaceVariant }}>
 						{children}
-					</Text>
+					</Typography>
 				) : (
 					children
 				)}

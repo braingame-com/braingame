@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { type GestureResponderEvent, Image, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
-import { Text } from "../Text";
+import { Typography } from "../Typography";
 import type { AvatarProps } from "./AvatarProps";
 
 /**
@@ -111,8 +111,8 @@ export const Avatar = forwardRef<View, AvatarProps>(
 			// Show children (initials, icon, etc.)
 			if (children) {
 				return (
-					<Text
-						variant={textVariant}
+					<Typography
+						level={size === "sm" ? "body-xs" : size === "lg" ? "body-lg" : "body-md"}
 						style={[
 							styles.text,
 							{
@@ -122,7 +122,7 @@ export const Avatar = forwardRef<View, AvatarProps>(
 						]}
 					>
 						{children}
-					</Text>
+					</Typography>
 				);
 			}
 

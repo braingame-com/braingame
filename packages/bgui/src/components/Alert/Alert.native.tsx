@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { StyleSheet, type View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
-import { Text } from "../Text";
+import { Typography } from "../Typography";
 import type { AlertProps } from "./AlertProps";
 
 /**
@@ -140,8 +140,8 @@ export const Alert = forwardRef<View, AlertProps>(
 
 					<Box flex={1}>
 						{typeof children === "string" ? (
-							<Text
-								variant="body1"
+							<Typography
+								level="body-md"
 								style={{
 									fontSize: sizeConfig.fontSize,
 									color: textColor,
@@ -149,7 +149,7 @@ export const Alert = forwardRef<View, AlertProps>(
 								}}
 							>
 								{children}
-							</Text>
+							</Typography>
 						) : (
 							children
 						)}

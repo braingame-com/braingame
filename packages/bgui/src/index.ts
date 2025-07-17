@@ -65,8 +65,6 @@ export type { TabPanelProps } from "./components/TabPanel";
 export { TabPanel } from "./components/TabPanel";
 export type { TabsProps } from "./components/Tabs";
 export { Tabs } from "./components/Tabs";
-export type { TextProps } from "./components/Text";
-export { Text } from "./components/Text";
 export type { TextareaProps } from "./components/Textarea";
 export { Textarea } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";

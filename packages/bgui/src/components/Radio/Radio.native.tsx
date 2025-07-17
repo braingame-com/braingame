@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useRef, useState } from "react"
 import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
-import { Text } from "../Text";
+import { Typography } from "../Typography";
 import type { RadioProps } from "./RadioProps";
 
 /**
@@ -187,15 +187,15 @@ export const Radio = forwardRef<View, RadioProps>(
 				<View style={radioStyles}>{renderIcon()}</View>
 
 				{label && (
-					<Text
-						variant="body1"
+					<Typography
+						level="body-md"
 						style={{
 							fontSize: sizeConfig.fontSize,
 							color: disabled ? theme.colors.onSurfaceVariant : theme.colors.onSurface,
 						}}
 					>
 						{label}
-					</Text>
+					</Typography>
 				)}
 			</Pressable>
 		);

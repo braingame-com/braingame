@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
-import { Text } from "../Text";
+import { Typography } from "../Typography";
 import type { ButtonProps } from "./ButtonProps";
 
 /**
@@ -137,16 +137,21 @@ export const Button = forwardRef<View, ButtonProps>(
 						</Box>
 					)}
 
-					<Text
-						variant="button"
+					<Typography
+						level="body-sm"
 						style={[
-							{ opacity: contentOpacity },
+							{ 
+								opacity: contentOpacity,
+								textTransform: "uppercase",
+								letterSpacing: 0.5,
+								fontWeight: "600",
+							},
 							variant === "solid" && { color: "#ffffff" },
 							variant !== "solid" && { color: theme.colors[color] },
 						]}
 					>
 						{children}
-					</Text>
+					</Typography>
 
 					{endDecorator && (
 						<Box marginLeft="xs" opacity={contentOpacity}>
