@@ -144,6 +144,7 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
     - [x] Implement `Text.native.tsx` using `createText` from `@shopify/restyle`.
     - [x] Updated props to use Restyle types
     - [x] Web implementations properly mapped to Joy UI components
+    - [x] **Note**: The original simple Text component was replaced by the former Typography component (renamed 17-07-2025)
 
 ---
 
@@ -228,9 +229,11 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
     - [x] Verify accessibility standards are met (labels, roles, etc.).
 
 ### Typography and Navigation Components *(Added 16-07-2025)*
-- [x] **Typography Component** *(Completed 16-07-2025)*
+- [x] **Typography Component** *(Completed 16-07-2025, Renamed to Text 17-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
+    - [x] Renamed from Typography to Text to match Joy UI naming convention
+    - [x] Added backward compatibility for Restyle variants (h1, body1, button, etc.)
 - [x] **Alert Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
@@ -249,6 +252,37 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 - [x] **IconButton Component** *(Completed 16-07-2025)*
     - [x] Replicate logic from the relevant headless hook.
     - [x] Verify accessibility standards are met (labels, roles, etc.).
+
+### Component Migration Discrepancy *(Added 17-07-2025)*
+*Note: Component inventory analysis revealed additional components in web-bgui that haven't been migrated to the Platform Adapter Pattern.*
+
+**Missing Core Components from web-bgui:**
+- [ ] **Accordion System** (Accordion, AccordionDetails, AccordionGroup, AccordionSummary)
+- [ ] **Menu System** (Menu, MenuButton, MenuItem, MenuList)
+- [ ] **Breadcrumbs Component**
+- [ ] **Slider Component**
+- [ ] **Snackbar Component** (Toast notifications)
+- [ ] **Table Component**
+- [ ] **AspectRatio Component**
+- [ ] **Sheet Component**
+
+**Missing Helper/Composite Components:**
+- [ ] **Form Helpers** (FormControl, FormHelperText, FormLabel, TextField)
+- [ ] **Card Extensions** (CardActions, CardContent, CardCover, CardOverflow)
+- [ ] **List Extensions** (ListDivider, ListItemButton, ListItemContent, ListItemDecorator, ListSubheader)
+- [ ] **Modal Extensions** (ModalClose, ModalDialog, ModalOverflow)
+- [ ] **Dialog System** (DialogActions, DialogContent, DialogTitle)
+- [ ] **Button Groups** (ButtonGroup, ToggleButtonGroup)
+- [ ] **Avatar Groups** (AvatarGroup)
+- [ ] **Dropdown Component**
+- [ ] **Stepper System** (Step, StepButton, StepIndicator, Stepper)
+
+**Utility Components:**
+- [ ] **SvgIcon Component**
+- [ ] **ChipDelete Component**
+- [ ] **CssBaseline/ScopedCssBaseline**
+- [ ] **GlobalStyles**
+- [ ] **InitColorSchemeScript**
 
 ### Tier 4: Post-MVP / Stretch Goals (Heaviest Lifts)
 *Note: This entire tier is considered a stretch goal and should be deferred until a stable, usable library with Tiers 1-3 is complete and in use. The primary mission is to deliver the core library first.*

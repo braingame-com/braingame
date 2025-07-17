@@ -51,7 +51,7 @@ export { Radio } from "./components/Radio";
 export type { RadioGroupProps } from "./components/RadioGroup";
 export { RadioGroup } from "./components/RadioGroup";
 export type { SelectProps } from "./components/Select";
-export { Select } from "./components/Select";
+export { Option, Select } from "./components/Select";
 export type { SkeletonProps } from "./components/Skeleton";
 export { Skeleton } from "./components/Skeleton";
 export type { StackProps } from "./components/Stack";
@@ -72,8 +72,6 @@ export type { TextareaProps } from "./components/Textarea";
 export { Textarea } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
 export { Tooltip } from "./components/Tooltip";
-export type { TypographyProps } from "./components/Typography";
-export { Typography } from "./components/Typography";
 export type { ComponentPerfResult } from "./utils/performance";
 // Performance utilities (for development/testing)
 export { perfMeasurement } from "./utils/performance";
