@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import { CssVarsProvider, extendTheme, styled, ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import defaultTheme from "./defaultTheme";
 
 const toPixel = (val: string | number | undefined) => (typeof val === "number" ? `${val}px` : val);

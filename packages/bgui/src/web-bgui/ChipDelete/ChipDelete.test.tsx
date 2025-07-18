@@ -3,7 +3,6 @@ import Chip from "@mui/joy/Chip";
 import ChipDelete, { chipDeleteClasses as classes } from "@mui/joy/ChipDelete";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 

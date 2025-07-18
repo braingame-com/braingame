@@ -1,5 +1,4 @@
 import Skeleton from "@mui/joy/Skeleton";
-import * as React from "react";
 
 <Skeleton variant="circular" />;
 <Skeleton variant="inline" />;

@@ -1,6 +1,5 @@
 import AspectRatio, { type AspectRatioOwnerState } from "@mui/joy/AspectRatio";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <AspectRatio
 	slots={{

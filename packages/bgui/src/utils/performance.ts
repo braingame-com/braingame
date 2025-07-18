@@ -1,55 +1,64 @@
-import { performance } from "react-native-performance";
-
 /**
  * Performance measurement utilities for BGUI components
  */
+
+// Use browser performance API on web, mock on native
+const performance =
+	typeof window !== "undefined" && window.performance
+		? window.performance
+		: {
+				now: () => Date.now(),
+				mark: () => {},
+				measure: () => {},
+				getEntriesByName: () => [],
+				getEntriesByType: () => [],
+				clearMarks: () => {},
+				clearMeasures: () => {},
+			};
 
 export interface ComponentPerfResult {
 	componentName: string;
 	avgRenderTime: number;
 	minRenderTime: number;
 	maxRenderTime: number;
-	samples: number;
-	measurements: number[];
+	renderCount: number;
 }
 
 class PerformanceMeasurement {
 	private measurements: Map<string, number[]> = new Map();
 
 	/**
-	 * Start measuring render time for a component
+	 * Start measuring a component render
 	 */
-	startMeasure(componentName: string, instanceId: string): void {
+	startMeasure(componentName: string, instanceId: string) {
 		const markName = `${componentName}-${instanceId}-start`;
 		performance.mark(markName);
 	}
 
 	/**
-	 * End measuring render time for a component
+	 * End measuring a component render
 	 */
-	endMeasure(componentName: string, instanceId: string): void {
-		const startMarkName = `${componentName}-${instanceId}-start`;
-		const endMarkName = `${componentName}-${instanceId}-end`;
-		const measureName = `${componentName}-${instanceId}`;
+	endMeasure(componentName: string, instanceId: string) {
+		const startMark = `${componentName}-${instanceId}-start`;
+		const endMark = `${componentName}-${instanceId}-end`;
+		const measureName = `${componentName}-${instanceId}-render`;
 
-		performance.mark(endMarkName);
-		performance.measure(measureName, startMarkName, endMarkName);
+		performance.mark(endMark);
+		performance.measure(measureName, startMark, endMark);
 
-		// Get the measurement
-		const entries = performance.getEntriesByName(measureName);
-		if (entries.length > 0) {
-			const duration = entries[entries.length - 1].duration;
-
-			// Store the measurement
+		// Get the measure and store it
+		const measures = performance.getEntriesByName(measureName);
+		if (measures.length > 0) {
+			const duration = measures[0].duration;
 			if (!this.measurements.has(componentName)) {
 				this.measurements.set(componentName, []);
 			}
-			this.measurements.get(componentName)!.push(duration);
+			this.measurements.get(componentName)?.push(duration);
 		}
 
 		// Clean up marks
-		performance.clearMarks(startMarkName);
-		performance.clearMarks(endMarkName);
+		performance.clearMarks(startMark);
+		performance.clearMarks(endMark);
 		performance.clearMeasures(measureName);
 	}
 
@@ -57,23 +66,22 @@ class PerformanceMeasurement {
 	 * Get performance results for a component
 	 */
 	getResults(componentName: string): ComponentPerfResult | null {
-		const measurements = this.measurements.get(componentName);
-		if (!measurements || measurements.length === 0) {
+		const times = this.measurements.get(componentName);
+		if (!times || times.length === 0) {
 			return null;
 		}
 
-		const sum = measurements.reduce((a, b) => a + b, 0);
-		const avg = sum / measurements.length;
-		const min = Math.min(...measurements);
-		const max = Math.max(...measurements);
+		const sum = times.reduce((a, b) => a + b, 0);
+		const avg = sum / times.length;
+		const min = Math.min(...times);
+		const max = Math.max(...times);
 
 		return {
 			componentName,
 			avgRenderTime: avg,
 			minRenderTime: min,
 			maxRenderTime: max,
-			samples: measurements.length,
-			measurements: [...measurements],
+			renderCount: times.length,
 		};
 	}
 
@@ -83,7 +91,8 @@ class PerformanceMeasurement {
 	getAllResults(): ComponentPerfResult[] {
 		const results: ComponentPerfResult[] = [];
 
-		for (const [componentName] of this.measurements) {
+		const entries = Array.from(this.measurements.entries());
+		for (const [componentName] of entries) {
 			const result = this.getResults(componentName);
 			if (result) {
 				results.push(result);
@@ -96,44 +105,9 @@ class PerformanceMeasurement {
 	/**
 	 * Clear all measurements
 	 */
-	clear(): void {
+	clear() {
 		this.measurements.clear();
-	}
-
-	/**
-	 * Generate a performance report
-	 */
-	generateReport(): string {
-		const results = this.getAllResults();
-
-		if (results.length === 0) {
-			return "No performance measurements recorded.";
-		}
-
-		let report = "# BGUI Component Performance Baseline\n\n";
-		report += `Generated on: ${new Date().toISOString()}\n\n`;
-		report += "## Component Render Times (in milliseconds)\n\n";
-		report += "| Component | Avg | Min | Max | Samples |\n";
-		report += "|-----------|-----|-----|-----|---------|\\n";
-
-		for (const result of results) {
-			report += `| ${result.componentName} | ${result.avgRenderTime.toFixed(2)} | ${result.minRenderTime.toFixed(2)} | ${result.maxRenderTime.toFixed(2)} | ${result.samples} |\n`;
-		}
-
-		report += "\n## Detailed Measurements\n\n";
-
-		for (const result of results) {
-			report += `### ${result.componentName}\n`;
-			report += `- Average: ${result.avgRenderTime.toFixed(2)}ms\n`;
-			report += `- Min: ${result.minRenderTime.toFixed(2)}ms\n`;
-			report += `- Max: ${result.maxRenderTime.toFixed(2)}ms\n`;
-			report += `- Samples: ${result.samples}\n`;
-			report += `- All measurements: [${result.measurements.map((m) => m.toFixed(2)).join(", ")}]\n\n`;
-		}
-
-		return report;
 	}
 }
 
-// Export singleton instance
 export const perfMeasurement = new PerformanceMeasurement();

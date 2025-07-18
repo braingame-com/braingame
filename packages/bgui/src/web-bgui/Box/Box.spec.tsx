@@ -1,7 +1,6 @@
 import Box from "@mui/joy/Box";
-import * as React from "react";
 
-function ThemeValuesCanBeSpread() {
+function _ThemeValuesCanBeSpread() {
 	<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} />;
 	<Box
 		sx={(theme) => ({

@@ -69,7 +69,7 @@ const sliderColorVariables =
 const SliderRoot = styled("span", {
 	name: "JoySlider",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: SliderOwnerState }>(({ theme, ownerState }) => {
 	const getColorVariables = sliderColorVariables({ theme, ownerState });
 	return [
@@ -138,7 +138,7 @@ const SliderRoot = styled("span", {
 const SliderRail = styled("span", {
 	name: "JoySlider",
 	slot: "Rail",
-	overridesResolver: (props, styles) => styles.rail,
+	overridesResolver: (_props, styles) => styles.rail,
 })<{ ownerState: SliderOwnerState }>(({ ownerState }) => [
 	{
 		display: "block",
@@ -175,7 +175,7 @@ const SliderRail = styled("span", {
 const SliderTrack = styled("span", {
 	name: "JoySlider",
 	slot: "Track",
-	overridesResolver: (props, styles) => styles.track,
+	overridesResolver: (_props, styles) => styles.track,
 })<{ ownerState: SliderOwnerState }>(({ ownerState }) => {
 	return [
 		{
@@ -212,7 +212,7 @@ const SliderTrack = styled("span", {
 const SliderThumb = styled("span", {
 	name: "JoySlider",
 	slot: "Thumb",
-	overridesResolver: (props, styles) => styles.thumb,
+	overridesResolver: (_props, styles) => styles.thumb,
 })<{ ownerState: SliderOwnerState }>(({ ownerState, theme }) => ({
 	position: "absolute",
 	boxSizing: "border-box",
@@ -261,7 +261,7 @@ const SliderThumb = styled("span", {
 const SliderMark = styled("span", {
 	name: "JoySlider",
 	slot: "Mark",
-	overridesResolver: (props, styles) => styles.mark,
+	overridesResolver: (_props, styles) => styles.mark,
 })<{ ownerState: SliderOwnerState & { percent?: number } }>(({ ownerState }) => {
 	return {
 		position: "absolute",
@@ -297,7 +297,7 @@ const SliderMark = styled("span", {
 const SliderValueLabel = styled("span", {
 	name: "JoySlider",
 	slot: "ValueLabel",
-	overridesResolver: (props, styles) => styles.valueLabel,
+	overridesResolver: (_props, styles) => styles.valueLabel,
 })<{ ownerState: SliderOwnerState }>(({ theme, ownerState }) => ({
 	...(ownerState.size === "sm" && {
 		fontSize: theme.fontSize.xs,
@@ -357,7 +357,7 @@ const SliderValueLabel = styled("span", {
 const SliderMarkLabel = styled("span", {
 	name: "JoySlider",
 	slot: "MarkLabel",
-	overridesResolver: (props, styles) => styles.markLabel,
+	overridesResolver: (_props, styles) => styles.markLabel,
 })<{ ownerState: SliderOwnerState }>(({ theme, ownerState }) => ({
 	fontFamily: theme.vars.fontFamily.body,
 	...(ownerState.size === "sm" && {
@@ -385,7 +385,7 @@ const SliderMarkLabel = styled("span", {
 const SliderInput = styled("input", {
 	name: "JoySlider",
 	slot: "Input",
-	overridesResolver: (props, styles) => styles.input,
+	overridesResolver: (_props, styles) => styles.input,
 })<{ ownerState?: SliderOwnerState }>({});
 /**
  *

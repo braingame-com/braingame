@@ -23,7 +23,7 @@ const useUtilityClasses = () => {
 const FormHelperTextRoot = styled("div", {
 	name: "JoyFormHelperText",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: FormHelperTextProps }>(({ theme }) => ({
 	"--Icon-fontSize": "calc(var(--FormHelperText-lineHeight) * 1em)",
 	display: "flex",

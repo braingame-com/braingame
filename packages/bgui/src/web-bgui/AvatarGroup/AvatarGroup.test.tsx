@@ -3,7 +3,6 @@ import Avatar, { avatarClasses } from "@mui/joy/Avatar";
 import AvatarGroup, { avatarGroupClasses as classes } from "@mui/joy/AvatarGroup";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<AvatarGroup />", () => {

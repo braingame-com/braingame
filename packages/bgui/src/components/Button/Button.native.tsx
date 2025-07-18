@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import {
 	type AccessibilityRole,
 	type AccessibilityState,
@@ -140,7 +140,7 @@ export const Button = forwardRef<View, ButtonProps>(
 					<Typography
 						level="body-sm"
 						style={[
-							{ 
+							{
 								opacity: contentOpacity,
 								textTransform: "uppercase",
 								letterSpacing: 0.5,

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { theme as restyleTheme } from "../../theme";
 import type { GridProps } from "./GridProps";
 
 /**

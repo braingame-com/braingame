@@ -1,19 +1,19 @@
 import { type ColorPaletteProp, styled, type VariantProp } from "@mui/joy/styles";
 import type * as React from "react";
 
-const Basic = styled("button")({
+const _Basic = styled("button")({
 	fontWeight: "var(--fontSize-md)" as React.CSSProperties["fontWeight"],
 	backgroundColor: "var(--palette-background-body)",
 	lineHeight: 1,
 });
 
-const ObjectStyle = styled("button")(({ theme }) => ({
+const _ObjectStyle = styled("button")(({ theme }) => ({
 	fontWeight: theme.vars.fontWeight.md,
 	backgroundColor: theme.vars.palette.background.body,
 	...theme.typography["body-md"],
 }));
 
-const ArrayStyle = styled("button")(({ theme }) => [
+const _ArrayStyle = styled("button")(({ theme }) => [
 	{
 		fontWeight: theme.vars.fontWeight.md,
 		backgroundColor: theme.vars.palette.background.body,
@@ -21,7 +21,7 @@ const ArrayStyle = styled("button")(({ theme }) => [
 	theme.typography["body-md"],
 ]);
 
-const FocusStyle = styled("button")(({ theme }) => [
+const _FocusStyle = styled("button")(({ theme }) => [
 	{
 		fontWeight: theme.vars.fontWeight.md,
 		backgroundColor: theme.vars.palette.background.body,
@@ -29,14 +29,14 @@ const FocusStyle = styled("button")(({ theme }) => [
 	},
 ]);
 
-const Variants = styled("button")(({ theme }) => [
+const _Variants = styled("button")(({ theme }) => [
 	{
 		width: "auto",
 	},
 	theme.variants.solid.primary,
 ]);
 
-const DynamicVariants = styled("button")<{ variant?: VariantProp; color?: ColorPaletteProp }>(
+const _DynamicVariants = styled("button")<{ variant?: VariantProp; color?: ColorPaletteProp }>(
 	({ theme, variant = "solid", color = "primary" }) => [
 		{
 			width: "auto",

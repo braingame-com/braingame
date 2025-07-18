@@ -141,8 +141,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		const getVariantStyles = () => {
 			const colorValue = getColorValue(color);
-			const backgroundColor = restyleTheme.colors.surface;
-			const textColor = restyleTheme.colors.onSurface;
+			const _backgroundColor = restyleTheme.colors.surface;
+			const _textColor = restyleTheme.colors.onSurface;
 
 			const variantStyles: Record<string, React.CSSProperties> = {
 				solid: {

@@ -5,7 +5,6 @@ import Box from "@mui/joy/Box";
 import { unstable_ClassNameGenerator as ClassNameGenerator } from "@mui/joy/className";
 import { CssVarsProvider, extendTheme, type PalettePrimary, ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("Joy <Box />", () => {

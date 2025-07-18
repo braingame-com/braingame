@@ -4,7 +4,6 @@ import { ThemeProvider, type TypographySystem } from "@mui/joy/styles";
 import Typography from "@mui/joy/Typography";
 import capitalize from "@mui/utils/capitalize";
 import { expect } from "chai";
-import * as React from "react";
 import { type SinonSpy, spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 

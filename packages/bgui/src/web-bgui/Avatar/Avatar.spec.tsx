@@ -1,6 +1,5 @@
 import Avatar, { type AvatarOwnerState } from "@mui/joy/Avatar";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Avatar />;
 

@@ -1,9 +1,5 @@
 "use client";
 import { unstable_createCssVarsProvider as createCssVarsProvider } from "@mui/system";
-// do not remove the following import (https://github.com/microsoft/TypeScript/issues/29808#issuecomment-1320713018)
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// @ts-ignore
-import * as React from "react";
 import { defaultConfig } from "../InitColorSchemeScript/InitColorSchemeScript";
 import defaultTheme from "./defaultTheme";
 import THEME_ID from "./identifier";

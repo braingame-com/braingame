@@ -6,16 +6,16 @@ import type * as React from "react";
 
 <Button>Button</Button>;
 
-function handleClick(event: React.MouseEvent) {}
+function handleClick(_event: React.MouseEvent) {}
 <Button onClick={handleClick}>Button</Button>;
 
-function handleClick2(event: React.MouseEvent<HTMLAnchorElement>) {}
+function handleClick2(_event: React.MouseEvent<HTMLAnchorElement>) {}
 <Button onClick={handleClick2}>Button</Button>;
 
-function handleClick3(event: React.MouseEvent<HTMLButtonElement>) {}
+function handleClick3(_event: React.MouseEvent<HTMLButtonElement>) {}
 <Button onClick={handleClick3}>Button</Button>;
 
-function handleClick4(event: React.MouseEvent<HTMLDivElement>) {}
+function handleClick4(_event: React.MouseEvent<HTMLDivElement>) {}
 // @ts-expect-error should be HTMLAnchorElement | HTMLButtonElement
 <Button onClick={handleClick4}>Button</Button>;
 

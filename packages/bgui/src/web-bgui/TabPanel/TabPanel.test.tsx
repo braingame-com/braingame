@@ -5,7 +5,6 @@ import { ThemeProvider } from "@mui/joy/styles";
 import TabPanel, { tabPanelClasses as classes } from "@mui/joy/TabPanel";
 import Tabs from "@mui/joy/Tabs";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 function TabsProvider({ children, ...props }: TabsProps) {

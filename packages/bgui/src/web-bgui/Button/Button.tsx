@@ -54,7 +54,7 @@ const useUtilityClasses = (ownerState: ButtonOwnerState) => {
 const ButtonStartDecorator = styled("span", {
 	name: "JoyButton",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: ButtonOwnerState }>({
 	"--Icon-margin": "0 0 0 calc(var(--Button-gap) / -2)",
 	"--CircularProgress-margin": "0 0 0 calc(var(--Button-gap) / -2)",
@@ -65,7 +65,7 @@ const ButtonStartDecorator = styled("span", {
 const ButtonEndDecorator = styled("span", {
 	name: "JoyButton",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: ButtonOwnerState }>({
 	"--Icon-margin": "0 calc(var(--Button-gap) / -2) 0 0",
 	"--CircularProgress-margin": "0 calc(var(--Button-gap) / -2) 0 0",
@@ -76,7 +76,7 @@ const ButtonEndDecorator = styled("span", {
 const ButtonLoadingCenter = styled("span", {
 	name: "JoyButton",
 	slot: "LoadingCenter",
-	overridesResolver: (props, styles) => styles.loadingIndicatorCenter,
+	overridesResolver: (_props, styles) => styles.loadingIndicatorCenter,
 })<{ ownerState: ButtonOwnerState }>(({ theme, ownerState }) => ({
 	display: "inherit",
 	position: "absolute",
@@ -176,7 +176,7 @@ export const getButtonStyles = ({
 const ButtonRoot = styled("button", {
 	name: "JoyButton",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ButtonOwnerState }>(getButtonStyles);
 /**
  *

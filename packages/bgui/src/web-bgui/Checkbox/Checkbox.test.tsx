@@ -2,7 +2,6 @@ import { act, createRenderer, fireEvent } from "@mui/internal-test-utils";
 import Checkbox, { checkboxClasses as classes } from "@mui/joy/Checkbox";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 import CloseIcon from "../internal/svg-icons/Close";
 

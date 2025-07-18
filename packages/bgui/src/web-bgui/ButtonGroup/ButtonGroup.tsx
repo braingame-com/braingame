@@ -85,7 +85,7 @@ export const StyledButtonGroup = styled("div")<{ ownerState: ButtonGroupOwnerSta
 				borderRadius: "var(--ButtonGroup-radius)",
 				flexDirection: ownerState.orientation === "vertical" ? "column" : "row",
 				// first Button or IconButton
-				["& > [data-first-child]"]: {
+				"& > [data-first-child]": {
 					"--Button-radius": firstChildRadius,
 					"--IconButton-radius": firstChildRadius,
 					...(ownerState.orientation === "horizontal" && {
@@ -97,7 +97,7 @@ export const StyledButtonGroup = styled("div")<{ ownerState: ButtonGroupOwnerSta
 					}),
 				},
 				// middle Buttons or IconButtons
-				["& > :not([data-first-child]):not([data-last-child]):not(:only-child)"]: {
+				"& > :not([data-first-child]):not([data-last-child]):not(:only-child)": {
 					"--Button-radius": "var(--unstable_childRadius)",
 					"--IconButton-radius": "var(--unstable_childRadius)",
 					borderRadius: "var(--unstable_childRadius)",
@@ -112,7 +112,7 @@ export const StyledButtonGroup = styled("div")<{ ownerState: ButtonGroupOwnerSta
 					}),
 				},
 				// last Button or IconButton
-				["& > [data-last-child]"]: {
+				"& > [data-last-child]": {
 					"--Button-radius": lastChildRadius,
 					"--IconButton-radius": lastChildRadius,
 					...(ownerState.orientation === "horizontal" && {
@@ -123,11 +123,11 @@ export const StyledButtonGroup = styled("div")<{ ownerState: ButtonGroupOwnerSta
 					}),
 				},
 				// single Button or IconButton
-				["& > :only-child"]: {
+				"& > :only-child": {
 					"--Button-radius": "var(--ButtonGroup-radius)",
 					"--IconButton-radius": "var(--ButtonGroup-radius)",
 				},
-				["& > :not([data-first-child]):not(:only-child)"]: {
+				"& > :not([data-first-child]):not(:only-child)": {
 					"--Button-margin": margin,
 					"--IconButton-margin": margin,
 				},
@@ -166,7 +166,7 @@ export const StyledButtonGroup = styled("div")<{ ownerState: ButtonGroupOwnerSta
 const ButtonGroupRoot = styled(StyledButtonGroup, {
 	name: "JoyButtonGroup",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ButtonGroupOwnerState }>({});
 
 /**

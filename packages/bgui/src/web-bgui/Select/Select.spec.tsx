@@ -39,7 +39,7 @@ interface Value {
 <Select<Value>
 	// @ts-expect-error the provided value type does not match the Value
 	value={{ name: "" }}
-	onChange={(event, val) => {
+	onChange={(_event, val) => {
 		expectType<Value | null, typeof val>(val);
 	}}
 />;
@@ -150,13 +150,13 @@ interface Value {
 />;
 
 const handleChange = (
-	event: React.MouseEvent | React.KeyboardEvent | React.FocusEvent | null,
-	val: number | null,
+	_event: React.MouseEvent | React.KeyboardEvent | React.FocusEvent | null,
+	_val: number | null,
 ) => {};
 
 const handleMultiChange = (
-	event: React.MouseEvent | React.KeyboardEvent | React.FocusEvent | null,
-	val: number[] | null,
+	_event: React.MouseEvent | React.KeyboardEvent | React.FocusEvent | null,
+	_val: number[] | null,
 ) => {};
 
 <Select value={10} onChange={handleChange} />;

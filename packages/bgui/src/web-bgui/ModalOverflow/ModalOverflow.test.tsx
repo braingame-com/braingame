@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import ModalOverflow, { modalOverflowClasses as classes } from "@mui/joy/ModalOverflow";
 import { ThemeProvider } from "@mui/joy/styles";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<ModalOverflow />", () => {

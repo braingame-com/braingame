@@ -11,7 +11,7 @@ const Container = createContainer<Theme>({
 	createStyledComponent: styled("div", {
 		name: "JoyContainer",
 		slot: "Root",
-		overridesResolver: (props, styles) => styles.root,
+		overridesResolver: (_props, styles) => styles.root,
 	}),
 	useThemeProps: (inProps) => useThemeProps({ props: inProps, name: "JoyContainer" }),
 }) as OverridableComponent<ContainerTypeMap>;

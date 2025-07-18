@@ -1,5 +1,4 @@
 import { fireEvent, render } from "@testing-library/react-native";
-import React from "react";
 import { Link } from "./Link.native";
 
 describe("Link", () => {

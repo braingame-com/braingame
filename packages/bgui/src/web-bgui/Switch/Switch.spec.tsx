@@ -1,6 +1,5 @@
 import Switch, { type SwitchOwnerState } from "@mui/joy/Switch";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Switch />;
 
@@ -17,7 +16,7 @@ import * as React from "react";
 
 <Switch
 	onChange={(event) => {
-		const checked = event.target.checked;
+		const _checked = event.target.checked;
 	}}
 />;
 

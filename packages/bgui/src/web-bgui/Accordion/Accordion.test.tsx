@@ -3,7 +3,6 @@ import Accordion, { accordionClasses as classes } from "@mui/joy/Accordion";
 import AccordionSummary from "@mui/joy/AccordionSummary";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 

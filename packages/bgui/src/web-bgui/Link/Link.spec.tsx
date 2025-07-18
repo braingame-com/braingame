@@ -1,6 +1,5 @@
 import Link, { type LinkOwnerState } from "@mui/joy/Link";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Link />;
 <Link component="div" />;

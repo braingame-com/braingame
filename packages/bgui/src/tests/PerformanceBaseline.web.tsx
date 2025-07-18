@@ -50,7 +50,7 @@ const PerfComponent: React.FC<PerfComponentProps> = ({ componentName, onRender, 
 				if (!measurements.has(componentName)) {
 					measurements.set(componentName, []);
 				}
-				measurements.get(componentName)!.push(duration);
+				measurements.get(componentName)?.push(duration);
 			}
 
 			performance.clearMarks(startMark);

@@ -112,7 +112,7 @@ export const StyledListItemButton = styled("div")<{ ownerState: ListItemButtonOw
 const ListItemButtonRoot = styled(StyledListItemButton, {
 	name: "JoyListItemButton",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })(({ ownerState, theme }) => ({
 	...(!ownerState.row && {
 		[`&.${listItemButtonClasses.selected}`]: {

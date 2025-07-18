@@ -34,7 +34,7 @@ const useUtilityClasses = (ownerState: CardOverflowOwnerState) => {
 const CardOverflowRoot = styled("div", {
 	name: "JoyCardOverflow",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{
 	ownerState: CardOverflowOwnerState & {
 		"data-first-child"?: string;

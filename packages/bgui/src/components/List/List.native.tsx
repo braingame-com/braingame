@@ -5,7 +5,7 @@ import { theme } from "../../theme";
 import type { Theme } from "../../theme/theme";
 import type { ListProps } from "./ListProps";
 
-const Box = createBox<Theme>();
+const _Box = createBox<Theme>();
 
 /**
  * Native implementation of List component

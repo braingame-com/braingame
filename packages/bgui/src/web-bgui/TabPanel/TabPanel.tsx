@@ -34,7 +34,7 @@ const useUtilityClasses = (ownerState: TabPanelOwnerState) => {
 const TabPanelRoot = styled("div", {
 	name: "JoyTabPanel",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TabPanelOwnerState }>(({ theme, ownerState }) => ({
 	display: ownerState.hidden ? "none" : "block",
 	padding: "var(--Tabs-spacing)",

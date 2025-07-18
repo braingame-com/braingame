@@ -1086,3 +1086,104 @@ The user clarified they wanted to delete Text and create Typography as a new com
 - Typography: Feature-rich, Joy UI-compatible for advanced styling
 - Both follow Platform Adapter Pattern
 - Native components unchanged, continue using Text
+
+## Phase 5 Final: Documentation Site Implementation
+**Date:** 17-07-2025  
+**Engineer:** Claude (AI Agent)  
+**Session:** Continued from previous context
+
+### Background
+After completing the BGUI component migration, the user requested a documentation site with a showcase page featuring a Typography component displaying "hello world", tested with Playwright.
+
+### Initial Issues Encountered
+1. **RootLayout Error**: "Check the render method of `RootLayout`" - hydration mismatch issues
+2. **Missing Fonts**: Lexend font not loading, showing Times New Roman
+3. **Dark Mode**: Toggle not functioning properly
+4. **Missing Sidebar**: Layout components not rendering correctly
+5. **Icon Component**: References to non-existent Icon component in documentation
+
+### Implementation Steps
+
+#### 1. Fixed Import Paths
+- Fixed incorrect import paths in `/app/design/colors/page.tsx`
+- Components were importing from `../../../components/` instead of `../../../src/components/`
+
+#### 2. Fixed ClientProvider Hydration
+- Added proper mounting state management to prevent hydration mismatches
+- Initialized theme on client-side only to avoid SSR conflicts
+```tsx
+const [mounted, setMounted] = useState(false);
+useEffect(() => {
+  setMounted(true);
+  // Initialize theme...
+}, []);
+if (!mounted) return null;
+```
+
+#### 3. Implemented Proper Font Loading
+- Used Next.js built-in font optimization with `next/font/google`
+- Added Lexend and Roboto Mono fonts in layout.tsx
+- Applied font classes to html and body elements
+- Created CSS overrides to ensure BGUI components inherit fonts
+
+#### 4. Fixed MaterialIcon Component
+- Replaced non-existent Icon imports with simple Unicode implementation
+- Used emoji/symbols for dark_mode (🌙), light_mode (☀️), etc.
+
+#### 5. Updated Showcase Page
+- Added "hello world" Typography component as requested
+- Organized all BGUI components into sections:
+  - Typography Examples
+  - Button Examples
+  - Input Examples
+  - Card Examples
+  - Progress Indicators
+  - Navigation components
+
+#### 6. Implemented Playwright Testing
+Created comprehensive test suite covering:
+- Homepage loads without errors
+- Showcase page displays "hello world" Typography
+- Button documentation page works
+- Dark mode toggle exists and functions
+- Lexend font is properly applied
+- All tests passing ✅
+
+### Files Created/Modified
+
+**Created:**
+- `/apps/docs-site/playwright.config.ts` - Playwright configuration
+- `/apps/docs-site/tests/simple-test.spec.ts` - Core functionality tests
+- `/apps/docs-site/src/styles/bgui-overrides.css` - Font inheritance fixes
+- `/apps/docs-site/DOCS_SITE_TEST_REPORT.md` - Comprehensive test results
+
+**Modified:**
+- `/apps/docs-site/app/layout.tsx` - Added Next.js font loading
+- `/apps/docs-site/components/ClientProvider.tsx` - Fixed hydration issues
+- `/apps/docs-site/src/components/MaterialIcon.tsx` - Simple icon implementation
+- `/apps/docs-site/app/showcase/page.tsx` - Added hello world and all components
+- `/apps/docs-site/src/components/Sidebar.tsx` - Only BGUI components in navigation
+- Various CSS files - Removed hardcoded font references
+
+### Technical Decisions
+1. **Font Loading**: Used Next.js native font optimization instead of Google Fonts CDN
+2. **Icons**: Created simple Unicode-based icons instead of adding icon library dependency
+3. **Testing**: Used Playwright for E2E testing as requested
+4. **Hydration**: Delayed rendering until client-side mount to prevent mismatches
+
+### Result
+✅ Fully functional documentation site with:
+- Working showcase page with "hello world" Typography component
+- All 33 BGUI components displayed
+- Proper Lexend font throughout
+- Functional dark/light mode toggle with persistence
+- Sidebar navigation showing only actual BGUI components
+- All Playwright tests passing
+- Material Design 3 theme colors active
+
+### Next Steps for Docs Site
+- Create documentation pages for remaining BGUI components
+- Add search functionality
+- Implement code playground features
+- Add API documentation sections
+- Expand Playwright test coverage

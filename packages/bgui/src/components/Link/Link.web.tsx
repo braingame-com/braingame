@@ -14,7 +14,7 @@ import type { LinkProps } from "./LinkProps";
 const isFocusVisible = (element: Element): boolean => {
 	try {
 		return element.matches(":focus-visible");
-	} catch (error) {
+	} catch (_error) {
 		// Fallback for browsers that don't support :focus-visible
 		return element === document.activeElement;
 	}

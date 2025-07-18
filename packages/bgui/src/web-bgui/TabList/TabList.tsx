@@ -34,7 +34,7 @@ const useUtilityClasses = (ownerState: TabListOwnerState) => {
 const TabListRoot = styled(StyledList, {
 	name: "JoyTabList",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TabListOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	return {

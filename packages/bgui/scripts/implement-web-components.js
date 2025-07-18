@@ -5,8 +5,8 @@
  * This script provides templates and helpers for the repetitive conversion work
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const componentsToImplement = [
 	"Grid",
@@ -32,7 +32,7 @@ const componentsToImplement = [
 ];
 
 // Template for simple components that mainly need style adaptation
-const simpleComponentTemplate = (componentName, description) => `"use client";
+const _simpleComponentTemplate = (componentName, description) => `"use client";
 import React from "react";
 import type { ${componentName}Props } from "./${componentName}Props";
 import { theme as restyleTheme } from "../../theme";

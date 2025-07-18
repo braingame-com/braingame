@@ -58,7 +58,7 @@ const useUtilityClasses = (ownerState: TypographyOwnerState) => {
 const StartDecorator = styled("span", {
 	name: "JoyTypography",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: TypographyOwnerState }>({
 	display: "inline-flex",
 	marginInlineEnd: "clamp(4px, var(--Typography-gap, 0.375em), 0.75rem)",
@@ -67,7 +67,7 @@ const StartDecorator = styled("span", {
 const EndDecorator = styled("span", {
 	name: "JoyTypography",
 	slot: "endDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: TypographyOwnerState }>({
 	display: "inline-flex",
 	marginInlineStart: "clamp(4px, var(--Typography-gap, 0.375em), 0.75rem)",
@@ -76,7 +76,7 @@ const EndDecorator = styled("span", {
 const TypographyRoot = styled("span", {
 	name: "JoyTypography",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TypographyOwnerState }>(({ theme, ownerState }) => {
 	const lineHeight =
 		ownerState.level !== "inherit" ? theme.typography[ownerState.level!]?.lineHeight : "1";

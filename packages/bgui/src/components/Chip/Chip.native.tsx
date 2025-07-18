@@ -25,7 +25,7 @@ export function Chip({
 	"aria-label": ariaLabel,
 	testID,
 }: ChipProps) {
-	const theme = useTheme<Theme>();
+	const _theme = useTheme<Theme>();
 	const clickable = !!onClick;
 	const [pressed, setPressed] = React.useState(false);
 

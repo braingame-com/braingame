@@ -2,7 +2,6 @@ import { act, createRenderer, fireEvent, screen } from "@mui/internal-test-utils
 import { ThemeProvider } from "@mui/joy/styles";
 import Textarea, { textareaClasses as classes } from "@mui/joy/Textarea";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 
@@ -96,7 +95,7 @@ describe("Joy <Textarea />", () => {
 			);
 
 			act(() => {
-				container.querySelector("textarea")!.focus();
+				container.querySelector("textarea")?.focus();
 			});
 			fireEvent.keyDown(container.querySelector("textarea")!);
 			fireEvent.keyUp(container.querySelector("textarea")!);
@@ -113,11 +112,11 @@ describe("Joy <Textarea />", () => {
 			);
 
 			act(() => {
-				container.querySelector("textarea")!.focus();
+				container.querySelector("textarea")?.focus();
 			});
 			expect(handleFocus.callCount).to.equal(1);
 			act(() => {
-				container.querySelector("textarea")!.blur();
+				container.querySelector("textarea")?.blur();
 			});
 			expect(handleFocus.callCount).to.equal(1);
 		});
@@ -130,7 +129,7 @@ describe("Joy <Textarea />", () => {
 			);
 
 			act(() => {
-				container.querySelector("textarea")!.focus();
+				container.querySelector("textarea")?.focus();
 			});
 			expect(handleFocus.callCount).to.equal(0);
 			expect(handleSlotFocus.callCount).to.equal(1);

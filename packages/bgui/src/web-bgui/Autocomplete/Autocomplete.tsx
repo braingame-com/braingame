@@ -44,7 +44,7 @@ import autocompleteClasses, { getAutocompleteUtilityClass } from "./autocomplete
 type OwnerState = Omit<AutocompleteOwnerState<any, any, any, any>, "onChange" | "defaultValue">;
 
 const defaultIsActiveElementInListbox = (listboxRef: React.RefObject<HTMLElement | null>) =>
-	listboxRef.current !== null && listboxRef.current.contains(document.activeElement);
+	listboxRef.current?.contains(document.activeElement);
 // @ts-ignore
 const defaultGetOptionLabel = (option) => option.label ?? option;
 const defaultLimitTagsText = (more: string | number) => `+${more}`;
@@ -97,7 +97,7 @@ const useUtilityClasses = (ownerState: OwnerState) => {
 const AutocompleteRoot = styled(StyledInputRoot as unknown as "div", {
 	name: "JoyAutocomplete",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: OwnerState }>(({ ownerState }) => ({
 	...(ownerState.size === "sm" && {
 		"--Autocomplete-wrapperGap": "3px",
@@ -127,7 +127,7 @@ const AutocompleteRoot = styled(StyledInputRoot as unknown as "div", {
 const AutocompleteWrapper = styled("div", {
 	name: "JoyAutocomplete",
 	slot: "Wrapper",
-	overridesResolver: (props, styles) => styles.wrapper,
+	overridesResolver: (_props, styles) => styles.wrapper,
 })<{ ownerState: OwnerState }>(({ ownerState }) => ({
 	flex: 1, // stretch to fill the root slot
 	minWidth: 0, // won't push end decorator out of the autocomplete
@@ -149,7 +149,7 @@ const AutocompleteWrapper = styled("div", {
 const AutocompleteInput = styled(StyledInputHtml as unknown as "input", {
 	name: "JoyAutocomplete",
 	slot: "Input",
-	overridesResolver: (props, styles) => styles.input,
+	overridesResolver: (_props, styles) => styles.input,
 })<{ ownerState: OwnerState }>(({ ownerState }) => ({
 	minWidth: 30,
 	minHeight: "var(--Chip-minHeight)",
@@ -161,13 +161,13 @@ const AutocompleteInput = styled(StyledInputHtml as unknown as "input", {
 const AutocompleteStartDecorator = styled(StyledInputStartDecorator as unknown as "div", {
 	name: "JoyAutocomplete",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: OwnerState }>({});
 
 const AutocompleteEndDecorator = styled(StyledInputEndDecorator as unknown as "div", {
 	name: "JoyAutocomplete",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: OwnerState }>(({ ownerState }) => ({
 	// don't adjust if end decorator is not the last of the autocomplete
 	...((ownerState.hasClearIcon || ownerState.hasPopupIcon) && {
@@ -180,7 +180,7 @@ const AutocompleteEndDecorator = styled(StyledInputEndDecorator as unknown as "d
 const AutocompleteClearIndicator = styled(StyledIconButton as unknown as "button", {
 	name: "JoyAutocomplete",
 	slot: "ClearIndicator",
-	overridesResolver: (props, styles) => styles.clearIndicator,
+	overridesResolver: (_props, styles) => styles.clearIndicator,
 })<{ ownerState: OwnerState }>(({ ownerState }) => ({
 	alignSelf: "center",
 	...(!ownerState.hasPopupIcon && {
@@ -193,7 +193,7 @@ const AutocompleteClearIndicator = styled(StyledIconButton as unknown as "button
 const AutocompletePopupIndicator = styled(StyledIconButton as unknown as "button", {
 	name: "JoyAutocomplete",
 	slot: "PopupIndicator",
-	overridesResolver: (props, styles) => styles.popupIndicator,
+	overridesResolver: (_props, styles) => styles.popupIndicator,
 })<{ ownerState: OwnerState }>({
 	alignSelf: "center",
 	marginInlineStart: "calc(var(--_Input-paddingBlock) / 2)",
@@ -207,7 +207,7 @@ const AutocompletePopupIndicator = styled(StyledIconButton as unknown as "button
 const AutocompleteListbox = styled(StyledAutocompleteListbox, {
 	name: "JoyAutocomplete",
 	slot: "Listbox",
-	overridesResolver: (props, styles) => styles.listbox,
+	overridesResolver: (_props, styles) => styles.listbox,
 })<{ ownerState: OwnerState }>(({ theme }) => ({
 	// `unstable_popup-zIndex` is a private variable that lets other component, for example Modal, to override the z-index so that the listbox can be displayed above the Modal.
 	zIndex: `var(--unstable_popup-zIndex, ${theme.vars.zIndex.popup})`,
@@ -216,13 +216,13 @@ const AutocompleteListbox = styled(StyledAutocompleteListbox, {
 const AutocompleteOption = styled(StyledAutocompleteOption, {
 	name: "JoyAutocomplete",
 	slot: "Option",
-	overridesResolver: (props, styles) => styles.option,
+	overridesResolver: (_props, styles) => styles.option,
 })<{ ownerState: OwnerState }>({});
 
 const AutocompleteLoading = styled(ListItem, {
 	name: "JoyAutocomplete",
 	slot: "Loading",
-	overridesResolver: (props, styles) => styles.loading,
+	overridesResolver: (_props, styles) => styles.loading,
 })<{ ownerState: OwnerState }>(({ theme }) => ({
 	color: (theme.vars || theme).palette.text.secondary,
 }));
@@ -230,7 +230,7 @@ const AutocompleteLoading = styled(ListItem, {
 const AutocompleteNoOptions = styled(ListItem, {
 	name: "JoyAutocomplete",
 	slot: "NoOptions",
-	overridesResolver: (props, styles) => styles.noOptions,
+	overridesResolver: (_props, styles) => styles.noOptions,
 })<{ ownerState: OwnerState }>(({ theme }) => ({
 	color: (theme.vars || theme).palette.text.secondary,
 }));
@@ -238,7 +238,7 @@ const AutocompleteNoOptions = styled(ListItem, {
 const AutocompleteLimitTag = styled("div", {
 	name: "JoyAutocomplete",
 	slot: "NoOptions",
-	overridesResolver: (props, styles) => styles.noOptions,
+	overridesResolver: (_props, styles) => styles.noOptions,
 })<{ ownerState: OwnerState }>({
 	marginInlineStart: "calc(var(--Input-paddingInline) / 2)",
 	marginBlockStart: "var(--_Input-paddingBlock)",

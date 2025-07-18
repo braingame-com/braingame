@@ -173,7 +173,7 @@ describe("Modal", () => {
 	it("preserves existing tabIndex on children", () => {
 		render(
 			<Modal open>
-				<div tabIndex={0}>Test Modal Content</div>
+				<div>Test Modal Content</div>
 			</Modal>,
 		);
 

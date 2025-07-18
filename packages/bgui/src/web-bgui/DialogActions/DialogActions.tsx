@@ -21,7 +21,7 @@ const useUtilityClasses = () => {
 const DialogActionsRoot = styled(StyledCardActionsRoot, {
 	name: "JoyDialogActions",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: DialogActionsProps }>({});
 /**
  *

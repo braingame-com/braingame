@@ -1,6 +1,5 @@
 import Modal, { type ModalOwnerState } from "@mui/joy/Modal";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Modal open component="div">
 	<div />

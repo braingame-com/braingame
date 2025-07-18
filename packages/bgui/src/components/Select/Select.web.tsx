@@ -72,7 +72,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 			"aria-labelledby": ariaLabelledby,
 			...props
 		},
-		ref,
+		_ref,
 	) => {
 		// State management
 		const [internalValue, setInternalValue] = useState<

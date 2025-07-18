@@ -38,7 +38,7 @@ const useUtilityClasses = (ownerState: MenuOwnerState) => {
 const MenuRoot = styled(StyledList, {
 	name: "JoyMenu",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: MenuOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	return [

@@ -2,7 +2,6 @@ import { createRenderer } from "@mui/internal-test-utils";
 import AccordionGroup, { accordionGroupClasses as classes } from "@mui/joy/AccordionGroup";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<AccordionGroup />", () => {

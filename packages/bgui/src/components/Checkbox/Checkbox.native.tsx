@@ -1,7 +1,6 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
-import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { CheckboxProps } from "./CheckboxProps";
 
@@ -101,7 +100,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 		};
 
 		// Handle press events
-		const handlePress = (event: GestureResponderEvent) => {
+		const handlePress = (_event: GestureResponderEvent) => {
 			if (disabled || readOnly) return;
 
 			const newChecked = !checkedValue;

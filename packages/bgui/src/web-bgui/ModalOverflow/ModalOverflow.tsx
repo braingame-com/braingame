@@ -25,7 +25,7 @@ const useUtilityClasses = () => {
 export const ModalOverflowRoot = styled("div", {
 	name: "JoyModalOverflow",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ModalOverflowOwnerState }>({
 	"--ModalOverflow-paddingY": "1.5rem",
 	position: "absolute",

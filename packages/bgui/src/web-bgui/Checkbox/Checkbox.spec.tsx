@@ -1,6 +1,5 @@
 import Checkbox, { type CheckboxOwnerState } from "@mui/joy/Checkbox";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Checkbox id="test" name="test" />;
 
@@ -16,7 +15,7 @@ import * as React from "react";
 
 <Checkbox
 	onChange={(event) => {
-		const checked = event.target.checked;
+		const _checked = event.target.checked;
 	}}
 />;
 

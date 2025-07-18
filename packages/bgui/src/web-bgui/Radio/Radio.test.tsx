@@ -4,7 +4,6 @@ import Radio, { radioClasses as classes } from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
 import { extendTheme, ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<Radio />", () => {

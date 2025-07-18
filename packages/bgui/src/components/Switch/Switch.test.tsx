@@ -1,5 +1,4 @@
 import { fireEvent, render } from "@testing-library/react-native";
-import React from "react";
 import { Switch } from "./Switch.native";
 
 describe("Switch", () => {

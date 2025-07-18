@@ -33,7 +33,7 @@ const useUtilityClasses = (ownerState: BadgeOwnerState) => {
 const BadgeRoot = styled("span", {
 	name: "JoyBadge",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: BadgeOwnerState }>(({ theme, ownerState }) => ({
 	...(ownerState.size === "sm" && {
 		"--Badge-minHeight": "0.5rem",
@@ -68,7 +68,7 @@ const BadgeRoot = styled("span", {
 const BadgeBadge = styled("span", {
 	name: "JoyBadge",
 	slot: "Badge",
-	overridesResolver: (props, styles) => styles.badge,
+	overridesResolver: (_props, styles) => styles.badge,
 })<{ ownerState: BadgeOwnerState }>(({ theme, ownerState }) => {
 	const inset = {
 		top: ownerState.badgeInset,
@@ -122,8 +122,8 @@ const BadgeBadge = styled("span", {
 		borderRadius: "var(--Badge-radius, var(--Badge-minHeight))",
 		zIndex: theme.vars.zIndex.badge,
 		backgroundColor: theme.vars.palette.background.surface,
-		[ownerState.anchorOrigin!.vertical]: inset[ownerState.anchorOrigin!.vertical],
-		[ownerState.anchorOrigin!.horizontal]: inset[ownerState.anchorOrigin!.horizontal],
+		[ownerState.anchorOrigin?.vertical]: inset[ownerState.anchorOrigin?.vertical],
+		[ownerState.anchorOrigin?.horizontal]: inset[ownerState.anchorOrigin?.horizontal],
 		transform: `scale(1) ${translateX} ${translateY}`,
 		transformOrigin: `${transformOriginX} ${transformOriginY}`,
 		[`&.${badgeClasses.invisible}`]: {

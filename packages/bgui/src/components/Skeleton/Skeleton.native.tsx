@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { Animated, Easing, StyleSheet, View, type ViewStyle } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";

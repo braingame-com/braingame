@@ -31,7 +31,7 @@ const sizeMap = { sm: "xl", md: "xl2", lg: "xl3" } as const;
 const SvgIconRoot = styled("svg", {
 	name: "JoySvgIcon",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: SvgIconOwnerState }>(({ theme, ownerState }) => ({
 	...(ownerState.instanceSize && {
 		"--Icon-fontSize": theme.vars.fontSize[sizeMap[ownerState.instanceSize!]],

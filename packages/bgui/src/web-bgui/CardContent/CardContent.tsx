@@ -37,7 +37,7 @@ export const StyledCardContentRoot = styled("div")<{ ownerState: CardContentProp
 const CardContentRoot = styled(StyledCardContentRoot, {
 	name: "JoyCardContent",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: CardContentProps }>({});
 /**
  *

@@ -193,7 +193,7 @@ return (
       <View style={styles.form}>
         <TextInput
                   value={formData.name}
-          onValueChange={(text) => 
+          onValueChange={(text: string) => 
             setFormData({ ...formData, name: text })
           }
           placeholder="Enter your name"
@@ -201,7 +201,7 @@ return (
         
         <TextInput
                   value={formData.email}
-          onValueChange={(text) => 
+          onValueChange={(text: string) => 
             setFormData({ ...formData, email: text })
           }
           placeholder="Enter your email"
@@ -212,7 +212,7 @@ return (
           <Text variant="body">Email notifications</Text>
           <Switch
             value={formData.notifications}
-            onValueChange={(value) => 
+            onValueChange={(value: boolean) => 
               setFormData({ ...formData, notifications: value })
             }
           />
@@ -241,13 +241,13 @@ return (
 						<div className="flex flex--column flex--gap-4">
 							<TextInput
 								value={formData.name}
-								onValueChange={(text) => setFormData({ ...formData, name: text })}
+								onValueChange={(text: string) => setFormData({ ...formData, name: text })}
 								placeholder="Enter your name"
 							/>
 
 							<TextInput
 								value={formData.email}
-								onValueChange={(text) => setFormData({ ...formData, email: text })}
+								onValueChange={(text: string) => setFormData({ ...formData, email: text })}
 								placeholder="Enter your email"
 								keyboardType="email-address"
 							/>
@@ -256,7 +256,7 @@ return (
 								<span className="text-body">Email notifications</span>
 								<Switch
 									checked={formData.notifications}
-									onValueChange={(value) => setFormData({ ...formData, notifications: value })}
+									onValueChange={(value: boolean) => setFormData({ ...formData, notifications: value })}
 								/>
 							</div>
 						</div>
@@ -474,7 +474,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
       <View style={styles.modalContent}>
         <TextInput
           value={formData.title}
-          onValueChange={(text) => 
+          onValueChange={(text: string) => 
             setFormData({ ...formData, title: text })
           }
           placeholder="Enter item title"
@@ -484,7 +484,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
         
         <TextInput
           value={formData.description}
-          onValueChange={(text) => 
+          onValueChange={(text: string) => 
             setFormData({ ...formData, description: text })
           }
           placeholder="Enter description (optional)"
@@ -494,7 +494,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
         
         <Select
           value={formData.priority}
-          onValueChange={(value) => 
+          onValueChange={(value: any) => 
             setFormData({ ...formData, priority: value })
           }
           options={[

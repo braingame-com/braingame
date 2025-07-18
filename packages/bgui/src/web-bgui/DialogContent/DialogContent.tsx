@@ -28,7 +28,7 @@ const useUtilityClasses = () => {
 const DialogContentRoot = styled(StyledCardContentRoot, {
 	name: "JoyDialogContent",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: DialogContentOwnerState }>(({ theme }) => ({
 	color: `var(--DialogContent-color, ${theme.vars.palette.text.tertiary})`,
 	overflow: "auto",

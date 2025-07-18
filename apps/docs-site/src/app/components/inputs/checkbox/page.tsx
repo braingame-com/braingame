@@ -145,21 +145,21 @@ return (
     </Text>
     <Checkbox
       checked={notifications.email}
-      onValueChange={(value) => 
+      onValueChange={(value: boolean) => 
         setNotifications({ ...notifications, email: value })
       }
       children="Email notifications"
     />
     <Checkbox
       checked={notifications.sms}
-      onValueChange={(value) => 
+      onValueChange={(value: boolean) => 
         setNotifications({ ...notifications, sms: value })
       }
       children="SMS notifications"
     />
     <Checkbox
       checked={notifications.push}
-      onValueChange={(value) => 
+      onValueChange={(value: boolean) => 
         setNotifications({ ...notifications, push: value })
       }
       children="Push notifications"
@@ -172,19 +172,19 @@ return (
 						<div className="flex flex--column flex--gap-3">
 							<Checkbox
 								checked={notifications.email}
-								onValueChange={(value) => setNotifications({ ...notifications, email: value })}
+								onValueChange={(value: boolean) => setNotifications({ ...notifications, email: value })}
 							>
 								Email notifications
 							</Checkbox>
 							<Checkbox
 								checked={notifications.sms}
-								onValueChange={(value) => setNotifications({ ...notifications, sms: value })}
+								onValueChange={(value: boolean) => setNotifications({ ...notifications, sms: value })}
 							>
 								SMS notifications
 							</Checkbox>
 							<Checkbox
 								checked={notifications.push}
-								onValueChange={(value) => setNotifications({ ...notifications, push: value })}
+								onValueChange={(value: boolean) => setNotifications({ ...notifications, push: value })}
 							>
 								Push notifications
 							</Checkbox>
@@ -262,7 +262,7 @@ return (
   <View>
     <Checkbox
       checked={acceptTerms}
-      onValueChange={(value) => {
+      onValueChange={(value: boolean) => {
         setAcceptTerms(value);
         setHasError(false);
       }}
@@ -286,7 +286,7 @@ return (
 					<div>
 						<Checkbox
 							checked={acceptTerms}
-							onValueChange={(value) => {
+							onValueChange={(value: boolean) => {
 								setAcceptTerms(value);
 							}}
 							error={!acceptTerms}
@@ -335,7 +335,7 @@ function SettingsScreen() {
       
       <Checkbox
         checked={settings.darkMode}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, darkMode: value })
         }
         children="Dark mode"
@@ -343,7 +343,7 @@ function SettingsScreen() {
       
       <Checkbox
         checked={settings.notifications}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, notifications: value })
         }
         children="Enable notifications"
@@ -351,7 +351,7 @@ function SettingsScreen() {
       
       <Checkbox
         checked={settings.autoSave}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, autoSave: value })
         }
         children="Auto-save changes"

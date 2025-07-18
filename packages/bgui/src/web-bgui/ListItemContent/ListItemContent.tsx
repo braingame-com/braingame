@@ -20,7 +20,7 @@ const useUtilityClasses = () => {
 const ListItemContentRoot = styled("div", {
 	name: "JoyListItemContent",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ListItemContentOwnerState }>({
 	flex: "1 1 auto",
 	minWidth: 0,

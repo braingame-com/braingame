@@ -47,7 +47,7 @@ function getBreakpointValue(theme: Theme, breakpoint: string | undefined) {
 const ModalDialogRoot = styled(StyledCardRoot, {
 	name: "JoyModalDialog",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ModalDialogOwnerState }>(({ theme, ownerState }) => ({
 	"--ModalDialog-minWidth":
 		typeof ownerState.minWidth === "number"

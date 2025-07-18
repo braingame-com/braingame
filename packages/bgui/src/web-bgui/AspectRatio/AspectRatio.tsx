@@ -32,7 +32,7 @@ const useUtilityClasses = (ownerState: AspectRatioOwnerState) => {
 const AspectRatioRoot = styled("div", {
 	name: "JoyAspectRatio",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AspectRatioOwnerState }>(({ ownerState, theme }) => {
 	const minHeight =
 		typeof ownerState.minHeight === "number" ? `${ownerState.minHeight}px` : ownerState.minHeight;
@@ -58,7 +58,7 @@ const AspectRatioRoot = styled("div", {
 const AspectRatioContent = styled("div", {
 	name: "JoyAspectRatio",
 	slot: "Content",
-	overridesResolver: (props, styles) => styles.content,
+	overridesResolver: (_props, styles) => styles.content,
 })<{ ownerState: AspectRatioOwnerState }>(({ theme, ownerState }) => ({
 	flex: 1,
 	position: "relative",

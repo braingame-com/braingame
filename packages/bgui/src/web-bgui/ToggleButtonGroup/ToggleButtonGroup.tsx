@@ -44,7 +44,7 @@ const useUtilityClasses = (ownerState: ToggleButtonGroupOwnerState<any>) => {
 const ToggleButtonGroupRoot = styled(StyledButtonGroup as unknown as "div", {
 	name: "JoyToggleButtonGroup",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ToggleButtonGroupOwnerState<any> }>({});
 /**
  * ⚠️ ToggleButtonGroup must have Button and/or IconButton as direct children.

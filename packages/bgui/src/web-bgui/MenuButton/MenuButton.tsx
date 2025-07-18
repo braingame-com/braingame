@@ -38,13 +38,13 @@ const useUtilityClasses = (ownerState: MenuButtonOwnerState) => {
 export const MenuButtonRoot = styled("button", {
 	name: "JoyMenuButton",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: MenuButtonOwnerState }>(getButtonStyles);
 
 const MenuButtonStartDecorator = styled("span", {
 	name: "JoyMenuButton",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: MenuButtonOwnerState }>({
 	"--Icon-margin": "0 0 0 calc(var(--Button-gap) / -2)",
 	"--CircularProgress-margin": "0 0 0 calc(var(--Button-gap) / -2)",
@@ -55,7 +55,7 @@ const MenuButtonStartDecorator = styled("span", {
 const MenuButtonEndDecorator = styled("span", {
 	name: "JoyMenuButton",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: MenuButtonOwnerState }>({
 	"--Icon-margin": "0 calc(var(--Button-gap) / -2) 0 0",
 	"--CircularProgress-margin": "0 calc(var(--Button-gap) / -2) 0 0",
@@ -66,7 +66,7 @@ const MenuButtonEndDecorator = styled("span", {
 const MenuButtonLoadingCenter = styled("span", {
 	name: "JoyMenuButton",
 	slot: "LoadingCenter",
-	overridesResolver: (props, styles) => styles.loadingIndicatorCenter,
+	overridesResolver: (_props, styles) => styles.loadingIndicatorCenter,
 })<{ ownerState: MenuButtonOwnerState }>(({ theme, ownerState }) => ({
 	display: "inherit",
 	position: "absolute",

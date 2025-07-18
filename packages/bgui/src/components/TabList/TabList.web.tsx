@@ -33,7 +33,7 @@ export const TabList = React.forwardRef<HTMLDivElement, TabListProps>(
 		const tabsContext = React.useContext(TabsContext);
 
 		// Use values from Tabs context or fallback to props
-		const size = sizeProp || tabsContext?.size || "md";
+		const _size = sizeProp || tabsContext?.size || "md";
 		const color = colorProp || tabsContext?.color || "neutral";
 		const variant = variantProp || tabsContext?.variant || "plain";
 		const orientation = tabsContext?.orientation || "horizontal";

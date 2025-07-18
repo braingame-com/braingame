@@ -25,7 +25,7 @@ const useUtilityClasses = (ownerState: SnackbarOwnerState) => {
 			size && `size${capitalize(size)}`,
 			color && `color${capitalize(color)}`,
 			variant && `variant${capitalize(variant)}`,
-			`anchorOrigin${capitalize(anchorOrigin!.vertical)}${capitalize(anchorOrigin!.horizontal)}`,
+			`anchorOrigin${capitalize(anchorOrigin?.vertical)}${capitalize(anchorOrigin?.horizontal)}`,
 		],
 		startDecorator: ["startDecorator"],
 		endDecorator: ["endDecorator"],
@@ -61,7 +61,7 @@ const exitAnimation = keyframes`
 const SnackbarRoot = styled("div", {
 	name: "JoySnackbar",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: SnackbarOwnerState }>(({ theme, ownerState }) => {
 	const { p, padding, borderRadius } = resolveSxValue({ theme, ownerState }, [
 		"p",
@@ -145,7 +145,7 @@ const SnackbarRoot = styled("div", {
 const SnackbarStartDecorator = styled("span", {
 	name: "JoySnackbar",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })({
 	display: "inherit",
 	flex: "none",
@@ -154,7 +154,7 @@ const SnackbarStartDecorator = styled("span", {
 const SnackbarEndDecorator = styled("span", {
 	name: "JoySnackbar",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })({
 	display: "inherit",
 	flex: "none",

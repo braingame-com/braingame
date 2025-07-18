@@ -1,16 +1,15 @@
 import Box from "@mui/joy/Box";
 import { applySoftInversion, applySolidInversion } from "@mui/joy/colorInversion";
 import { styled } from "@mui/joy/styles";
-import * as React from "react";
 
 /**
  * sx prop type check
  */
-<Box sx={[(theme) => ({}), applySoftInversion("neutral"), applySoftInversion("primary")]} />;
+<Box sx={[(_theme) => ({}), applySoftInversion("neutral"), applySoftInversion("primary")]} />;
 
 <Box
 	sx={[
-		(theme) => ({}),
+		(_theme) => ({}),
 		// @ts-expect-error no `unknown` color from theme palette
 		applySoftInversion("unknown"),
 		// @ts-expect-error no `unknown` color from theme palette
@@ -21,7 +20,7 @@ import * as React from "react";
 /**
  * styled API type check
  */
-const StyledBox = styled("div")(
+const _StyledBox = styled("div")(
 	({ theme }) => ({
 		padding: 32,
 		display: "grid",

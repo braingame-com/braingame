@@ -26,7 +26,7 @@ const useUtilityClasses = (ownerState: OptionOwnerState) => {
 const OptionRoot = styled(StyledListItemButton as unknown as "li", {
 	name: "JoyOption",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: OptionOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[`${ownerState.variant!}Hover`]?.[ownerState.color!];
 	return {

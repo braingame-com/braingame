@@ -1,5 +1,4 @@
 import { fireEvent, render } from "@testing-library/react-native";
-import React from "react";
 import { IconButton } from "./IconButton.native";
 
 describe("IconButton", () => {

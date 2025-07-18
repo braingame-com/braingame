@@ -5,7 +5,6 @@ import ListSubheader from "@mui/joy/ListSubheader";
 import MenuList from "@mui/joy/MenuList";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("Joy <ListItem />", () => {

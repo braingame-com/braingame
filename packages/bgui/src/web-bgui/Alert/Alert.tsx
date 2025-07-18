@@ -33,7 +33,7 @@ const useUtilityClasses = (ownerState: AlertOwnerState) => {
 const AlertRoot = styled("div", {
 	name: "JoyAlert",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AlertOwnerState }>(({ theme, ownerState }) => {
 	const { p, padding, borderRadius } = resolveSxValue({ theme, ownerState }, [
 		"p",
@@ -95,7 +95,7 @@ const AlertRoot = styled("div", {
 const AlertStartDecorator = styled("span", {
 	name: "JoyAlert",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: AlertOwnerState }>({
 	display: "inherit",
 	flex: "none",
@@ -104,7 +104,7 @@ const AlertStartDecorator = styled("span", {
 const AlertEndDecorator = styled("span", {
 	name: "JoyAlert",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: AlertOwnerState }>({
 	display: "inherit",
 	flex: "none",

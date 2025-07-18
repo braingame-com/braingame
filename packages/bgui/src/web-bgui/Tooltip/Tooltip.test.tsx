@@ -139,8 +139,8 @@ describe("<Tooltip />", () => {
 	describe("focus", () => {
 		// https://github.com/mui/mui-x/issues/12248
 		it("should support event handlers with extra parameters", () => {
-			const handleFocus = spy((event, extra) => extra);
-			const handleBlur = spy((event, ...params) => params);
+			const handleFocus = spy((_event, extra) => extra);
+			const handleBlur = spy((_event, ...params) => params);
 
 			const TextField = React.forwardRef<
 				HTMLDivElement,

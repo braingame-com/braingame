@@ -3,7 +3,6 @@ import { createRenderer } from "@mui/internal-test-utils";
 import MenuButton, { menuButtonClasses as classes } from "@mui/joy/MenuButton";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 

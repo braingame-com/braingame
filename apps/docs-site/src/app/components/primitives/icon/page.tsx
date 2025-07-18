@@ -171,7 +171,7 @@ export default function IconDocs() {
 						<Icon name="favorite" size="sm" color="var(--color-tertiary)" />
 						<Icon name="favorite" size="md" color="var(--color-tertiary)" />
 						<Icon name="favorite" size="lg" color="var(--color-tertiary)" />
-						<Icon name="favorite" size={48} color="var(--color-tertiary)" />
+						<Icon name="favorite" size="lg" color="var(--color-tertiary)" style={{ fontSize: 48 }} />
 					</div>
 				</LiveExample>
 

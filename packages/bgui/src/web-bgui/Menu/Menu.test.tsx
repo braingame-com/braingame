@@ -7,7 +7,6 @@ import MenuButton from "@mui/joy/MenuButton";
 import MenuItem from "@mui/joy/MenuItem";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 

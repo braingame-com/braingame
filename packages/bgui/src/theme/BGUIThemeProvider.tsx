@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@shopify/restyle";
 import type React from "react";
 import { useColorScheme } from "react-native";
-import theme, { darkTheme, type Theme } from "./theme";
+import theme, { darkTheme } from "./theme";
 
 interface BGUIThemeProviderProps {
 	children: React.ReactNode;

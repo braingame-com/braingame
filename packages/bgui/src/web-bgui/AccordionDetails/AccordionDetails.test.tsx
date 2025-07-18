@@ -4,7 +4,6 @@ import AccordionDetails, { accordionDetailsClasses as classes } from "@mui/joy/A
 import AccordionSummary from "@mui/joy/AccordionSummary";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<AccordionDetails />", () => {
@@ -67,7 +66,7 @@ describe("<AccordionDetails />", () => {
 				<Accordion defaultExpanded>
 					<AccordionSummary>title</AccordionSummary>
 					<AccordionDetails>
-						<input tabIndex={2} data-testid="textbox" />
+						<input tabIndex="0" data-testid="textbox" />
 					</AccordionDetails>
 				</Accordion>,
 			);

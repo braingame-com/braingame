@@ -26,7 +26,7 @@ const useUtilityClasses = () => {
 const ScopedCssBaselineRoot = styled("div", {
 	name: "JoyScopedCssBaseline",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ScopedCssBaselineOwnerState }>(({ theme, ownerState }) => {
 	const colorSchemeStyles: Record<string, any> = {};
 	if (!ownerState.disableColorScheme && theme.colorSchemes) {

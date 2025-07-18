@@ -22,7 +22,7 @@ const useUtilityClasses = (ownerState: DividerOwnerState) => {
 export const DividerRoot = styled("hr", {
 	name: "JoyDivider",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: DividerOwnerState }>(({ theme, ownerState }) => ({
 	"--Divider-thickness": "1px",
 	"--Divider-lineColor": theme.vars.palette.divider,

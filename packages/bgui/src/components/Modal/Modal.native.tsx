@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import {
 	Animated,
 	BackHandler,
@@ -8,7 +8,6 @@ import {
 	StyleSheet,
 	View,
 } from "react-native";
-import { theme } from "../../theme";
 import type { ModalProps } from "./ModalProps";
 
 /**

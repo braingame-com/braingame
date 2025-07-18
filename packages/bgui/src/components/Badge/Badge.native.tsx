@@ -1,6 +1,6 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
 import React from "react";
-import { Animated, Text, View } from "react-native";
+import { Animated, View } from "react-native";
 import type { Theme } from "../../theme/theme";
 import type { BadgeProps } from "./BadgeProps";
 
@@ -25,7 +25,7 @@ export function Badge({
 	"aria-label": ariaLabel,
 	testID,
 }: BadgeProps) {
-	const theme = useTheme<Theme>();
+	const _theme = useTheme<Theme>();
 	const scaleAnim = React.useRef(new Animated.Value(1)).current;
 
 	// Logic for determining visibility

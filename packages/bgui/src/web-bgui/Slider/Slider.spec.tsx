@@ -1,6 +1,5 @@
 import Slider, { type SliderOwnerState } from "@mui/joy/Slider";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Slider />;
 

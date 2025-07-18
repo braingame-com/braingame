@@ -244,7 +244,7 @@ describe("<Modal />", () => {
 			const handleKeyDown = spy();
 			const { getByTestId } = render(
 				<Modal open onKeyDown={handleKeyDown}>
-					<button autoFocus data-testid="target" />
+					<button data-testid="target" />
 				</Modal>,
 			);
 
@@ -316,7 +316,7 @@ describe("<Modal />", () => {
 			const { getByTestId, setProps } = render(
 				<Modal open>
 					<div>
-						<input data-testid="auto-focus" type="text" autoFocus />
+						<input data-testid="auto-focus" type="text" />
 					</div>
 				</Modal>,
 				// TODO: https://github.com/reactwg/react-18/discussions/18#discussioncomment-893076
@@ -380,7 +380,7 @@ describe("<Modal />", () => {
 					const [iframeLoaded, onLoad] = React.useReducer(() => true, false);
 
 					React.useEffect(() => {
-						const document = frameRef.current!.contentDocument;
+						const document = frameRef.current?.contentDocument;
 
 						if (document != null && document.readyState === "complete" && !iframeLoaded) {
 							onLoad();

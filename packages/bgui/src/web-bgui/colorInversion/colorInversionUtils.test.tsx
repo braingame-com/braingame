@@ -3,7 +3,6 @@ import Box from "@mui/joy/Box";
 import { applySoftInversion, applySolidInversion } from "@mui/joy/colorInversion";
 import { styled } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 
 describe("colorInversionUtil", () => {
 	const { render } = createRenderer();

@@ -32,7 +32,7 @@ const useUtilityClasses = (ownerState: TabsOwnerState) => {
 const TabsRoot = styled("div", {
 	name: "JoyTabs",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TabsOwnerState }>(({ ownerState, theme }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	const { bgcolor, backgroundColor, background, p, padding } = resolveSxValue(

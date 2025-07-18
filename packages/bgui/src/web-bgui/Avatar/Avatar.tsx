@@ -32,7 +32,7 @@ const useUtilityClasses = (ownerState: AvatarOwnerState) => {
 const AvatarRoot = styled("div", {
 	name: "JoyAvatar",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AvatarOwnerState }>(({ theme, ownerState }) => ({
 	"--Icon-color":
 		ownerState.color !== "neutral" || ownerState.variant === "solid"
@@ -71,7 +71,7 @@ const AvatarRoot = styled("div", {
 const AvatarImg = styled("img", {
 	name: "JoyAvatar",
 	slot: "Img",
-	overridesResolver: (props, styles) => styles.img,
+	overridesResolver: (_props, styles) => styles.img,
 })<{ ownerState: AvatarOwnerState }>({
 	width: "100%",
 	height: "100%",
@@ -87,7 +87,7 @@ const AvatarImg = styled("img", {
 const AvatarFallback = styled(Person as unknown as "svg", {
 	name: "JoyAvatar",
 	slot: "Fallback",
-	overridesResolver: (props, styles) => styles.fallback,
+	overridesResolver: (_props, styles) => styles.fallback,
 })<{ ownerState: AvatarOwnerState }>({
 	width: "64%",
 	height: "64%",

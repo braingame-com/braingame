@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { theme as restyleTheme } from "../../theme";
 import type { ModalProps } from "./ModalProps";
 
 /**

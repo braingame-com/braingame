@@ -30,7 +30,7 @@ const useUtilityClasses = (ownerState: AccordionDetailsOwnerState) => {
 const AccordionDetailsRoot = styled("div", {
 	name: "JoyAccordionDetails",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AccordionDetailsOwnerState }>(({ ownerState, theme }) => ({
 	overflow: "hidden",
 	borderRadius: "var(--AccordionDetails-radius)",
@@ -50,7 +50,7 @@ const AccordionDetailsRoot = styled("div", {
 const AccordionDetailsContent = styled("div", {
 	name: "JoyAccordionDetails",
 	slot: "Content",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AccordionDetailsOwnerState }>({
 	display: "flex",
 	flexDirection: "column",

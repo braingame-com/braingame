@@ -33,7 +33,7 @@ const useUtilityClasses = (ownerState: AccordionSummaryOwnerState) => {
 const AccordionSummaryRoot = styled(StyledListItem as unknown as "div", {
 	name: "JoyAccordionSummary",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AccordionSummaryOwnerState }>(({ theme }) => ({
 	fontWeight: theme.vars.fontWeight.md,
 	gap: "calc(var(--ListItem-paddingX, 0.75rem) + 0.25rem)",
@@ -45,7 +45,7 @@ const AccordionSummaryRoot = styled(StyledListItem as unknown as "div", {
 const AccordionSummaryButton = styled(StyledListItemButton as unknown as "button", {
 	name: "JoyAccordionSummary",
 	slot: "Button",
-	overridesResolver: (props, styles) => styles.button,
+	overridesResolver: (_props, styles) => styles.button,
 })<{ ownerState: AccordionSummaryOwnerState }>({
 	gap: "inherit",
 	fontWeight: "inherit",
@@ -62,7 +62,7 @@ const AccordionSummaryButton = styled(StyledListItemButton as unknown as "button
 const AccordionSummaryIndicator = styled("span", {
 	name: "JoyAccordionSummary",
 	slot: "Indicator",
-	overridesResolver: (props, styles) => styles.indicator,
+	overridesResolver: (_props, styles) => styles.indicator,
 })<{ ownerState: AccordionSummaryOwnerState }>({
 	display: "inline-flex",
 	[`&.${accordionSummaryClasses.expanded}`]: {

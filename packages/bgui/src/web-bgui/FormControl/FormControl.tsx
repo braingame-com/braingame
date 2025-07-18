@@ -37,7 +37,7 @@ const useUtilityClasses = (ownerState: FormControlOwnerState) => {
 export const FormControlRoot = styled("div", {
 	name: "JoyFormControl",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: FormControlOwnerState }>(({ theme, ownerState }) => ({
 	"--unstable_RadioGroup-margin": "0.5rem 0",
 	"--FormLabel-alignSelf": ownerState.orientation === "horizontal" ? "align-items" : "flex-start",

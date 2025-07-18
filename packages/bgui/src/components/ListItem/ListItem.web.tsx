@@ -16,14 +16,13 @@ export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
 		ref,
 	) => {
 		// Get variant styles
-		const variantKey = `${variant}-${color}`;
-		const variantStyles = restyleTheme.components.ListItem?.variants?.[variantKey] || {};
+		const variantStyles = restyleTheme.components.ListItem?.variants?.[variant] || {};
 
 		// Build styles
 		const listitemStyles: React.CSSProperties = {
 			// Base styles
 			fontFamily: restyleTheme.textVariants.body1.fontFamily,
-			fontSize: size === "sm" ? "14px" : size === "lg" ? "18px" : "16px",
+			fontSize: "16px",
 
 			// Variant styles
 			backgroundColor: variantStyles.backgroundColor || "transparent",

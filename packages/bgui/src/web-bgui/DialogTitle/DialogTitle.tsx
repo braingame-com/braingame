@@ -34,7 +34,7 @@ const useUtilityClasses = (ownerState: DialogTitleOwnerState) => {
 const DialogTitleRoot = styled("h2", {
 	name: "JoyDialogTitle",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: DialogTitleOwnerState }>(({ theme, ownerState }) => {
 	const lineHeight =
 		ownerState.level !== "inherit" ? theme.typography[ownerState.level!]?.lineHeight : "1";

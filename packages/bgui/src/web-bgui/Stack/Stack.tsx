@@ -20,7 +20,7 @@ const Stack = createStack({
 	createStyledComponent: styled("div", {
 		name: "JoyStack",
 		slot: "Root",
-		overridesResolver: (props, styles) => styles.root,
+		overridesResolver: (_props, styles) => styles.root,
 	}),
 	useThemeProps: (inProps) => useThemeProps({ props: inProps, name: "JoyStack" }),
 }) as OverridableComponent<StackTypeMap>;

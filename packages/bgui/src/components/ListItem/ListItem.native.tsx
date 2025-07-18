@@ -1,5 +1,5 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
-import React, { forwardRef, useState } from "react";
+import { forwardRef, useState } from "react";
 import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 import type { Theme } from "../../theme/theme";
@@ -99,11 +99,11 @@ export const ListItem = forwardRef<View, ListItemProps & { __listContext?: ListC
 		};
 
 		// Handle press events
-		const handlePressIn = (event: GestureResponderEvent) => {
+		const handlePressIn = (_event: GestureResponderEvent) => {
 			setIsPressed(true);
 		};
 
-		const handlePressOut = (event: GestureResponderEvent) => {
+		const handlePressOut = (_event: GestureResponderEvent) => {
 			setIsPressed(false);
 		};
 

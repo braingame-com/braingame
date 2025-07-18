@@ -117,13 +117,13 @@ export const StyledListItem = styled("li")<{ ownerState: ListItemOwnerState }>(
 const ListItemRoot = styled(StyledListItem, {
 	name: "JoyListItem",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ListItemOwnerState }>({});
 
 const ListItemStartAction = styled("div", {
 	name: "JoyListItem",
 	slot: "StartAction",
-	overridesResolver: (props, styles) => styles.startAction,
+	overridesResolver: (_props, styles) => styles.startAction,
 })<{ ownerState: ListItemOwnerState }>(({ ownerState }) => ({
 	display: "inherit",
 	position: "absolute",
@@ -136,7 +136,7 @@ const ListItemStartAction = styled("div", {
 const ListItemEndAction = styled("div", {
 	name: "JoyListItem",
 	slot: "StartAction",
-	overridesResolver: (props, styles) => styles.startAction,
+	overridesResolver: (_props, styles) => styles.startAction,
 })<{ ownerState: ListItemOwnerState }>(({ ownerState }) => ({
 	display: "inherit",
 	position: "absolute",

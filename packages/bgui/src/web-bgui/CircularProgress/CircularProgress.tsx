@@ -52,7 +52,7 @@ function getThickness(slot: "track" | "progress", defaultValue: string) {
 const CircularProgressRoot = styled("span", {
 	name: "JoyCircularProgress",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: CircularProgressOwnerState }>(({ ownerState, theme }) => {
 	const { color, backgroundColor, ...other } =
 		theme.variants[ownerState.variant!]?.[ownerState.color!] || {};
@@ -143,7 +143,7 @@ const CircularProgressRoot = styled("span", {
 const CircularProgressSvg = styled("svg", {
 	name: "JoyCircularProgress",
 	slot: "Svg",
-	overridesResolver: (props, styles) => styles.svg,
+	overridesResolver: (_props, styles) => styles.svg,
 })<{ ownerState: CircularProgressOwnerState }>({
 	width: "inherit",
 	height: "inherit",
@@ -157,7 +157,7 @@ const CircularProgressSvg = styled("svg", {
 const CircularProgressTrack = styled("circle", {
 	name: "JoyCircularProgress",
 	slot: "track",
-	overridesResolver: (props, styles) => styles.track,
+	overridesResolver: (_props, styles) => styles.track,
 })<{ ownerState: CircularProgressOwnerState }>({
 	cx: "50%",
 	cy: "50%",
@@ -170,7 +170,7 @@ const CircularProgressTrack = styled("circle", {
 const CircularProgressProgress = styled("circle", {
 	name: "JoyCircularProgress",
 	slot: "progress",
-	overridesResolver: (props, styles) => styles.progress,
+	overridesResolver: (_props, styles) => styles.progress,
 })<{ ownerState: CircularProgressOwnerState }>(
 	{
 		"--_progress-radius":

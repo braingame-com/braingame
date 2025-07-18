@@ -63,7 +63,7 @@ const useUtilityClasses = (ownerState: LinearProgressOwnerState) => {
 const LinearProgressRoot = styled("div", {
 	name: "JoyLinearProgress",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: LinearProgressOwnerState }>(
 	({ ownerState, theme }) => ({
 		// public variables

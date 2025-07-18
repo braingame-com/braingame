@@ -24,7 +24,7 @@ const useUtilityClasses = () => {
 const ListItemDecoratorRoot = styled("span", {
 	name: "JoyListItemDecorator",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ListItemDecoratorOwnerState }>(({ ownerState }) => ({
 	boxSizing: "border-box",
 	display: "inline-flex",

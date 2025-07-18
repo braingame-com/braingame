@@ -31,7 +31,7 @@ const useUtilityClasses = () => {
 const AvatarGroupGroupRoot = styled("div", {
 	name: "JoyAvatarGroup",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AvatarGroupOwnerState }>(({ ownerState, theme }) => ({
 	...(ownerState.size === "sm" && {
 		"--AvatarGroup-gap": "-0.375rem",

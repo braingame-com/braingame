@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import { CssVarsProvider, extendTheme, styled, useTheme } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 
 describe("extendTheme", () => {
 	it("the output contains required fields", () => {

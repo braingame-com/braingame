@@ -24,7 +24,7 @@ const useUtilityClasses = (ownerState: StepperOwnerState) => {
 const StepperRoot = styled("ol", {
 	name: "JoyStepper",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: StepperOwnerState }>(({ theme }) => {
 	return {
 		"--Stepper-indicatorColumn": "auto", // For vertical stepper, to control the column width of the indicator.

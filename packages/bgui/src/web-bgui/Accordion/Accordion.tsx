@@ -33,7 +33,7 @@ const useUtilityClasses = (ownerState: AccordionOwnerState) => {
 const AccordionRoot = styled(StyledListItem as unknown as "div", {
 	name: "JoyAccordion",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AccordionOwnerState }>({
 	borderBottom: "var(--Accordion-borderBottom)",
 	"&[data-first-child]": {

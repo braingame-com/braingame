@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import Container, { containerClasses as classes } from "@mui/joy/Container";
 import { ThemeProvider } from "@mui/joy/styles";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("Joy <Container />", () => {

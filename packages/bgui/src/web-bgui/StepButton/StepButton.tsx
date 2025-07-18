@@ -14,7 +14,7 @@ import stepButtonClasses from "./stepButtonClasses";
 const StepButtonRoot = styled("button", {
 	name: "JoyStepButton",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: StepButtonOwnerState }>(({ theme }) => {
 	return {
 		[`.${stepClasses.indicator}:empty + &`]: {

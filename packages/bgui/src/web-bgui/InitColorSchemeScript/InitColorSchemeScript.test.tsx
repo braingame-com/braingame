@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import InitColorSchemeScript from "@mui/joy/InitColorSchemeScript";
 import { expect } from "chai";
-import * as React from "react";
 
 describe("InitColorSchemeScript", () => {
 	const { render } = createRenderer();

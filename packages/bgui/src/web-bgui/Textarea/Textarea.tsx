@@ -33,7 +33,7 @@ const useUtilityClasses = (ownerState: TextareaOwnerState) => {
 const TextareaRoot = styled("div", {
 	name: "JoyTextarea",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TextareaOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[`${ownerState.variant!}`]?.[ownerState.color!];
 	return [
@@ -137,7 +137,7 @@ const TextareaRoot = styled("div", {
 const TextareaInput = styled(TextareaAutosize, {
 	name: "JoyTextarea",
 	slot: "Textarea",
-	overridesResolver: (props, styles) => styles.textarea,
+	overridesResolver: (_props, styles) => styles.textarea,
 })<{ ownerState: TextareaOwnerState }>({
 	resize: "none",
 	border: "none", // remove the native textarea width
@@ -178,7 +178,7 @@ const TextareaInput = styled(TextareaAutosize, {
 const TextareaStartDecorator = styled("div", {
 	name: "JoyTextarea",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: TextareaOwnerState }>({
 	display: "flex",
 	marginInlineStart: "calc(var(--Textarea-paddingBlock) - var(--Textarea-paddingInline))",
@@ -191,7 +191,7 @@ const TextareaStartDecorator = styled("div", {
 const TextareaEndDecorator = styled("div", {
 	name: "JoyTextarea",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: TextareaOwnerState }>({
 	display: "flex",
 	marginInlineStart: "calc(var(--Textarea-paddingBlock) - var(--Textarea-paddingInline))",

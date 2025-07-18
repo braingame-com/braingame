@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import { Text } from "../Text/Text.web";
 import { Stack } from "./Stack.web";
 
 const meta = {

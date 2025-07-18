@@ -71,7 +71,7 @@ export const StyledCardActionsRoot = styled("div")<{ ownerState: CardActionsOwne
 const CardActionsRoot = styled(StyledCardActionsRoot, {
 	name: "JoyCardActions",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: CardActionsOwnerState }>({});
 /**
  *

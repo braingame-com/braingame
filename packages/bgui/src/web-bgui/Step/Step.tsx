@@ -40,7 +40,7 @@ const useUtilityClasses = (ownerState: StepOwnerState) => {
 const StepRoot = styled("li", {
 	name: "JoyStep",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: StepOwnerState }>(({ theme }) => {
 	return {
 		position: "relative",
@@ -123,7 +123,7 @@ const StepRoot = styled("li", {
 const StepIndicator = styled("div", {
 	name: "JoyStep",
 	slot: "Indicator",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: StepOwnerState }>({
 	display: "flex",
 	alignItems: "center",

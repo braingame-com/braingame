@@ -407,7 +407,7 @@ return (
 				>
 					<TextInput
 						value={email}
-						onValueChange={(text) => {
+						onValueChange={(text: string) => {
 							setEmail(text);
 							validateEmail(text);
 						}}

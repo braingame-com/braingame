@@ -50,7 +50,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
 		const getVariantStyles = () => {
 			const colorValue = getColorValue(color);
 			const surfaceColor = restyleTheme.colors.surface;
-			const onSurfaceColor = restyleTheme.colors.onSurface;
+			const _onSurfaceColor = restyleTheme.colors.onSurface;
 
 			const variantStyles: Record<string, React.CSSProperties> = {
 				plain: {

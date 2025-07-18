@@ -33,7 +33,7 @@ const useUtilityClasses = (ownerState: BreadcrumbsOwnerState) => {
 const BreadcrumbsRoot = styled("nav", {
 	name: "JoyBreadcrumbs",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: BreadcrumbsOwnerState }>(({ theme, ownerState }) => ({
 	...(ownerState.size === "sm" && {
 		"--Icon-fontSize": theme.vars.fontSize.lg,
@@ -56,7 +56,7 @@ const BreadcrumbsRoot = styled("nav", {
 const BreadcrumbsOl = styled("ol", {
 	name: "JoyBreadcrumbs",
 	slot: "Ol",
-	overridesResolver: (props, styles) => styles.ol,
+	overridesResolver: (_props, styles) => styles.ol,
 })<{ ownerState: BreadcrumbsOwnerState }>({
 	display: "flex",
 	flexWrap: "wrap",
@@ -71,7 +71,7 @@ const BreadcrumbsOl = styled("ol", {
 const BreadcrumbsLi = styled("li", {
 	name: "JoyBreadcrumbs",
 	slot: "Li",
-	overridesResolver: (props, styles) => styles.li,
+	overridesResolver: (_props, styles) => styles.li,
 })<{ ownerState: BreadcrumbsOwnerState }>({
 	display: "flex",
 	alignItems: "center",
@@ -80,7 +80,7 @@ const BreadcrumbsLi = styled("li", {
 const BreadcrumbsSeparator = styled("li", {
 	name: "JoyBreadcrumbs",
 	slot: "Separator",
-	overridesResolver: (props, styles) => styles.separator,
+	overridesResolver: (_props, styles) => styles.separator,
 })<{ ownerState: BreadcrumbsOwnerState }>({
 	display: "flex",
 	userSelect: "none",

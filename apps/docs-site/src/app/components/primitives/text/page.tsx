@@ -13,10 +13,10 @@ const textProps = [
 		description: "The text content to display.",
 	},
 	{
-		name: "variant",
-		type: '"displayTitle" | "title" | "heading" | "subtitle" | "body" | "bold" | "text" | "secondaryText" | "small" | "smallThin" | "caption" | "h1" | "h2" | "h3"',
+		name: "level",
+		type: '"h1" | "h2" | "h3" | "h4" | "title-lg" | "title-md" | "title-sm" | "body-lg" | "body-md" | "body-sm" | "body-xs" | "inherit"',
 		required: false,
-		default: '"body"',
+		default: '"body-md"',
 		description:
 			"Typography variant that controls size, weight, and line height. Semantic variants like displayTitle and heading are preferred over h1/h2/h3.",
 	},
@@ -25,26 +25,6 @@ const textProps = [
 		type: '"primary" | "secondary" | "danger" | "neutral" | "success" | "warning"',
 		required: false,
 		description: "Semantic color for the text.",
-	},
-	{
-		name: "align",
-		type: '"left" | "center" | "right"',
-		required: false,
-		default: '"left"',
-		description: "Text alignment within its container.",
-	},
-	{
-		name: "numberOfLines",
-		type: "number",
-		required: false,
-		description: "Truncate text after this many lines with ellipsis.",
-	},
-	{
-		name: "mono",
-		type: "boolean",
-		required: false,
-		default: "false",
-		description: "Use monospace font (Roboto Mono) for technical content.",
 	},
 	{
 		name: "style",
@@ -68,80 +48,83 @@ export default function TextDocs() {
 
 				<LiveExample
 					title="Typography Scale"
-					code={`<Text variant="displayTitle">Display Title</Text>
-<Text variant="title">Title</Text>
-<Text variant="heading">Heading</Text>
-<Text variant="subtitle">Subtitle</Text>
-<Text variant="body">Body text - The quick brown fox jumps over the lazy dog</Text>
-<Text variant="bold">Bold text for emphasis</Text>
-<Text variant="secondaryText">Secondary text with less emphasis</Text>
-<Text variant="small">Small text for captions</Text>
-<Text variant="smallThin">Smallest thin text</Text>`}
+					code={`<Text level="h1">Heading 1</Text>
+<Text level="h2">Heading 2</Text>
+<Text level="h3">Heading 3</Text>
+<Text level="title-lg">Large Title</Text>
+<Text level="body-lg">Large body text - The quick brown fox jumps over the lazy dog</Text>
+<Text level="body-md">Medium body text</Text>
+<Text level="body-sm">Small body text</Text>
+<Text level="body-xs">Extra small text for captions</Text>
+<Text level="body-md" style={{ fontWeight: 'bold' }}>Bold text for emphasis</Text>`}
 				>
 					<div className="flex flex--column flex--gap-2">
-						<Text variant="displayTitle">Display Title</Text>
-						<Text variant="title">Title</Text>
-						<Text variant="heading">Heading</Text>
-						<Text variant="subtitle">Subtitle</Text>
-						<Text variant="body">Body text - The quick brown fox jumps over the lazy dog</Text>
-						<Text variant="bold">Bold text for emphasis</Text>
-						<Text variant="secondaryText">Secondary text with less emphasis</Text>
-						<Text variant="small">Small text for captions</Text>
-						<Text variant="smallThin">Smallest thin text</Text>
+						<Text level="h1">Heading 1</Text>
+						<Text level="h2">Heading 2</Text>
+						<Text level="h3">Heading 3</Text>
+						<Text level="title-lg">Large Title</Text>
+						<Text level="body-lg">Large body text - The quick brown fox jumps over the lazy dog</Text>
+						<Text level="body-md">Medium body text</Text>
+						<Text level="body-sm">Small body text</Text>
+						<Text level="body-xs">Extra small text for captions</Text>
+						<Text level="body-md" style={{ fontWeight: 'bold' }}>Bold text for emphasis</Text>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Colors"
 					code={`<Text color="primary">Primary color text</Text>
-<Text color="secondary">Secondary color text</Text>
+<Text color="neutral">Neutral color text</Text>
 <Text color="success">Success color text</Text>
 <Text color="warning">Warning color text</Text>
-<Text color="danger">Danger color text</Text>
-<Text color="neutral">Neutral color text</Text>`}
+<Text color="danger">Danger color text</Text>`}
 				>
 					<div className="flex flex--column flex--gap-2">
 						<Text color="primary">Primary color text</Text>
-						<Text color="secondary">Secondary color text</Text>
+						<Text color="neutral">Neutral color text</Text>
 						<Text color="success">Success color text</Text>
 						<Text color="warning">Warning color text</Text>
 						<Text color="danger">Danger color text</Text>
-						<Text color="neutral">Neutral color text</Text>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Alignment"
-					code={`<Text align="left">Left aligned text (default)</Text>
-<Text align="center">Center aligned text</Text>
-<Text align="right">Right aligned text</Text>`}
+					code={`<Text style={{ textAlign: 'left' }}>Left aligned text (default)</Text>
+<Text style={{ textAlign: 'center' }}>Center aligned text</Text>
+<Text style={{ textAlign: 'right' }}>Right aligned text</Text>`}
 				>
 					<div className="flex flex--column flex--gap-2" style={{ width: "100%" }}>
-						<Text align="left">Left aligned text (default)</Text>
-						<Text align="center">Center aligned text</Text>
-						<Text align="right">Right aligned text</Text>
+						<Text style={{ textAlign: 'left' }}>Left aligned text (default)</Text>
+						<Text style={{ textAlign: 'center' }}>Center aligned text</Text>
+						<Text style={{ textAlign: 'right' }}>Right aligned text</Text>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Special Features"
-					code={`<Text numberOfLines={2}>
+					code={`<Text style={{ 
+  overflow: 'hidden', 
+  textOverflow: 'ellipsis', 
+  display: '-webkit-box', 
+  WebkitLineClamp: 2, 
+  WebkitBoxOrient: 'vertical' 
+}}>
   This is a very long text that will be truncated after two lines. 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do 
-  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </Text>
 
-<Text mono>const code = "Monospace text for code";</Text>`}
+<Text style={{ fontFamily: 'monospace' }}>const code = "Monospace text for code";</Text>`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<div style={{ maxWidth: "400px" }}>
-							<Text numberOfLines={2}>
+							<Text style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
 								This is a very long text that will be truncated after two lines. Lorem ipsum dolor
 								sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
 								dolore magna aliqua.
 							</Text>
 						</div>
-						<Text mono>const code = "Monospace text for code";</Text>
+						<Text style={{ fontFamily: 'monospace' }}>const code = "Monospace text for code";</Text>
 					</div>
 				</LiveExample>
 			</section>
@@ -154,11 +137,11 @@ export default function TextDocs() {
 function MyComponent() {
   return (
     <View>
-      <Text variant="heading">Welcome Back!</Text>
-      <Text variant="secondaryText">
+      <Text level="h3">Welcome Back!</Text>
+      <Text level="body-sm" color="neutral">
         Here's what's new since your last visit.
       </Text>
-      <Text variant="body" numberOfLines={3}>
+      <Text level="body-md" style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
         {longArticleContent}
       </Text>
     </View>

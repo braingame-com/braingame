@@ -32,7 +32,7 @@ const useUtilityClasses = (ownerState: RadioGroupOwnerState) => {
 const RadioGroupRoot = styled("div", {
 	name: "JoyRadioGroup",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: RadioGroupOwnerState }>(({ ownerState, theme }) => ({
 	...(ownerState.size === "sm" && {
 		"--RadioGroup-gap": "0.625rem",

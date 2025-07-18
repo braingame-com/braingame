@@ -7,7 +7,6 @@ import RadioGroup from "@mui/joy/RadioGroup";
 import Select from "@mui/joy/Select";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("Joy <List />", () => {

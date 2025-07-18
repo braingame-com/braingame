@@ -47,7 +47,7 @@ export const StyledModalRoot = styled("div")<{ ownerState: ModalOwnerState }>(
 const ModalRoot = styled(StyledModalRoot, {
 	name: "JoyModal",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ModalOwnerState }>({});
 
 export const StyledModalBackdrop = styled("div")<{ ownerState: ModalOwnerState }>(({ theme }) => ({
@@ -65,7 +65,7 @@ export const StyledModalBackdrop = styled("div")<{ ownerState: ModalOwnerState }
 export const ModalBackdrop = styled(StyledModalBackdrop, {
 	name: "JoyModal",
 	slot: "Backdrop",
-	overridesResolver: (props, styles) => styles.backdrop,
+	overridesResolver: (_props, styles) => styles.backdrop,
 })<{ ownerState: ModalOwnerState }>({});
 /**
  *

@@ -2,7 +2,6 @@ import { createRenderer } from "@mui/internal-test-utils";
 import ListSubheader, { listSubheaderClasses as classes } from "@mui/joy/ListSubheader";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 import ListSubheaderContext from "./ListSubheaderContext";

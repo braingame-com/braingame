@@ -25,8 +25,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>(
 		ref,
 	) => {
 		// Get variant styles
-		const variantKey = `${variant}-${color}`;
-		const variantStyles = restyleTheme.components.List?.variants?.[variantKey] || {};
+		const variantStyles = restyleTheme.components.List?.variants?.[variant] || {};
 
 		// Build styles
 		const listStyles: React.CSSProperties = {

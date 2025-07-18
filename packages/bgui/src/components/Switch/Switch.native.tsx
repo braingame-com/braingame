@@ -86,7 +86,7 @@ export const Switch = forwardRef<View, SwitchProps>(
 		};
 
 		// Handle press events
-		const handlePress = (event: GestureResponderEvent) => {
+		const handlePress = (_event: GestureResponderEvent) => {
 			if (disabled || readOnly) return;
 
 			const newChecked = !checkedValue;
@@ -128,7 +128,7 @@ export const Switch = forwardRef<View, SwitchProps>(
 				duration: 200,
 				useNativeDriver: false,
 			}).start();
-		}, [checkedValue]);
+		}, [checkedValue, animatedValue]);
 
 		const variantStyles = getVariantStyles();
 		const sizeConfig = getSizeConfig();

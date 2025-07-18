@@ -301,6 +301,36 @@ This document provides a detailed, step-by-step checklist for executing the `bgu
 
 ---
 
+## 📚 Phase 2.5: Documentation Site *(Completed 17-07-2025)*
+
+*The goal of this phase was to create a functional documentation site for the BGUI component library with Playwright testing.*
+
+- [x] **Fix Documentation Site Issues**
+    - [x] Fixed RootLayout hydration errors
+    - [x] Implemented proper Next.js font loading for Lexend
+    - [x] Fixed dark mode toggle functionality
+    - [x] Updated sidebar to show only actual BGUI components
+    - [x] Fixed missing Icon component references
+
+- [x] **Create Showcase Page**
+    - [x] Added Typography component displaying "hello world"
+    - [x] Organized all 33 BGUI components into sections
+    - [x] Applied proper Material Design 3 theming
+
+- [x] **Implement Playwright Testing**
+    - [x] Created comprehensive test suite
+    - [x] All tests passing (homepage, showcase, fonts, dark mode)
+    - [x] Verified component functionality
+
+**Result:** Fully functional documentation site at `/apps/docs-site` with:
+- Working showcase of all BGUI components
+- Proper Lexend font throughout
+- Dark/light mode toggle
+- Playwright E2E tests
+- Material Design 3 colors
+
+---
+
 ## 🔧 Phase 3: Infrastructure and Testing
 
 *This phase should be worked on in parallel with Phase 2. Its goal is to ensure the library is robust, correctly bundled, and well-tested.*

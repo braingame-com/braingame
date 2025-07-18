@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import CardActions, { cardActionsClasses as classes } from "@mui/joy/CardActions";
 import { ThemeProvider } from "@mui/joy/styles";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<CardActions />", () => {

@@ -40,7 +40,7 @@ const useUtilityClasses = (ownerState: ChipOwnerState) => {
 const ChipRoot = styled("div", {
 	name: "JoyChip",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ChipOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	const { borderRadius } = resolveSxValue({ theme, ownerState }, ["borderRadius"]);
@@ -125,7 +125,7 @@ const ChipRoot = styled("div", {
 const ChipLabel = styled("span", {
 	name: "JoyChip",
 	slot: "Label",
-	overridesResolver: (props, styles) => styles.label,
+	overridesResolver: (_props, styles) => styles.label,
 })<{ ownerState: ChipOwnerState }>(({ ownerState }) => ({
 	display: "inline-block",
 	overflow: "hidden",
@@ -142,7 +142,7 @@ const ChipLabel = styled("span", {
 const ChipAction = styled("button", {
 	name: "JoyChip",
 	slot: "Action",
-	overridesResolver: (props, styles) => styles.action,
+	overridesResolver: (_props, styles) => styles.action,
 })<{ ownerState: ChipOwnerState }>(({ theme, ownerState }) => [
 	{
 		"--Icon-color":
@@ -184,7 +184,7 @@ const ChipAction = styled("button", {
 const ChipStartDecorator = styled("span", {
 	name: "JoyChip",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: ChipOwnerState }>({
 	"--Avatar-marginInlineStart": "calc(var(--Chip-decoratorChildOffset) * -1)",
 	"--IconButton-margin":
@@ -200,7 +200,7 @@ const ChipStartDecorator = styled("span", {
 const ChipEndDecorator = styled("span", {
 	name: "JoyChip",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: ChipOwnerState }>({
 	"--IconButton-margin":
 		"0 calc(var(--Chip-decoratorChildOffset) * -1) 0 calc(-1 * var(--Chip-paddingInline) / 3)",

@@ -2,7 +2,6 @@ import { act, createRenderer, fireEvent, screen } from "@mui/internal-test-utils
 import Switch, { switchClasses as classes } from "@mui/joy/Switch";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<Switch />", () => {

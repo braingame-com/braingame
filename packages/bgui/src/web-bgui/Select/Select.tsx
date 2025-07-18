@@ -31,7 +31,7 @@ function defaultRenderValue<OptionValue>(
 	selectedOptions: SelectOption<OptionValue> | SelectOption<OptionValue>[] | null,
 ) {
 	if (Array.isArray(selectedOptions)) {
-		return <React.Fragment>{selectedOptions.map((o) => o.label).join(", ")}</React.Fragment>;
+		return selectedOptions.map((o) => o.label).join(", ");
 	}
 
 	return selectedOptions?.label ?? "";
@@ -82,7 +82,7 @@ const useUtilityClasses = (ownerState: SelectOwnerState<any, boolean>) => {
 const SelectRoot = styled("div", {
 	name: "JoySelect",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: SelectOwnerState<any, any> }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[`${ownerState.variant!}`]?.[ownerState.color!];
 	const { borderRadius } = resolveSxValue({ theme, ownerState }, ["borderRadius"]);
@@ -193,7 +193,7 @@ const SelectRoot = styled("div", {
 const SelectButton = styled("button", {
 	name: "JoySelect",
 	slot: "Button",
-	overridesResolver: (props, styles) => styles.button,
+	overridesResolver: (_props, styles) => styles.button,
 })<{ ownerState: SelectOwnerState<any, any> }>(({ ownerState }) => ({
 	// reset user-agent button style
 	border: 0,
@@ -230,7 +230,7 @@ const SelectButton = styled("button", {
 const SelectListbox = styled(StyledList, {
 	name: "JoySelect",
 	slot: "Listbox",
-	overridesResolver: (props, styles) => styles.listbox,
+	overridesResolver: (_props, styles) => styles.listbox,
 })<{ ownerState: SelectOwnerState<any, any> }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	return {
@@ -258,7 +258,7 @@ const SelectListbox = styled(StyledList, {
 const SelectStartDecorator = styled("span", {
 	name: "JoySelect",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: SelectOwnerState<any, any> }>({
 	"--Button-margin": "0 0 0 calc(var(--Select-decoratorChildOffset) * -1)",
 	"--IconButton-margin": "0 0 0 calc(var(--Select-decoratorChildOffset) * -1)",
@@ -272,7 +272,7 @@ const SelectStartDecorator = styled("span", {
 const SelectEndDecorator = styled("span", {
 	name: "JoySelect",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: SelectOwnerState<any, any> }>({
 	"--Button-margin": "0 calc(var(--Select-decoratorChildOffset) * -1) 0 0",
 	"--IconButton-margin": "0 calc(var(--Select-decoratorChildOffset) * -1) 0 0",
@@ -418,7 +418,7 @@ const Select = React.forwardRef(function Select<OptionValue extends {}, Multiple
 
 	React.useEffect(() => {
 		if (autoFocus) {
-			buttonRef.current!.focus();
+			buttonRef.current?.focus();
 		}
 	}, [autoFocus]);
 

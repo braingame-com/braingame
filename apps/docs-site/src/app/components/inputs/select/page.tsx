@@ -178,7 +178,7 @@ const countries = [
 return (
   <Select
     value={country}
-    onValueChange={(value) => setCountry(value as string)}
+    onValueChange={(value: any) => setCountry(value as string)}
     placeholder="Choose a country"
   >
     {countries.map((c) => (
@@ -191,7 +191,7 @@ return (
 				>
 					<Select
 						value={country}
-						onValueChange={(value) => setCountry(value as string)}
+						onValueChange={(value: any) => setCountry(value as string)}
 						placeholder="Choose a country"
 					>
 						{countries.slice(0, 5).map((c) => (
@@ -206,7 +206,7 @@ return (
 					title="Variants"
 					code={`<Select
   value={value}
-  onValueChange={(value) => setValue(value as string)}
+  onValueChange={(value: any) => setValue(value as string)}
   variant="dropdown"
 >
   {options.map((opt) => (
@@ -219,7 +219,7 @@ return (
 
 <Select
   value={value}
-  onValueChange={(value) => setValue(value as string)}
+  onValueChange={(value: any) => setValue(value as string)}
   variant="filled"
 >
   {options.map((opt) => (
@@ -233,7 +233,7 @@ return (
 					<div className="flex flex--column flex--gap-4">
 						<Select
 							value={language}
-							onValueChange={(value) => setLanguage(value as string)}
+							onValueChange={(value: any) => setLanguage(value as string)}
 							variant="dropdown"
 						>
 							{languages.slice(0, 5).map((lang) => (
@@ -244,7 +244,7 @@ return (
 						</Select>
 						<Select
 							value={language}
-							onValueChange={(value) => setLanguage(value as string)}
+							onValueChange={(value: any) => setLanguage(value as string)}
 							variant="modal"
 						>
 							{languages.slice(0, 5).map((lang) => (
@@ -365,7 +365,7 @@ const programmingLanguages = [
 return (
   <Select
     value={skills}
-    onValueChange={(value) => setSkills(value as string[])}
+    onValueChange={(value: any) => setSkills(value as string[])}
     placeholder="Select your skills"
     multiple
     clearable
@@ -381,7 +381,7 @@ return (
 				>
 					<Select
 						value={skills}
-						onValueChange={(value) => setSkills(value as string[])}
+						onValueChange={(value: any) => setSkills(value as string[])}
 						placeholder="Select your skills"
 						multiple
 					>
@@ -397,7 +397,7 @@ return (
 					title="Searchable Select"
 					code={`<Select
   value={country}
-  onValueChange={(value) => setCountry(value as string)}
+  onValueChange={(value: any) => setCountry(value as string)}
   placeholder="Search and select a country"
   searchable
   clearable
@@ -412,7 +412,7 @@ return (
 				>
 					<Select
 						value={country}
-						onValueChange={(value) => setCountry(value as string)}
+						onValueChange={(value: any) => setCountry(value as string)}
 						placeholder="Search and select a country"
 						searchable
 					>
@@ -428,7 +428,7 @@ return (
 					title="Sizes"
 					code={`<Select
   value={value}
-  onValueChange={(value) => setValue(value as string)}
+  onValueChange={(value: any) => setValue(value as string)}
   size="sm"
 >
   {options.map((opt) => (
@@ -441,7 +441,7 @@ return (
 
 <Select
   value={value}
-  onValueChange={(value) => setValue(value as string)}
+  onValueChange={(value: any) => setValue(value as string)}
   size="md"
 >
   {options.map((opt) => (
@@ -454,7 +454,7 @@ return (
 
 <Select
   value={value}
-  onValueChange={(value) => setValue(value as string)}
+  onValueChange={(value: any) => setValue(value as string)}
   size="lg"
 >
   {options.map((opt) => (
@@ -466,21 +466,21 @@ return (
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<Select value={priority} onValueChange={(value) => setPriority(value as string)}>
+						<Select value={priority} onValueChange={(value: any) => setPriority(value as string)}>
 							{priorities.map((p) => (
 								<Select.Item key={p.value} value={p.value}>
 									{p.label}
 								</Select.Item>
 							))}
 						</Select>
-						<Select value={priority} onValueChange={(value) => setPriority(value as string)}>
+						<Select value={priority} onValueChange={(value: any) => setPriority(value as string)}>
 							{priorities.map((p) => (
 								<Select.Item key={p.value} value={p.value}>
 									{p.label}
 								</Select.Item>
 							))}
 						</Select>
-						<Select value={priority} onValueChange={(value) => setPriority(value as string)}>
+						<Select value={priority} onValueChange={(value: any) => setPriority(value as string)}>
 							{priorities.map((p) => (
 								<Select.Item key={p.value} value={p.value}>
 									{p.label}
@@ -522,7 +522,7 @@ return (
 return (
   <Select
     value={country}
-    onValueChange={(value) => setCountry(value as string)}
+    onValueChange={(value: any) => setCountry(value as string)}
     placeholder="Select a country"
     searchable
   >
@@ -541,7 +541,7 @@ return (
 				>
 					<Select
 						value={country}
-						onValueChange={(value) => setCountry(value as string)}
+						onValueChange={(value: any) => setCountry(value as string)}
 						placeholder="Select a country"
 						searchable
 					>
@@ -592,7 +592,7 @@ function UserProfileForm() {
     <View style={styles.form}>
       <Select
         value={formData.country}
-        onValueChange={(value) => 
+        onValueChange={(value: any) => 
           setFormData({ ...formData, country: value })
         }
         placeholder="Select your country"
@@ -610,7 +610,7 @@ function UserProfileForm() {
 
       <Select
         value={formData.timezone}
-        onValueChange={(value) => 
+        onValueChange={(value: any) => 
           setFormData({ ...formData, timezone: value })
         }
         placeholder="Select your timezone"
@@ -626,7 +626,7 @@ function UserProfileForm() {
 
       <Select
         value={formData.interests}
-        onValueChange={(value) => 
+        onValueChange={(value: any) => 
           setFormData({ ...formData, interests: value })
         }
         placeholder="Select your interests"
@@ -701,7 +701,7 @@ return (
   <>
     <Select
       value={country}
-      onValueChange={(value) => {
+      onValueChange={(value: any) => {
         setCountry(value);
         setState(''); // Reset dependent fields
         setCity('');
@@ -717,7 +717,7 @@ return (
     
     <Select
       value={state}
-      onValueChange={(value) => {
+      onValueChange={(value: any) => {
         setState(value);
         setCity(''); // Reset dependent field
       }}

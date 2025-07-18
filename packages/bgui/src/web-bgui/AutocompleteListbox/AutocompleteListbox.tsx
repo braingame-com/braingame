@@ -84,7 +84,7 @@ export const StyledAutocompleteListbox = styled(StyledList)<{
 const AutocompleteListboxRoot = styled(StyledAutocompleteListbox, {
 	name: "JoyAutocompleteListbox",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })({});
 /**
  *

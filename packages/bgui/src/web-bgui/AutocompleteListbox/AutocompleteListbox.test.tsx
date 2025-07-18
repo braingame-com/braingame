@@ -4,7 +4,6 @@ import AutocompleteListbox, {
 } from "@mui/joy/AutocompleteListbox";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("Joy <AutocompleteListbox />", () => {

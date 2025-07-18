@@ -29,7 +29,7 @@ const useUtilityClasses = (ownerState: TooltipOwnerState) => {
 			size && `size${capitalize(size)}`,
 			color && `color${capitalize(color)}`,
 			variant && `variant${capitalize(variant)}`,
-			`tooltipPlacement${capitalize(placement!.split("-")[0])}`,
+			`tooltipPlacement${capitalize(placement?.split("-")[0])}`,
 		],
 		arrow: ["arrow"],
 	};
@@ -40,7 +40,7 @@ const useUtilityClasses = (ownerState: TooltipOwnerState) => {
 const TooltipRoot = styled("div", {
 	name: "JoyTooltip",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TooltipOwnerState }>(({ ownerState, theme }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	return {
@@ -112,7 +112,7 @@ const TooltipRoot = styled("div", {
 const TooltipArrow = styled("span", {
 	name: "JoyTooltip",
 	slot: "Arrow",
-	overridesResolver: (props, styles) => styles.arrow,
+	overridesResolver: (_props, styles) => styles.arrow,
 })<{ ownerState: TooltipOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[ownerState.variant!]?.[ownerState.color!];
 	return {
@@ -437,9 +437,9 @@ const Tooltip = React.forwardRef(function Tooltip(inProps, ref) {
 
 	const nameOrDescProps: {
 		title?: string | null;
-		["aria-describedby"]?: string | null;
-		["aria-label"]?: string | null;
-		["aria-labelledby"]?: string | null;
+		"aria-describedby"?: string | null;
+		"aria-label"?: string | null;
+		"aria-labelledby"?: string | null;
 	} = {};
 	const titleIsString = typeof title === "string";
 	if (describeChild) {

@@ -113,13 +113,13 @@ export const StyledIconButton = styled("button")<{ ownerState: IconButtonOwnerSt
 export const IconButtonRoot = styled(StyledIconButton, {
 	name: "JoyIconButton",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })({});
 
 const ButtonLoading = styled("span", {
 	name: "JoyIconButton",
 	slot: "LoadingIndicator",
-	overridesResolver: (props, styles) => styles.loadingIndicator,
+	overridesResolver: (_props, styles) => styles.loadingIndicator,
 })<{ ownerState: IconButtonOwnerState }>(({ theme, ownerState }) => ({
 	display: "inherit",
 	position: "absolute",

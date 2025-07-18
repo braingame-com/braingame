@@ -1,6 +1,5 @@
 import Textarea, { type TextareaOwnerState } from "@mui/joy/Textarea";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Textarea component="div" />;
 

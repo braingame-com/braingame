@@ -7,36 +7,75 @@ import { PropsTable } from "../../../../components/PropsTable";
 
 const alertProps = [
 	{
-		name: "type",
-		type: '"info" | "success" | "warning" | "error"',
+		name: "children",
+		type: "ReactNode",
 		required: false,
-		default: '"info"',
-		description: "The type of alert which determines its color and default icon.",
+		description: "The content of the component.",
 	},
 	{
-		name: "message",
-		type: "string",
-		required: true,
-		description: "The main message to display in the alert.",
+		name: "color",
+		type: '"primary" | "neutral" | "danger" | "success" | "warning"',
+		required: false,
+		default: '"neutral"',
+		description: "The color of the component.",
 	},
 	{
 		name: "variant",
-		type: '"banner" | "inline" | "floating"',
+		type: '"plain" | "outlined" | "soft" | "solid"',
 		required: false,
-		default: '"inline"',
-		description: "Visual style variant of the alert.",
+		default: '"soft"',
+		description: "The variant to use.",
+	},
+	{
+		name: "size",
+		type: '"sm" | "md" | "lg"',
+		required: false,
+		default: '"md"',
+		description: "The size of the component.",
+	},
+	{
+		name: "startDecorator",
+		type: "ReactNode",
+		required: false,
+		description: "Element placed before the children.",
+	},
+	{
+		name: "endDecorator",
+		type: "ReactNode",
+		required: false,
+		description: "Element placed after the children.",
+	},
+	{
+		name: "invertedColors",
+		type: "boolean",
+		required: false,
+		default: "false",
+		description: "If true, the children with an implicit color prop invert their colors to match the component's variant and color.",
+	},
+	{
+		name: "role",
+		type: "string",
+		required: false,
+		default: '"alert"',
+		description: "The ARIA role attribute of the element.",
 	},
 	{
 		name: "style",
-		type: "StyleProp<ViewStyle>",
+		type: "CSSProperties | any",
 		required: false,
-		description: "Custom styles to apply to the alert container.",
+		description: "Additional styles.",
 	},
 	{
 		name: "testID",
 		type: "string",
 		required: false,
-		description: "Test ID for automated testing.",
+		description: "Test ID for testing.",
+	},
+	{
+		name: "aria-label",
+		type: "string",
+		required: false,
+		description: "Accessibility label.",
 	},
 ];
 
@@ -54,174 +93,151 @@ export default function AlertDocs() {
 
 				<LiveExample
 					title="Alert Types"
-					code={`<Alert 
-  type="info" 
-  message="Info Alert: This is additional information that might be helpful."
-/>
+					code={`<Alert color="neutral">
+  Info Alert: This is additional information that might be helpful.
+</Alert>
 
-<Alert 
-  type="success" 
-  message="Success Alert: Your changes have been saved successfully."
-/>
+<Alert color="success">
+  Success Alert: Your changes have been saved successfully.
+</Alert>
 
-<Alert 
-  type="warning" 
-  message="Warning Alert: Please review your input before proceeding."
-/>
+<Alert color="warning">
+  Warning Alert: Please review your input before proceeding.
+</Alert>
 
-<Alert 
-  type="error" 
-  message="Error Alert: Something went wrong. Please try again."
-/>`}
+<Alert color="danger">
+  Error Alert: Something went wrong. Please try again.
+</Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert
-							type="info"
-							message="Info Alert: This is additional information that might be helpful."
-						/>
+						<Alert color="neutral">
+							Info Alert: This is additional information that might be helpful.
+						</Alert>
 
-						<Alert
-							type="success"
-							message="Success Alert: Your changes have been saved successfully."
-						/>
+						<Alert color="success">
+							Success Alert: Your changes have been saved successfully.
+						</Alert>
 
-						<Alert
-							type="warning"
-							message="Warning Alert: Please review your input before proceeding."
-						/>
+						<Alert color="warning">
+							Warning Alert: Please review your input before proceeding.
+						</Alert>
 
-						<Alert type="error" message="Error Alert: Something went wrong. Please try again." />
+						<Alert color="danger">Error Alert: Something went wrong. Please try again.</Alert>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Alert Variants"
-					code={`<Alert 
-  type="info" 
-  message="Banner Alert"
-  variant="banner"
-/>
+					code={`<Alert color="neutral" variant="solid">
+  Solid Alert
+</Alert>
 
-<Alert 
-  type="info" 
-  message="Inline Alert"
-  variant="inline"
-/>
+<Alert color="neutral" variant="outlined">
+  Outlined Alert
+</Alert>
 
-<Alert 
-  type="info" 
-  message="Floating Alert"
-  variant="floating"
-/>`}
+<Alert color="neutral" variant="soft">
+  Soft Alert
+</Alert>
+
+<Alert color="neutral" variant="plain">
+  Plain Alert
+</Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert type="info" message="Banner Alert" variant="banner" />
+						<Alert color="neutral" variant="solid">Solid Alert</Alert>
 
-						<Alert type="info" message="Inline Alert" variant="inline" />
+						<Alert color="neutral" variant="outlined">Outlined Alert</Alert>
 
-						<Alert type="info" message="Floating Alert" variant="floating" />
+						<Alert color="neutral" variant="soft">Soft Alert</Alert>
+
+						<Alert color="neutral" variant="plain">Plain Alert</Alert>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Different Alert Types"
-					code={`<Alert 
-  type="info" 
-  message="System Update Available: Version 2.0 includes performance improvements."
-/>
+					code={`<Alert color="neutral">
+  System Update Available: Version 2.0 includes performance improvements.
+</Alert>
 
-<Alert 
-  type="success" 
-  message="Payment Received"
-/>
+<Alert color="success">
+  Payment Received
+</Alert>
 
-<Alert 
-  type="warning" 
-  message="Low Battery: Connect charger to continue."
-/>
+<Alert color="warning">
+  Low Battery: Connect charger to continue.
+</Alert>
 
-<Alert 
-  type="error" 
-  message="No Internet Connection"
-/>`}
+<Alert color="danger">
+  No Internet Connection
+</Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert
-							type="info"
-							message="System Update Available: Version 2.0 includes performance improvements."
-						/>
+						<Alert color="neutral">
+							System Update Available: Version 2.0 includes performance improvements.
+						</Alert>
 
-						<Alert type="success" message="Payment Received" />
+						<Alert color="success">Payment Received</Alert>
 
-						<Alert type="warning" message="Low Battery: Connect charger to continue." />
+						<Alert color="warning">Low Battery: Connect charger to continue.</Alert>
 
-						<Alert type="error" message="No Internet Connection" />
+						<Alert color="danger">No Internet Connection</Alert>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Alert Messages"
-					code={`<Alert 
-  type="info" 
-  message="New Feature Available: Try our new dark mode in settings."
-/>
+					code={`<Alert color="neutral">
+  New Feature Available: Try our new dark mode in settings.
+</Alert>
 
-<Alert 
-  type="warning" 
-  message="Your session will expire in 5 minutes."
-/>`}
+<Alert color="warning">
+  Your session will expire in 5 minutes.
+</Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert
-							type="info"
-							message="New Feature Available: Try our new dark mode in settings."
-						/>
-						<Alert type="warning" message="Your session will expire in 5 minutes." />
+						<Alert color="neutral">
+							New Feature Available: Try our new dark mode in settings.
+						</Alert>
+						<Alert color="warning">Your session will expire in 5 minutes.</Alert>
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="Simple Alerts"
-					code={`<Alert 
-  type="warning" 
-  message="Unsaved Changes: You have unsaved changes that will be lost."
-/>
+					code={`<Alert color="warning">
+  Unsaved Changes: You have unsaved changes that will be lost.
+</Alert>
 
-<Alert 
-  type="error" 
-  message="Payment Failed: We couldn't process your payment."
-/>
+<Alert color="danger">
+  Payment Failed: We couldn't process your payment.
+</Alert>
 
-<Alert 
-  type="success" 
-  message="File Uploaded"
-/>`}
+<Alert color="success">
+  File Uploaded
+</Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert
-							type="warning"
-							message="Unsaved Changes: You have unsaved changes that will be lost."
-						/>
+						<Alert color="warning">
+							Unsaved Changes: You have unsaved changes that will be lost.
+						</Alert>
 
-						<Alert type="error" message="Payment Failed: We couldn't process your payment." />
+						<Alert color="danger">Payment Failed: We couldn't process your payment.</Alert>
 
-						<Alert type="success" message="File Uploaded" />
+						<Alert color="success">File Uploaded</Alert>
 					</div>
 				</LiveExample>
 
 				<LiveExample
-					title="Floating Variant"
-					code={`<Alert 
-  type="info" 
-  message="Simple Message: This alert uses the floating variant for a cleaner look."
-  variant="floating"
-/>`}
+					title="Soft Variant"
+					code={`<Alert color="neutral" variant="soft">
+  Simple Message: This alert uses the soft variant for a cleaner look.
+</Alert>`}
 				>
-					<Alert
-						type="info"
-						message="Simple Message: This alert uses the floating variant for a cleaner look."
-						variant="floating"
-					/>
+					<Alert color="neutral" variant="soft">
+						Simple Message: This alert uses the soft variant for a cleaner look.
+					</Alert>
 				</LiveExample>
 			</section>
 
@@ -258,18 +274,20 @@ function FormWithValidation() {
     <View style={styles.container}>
       {error && (
         <Alert
-          type="error"
-          message={\`Validation Error: \${error}\`}
+          color="danger"
           style={styles.alert}
-        />
+        >
+          Validation Error: {error}
+        </Alert>
       )}
       
       {success && (
         <Alert
-          type="success"
-          message="Form Submitted: We'll get back to you within 24 hours."
+          color="success"
           style={styles.alert}
-        />
+        >
+          Form Submitted: We'll get back to you within 24 hours.
+        </Alert>
       )}
       
       {/* Form fields */}
@@ -290,17 +308,15 @@ function FormWithValidation() {
 				<CodeBlock
 					code={`// Connection status
 {!isOnline && (
-  <Alert
-    type="warning"
-    message="Offline Mode: Some features may be limited."
-  />
+  <Alert color="warning">
+    Offline Mode: Some features may be limited.
+  </Alert>
 )}
 
 // Maintenance notice
-<Alert
-  type="info"
-  message="Scheduled Maintenance: System will be unavailable from 2-4 AM EST."
-/>`}
+<Alert color="neutral">
+  Scheduled Maintenance: System will be unavailable from 2-4 AM EST.
+</Alert>`}
 					language="tsx"
 				/>
 
@@ -309,18 +325,18 @@ function FormWithValidation() {
 					code={`// Field-level validation
 {errors.password && (
   <Alert
-    type="error"
-    message={errors.password}
-    variant="inline"
-  />
+    color="danger"
+    variant="outlined"
+  >
+    {errors.password}
+  </Alert>
 )}
 
 // Success confirmation
 {submitted && (
-  <Alert
-    type="success"
-    message="Account Created! Check your email to verify your account."
-  />
+  <Alert color="success">
+    Account Created! Check your email to verify your account.
+  </Alert>
 )}`}
 					language="tsx"
 				/>
@@ -328,16 +344,14 @@ function FormWithValidation() {
 				<h3 className="text-heading mb-3 mt-6">In-App Notifications</h3>
 				<CodeBlock
 					code={`// Update notification
-<Alert
-  type="info"
-  message="New Version Available: Update to get the latest features and improvements."
-/>
+<Alert color="neutral">
+  New Version Available: Update to get the latest features and improvements.
+</Alert>
 
 // Feature announcement
-<Alert
-  type="success"
-  message="New Feature: Dark Mode - You can now switch to dark mode in settings."
-/>`}
+<Alert color="success">
+  New Feature: Dark Mode - You can now switch to dark mode in settings.
+</Alert>`}
 					language="tsx"
 				/>
 			</section>
@@ -350,8 +364,8 @@ function FormWithValidation() {
 						happened and what to do next.
 					</li>
 					<li className="mb-2">
-						<strong>Appropriate severity:</strong> Choose the right type (info, success, warning,
-						error) to match the message importance.
+						<strong>Appropriate severity:</strong> Choose the right color (neutral, success, warning,
+						danger) to match the message importance.
 					</li>
 					<li className="mb-2">
 						<strong>Actionable alerts:</strong> When possible, provide actions users can take to

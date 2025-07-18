@@ -21,7 +21,7 @@ const useUtilityClasses = () => {
 const FormLabelRoot = styled("label", {
 	name: "JoyFormLabel",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: FormLabelProps }>(({ theme }) => ({
 	"--Icon-fontSize": "calc(var(--FormLabel-lineHeight) * 1em)",
 	WebkitTapHighlightColor: "transparent",
@@ -42,7 +42,7 @@ const FormLabelRoot = styled("label", {
 const AsteriskComponent = styled("span", {
 	name: "JoyFormLabel",
 	slot: "Asterisk",
-	overridesResolver: (props, styles) => styles.asterisk,
+	overridesResolver: (_props, styles) => styles.asterisk,
 })<{ ownerState: FormLabelProps }>({
 	color: "var(--FormLabel-asteriskColor)",
 });

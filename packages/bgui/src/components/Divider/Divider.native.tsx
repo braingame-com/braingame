@@ -1,6 +1,5 @@
 import { createBox } from "@shopify/restyle";
 import type React from "react";
-import { View } from "react-native";
 import type { Theme } from "../../theme";
 import { theme } from "../../theme";
 import { Typography } from "../Typography";

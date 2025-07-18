@@ -35,7 +35,7 @@ const useUtilityClasses = (ownerState: ModalCloseOwnerState) => {
 export const ModalCloseRoot = styled(StyledIconButton, {
 	name: "JoyModalClose",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ModalCloseOwnerState }>(({ ownerState, theme }) => ({
 	...(ownerState.size === "sm" && {
 		"--IconButton-size": "1.75rem",

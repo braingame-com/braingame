@@ -30,7 +30,7 @@ const useUtilityClasses = (ownerState: ListSubheaderOwnerState) => {
 const ListSubheaderRoot = styled("div", {
 	name: "JoyListSubheader",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ListSubheaderOwnerState }>(({ theme, ownerState }) => ({
 	boxSizing: "border-box",
 	display: "flex",

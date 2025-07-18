@@ -35,7 +35,7 @@ const useUtilityClasses = (ownerState: AccordionGroupOwnerState) => {
 const AccordionGroupRoot = styled(StyledList as unknown as "div", {
 	name: "JoyAccordionGroup",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: AccordionGroupOwnerState }>(({ theme, ownerState }) => {
 	let transition: Record<string, any> = {};
 	if (ownerState.transition) {

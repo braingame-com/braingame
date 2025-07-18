@@ -1,5 +1,4 @@
 import SystemInitColorSchemeScript from "@mui/system/InitColorSchemeScript";
-import * as React from "react";
 
 export const defaultConfig = {
 	attribute: "data-joy-color-scheme",

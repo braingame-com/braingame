@@ -85,7 +85,6 @@ export const Divider: React.FC<DividerProps> = ({
 		<hr
 			data-testid={testID}
 			style={simpleStyles}
-			role="separator"
 			aria-orientation={isVertical ? "vertical" : "horizontal"}
 		/>
 	);

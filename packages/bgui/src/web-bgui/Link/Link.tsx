@@ -37,7 +37,7 @@ const useUtilityClasses = (ownerState: LinkOwnerState) => {
 const StartDecorator = styled("span", {
 	name: "JoyLink",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: LinkOwnerState }>(({ ownerState }) => ({
 	display: "inline-flex",
 	marginInlineEnd: "clamp(4px, var(--Link-gap, 0.375em), 0.75rem)",
@@ -51,7 +51,7 @@ const StartDecorator = styled("span", {
 const EndDecorator = styled("span", {
 	name: "JoyLink",
 	slot: "endDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: LinkOwnerState }>(({ ownerState }) => ({
 	display: "inline-flex",
 	marginInlineStart: "clamp(4px, var(--Link-gap, 0.25em), 0.5rem)", // for end decorator, 0.25em looks better.
@@ -65,7 +65,7 @@ const EndDecorator = styled("span", {
 const LinkRoot = styled("a", {
 	name: "JoyLink",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: LinkOwnerState }>(({ theme, ownerState }) => {
 	return [
 		{

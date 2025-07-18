@@ -1,6 +1,5 @@
 import Radio, { type RadioOwnerState } from "@mui/joy/Radio";
 import { expectType } from "@mui/types";
-import * as React from "react";
 
 <Radio id="test" name="test" />;
 
@@ -14,7 +13,7 @@ import * as React from "react";
 
 <Radio
 	onChange={(event) => {
-		const checked = event.target.checked;
+		const _checked = event.target.checked;
 	}}
 />;
 

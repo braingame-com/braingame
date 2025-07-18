@@ -284,11 +284,11 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
 			testID,
 			id: idProp,
 		},
-		ref,
+		_ref,
 	) => {
 		// State management
 		const [internalOpen, setInternalOpen] = useState(defaultOpen);
-		const [childIsFocusVisible, setChildIsFocusVisible] = useState(false);
+		const [_childIsFocusVisible, setChildIsFocusVisible] = useState(false);
 		const [tooltipPosition, setTooltipPosition] = useState<Position>({ top: 0, left: 0 });
 
 		// Refs
@@ -453,14 +453,14 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
 
 			document.addEventListener("keydown", handleKeyDown);
 			return () => document.removeEventListener("keydown", handleKeyDown);
-		}, [open]);
+		}, [open, handleClose]);
 
 		// Update position when open changes
 		useEffect(() => {
 			if (open) {
 				updateTooltipPosition();
 			}
-		}, [open, placement, followCursor]);
+		}, [open, updateTooltipPosition]);
 
 		// Cleanup timers on unmount
 		useEffect(() => {

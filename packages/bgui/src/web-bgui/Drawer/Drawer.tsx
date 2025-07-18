@@ -41,7 +41,7 @@ const useUtilityClasses = (ownerState: DrawerOwnerState) => {
 const DrawerRoot = styled(StyledModalRoot as unknown as "div", {
 	name: "JoyDrawer",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: DrawerOwnerState }>(({ ownerState }) => ({
 	"--Drawer-transitionDuration": "0.3s",
 	"--Drawer-transitionFunction": "ease",
@@ -75,7 +75,7 @@ const DrawerRoot = styled(StyledModalRoot as unknown as "div", {
 const DrawerBackdrop = styled(StyledModalBackdrop as unknown as "div", {
 	name: "JoyDrawer",
 	slot: "Backdrop",
-	overridesResolver: (props, styles) => styles.backdrop,
+	overridesResolver: (_props, styles) => styles.backdrop,
 })<{ ownerState: DrawerOwnerState }>(({ ownerState }) => ({
 	opacity: ownerState.open ? 1 : 0,
 	transition: "opacity var(--Drawer-transitionDuration) ease-in-out",
@@ -84,7 +84,7 @@ const DrawerBackdrop = styled(StyledModalBackdrop as unknown as "div", {
 const DrawerContent = styled("div", {
 	name: "JoyDrawer",
 	slot: "Content",
-	overridesResolver: (props, styles) => styles.content,
+	overridesResolver: (_props, styles) => styles.content,
 })<{ ownerState: DrawerOwnerState }>(({ theme, ownerState }) => ({
 	...theme.typography[`body-${ownerState.size!}`],
 	boxShadow: theme.shadow.md,
@@ -113,10 +113,10 @@ const DrawerContent = styled("div", {
 		bottom: 0,
 		transform: ownerState.open ? "translateY(0)" : "translateY(100%)",
 	}),
-	height: ownerState.anchor!.match(/(left|right)/)
+	height: ownerState.anchor?.match(/(left|right)/)
 		? "100%"
 		: "min(100vh, var(--Drawer-verticalSize))",
-	width: ownerState.anchor!.match(/(top|bottom)/)
+	width: ownerState.anchor?.match(/(top|bottom)/)
 		? "100vw"
 		: "min(100vw, var(--Drawer-horizontalSize))",
 	transition: "transform var(--Drawer-transitionDuration) var(--Drawer-transitionFunction)",

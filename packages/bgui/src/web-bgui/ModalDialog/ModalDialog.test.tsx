@@ -3,7 +3,6 @@ import ModalDialog, { modalDialogClasses as classes } from "@mui/joy/ModalDialog
 import { ThemeProvider } from "@mui/joy/styles";
 import capitalize from "@mui/utils/capitalize";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<ModalDialog />", () => {

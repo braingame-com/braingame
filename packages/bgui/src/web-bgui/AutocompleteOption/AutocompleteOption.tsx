@@ -42,7 +42,7 @@ export const StyledAutocompleteOption = styled(StyledListItemButton as unknown a
 const AutocompleteOptionRoot = styled(StyledAutocompleteOption, {
 	name: "JoyAutocompleteOption",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })({});
 /**
  *

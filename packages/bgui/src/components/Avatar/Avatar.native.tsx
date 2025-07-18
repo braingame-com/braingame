@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { type GestureResponderEvent, Image, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 import { Typography } from "../Typography";
@@ -90,7 +90,7 @@ export const Avatar = forwardRef<View, AvatarProps>(
 
 		const avatarVariantStyle = getAvatarVariantStyle();
 		const sizeStyles = getSizeStyles();
-		const textVariant = getTextSize();
+		const _textVariant = getTextSize();
 
 		const avatarStyle = [styles.base, avatarVariantStyle, sizeStyles, style];
 

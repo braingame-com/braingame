@@ -2,7 +2,6 @@ import { createRenderer } from "@mui/internal-test-utils";
 import Grid, { gridClasses as classes } from "@mui/joy/Grid";
 import { ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("Joy UI <Grid />", () => {

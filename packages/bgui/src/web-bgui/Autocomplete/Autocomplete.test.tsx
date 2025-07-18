@@ -475,7 +475,7 @@ describe("Joy <Autocomplete />", () => {
 					value={options}
 					renderTags={(value, getTagProps) =>
 						value
-							.filter((x, index) => index === 1)
+							.filter((_x, index) => index === 1)
 							.map((option, index) => {
 								const { key, ...tagProps } = getTagProps({ index });
 								return (
@@ -1630,7 +1630,7 @@ describe("Joy <Autocomplete />", () => {
 			const handleChange = spy();
 			function MyComponent() {
 				const [, setInputValue] = React.useState("");
-				const handleInputChange = (event: any, value: string) => {
+				const handleInputChange = (_event: any, value: string) => {
 					handleChange(value);
 					setInputValue(value);
 				};
@@ -2278,7 +2278,7 @@ describe("Joy <Autocomplete />", () => {
 			const handleHighlightChange: (string | null)[] = [];
 			const { getByRole, setProps } = render(
 				<Autocomplete
-					onHighlightChange={(event, option) => {
+					onHighlightChange={(_event, option) => {
 						handleHighlightChange.push(option);
 					}}
 					openOnFocus

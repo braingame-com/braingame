@@ -54,7 +54,7 @@ const switchColorVariables =
 const SwitchRoot = styled("div", {
 	name: "JoySwitch",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: SwitchOwnerState }>(({ theme, ownerState }) => {
 	const getColorVariables = switchColorVariables({ theme, ownerState });
 	return {
@@ -125,7 +125,7 @@ const SwitchRoot = styled("div", {
 const SwitchAction = styled("div", {
 	name: "JoySwitch",
 	slot: "Action",
-	overridesResolver: (props, styles) => styles.action,
+	overridesResolver: (_props, styles) => styles.action,
 })<{ ownerState: SwitchOwnerState }>(({ theme }) => ({
 	borderRadius: "var(--Switch-trackRadius)",
 	position: "absolute",
@@ -139,7 +139,7 @@ const SwitchAction = styled("div", {
 const SwitchInput = styled("input", {
 	name: "JoySwitch",
 	slot: "Input",
-	overridesResolver: (props, styles) => styles.input,
+	overridesResolver: (_props, styles) => styles.input,
 })<{ ownerState: SwitchOwnerState }>({
 	margin: 0,
 	height: "100%",
@@ -152,7 +152,7 @@ const SwitchInput = styled("input", {
 const SwitchTrack = styled("span", {
 	name: "JoySwitch",
 	slot: "Track",
-	overridesResolver: (props, styles) => styles.track,
+	overridesResolver: (_props, styles) => styles.track,
 })<{ ownerState: SwitchOwnerState }>(({ theme, ownerState }) => ({
 	position: "relative",
 	color: "var(--Switch-trackColor)",
@@ -182,7 +182,7 @@ const SwitchTrack = styled("span", {
 const SwitchThumb = styled("span", {
 	name: "JoySwitch",
 	slot: "Thumb",
-	overridesResolver: (props, styles) => styles.thumb,
+	overridesResolver: (_props, styles) => styles.thumb,
 })<{ ownerState: SwitchOwnerState }>({
 	"--Icon-fontSize": "calc(var(--Switch-thumbSize) * 0.75)",
 	display: "inline-flex",
@@ -206,7 +206,7 @@ const SwitchThumb = styled("span", {
 const SwitchStartDecorator = styled("span", {
 	name: "JoySwitch",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })<{ ownerState: SwitchOwnerState }>({
 	display: "inline-flex",
 });
@@ -214,7 +214,7 @@ const SwitchStartDecorator = styled("span", {
 const SwitchEndDecorator = styled("span", {
 	name: "JoySwitch",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })<{ ownerState: SwitchOwnerState }>({
 	display: "inline-flex",
 });

@@ -1,7 +1,6 @@
 import { createRenderer } from "@mui/internal-test-utils";
 import { ThemeProvider, useTheme } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import defaultTheme from "./defaultTheme";
 
 describe("[Joy] ThemeProvider", () => {

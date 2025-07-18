@@ -54,7 +54,7 @@ function areEqualValues(a: unknown, b: unknown) {
 const RadioRoot = styled("span", {
 	name: "JoyRadio",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: RadioOwnerState }>(({ ownerState, theme }) => {
 	return [
 		{
@@ -109,7 +109,7 @@ const RadioRoot = styled("span", {
 const RadioRadio = styled("span", {
 	name: "JoyRadio",
 	slot: "Radio",
-	overridesResolver: (props, styles) => styles.radio,
+	overridesResolver: (_props, styles) => styles.radio,
 })<{ ownerState: RadioOwnerState }>(({ ownerState, theme }) => {
 	const variantStyle = theme.variants[`${ownerState.variant!}`]?.[ownerState.color!];
 	return [
@@ -159,7 +159,7 @@ const RadioRadio = styled("span", {
 const RadioAction = styled("span", {
 	name: "JoyRadio",
 	slot: "Action",
-	overridesResolver: (props, styles) => styles.action,
+	overridesResolver: (_props, styles) => styles.action,
 })<{ ownerState: RadioOwnerState }>(({ theme, ownerState }) => [
 	{
 		position: "absolute",
@@ -196,7 +196,7 @@ const RadioAction = styled("span", {
 const RadioInput = styled("input", {
 	name: "JoyRadio",
 	slot: "Input",
-	overridesResolver: (props, styles) => styles.input,
+	overridesResolver: (_props, styles) => styles.input,
 })<{ ownerState: RadioOwnerState }>(() => ({
 	margin: 0,
 	opacity: 0,
@@ -209,7 +209,7 @@ const RadioInput = styled("input", {
 const RadioLabel = styled("label", {
 	name: "JoyRadio",
 	slot: "Label",
-	overridesResolver: (props, styles) => styles.label,
+	overridesResolver: (_props, styles) => styles.label,
 })<{ ownerState: RadioOwnerState }>(({ ownerState }) => ({
 	flex: 1,
 	minWidth: 0,
@@ -225,7 +225,7 @@ const RadioLabel = styled("label", {
 const RadioIcon = styled("span", {
 	name: "JoyRadio",
 	slot: "Icon",
-	overridesResolver: (props, styles) => styles.icon,
+	overridesResolver: (_props, styles) => styles.icon,
 })<{ ownerState: RadioOwnerState }>(({ ownerState }) => ({
 	width: "calc(var(--Radio-size) / 2)",
 	height: "calc(var(--Radio-size) / 2)",

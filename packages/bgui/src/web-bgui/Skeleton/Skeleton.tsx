@@ -61,7 +61,7 @@ const waveKeyframe = keyframes`
 const SkeletonRoot = styled("span", {
 	name: "JoySkeleton",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: SkeletonOwnerState }>(
 	/**
 	 * Animations

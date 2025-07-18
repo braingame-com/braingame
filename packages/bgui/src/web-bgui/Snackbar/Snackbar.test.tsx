@@ -215,8 +215,8 @@ describe("Joy <Snackbar />", () => {
 		},
 		{
 			type: "keyboard",
-			enter: (container: HTMLElement) => act(() => container.querySelector("button")!.focus()),
-			leave: (container: HTMLElement) => act(() => container.querySelector("button")!.blur()),
+			enter: (container: HTMLElement) => act(() => container.querySelector("button")?.focus()),
+			leave: (container: HTMLElement) => act(() => container.querySelector("button")?.blur()),
 		},
 	].forEach((userInteraction) => {
 		describe(`interacting with ${userInteraction.type}`, () => {

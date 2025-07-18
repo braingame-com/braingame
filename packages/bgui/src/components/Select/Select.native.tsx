@@ -1,15 +1,6 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-	Animated,
-	Dimensions,
-	FlatList,
-	Modal,
-	Pressable,
-	ScrollView,
-	StyleSheet,
-	View,
-} from "react-native";
+import { Animated, Dimensions, Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import type { Theme } from "../../theme/theme";
 import type { SelectProps } from "./SelectProps";
 
@@ -381,7 +372,7 @@ export const Option: React.FC<OptionProps> = ({ value, label, disabled = false, 
 // Internal component for rendering options in the modal
 const OptionItem: React.FC<{ option: any; index: number }> = ({ option, index }) => {
 	const context = React.useContext(SelectContext);
-	const theme = useTheme<Theme>();
+	const _theme = useTheme<Theme>();
 
 	if (!context) {
 		throw new Error("OptionItem must be used within a Select component");

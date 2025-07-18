@@ -211,25 +211,25 @@ export const StyledInputEndDecorator = styled("div")<{ ownerState: InputOwnerSta
 const InputRoot = styled(StyledInputRoot, {
 	name: "JoyInput",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })({});
 
 const InputInput = styled(StyledInputHtml, {
 	name: "JoyInput",
 	slot: "Input",
-	overridesResolver: (props, styles) => styles.input,
+	overridesResolver: (_props, styles) => styles.input,
 })({});
 
 const InputStartDecorator = styled(StyledInputStartDecorator, {
 	name: "JoyInput",
 	slot: "StartDecorator",
-	overridesResolver: (props, styles) => styles.startDecorator,
+	overridesResolver: (_props, styles) => styles.startDecorator,
 })({});
 
 const InputEndDecorator = styled(StyledInputEndDecorator, {
 	name: "JoyInput",
 	slot: "EndDecorator",
-	overridesResolver: (props, styles) => styles.endDecorator,
+	overridesResolver: (_props, styles) => styles.endDecorator,
 })({});
 /**
  *

@@ -1,6 +1,5 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
-import React from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable } from "react-native";
 import type { Theme } from "../../theme/theme";
 import type { TabProps } from "./TabProps";
 
@@ -22,7 +21,7 @@ export function Tab({
 	onClick,
 	"aria-label": ariaLabel,
 }: TabProps) {
-	const theme = useTheme<Theme>();
+	const _theme = useTheme<Theme>();
 
 	// TODO: Extract behavioral logic from web-bgui/Tab/useTab hook
 	// TODO: Implement variant styles based on theme.components.BGUI_Tab

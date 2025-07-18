@@ -34,7 +34,7 @@ const useUtilityClasses = (ownerState: ChipDeleteOwnerState) => {
 const ChipDeleteRoot = styled(StyledIconButton as unknown as "button", {
 	name: "JoyChipDelete",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ChipDeleteOwnerState }>(({ theme }) => ({
 	"--IconButton-size": "var(--Chip-deleteSize, 2rem)",
 	"--Icon-fontSize": "calc(var(--IconButton-size, 2rem) / 1.3)",

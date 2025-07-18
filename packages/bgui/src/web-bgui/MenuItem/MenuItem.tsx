@@ -40,7 +40,7 @@ const useUtilityClasses = (ownerState: MenuItemOwnerState) => {
 const MenuItemRoot = styled(StyledListItemButton, {
 	name: "JoyMenuItem",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: MenuItemOwnerState }>({});
 
 const InnerMenuItem = React.forwardRef(function InnerMenuItem(

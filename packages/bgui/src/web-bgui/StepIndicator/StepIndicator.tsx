@@ -32,7 +32,7 @@ const useUtilityClasses = (ownerState: StepIndicatorOwnerState) => {
 const StepIndicatorRoot = styled("div", {
 	name: "JoyStepIndicator",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: StepIndicatorOwnerState }>(({ theme, ownerState }) => {
 	return {
 		"--Icon-fontSize": "calc(var(--StepIndicator-size, 2rem) / 2)",

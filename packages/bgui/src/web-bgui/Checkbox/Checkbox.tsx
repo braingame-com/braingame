@@ -51,7 +51,7 @@ const useUtilityClasses = (ownerState: CheckboxOwnerState) => {
 const CheckboxRoot = styled("span", {
 	name: "JoyCheckbox",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: CheckboxOwnerState }>(({ ownerState, theme }) => ({
 	"--Icon-fontSize": "var(--Checkbox-size)",
 	...(ownerState.size === "sm" && {
@@ -91,7 +91,7 @@ const CheckboxRoot = styled("span", {
 const CheckboxCheckbox = styled("span", {
 	name: "JoyCheckbox",
 	slot: "Checkbox",
-	overridesResolver: (props, styles) => styles.checkbox,
+	overridesResolver: (_props, styles) => styles.checkbox,
 })<{ ownerState: CheckboxOwnerState }>(({ theme, ownerState }) => {
 	const variantStyle = theme.variants[`${ownerState.variant!}`]?.[ownerState.color!];
 	return [
@@ -140,7 +140,7 @@ const CheckboxCheckbox = styled("span", {
 const CheckboxAction = styled("span", {
 	name: "JoyCheckbox",
 	slot: "Action",
-	overridesResolver: (props, styles) => styles.action,
+	overridesResolver: (_props, styles) => styles.action,
 })<{ ownerState: CheckboxOwnerState }>(({ theme, ownerState }) => [
 	{
 		borderRadius: `var(--Checkbox-actionRadius, ${
@@ -171,7 +171,7 @@ const CheckboxAction = styled("span", {
 const CheckboxInput = styled("input", {
 	name: "JoyCheckbox",
 	slot: "Input",
-	overridesResolver: (props, styles) => styles.input,
+	overridesResolver: (_props, styles) => styles.input,
 })<{ ownerState: CheckboxOwnerState }>(() => ({
 	margin: 0,
 	opacity: 0,
@@ -184,7 +184,7 @@ const CheckboxInput = styled("input", {
 const CheckboxLabel = styled("label", {
 	name: "JoyCheckbox",
 	slot: "Label",
-	overridesResolver: (props, styles) => styles.label,
+	overridesResolver: (_props, styles) => styles.label,
 })<{ ownerState: CheckboxOwnerState }>(({ ownerState }) => ({
 	flex: 1,
 	minWidth: 0,

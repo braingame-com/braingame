@@ -1,6 +1,5 @@
 import type React from "react";
 import { Dimensions } from "react-native";
-import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { ContainerProps } from "./ContainerProps";
 

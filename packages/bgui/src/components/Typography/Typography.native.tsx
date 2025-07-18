@@ -1,5 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { forwardRef, useImperativeHandle, useRef } from "react";
+import { StyleSheet, Text } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { TypographyProps } from "./TypographyProps";

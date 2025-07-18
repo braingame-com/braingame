@@ -168,7 +168,7 @@ export const StyledList = styled("ul")<{ ownerState: ListOwnerState }>(({ theme,
 const ListRoot = styled(StyledList, {
 	name: "JoyList",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })({});
 /**
  *

@@ -3,7 +3,6 @@ import FormControl from "@mui/joy/FormControl";
 import Input, { inputClasses as classes } from "@mui/joy/Input";
 import { extendTheme, ThemeProvider } from "@mui/joy/styles";
 import { expect } from "chai";
-import * as React from "react";
 import { spy } from "sinon";
 import describeConformance from "../../test/describeConformance";
 

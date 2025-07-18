@@ -36,7 +36,7 @@ const useUtilityClasses = (ownerState: TabOwnerState) => {
 const TabRoot = styled(StyledListItemButton, {
 	name: "JoyTab",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: TabOwnerState }>(({ ownerState }) => [
 	{
 		flex: "initial",
@@ -164,7 +164,7 @@ const Tab = React.forwardRef(function Tab(inProps, ref) {
 		() => ({
 			focusVisible: () => {
 				setFocusVisible(true);
-				tabRef.current!.focus();
+				tabRef.current?.focus();
 			},
 		}),
 		[setFocusVisible],

@@ -159,12 +159,12 @@ return (
 					<div className="flex flex--column flex--gap-3">
 						<Switch
 							checked={settings.darkMode}
-							onValueChange={(value) => setSettings({ ...settings, darkMode: value })}
+							onValueChange={(value: boolean) => setSettings({ ...settings, darkMode: value })}
 							variant="standard"
 						/>
 						<Switch
 							checked={settings.notifications}
-							onValueChange={(value) => setSettings({ ...settings, notifications: value })}
+							onValueChange={(value: boolean) => setSettings({ ...settings, notifications: value })}
 							variant="compact"
 						/>
 					</div>
@@ -190,7 +190,7 @@ return (
       </View>
       <Switch
         checked={settings.notifications}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, notifications: value })
         }
       />
@@ -205,7 +205,7 @@ return (
       </View>
       <Switch
         checked={settings.darkMode}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, darkMode: value })
         }
       />
@@ -220,7 +220,7 @@ return (
       </View>
       <Switch
         checked={settings.autoSave}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, autoSave: value })
         }
       />
@@ -235,7 +235,7 @@ return (
       </View>
       <Switch
         checked={settings.analytics}
-        onValueChange={(value) => 
+        onValueChange={(value: boolean) => 
           setSettings({ ...settings, analytics: value })
         }
       />
@@ -251,7 +251,7 @@ return (
 							</div>
 							<Switch
 								checked={settings.notifications}
-								onValueChange={(value) => setSettings({ ...settings, notifications: value })}
+								onValueChange={(value: boolean) => setSettings({ ...settings, notifications: value })}
 							/>
 						</div>
 
@@ -262,7 +262,7 @@ return (
 							</div>
 							<Switch
 								checked={settings.darkMode}
-								onValueChange={(value) => setSettings({ ...settings, darkMode: value })}
+								onValueChange={(value: boolean) => setSettings({ ...settings, darkMode: value })}
 							/>
 						</div>
 
@@ -273,7 +273,7 @@ return (
 							</div>
 							<Switch
 								checked={settings.autoSave}
-								onValueChange={(value) => setSettings({ ...settings, autoSave: value })}
+								onValueChange={(value: boolean) => setSettings({ ...settings, autoSave: value })}
 							/>
 						</div>
 
@@ -284,7 +284,7 @@ return (
 							</div>
 							<Switch
 								checked={settings.analytics}
-								onValueChange={(value) => setSettings({ ...settings, analytics: value })}
+								onValueChange={(value: boolean) => setSettings({ ...settings, analytics: value })}
 							/>
 						</div>
 					</div>
@@ -316,22 +316,22 @@ function PrivacySettings() {
       
       <Switch
         checked={privacy.location}
-        onValueChange={(value) => updatePrivacy('location', value)}
+        onValueChange={(value: boolean) => updatePrivacy('location', value)}
       />
       
       <Switch
         checked={privacy.camera}
-        onValueChange={(value) => updatePrivacy('camera', value)}
+        onValueChange={(value: boolean) => updatePrivacy('camera', value)}
       />
       
       <Switch
         checked={privacy.microphone}
-        onValueChange={(value) => updatePrivacy('microphone', value)}
+        onValueChange={(value: boolean) => updatePrivacy('microphone', value)}
       />
       
       <Switch
         checked={privacy.contacts}
-        onValueChange={(value) => updatePrivacy('contacts', value)}
+        onValueChange={(value: boolean) => updatePrivacy('contacts', value)}
       />
     </View>
   );
@@ -416,7 +416,7 @@ function PrivacySettings() {
       </View>
       <Switch
         checked={feature.enabled}
-        onValueChange={(value) => toggleFeature(feature.id, value)}
+        onValueChange={(value: boolean) => toggleFeature(feature.id, value)}
         color="secondary"
       />
     </View>
@@ -448,7 +448,7 @@ return (
           <Switch
             key={type.id}
             checked={notifications[type.id]}
-            onValueChange={(value) => 
+            onValueChange={(value: boolean) => 
               updateNotification(type.id, value)
             }
           />

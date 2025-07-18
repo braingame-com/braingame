@@ -30,7 +30,7 @@ const useUtilityClasses = (ownerState: ListDividerOwnerState) => {
 const ListDividerRoot = styled(DividerRoot as unknown as "li", {
 	name: "JoyListDivider",
 	slot: "Root",
-	overridesResolver: (props, styles) => styles.root,
+	overridesResolver: (_props, styles) => styles.root,
 })<{ ownerState: ListDividerOwnerState }>(({ ownerState }) => ({
 	...(ownerState.inset === "context" && {
 		"--Divider-inset": "calc(-1 * var(--List-padding))",

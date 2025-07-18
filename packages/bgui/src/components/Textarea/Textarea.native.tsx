@@ -1,11 +1,10 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import {
 	type NativeSyntheticEvent,
 	StyleSheet,
 	TextInput,
 	type TextInputChangeEventData,
 	type TextInputFocusEventData,
-	View,
 } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
@@ -202,7 +201,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 							disabled: disabled,
 							invalid: error,
 						}}
-						scrollEnabled={maxRows ? true : false}
+						scrollEnabled={!!maxRows}
 						keyboardType="default"
 						returnKeyType="default"
 						blurOnSubmit={false}

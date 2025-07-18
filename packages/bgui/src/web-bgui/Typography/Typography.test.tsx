@@ -5,7 +5,6 @@ import Typography, {
 	type TypographyProps,
 } from "@mui/joy/Typography";
 import { expect } from "chai";
-import * as React from "react";
 import describeConformance from "../../test/describeConformance";
 
 describe("<Typography />", () => {
