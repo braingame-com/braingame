@@ -48,7 +48,7 @@ jobs:
         run: pnpm --filter @braingame/main-site test:ci
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           directory: ./apps/main-site/coverage
           flags: main-site
