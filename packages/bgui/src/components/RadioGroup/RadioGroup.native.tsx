@@ -31,8 +31,8 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 			style,
 			testID,
 			"aria-label": ariaLabel,
-			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
+			"aria-describedby": _ariaDescribedby,
+			"aria-labelledby": _ariaLabelledby,
 		},
 		ref,
 	) => {
@@ -47,7 +47,7 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 		const radioGroupName = name || `radio-group-${Math.random().toString(36).substr(2, 9)}`;
 
 		// Merge refs
-		useImperativeHandle(ref, () => radioGroupRef.current!);
+		useImperativeHandle(ref, () => radioGroupRef.current || null);
 
 		// Handle radio selection
 		const handleRadioChange = (event: any) => {

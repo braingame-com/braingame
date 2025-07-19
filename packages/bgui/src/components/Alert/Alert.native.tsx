@@ -32,7 +32,7 @@ export const Alert = forwardRef<View, AlertProps>(
 		const alertRef = useRef<View>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => alertRef.current!);
+		useImperativeHandle(ref, () => alertRef.current || null);
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {

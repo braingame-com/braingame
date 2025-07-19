@@ -35,7 +35,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
 		const textRef = useRef<Text>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => textRef.current!);
+		useImperativeHandle(ref, () => textRef.current || null);
 
 		// Get typography level styles
 		const getLevelStyles = () => {

@@ -32,18 +32,18 @@ export const Input = forwardRef<TextInput, InputProps>(
 			fullWidth = false,
 			type = "text",
 			placeholder,
-			name,
-			id,
+			name: _name,
+			id: _id,
 			required = false,
 			autoFocus = false,
 			readOnly = false,
 			autoComplete,
 			maxLength,
-			minLength,
+			minLength: _minLength,
 			onChange,
 			onBlur,
 			onFocus,
-			onKeyDown,
+			onKeyDown: _onKeyDown,
 			onKeyUp,
 			style,
 			testID,
@@ -57,7 +57,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => inputRef.current!);
+		useImperativeHandle(ref, () => inputRef.current || null);
 
 		// Use error color if error prop is true
 		const effectiveColor = error ? "danger" : color;

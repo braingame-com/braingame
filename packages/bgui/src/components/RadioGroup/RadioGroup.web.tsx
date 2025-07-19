@@ -55,7 +55,8 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 		const value = isControlled ? valueProp : internalValue;
 
 		// Generate unique name if not provided
-		const name = nameProp || `radio-group-${React.useId()}`;
+		const generatedId = React.useId();
+		const name = nameProp || `radio-group-${generatedId}`;
 
 		const handleChange = (newValue: string | number | null) => {
 			if (disabled) return;
