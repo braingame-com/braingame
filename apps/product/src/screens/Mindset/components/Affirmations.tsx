@@ -1,4 +1,4 @@
-import { Text, useMountedState } from "@braingame/bgui";
+import { Typography, useMountedState } from "@braingame/bgui";
 
 // Audio playback uses expo-av. Ensure the dependency is installed in the Expo project
 // import { Audio, type AVPlaybackStatus } from "expo-av";
@@ -165,22 +165,22 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		<View style={mindsetStyles.card}>
 			{/* Card Header */}
 			<View style={mindsetStyles.cardHeader}>
-				<Text variant="title" style={mindsetStyles.cardTitle}>
+				<Typography level="title" style={mindsetStyles.cardTitle}>
 					🎯 Affirmations
-				</Text>
+				</Typography>
 				<View
 					style={[
 						mindsetStyles.statusBadge,
 						completed ? mindsetStyles.statusCompleted : mindsetStyles.statusPending,
 					]}
 				>
-					<Text style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Text>
+					<Typography style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Typography>
 				</View>
 			</View>
 
-			<Text style={mindsetStyles.cardDescription}>
+			<Typography style={mindsetStyles.cardDescription}>
 				Sam Ovens success affirmations for mindset programming and personal excellence
-			</Text>
+			</Typography>
 
 			{/* Audio/Text Toggle Buttons */}
 			<View
@@ -208,7 +208,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							backgroundColor: showAudio === option.value ? "#007fff" : "transparent",
 						}}
 					>
-						<Text
+						<Typography
 							style={{
 								color: "#fff",
 								fontWeight: "600",
@@ -216,7 +216,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							{option.label}
-						</Text>
+						</Typography>
 					</TouchableOpacity>
 				))}
 			</View>
@@ -225,7 +225,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 			{showAudio ? (
 				<View style={{ alignItems: "center" }}>
 					{isLoading ? (
-						<Text style={{ color: "#aaa", marginBottom: 20 }}>Loading audio...</Text>
+						<Typography style={{ color: "#aaa", marginBottom: 20 }}>Loading audio...</Typography>
 					) : (
 						<>
 							<TouchableOpacity
@@ -236,12 +236,12 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								]}
 								disabled={!sound}
 							>
-								<Text style={mindsetStyles.buttonText}>
+								<Typography style={mindsetStyles.buttonText}>
 									{isPlaying ? "⏸️ Pause" : "▶️ Play Affirmations"}
-								</Text>
+								</Typography>
 							</TouchableOpacity>
 
-							<Text
+							<Typography
 								style={{
 									color: "#aaa",
 									fontSize: 14,
@@ -251,7 +251,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 								}}
 							>
 								Listen to the complete Sam Ovens affirmations with background music
-							</Text>
+							</Typography>
 						</>
 					)}
 				</View>
@@ -260,7 +260,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				<ScrollView showsVerticalScrollIndicator={false}>
 					{/* Sam Ovens Affirmations */}
 					<View style={{ marginBottom: 32 }}>
-						<Text
+						<Typography
 							style={{
 								fontSize: 48,
 								color: "#aaa",
@@ -270,9 +270,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							"
-						</Text>
+						</Typography>
 
-						<Text
+						<Typography
 							style={{
 								fontSize: 16,
 								color: "#fff",
@@ -283,9 +283,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							{SAM_OVENS_AFFIRMATIONS}
-						</Text>
+						</Typography>
 
-						<Text
+						<Typography
 							style={{
 								fontSize: 48,
 								color: "#aaa",
@@ -295,9 +295,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							"
-						</Text>
+						</Typography>
 
-						<Text
+						<Typography
 							style={{
 								fontSize: 14,
 								color: "#aaa",
@@ -308,14 +308,14 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							{AFFIRMATIONS_ATTRIBUTION}
-						</Text>
+						</Typography>
 					</View>
 
 					{/* Personal Affirmations */}
 					<View style={mindsetStyles.divider} />
 
 					<View style={{ marginTop: 32, marginBottom: 32 }}>
-						<Text
+						<Typography
 							style={{
 								fontSize: 18,
 								color: "#fff",
@@ -325,9 +325,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							Personal Affirmations
-						</Text>
+						</Typography>
 
-						<Text
+						<Typography
 							style={{
 								fontSize: 16,
 								color: "#fff",
@@ -338,9 +338,9 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							{PERSONAL_AFFIRMATIONS}
-						</Text>
+						</Typography>
 
-						<Text
+						<Typography
 							style={{
 								fontSize: 14,
 								color: "#aaa",
@@ -351,7 +351,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 							}}
 						>
 							{PERSONAL_SIGNATURE}
-						</Text>
+						</Typography>
 					</View>
 
 					{/* Mark Complete Button */}
@@ -359,7 +359,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 						onPress={handleTextComplete}
 						style={[mindsetStyles.button, { backgroundColor: "#00a550" }]}
 					>
-						<Text style={mindsetStyles.buttonText}>✓ Mark Complete</Text>
+						<Typography style={mindsetStyles.buttonText}>✓ Mark Complete</Typography>
 					</TouchableOpacity>
 				</ScrollView>
 			)}

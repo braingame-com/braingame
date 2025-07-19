@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -214,7 +214,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 					/>
 				))}
 				{shuffledImages.length > 15 && (
-					<Text
+					<Typography
 						style={{
 							color: "#aaa",
 							fontSize: 12,
@@ -222,7 +222,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						}}
 					>
 						+{shuffledImages.length - 15} more
-					</Text>
+					</Typography>
 				)}
 			</View>
 		),
@@ -233,22 +233,22 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 		<View style={mindsetStyles.card}>
 			{/* Card Header */}
 			<View style={mindsetStyles.cardHeader}>
-				<Text variant="title" style={mindsetStyles.cardTitle}>
+				<Typography level="title" style={mindsetStyles.cardTitle}>
 					🖼️ Visual Inspiration
-				</Text>
+				</Typography>
 				<View
 					style={[
 						mindsetStyles.statusBadge,
 						completed ? mindsetStyles.statusCompleted : mindsetStyles.statusPending,
 					]}
 				>
-					<Text style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Text>
+					<Typography style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Typography>
 				</View>
 			</View>
 
-			<Text style={mindsetStyles.cardDescription}>
+			<Typography style={mindsetStyles.cardDescription}>
 				{shuffledImages.length} motivational images of success, strength, and excellence
-			</Text>
+			</Typography>
 
 			{/* Navigation Buttons */}
 			<View
@@ -271,7 +271,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						alignItems: "center",
 					}}
 				>
-					<Text
+					<Typography
 						style={{
 							color: "#fff",
 							fontWeight: "600",
@@ -279,10 +279,10 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						}}
 					>
 						← Prev
-					</Text>
+					</Typography>
 				</TouchableOpacity>
 
-				<Text
+				<Typography
 					style={{
 						color: "#aaa",
 						fontSize: 14,
@@ -291,7 +291,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 					}}
 				>
 					{currentIndex + 1} of {shuffledImages.length}
-				</Text>
+				</Typography>
 
 				<TouchableOpacity
 					onPress={goToNext}
@@ -305,7 +305,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						alignItems: "center",
 					}}
 				>
-					<Text
+					<Typography
 						style={{
 							color: "#fff",
 							fontWeight: "600",
@@ -313,7 +313,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 						}}
 					>
 						Next →
-					</Text>
+					</Typography>
 				</TouchableOpacity>
 			</View>
 
@@ -340,7 +340,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 			{renderDots()}
 
 			{/* Progress Info */}
-			<Text
+			<Typography
 				style={{
 					color: "#aaa",
 					fontSize: 12,
@@ -353,7 +353,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				{completed
 					? "✓ Keep scrolling for motivation"
 					: "View a few images to complete this section"}
-			</Text>
+			</Typography>
 		</View>
 	);
 };

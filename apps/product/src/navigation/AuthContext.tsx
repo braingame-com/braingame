@@ -1,4 +1,4 @@
-import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
+import { useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import {
@@ -159,11 +159,7 @@ const AuthProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-	return (
-		<ContextErrorBoundary contextName="Auth">
-			<AuthProviderInner>{children}</AuthProviderInner>
-		</ContextErrorBoundary>
-	);
+	return <AuthProviderInner>{children}</AuthProviderInner>;
 };
 
 export const useAuth = () => {

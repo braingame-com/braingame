@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Link, Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useState } from "react";
@@ -71,12 +71,12 @@ export const LoginScreen: React.FC<Props> = () => {
 					showsVerticalScrollIndicator={false}
 				>
 					<View style={authStyles.formContainer}>
-						<Text style={authStyles.formTitle}>Welcome back</Text>
-						<Text style={authStyles.formSubtitle}>Sign in to continue your journey</Text>
+						<Typography style={authStyles.formTitle}>Welcome back</Typography>
+						<Typography style={authStyles.formSubtitle}>Sign in to continue your journey</Typography>
 
 						{/* Email Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Email</Text>
+							<Typography style={authStyles.inputLabel}>Email</Typography>
 							<TextInput
 								style={[authStyles.input, errors.email && authStyles.inputError]}
 								value={email}
@@ -86,12 +86,12 @@ export const LoginScreen: React.FC<Props> = () => {
 								autoCapitalize="none"
 								autoCorrect={false}
 							/>
-							{errors.email && <Text style={authStyles.errorText}>{errors.email}</Text>}
+							{errors.email && <Typography style={authStyles.errorText}>{errors.email}</Typography>}
 						</View>
 
 						{/* Password Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Password</Text>
+							<Typography style={authStyles.inputLabel}>Password</Typography>
 							<TextInput
 								style={[authStyles.input, errors.password && authStyles.inputError]}
 								value={password}
@@ -100,7 +100,7 @@ export const LoginScreen: React.FC<Props> = () => {
 								secureTextEntry
 								autoCapitalize="none"
 							/>
-							{errors.password && <Text style={authStyles.errorText}>{errors.password}</Text>}
+							{errors.password && <Typography style={authStyles.errorText}>{errors.password}</Typography>}
 						</View>
 
 						{/* Forgot Password */}
@@ -108,7 +108,7 @@ export const LoginScreen: React.FC<Props> = () => {
 							style={authStyles.forgotPassword}
 							onPress={() => navigation.navigate("ForgotPassword")}
 						>
-							<Text style={authStyles.forgotPasswordText}>Forgot password?</Text>
+							<Typography style={authStyles.forgotPasswordText}>Forgot password?</Typography>
 						</TouchableOpacity>
 
 						{/* Login Button */}
@@ -117,37 +117,40 @@ export const LoginScreen: React.FC<Props> = () => {
 							onPress={handleLogin}
 							disabled={loading}
 						>
-							<Text style={authStyles.primaryButtonText}>
+							<Typography style={authStyles.primaryButtonText}>
 								{loading ? "Signing in..." : "Sign In"}
-							</Text>
+							</Typography>
 						</TouchableOpacity>
 
 						{/* Divider */}
 						<View style={authStyles.divider}>
 							<View style={authStyles.dividerLine} />
-							<Text style={authStyles.dividerText}>or</Text>
+							<Typography style={authStyles.dividerText}>or</Typography>
 							<View style={authStyles.dividerLine} />
 						</View>
 
 						{/* Social Login */}
 						<TouchableOpacity style={authStyles.socialButton}>
-							<Text style={authStyles.socialIcon}>🍎</Text>
-							<Text style={authStyles.socialButtonText}>Continue with Apple</Text>
+							<Typography style={authStyles.socialIcon}>🍎</Typography>
+							<Typography style={authStyles.socialButtonText}>Continue with Apple</Typography>
 						</TouchableOpacity>
 
 						<TouchableOpacity style={authStyles.socialButton}>
-							<Text style={authStyles.socialIcon}>📧</Text>
-							<Text style={authStyles.socialButtonText}>Continue with Google</Text>
+							<Typography style={authStyles.socialIcon}>📧</Typography>
+							<Typography style={authStyles.socialButtonText}>Continue with Google</Typography>
 						</TouchableOpacity>
 
 						{/* Sign Up Link */}
 						<View style={{ marginTop: 32, alignItems: "center" }}>
-							<Text style={authStyles.footerText}>
+							<Typography style={authStyles.footerText}>
 								Don't have an account?{" "}
-								<Text style={authStyles.footerLink} onPress={() => navigation.navigate("Register")}>
+								<Link
+									style={authStyles.footerLink}
+									onClick={() => navigation.navigate("Register")}
+								>
 									Sign up
-								</Text>
-							</Text>
+								</Link>
+							</Typography>
 						</View>
 					</View>
 				</ScrollView>

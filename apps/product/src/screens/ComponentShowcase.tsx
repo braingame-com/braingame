@@ -1,5 +1,4 @@
 import {
-	Accordion,
 	Alert,
 	Badge,
 	Button,
@@ -7,15 +6,13 @@ import {
 	Checkbox,
 	Chip,
 	Divider,
-	Icon,
+	Input,
+	Radio,
 	RadioGroup,
-	Slider,
-	Spinner,
 	Switch,
-	Text,
-	TextInput,
-	View,
+	Typography,
 } from "@braingame/bgui";
+import { View } from "react-native";
 import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 
@@ -28,7 +25,7 @@ export function ComponentShowcase() {
 	const [multilineValue, setMultilineValue] = useState("");
 	const [checkboxValue, setCheckboxValue] = useState(false);
 	const [switchValue, setSwitchValue] = useState(false);
-	const [sliderValue, setSliderValue] = useState(50);
+	// const [sliderValue, setSliderValue] = useState(50);
 	const [radioValue, setRadioValue] = useState("option1");
 	const [selectedChips, setSelectedChips] = useState<string[]>([]);
 
@@ -42,72 +39,72 @@ export function ComponentShowcase() {
 		<ScrollView style={styles.container} contentContainerStyle={styles.content}>
 			{/* Typography Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Typography</Text>
+				<Typography level="h3">Typography</Typography>
 				<Divider style={styles.divider} />
-				<Text variant="displayTitle">Display Title</Text>
-				<Text variant="title">Title</Text>
-				<Text variant="heading">Heading</Text>
-				<Text variant="subtitle">Subtitle</Text>
-				<Text variant="body">Body text - The quick brown fox jumps over the lazy dog</Text>
-				<Text variant="bold">Bold text - Emphasized content</Text>
-				<Text variant="secondaryText">Secondary text - Less important information</Text>
-				<Text variant="small">Small text - Fine print</Text>
-				<Text variant="smallThin">Small thin text - Smallest size</Text>
-				<Text variant="body" mono>
+				<Typography level="h1">Display Title</Typography>
+				<Typography level="h2">Title</Typography>
+				<Typography level="h3">Heading</Typography>
+				<Typography level="h4">Subtitle</Typography>
+				<Typography level="body-md">Body text - The quick brown fox jumps over the lazy dog</Typography>
+				<Typography level="body-md" style={{ fontWeight: 'bold' }}>Bold text - Emphasized content</Typography>
+				<Typography level="body-sm" style={{ opacity: 0.7 }}>Secondary text - Less important information</Typography>
+				<Typography level="body-sm">Small text - Fine print</Typography>
+				<Typography level="body-xs">Small thin text - Smallest size</Typography>
+				<Typography level="body-md" style={{ fontFamily: 'monospace' }}>
 					Monospace text - Code snippets
-				</Text>
+				</Typography>
 			</Card>
 
 			{/* Buttons Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Buttons</Text>
+				<Typography level="h3">Buttons</Typography>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} variant="primary">
+					<Button onClick={() => {}} color="primary" variant="solid">
 						Primary
 					</Button>
-					<Button onPress={() => {}} variant="secondary">
+					<Button onClick={() => {}} color="neutral" variant="solid">
 						Secondary
 					</Button>
-					<Button onPress={() => {}} variant="ghost">
+					<Button onClick={() => {}} variant="plain">
 						Ghost
 					</Button>
-					<Button onPress={() => {}} variant="danger">
+					<Button onClick={() => {}} color="danger" variant="solid">
 						Danger
 					</Button>
 				</View>
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} size="sm">
+					<Button onClick={() => {}} size="sm">
 						Small
 					</Button>
-					<Button onPress={() => {}} size="md">
+					<Button onClick={() => {}} size="md">
 						Medium
 					</Button>
-					<Button onPress={() => {}} size="lg">
+					<Button onClick={() => {}} size="lg">
 						Large
 					</Button>
 				</View>
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} icon="home">
+					<Button onClick={() => {}} startDecorator="🏠">
 						With Icon
 					</Button>
-					<Button onPress={() => {}} icon="arrow_forward" iconPosition="right">
+					<Button onClick={() => {}} endDecorator="→">
 						Icon Right
 					</Button>
-					<Button onPress={() => {}} variant="icon" icon="settings" />
+					<Button onClick={() => {}} variant="plain" size="sm">⚙️</Button>
 				</View>
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} loading>
+					<Button onClick={() => {}} loading>
 						Loading
 					</Button>
-					<Button onPress={() => {}} disabled>
+					<Button onClick={() => {}} disabled>
 						Disabled
 					</Button>
-					<Button onPress={() => {}} fullWidth>
+					<Button onClick={() => {}} fullWidth>
 						Full Width
 					</Button>
 				</View>
@@ -115,94 +112,93 @@ export function ComponentShowcase() {
 
 			{/* Chips Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Chips</Text>
+				<Typography level="h3">Chips</Typography>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Chip label="Default" />
-					<Chip label="Primary" color="primary" />
-					<Chip label="Success" color="success" />
-					<Chip label="Warning" color="warning" />
-					<Chip label="Danger" color="danger" />
+					<Chip children="Default" />
+					<Chip children="Primary" color="primary" />
+					<Chip children="Success" color="success" />
+					<Chip children="Warning" color="warning" />
+					<Chip children="Danger" color="danger" />
 				</View>
 
 				<View style={styles.row}>
-					<Chip label="Outlined" variant="outlined" />
-					<Chip label="With Icon" icon="label" color="primary" />
-					<Chip label="Removable" onRemove={() => {}} />
+					<Chip children="Outlined" variant="outlined" />
+					<Chip children="With Icon" startDecorator="🏷️" color="primary" />
+					<Chip children="Removable" endDecorator="×" onClick={() => {}} />
 				</View>
 
 				<View style={styles.row}>
 					<Chip
-						label="React"
-						onPress={() => toggleChip("React")}
-						selected={selectedChips.includes("React")}
+						children="React"
+						onClick={() => toggleChip("React")}
+						variant={selectedChips.includes("React") ? "solid" : "soft"}
 						color="primary"
 					/>
 					<Chip
-						label="React Native"
-						onPress={() => toggleChip("React Native")}
-						selected={selectedChips.includes("React Native")}
+						children="React Native"
+						onClick={() => toggleChip("React Native")}
+						variant={selectedChips.includes("React Native") ? "solid" : "soft"}
 						color="primary"
 					/>
 					<Chip
-						label="TypeScript"
-						onPress={() => toggleChip("TypeScript")}
-						selected={selectedChips.includes("TypeScript")}
+						children="TypeScript"
+						onClick={() => toggleChip("TypeScript")}
+						variant={selectedChips.includes("TypeScript") ? "solid" : "soft"}
 						color="primary"
 					/>
 				</View>
 			</Card>
 
-			{/* Text Input Section */}
+			{/* Typography Input Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Text Inputs</Text>
+				<Typography level="h3">Typography Inputs</Typography>
 				<Divider style={styles.divider} />
 
-				<TextInput
+				<Input
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={(e) => setTextValue(e.target.value)}
 					placeholder="Standard input"
 					style={styles.input}
 				/>
 
-				<TextInput
+				<Input
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={(e) => setTextValue(e.target.value)}
 					placeholder="With left icon"
-					leftIcon="mail"
+					startDecorator="📧"
 					style={styles.input}
 				/>
 
-				<TextInput
+				<Input
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={(e) => setTextValue(e.target.value)}
 					placeholder="With right icon"
-					rightIcon="check"
+					endDecorator="✓"
 					style={styles.input}
 				/>
 
-				<TextInput
+				<Input
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={(e) => setTextValue(e.target.value)}
 					placeholder="Error state"
-					variant="error"
+					error
 					style={styles.input}
 				/>
 
-				<TextInput
+				<Input
 					value={multilineValue}
-					onValueChange={setMultilineValue}
+					onChange={(e) => setMultilineValue(e.target.value)}
 					placeholder="Multiline text area - Type multiple lines here..."
-					multiline
-					numberOfLines={4}
+					// multiline not supported in Input component
 					style={[styles.input, styles.textarea]}
 				/>
 			</Card>
 
-			{/* Icons Section */}
-			<Card style={styles.section}>
-				<Text variant="title">Icons</Text>
+			{/* Icons Section - Component not available in bgui */}
+			{/* <Card style={styles.section}>
+				<Typography level="h3">Icons</Typography>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
@@ -218,116 +214,122 @@ export function ComponentShowcase() {
 					<Icon name="warning" color="warning" />
 					<Icon name="cancel" color="danger" />
 				</View>
-			</Card>
+			</Card> */}
 
 			{/* Badges Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Badges</Text>
+				<Typography level="h3">Badges</Typography>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Badge count={5} />
-					<Badge count={99} color="primary" />
-					<Badge count={999} color="danger" />
-					<Badge text="NEW" color="success" />
+					<Badge>5</Badge>
+					<Badge color="primary">99</Badge>
+					<Badge color="danger">999+</Badge>
+					<Badge color="success">NEW</Badge>
 					<Badge dot color="warning" />
 				</View>
 			</Card>
 
 			{/* Form Controls Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Form Controls</Text>
+				<Typography level="h3">Form Controls</Typography>
 				<Divider style={styles.divider} />
 
 				<View style={styles.formRow}>
 					<Checkbox
 						checked={checkboxValue}
-						onCheckedChange={setCheckboxValue}
+						onChange={(e) => setCheckboxValue(e.target.checked)}
 						label="Checkbox option"
 					/>
 				</View>
 
 				<View style={styles.formRow}>
-					<Switch value={switchValue} onValueChange={setSwitchValue} label="Toggle switch" />
+					<Switch checked={switchValue} onChange={(e) => setSwitchValue(e.target.checked)} endDecorator="Toggle switch" />
 				</View>
 
-				<View style={styles.formRow}>
-					<Text variant="subtitle">Slider: {sliderValue}%</Text>
+				{/* Slider component not available in bgui */}
+				{/* <View style={styles.formRow}>
+					<Typography level="h4">Slider: {sliderValue}%</Typography>
 					<Slider
 						value={sliderValue}
 						onValueChange={(value) => setSliderValue(typeof value === "number" ? value : value[0])}
 						min={0}
 						max={100}
 					/>
-				</View>
+				</View> */}
 
 				<View style={styles.formRow}>
-					<RadioGroup value={radioValue} onValueChange={setRadioValue}>
-						<RadioGroup.Item value="option1" label="Option 1" />
-						<RadioGroup.Item value="option2" label="Option 2" />
-						<RadioGroup.Item value="option3" label="Option 3" />
+					<RadioGroup value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
+						<Radio value="option1" label="Option 1" />
+						<Radio value="option2" label="Option 2" />
+						<Radio value="option3" label="Option 3" />
 					</RadioGroup>
 				</View>
 			</Card>
 
 			{/* Feedback Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Feedback</Text>
+				<Typography level="h3">Feedback</Typography>
 				<Divider style={styles.divider} />
 
 				<Alert
-					type="info"
-					title="Information"
-					message="This is an informational alert message."
+					color="primary"
 					style={styles.alert}
-				/>
+				>
+					<Typography level="h4">Information</Typography>
+					This is an informational alert message.
+				</Alert>
 
 				<Alert
-					type="success"
-					title="Success"
-					message="Operation completed successfully!"
+					color="success"
 					style={styles.alert}
-				/>
+				>
+					<Typography level="h4">Success</Typography>
+					Operation completed successfully!
+				</Alert>
 
 				<Alert
-					type="warning"
-					title="Warning"
-					message="Please review before proceeding."
+					color="warning"
 					style={styles.alert}
-				/>
+				>
+					<Typography level="h4">Warning</Typography>
+					Please review before proceeding.
+				</Alert>
 
 				<Alert
-					type="error"
-					title="Error"
-					message="Something went wrong. Please try again."
+					color="danger"
 					style={styles.alert}
-				/>
+				>
+					<Typography level="h4">Error</Typography>
+					Something went wrong. Please try again.
+				</Alert>
 
-				<View style={styles.row}>
+				{/* Spinner component not available in bgui */}
+				{/* <View style={styles.row}>
 					<Spinner size="sm" />
 					<Spinner size="md" />
 					<Spinner size="lg" />
 					<Spinner color="primary" />
-				</View>
+				</View> */}
 			</Card>
 
-			{/* Accordion Section */}
-			<Card style={styles.section}>
-				<Text variant="title">Accordion</Text>
+			{/* Accordion Section - Component not available in bgui */}
+			{/* <Card style={styles.section}>
+				<Typography level="h3">Accordion</Typography>
 				<Divider style={styles.divider} />
 
 				<Accordion>
 					<Accordion.Item value="section1" title="Section 1">
-						<Text>Content for the first section of the accordion.</Text>
+						<Typography>Content for the first section of the accordion.</Typography>
 					</Accordion.Item>
 					<Accordion.Item value="section2" title="Section 2">
-						<Text>Content for the second section goes here.</Text>
+						<Typography>Content for the second section goes here.</Typography>
 					</Accordion.Item>
 					<Accordion.Item value="section3" title="Section 3">
-						<Text>And here's the content for the third section.</Text>
+						<Typography>And here's the content for the third section.</Typography>
 					</Accordion.Item>
 				</Accordion>
-			</Card>
+			</Card> */}
 		</ScrollView>
 	);
 }

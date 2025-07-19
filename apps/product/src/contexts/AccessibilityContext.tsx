@@ -1,4 +1,3 @@
-import { ContextErrorBoundary } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
@@ -209,11 +208,7 @@ const AccessibilityProviderInner: React.FC<{ children: React.ReactNode }> = ({ c
 };
 
 export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	return (
-		<ContextErrorBoundary contextName="Accessibility">
-			<AccessibilityProviderInner>{children}</AccessibilityProviderInner>
-		</ContextErrorBoundary>
-	);
+	return <AccessibilityProviderInner>{children}</AccessibilityProviderInner>;
 };
 
 export const useAccessibility = () => {

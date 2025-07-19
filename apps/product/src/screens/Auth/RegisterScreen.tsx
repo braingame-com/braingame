@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Link, Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useState } from "react";
@@ -88,12 +88,12 @@ export const RegisterScreen: React.FC<Props> = () => {
 					showsVerticalScrollIndicator={false}
 				>
 					<View style={authStyles.formContainer}>
-						<Text style={authStyles.formTitle}>Create Account</Text>
-						<Text style={authStyles.formSubtitle}>Start your journey to peak performance</Text>
+						<Typography style={authStyles.formTitle}>Create Account</Typography>
+						<Typography style={authStyles.formSubtitle}>Start your journey to peak performance</Typography>
 
 						{/* Name Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Name</Text>
+							<Typography style={authStyles.inputLabel}>Name</Typography>
 							<TextInput
 								style={[authStyles.input, errors.displayName && authStyles.inputError]}
 								value={displayName}
@@ -101,12 +101,12 @@ export const RegisterScreen: React.FC<Props> = () => {
 								placeholder="Enter your name"
 								autoCapitalize="words"
 							/>
-							{errors.displayName && <Text style={authStyles.errorText}>{errors.displayName}</Text>}
+							{errors.displayName && <Typography style={authStyles.errorText}>{errors.displayName}</Typography>}
 						</View>
 
 						{/* Email Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Email</Text>
+							<Typography style={authStyles.inputLabel}>Email</Typography>
 							<TextInput
 								style={[authStyles.input, errors.email && authStyles.inputError]}
 								value={email}
@@ -116,12 +116,12 @@ export const RegisterScreen: React.FC<Props> = () => {
 								autoCapitalize="none"
 								autoCorrect={false}
 							/>
-							{errors.email && <Text style={authStyles.errorText}>{errors.email}</Text>}
+							{errors.email && <Typography style={authStyles.errorText}>{errors.email}</Typography>}
 						</View>
 
 						{/* Password Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Password</Text>
+							<Typography style={authStyles.inputLabel}>Password</Typography>
 							<TextInput
 								style={[authStyles.input, errors.password && authStyles.inputError]}
 								value={password}
@@ -130,12 +130,12 @@ export const RegisterScreen: React.FC<Props> = () => {
 								secureTextEntry
 								autoCapitalize="none"
 							/>
-							{errors.password && <Text style={authStyles.errorText}>{errors.password}</Text>}
+							{errors.password && <Typography style={authStyles.errorText}>{errors.password}</Typography>}
 						</View>
 
 						{/* Confirm Password Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Confirm Password</Text>
+							<Typography style={authStyles.inputLabel}>Confirm Password</Typography>
 							<TextInput
 								style={[authStyles.input, errors.confirmPassword && authStyles.inputError]}
 								value={confirmPassword}
@@ -145,7 +145,7 @@ export const RegisterScreen: React.FC<Props> = () => {
 								autoCapitalize="none"
 							/>
 							{errors.confirmPassword && (
-								<Text style={authStyles.errorText}>{errors.confirmPassword}</Text>
+								<Typography style={authStyles.errorText}>{errors.confirmPassword}</Typography>
 							)}
 						</View>
 
@@ -155,26 +155,29 @@ export const RegisterScreen: React.FC<Props> = () => {
 							onPress={handleRegister}
 							disabled={loading}
 						>
-							<Text style={authStyles.primaryButtonText}>
+							<Typography style={authStyles.primaryButtonText}>
 								{loading ? "Creating account..." : "Create Account"}
-							</Text>
+							</Typography>
 						</TouchableOpacity>
 
 						{/* Terms */}
-						<Text style={[authStyles.footerText, { marginTop: 16, marginBottom: 24 }]}>
+						<Typography style={[authStyles.footerText, { marginTop: 16, marginBottom: 24 }]}>
 							By creating an account, you agree to our{" "}
-							<Text style={authStyles.footerLink}>Terms</Text> and{" "}
-							<Text style={authStyles.footerLink}>Privacy Policy</Text>
-						</Text>
+							<Typography style={authStyles.footerLink}>Terms</Typography> and{" "}
+							<Typography style={authStyles.footerLink}>Privacy Policy</Typography>
+						</Typography>
 
 						{/* Sign In Link */}
 						<View style={{ alignItems: "center" }}>
-							<Text style={authStyles.footerText}>
+							<Typography style={authStyles.footerText}>
 								Already have an account?{" "}
-								<Text style={authStyles.footerLink} onPress={() => navigation.navigate("Login")}>
+								<Link
+									style={authStyles.footerLink}
+									onClick={() => navigation.navigate("Login")}
+								>
 									Sign in
-								</Text>
-							</Text>
+								</Link>
+							</Typography>
 						</View>
 					</View>
 				</ScrollView>

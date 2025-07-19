@@ -1,4 +1,4 @@
-import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
+import { useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
@@ -130,11 +130,7 @@ const ThemeProviderInner: React.FC<{ children: ReactNode }> = ({ children }) => 
 };
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-	return (
-		<ContextErrorBoundary contextName="Theme">
-			<ThemeProviderInner>{children}</ThemeProviderInner>
-		</ContextErrorBoundary>
-	);
+	return <ThemeProviderInner>{children}</ThemeProviderInner>;
 };
 
 export const useTheme = () => {

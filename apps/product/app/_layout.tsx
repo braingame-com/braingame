@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@braingame/bgui";
+import { BGUIThemeProvider } from "@braingame/bgui";
 import { createLogger } from "@braingame/utils";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
@@ -46,12 +46,12 @@ export default function RootLayout() {
 	}, []);
 
 	return (
-		<ThemeProvider>
+		<BGUIThemeProvider>
 			<Stack
 				screenOptions={{
 					headerShown: false,
 				}}
 			/>
-		</ThemeProvider>
+		</BGUIThemeProvider>
 	);
 }

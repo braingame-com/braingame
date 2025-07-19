@@ -1,4 +1,4 @@
-import { Text, useMountedState } from "@braingame/bgui";
+import { Typography, useMountedState } from "@braingame/bgui";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type React from "react";
@@ -46,59 +46,59 @@ export const PaymentModal: React.FC = () => {
 			{/* Header */}
 			<View style={styles.header}>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
-					<Text style={styles.closeButton}>✕</Text>
+					<Typography style={styles.closeButton}>✕</Typography>
 				</TouchableOpacity>
-				<Text style={styles.headerTitle}>Complete Payment</Text>
+				<Typography style={styles.headerTitle}>Complete Payment</Typography>
 				<View style={{ width: 30 }} />
 			</View>
 
 			<ScrollView style={styles.content}>
 				{/* Plan Details */}
 				<View style={styles.planSection}>
-					<Text style={styles.planName}>Premium Plan</Text>
-					<Text style={styles.planPrice}>${price}/month</Text>
-					<Text style={styles.planDescription}>
+					<Typography style={styles.planName}>Premium Plan</Typography>
+					<Typography style={styles.planPrice}>${price}/month</Typography>
+					<Typography style={styles.planDescription}>
 						Unlock all features and unlimited access to content
-					</Text>
+					</Typography>
 				</View>
 
 				{/* Payment Methods */}
 				<View style={styles.paymentSection}>
-					<Text style={styles.sectionTitle}>Payment Method</Text>
+					<Typography style={styles.sectionTitle}>Payment Method</Typography>
 
 					<TouchableOpacity
 						style={[styles.paymentMethod, selectedMethod === "card" && styles.selectedMethod]}
 						onPress={() => setSelectedMethod("card")}
 					>
-						<Text style={styles.methodIcon}>💳</Text>
-						<Text style={styles.methodText}>Credit/Debit Card</Text>
-						{selectedMethod === "card" && <Text style={styles.checkmark}>✓</Text>}
+						<Typography style={styles.methodIcon}>💳</Typography>
+						<Typography style={styles.methodText}>Credit/Debit Card</Typography>
+						{selectedMethod === "card" && <Typography style={styles.checkmark}>✓</Typography>}
 					</TouchableOpacity>
 
 					<TouchableOpacity
 						style={[styles.paymentMethod, selectedMethod === "apple" && styles.selectedMethod]}
 						onPress={() => setSelectedMethod("apple")}
 					>
-						<Text style={styles.methodIcon}>🍎</Text>
-						<Text style={styles.methodText}>Apple Pay</Text>
-						{selectedMethod === "apple" && <Text style={styles.checkmark}>✓</Text>}
+						<Typography style={styles.methodIcon}>🍎</Typography>
+						<Typography style={styles.methodText}>Apple Pay</Typography>
+						{selectedMethod === "apple" && <Typography style={styles.checkmark}>✓</Typography>}
 					</TouchableOpacity>
 
 					<TouchableOpacity
 						style={[styles.paymentMethod, selectedMethod === "google" && styles.selectedMethod]}
 						onPress={() => setSelectedMethod("google")}
 					>
-						<Text style={styles.methodIcon}>📱</Text>
-						<Text style={styles.methodText}>Google Pay</Text>
-						{selectedMethod === "google" && <Text style={styles.checkmark}>✓</Text>}
+						<Typography style={styles.methodIcon}>📱</Typography>
+						<Typography style={styles.methodText}>Google Pay</Typography>
+						{selectedMethod === "google" && <Typography style={styles.checkmark}>✓</Typography>}
 					</TouchableOpacity>
 				</View>
 
 				{/* Terms */}
-				<Text style={styles.terms}>
+				<Typography style={styles.terms}>
 					By subscribing, you agree to our Terms of Service and Privacy Policy. You can cancel
 					anytime.
-				</Text>
+				</Typography>
 			</ScrollView>
 
 			{/* Pay Button */}
@@ -108,7 +108,7 @@ export const PaymentModal: React.FC = () => {
 					onPress={handlePayment}
 					disabled={processing}
 				>
-					<Text style={styles.payButtonText}>{processing ? "Processing..." : `Pay $${price}`}</Text>
+					<Typography style={styles.payButtonText}>{processing ? "Processing..." : `Pay $${price}`}</Typography>
 				</TouchableOpacity>
 			</View>
 		</SafeAreaView>

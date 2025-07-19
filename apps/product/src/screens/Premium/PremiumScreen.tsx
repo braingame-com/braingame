@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -16,10 +16,10 @@ const PremiumFeature = ({
 	description: string;
 }) => (
 	<View style={styles.feature}>
-		<Text style={styles.featureIcon}>{icon}</Text>
+		<Typography style={styles.featureIcon}>{icon}</Typography>
 		<View style={styles.featureContent}>
-			<Text style={styles.featureTitle}>{title}</Text>
-			<Text style={styles.featureDescription}>{description}</Text>
+			<Typography style={styles.featureTitle}>{title}</Typography>
+			<Typography style={styles.featureDescription}>{description}</Typography>
 		</View>
 	</View>
 );
@@ -46,14 +46,14 @@ const PremiumScreenComponent: React.FC = () => {
 			<ScrollView showsVerticalScrollIndicator={false}>
 				{/* Header */}
 				<View style={styles.header}>
-					<Text style={styles.logo}>🏆</Text>
-					<Text style={styles.title}>BrainGame Premium</Text>
-					<Text style={styles.subtitle}>Unlock your full potential with unlimited access</Text>
+					<Typography style={styles.logo}>🏆</Typography>
+					<Typography style={styles.title}>BrainGame Premium</Typography>
+					<Typography style={styles.subtitle}>Unlock your full potential with unlimited access</Typography>
 				</View>
 
 				{/* Features */}
 				<View style={styles.featuresSection}>
-					<Text style={styles.sectionTitle}>Everything in Premium</Text>
+					<Typography style={styles.sectionTitle}>Everything in Premium</Typography>
 
 					<TouchableOpacity onPress={() => handleFeaturePress("AdvancedAnalytics")}>
 						<PremiumFeature
@@ -100,12 +100,12 @@ const PremiumScreenComponent: React.FC = () => {
 				<View style={styles.pricingSection}>
 					<TouchableOpacity style={styles.pricingOption} onPress={handleSubscribe}>
 						<View style={styles.pricingBadge}>
-							<Text style={styles.pricingBadgeText}>BEST VALUE</Text>
+							<Typography style={styles.pricingBadgeText}>BEST VALUE</Typography>
 						</View>
-						<Text style={styles.pricingTitle}>Annual</Text>
-						<Text style={styles.pricingPrice}>$79.99</Text>
-						<Text style={styles.pricingPeriod}>per year</Text>
-						<Text style={styles.pricingSavings}>Save 33%</Text>
+						<Typography style={styles.pricingTitle}>Annual</Typography>
+						<Typography style={styles.pricingPrice}>$79.99</Typography>
+						<Typography style={styles.pricingPeriod}>per year</Typography>
+						<Typography style={styles.pricingSavings}>Save 33%</Typography>
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -117,20 +117,20 @@ const PremiumScreenComponent: React.FC = () => {
 							})
 						}
 					>
-						<Text style={styles.pricingTitle}>Monthly</Text>
-						<Text style={styles.pricingPrice}>$9.99</Text>
-						<Text style={styles.pricingPeriod}>per month</Text>
+						<Typography style={styles.pricingTitle}>Monthly</Typography>
+						<Typography style={styles.pricingPrice}>$9.99</Typography>
+						<Typography style={styles.pricingPeriod}>per month</Typography>
 					</TouchableOpacity>
 				</View>
 
 				{/* CTA Button */}
 				<TouchableOpacity style={styles.ctaButton} onPress={handleSubscribe}>
-					<Text style={styles.ctaButtonText}>Start Free Trial</Text>
-					<Text style={styles.ctaSubtext}>7 days free, then $79.99/year</Text>
+					<Typography style={styles.ctaButtonText}>Start Free Trial</Typography>
+					<Typography style={styles.ctaSubtext}>7 days free, then $79.99/year</Typography>
 				</TouchableOpacity>
 
 				{/* Terms */}
-				<Text style={styles.terms}>Cancel anytime. Recurring billing. Terms apply.</Text>
+				<Typography style={styles.terms}>Cancel anytime. Recurring billing. Terms apply.</Typography>
 			</ScrollView>
 		</SafeAreaView>
 	);

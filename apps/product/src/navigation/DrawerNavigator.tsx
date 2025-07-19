@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 // TODO: Install @react-navigation/drawer
 // import {
 // 	createDrawerNavigator,
@@ -61,16 +61,16 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (_props) => {
 						marginBottom: 12,
 					}}
 				>
-					<Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
+					<Typography style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
 						{user ? user.displayName?.charAt(0) || user.email.charAt(0).toUpperCase() : "?"}
-					</Text>
+					</Typography>
 				</View>
-				<Text style={{ fontSize: 18, fontWeight: "600", marginBottom: 4 }}>
+				<Typography style={{ fontSize: 18, fontWeight: "600", marginBottom: 4 }}>
 					{user ? user.displayName || user.email.split("@")[0] : "Not signed in"}
-				</Text>
-				<Text style={{ fontSize: 14, color: "#666" }}>
+				</Typography>
+				<Typography style={{ fontSize: 14, color: "#666" }}>
 					{user ? user.email : "Please sign in to continue"}
-				</Text>
+				</Typography>
 			</View>
 
 			{/* Navigation Items */}
@@ -88,7 +88,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (_props) => {
 						alignItems: "center",
 					}}
 				>
-					<Text style={{ color: "#fff", fontWeight: "600" }}>Logout</Text>
+					<Typography style={{ color: "#fff", fontWeight: "600" }}>Logout</Typography>
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -116,7 +116,7 @@ export const DrawerNavigator: React.FC = () => {
 				options={{
 					drawerLabel: "Home",
 					drawerIcon: ({ color: _color }: { color: string }) => (
-						<Text style={{ fontSize: 20 }}>🏠</Text>
+						<Typography style={{ fontSize: 20 }}>🏠</Typography>
 					),
 				}}
 			/>
@@ -126,7 +126,7 @@ export const DrawerNavigator: React.FC = () => {
 				options={{
 					drawerLabel: "UI Components",
 					drawerIcon: ({ color: _color }: { color: string }) => (
-						<Text style={{ fontSize: 20 }}>🎨</Text>
+						<Typography style={{ fontSize: 20 }}>🎨</Typography>
 					),
 					headerShown: true,
 					headerTitle: "Component Showcase",
@@ -138,7 +138,7 @@ export const DrawerNavigator: React.FC = () => {
 				options={{
 					drawerLabel: "Settings",
 					drawerIcon: ({ color: _color }: { color: string }) => (
-						<Text style={{ fontSize: 20 }}>⚙️</Text>
+						<Typography style={{ fontSize: 20 }}>⚙️</Typography>
 					),
 					headerShown: true,
 					headerTitle: "Settings",

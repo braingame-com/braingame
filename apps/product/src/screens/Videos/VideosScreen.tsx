@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { View } from "react-native";
 
@@ -20,8 +20,8 @@ export const VideosScreen: React.FC<Props> = ({ route }) => {
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Text>Videos</Text>
-			{categoryId ? <Text>Category: {categoryId}</Text> : <Text>No category specified</Text>}
+			<Typography>Videos</Typography>
+			{categoryId ? <Typography>Category: {categoryId}</Typography> : <Typography>No category specified</Typography>}
 		</View>
 	);
 };
