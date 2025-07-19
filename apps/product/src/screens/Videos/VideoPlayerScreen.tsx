@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { View } from "react-native";
 
@@ -16,9 +16,9 @@ export const VideoPlayerScreen: React.FC<Props> = ({ route }) => {
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Text>Video Player</Text>
-			<Text>Playing: {title}</Text>
-			<Text>ID: {videoId}</Text>
+			<Typography>Video Player</Typography>
+			<Typography>Playing: {title}</Typography>
+			<Typography>ID: {videoId}</Typography>
 		</View>
 	);
 };

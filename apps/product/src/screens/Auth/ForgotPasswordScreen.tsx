@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Link, Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useState } from "react";
@@ -71,14 +71,14 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 					showsVerticalScrollIndicator={false}
 				>
 					<View style={authStyles.formContainer}>
-						<Text style={authStyles.formTitle}>Reset Password</Text>
-						<Text style={authStyles.formSubtitle}>
+						<Typography style={authStyles.formTitle}>Reset Password</Typography>
+						<Typography style={authStyles.formSubtitle}>
 							Enter your email and we'll send you instructions to reset your password
-						</Text>
+						</Typography>
 
 						{/* Email Input */}
 						<View style={authStyles.inputContainer}>
-							<Text style={authStyles.inputLabel}>Email</Text>
+							<Typography style={authStyles.inputLabel}>Email</Typography>
 							<TextInput
 								style={[authStyles.input, error && authStyles.inputError]}
 								value={email}
@@ -89,7 +89,7 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 								autoCorrect={false}
 								editable={!sent}
 							/>
-							{error && <Text style={authStyles.errorText}>{error}</Text>}
+							{error && <Typography style={authStyles.errorText}>{error}</Typography>}
 						</View>
 
 						{/* Reset Button */}
@@ -98,19 +98,22 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 							onPress={handleResetPassword}
 							disabled={loading || sent}
 						>
-							<Text style={authStyles.primaryButtonText}>
+							<Typography style={authStyles.primaryButtonText}>
 								{loading ? "Sending..." : sent ? "Email Sent" : "Send Reset Email"}
-							</Text>
+							</Typography>
 						</TouchableOpacity>
 
 						{/* Back to Login */}
 						<View style={{ marginTop: 32, alignItems: "center" }}>
-							<Text style={authStyles.footerText}>
+							<Typography style={authStyles.footerText}>
 								Remember your password?{" "}
-								<Text style={authStyles.footerLink} onPress={() => navigation.navigate("Login")}>
+								<Link
+									style={authStyles.footerLink}
+									onClick={() => navigation.navigate("Login")}
+								>
 									Sign in
-								</Text>
-							</Text>
+								</Link>
+							</Typography>
 						</View>
 					</View>
 				</ScrollView>

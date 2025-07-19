@@ -1,4 +1,4 @@
-import { ContextErrorBoundary, useMountedState } from "@braingame/bgui";
+import { useMountedState } from "@braingame/bgui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type React from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
@@ -177,11 +177,7 @@ const AnalyticsProviderInner: React.FC<{ children: React.ReactNode }> = ({ child
 };
 
 export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	return (
-		<ContextErrorBoundary contextName="Analytics">
-			<AnalyticsProviderInner>{children}</AnalyticsProviderInner>
-		</ContextErrorBoundary>
-	);
+	return <AnalyticsProviderInner>{children}</AnalyticsProviderInner>;
 };
 
 export const useAnalyticsSettings = () => {

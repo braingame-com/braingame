@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { useCallback, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
@@ -20,10 +20,10 @@ interface ComingSoonCard {
 const ComingSoonCardComponent = withMemo<{ item: ComingSoonCard }>(
 	({ item }) => (
 		<View style={mindsetStyles.card}>
-			<Text variant="title" style={mindsetStyles.cardTitle}>
+			<Typography level="title" style={mindsetStyles.cardTitle}>
 				{item.icon} {item.title}
-			</Text>
-			<Text style={mindsetStyles.cardDescription}>{item.description}</Text>
+			</Typography>
+			<Typography style={mindsetStyles.cardDescription}>{item.description}</Typography>
 		</View>
 	),
 	"ComingSoonCard",
@@ -33,9 +33,9 @@ const CompletionHeader = withMemo<{ completedCount: number; totalCount: number }
 	({ completedCount, totalCount }) => {
 		const isAllComplete = completedCount === totalCount;
 		return (
-			<Text style={mindsetStyles.completionCounter}>
+			<Typography style={mindsetStyles.completionCounter}>
 				{isAllComplete ? "✅ All Complete!" : `${completedCount}/${totalCount} Completed`}
-			</Text>
+			</Typography>
 		);
 	},
 	"CompletionHeader",
@@ -44,9 +44,9 @@ const CompletionHeader = withMemo<{ completedCount: number; totalCount: number }
 const MindsetHeader = withMemo(
 	() => (
 		<View style={{ marginBottom: 32 }}>
-			<Text variant="displayTitle" style={{ textAlign: "center", marginBottom: 8 }}>
+			<Typography level="displayTitle" style={{ textAlign: "center", marginBottom: 8 }}>
 				🧠 Mindset Training
-			</Text>
+			</Typography>
 		</View>
 	),
 	"MindsetHeader",
@@ -54,8 +54,8 @@ const MindsetHeader = withMemo(
 
 const MindsetSubtitle = withMemo(
 	() => (
-		<Text
-			variant="subtitle"
+		<Typography
+			level="subtitle"
 			style={{
 				textAlign: "center",
 				color: "#aaa",
@@ -63,7 +63,7 @@ const MindsetSubtitle = withMemo(
 			}}
 		>
 			Daily practices for mindset mastery and personal excellence
-		</Text>
+		</Typography>
 	),
 	"MindsetSubtitle",
 );

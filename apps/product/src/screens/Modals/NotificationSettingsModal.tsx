@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useState } from "react";
@@ -65,11 +65,11 @@ export const NotificationSettingsModal: React.FC = () => {
 			{/* Header */}
 			<View style={styles.header}>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
-					<Text style={styles.cancelButton}>Cancel</Text>
+					<Typography style={styles.cancelButton}>Cancel</Typography>
 				</TouchableOpacity>
-				<Text style={styles.headerTitle}>Notifications</Text>
+				<Typography style={styles.headerTitle}>Notifications</Typography>
 				<TouchableOpacity onPress={handleSave}>
-					<Text style={styles.saveButton}>Save</Text>
+					<Typography style={styles.saveButton}>Save</Typography>
 				</TouchableOpacity>
 			</View>
 
@@ -77,10 +77,10 @@ export const NotificationSettingsModal: React.FC = () => {
 				{/* Master Toggle */}
 				<View style={styles.masterToggle}>
 					<View style={{ flex: 1 }}>
-						<Text style={styles.masterTitle}>Allow Notifications</Text>
-						<Text style={styles.masterDescription}>
+						<Typography style={styles.masterTitle}>Allow Notifications</Typography>
+						<Typography style={styles.masterDescription}>
 							Receive notifications about your training and progress
-						</Text>
+						</Typography>
 					</View>
 					<Switch
 						value={settings.some((s) => s.enabled)}
@@ -94,12 +94,12 @@ export const NotificationSettingsModal: React.FC = () => {
 
 				{/* Individual Settings */}
 				<View style={styles.settingsSection}>
-					<Text style={styles.sectionTitle}>Notification Types</Text>
+					<Typography style={styles.sectionTitle}>Notification Types</Typography>
 					{settings.map((setting) => (
 						<View key={setting.id} style={styles.settingItem}>
 							<View style={{ flex: 1 }}>
-								<Text style={styles.settingTitle}>{setting.title}</Text>
-								<Text style={styles.settingDescription}>{setting.description}</Text>
+								<Typography style={styles.settingTitle}>{setting.title}</Typography>
+								<Typography style={styles.settingDescription}>{setting.description}</Typography>
 							</View>
 							<Switch
 								value={setting.enabled}
@@ -113,14 +113,14 @@ export const NotificationSettingsModal: React.FC = () => {
 
 				{/* Quiet Hours */}
 				<View style={styles.quietHours}>
-					<Text style={styles.sectionTitle}>Quiet Hours</Text>
+					<Typography style={styles.sectionTitle}>Quiet Hours</Typography>
 					<TouchableOpacity style={styles.quietHoursButton}>
-						<Text style={styles.quietHoursLabel}>From</Text>
-						<Text style={styles.quietHoursTime}>10:00 PM</Text>
+						<Typography style={styles.quietHoursLabel}>From</Typography>
+						<Typography style={styles.quietHoursTime}>10:00 PM</Typography>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.quietHoursButton}>
-						<Text style={styles.quietHoursLabel}>To</Text>
-						<Text style={styles.quietHoursTime}>7:00 AM</Text>
+						<Typography style={styles.quietHoursLabel}>To</Typography>
+						<Typography style={styles.quietHoursTime}>7:00 AM</Typography>
 					</TouchableOpacity>
 				</View>
 			</ScrollView>

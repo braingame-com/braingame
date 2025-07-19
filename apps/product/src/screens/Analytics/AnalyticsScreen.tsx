@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { View } from "react-native";
 
@@ -26,8 +26,8 @@ export const AnalyticsScreen: React.FC<Props> = ({ route }) => {
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Text>Analytics</Text>
-			<Text>Showing: {validMetrics.includes(metric) ? metric : "performance"}</Text>
+			<Typography>Analytics</Typography>
+			<Typography>Showing: {validMetrics.includes(metric) ? metric : "performance"}</Typography>
 		</View>
 	);
 };

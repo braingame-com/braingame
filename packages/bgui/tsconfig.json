@@ -8,6 +8,7 @@
 		"resolveJsonModule": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"jsx": "react-jsx",
+		"module": "ES2022",
 		"moduleResolution": "bundler",
 		"skipLibCheck": true,
 		"allowJs": true

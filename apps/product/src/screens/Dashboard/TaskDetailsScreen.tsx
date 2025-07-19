@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,16 +14,16 @@ export const TaskDetailsScreen: React.FC<Props> = ({ route }) => {
 		<SafeAreaView style={dashboardStyles.container}>
 			<ScrollView style={dashboardStyles.scrollView}>
 				<View style={dashboardStyles.header}>
-					<Text style={dashboardStyles.title}>Task Details</Text>
-					<Text style={dashboardStyles.subtitle}>Task ID: {taskId}</Text>
+					<Typography style={dashboardStyles.title}>Task Details</Typography>
+					<Typography style={dashboardStyles.subtitle}>Task ID: {taskId}</Typography>
 				</View>
 
 				<View style={dashboardStyles.section}>
-					<Text style={dashboardStyles.sectionTitle}>Description</Text>
-					<Text style={dashboardStyles.actionDescription}>
+					<Typography style={dashboardStyles.sectionTitle}>Description</Typography>
+					<Typography style={dashboardStyles.actionDescription}>
 						This is a placeholder for task details. In a real app, this would show the full task
 						information, status, assignees, due dates, etc.
-					</Text>
+					</Typography>
 				</View>
 			</ScrollView>
 		</SafeAreaView>

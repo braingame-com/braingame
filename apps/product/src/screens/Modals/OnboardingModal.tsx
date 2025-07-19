@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { useRef, useState } from "react";
@@ -62,9 +62,9 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({ step, index, scrollX })
 	return (
 		<View style={styles.stepContainer}>
 			<Animated.View style={[styles.stepContent, animatedStyle]}>
-				<Text style={styles.stepIcon}>{step.icon}</Text>
-				<Text style={styles.stepTitle}>{step.title}</Text>
-				<Text style={styles.stepDescription}>{step.description}</Text>
+				<Typography style={styles.stepIcon}>{step.icon}</Typography>
+				<Typography style={styles.stepTitle}>{step.title}</Typography>
+				<Typography style={styles.stepDescription}>{step.description}</Typography>
 			</Animated.View>
 		</View>
 	);
@@ -104,7 +104,7 @@ export const OnboardingModal: React.FC = () => {
 			{/* Header */}
 			<View style={styles.header}>
 				<TouchableOpacity onPress={handleSkip}>
-					<Text style={styles.skipButton}>Skip</Text>
+					<Typography style={styles.skipButton}>Skip</Typography>
 				</TouchableOpacity>
 			</View>
 
@@ -137,9 +137,9 @@ export const OnboardingModal: React.FC = () => {
 			{/* Bottom Actions */}
 			<View style={styles.footer}>
 				<TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-					<Text style={styles.nextButtonText}>
+					<Typography style={styles.nextButtonText}>
 						{currentStep === onboardingSteps.length - 1 ? "Get Started" : "Next"}
-					</Text>
+					</Typography>
 				</TouchableOpacity>
 			</View>
 		</SafeAreaView>

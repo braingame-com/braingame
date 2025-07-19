@@ -427,7 +427,7 @@ importers:
         version: 15.8.1
       react-native-performance:
         specifier: ^5.1.4
-        version: 5.1.4(react-native@0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0))
+        version: 5.1.4(react-native@0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))
     devDependencies:
       '@testing-library/jest-dom':
         specifier: ^6.6.3
@@ -567,6 +567,16 @@ importers:
       react-native:
         specifier: 0.76.3
         version: 0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0)
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.14
+        version: 19.0.14
+      '@types/react-native':
+        specifier: ^0.73.0
+        version: 0.73.0(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.8.3
 
   packages/utils:
     dependencies:
@@ -4073,6 +4083,10 @@ packages:
     resolution: {integrity: sha512-4hOiT/dwO8Ko0gV1m/TJZYk3y0KBnY9vzDh7W+DH17b2HFSOGgdj33dhihPeuy3l0q23+4e+hoXHV6hCC4dCXw==}
     peerDependencies:
       '@types/react': 19.0.14
+
+  '@types/react-native@0.73.0':
+    resolution: {integrity: sha512-6ZRPQrYM72qYKGWidEttRe6M5DZBEV5F+MHMHqd4TTYx0tfkcdrUFGdef6CCxY0jXU7wldvd/zA/b0A/kTeJmA==}
+    deprecated: This is a stub types definition. react-native provides its own type definitions, so you do not need this installed.
 
   '@types/react-test-renderer@19.1.0':
     resolution: {integrity: sha512-XD0WZrHqjNrxA/MaR9O22w/RNidWR9YZmBdRGI7wcnWGrv/3dA8wKCJ8m63Sn+tLJhcjmuhOi629N66W6kgWzQ==}
@@ -14143,6 +14157,18 @@ snapshots:
       '@types/react': 19.1.8
     optional: true
 
+  '@types/react-native@0.73.0(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)':
+    dependencies:
+      react-native: 0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@react-native-community/cli'
+      - '@types/react'
+      - bufferutil
+      - react
+      - supports-color
+      - utf-8-validate
+
   '@types/react-test-renderer@19.1.0':
     dependencies:
       '@types/react': 19.0.14
@@ -19223,9 +19249,9 @@ snapshots:
       react: 19.0.0
       react-native: 0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)
 
-  react-native-performance@5.1.4(react-native@0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0)):
+  react-native-performance@5.1.4(react-native@0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)):
     dependencies:
-      react-native: 0.76.3(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(@types/react@19.0.14)(react@19.0.0)
+      react-native: 0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)
 
   react-native-reanimated@3.18.0(@babel/core@7.28.0)(react-native@0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:

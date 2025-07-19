@@ -1,4 +1,4 @@
-import { Text, useAbortController, useMountedState } from "@braingame/bgui";
+import { Typography, useAbortController, useMountedState } from "@braingame/bgui";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
@@ -152,28 +152,28 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 		<View style={mindsetStyles.card}>
 			{/* Card Header */}
 			<View style={mindsetStyles.cardHeader}>
-				<Text variant="title" style={mindsetStyles.cardTitle}>
+				<Typography level="title" style={mindsetStyles.cardTitle}>
 					Vision & Goals
-				</Text>
+				</Typography>
 				<View
 					style={[
 						mindsetStyles.statusBadge,
 						completed ? mindsetStyles.statusCompleted : mindsetStyles.statusPending,
 					]}
 				>
-					<Text style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Text>
+					<Typography style={mindsetStyles.statusText}>{completed ? "✓ Done" : "To do"}</Typography>
 				</View>
 			</View>
 
-			<Text style={mindsetStyles.cardDescription}>
+			<Typography style={mindsetStyles.cardDescription}>
 				Define your vision across 5 key life areas. Be specific and detailed.
-			</Text>
+			</Typography>
 
 			{/* Form */}
 			<ScrollView style={mindsetStyles.formContainer} showsVerticalScrollIndicator={false}>
 				{formData.map((area, index) => (
 					<View key={area.key} style={mindsetStyles.inputGroup}>
-						<Text style={mindsetStyles.inputLabel}>{area.key}</Text>
+						<Typography style={mindsetStyles.inputLabel}>{area.key}</Typography>
 						<TextInput
 							style={mindsetStyles.textInput}
 							value={area.value}
@@ -188,7 +188,7 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 				))}
 
 				{/* Error Message */}
-				{error ? <Text style={mindsetStyles.errorText}>{error}</Text> : null}
+				{error ? <Typography style={mindsetStyles.errorText}>{error}</Typography> : null}
 
 				{/* Submit Button */}
 				<View style={{ marginTop: 24 }}>
@@ -202,7 +202,7 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 							buttonState === "error" && mindsetStyles.buttonError,
 						]}
 					>
-						<Text style={mindsetStyles.buttonText}>{getButtonText()}</Text>
+						<Typography style={mindsetStyles.buttonText}>{getButtonText()}</Typography>
 					</TouchableOpacity>
 				</View>
 			</ScrollView>

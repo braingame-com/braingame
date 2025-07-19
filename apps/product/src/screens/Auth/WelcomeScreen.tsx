@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import { useNavigation } from "@react-navigation/native";
 import type React from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -16,9 +16,9 @@ export const WelcomeScreen: React.FC<Props> = () => {
 			<View style={authStyles.content}>
 				{/* Logo/Brand Section */}
 				<View style={authStyles.brandSection}>
-					<Text style={authStyles.logo}>🧠</Text>
-					<Text style={authStyles.brandName}>BrainGame</Text>
-					<Text style={authStyles.tagline}>Unlock your potential with daily mindset training</Text>
+					<Typography style={authStyles.logo}>🧠</Typography>
+					<Typography style={authStyles.brandName}>BrainGame</Typography>
+					<Typography style={authStyles.tagline}>Unlock your potential with daily mindset training</Typography>
 				</View>
 
 				{/* Buttons Section */}
@@ -27,14 +27,14 @@ export const WelcomeScreen: React.FC<Props> = () => {
 						style={[authStyles.button, authStyles.primaryButton]}
 						onPress={() => navigation.navigate("Login")}
 					>
-						<Text style={authStyles.primaryButtonText}>Sign In</Text>
+						<Typography style={authStyles.primaryButtonText}>Sign In</Typography>
 					</TouchableOpacity>
 
 					<TouchableOpacity
 						style={[authStyles.button, authStyles.secondaryButton]}
 						onPress={() => navigation.navigate("Register")}
 					>
-						<Text style={authStyles.secondaryButtonText}>Create Account</Text>
+						<Typography style={authStyles.secondaryButtonText}>Create Account</Typography>
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -44,16 +44,16 @@ export const WelcomeScreen: React.FC<Props> = () => {
 							// Guest authentication functionality not yet implemented
 						}}
 					>
-						<Text style={authStyles.skipButtonText}>Continue as Guest</Text>
+						<Typography style={authStyles.skipButtonText}>Continue as Guest</Typography>
 					</TouchableOpacity>
 				</View>
 
 				{/* Footer */}
 				<View style={authStyles.footer}>
-					<Text style={authStyles.footerText}>
-						By continuing, you agree to our <Text style={authStyles.footerLink}>Terms</Text> and{" "}
-						<Text style={authStyles.footerLink}>Privacy Policy</Text>
-					</Text>
+					<Typography style={authStyles.footerText}>
+						By continuing, you agree to our <Typography style={authStyles.footerLink}>Terms</Typography> and{" "}
+						<Typography style={authStyles.footerLink}>Privacy Policy</Typography>
+					</Typography>
 				</View>
 			</View>
 		</SafeAreaView>

@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { AccessibilityInfo, FlatList, TouchableOpacity, View } from "react-native";
@@ -44,12 +44,12 @@ const StatCard = withMemo<{ item: StatItem; index: number; total: number }>(
 
 		return (
 			<View style={dashboardStyles.statCard} {...getAccessibilityProps(label, hint, "text")}>
-				<Text style={dashboardStyles.statValue} importantForAccessibility="no">
+				<Typography style={dashboardStyles.statValue} aria-label="no">
 					{item.value}
-				</Text>
-				<Text style={dashboardStyles.statLabel} importantForAccessibility="no">
+				</Typography>
+				<Typography style={dashboardStyles.statLabel} aria-label="no">
 					{item.label}
-				</Text>
+				</Typography>
 			</View>
 		);
 	},
@@ -68,20 +68,20 @@ const ActionCard = withMemo<{ item: ActionItem; index: number; total: number }>(
 				onPress={item.onPress}
 				{...getAccessibilityProps(label, hint, "button")}
 			>
-				<Text style={dashboardStyles.actionIcon} importantForAccessibility="no">
+				<Typography style={dashboardStyles.actionIcon} aria-label="no">
 					{item.icon}
-				</Text>
+				</Typography>
 				<View style={dashboardStyles.actionContent}>
-					<Text style={dashboardStyles.actionTitle} importantForAccessibility="no">
+					<Typography style={dashboardStyles.actionTitle} aria-label="no">
 						{item.title}
-					</Text>
-					<Text style={dashboardStyles.actionDescription} importantForAccessibility="no">
+					</Typography>
+					<Typography style={dashboardStyles.actionDescription} aria-label="no">
 						{item.description}
-					</Text>
+					</Typography>
 				</View>
-				<Text style={dashboardStyles.actionArrow} importantForAccessibility="no">
+				<Typography style={dashboardStyles.actionArrow} aria-label="no">
 					→
-				</Text>
+				</Typography>
 			</TouchableOpacity>
 		);
 	},
@@ -105,12 +105,12 @@ const ActivityCard = withMemo<{
 			{...getAccessibilityProps(label, hint, "button")}
 		>
 			<View style={dashboardStyles.activityDot} />
-			<Text style={dashboardStyles.activityText} importantForAccessibility="no">
+			<Typography style={dashboardStyles.activityText} aria-label="no">
 				Completed {item.task}
-			</Text>
-			<Text style={dashboardStyles.activityTime} importantForAccessibility="no">
+			</Typography>
+			<Typography style={dashboardStyles.activityTime} aria-label="no">
 				{item.time}
-			</Text>
+			</Typography>
 		</TouchableOpacity>
 	);
 }, "ActivityCard");
@@ -132,15 +132,15 @@ const DashboardHeader = withMemo(() => {
 
 	return (
 		<View ref={headerRef} style={dashboardStyles.header}>
-			<Text
+			<Typography
 				style={dashboardStyles.title}
 				{...getAccessibilityProps("Dashboard", "Your productivity hub", "header")}
 			>
 				Dashboard
-			</Text>
-			<Text style={dashboardStyles.subtitle} importantForAccessibility="no">
+			</Typography>
+			<Typography style={dashboardStyles.subtitle} aria-label="no">
 				Your productivity hub
-			</Text>
+			</Typography>
 		</View>
 	);
 }, "DashboardHeader");
@@ -148,12 +148,12 @@ const DashboardHeader = withMemo(() => {
 // Accessible Section header component
 const SectionHeader = withMemo<{ title: string }>(
 	({ title }) => (
-		<Text
+		<Typography
 			style={dashboardStyles.sectionTitle}
 			{...getAccessibilityProps(title, undefined, "header")}
 		>
 			{title}
-		</Text>
+		</Typography>
 	),
 	"SectionHeader",
 );

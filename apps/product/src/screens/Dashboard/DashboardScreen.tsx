@@ -1,4 +1,4 @@
-import { Text } from "@braingame/bgui";
+import { Typography } from "@braingame/bgui";
 import type React from "react";
 import { useCallback, useMemo } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
@@ -34,8 +34,8 @@ interface ActivityItem {
 const StatCard = withMemo<{ item: StatItem }>(
 	({ item }) => (
 		<View style={dashboardStyles.statCard}>
-			<Text style={dashboardStyles.statValue}>{item.value}</Text>
-			<Text style={dashboardStyles.statLabel}>{item.label}</Text>
+			<Typography style={dashboardStyles.statValue}>{item.value}</Typography>
+			<Typography style={dashboardStyles.statLabel}>{item.label}</Typography>
 		</View>
 	),
 	"StatCard",
@@ -44,12 +44,12 @@ const StatCard = withMemo<{ item: StatItem }>(
 const ActionCard = withMemo<{ item: ActionItem }>(
 	({ item }) => (
 		<TouchableOpacity style={dashboardStyles.actionCard} onPress={item.onPress}>
-			<Text style={dashboardStyles.actionIcon}>{item.icon}</Text>
+			<Typography style={dashboardStyles.actionIcon}>{item.icon}</Typography>
 			<View style={dashboardStyles.actionContent}>
-				<Text style={dashboardStyles.actionTitle}>{item.title}</Text>
-				<Text style={dashboardStyles.actionDescription}>{item.description}</Text>
+				<Typography style={dashboardStyles.actionTitle}>{item.title}</Typography>
+				<Typography style={dashboardStyles.actionDescription}>{item.description}</Typography>
 			</View>
-			<Text style={dashboardStyles.actionArrow}>→</Text>
+			<Typography style={dashboardStyles.actionArrow}>→</Typography>
 		</TouchableOpacity>
 	),
 	"ActionCard",
@@ -59,8 +59,8 @@ const ActivityCard = withMemo<{ item: ActivityItem; onPress: (id: string) => voi
 	({ item, onPress }) => (
 		<TouchableOpacity style={dashboardStyles.activityItem} onPress={() => onPress(item.id)}>
 			<View style={dashboardStyles.activityDot} />
-			<Text style={dashboardStyles.activityText}>Completed {item.task}</Text>
-			<Text style={dashboardStyles.activityTime}>{item.time}</Text>
+			<Typography style={dashboardStyles.activityText}>Completed {item.task}</Typography>
+			<Typography style={dashboardStyles.activityTime}>{item.time}</Typography>
 		</TouchableOpacity>
 	),
 	"ActivityCard",
@@ -71,8 +71,8 @@ const DashboardHeader = withMemo(
 	() => (
 		<>
 			<View style={dashboardStyles.header}>
-				<Text style={dashboardStyles.title}>Dashboard</Text>
-				<Text style={dashboardStyles.subtitle}>Your productivity hub</Text>
+				<Typography style={dashboardStyles.title}>Dashboard</Typography>
+				<Typography style={dashboardStyles.subtitle}>Your productivity hub</Typography>
 			</View>
 		</>
 	),
@@ -81,7 +81,7 @@ const DashboardHeader = withMemo(
 
 // Section header component
 const SectionHeader = withMemo<{ title: string }>(
-	({ title }) => <Text style={dashboardStyles.sectionTitle}>{title}</Text>,
+	({ title }) => <Typography style={dashboardStyles.sectionTitle}>{title}</Typography>,
 	"SectionHeader",
 );
 
