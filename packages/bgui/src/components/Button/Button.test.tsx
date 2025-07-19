@@ -97,10 +97,9 @@ describe("Button", () => {
 		const { getByText } = render(<Button fullWidth>Full Width</Button>);
 
 		const button = getByText("Full Width").parentElement;
-		if (button) {
-			const styles = window.getComputedStyle(button);
-			expect(styles.width).toBe("100%");
-		}
+		expect(button).toBeTruthy();
+		const styles = window.getComputedStyle(button!);
+		expect(styles.width).toBe("100%");
 	});
 
 	it("handles keyboard activation", () => {
@@ -108,7 +107,7 @@ describe("Button", () => {
 		const { getByText } = render(<Button onClick={handleClick}>Keyboard Test</Button>);
 
 		const button = getByText("Keyboard Test").parentElement;
-		if (!button) return;
+		expect(button).toBeTruthy();
 
 		// Test Enter key
 		fireEvent.keyDown(button, { key: "Enter" });

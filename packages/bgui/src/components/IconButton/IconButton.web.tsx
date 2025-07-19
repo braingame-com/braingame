@@ -133,6 +133,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 
 		const { focusVisible, getRootProps } = useButton({
 			...other,
+			href,
 			type,
 			onClick,
 			onBlur,

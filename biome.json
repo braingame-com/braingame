@@ -7,7 +7,8 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["apps/**", "packages/**"]
+		"includes": ["apps/**", "packages/**"],
+		"ignore": ["**/dist/**", "**/node_modules/**", "**/.next/**", "**/build/**"]
 	},
 	"formatter": {
 		"enabled": true,
