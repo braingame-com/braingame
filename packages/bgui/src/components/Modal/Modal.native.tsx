@@ -23,21 +23,21 @@ export const Modal = forwardRef<View, ModalProps>(
 			children,
 			open,
 			onClose,
-			disableAutoFocus = false,
-			disableEnforceFocus = false,
+			disableAutoFocus: _disableAutoFocus = false,
+			disableEnforceFocus: _disableEnforceFocus = false,
 			disableEscapeKeyDown = false,
-			disableRestoreFocus = false,
-			disableScrollLock = false,
+			disableRestoreFocus: _disableRestoreFocus = false,
+			disableScrollLock: _disableScrollLock = false,
 			hideBackdrop = false,
 			keepMounted = false,
-			disablePortal = false,
-			container,
+			disablePortal: _disablePortal = false,
+			container: _container,
 			style,
 			testID,
 			role = "dialog",
 			"aria-label": ariaLabel,
 			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
+			"aria-labelledby": _ariaLabelledby,
 		},
 		ref,
 	) => {
@@ -47,7 +47,7 @@ export const Modal = forwardRef<View, ModalProps>(
 		const [visible, setVisible] = useState(open);
 
 		// Merge refs
-		useImperativeHandle(ref, () => modalRef.current!);
+		useImperativeHandle(ref, () => modalRef.current || null);
 
 		// Handle modal open/close animations
 		useEffect(() => {
@@ -117,7 +117,7 @@ export const Modal = forwardRef<View, ModalProps>(
 		}
 
 		// Get screen dimensions for centering
-		const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+		const { width: _screenWidth, height: _screenHeight } = Dimensions.get("window");
 
 		// Modal content styles
 		const modalContentStyle = [

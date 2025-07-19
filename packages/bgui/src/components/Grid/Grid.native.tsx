@@ -40,7 +40,7 @@ export const Grid = forwardRef<View, GridProps>(
 		const gridRef = useRef<View>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => gridRef.current!);
+		useImperativeHandle(ref, () => gridRef.current || null);
 
 		// Get current screen width for responsive behavior
 		const screenWidth = Dimensions.get("window").width;

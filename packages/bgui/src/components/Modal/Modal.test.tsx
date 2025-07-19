@@ -68,7 +68,9 @@ describe("Modal", () => {
 
 		// Find and click the backdrop
 		const backdrop = document.querySelector('[style*="position: fixed"][style*="z-index: -1"]');
-		fireEvent.click(backdrop!);
+		if (backdrop) {
+			fireEvent.click(backdrop);
+		}
 
 		expect(handleClose).toHaveBeenCalledTimes(1);
 		expect(handleClose).toHaveBeenCalledWith(expect.any(Object), "backdropClick");

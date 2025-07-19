@@ -26,16 +26,16 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 			onClick,
 			onBlur,
 			onFocus,
-			onKeyDown,
-			onKeyUp,
+			onKeyDown: _onKeyDown,
+			onKeyUp: _onKeyUp,
 			style,
 			testID,
 			"aria-label": ariaLabel,
 			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
+			"aria-labelledby": _ariaLabelledby,
 			"aria-pressed": ariaPressed,
 			"aria-expanded": ariaExpanded,
-			"aria-controls": ariaControls,
+			"aria-controls": _ariaControls,
 			"aria-checked": ariaChecked,
 		},
 		ref,
@@ -45,7 +45,7 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => buttonRef.current!);
+		useImperativeHandle(ref, () => buttonRef.current || null);
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {

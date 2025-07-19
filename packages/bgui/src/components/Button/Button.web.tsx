@@ -92,7 +92,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		const [active, setActive] = React.useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => buttonRef.current!);
+		useImperativeHandle(ref, () => buttonRef.current || null);
 
 		// Handle loading state
 		const isDisabled = disabled || loading;

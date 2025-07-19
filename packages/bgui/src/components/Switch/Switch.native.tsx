@@ -46,7 +46,7 @@ export const Switch = forwardRef<View, SwitchProps>(
 		const checkedValue = isControlled ? checked : internalChecked;
 
 		// Merge refs
-		useImperativeHandle(ref, () => switchRef.current!);
+		useImperativeHandle(ref, () => switchRef.current || null);
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {

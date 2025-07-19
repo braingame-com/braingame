@@ -36,7 +36,7 @@ export const Radio = forwardRef<View, RadioProps>(
 			disableIcon = false,
 			overlay = false,
 			required = false,
-			autoFocus = false,
+			autoFocus: _autoFocus = false,
 			readOnly = false,
 			checkedIcon,
 			uncheckedIcon,
@@ -57,7 +57,7 @@ export const Radio = forwardRef<View, RadioProps>(
 		const checkedValue = isControlled ? checked : internalChecked;
 
 		// Merge refs
-		useImperativeHandle(ref, () => radioRef.current!);
+		useImperativeHandle(ref, () => radioRef.current || null);
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {

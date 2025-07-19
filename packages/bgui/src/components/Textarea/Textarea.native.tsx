@@ -60,7 +60,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => textareaRef.current!);
+		useImperativeHandle(ref, () => textareaRef.current || null);
 
 		// Use error color if error prop is true
 		const effectiveColor = error ? "danger" : color;

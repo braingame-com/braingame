@@ -48,7 +48,7 @@ export const Button = forwardRef<View, ButtonProps>(
 		const [isPressed, setIsPressed] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => buttonRef.current!);
+		useImperativeHandle(ref, () => buttonRef.current || null);
 
 		// Handle loading/disabled state
 		const isDisabled = disabled || loading;

@@ -47,8 +47,12 @@ describe("useSlot", () => {
 				href?: string;
 				slots?: { root?: React.ElementType; decorator?: React.ElementType };
 				slotProps?: {
-					root?: SlotProps<"button", Record<string, any>, {}>;
-					decorator?: SlotProps<"span", { size?: "sm" | "md" } & Record<string, any>, {}>;
+					root?: SlotProps<"button", Record<string, any>, Record<string, never>>;
+					decorator?: SlotProps<
+						"span",
+						{ size?: "sm" | "md" } & Record<string, any>,
+						Record<string, never>
+					>;
 				};
 			}
 		>((props, ref) => {
@@ -146,7 +150,7 @@ describe("useSlot", () => {
 				root?: React.ElementType;
 			};
 			slotProps?: {
-				root?: SlotProps<"div", Record<string, any>, {}>;
+				root?: SlotProps<"div", Record<string, any>, Record<string, never>>;
 			};
 		}) {
 			const ref = React.useRef(null);
@@ -211,9 +215,9 @@ describe("useSlot", () => {
 				option?: React.ElementType;
 			};
 			slotProps?: {
-				root?: SlotProps<"button", Record<string, any>, {}>;
-				listbox?: SlotProps<"ul", Record<string, any>, {}>;
-				option?: SlotProps<"div", Record<string, any>, {}>;
+				root?: SlotProps<"button", Record<string, any>, Record<string, never>>;
+				listbox?: SlotProps<"ul", Record<string, any>, Record<string, never>>;
+				option?: SlotProps<"div", Record<string, any>, Record<string, never>>;
 			};
 		}) {
 			const ref = React.useRef(null);

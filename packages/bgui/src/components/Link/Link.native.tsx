@@ -25,14 +25,14 @@ export const Link = forwardRef<View, LinkProps>(
 			endDecorator,
 			level = "body-md",
 			overlay = false,
-			target = "_self",
-			rel,
+			target: _target = "_self",
+			rel: _rel,
 			onClick,
 			style,
 			testID,
 			"aria-label": ariaLabel,
-			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
+			"aria-describedby": _ariaDescribedby,
+			"aria-labelledby": _ariaLabelledby,
 		},
 		ref,
 	) => {
@@ -42,7 +42,7 @@ export const Link = forwardRef<View, LinkProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => linkRef.current!);
+		useImperativeHandle(ref, () => linkRef.current || null);
 
 		// Handle link press
 		const handlePress = useCallback(

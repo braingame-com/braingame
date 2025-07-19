@@ -33,7 +33,7 @@ export const Avatar = forwardRef<View, AvatarProps>(
 		const [imgError, setImgError] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => avatarRef.current!);
+		useImperativeHandle(ref, () => avatarRef.current || null);
 
 		// Get avatar variant style from theme
 		const getAvatarVariantStyle = () => {

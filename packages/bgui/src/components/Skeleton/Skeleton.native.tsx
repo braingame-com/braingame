@@ -34,7 +34,7 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 		const waveAnim = useRef(new Animated.Value(0)).current;
 
 		// Merge refs
-		useImperativeHandle(ref, () => skeletonRef.current!);
+		useImperativeHandle(ref, () => skeletonRef.current || null);
 
 		// Get typography styles for text variant
 		const getTypographyStyles = () => {

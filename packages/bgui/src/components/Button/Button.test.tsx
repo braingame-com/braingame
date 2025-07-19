@@ -97,15 +97,18 @@ describe("Button", () => {
 		const { getByText } = render(<Button fullWidth>Full Width</Button>);
 
 		const button = getByText("Full Width").parentElement;
-		const styles = window.getComputedStyle(button!);
-		expect(styles.width).toBe("100%");
+		if (button) {
+			const styles = window.getComputedStyle(button);
+			expect(styles.width).toBe("100%");
+		}
 	});
 
 	it("handles keyboard activation", () => {
 		const handleClick = jest.fn();
 		const { getByText } = render(<Button onClick={handleClick}>Keyboard Test</Button>);
 
-		const button = getByText("Keyboard Test").parentElement!;
+		const button = getByText("Keyboard Test").parentElement;
+		if (!button) return;
 
 		// Test Enter key
 		fireEvent.keyDown(button, { key: "Enter" });

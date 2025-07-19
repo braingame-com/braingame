@@ -24,7 +24,7 @@ function useForkRef<T>(...refs: Array<React.Ref<T> | undefined | null>): React.R
 			});
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		refs,
+		[...refs],
 	);
 }
 
@@ -132,7 +132,13 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 		const handleRef = useForkRef(buttonRef, ref);
 
 		const { focusVisible, getRootProps } = useButton({
-			...props,
+			...other,
+			type,
+			onClick,
+			onBlur,
+			onFocus,
+			onKeyDown,
+			onKeyUp,
 			disabled,
 			rootRef: handleRef,
 		});

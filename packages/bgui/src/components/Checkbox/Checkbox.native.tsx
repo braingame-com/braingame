@@ -41,7 +41,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 			disableIcon = false,
 			overlay = false,
 			required = false,
-			autoFocus = false,
+			autoFocus: _autoFocus = false,
 			readOnly = false,
 			checkedIcon,
 			uncheckedIcon,
@@ -63,7 +63,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 		const checkedValue = isControlled ? checked : internalChecked;
 
 		// Merge refs
-		useImperativeHandle(ref, () => checkboxRef.current!);
+		useImperativeHandle(ref, () => checkboxRef.current || null);
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {

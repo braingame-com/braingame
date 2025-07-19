@@ -33,7 +33,7 @@ export const Card = forwardRef<View, CardProps>(
 		const cardRef = useRef<View>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => cardRef.current!);
+		useImperativeHandle(ref, () => cardRef.current || null);
 
 		// Get card variant style from theme
 		const getCardVariantStyle = () => {
