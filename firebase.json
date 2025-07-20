@@ -17,11 +17,12 @@
       ]
     },
     {
-      "site": "docs",
+      "site": "braingame-prod-docs",
       "public": "apps/docs-site/out",
       "ignore": [
         "firebase.json",
-        "**/.*"
+        "**/.*",
+        "**/node_modules/**"
       ]
     },
     {

@@ -78,4 +78,4 @@ jobs:
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
 
       - name: Deploy to Firebase
-        run: npx firebase-tools deploy --only functions,firestore,hosting --project=braingame-prod --force 
+        run: npx firebase-tools deploy --only functions,firestore,hosting:braingame-prod-api --project=braingame-prod --force 
