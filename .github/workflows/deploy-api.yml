@@ -8,6 +8,7 @@ on:
       - 'apps/api/**'
       - 'firebase.json'
       - 'firestore.rules'
+      - 'pnpm-lock.yaml'
       - '.github/workflows/deploy-api.yml'
 
 jobs:
