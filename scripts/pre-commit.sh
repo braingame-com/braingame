@@ -75,7 +75,17 @@ else
     OVERALL_SUCCESS=false
 fi
 
-# 4. Run lint-staged
+# 4. Check documentation links
+print_status "📚 Checking documentation links..."
+if pnpm check:docs > /dev/null 2>&1; then
+    print_success "All documentation links are valid"
+else
+    print_error "Found broken documentation links!"
+    echo "   Run 'pnpm check:docs' to see broken links"
+    OVERALL_SUCCESS=false
+fi
+
+# 5. Run lint-staged
 print_status "📝 Checking staged files..."
 if npx lint-staged > /dev/null 2>&1; then
     print_success "Staged files look good"
@@ -85,7 +95,7 @@ else
     OVERALL_SUCCESS=false
 fi
 
-# 5. Run tests
+# 6. Run tests
 print_status "🧪 Running tests..."
 if pnpm test > /dev/null 2>&1; then
     print_success "All tests passing"

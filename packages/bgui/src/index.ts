@@ -74,3 +74,8 @@ export { Typography } from "./components/Typography";
 export type { ComponentPerfResult } from "./utils/performance";
 // Performance utilities (for development/testing)
 export { perfMeasurement } from "./utils/performance";
+// Effects components
+export type { AnimatedGradientBackgroundProps } from "./components/AnimatedGradientBackground";
+export { AnimatedGradientBackground } from "./components/AnimatedGradientBackground";
+export type { GlowingLogoProps } from "./components/GlowingLogo";
+export { GlowingLogo } from "./components/GlowingLogo";

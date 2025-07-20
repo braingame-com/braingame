@@ -9,20 +9,20 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 > **Primary Directive:** All agents **MUST** read these docs before generating code, tests, or documentation:
 
 ### **Essential Workflow Docs:**
-1. **[📋 CLAUDE.md](./CLAUDE.md)** - Tactical guide with golden path workflow and commands
-2. **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
-3. **[📖 LESSONS.md](./LESSONS.md)** - Critical technical learnings, incident prevention, and session summaries
-4. **[📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
+1. **[📋 CLAUDE.md](./.claude/CLAUDE.md)** - Tactical guide with golden path workflow and commands
+2. **[🏗️ ARCHITECTURE.md](./docs/architecture/ARCHITECTURE.md)** - System design, worktree isolation, and technical blueprint
+3. **[📖 LESSONS.md](./docs/development/LESSONS.md)** - Critical technical learnings, incident prevention, and session summaries
+4. **[📋 CONTRIBUTING.md](./.github/CONTRIBUTING.md)** - Zero-tolerance quality standards and workflow
 
 ### **Critical Process Docs:**
-- **[🔄 PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
-- **[⚙️ WORKTREES.md](./WORKTREES.md)** - Workspace isolation guide (prevents contamination)
-- **[📝 TODO.md](../../TODO.md)** - Current task tracker and priority management
+- **[🔄 PR_REVIEW_PROCESS.md](./docs/processes/PR_REVIEW_PROCESS.md)** - PR merge procedures with quality validation
+- **[⚙️ WORKTREES.md](./docs/development/WORKTREES.md)** - Workspace isolation guide (prevents contamination)
+- **[📝 TODO.md](./docs/todo/TODO.md)** - Current task tracker and priority management
 
 ### **Quality Standards:**
-- **[📊 QUALITY.md](./QUALITY.md)** - Comprehensive code quality playbook with examples
-- **[💅 CODING_STYLE.md](./CODING_STYLE.md)** - Code standards and anti-patterns
-- **[🧪 TESTING.md](./TESTING.md)** - Testing strategy and hybrid approach
+- **[📊 QUALITY.md](./docs/processes/QUALITY.md)** - Comprehensive code quality playbook with examples
+- **[💅 CODING_STYLE.md](./docs/development/CODING_STYLE.md)** - Code standards and anti-patterns
+- **[🧪 TESTING.md](./docs/development/TESTING.md)** - Testing strategy and hybrid approach
 
 ---
 
@@ -42,7 +42,7 @@ This document defines the roles, usage, and guard‑rails for **all AI agents, b
 ### Quality Standards (ZERO TOLERANCE)
 **⚠️ CRITICAL:** All agents must adhere to our zero-tolerance quality policy.
 
-**For complete quality standards, see: [📋 CONTRIBUTING.md](../../.github/CONTRIBUTING.md)**
+**For complete quality standards, see: [📋 CONTRIBUTING.md](./.github/CONTRIBUTING.md)**
 
 **Mandatory Quality Checks:**
 - ❌ No lint errors or warnings (`pnpm lint` must be 0/0)
@@ -71,7 +71,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm build
 gh pr merge <number> --squash --delete-branch
 ```
 
-**⚠️ CRITICAL:** Follow [PR_REVIEW_PROCESS.md](./PR_REVIEW_PROCESS.md) exactly. Skipping quality validation on branches is the primary cause of technical debt on main.
+**⚠️ CRITICAL:** Follow [PR_REVIEW_PROCESS.md](./docs/processes/PR_REVIEW_PROCESS.md) exactly. Skipping quality validation on branches is the primary cause of technical debt on main.
 
 ### Operational Guardrails
 - **Workspace Isolation:** Always verify which git worktree you're working in. Production work happens in the main `braingame/` directory, experimental/AI work happens in `braingame-claude-sandbox/`. When in doubt, ask.
@@ -80,7 +80,7 @@ gh pr merge <number> --squash --delete-branch
   git worktree list
   pwd && git branch --show-current
   ```
-  ⚠️ **CRITICAL:** Working in wrong directory has caused major incidents. See [LESSONS.md](./LESSONS.md#workspace-contamination-20-06-2025).
+  ⚠️ **CRITICAL:** Working in wrong directory has caused major incidents. See [LESSONS.md](./docs/development/LESSONS.md#workspace-contamination-20-06-2025).
 - **Human Review is Mandatory:** All agent-generated code must be reviewed and approved by a human maintainer before merging.
 - **PR Closure Prohibition:** ⚠️ **CRITICAL: AI agents are PROHIBITED from closing PRs without explicit human approval.** Closing PRs risks losing valuable work. AI agents may only recommend PR closure with clear reasoning, but the actual closure decision and action MUST be performed by a human. Both merging AND closing PRs require human review and approval.
 - **Read-Only by Default:** Agents should operate with the minimum necessary permissions. Write access is a privilege, gated by CI checks.
@@ -100,10 +100,10 @@ gh pr merge <number> --squash --delete-branch
 
 All AI agents must document their work sessions:
 
-1. **Session Start:** Read [TODO.md](../../TODO.md) and mark tasks as `in_progress`
+1. **Session Start:** Read [TODO.md](./docs/todo/TODO.md) and mark tasks as `in_progress`
 2. **Session End:** 
-   - Update [TODO.md](../../TODO.md) with completion status
-   - Add significant learnings to [LESSONS.md](./LESSONS.md)
+   - Update [TODO.md](./docs/todo/TODO.md) with completion status
+   - Add significant learnings to [LESSONS.md](./docs/development/LESSONS.md)
    - Document any incidents or workarounds discovered
 3. **Quality Checks:** Run `pnpm lint` and `pnpm test` before marking tasks complete
 

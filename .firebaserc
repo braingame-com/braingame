@@ -5,12 +5,19 @@
   "targets": {
     "braingame-prod": {
       "hosting": {
-        "www": ["braingame-website"],
-        "app": ["braingame-app"],
-        "docs": ["braingame-docs"],
-        "api": ["braingame-api"]
+        "www": [
+          "braingame-website"
+        ],
+        "app": [
+          "braingame-app"
+        ],
+        "docs": [
+          "braingame-docs"
+        ],
+        "api": [
+          "braingame-api"
+        ]
       }
     }
   }
 }
-EOF < /dev/null

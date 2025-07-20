@@ -1,34 +1,70 @@
 {
-	"hosting": [
-		{
-			"target": "www",
-			"public": "apps/main-site/out",
-			"ignore": ["firebase.json", "**/.*"]
-		},
-		{
-			"target": "app",
-			"public": "apps/product",
-			"ignore": ["firebase.json", "**/.*"]
-		},
-		{
-			"target": "docs",
-			"public": "apps/docs-site/out",
-			"ignore": ["firebase.json", "**/.*"]
-		},
-		{
-			"target": "api",
-			"public": "apps/api/dist",
-			"ignore": ["firebase.json", "**/.*"],
-			"rewrites": [
-				{
-					"source": "**",
-					"function": "api"
-				}
-			]
-		}
-	],
-	"functions": {
-		"source": "apps/api",
-		"runtime": "nodejs20"
-	}
+  "hosting": [
+    {
+      "site": "www",
+      "public": "apps/main-site/out",
+      "ignore": [
+        "firebase.json",
+        "**/.*"
+      ]
+    },
+    {
+      "site": "app",
+      "public": "apps/product",
+      "ignore": [
+        "firebase.json",
+        "**/.*"
+      ]
+    },
+    {
+      "site": "docs",
+      "public": "apps/docs-site/out",
+      "ignore": [
+        "firebase.json",
+        "**/.*"
+      ]
+    },
+    {
+      "site": "braingame-prod-api",
+      "public": "apps/api/public",
+      "rewrites": [
+        {
+          "source": "/",
+          "destination": "/index.html"
+        },
+        {
+          "source": "**",
+          "function": "api"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "source": "apps/api",
+    "runtime": "nodejs20"
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "emulators": {
+    "hosting": {
+      "port": 9100,
+      "sites": {
+        "www": 9102,
+        "docs": 9103,
+        "app": 9104,
+        "braingame-prod-api": 9105
+      }
+    },
+    "functions": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true,
+    "firestore": {
+      "port": 8080
+    }
+  }
 }

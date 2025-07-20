@@ -1,248 +1,143 @@
 # Brain Game API
 
-The REST API service for Brain Game, providing backend functionality for the universal client and web applications.
-
-## Overview
-
-This API serves as the backend for Brain Game applications, handling:
-- User authentication and session management
-- Analytics data collection and retrieval
-- Application configuration
-- Future expansion for additional features
-
-**Base URL**: `https://api.braingame.dev`
+The centralized REST API for the Brain Game ecosystem, built with Express.js and deployed as a **Firebase Cloud Function**. It provides backend functionality for all clients, including the Next.js website and the React Native application.
 
 ## Architecture
 
-Built with:
-- **Express.js** - Web framework
-- **TypeScript** - Type safety and better developer experience
-- **Helmet** - Security headers
-- **CORS** - Cross-origin resource sharing
-- **Zod** - Runtime type validation
-- **Morgan** - HTTP request logging
+This API is a serverless application. It uses **Express.js** to define routes and middleware, which is then wrapped and served by a single **Firebase Cloud Function**. This provides automatic scaling, high availability, and zero server management.
+
+- **Framework**: Express.js
+- **Deployment**: Firebase Cloud Functions
+- **Database**: Cloud Firestore
+- **Language**: TypeScript
+- **Validation**: Zod
+
+For a detailed explanation of why this architecture was chosen, see [ADR-0001: Centralized API on Firebase Cloud Functions](../../docs/architecture/adr/0001-centralized-api-on-firebase.md).
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20 (we recommend using `nvm` and our `.nvmrc` file)
 - pnpm 9+
+- Firebase CLI
+- Java Runtime Environment (for Firestore Emulator)
+  - You can install this on macOS with `brew install openjdk`.
 
-### Installation
+### Installation & Local Development
 
-From the monorepo root:
+The API is designed to be run locally using the **Firebase Emulators**.
 
+1.  **Install Dependencies:**
+    From the monorepo root:
+    ```bash
+    pnpm install
+    ```
+
+2.  **Set Up Environment:**
+    Copy `apps/api/.env.example` to `apps/api/.env` and configure it. For local development, the default values are usually sufficient.
+
+3.  **Run the Emulators:**
+    From the monorepo root, start the Firebase emulator suite. This will automatically transpile the TypeScript code and serve the API.
+    ```bash
+    firebase emulators:start
+    ```
+    By default, the API will be available at `http://127.0.0.1:5001/braingame-prod/us-central1/api`.
+
+### Testing the API Locally
+
+Once the emulators are running, you can test the endpoints using a tool like `curl`.
+
+**Example: Testing the `/subscribe` endpoint**
 ```bash
-# Install all dependencies
-pnpm install
-
-# Start the API in development mode
-pnpm dev --filter api
-
-# Or start all apps
-pnpm dev
+curl -X POST -H "Content-Type: application/json" \
+-d '{"email": "test@example.com"}' \
+http://127.0.0.1:5001/braingame-prod/us-central1/api/v1/subscribe
 ```
+
+A successful request will return:
+```json
+{"message":"Successfully subscribed"}
+```
+
+**Note on Security:** In a production environment, this endpoint is protected by Firebase App Check. Requests must include a valid `X-Firebase-AppCheck` header. This check is bypassed in local development for easier testing.
+
+### Viewing Local Data
+
+The emulator suite includes a UI for viewing and managing your local database.
+
+1.  **Open the UI:** Navigate to `http://127.0.0.1:4000/`
+2.  **Select Firestore:** Click on the "Firestore" tab.
+3.  **View Data:** You will see a `subscribers` collection containing any email addresses you've added via the API. This data is local to your machine and does not affect the production database.
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and configure:
-
+The `.env` file in `apps/api` should contain:
 ```bash
 # Node environment
 NODE_ENV=development
 
-# Server configuration
-PORT=8080
-
-# CORS configuration (comma-separated list)
-ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8081
-
-# API Security
-API_KEY=your-api-key-here
-
-# Logging
-LOG_LEVEL=info
+# The Firebase project ID for the emulators to mimic
+GCLOUD_PROJECT=braingame-prod
 ```
 
 ## API Endpoints
 
+The API is versioned and prefixed. The base URL for the local emulator is: `http://127.0.0.1:5001/braingame-prod/us-central1/api`
+
 ### Health Check
 
-```bash
-GET /api/health
-```
+- `GET /v1/health`
+- Returns the operational status of the API.
 
-Returns the health status of the API:
+### Subscriptions
 
-```json
-{
-  "status": "healthy",
-  "timestamp": "2024-01-22T12:00:00.000Z",
-  "environment": "development",
-  "version": "1.0.0",
-  "uptime": 123.456
-}
-```
+- `POST /v1/subscribe`
+- Subscribes a new email address.
+- **Body:** `{ "email": "user@example.com" }`
 
-### Readiness Check
+## Client Integration Guide
 
-```bash
-GET /api/ready
-```
+All client applications (web, mobile) should connect to this API for backend services.
 
-Returns whether the API is ready to accept requests:
+-   **Production API Base URL:** `https://us-central1-braingame-prod.cloudfunctions.net/api`
+-   **Local Emulator API Base URL:** `http://127.0.0.1:5001/braingame-prod/us-central1/api`
 
-```json
-{
-  "ready": true
-}
-```
+**Note for React Native:** When running on a mobile emulator or physical device, you may need to use your computer's local network IP address instead of `127.0.0.1` to connect to the emulators.
 
-### Root Endpoint
-
-```bash
-GET /api/
-```
-
-Returns API information and available endpoints:
-
-```json
-{
-  "message": "Brain Game API",
-  "version": "v1",
-  "endpoints": {
-    "health": "/api/health",
-    "ready": "/api/ready"
-  },
-  "documentation": "https://api.braingame.dev/docs"
-}
-```
-
-### Placeholder Endpoints (Coming Soon)
-
-- `GET /api/v1/users` - User management
-- `GET /api/v1/sessions` - Session tracking
-- `GET /api/v1/analytics` - Analytics data
-
-## Development
-
-### Running Tests
-
-```bash
-# Run tests
-pnpm test --filter api
-
-# Run tests in watch mode
-pnpm test:watch --filter api
-
-# Run tests with coverage
-pnpm test:coverage --filter api
-```
-
-### Linting and Type Checking
-
-```bash
-# Lint code
-pnpm lint --filter api
-
-# Fix lint issues
-pnpm lint:fix --filter api
-
-# Type check
-pnpm typecheck --filter api
-```
-
-### Building
-
-```bash
-# Build for production
-pnpm build --filter api
-
-# Start production server
-pnpm start --filter api
-```
+All API routes are prefixed under `/v1`. For example, the health check is at `[Base URL]/v1/health`.
 
 ## Project Structure
+
+The project follows a standard Express.js structure, adapted for a serverless environment.
 
 ```
 apps/api/
 ├── src/
-│   ├── config/          # Configuration management
+│   ├── config/          # Environment and Firebase config
 │   ├── middleware/      # Express middleware
-│   │   ├── cors.ts     # CORS configuration
-│   │   ├── error.ts    # Error handling
-│   │   └── logger.ts   # Request logging
-│   ├── routes/          # API routes
-│   │   ├── health.ts   # Health check endpoints
-│   │   └── index.ts    # Route aggregation
-│   ├── types/           # TypeScript type definitions
-│   └── index.ts         # Application entry point
+│   ├── routes/          # API routes, organized by domain
+│   ├── types/           # TypeScript definitions
+│   └── index.ts         # Application entry point (exports the Cloud Function)
 ├── .env.example         # Environment variables template
-├── package.json         # Package configuration
-├── tsconfig.json        # TypeScript configuration
-└── README.md           # This file
+├── package.json
+└── tsconfig.json
 ```
-
-## Error Handling
-
-The API uses a centralized error handling middleware that returns consistent error responses:
-
-```json
-{
-  "error": {
-    "message": "Error description",
-    "timestamp": "2024-01-22T12:00:00.000Z",
-    "path": "/api/endpoint",
-    "method": "GET"
-  }
-}
-```
-
-In development mode, additional error details are included for debugging.
-
-## Security
-
-- **Helmet** for security headers
-- **CORS** configured for allowed origins only
-- **Rate limiting** (planned)
-- **API key authentication** (planned)
-- Environment-based configuration
 
 ## Deployment
 
-The API is deployed to Firebase Functions via the monorepo CI/CD pipeline:
-
-1. Push to `main` branch
-2. GitHub Actions builds and tests
-3. Deploys to Firebase Functions
-4. Available at `https://api.braingame.dev`
+The API is deployed automatically via CI/CD when changes are merged into the `main` branch.
 
 ### Manual Deployment
 
+To deploy only the API function manually:
 ```bash
-# Build the API
-pnpm build --filter api
-
-# Deploy to Firebase
 firebase deploy --only functions:api
 ```
 
-## Future Enhancements
+To deploy the Firestore rules:
+```bash
+firebase deploy --only firestore:rules
+```
 
-- [ ] Database integration (Firestore)
-- [ ] Authentication middleware
-- [ ] Rate limiting
-- [ ] API versioning strategy
-- [ ] OpenAPI/Swagger documentation
-- [ ] Webhook support
-- [ ] GraphQL endpoint
-- [ ] WebSocket support for real-time features
-
-## Contributing
-
-See the main [DEVELOPMENT.md](../../docs/DEVELOPMENT.md) for contribution guidelines.
-
-## License
-
-Part of the Brain Game monorepo. See root LICENSE file.
+---

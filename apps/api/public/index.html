@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <style>
+        /* Basic reset and body styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace; /* Classic hacker font */
+        }
+
+        /* Canvas styling to fill the background */
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-color: #000; /* Ensures a solid black base layer */
+        }
+
+        /* Container for the foreground content */
+        .content-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            color: white; /* Green text to match the matrix theme */
+            /* text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; */
+        }
+
+        /* Styling for the main message box */
+        .portal-box {
+            background: rgba(0, 0, 0, 0.2);
+            /* border: 1px solid #0f0; */
+            padding: 4rem;
+            border-radius: 2rem;
+            /* box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); */
+            backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        /* SVG Logo Styling */
+        .logo-svg {
+            /* The filter property creates the glow effect. 
+               Unlike box-shadow, drop-shadow respects the SVG's shape. */
+            filter: drop-shadow(0 0 12px #0f0);
+            margin-bottom: 1.5rem; /* Space between logo and title */
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 2.5rem;
+            color: #fff; /* White for the heading to make it pop */
+            text-shadow: 0 0 8px #0f0;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        /* Styling for the link */
+        span {
+            color: #0f0;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            transition: color 0.3s, text-shadow 0.3s;
+            display: inline-block;
+            margin-top: 1rem;
+            border: 1px solid currentColor;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        span:hover {
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+        }
+
+        /* Keyframe animation for the glitch/flicker effect */
+        @keyframes flicker {
+            0%, 49.9%, 51.1%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+                border-color: #0f0;
+                transform: scale(1);
+            }
+            50.0% { /* Start of the glitch */
+                opacity: 0.7;
+                border-color: #fff;
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+                transform: scale(1.01);
+            }
+            51.0% { /* End of the glitch */
+                opacity: 0.7;
+                border-color: #fff;
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+                transform: scale(1.01);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Canvas for the Matrix effect -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Foreground content -->
+    <div class="content-container">
+        <div class="portal-box">
+            <svg class="logo-svg" viewBox="0 0 24 24" fill="white" width="48" height="48" role="graphics-symbol"><path d="m20.88,7.56l1.56-.78,1.56-.78v-2.88c0-.57-.15-1.1-.42-1.56-.27-.47-.67-.87-1.14-1.14C21.98.15,21.45,0,20.88,0H3.12C2.55,0,2.02.15,1.56.42c-.47.27-.87.67-1.14,1.14-.27.46-.42.99-.42,1.56v17.76c0,.57.15,1.1.42,1.56.27.47.67.87,1.14,1.14.46.27.99.42,1.56.42h17.76c.57,0,1.1-.15,1.56-.42.47-.27.87-.67,1.14-1.14.27-.46.42-.99.42-1.56v-10.44h-8.88l-3.12,1.56,3.12,1.56h5.76v5.76c0,.19-.03.38-.1.55l-2.2-1.1-.58-.29-12.95-6.48,12.95-6.48.58-.29,2.2-1.1c.06.17.1.35.1.55v2.88Zm-5.05,13.32H4.68c-.86,0-1.56-.7-1.56-1.56v-4.79l12.71,6.35ZM3.12,9.47v-4.79c0-.86.7-1.56,1.56-1.56h11.14L3.12,9.47Z"></path></svg>
+
+            <h1>PROJECT ZEUS</h1>
+            <p>This is the entrance to the secret portal.</p>
+            
+            <span 
+              onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')"
+              style="cursor: pointer"
+            >
+              Click here to enter
+            </span>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Immediately paint the canvas black to prevent any initial white flash.
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const characters = katakana + latin + nums;
+        
+        // Function to draw the Brain Game logo
+        function drawBrainGameLogo(x, y, size, color) {
+            ctx.save();
+            ctx.fillStyle = color;
+            
+            // The SVG viewBox is 24x24, and we need to center it
+            // Text baseline is at y, but we want to center the logo vertically
+            // Characters are drawn with baseline alignment, so we need to adjust
+            const logoSize = size * 0.7; // Make logo 70% of font size to fit better
+            const scale = logoSize / 24;
+            
+            // Center the logo horizontally and vertically in the character space
+            // x is already the left edge of where text would be drawn
+            // y is the baseline, so we need to move up by about 70% of the size
+            ctx.translate(x + (size - logoSize) / 2, y - logoSize * 0.85);
+            ctx.scale(scale, scale);
+            
+            // Create the logo path from your SVG
+            const logoPath = new Path2D("m20.88,7.56l1.56-.78,1.56-.78v-2.88c0-.57-.15-1.1-.42-1.56-.27-.47-.67-.87-1.14-1.14C21.98.15,21.45,0,20.88,0H3.12C2.55,0,2.02.15,1.56.42c-.47.27-.87.67-1.14,1.14-.27.46-.42.99-.42,1.56v17.76c0,.57.15,1.1.42,1.56.27.47.67.87,1.14,1.14.46.27.99.42,1.56.42h17.76c.57,0,1.1-.15,1.56-.42.47-.27.87-.67,1.14-1.14.27-.46.42-.99.42-1.56v-10.44h-8.88l-3.12,1.56,3.12,1.56h5.76v5.76c0,.19-.03.38-.1.55l-2.2-1.1-.58-.29-12.95-6.48,12.95-6.48.58-.29,2.2-1.1c.06.17.1.35.1.55v2.88Zm-5.05,13.32H4.68c-.86,0-1.56-.7-1.56-1.56v-4.79l12.71,6.35ZM3.12,9.47v-4.79c0-.86.7-1.56,1.56-1.56h11.14L3.12,9.47Z");
+            ctx.fill(logoPath);
+            
+            ctx.restore();
+        }
+
+        const fontSize = 24;
+        const columns = Math.floor(canvas.width / fontSize);
+
+        // Start all columns as null (inactive)
+        const rainDrops = [];
+        for (let i = 0; i < columns; i++) {
+            rainDrops[i] = null;
+        }
+
+        function draw() {
+            // Use a higher opacity for faster, cleaner fade
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Save the current state
+            ctx.save();
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                // If a column is inactive, give it a small chance to activate
+                if (rainDrops[i] === null) {
+                    if (Math.random() > 0.99) { // 1% chance to start a new drop
+                        rainDrops[i] = { y: 0, trail: [] };
+                    }
+                    continue; // Skip to the next column
+                }
+
+                const drop = rainDrops[i];
+                let newChar;
+                // 2% chance for the logo to appear as a new character
+                if (Math.random() > 0.98) {
+                    newChar = '🧠';
+                } else {
+                    newChar = characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+
+                drop.trail.unshift(newChar);
+
+                if (drop.trail.length > 20) {
+                    drop.trail.pop();
+                }
+
+                for (let j = 0; j < drop.trail.length; j++) {
+                    const char = drop.trail[j];
+                    const yPos = drop.y - j * fontSize;
+
+                    let color;
+                    if (j === 0) {
+                        // White leading character with white glow for authentic Matrix effect
+                        color = '#fff';
+                        ctx.shadowColor = '#fff';
+                        ctx.shadowBlur = 10;
+                    } else if (j < 3) {
+                        // Bright green for the next few characters
+                        color = '#0f0';
+                        ctx.shadowColor = '#0f0';
+                        ctx.shadowBlur = 5;
+                    } else {
+                        // Gradually fading green for the rest
+                        const fadeRatio = (j - 2) / (drop.trail.length - 2);
+                        const brightness = Math.floor(255 * (1 - fadeRatio * 0.8));
+                        color = `rgb(0, ${brightness}, 0)`;
+                        ctx.shadowBlur = 0;
+                    }
+
+                    if (Math.random() > 0.99) {
+                        // 5% chance to show the logo instead of a regular character
+                        if (Math.random() > 0.95) {
+                            drop.trail[j] = '🧠'; // Special marker for logo
+                        } else {
+                            drop.trail[j] = characters.charAt(Math.floor(Math.random() * characters.length));
+                        }
+                    }
+
+                    // Clear the character position before drawing
+                    ctx.clearRect(i * fontSize - 2, yPos - fontSize + 4, fontSize + 4, fontSize + 2);
+                    
+                    // Check if we should draw the logo or a regular character
+                    if (char === '🧠') {
+                        drawBrainGameLogo(i * fontSize, yPos, fontSize, color);
+                    } else {
+                        ctx.fillStyle = color;
+                        ctx.fillText(char, i * fontSize, yPos);
+                    }
+                }
+
+                // If the drop is off-screen, deactivate it
+                if (drop.y > canvas.height + drop.trail.length * fontSize) {
+                    rainDrops[i] = null;
+                } else {
+                    drop.y += fontSize;
+                }
+            }
+            
+            // Restore the state to prevent shadow bleed
+            ctx.restore();
+        }
+
+        setInterval(draw, 60);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // No need to reset columns, the loop will handle it
+        });
+    </script>
+
+</body>
+</html>

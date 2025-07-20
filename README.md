@@ -34,7 +34,7 @@ Before running any lint or test commands, make sure your dependencies are instal
 pnpm install    # or pnpm run preflight
 ```
 
-New contributors should review **[docs/features/AGENTS.md](./docs/features/AGENTS.md)** and **[docs/features/CLAUDE.md](./docs/features/CLAUDE.md)** to understand how human and AI workflows operate in this repository.
+New contributors should review **[AGENTS.md](./AGENTS.md)** to understand how AI development works in this repository.
 
 ---
 
@@ -151,9 +151,8 @@ Our documentation is organized into logical categories for easy navigation. Visi
 3. Review [`Architecture Overview`](./docs/architecture/ARCHITECTURE.md)
 
 **AI Agent?**
-1. Start with [`Claude Integration`](./docs/features/CLAUDE.md)
-2. Read [`AI Agents Guide`](./docs/features/AGENTS.md)
-3. Review [`Worktrees Guide`](./docs/development/WORKTREES.md)
+1. Read [`AI Agents Guide`](./AGENTS.md)
+2. Review [`Worktrees Guide`](./docs/development/WORKTREES.md)
 
 **Contributing?**
 1. Read [`Contributing Guide`](./.github/CONTRIBUTING.md)

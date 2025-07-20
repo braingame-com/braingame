@@ -1,14 +1,6 @@
 "use client";
 
-import {
-	AnimatedGradientBackground,
-	Button,
-	GlowingLogo,
-	Link,
-	Text,
-	TextInput,
-	View,
-} from "@braingame/bgui";
+import { AnimatedGradientBackground, Box, GlowingLogo, Link, Typography } from "@braingame/bgui";
 import dynamic from "next/dynamic";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { StructuredData } from "../components/StructuredData";
@@ -27,9 +19,18 @@ const EmailCaptureForm = dynamic(
 	() => import("../components/EmailCaptureForm").then((mod) => mod.EmailCaptureForm),
 	{
 		loading: () => (
-			<View style={{ height: 150, justifyContent: "center", alignItems: "center" }}>
-				<Text style={{ color: "#666" }}>Loading...</Text>
-			</View>
+			<Box
+				sx={{
+					height: 150,
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<Typography level="body-md" style={{ color: "#666" }}>
+					Loading...
+				</Typography>
+			</Box>
 		),
 		ssr: true,
 	},
@@ -181,6 +182,7 @@ export default function HomePage() {
 
 				// Track failure
 				trackEvent("email_subscription_failure", {
+					// @ts-ignore
 					reason: result.reason,
 					message: result.message,
 				});
@@ -220,7 +222,8 @@ export default function HomePage() {
 		};
 	}, []);
 
-	const handleSuggestionClick = () => {
+	const handleSuggestionClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		e.preventDefault();
 		setEmail(suggestedEmail);
 		setShowSuggestion(false);
 		setSubmitMessage("");
@@ -232,8 +235,10 @@ export default function HomePage() {
 		<>
 			<StructuredData data={generateStructuredData()} />
 			<StructuredData data={generateWaitlistStructuredData()} />
-			<View
-				style={{
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "column",
 					flex: 1,
 					position: "relative",
 					minHeight: "100vh",
@@ -243,278 +248,117 @@ export default function HomePage() {
 
 				{/* Offline indicator */}
 				{!networkStatus.isOnline && (
-					<View
-						style={{
+					<Box
+						sx={{
 							position: "absolute",
 							top: 20,
 							left: 20,
 							right: 20,
-							backgroundColor: "#dc2626",
-							paddingVertical: 8,
-							paddingHorizontal: 16,
-							borderRadius: 8,
-							flexDirection: "row",
-							alignItems: "center",
-							justifyContent: "center",
-							zIndex: 10,
+							backgroundColor: "rgba(0, 0, 0, 0.7)",
+							padding: "10px",
+							borderRadius: "8px",
 						}}
 					>
-						<Text style={{ color: "#fff", marginRight: 8 }}>⚠</Text>
-						<Text variant="body" style={{ color: "#fff" }}>
-							You're offline
-						</Text>
-					</View>
+						<Typography level="body-md" textAlign="center" style={{ color: "white" }}>
+							You are offline. Some features may be unavailable.
+						</Typography>
+					</Box>
 				)}
 
-				{/* Content Container */}
-				<View
-					style={{
+				<Box
+					sx={{
+						display: "flex",
 						flex: 1,
+						flexDirection: "column",
 						justifyContent: "center",
 						alignItems: "center",
-						padding: 20,
-						position: "relative",
-						zIndex: 1,
+						padding: "0 20px",
 					}}
 				>
-					{/* Glowing Logo */}
-					<GlowingLogo size={120} glowColor="#007fff" glowIntensity="medium" animate={true} />
+					<GlowingLogo />
 
-					{/* Main Content Card */}
-					<View
+					<Typography
+						level="h1"
+						textAlign="center"
 						style={{
-							backgroundColor: "rgba(0, 0, 0, 0.6)",
-							backdropFilter: "blur(10px)",
-							borderRadius: 24,
-							padding: 40,
-							maxWidth: 480,
-							width: "100%",
-							alignItems: "center",
-							boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+							color: "white",
+							marginTop: "20px",
 						}}
 					>
-						<Text
-							variant="h1"
-							style={{
-								color: "#fff",
-								fontSize: 48,
-								marginBottom: 16,
-								textAlign: "center",
-								fontWeight: "700",
-							}}
-						>
-							Brain Game
-						</Text>
+						Your OS for Personal Development
+					</Typography>
 
-						<Text
-							variant="body"
-							style={{
-								color: "rgba(255, 255, 255, 0.8)",
-								fontSize: 18,
-								marginBottom: 32,
-								textAlign: "center",
-								lineHeight: 1.6,
-							}}
-						>
-							The future of personal development is here. Join the revolution.
-						</Text>
+					<Typography
+						level="title-lg"
+						textAlign="center"
+						style={{
+							color: "rgba(255, 255, 255, 0.8)",
+							marginTop: "10px",
+							marginBottom: "30px",
+							maxWidth: 600,
+						}}
+					>
+						The world's most effective personal development company. Unlock your full potential with
+						our integrated system of tools and training.
+					</Typography>
 
-						{/* Email Input Section */}
-						<View style={{ width: "100%", marginBottom: 24 }}>
-							<View
-								style={{
-									flexDirection: "row",
+					<Suspense
+						fallback={
+							<Box
+								sx={{
+									height: 150,
+									display: "flex",
+									justifyContent: "center",
 									alignItems: "center",
-									backgroundColor: "rgba(255, 255, 255, 0.1)",
-									borderRadius: 12,
-									padding: 4,
-									opacity: !networkStatus.isOnline ? 0.5 : 1,
 								}}
 							>
-								<TextInput
-									placeholder="Enter your email"
-									value={email}
-									onChangeText={handleEmailChange}
-									keyboardType="email-address"
-									autoCapitalize="none"
-									style={{
-										flex: 1,
-										paddingHorizontal: 20,
-										paddingVertical: 16,
-										color: "#fff",
-										fontSize: 16,
-									}}
-									placeholderTextColor="rgba(255, 255, 255, 0.5)"
-									editable={!isSubmitting && networkStatus.isOnline}
-								/>
-								<Button
-									onPress={handleSubmit}
-									disabled={
-										isSubmitting || !email.trim() || !!validationError || !networkStatus.isOnline
-									}
-									variant="primary"
-									loading={isSubmitting}
-									style={{
-										paddingHorizontal: 32,
-										paddingVertical: 16,
-										backgroundColor: "#007fff",
-										borderRadius: 8,
-									}}
-								>
-									<Text variant="bold" style={{ color: "#fff", fontSize: 16 }}>
-										{isSubmitting ? "..." : "Join"}
-									</Text>
-								</Button>
-							</View>
+								<Typography level="body-md" style={{ color: "#666" }}>
+									Loading form...
+								</Typography>
+							</Box>
+						}
+					>
+						<EmailCaptureForm
+							email={email}
+							onEmailChange={handleEmailChange}
+							honeypot={honeypot}
+							onHoneypotChange={setHoneypot}
+							isSubmitting={isSubmitting}
+							onSubmit={handleSubmit}
+							submitMessage={submitMessage}
+							isSuccess={isSuccess}
+							validationError={validationError}
+						/>
+					</Suspense>
 
-							{/* Validation Error */}
-							{validationError && (
-								<Text
-									variant="small"
-									style={{
-										color: "#ef4444",
-										marginTop: 8,
-										textAlign: "center",
-									}}
-								>
-									{validationError}
-								</Text>
-							)}
-
-							{/* Honeypot field (hidden) */}
-							<input
-								type="text"
-								name="website"
-								value={honeypot}
-								onChange={(e) => setHoneypot(e.target.value)}
-								style={{
-									position: "absolute",
-									left: "-9999px",
-									width: "1px",
-									height: "1px",
-								}}
-								tabIndex={-1}
-								autoComplete="off"
-							/>
-						</View>
-
-						{/* Submit Message */}
-						{submitMessage && (
-							<View style={{ marginBottom: 16 }}>
-								<Text
-									variant="small"
-									style={{
-										color: isSuccess ? "#22c55e" : "#ef4444",
-										textAlign: "center",
-									}}
-								>
-									{submitMessage}
-								</Text>
-								{showSuggestion && (
-									<Button
-										onPress={handleSuggestionClick}
-										variant="ghost"
-										size="sm"
-										style={{ marginTop: 8 }}
-									>
-										<Text variant="small" style={{ color: "#007fff" }}>
-											Use suggested email
-										</Text>
-									</Button>
-								)}
-							</View>
-						)}
-
-						{/* Stats */}
-						<View
-							style={{
-								flexDirection: "row",
-								justifyContent: "space-around",
-								width: "100%",
-								marginTop: 32,
-								paddingTop: 32,
-								borderTopWidth: 1,
-								borderTopColor: "rgba(255, 255, 255, 0.1)",
+					{showSuggestion && (
+						<Box
+							sx={{
+								marginTop: "10px",
+								display: "flex",
+								alignItems: "center",
 							}}
 						>
-							<View style={{ alignItems: "center" }}>
-								<Text variant="h2" style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}>
-									10K+
-								</Text>
-								<Text variant="small" style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}>
-									Early Adopters
-								</Text>
-							</View>
-							<View style={{ alignItems: "center" }}>
-								<Text variant="h2" style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}>
-									2025
-								</Text>
-								<Text variant="small" style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}>
-									Launch Year
-								</Text>
-							</View>
-							<View style={{ alignItems: "center" }}>
-								<Text variant="h2" style={{ color: "#007fff", fontSize: 32, fontWeight: "700" }}>
-									∞
-								</Text>
-								<Text variant="small" style={{ color: "rgba(255, 255, 255, 0.6)", marginTop: 4 }}>
-									Possibilities
-								</Text>
-							</View>
-						</View>
-					</View>
+							<Typography level="body-sm" style={{ color: "white" }}>
+								Did you mean {suggestedEmail}?{" "}
+							</Typography>
+							<Link href="#" onClick={handleSuggestionClick}>
+								<Typography level="body-sm" style={{ color: "#87CEEB" }}>
+									Yes
+								</Typography>
+							</Link>
+						</Box>
+					)}
 
-					{/* Footer Links */}
-					<View
-						style={{
-							flexDirection: "row",
-							gap: 24,
-							marginTop: 40,
-						}}
-					>
-						<Link
-							href="/privacy"
-							style={{ color: "rgba(255, 255, 255, 0.6)" }}
-							onPress={() => trackClick("footer_link", { destination: "privacy" })}
-						>
-							<Text variant="small">Privacy</Text>
+					<Box sx={{ marginTop: "40px" }}>
+						<Link href="/privacy">
+							<Typography level="body-xs" style={{ color: "#aaa" }}>
+								Privacy Policy
+							</Typography>
 						</Link>
-						<Link
-							href="/terms"
-							style={{ color: "rgba(255, 255, 255, 0.6)" }}
-							onPress={() => trackClick("footer_link", { destination: "terms" })}
-						>
-							<Text variant="small">Terms</Text>
-						</Link>
-						<Link
-							href="/cookies"
-							style={{ color: "rgba(255, 255, 255, 0.6)" }}
-							onPress={() => trackClick("footer_link", { destination: "cookies" })}
-						>
-							<Text variant="small">Cookies</Text>
-						</Link>
-						<Link
-							href="https://github.com/braingame-com/braingame"
-							style={{ color: "rgba(255, 255, 255, 0.6)" }}
-							onPress={() => trackClick("github_link", { destination: "repository" })}
-						>
-							<Text variant="small">GitHub</Text>
-						</Link>
-					</View>
-
-					{/* Copyright */}
-					<Text
-						variant="small"
-						style={{
-							color: "rgba(255, 255, 255, 0.4)",
-							marginTop: 16,
-							textAlign: "center",
-						}}
-					>
-						© 2025 Brain Game. All rights reserved.
-					</Text>
-				</View>
-			</View>
+					</Box>
+				</Box>
+			</Box>
 		</>
 	);
 }

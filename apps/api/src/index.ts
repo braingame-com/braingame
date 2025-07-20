@@ -1,42 +1,35 @@
 import dotenv from "dotenv";
 import express from "express";
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
 import helmet from "helmet";
-import morgan from "morgan";
-import { config } from "./config";
 import { corsMiddleware } from "./middleware/cors";
 import { errorHandler } from "./middleware/error";
-import { appLogger, logger } from "./middleware/logger";
+import { logger } from "./middleware/logger";
 import routes from "./routes";
 
 // Load environment variables
 dotenv.config();
 
+// Initialize Firebase Admin SDK
+admin.initializeApp();
+
 const app = express();
-const PORT = process.env.PORT || 8080;
 
-// Security middleware
+// Core Middleware
 app.use(helmet());
-
-// CORS configuration
 app.use(corsMiddleware);
-
-// Request logging
-app.use(morgan("combined"));
 app.use(logger);
-
-// Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API routes
-app.use("/api", routes);
+// API Routes
+// All routes are implicitly prefixed with '/api' due to the function's rewrite rule in firebase.json.
+// So, a route defined as '/health' in our routes file will be accessible at '/api/health'.
+app.use("/", routes);
 
-// Error handling middleware (must be last)
+// Error Handling Middleware
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, () => {
-	appLogger.info(`🚀 API Server running on port ${PORT}`);
-	appLogger.info(`📍 Environment: ${config.NODE_ENV}`);
-	appLogger.info(`🌐 Allowed origins: ${config.ALLOWED_ORIGINS.join(", ")}`);
-});
+// Expose the Express app as a Firebase Cloud Function
+export const api = functions.https.onRequest(app);
