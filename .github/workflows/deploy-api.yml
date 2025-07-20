@@ -68,9 +68,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build API
-        run: pnpm --filter api build
-
       - name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v2'
         with:

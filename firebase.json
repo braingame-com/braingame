@@ -42,7 +42,10 @@
   ],
   "functions": {
     "source": "apps/api",
-    "runtime": "nodejs20"
+    "runtime": "nodejs20",
+    "predeploy": [
+      "pnpm --filter api build"
+    ]
   },
   "firestore": {
     "rules": "firestore.rules"

@@ -1,7 +1,13 @@
+import * as functions from "firebase-functions";
+
+export const api = functions.https.onRequest((_req, res) => {
+	res.send("Hello from Firebase!");
+});
+
+/*
 import dotenv from "dotenv";
 import express from "express";
 import * as admin from "firebase-admin";
-import * as functions from "firebase-functions";
 import helmet from "helmet";
 import { corsMiddleware } from "./middleware/cors";
 import { errorHandler } from "./middleware/error";
@@ -21,7 +27,6 @@ app.use(helmet());
 app.use(corsMiddleware);
 app.use(logger);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 // All routes are implicitly prefixed with '/api' due to the function's rewrite rule in firebase.json.
@@ -33,3 +38,4 @@ app.use(errorHandler);
 
 // Expose the Express app as a Firebase Cloud Function
 export const api = functions.https.onRequest(app);
+*/
