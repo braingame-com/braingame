@@ -1,16 +1,15 @@
-import * as functions from "firebase-functions";
+import * as logger from "firebase-functions/logger";
+import { onRequest } from "firebase-functions/v2/https";
 
-export const api = functions.https.onRequest((_req, res) => {
-	res.send("Hello from Firebase!");
+export const api = onRequest((_request, response) => {
+	logger.info("Hello logs!", { structuredData: true });
+	response.send("Hello from Firebase!");
 });
 
 /*
-import dotenv from "dotenv";
-import express from "express";
-import * as admin from "firebase-admin";
-import helmet from "helmet";
-import { corsMiddleware } from "./middleware/cors";
-import { errorHandler } from "./middleware/error";
-import { logger } from "./middleware/logger";
-import routes from "./routes";
+import * as functions from "firebase-functions";
+
+export const api = functions.https.onRequest((req, res) => {
+	res.send("Hello from Firebase!");
+});
 */
