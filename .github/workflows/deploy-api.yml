@@ -77,6 +77,4 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          npx firebase-tools deploy --only functions,firestore,hosting:braingame-prod-api --project=braingame-prod --force --debug
-        env:
-          CLOUDSDK_BUILDS_CACHE_DISABLED: 'true' 
+          npx firebase-tools deploy --only functions,firestore,hosting:braingame-prod-api --project=braingame-prod --force --debug --gcp-meta=_DISABLE_CACHE=true 

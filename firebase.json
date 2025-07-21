@@ -43,7 +43,6 @@
   "functions": {
     "source": "apps/api",
     "runtime": "nodejs20",
-    "serviceAccount": "github-actions-deployer@braingame-prod.iam.gserviceaccount.com",
     "predeploy": [
       "pnpm --filter api build"
     ]
