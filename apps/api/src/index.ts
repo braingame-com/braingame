@@ -15,3 +15,4 @@ export const api = functions.https.onRequest((req, res) => {
 */
 
 // Something
+// Added to fix linting issue
