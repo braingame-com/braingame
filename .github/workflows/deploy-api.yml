@@ -77,4 +77,4 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          npx firebase-tools deploy --only functions,firestore,hosting:braingame-prod-api --project=braingame-prod --force --debug --gcp-meta=_DISABLE_CACHE=true 
+          npx firebase-tools deploy --only functions,firestore,hosting:braingame-prod-api --project=braingame-prod --force 
