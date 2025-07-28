@@ -26,17 +26,17 @@
 	"dependencies": {
 		"@braingame/bgui": "workspace:*",
 		"@braingame/utils": "workspace:*",
-		"@sentry/nextjs": "^9.38.0",
-		"firebase": "^11.10.0",
-		"next": "15.4.1",
+		"@sentry/nextjs": "^9.42.0",
+		"firebase": "^12.0.0",
+		"next": "15.4.4",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
-		"react-native-web": "~0.20.0"
+		"react-native-web": "~0.21.0"
 	},
 	"devDependencies": {
 		"@braingame/config": "workspace:*",
 		"@swc/jest": "^0.2.39",
-		"@testing-library/jest-dom": "^6.6.3",
+		"@testing-library/jest-dom": "^6.6.4",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "^14.6.1",
 		"@types/jest": "^30.0.0",
@@ -44,8 +44,8 @@
 		"@types/react": "~19.1.8",
 		"@types/react-dom": "~19.1.6",
 		"identity-obj-proxy": "^3.0.0",
-		"jest": "^30.0.4",
-		"jest-environment-jsdom": "^30.0.4",
+		"jest": "^30.0.5",
+		"jest-environment-jsdom": "^30.0.5",
 		"@playwright/test": "^1.49.1",
 		"@axe-core/playwright": "^4.10.1",
 		"next-sitemap": "^4.2.3",
