@@ -19,7 +19,7 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       
@@ -59,7 +59,7 @@ jobs:
     needs: release
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - uses: pnpm/action-setup@v4
         with:
@@ -89,7 +89,7 @@ jobs:
     needs: release
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - uses: pnpm/action-setup@v4
         with:
