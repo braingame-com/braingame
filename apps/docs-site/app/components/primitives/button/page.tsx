@@ -201,8 +201,8 @@ function MyComponent() {
 
   return (
     <Button 
-      onPress={handlePress}
-      variant="primary"
+      onClick={handlePress}
+      variant="solid"
       icon="send"
     >
       Send Message

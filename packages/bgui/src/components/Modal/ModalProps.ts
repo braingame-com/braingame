@@ -23,7 +23,7 @@ export interface ModalProps {
 	 * @param {object} event The event source of the callback.
 	 * @param {string} reason Can be: `"escapeKeyDown"`, `"backdropClick"`, `"closeClick"`.
 	 */
-	onClose?: (event: any, reason?: "backdropClick" | "escapeKeyDown" | "closeClick") => void;
+	onClose?: (event: React.KeyboardEvent | React.MouseEvent | React.TouchEvent, reason?: "backdropClick" | "escapeKeyDown" | "closeClick") => void;
 
 	/**
 	 * If `true`, the modal will not automatically shift focus to itself when it opens, and
@@ -84,7 +84,7 @@ export interface ModalProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing

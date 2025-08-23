@@ -9,6 +9,8 @@
 		}
 	},
 	"references": [
+		{ "path": "./apps/api" },
+		{ "path": "./apps/docs-site" },
 		{ "path": "./apps/product" },
 		{ "path": "./apps/main-site" },
 		{ "path": "./packages/bgui" },

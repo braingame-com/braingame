@@ -12,7 +12,6 @@ import {
 	CircularProgress,
 	Container,
 	Divider,
-	Grid,
 	IconButton,
 	Input,
 	LinearProgress,
@@ -20,10 +19,10 @@ import {
 	List,
 	ListItem,
 	Modal,
+	Option,
 	Radio,
 	RadioGroup,
 	Select,
-	Option,
 	Skeleton,
 	Stack,
 	Switch,
@@ -94,9 +93,7 @@ export default function ShowcasePage() {
 						<Button variant="plain" color="primary">
 							Plain
 						</Button>
-						<IconButton aria-label="Settings">
-							⚙️
-						</IconButton>
+						<IconButton aria-label="Settings">⚙️</IconButton>
 					</Stack>
 				</section>
 
@@ -148,10 +145,7 @@ export default function ShowcasePage() {
 							/>
 						</Box>
 						<Box>
-							<RadioGroup
-								value={radioValue}
-								onChange={(e) => setRadioValue(e.target.value)}
-							>
+							<RadioGroup value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
 								<Radio value="option1" label="Radio Option 1" />
 								<Radio value="option2" label="Radio Option 2" />
 								<Radio value="option3" label="Radio Option 3" />

@@ -152,7 +152,7 @@ export const RegisterScreen: React.FC<Props> = () => {
 						{/* Register Button */}
 						<TouchableOpacity
 							style={[authStyles.button, authStyles.primaryButton, { marginTop: 24 }]}
-							onPress={handleRegister}
+							onClick={handleRegister}
 							disabled={loading}
 						>
 							<Text style={authStyles.primaryButtonText}>
@@ -171,7 +171,7 @@ export const RegisterScreen: React.FC<Props> = () => {
 						<View style={{ alignItems: "center" }}>
 							<Text style={authStyles.footerText}>
 								Already have an account?{" "}
-								<Text style={authStyles.footerLink} onPress={() => navigation.navigate("Login")}>
+								<Text style={authStyles.footerLink} onClick={() => navigation.navigate("Login")}>
 									Sign in
 								</Text>
 							</Text>

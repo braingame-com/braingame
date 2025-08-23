@@ -1,7 +1,7 @@
 "use client";
 
+import { Option, Select } from "@braingame/bgui";
 import { useState } from "react";
-import { Select } from "@braingame/bgui";
 import { CodeBlock } from "../../../../src/components/CodeBlock";
 import { LiveExample } from "../../../../src/components/LiveExample";
 import { PropsTable } from "../../../../src/components/PropsTable";
@@ -14,8 +14,8 @@ const selectProps = [
 		description: "The selected value(s). String for single select, array for multi-select.",
 	},
 	{
-		name: "onValueChange",
-		type: "(value: string | string[]) => void",
+		name: "onChange",
+		type: "(event: React.SyntheticEvent | null, value: string | number | string[] | number[] | null) => void",
 		required: true,
 		description: "Callback function called when the selection changes.",
 	},
@@ -178,26 +178,26 @@ const countries = [
 return (
   <Select
     value={country}
-    onValueChange={(value: any) => setCountry(value as string)}
+    onChange={(_event, value) => setCountry(value as string)}
     placeholder="Choose a country"
   >
     {countries.map((c) => (
-      <Select.Item key={c.value} value={c.value}>
+      <Option key={c.value} value={c.value}>
         {c.label}
-      </Select.Item>
+      </Option>
     ))}
   </Select>
 );`}
 				>
 					<Select
 						value={country}
-						onValueChange={(value: any) => setCountry(value as string)}
+						onChange={(_event, value) => setCountry(value as string)}
 						placeholder="Choose a country"
 					>
 						{countries.slice(0, 5).map((c) => (
-							<Select.Item key={c.value} value={c.value}>
+							<Option key={c.value} value={c.value}>
 								{c.label}
-							</Select.Item>
+							</Option>
 						))}
 					</Select>
 				</LiveExample>
@@ -206,26 +206,26 @@ return (
 					title="Variants"
 					code={`<Select
   value={value}
-  onValueChange={(value: any) => setValue(value as string)}
+  onChange={(_event, value) => setValue(value as string)}
   variant="dropdown"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />
 
 <Select
   value={value}
-  onValueChange={(value: any) => setValue(value as string)}
+  onChange={(_event, value) => setValue(value as string)}
   variant="filled"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />`}
@@ -233,24 +233,24 @@ return (
 					<div className="flex flex--column flex--gap-4">
 						<Select
 							value={language}
-							onValueChange={(value: any) => setLanguage(value as string)}
+							onChange={(_event, value) => setLanguage(value as string)}
 							variant="dropdown"
 						>
 							{languages.slice(0, 5).map((lang) => (
-								<Select.Item key={lang.value} value={lang.value}>
+								<Option key={lang.value} value={lang.value}>
 									{lang.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 						<Select
 							value={language}
-							onValueChange={(value: any) => setLanguage(value as string)}
+							onChange={(_event, value) => setLanguage(value as string)}
 							variant="modal"
 						>
 							{languages.slice(0, 5).map((lang) => (
-								<Select.Item key={lang.value} value={lang.value}>
+								<Option key={lang.value} value={lang.value}>
 									{lang.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 					</div>
@@ -264,9 +264,9 @@ return (
   placeholder="Normal state"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />
@@ -277,9 +277,9 @@ return (
   disabled
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />
@@ -291,9 +291,9 @@ return (
   errorMessage="Please select an option"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />
@@ -304,9 +304,9 @@ return (
   helperText="Choose your preferred option"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />`}
@@ -314,23 +314,23 @@ return (
 					<div className="flex flex--column flex--gap-4">
 						<Select value="" onValueChange={() => {}} placeholder="Normal state">
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 						<Select value="high" onValueChange={() => {}} disabled>
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 						<Select value="" onValueChange={() => {}} error errorMessage="Please select an option">
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 						<Select
@@ -339,9 +339,9 @@ return (
 							helperText="Choose your preferred option"
 						>
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 					</div>
@@ -365,15 +365,15 @@ const programmingLanguages = [
 return (
   <Select
     value={skills}
-    onValueChange={(value: any) => setSkills(value as string[])}
+    onChange={(_event, value) => setSkills(value as string[])}
     placeholder="Select your skills"
     multiple
     clearable
   >
     {programmingLanguages.map((lang) => (
-      <Select.Item key={lang.value} value={lang.value}>
+      <Option key={lang.value} value={lang.value}>
         {lang.label}
-      </Select.Item>
+      </Option>
     ))}
   </Select>
   />
@@ -381,14 +381,14 @@ return (
 				>
 					<Select
 						value={skills}
-						onValueChange={(value: any) => setSkills(value as string[])}
+						onChange={(_event, value) => setSkills(value as string[])}
 						placeholder="Select your skills"
 						multiple
 					>
 						{languages.map((lang) => (
-							<Select.Item key={lang.value} value={lang.value}>
+							<Option key={lang.value} value={lang.value}>
 								{lang.label}
-							</Select.Item>
+							</Option>
 						))}
 					</Select>
 				</LiveExample>
@@ -397,29 +397,29 @@ return (
 					title="Searchable Select"
 					code={`<Select
   value={country}
-  onValueChange={(value: any) => setCountry(value as string)}
+  onChange={(_event, value) => setCountry(value as string)}
   placeholder="Search and select a country"
   searchable
   clearable
 >
   {countries.map((c) => (
-    <Select.Item key={c.value} value={c.value}>
+    <Option key={c.value} value={c.value}>
       {c.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />`}
 				>
 					<Select
 						value={country}
-						onValueChange={(value: any) => setCountry(value as string)}
+						onChange={(_event, value) => setCountry(value as string)}
 						placeholder="Search and select a country"
 						searchable
 					>
 						{countries.map((c) => (
-							<Select.Item key={c.value} value={c.value}>
+							<Option key={c.value} value={c.value}>
 								{c.label}
-							</Select.Item>
+							</Option>
 						))}
 					</Select>
 				</LiveExample>
@@ -428,63 +428,63 @@ return (
 					title="Sizes"
 					code={`<Select
   value={value}
-  onValueChange={(value: any) => setValue(value as string)}
+  onChange={(_event, value) => setValue(value as string)}
   size="sm"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />
 
 <Select
   value={value}
-  onValueChange={(value: any) => setValue(value as string)}
+  onChange={(_event, value) => setValue(value as string)}
   size="md"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />
 
 <Select
   value={value}
-  onValueChange={(value: any) => setValue(value as string)}
+  onChange={(_event, value) => setValue(value as string)}
   size="lg"
 >
   {options.map((opt) => (
-    <Select.Item key={opt.value} value={opt.value}>
+    <Option key={opt.value} value={opt.value}>
       {opt.label}
-    </Select.Item>
+    </Option>
   ))}
 </Select>
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<Select value={priority} onValueChange={(value: any) => setPriority(value as string)}>
+						<Select value={priority} onChange={(_event, value) => setPriority(value as string)}>
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
-						<Select value={priority} onValueChange={(value: any) => setPriority(value as string)}>
+						<Select value={priority} onChange={(_event, value) => setPriority(value as string)}>
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
-						<Select value={priority} onValueChange={(value: any) => setPriority(value as string)}>
+						<Select value={priority} onChange={(_event, value) => setPriority(value as string)}>
 							{priorities.map((p) => (
-								<Select.Item key={p.value} value={p.value}>
+								<Option key={p.value} value={p.value}>
 									{p.label}
-								</Select.Item>
+								</Option>
 							))}
 						</Select>
 					</div>
@@ -522,16 +522,16 @@ return (
 return (
   <Select
     value={country}
-    onValueChange={(value: any) => setCountry(value as string)}
+    onChange={(_event, value) => setCountry(value as string)}
     placeholder="Select a country"
     searchable
   >
     {groupedOptions.map((group) => (
       <Select.Group key={group.label} label={group.label}>
         {group.options.map((opt) => (
-          <Select.Item key={opt.value} value={opt.value}>
+          <Option key={opt.value} value={opt.value}>
             {opt.label}
-          </Select.Item>
+          </Option>
         ))}
       </Select.Group>
     ))}
@@ -541,18 +541,18 @@ return (
 				>
 					<Select
 						value={country}
-						onValueChange={(value: any) => setCountry(value as string)}
+						onChange={(_event, value) => setCountry(value as string)}
 						placeholder="Select a country"
 						searchable
 					>
 						{/* North America */}
-						<Select.Item value="us">United States</Select.Item>
-						<Select.Item value="ca">Canada</Select.Item>
-						<Select.Item value="mx">Mexico</Select.Item>
+						<Option value="us">United States</Option>
+						<Option value="ca">Canada</Option>
+						<Option value="mx">Mexico</Option>
 						{/* Europe */}
-						<Select.Item value="uk">United Kingdom</Select.Item>
-						<Select.Item value="de">Germany</Select.Item>
-						<Select.Item value="fr">France</Select.Item>
+						<Option value="uk">United Kingdom</Option>
+						<Option value="de">Germany</Option>
+						<Option value="fr">France</Option>
 					</Select>
 				</LiveExample>
 			</section>
@@ -560,7 +560,7 @@ return (
 			<section className="mb-8">
 				<h2 className="text-title mb-4">Usage</h2>
 				<CodeBlock
-					code={`import { Select } from '@braingame/bgui';
+					code={`import { Option, Select } from '@braingame/bgui';
 import { useState } from 'react';
 
 function UserProfileForm() {
@@ -592,15 +592,15 @@ function UserProfileForm() {
     <View style={styles.form}>
       <Select
         value={formData.country}
-        onValueChange={(value: any) => 
+        onChange={(_event, value) => 
           setFormData({ ...formData, country: value })
         }
         placeholder="Select your country"
       >
         {countries.map((c) => (
-          <Select.Item key={c.value} value={c.value}>
+          <Option key={c.value} value={c.value}>
             {c.label}
-          </Select.Item>
+          </Option>
         ))}
       </Select>
         searchable
@@ -610,15 +610,15 @@ function UserProfileForm() {
 
       <Select
         value={formData.timezone}
-        onValueChange={(value: any) => 
+        onChange={(_event, value) => 
           setFormData({ ...formData, timezone: value })
         }
         placeholder="Select your timezone"
       >
         {timezones.map((tz) => (
-          <Select.Item key={tz.value} value={tz.value}>
+          <Option key={tz.value} value={tz.value}>
             {tz.label}
-          </Select.Item>
+          </Option>
         ))}
       </Select>
         helperText="Used for scheduling and notifications"
@@ -626,15 +626,15 @@ function UserProfileForm() {
 
       <Select
         value={formData.interests}
-        onValueChange={(value: any) => 
+        onChange={(_event, value) => 
           setFormData({ ...formData, interests: value })
         }
         placeholder="Select your interests"
       >
         {interests.map((interest) => (
-          <Select.Item key={interest.value} value={interest.value}>
+          <Option key={interest.value} value={interest.value}>
             {interest.label}
-          </Select.Item>
+          </Option>
         ))}
       </Select>
         multiple
@@ -701,32 +701,32 @@ return (
   <>
     <Select
       value={country}
-      onValueChange={(value: any) => {
+      onChange={(_event, value) => {
         setCountry(value);
         setState(''); // Reset dependent fields
         setCity('');
       }}
     >
       {countries.map((c) => (
-        <Select.Item key={c.value} value={c.value}>
+        <Option key={c.value} value={c.value}>
           {c.label}
-        </Select.Item>
+        </Option>
       ))}
     </Select>
     />
     
     <Select
       value={state}
-      onValueChange={(value: any) => {
+      onChange={(_event, value) => {
         setState(value);
         setCity(''); // Reset dependent field
       }}
       disabled={!country}
     >
       {states.map((state) => (
-        <Select.Item key={state.value} value={state.value}>
+        <Option key={state.value} value={state.value}>
           {state.label}
-        </Select.Item>
+        </Option>
       ))}
     </Select>
       placeholder={country ? "Select state" : "Select country first"}
@@ -738,9 +738,9 @@ return (
       disabled={!state}
     >
       {cities.map((city) => (
-        <Select.Item key={city.value} value={city.value}>
+        <Option key={city.value} value={city.value}>
           {city.label}
-        </Select.Item>
+        </Option>
       ))}
     </Select>
       placeholder={state ? "Select city" : "Select state first"}
@@ -782,9 +782,9 @@ return (
     placeholder="Search for a user..."
   >
     {users.map((user) => (
-      <Select.Item key={user.value} value={user.value}>
+      <Option key={user.value} value={user.value}>
         {user.label}
-      </Select.Item>
+      </Option>
     ))}
   </Select>
     searchable

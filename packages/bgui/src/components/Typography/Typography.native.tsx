@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, type TextStyle } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { TypographyProps } from "./TypographyProps";
@@ -35,7 +35,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
 		const textRef = useRef<Text>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => textRef.current!);
+		useImperativeHandle(ref, () => textRef.current || ({} as any));
 
 		// Get typography level styles
 		const getLevelStyles = () => {
@@ -184,8 +184,8 @@ export const Typography = forwardRef<Text, TypographyProps>(
 				numberOfLines: 1,
 				ellipsizeMode: "tail" as const,
 			},
-			style,
-		];
+			...(Array.isArray(style) ? style : style ? [style] : []),
+		].filter(Boolean) as TextStyle[];
 
 		// Container styles for variants
 		const containerStyles = [
@@ -220,7 +220,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
 				<Box
 					flexDirection="row"
 					alignItems="center"
-					style={needsContainer ? containerStyles : undefined}
+					style={needsContainer ? (containerStyles as any) : undefined}
 				>
 					{startDecorator && <Box marginRight="xs">{startDecorator}</Box>}
 

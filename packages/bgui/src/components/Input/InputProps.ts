@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Input component
@@ -150,32 +151,58 @@ export interface InputProps {
 	/**
 	 * Callback fired when the value is changed.
 	 */
-	onChange?: (event: any) => void;
+	onChange?: (
+		event:
+			| React.ChangeEvent<HTMLInputElement>
+			| import("react-native").NativeSyntheticEvent<
+					import("react-native").TextInputChangeEventData
+			  >,
+	) => void;
 
 	/**
 	 * Callback fired when the input loses focus.
 	 */
-	onBlur?: (event: any) => void;
+	onBlur?: (
+		event:
+			| React.FocusEvent<HTMLInputElement>
+			| import("react-native").NativeSyntheticEvent<import("react-native").TextInputFocusEventData>,
+	) => void;
 
 	/**
 	 * Callback fired when the input receives focus.
 	 */
-	onFocus?: (event: any) => void;
+	onFocus?: (
+		event:
+			| React.FocusEvent<HTMLInputElement>
+			| import("react-native").NativeSyntheticEvent<import("react-native").TextInputFocusEventData>,
+	) => void;
 
 	/**
 	 * Callback fired when a key is pressed.
 	 */
-	onKeyDown?: (event: any) => void;
+	onKeyDown?: (
+		event:
+			| React.KeyboardEvent<HTMLInputElement>
+			| import("react-native").NativeSyntheticEvent<
+					import("react-native").TextInputKeyPressEventData
+			  >,
+	) => void;
 
 	/**
 	 * Callback fired when a key is released.
 	 */
-	onKeyUp?: (event: any) => void;
+	onKeyUp?: (
+		event:
+			| React.KeyboardEvent<HTMLInputElement>
+			| import("react-native").NativeSyntheticEvent<
+					import("react-native").TextInputKeyPressEventData
+			  >,
+	) => void;
 
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -186,6 +213,11 @@ export interface InputProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * The id of the element describing the input.

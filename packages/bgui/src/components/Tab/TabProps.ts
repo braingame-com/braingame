@@ -35,6 +35,12 @@ export interface TabProps {
 	variant?: "plain" | "outlined" | "soft" | "solid";
 
 	/**
+	 * The size of the component.
+	 * @default 'md'
+	 */
+	size?: "sm" | "md" | "lg";
+
+	/**
 	 * The indicator to display when the tab is selected.
 	 */
 	indicator?: ReactNode;
@@ -53,7 +59,7 @@ export interface TabProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -80,6 +86,38 @@ export interface TabProps {
 	 * The id of the Tab.
 	 */
 	id?: string;
+
+	/**
+	 * If `true`, the tab indicator is disabled.
+	 * @default false
+	 */
+	disableIndicator?: boolean;
+
+	/**
+	 * The placement of the indicator.
+	 * @default 'bottom'
+	 */
+	indicatorPlacement?: "top" | "bottom" | "left" | "right";
+
+	/**
+	 * The inset of the indicator.
+	 */
+	indicatorInset?: number | string;
+
+	/**
+	 * Focus event handler
+	 */
+	onFocus?: (event: any) => void;
+
+	/**
+	 * Blur event handler
+	 */
+	onBlur?: (event: any) => void;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * Accessibility label

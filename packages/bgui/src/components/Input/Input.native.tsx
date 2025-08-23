@@ -5,6 +5,8 @@ import {
 	TextInput,
 	type TextInputChangeEventData,
 	type TextInputFocusEventData,
+	type TextInputKeyPressEventData,
+	type ViewStyle,
 } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
@@ -34,22 +36,21 @@ export const Input = forwardRef<TextInput, InputProps>(
 			placeholder,
 			name,
 			id,
-			required = false,
+			required: _required = false,
 			autoFocus = false,
 			readOnly = false,
 			autoComplete,
-			maxLength,
-			minLength,
+			maxLength: _maxLength,
+			minLength: _minLength,
 			onChange,
 			onBlur,
 			onFocus,
-			onKeyDown,
-			onKeyUp,
+			onKeyDown: _onKeyDown,
 			style,
 			testID,
 			"aria-label": ariaLabel,
 			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
+			"aria-labelledby": _ariaLabelledby,
 		},
 		ref,
 	) => {
@@ -57,7 +58,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => inputRef.current!);
+		useImperativeHandle(ref, () => inputRef.current || ({} as TextInput));
 
 		// Use error color if error prop is true
 		const effectiveColor = error ? "danger" : color;
@@ -110,6 +111,22 @@ export const Input = forwardRef<TextInput, InputProps>(
 
 		const handleChange = (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
 			onChange?.(event);
+		};
+
+		// Handle keyboard events
+		const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+			// Convert to compatible event format and call handlers
+			const syntheticEvent = {
+				...event,
+				key: event.nativeEvent?.key || "",
+				preventDefault: () => {},
+				stopPropagation: () => {},
+			};
+
+			// Call onKeyDown if provided
+			if (event.nativeEvent?.key) {
+				onKeyDown?.(syntheticEvent);
+			}
 		};
 
 		// Get keyboard type based on input type
@@ -169,7 +186,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 				borderWidth: 2,
 			},
 			fullWidth && { width: "100%" },
-			style,
+			style as ViewStyle,
 		];
 
 		// Input styles
@@ -183,13 +200,18 @@ export const Input = forwardRef<TextInput, InputProps>(
 		];
 
 		return (
-			<Box flexDirection="row" alignItems="center" style={containerStyles} testID={testID}>
+			<Box
+				flexDirection="row"
+				alignItems="center"
+				style={StyleSheet.flatten(containerStyles)}
+				testID={testID}
+			>
 				{startDecorator && <Box marginRight="xs">{startDecorator}</Box>}
 
 				<TextInput
 					ref={inputRef}
-					value={value}
-					defaultValue={defaultValue}
+					value={typeof value === "string" ? value : value?.toString()}
+					defaultValue={typeof defaultValue === "string" ? defaultValue : defaultValue?.toString()}
 					placeholder={placeholder}
 					placeholderTextColor={theme.colors.onSurfaceVariant}
 					editable={!disabled && !readOnly}
@@ -201,15 +223,15 @@ export const Input = forwardRef<TextInput, InputProps>(
 					onChange={handleChange}
 					onFocus={handleFocus}
 					onBlur={handleBlur}
-					style={inputStyles}
+					onKeyPress={handleKeyPress}
+					style={StyleSheet.flatten(inputStyles)}
 					accessibilityLabel={ariaLabel}
 					accessibilityHint={ariaDescribedby}
-					accessibilityLabelledBy={ariaLabelledby}
-					accessibilityRequired={required}
 					accessibilityState={{
 						disabled: disabled,
-						invalid: error,
 					}}
+					nativeID={id}
+					testID={name ? `${name}-input` : testID}
 				/>
 
 				{endDecorator && <Box marginLeft="xs">{endDecorator}</Box>}

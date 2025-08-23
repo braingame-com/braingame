@@ -50,11 +50,11 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 		const isControlled = valueProp !== undefined;
 		const value = isControlled ? valueProp : internalValue;
 
-		const handleChange = (newValue: string | number | null) => {
+		const handleChange = (newValue: string | number | null, event?: any) => {
 			if (!isControlled) {
 				setInternalValue(newValue);
 			}
-			onChange?.(newValue);
+			onChange?.(event, newValue);
 		};
 
 		// Get variant styles
@@ -74,7 +74,9 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 			"--Tab-indicatorThickness": "2px",
 
 			// Typography
-			...(restyleTheme.textVariants[`body-${size}`] || restyleTheme.textVariants["body-md"]),
+			...((restyleTheme.textVariants as any)[`body-${size}`] ||
+				(restyleTheme.textVariants as any)["body-md"] ||
+				{}),
 
 			// Variant styles
 			...variantStyles,

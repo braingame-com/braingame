@@ -27,9 +27,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
 				<Header />
 				<Sidebar />
 				<main className="layout__main">
-					<div className="layout__content">
-						{children}
-					</div>
+					<div className="layout__content">{children}</div>
 				</main>
 			</div>
 		</BGUIThemeProvider>

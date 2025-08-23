@@ -73,32 +73,44 @@ export interface IconButtonProps {
 	/**
 	 * Callback fired when the button is clicked.
 	 */
-	onClick?: (event: any) => void;
+	onClick?: (event: React.MouseEvent | import("react-native").GestureResponderEvent) => void;
 
 	/**
 	 * Callback fired when the button loses focus.
 	 */
-	onBlur?: (event: any) => void;
+	onBlur?: (event: React.FocusEvent | import("react-native").GestureResponderEvent) => void;
 
 	/**
 	 * Callback fired when the button receives focus.
 	 */
-	onFocus?: (event: any) => void;
+	onFocus?: (event: React.FocusEvent | import("react-native").GestureResponderEvent) => void;
 
 	/**
 	 * Callback fired when a key is pressed.
 	 */
-	onKeyDown?: (event: any) => void;
+	onKeyDown?: (
+		event:
+			| React.KeyboardEvent
+			| import("react-native").NativeSyntheticEvent<
+					import("react-native").TextInputKeyPressEventData
+			  >,
+	) => void;
 
 	/**
 	 * Callback fired when a key is released.
 	 */
-	onKeyUp?: (event: any) => void;
+	onKeyUp?: (
+		event:
+			| React.KeyboardEvent
+			| import("react-native").NativeSyntheticEvent<
+					import("react-native").TextInputKeyPressEventData
+			  >,
+	) => void;
 
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -139,4 +151,24 @@ export interface IconButtonProps {
 	 * Indicates the current "pressed" state of toggle buttons.
 	 */
 	"aria-checked"?: boolean | "mixed";
+
+	/**
+	 * Mouse enter event handler
+	 */
+	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+
+	/**
+	 * Mouse leave event handler
+	 */
+	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+
+	/**
+	 * Mouse down event handler
+	 */
+	onMouseDown?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+
+	/**
+	 * Mouse up event handler
+	 */
+	onMouseUp?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

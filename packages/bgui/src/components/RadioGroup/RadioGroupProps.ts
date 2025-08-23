@@ -90,7 +90,7 @@ export interface RadioGroupProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -106,6 +106,11 @@ export interface RadioGroupProps {
 	 * The id of the element describing the radio group.
 	 */
 	"aria-describedby"?: string;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * The id of the element labeling the radio group.

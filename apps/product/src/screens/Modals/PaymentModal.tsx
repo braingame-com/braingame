@@ -45,7 +45,7 @@ export const PaymentModal: React.FC = () => {
 		<SafeAreaView style={styles.container}>
 			{/* Header */}
 			<View style={styles.header}>
-				<TouchableOpacity onPress={() => navigation.goBack()}>
+				<TouchableOpacity onClick={() => navigation.goBack()}>
 					<Text style={styles.closeButton}>✕</Text>
 				</TouchableOpacity>
 				<Text style={styles.headerTitle}>Complete Payment</Text>
@@ -68,7 +68,7 @@ export const PaymentModal: React.FC = () => {
 
 					<TouchableOpacity
 						style={[styles.paymentMethod, selectedMethod === "card" && styles.selectedMethod]}
-						onPress={() => setSelectedMethod("card")}
+						onClick={() => setSelectedMethod("card")}
 					>
 						<Text style={styles.methodIcon}>💳</Text>
 						<Text style={styles.methodText}>Credit/Debit Card</Text>
@@ -77,7 +77,7 @@ export const PaymentModal: React.FC = () => {
 
 					<TouchableOpacity
 						style={[styles.paymentMethod, selectedMethod === "apple" && styles.selectedMethod]}
-						onPress={() => setSelectedMethod("apple")}
+						onClick={() => setSelectedMethod("apple")}
 					>
 						<Text style={styles.methodIcon}>🍎</Text>
 						<Text style={styles.methodText}>Apple Pay</Text>
@@ -86,7 +86,7 @@ export const PaymentModal: React.FC = () => {
 
 					<TouchableOpacity
 						style={[styles.paymentMethod, selectedMethod === "google" && styles.selectedMethod]}
-						onPress={() => setSelectedMethod("google")}
+						onClick={() => setSelectedMethod("google")}
 					>
 						<Text style={styles.methodIcon}>📱</Text>
 						<Text style={styles.methodText}>Google Pay</Text>
@@ -105,7 +105,7 @@ export const PaymentModal: React.FC = () => {
 			<View style={styles.footer}>
 				<TouchableOpacity
 					style={[styles.payButton, processing && styles.payButtonDisabled]}
-					onPress={handlePayment}
+					onClick={handlePayment}
 					disabled={processing}
 				>
 					<Text style={styles.payButtonText}>{processing ? "Processing..." : `Pay $${price}`}</Text>

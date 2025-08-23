@@ -1,10 +1,8 @@
-import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { expect, test } from "@playwright/test";
 
 test.describe("Accessibility", () => {
-	test("should not have any automatically detectable accessibility issues", async ({
-		page,
-	}) => {
+	test("should not have any automatically detectable accessibility issues", async ({ page }) => {
 		await page.goto("/");
 
 		const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
@@ -51,9 +49,7 @@ test.describe("Accessibility", () => {
 	test("should have sufficient color contrast", async ({ page }) => {
 		await page.goto("/");
 
-		const results = await new AxeBuilder({ page })
-			.withTags(["wcag2aa", "wcag21aa"])
-			.analyze();
+		const results = await new AxeBuilder({ page }).withTags(["wcag2aa", "wcag21aa"]).analyze();
 
 		const contrastViolations = results.violations.filter(
 			(violation) => violation.id === "color-contrast",
@@ -75,9 +71,7 @@ test.describe("Accessibility", () => {
 		await page.keyboard.press("Enter");
 
 		// Should show loading or result
-		await expect(
-			page.getByText(/\.\.\.|Thanks for subscribing|Please enter/i),
-		).toBeVisible();
+		await expect(page.getByText(/\.\.\.|Thanks for subscribing|Please enter/i)).toBeVisible();
 	});
 
 	test("should have proper ARIA attributes", async ({ page }) => {
@@ -123,9 +117,7 @@ test.describe("Accessibility", () => {
 
 		// Should have some visual focus indicator
 		expect(
-			focusStyles.outline !== "none" ||
-				focusStyles.boxShadow !== "none" ||
-				focusStyles.border,
+			focusStyles.outline !== "none" || focusStyles.boxShadow !== "none" || focusStyles.border,
 		).toBeTruthy();
 	});
 });

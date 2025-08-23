@@ -72,12 +72,12 @@ export interface ListItemProps {
 	/**
 	 * Callback fired when the list item is clicked.
 	 */
-	onClick?: (event: any) => void;
+	onClick?: (event: React.MouseEvent | React.TouchEvent) => void;
 
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -109,6 +109,11 @@ export interface ListItemProps {
 	 * If `true`, the list item is selected (for ARIA).
 	 */
 	"aria-selected"?: boolean;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * If `true`, the list item is disabled (for ARIA).

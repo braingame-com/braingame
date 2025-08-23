@@ -157,7 +157,13 @@ export const Modal: React.FC<ModalProps> = ({
 	}, []);
 
 	// Focus trap
-	useFocusTrap(open, rootRef, disableEnforceFocus, disableAutoFocus, disableRestoreFocus);
+	useFocusTrap(
+		open,
+		rootRef as React.RefObject<HTMLElement>,
+		disableEnforceFocus,
+		disableAutoFocus,
+		disableRestoreFocus,
+	);
 
 	// Scroll lock
 	useScrollLock(open, disableScrollLock);
@@ -252,8 +258,8 @@ export const Modal: React.FC<ModalProps> = ({
 			<div style={childWrapperStyles} tabIndex={-1}>
 				{React.isValidElement(children)
 					? React.cloneElement(children, {
-							...children.props,
-							...(children.props.tabIndex === undefined && {
+							...(children.props as Record<string, unknown>),
+							...((children.props as Record<string, unknown>).tabIndex === undefined && {
 								tabIndex: -1,
 							}),
 						})
@@ -267,5 +273,5 @@ export const Modal: React.FC<ModalProps> = ({
 		return modalContent;
 	}
 
-	return createPortal(modalContent, targetContainer);
+	return createPortal(modalContent, targetContainer as Element);
 };

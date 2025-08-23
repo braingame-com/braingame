@@ -49,11 +49,11 @@ export const Container: React.FC<ContainerProps> = ({
 			return undefined;
 		}
 
-		if (fixed && maxWidth !== false) {
-			return FIXED_WIDTHS[maxWidth];
+		if (fixed) {
+			return FIXED_WIDTHS[maxWidth as keyof typeof FIXED_WIDTHS];
 		}
 
-		return MAX_WIDTHS[maxWidth];
+		return MAX_WIDTHS[maxWidth as keyof typeof MAX_WIDTHS];
 	};
 
 	// Get appropriate padding based on screen size

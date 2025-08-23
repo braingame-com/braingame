@@ -193,7 +193,7 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 				{/* Submit Button */}
 				<View style={{ marginTop: 24 }}>
 					<TouchableOpacity
-						onPress={handleSubmit}
+						onClick={handleSubmit}
 						disabled={buttonState === "loading"}
 						style={[
 							mindsetStyles.button,

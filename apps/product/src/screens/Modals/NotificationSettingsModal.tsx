@@ -64,11 +64,11 @@ export const NotificationSettingsModal: React.FC = () => {
 		<SafeAreaView style={styles.container}>
 			{/* Header */}
 			<View style={styles.header}>
-				<TouchableOpacity onPress={() => navigation.goBack()}>
+				<TouchableOpacity onClick={() => navigation.goBack()}>
 					<Text style={styles.cancelButton}>Cancel</Text>
 				</TouchableOpacity>
 				<Text style={styles.headerTitle}>Notifications</Text>
-				<TouchableOpacity onPress={handleSave}>
+				<TouchableOpacity onClick={handleSave}>
 					<Text style={styles.saveButton}>Save</Text>
 				</TouchableOpacity>
 			</View>

@@ -341,7 +341,7 @@ function UploadScreen() {
 function LoadingButton({ loading, onPress, children }) {
   return (
     <Button
-      onPress={onPress}
+      onClick={onPress}
       disabled={loading}
       style={styles.button}
     >
@@ -405,7 +405,7 @@ ListFooterComponent={() =>
   
   return (
     <Button
-      onPress={handlePress}
+      onClick={handlePress}
       disabled={submitting}
       style={styles.submitButton}
     >

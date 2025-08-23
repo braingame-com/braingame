@@ -1,5 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
-import React from "react";
+import { fireEvent, render } from "@testing-library/react";
 import { GlowingLogo } from "./GlowingLogo";
 
 describe("GlowingLogo", () => {
@@ -41,10 +40,10 @@ describe("GlowingLogo", () => {
 		const handleClick = jest.fn();
 		const { container } = render(<GlowingLogo onPress={handleClick} />);
 		const logo = container.firstChild as HTMLElement;
-		
+
 		expect(logo.getAttribute("role")).toBe("button");
 		expect(logo.getAttribute("tabIndex")).toBe("0");
-		
+
 		fireEvent.keyDown(logo, { key: "Enter" });
 		expect(handleClick).toHaveBeenCalledTimes(1);
 	});

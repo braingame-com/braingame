@@ -113,12 +113,15 @@ export interface SelectProps {
 	/**
 	 * Function that customizes the rendering of the selected value.
 	 */
-	renderValue?: (option: any) => ReactNode;
+	renderValue?: (option: string | number | string[] | number[] | null) => ReactNode;
 
 	/**
 	 * Callback fired when the value is changed.
 	 */
-	onChange?: (event: any, value: any) => void;
+	onChange?: (
+		event: React.SyntheticEvent | null,
+		value: string | number | string[] | number[] | null,
+	) => void;
 
 	/**
 	 * Callback fired when the listbox is opened or closed.
@@ -133,7 +136,7 @@ export interface SelectProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing

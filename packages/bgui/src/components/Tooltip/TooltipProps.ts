@@ -134,14 +134,30 @@ export interface TooltipProps {
 	onClose?: (event: any) => void;
 
 	/**
+	 * If true, the tooltip is disabled
+	 * @default false
+	 */
+	disabled?: boolean;
+
+	/**
+	 * Click handler for the tooltip trigger
+	 */
+	onClick?: () => void;
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
 	 */
 	testID?: string;
+
+	/**
+	 * Accessibility label
+	 */
+	"aria-label"?: string;
 
 	/**
 	 * This prop is used to help implement the accessibility logic.

@@ -14,25 +14,40 @@ const ThemedText = createText<Theme>();
  * Supports all options, value management, keyboard navigation, and accessibility.
  */
 
+export type SelectValueType = string | number | string[] | number[] | null;
+export type OptionValueType = string | number;
+
+interface OptionData {
+	value: OptionValueType;
+	label: string;
+	disabled?: boolean;
+}
+
+interface OptionPropsData {
+	selected: boolean;
+	highlighted: boolean;
+	onPress: () => void;
+}
+
 interface SelectContextType {
-	value: string | number | string[] | number[] | null;
-	onChange: (value: any) => void;
+	value: SelectValueType;
+	onChange: (value: SelectValueType) => void;
 	multiple?: boolean;
 	disabled?: boolean;
 	highlightedIndex: number;
 	setHighlightedIndex: (index: number) => void;
 	open: boolean;
 	setOpen: (open: boolean) => void;
-	getOptionProps: (index: number, value: any) => any;
-	options: Array<{ value: any; label: string; disabled?: boolean }>;
+	getOptionProps: (index: number, value: OptionValueType) => OptionPropsData;
+	options: Array<OptionData>;
 }
 
 const SelectContext = React.createContext<SelectContextType | null>(null);
 
 const ChevronDownIcon = () => (
-	<Box transform={[{ rotate: "90deg" }]} opacity={0.6}>
+	<View style={{ transform: [{ rotate: "90deg" }], opacity: 0.6 }}>
 		<ThemedText variant="body1">›</ThemedText>
-	</Box>
+	</View>
 );
 
 export const Select = React.forwardRef<View, SelectProps>(
@@ -57,17 +72,10 @@ export const Select = React.forwardRef<View, SelectProps>(
 			endDecorator,
 			indicator,
 			fullWidth = false,
-			name,
-			id,
-			required = false,
-			autoFocus = false,
 			renderValue,
 			style,
 			testID,
 			"aria-label": ariaLabel,
-			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
-			...props
 		},
 		ref,
 	) => {
@@ -75,14 +83,12 @@ export const Select = React.forwardRef<View, SelectProps>(
 		const fadeAnim = useRef(new Animated.Value(0)).current;
 
 		// State management
-		const [internalValue, setInternalValue] = useState<
-			string | number | string[] | number[] | null
-		>(valueProp !== undefined ? valueProp : defaultValue || null);
+		const [internalValue, setInternalValue] = useState<SelectValueType>(
+			valueProp !== undefined ? valueProp : defaultValue || null,
+		);
 		const [internalOpen, setInternalOpen] = useState(defaultListboxOpen);
 		const [highlightedIndex, setHighlightedIndex] = useState(-1);
-		const [options, setOptions] = useState<
-			Array<{ value: any; label: string; disabled?: boolean }>
-		>([]);
+		const [options, setOptions] = useState<Array<OptionData>>([]);
 
 		// Resolve controlled/uncontrolled state
 		const value = valueProp !== undefined ? valueProp : internalValue;
@@ -115,11 +121,11 @@ export const Select = React.forwardRef<View, SelectProps>(
 
 		// Handle value changes
 		const handleValueChange = useCallback(
-			(newValue: any) => {
+			(newValue: SelectValueType) => {
 				if (valueProp === undefined) {
 					setInternalValue(newValue);
 				}
-				onChange?.(null as any, newValue);
+				onChange?.(null, newValue);
 			},
 			[onChange, valueProp],
 		);
@@ -156,14 +162,19 @@ export const Select = React.forwardRef<View, SelectProps>(
 
 		// Collect options from children
 		useEffect(() => {
-			const childOptions: Array<{ value: any; label: string; disabled?: boolean }> = [];
+			const childOptions: Array<OptionData> = [];
 
 			React.Children.forEach(children, (child) => {
-				if (React.isValidElement(child) && child.type === Option) {
+				if (React.isValidElement<OptionProps>(child) && child.type === Option) {
+					const childProps = child.props as OptionProps;
 					childOptions.push({
-						value: child.props.value,
-						label: child.props.label || child.props.children || String(child.props.value),
-						disabled: child.props.disabled,
+						value: childProps.value,
+						label:
+							childProps.label ||
+							(typeof childProps.children === "string"
+								? childProps.children
+								: String(childProps.value)),
+						disabled: childProps.disabled,
 					});
 				}
 			});
@@ -173,9 +184,9 @@ export const Select = React.forwardRef<View, SelectProps>(
 
 		// Get option props for context
 		const getOptionProps = useCallback(
-			(index: number, optionValue: any) => ({
+			(index: number, optionValue: OptionValueType): OptionPropsData => ({
 				selected: multiple
-					? Array.isArray(value) && value.includes(optionValue)
+					? Array.isArray(value) && value.some((v) => v === optionValue)
 					: value === optionValue,
 				highlighted: highlightedIndex === index,
 				onPress: () => {
@@ -187,7 +198,7 @@ export const Select = React.forwardRef<View, SelectProps>(
 						} else {
 							newValue.splice(valueIndex, 1);
 						}
-						handleValueChange(newValue);
+						handleValueChange(newValue as SelectValueType);
 					} else {
 						handleValueChange(optionValue);
 						handleOpenChange(false);
@@ -205,7 +216,7 @@ export const Select = React.forwardRef<View, SelectProps>(
 
 			if (multiple && Array.isArray(value)) {
 				if (value.length === 0) return placeholder;
-				const selectedOptions = options.filter((opt) => value.includes(opt.value));
+				const selectedOptions = options.filter((opt) => value.some((v) => v === opt.value));
 				return selectedOptions.map((opt) => opt.label).join(", ");
 			}
 			const selectedOption = options.find((opt) => opt.value === value);
@@ -246,7 +257,7 @@ export const Select = React.forwardRef<View, SelectProps>(
 					accessibilityRole="button"
 					accessibilityState={{ disabled, expanded: open }}
 					testID={testID}
-					style={[fullWidth && { width: "100%" }, style]}
+					style={[fullWidth && { width: "100%" }]}
 				>
 					<Box
 						{...variantProps}
@@ -260,7 +271,9 @@ export const Select = React.forwardRef<View, SelectProps>(
 						style={[
 							variant === "outlined" && {
 								borderWidth: 1,
-								borderColor: theme.colors[variantProps.borderColor || "outline"] as string,
+								borderColor:
+									theme.colors[variantProps.borderColor as keyof typeof theme.colors] ||
+									theme.colors.outline,
 							},
 						]}
 					>
@@ -357,20 +370,20 @@ Select.displayName = "Select";
  * Option component for use within Select
  */
 interface OptionProps {
-	value: any;
+	value: OptionValueType;
 	label?: string;
 	disabled?: boolean;
 	children?: React.ReactNode;
 }
 
-export const Option: React.FC<OptionProps> = ({ value, label, disabled = false, children }) => {
+export const Option: React.FC<OptionProps> = () => {
 	// This is a placeholder component that provides props to the parent Select
 	// The actual rendering is handled by OptionItem
 	return null;
 };
 
 // Internal component for rendering options in the modal
-const OptionItem: React.FC<{ option: any; index: number }> = ({ option, index }) => {
+const OptionItem: React.FC<{ option: OptionData; index: number }> = ({ option, index }) => {
 	const context = React.useContext(SelectContext);
 	const _theme = useTheme<Theme>();
 
@@ -391,9 +404,7 @@ const OptionItem: React.FC<{ option: any; index: number }> = ({ option, index })
 			<Box
 				paddingHorizontal="md"
 				paddingVertical="sm"
-				backgroundColor={
-					highlighted ? "primaryContainer" : selected ? "surfaceVariant" : "transparent"
-				}
+				backgroundColor={highlighted ? "primary" : selected ? "neutral" : undefined}
 				opacity={option.disabled ? 0.6 : 1}
 			>
 				<ThemedText

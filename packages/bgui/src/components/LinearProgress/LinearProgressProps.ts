@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for LinearProgress component
@@ -68,9 +69,19 @@ export interface LinearProgressProps {
 	"aria-valuemax"?: number;
 
 	/**
+	 * The content of the component
+	 */
+	children?: ReactNode;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing

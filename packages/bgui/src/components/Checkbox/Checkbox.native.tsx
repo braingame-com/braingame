@@ -1,5 +1,13 @@
+import type React from "react";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
+import {
+	type GestureResponderEvent,
+	Pressable,
+	type StyleProp,
+	StyleSheet,
+	View,
+	type ViewStyle,
+} from "react-native";
 import { theme } from "../../theme";
 import { Typography } from "../Typography";
 import type { CheckboxProps } from "./CheckboxProps";
@@ -41,7 +49,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 			disableIcon = false,
 			overlay = false,
 			required = false,
-			autoFocus = false,
+			autoFocus: _autoFocus = false,
 			readOnly = false,
 			checkedIcon,
 			uncheckedIcon,
@@ -63,7 +71,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 		const checkedValue = isControlled ? checked : internalChecked;
 
 		// Merge refs
-		useImperativeHandle(ref, () => checkboxRef.current!);
+		useImperativeHandle(ref, () => checkboxRef.current || ({} as View));
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
@@ -109,21 +117,32 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 				setInternalChecked(newChecked);
 			}
 
-			// Create a mock event object
+			// Create a mock event object that conforms to ChangeEvent<HTMLInputElement>
 			const mockEvent = {
 				target: {
 					checked: newChecked,
 					value: value || "",
 					name: name || "",
-				},
+				} as HTMLInputElement,
 				currentTarget: {
 					checked: newChecked,
 					value: value || "",
 					name: name || "",
-				},
+				} as HTMLInputElement,
+				nativeEvent: {} as Event,
+				bubbles: false,
+				cancelable: false,
+				defaultPrevented: false,
+				eventPhase: 0,
+				isTrusted: false,
+				timeStamp: Date.now(),
+				type: "change",
 				preventDefault: () => {},
 				stopPropagation: () => {},
-			};
+				persist: () => {},
+				isDefaultPrevented: () => false,
+				isPropagationStopped: () => false,
+			} as React.ChangeEvent<HTMLInputElement>;
 
 			onChange?.(mockEvent);
 		};
@@ -174,15 +193,18 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 			return uncheckedIcon || null;
 		};
 
-		// Container styles
-		const containerStyles = [
+		// Container styles - convert style to compatible ViewStyle
+		const nativeStyle = style
+			? (StyleSheet.flatten(style as StyleProp<ViewStyle>) as ViewStyle)
+			: undefined;
+		const containerStyles: StyleProp<ViewStyle> = [
 			styles.container,
 			{
 				gap: sizeConfig.gap,
 				opacity: disabled ? 0.6 : 1,
 			},
 			overlay && styles.overlay,
-			style,
+			nativeStyle,
 		];
 
 		return (
@@ -200,7 +222,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 					checked: effectiveChecked,
 					busy: false,
 				}}
-				accessibilityRequired={required}
+				aria-required={required}
 				style={({ pressed }) => [containerStyles, pressed && !disabled && { opacity: 0.7 }]}
 			>
 				<View style={checkboxStyles}>{renderIcon()}</View>

@@ -57,14 +57,14 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 						<ThemedText size="xl" weight="bold">
 							Customize Theme
 						</ThemedText>
-						<TouchableOpacity onPress={onClose}>
+						<TouchableOpacity onClick={onClose}>
 							<ThemedText size="2xl">✕</ThemedText>
 						</TouchableOpacity>
 					</View>
 
 					{/* Tab Selector */}
 					<View style={styles.tabContainer}>
-						<TouchableOpacity style={styles.tab} onPress={() => handleTabChange("mode")}>
+						<TouchableOpacity style={styles.tab} onClick={() => handleTabChange("mode")}>
 							<ThemedText
 								variant={selectedTab === "mode" ? "primary" : "secondary"}
 								weight={selectedTab === "mode" ? "semibold" : "regular"}
@@ -72,7 +72,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 								Theme Mode
 							</ThemedText>
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.tab} onPress={() => handleTabChange("color")}>
+						<TouchableOpacity style={styles.tab} onClick={() => handleTabChange("color")}>
 							<ThemedText
 								variant={selectedTab === "color" ? "primary" : "secondary"}
 								weight={selectedTab === "color" ? "semibold" : "regular"}
@@ -103,7 +103,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 												borderWidth: 2,
 											},
 										]}
-										onPress={() => setThemeMode(item.mode)}
+										onClick={() => setThemeMode(item.mode)}
 									>
 										<ThemedCard elevation="low" padding="medium" style={styles.modeCard}>
 											<ThemedText size="4xl">{item.icon}</ThemedText>
@@ -130,7 +130,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 												borderWidth: 2,
 											},
 										]}
-										onPress={() => setColorScheme(item.scheme)}
+										onClick={() => setColorScheme(item.scheme)}
 									>
 										<ThemedCard elevation="low" padding="medium" style={styles.colorCard}>
 											<View style={styles.colorPreview}>
@@ -157,7 +157,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ visible, onClose }
 
 					{/* Footer */}
 					<View style={styles.footer}>
-						<ThemedButton variant="primary" size="large" fullWidth onPress={onClose}>
+						<ThemedButton variant="solid" size="large" fullWidth onClick={onClose}>
 							Done
 						</ThemedButton>
 					</View>
@@ -184,7 +184,7 @@ export const ThemeToggle: React.FC = () => {
 	});
 
 	return (
-		<TouchableOpacity onPress={handleToggle} style={styles.themeToggle}>
+		<TouchableOpacity onClick={handleToggle} style={styles.themeToggle}>
 			<Animated.View style={animatedStyle}>
 				<ThemedText size="xl">{themeMode === "dark" ? "🌙" : "☀️"}</ThemedText>
 			</Animated.View>

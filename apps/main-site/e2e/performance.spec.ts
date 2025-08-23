@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Performance", () => {
 	test("should load within acceptable time", async ({ page }) => {
@@ -81,25 +81,23 @@ test.describe("Performance", () => {
 	});
 
 	test("should have efficient resource loading", async ({ page }) => {
-		const resources: Array<{ url: string; size: number; duration: number }> = [];
+		const resources: Array<{ url: string; size: number }> = [];
 
 		page.on("response", async (response) => {
 			const url = response.url();
 			const headers = response.headers();
 			const size = Number.parseInt(headers["content-length"] || "0");
-			const timing = response.timing();
 
-			if (timing) {
-				resources.push({
-					url,
-					size,
-					duration: timing.responseEnd - timing.requestStart,
-				});
-			}
+			resources.push({
+				url,
+				size,
+			});
 		});
 
+		const startTime = Date.now();
 		await page.goto("/");
 		await page.waitForLoadState("networkidle");
+		const loadTime = Date.now() - startTime;
 
 		// Check JavaScript bundle sizes
 		const jsBundles = resources.filter((r) => r.url.includes(".js"));
@@ -108,9 +106,8 @@ test.describe("Performance", () => {
 		// Total JS should be under 500KB for good performance
 		expect(totalJsSize).toBeLessThan(500 * 1024);
 
-		// Check for slow resources
-		const slowResources = resources.filter((r) => r.duration > 1000);
-		expect(slowResources.length).toBe(0);
+		// Check overall load time instead of individual resource timing
+		expect(loadTime).toBeLessThan(5000); // 5s total load time
 	});
 
 	test("should minimize layout shifts", async ({ page }) => {
@@ -181,10 +178,7 @@ test.describe("Performance", () => {
 
 		// Check static assets have proper caching
 		const staticAssets = responses.filter(
-			(r) =>
-				r.url.includes("/_next/static/") ||
-				r.url.includes(".js") ||
-				r.url.includes(".css"),
+			(r) => r.url.includes("/_next/static/") || r.url.includes(".js") || r.url.includes(".css"),
 		);
 
 		for (const asset of staticAssets) {

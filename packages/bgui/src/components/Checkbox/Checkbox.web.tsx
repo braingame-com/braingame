@@ -107,9 +107,9 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 			fontSize: sizeConfig.fontSize,
 			lineHeight: sizeConfig.checkboxSize,
 			fontFamily: restyleTheme.textVariants.body1.fontFamily,
-			color: disabled ? restyleTheme.colors.onSurfaceDisabled : restyleTheme.colors.onSurface,
+			color: disabled ? restyleTheme.colors.onSurfaceVariant : restyleTheme.colors.onSurface,
 			cursor: disabled ? "not-allowed" : "pointer",
-			...style,
+			...((style as React.CSSProperties) || {}),
 		};
 
 		// Checkbox wrapper styles
@@ -207,13 +207,29 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 // Default icons
 const CheckIcon = () => (
-	<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+	<svg
+		width="1em"
+		height="1em"
+		viewBox="0 0 24 24"
+		fill="currentColor"
+		role="img"
+		aria-label="Checked"
+	>
+		<title>Checked</title>
 		<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
 	</svg>
 );
 
 const IndeterminateIcon = () => (
-	<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+	<svg
+		width="1em"
+		height="1em"
+		viewBox="0 0 24 24"
+		fill="currentColor"
+		role="img"
+		aria-label="Indeterminate"
+	>
+		<title>Indeterminate</title>
 		<path d="M19 13H5v-2h14v2z" />
 	</svg>
 );

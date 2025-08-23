@@ -4,6 +4,8 @@
 		"strict": true,
 		"jsx": "react-jsx",
 		"baseUrl": ".",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"paths": {
 			"@braingame/bgui": ["../../packages/bgui"],
 			"@braingame/utils": ["../../packages/utils"],

@@ -257,7 +257,7 @@ const calculateArrowPosition = (
 	return styles;
 };
 
-export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+const TooltipComponent = forwardRef<HTMLDivElement, TooltipProps>(
 	(
 		{
 			children,
@@ -596,4 +596,6 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
 	},
 );
 
-Tooltip.displayName = "Tooltip";
+TooltipComponent.displayName = "Tooltip";
+
+export const Tooltip = TooltipComponent;

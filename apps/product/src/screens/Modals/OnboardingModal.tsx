@@ -103,7 +103,7 @@ export const OnboardingModal: React.FC = () => {
 		<SafeAreaView style={styles.container}>
 			{/* Header */}
 			<View style={styles.header}>
-				<TouchableOpacity onPress={handleSkip}>
+				<TouchableOpacity onClick={handleSkip}>
 					<Text style={styles.skipButton}>Skip</Text>
 				</TouchableOpacity>
 			</View>
@@ -136,7 +136,7 @@ export const OnboardingModal: React.FC = () => {
 
 			{/* Bottom Actions */}
 			<View style={styles.footer}>
-				<TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+				<TouchableOpacity style={styles.nextButton} onClick={handleNext}>
 					<Text style={styles.nextButtonText}>
 						{currentStep === onboardingSteps.length - 1 ? "Get Started" : "Next"}
 					</Text>

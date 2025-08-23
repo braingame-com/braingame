@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@braingame/bgui";
 import type { Metadata } from "next";
 import { Lexend, Roboto_Mono } from "next/font/google";
 import { CookieConsent } from "../components/CookieConsent";
@@ -140,18 +139,16 @@ export default function RootLayout({
 			</head>
 			<body className={`${lexend.variable} ${robotoMono.variable} antialiased`}>
 				<ResourceHints />
-				<ThemeProvider>
-					<AnalyticsProvider>
-						<GoogleAnalytics />
-						<WebVitals />
-						<ErrorBoundary>
-							<ToastProvider>
-								<main>{children}</main>
-							</ToastProvider>
-						</ErrorBoundary>
-						<CookieConsent />
-					</AnalyticsProvider>
-				</ThemeProvider>
+				<AnalyticsProvider>
+					<GoogleAnalytics />
+					<WebVitals />
+					<ErrorBoundary>
+						<ToastProvider>
+							<main>{children}</main>
+						</ToastProvider>
+					</ErrorBoundary>
+					<CookieConsent />
+				</AnalyticsProvider>
 			</body>
 		</html>
 	);

@@ -134,11 +134,11 @@ export function CookieConsent() {
 						alignItems: "center",
 					}}
 				>
-					<Button onPress={handleDecline} variant="ghost" size="sm">
+					<Button onClick={handleDecline} variant="plain" size="sm">
 						<Text style={{ color: "#999" }}>Decline</Text>
 					</Button>
 
-					<Button onPress={handleAccept} variant="primary" size="sm">
+					<Button onClick={handleAccept} variant="solid" size="sm">
 						<Text style={{ color: "#000", fontWeight: "bold" }}>Accept</Text>
 					</Button>
 				</View>

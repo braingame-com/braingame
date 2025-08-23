@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from "react";
-import { Linking, Pressable, StyleSheet, View } from "react-native";
+import { Linking, Pressable, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
@@ -25,14 +25,14 @@ export const Link = forwardRef<View, LinkProps>(
 			endDecorator,
 			level = "body-md",
 			overlay = false,
-			target = "_self",
-			rel,
+			target: _target = "_self",
+			rel: _rel,
 			onClick,
 			style,
 			testID,
 			"aria-label": ariaLabel,
-			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
+			"aria-describedby": _ariaDescribedby,
+			"aria-labelledby": _ariaLabelledby,
 		},
 		ref,
 	) => {
@@ -42,11 +42,11 @@ export const Link = forwardRef<View, LinkProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => linkRef.current!);
+		useImperativeHandle(ref, () => linkRef.current || ({} as object));
 
 		// Handle link press
 		const handlePress = useCallback(
-			async (event: any) => {
+			async (event: React.TouchEvent | React.MouseEvent) => {
 				if (disabled) return;
 
 				// Call onClick if provided
@@ -142,7 +142,7 @@ export const Link = forwardRef<View, LinkProps>(
 		const underlineStyle = getUnderlineStyle();
 
 		// Container styles
-		const containerStyles = [
+		const containerStyles: StyleProp<ViewStyle> = [
 			styles.container,
 			variantStyles,
 			{
@@ -150,15 +150,13 @@ export const Link = forwardRef<View, LinkProps>(
 			},
 			overlay && styles.overlay,
 			style,
-		];
+		].filter(Boolean) as StyleProp<ViewStyle>;
 
 		// Text styles
-		const textStyles = [
-			{
-				color: variantStyles.color,
-				...underlineStyle,
-			},
-		];
+		const textStyles = {
+			color: variantStyles.color,
+			...(underlineStyle as Record<string, unknown>),
+		};
 
 		// Handle press states
 		const handlePressIn = () => {
@@ -213,7 +211,7 @@ export const Link = forwardRef<View, LinkProps>(
 					{startDecorator && <Box marginRight="xs">{startDecorator}</Box>}
 
 					{typeof children === "string" ? (
-						<Typography level={level} style={textStyles}>
+						<Typography level={level} style={textStyles as Record<string, unknown>}>
 							{children}
 						</Typography>
 					) : (

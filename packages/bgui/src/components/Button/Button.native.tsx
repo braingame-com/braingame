@@ -7,6 +7,7 @@ import {
 	Pressable,
 	StyleSheet,
 	View,
+	type ViewStyle,
 } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
@@ -40,6 +41,8 @@ export const Button = forwardRef<View, ButtonProps>(
 			testID,
 			"aria-label": ariaLabel,
 			"aria-pressed": ariaPressed,
+			tabIndex,
+			type,
 			...props
 		},
 		ref,
@@ -48,7 +51,7 @@ export const Button = forwardRef<View, ButtonProps>(
 		const [isPressed, setIsPressed] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => buttonRef.current!);
+		useImperativeHandle(ref, () => buttonRef.current || ({} as View));
 
 		// Handle loading/disabled state
 		const isDisabled = disabled || loading;
@@ -60,7 +63,7 @@ export const Button = forwardRef<View, ButtonProps>(
 
 			if (!variantStyle) {
 				// Fallback to solid primary if variant not found
-				return theme.components.Button.variants["solid-primary"];
+				return theme.components.Button.variants.solid?.primary || {};
 			}
 
 			return variantStyle;
@@ -139,16 +142,13 @@ export const Button = forwardRef<View, ButtonProps>(
 
 					<Typography
 						level="body-sm"
-						style={[
-							{
-								opacity: contentOpacity,
-								textTransform: "uppercase",
-								letterSpacing: 0.5,
-								fontWeight: "600",
-							},
-							variant === "solid" && { color: "#ffffff" },
-							variant !== "solid" && { color: theme.colors[color] },
-						]}
+						style={{
+							opacity: contentOpacity,
+							textTransform: "uppercase",
+							letterSpacing: 0.5,
+							fontWeight: "600",
+							color: variant === "solid" ? "#ffffff" : theme.colors[color],
+						}}
 					>
 						{children}
 					</Typography>
@@ -181,6 +181,9 @@ export const Button = forwardRef<View, ButtonProps>(
 			accessibilityState.selected = ariaPressed === true;
 		}
 
+		// Filter style to only include React Native compatible properties
+		const nativeStyle = style ? StyleSheet.create({ temp: style as ViewStyle }).temp : undefined;
+
 		return (
 			<Pressable
 				ref={buttonRef}
@@ -194,14 +197,14 @@ export const Button = forwardRef<View, ButtonProps>(
 				accessibilityState={accessibilityState}
 				style={({ pressed }) => [
 					styles.base,
-					variantStyle,
+					variantStyle as ViewStyle,
 					sizeStyle,
 					{
 						opacity: isDisabled ? 0.6 : pressed || isPressed ? 0.8 : 1,
 						transform: [{ scale: pressed || isPressed ? 0.97 : 1 }],
 					},
-					fullWidth && { width: "100%" },
-					style,
+					...(fullWidth ? [{ width: "100%" as const }] : []),
+					...(nativeStyle ? [nativeStyle] : []),
 				]}
 				{...props}
 			>

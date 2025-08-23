@@ -109,7 +109,7 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 			>
 				<View style={{ marginRight: 8 }}>
 					<Button
-						onPress={() => setViewMode("html")}
+						onClick={() => setViewMode("html")}
 						variant={viewMode === "html" ? "primary" : "ghost"}
 						size="sm"
 					>
@@ -117,7 +117,7 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 					</Button>
 				</View>
 				<Button
-					onPress={() => setViewMode("text")}
+					onClick={() => setViewMode("text")}
 					variant={viewMode === "text" ? "primary" : "ghost"}
 					size="sm"
 				>

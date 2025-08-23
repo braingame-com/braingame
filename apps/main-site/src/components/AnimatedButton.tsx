@@ -2,18 +2,18 @@ import { type ButtonProps, Text, View } from "@braingame/bgui";
 import { useEffect, useRef } from "react";
 import { Animated, Pressable } from "react-native";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "icon";
+type ButtonVariant = "solid" | "outlined" | "soft" | "plain" | "danger" | "icon";
 
-interface AnimatedButtonProps extends Omit<ButtonProps, "onPress"> {
-	onPress?: () => void;
+interface AnimatedButtonProps extends Omit<ButtonProps, "onClick"> {
+	onClick?: () => void;
 	children: React.ReactNode;
 	ripple?: boolean;
 }
 
 export function AnimatedButton({
-	onPress,
+	onClick,
 	children,
-	variant = "primary",
+	variant = "solid",
 	size = "md",
 	disabled,
 	loading,
@@ -83,15 +83,18 @@ export function AnimatedButton({
 		};
 
 		const variantStyles: Record<ButtonVariant, object> = {
-			primary: {
+			solid: {
 				backgroundColor: disabled ? "#666" : "#0074D9",
 			},
-			secondary: {
+			outlined: {
 				backgroundColor: disabled ? "#333" : "#222",
 				borderWidth: 1,
 				borderColor: disabled ? "#444" : "#555",
 			},
-			ghost: {
+			soft: {
+				backgroundColor: disabled ? "rgba(0, 116, 217, 0.1)" : "rgba(0, 116, 217, 0.2)",
+			},
+			plain: {
 				backgroundColor: "transparent",
 			},
 			danger: {
@@ -108,7 +111,7 @@ export function AnimatedButton({
 
 	return (
 		<Pressable
-			onPress={disabled || loading ? undefined : onPress}
+			onClick={disabled || loading ? undefined : onClick}
 			onPressIn={handlePressIn}
 			onPressOut={handlePressOut}
 			disabled={disabled || loading}
@@ -154,7 +157,7 @@ export function AnimatedButton({
 							],
 						}}
 					>
-						<Text style={{ color: variant === "primary" ? "#fff" : "#999" }}>⏳</Text>
+						<Text style={{ color: variant === "solid" ? "#fff" : "#999" }}>⏳</Text>
 					</Animated.View>
 				) : (
 					<View style={{ zIndex: 1 }}>{children}</View>

@@ -34,7 +34,7 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 		const waveAnim = useRef(new Animated.Value(0)).current;
 
 		// Merge refs
-		useImperativeHandle(ref, () => skeletonRef.current!);
+		useImperativeHandle(ref, () => skeletonRef.current || ({} as any));
 
 		// Get typography styles for text variant
 		const getTypographyStyles = () => {
@@ -65,8 +65,8 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 					return {
 						backgroundColor,
 						borderRadius: theme.radii.xs,
-						height: height || typographyStyles.fontSize,
-						width: width || "100%",
+						height: (height || typographyStyles.fontSize) as any,
+						width: (width || "100%") as any,
 					};
 
 				case "circular": {
@@ -74,8 +74,8 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 					return {
 						backgroundColor,
 						borderRadius: 9999,
-						width: size,
-						height: size,
+						width: size as any,
+						height: size as any,
 					};
 				}
 
@@ -83,16 +83,16 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 					return {
 						backgroundColor,
 						borderRadius: theme.radii.sm,
-						width: width || "100%",
-						height: height || typographyStyles.fontSize * 8,
+						width: (width || "100%") as any,
+						height: (height || typographyStyles.fontSize * 8) as any,
 					};
 
 				case "inline":
 					return {
 						backgroundColor,
 						borderRadius: theme.radii.xs,
-						height: height || typographyStyles.fontSize,
-						width: width || undefined,
+						height: (height || typographyStyles.fontSize) as any,
+						width: width as any,
 					};
 
 				case "overlay":
@@ -169,7 +169,7 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 		const variantStyles = getVariantStyles();
 
 		// Container styles
-		const containerStyles = [styles.container, variantStyles, style];
+		const containerStyles: any[] = [styles.container, variantStyles, style].filter(Boolean);
 
 		// Animated styles
 		const animatedStyles =
@@ -212,7 +212,7 @@ export const Skeleton = forwardRef<View, SkeletonProps>(
 
 		// For other variants
 		return (
-			<Box style={containerStyles}>
+			<Box style={StyleSheet.flatten(containerStyles)}>
 				<Animated.View
 					ref={skeletonRef}
 					style={[styles.skeleton, variantStyles, animatedStyles]}

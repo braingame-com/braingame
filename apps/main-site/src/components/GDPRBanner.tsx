@@ -162,7 +162,7 @@ export function GDPRBanner() {
 							</Text>
 						</View>
 						<Button
-							onPress={() => setSettings({ ...settings, analytics: !settings.analytics })}
+							onClick={() => setSettings({ ...settings, analytics: !settings.analytics })}
 							variant={settings.analytics ? "primary" : "ghost"}
 							size="sm"
 						>
@@ -192,7 +192,7 @@ export function GDPRBanner() {
 							</Text>
 						</View>
 						<Button
-							onPress={() => setSettings({ ...settings, marketing: !settings.marketing })}
+							onClick={() => setSettings({ ...settings, marketing: !settings.marketing })}
 							variant={settings.marketing ? "primary" : "ghost"}
 							size="sm"
 						>
@@ -220,7 +220,7 @@ export function GDPRBanner() {
 							</Text>
 						</View>
 						<Button
-							onPress={() => setSettings({ ...settings, preferences: !settings.preferences })}
+							onClick={() => setSettings({ ...settings, preferences: !settings.preferences })}
 							variant={settings.preferences ? "primary" : "ghost"}
 							size="sm"
 						>
@@ -239,11 +239,11 @@ export function GDPRBanner() {
 						justifyContent: "flex-end",
 					}}
 				>
-					<Button onPress={handleAcceptAll} variant="ghost">
+					<Button onClick={handleAcceptAll} variant="plain">
 						<Text style={{ color: "#999" }}>Accept All</Text>
 					</Button>
 
-					<Button onPress={handleSaveSettings} variant="primary">
+					<Button onClick={handleSaveSettings} variant="solid">
 						<Text style={{ color: "#000", fontWeight: "bold" }}>Save Settings</Text>
 					</Button>
 				</View>

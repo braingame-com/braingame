@@ -5,7 +5,7 @@ import { Box } from "../components/Box";
 import { Container } from "../components/Container";
 import { Divider } from "../components/Divider";
 import { Stack } from "../components/Stack";
-import { Text } from "../components/Text";
+import { Typography } from "../components/Typography";
 import { perfMeasurement } from "../utils/performance";
 
 /**
@@ -65,8 +65,8 @@ export const PerformanceBaseline: React.FC = () => {
 		}
 
 		// Generate report
-		const perfReport = perfMeasurement.generateReport();
-		setReport(perfReport);
+		const perfReport = perfMeasurement.getAllResults();
+		setReport(JSON.stringify(perfReport, null, 2));
 		setCompleted(true);
 		setIsRunning(false);
 	};
@@ -104,7 +104,7 @@ export const PerformanceBaseline: React.FC = () => {
 					</PerfComponent>
 
 					<PerfComponent componentName="Text">
-						<Text variant="h2">Text Component Test</Text>
+						<Typography level="h2">Text Component Test</Typography>
 					</PerfComponent>
 
 					<PerfComponent componentName="Stack">

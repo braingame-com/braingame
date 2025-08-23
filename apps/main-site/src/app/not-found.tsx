@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, Text, View } from "@braingame/bgui";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const ASCII_FACES = [
@@ -60,8 +60,10 @@ export default function NotFound() {
 	}, []);
 
 	return (
-		<View
+		<div
 			style={{
+				display: "flex",
+				flexDirection: "column",
 				flex: 1,
 				height: "100%",
 				backgroundColor: "#000",
@@ -71,8 +73,7 @@ export default function NotFound() {
 			}}
 		>
 			{/* ASCII Face */}
-			<Text
-				variant="displayTitle"
+			<div
 				style={{
 					color: "#7c3aed",
 					fontSize: 72,
@@ -82,60 +83,65 @@ export default function NotFound() {
 				}}
 			>
 				{face}
-			</Text>
+			</div>
 
 			{/* 404 Text */}
-			<Text
-				variant="title"
+			<h1
 				style={{
 					color: "#fff",
 					marginBottom: 16,
 					textAlign: "center",
+					fontSize: "3rem",
+					fontWeight: "bold",
+					margin: "0 0 16px 0",
 				}}
 			>
 				404
-			</Text>
+			</h1>
 
 			{/* Random Message */}
-			<Text
-				variant="subtitle"
+			<p
 				style={{
 					color: "#999",
 					marginBottom: 48,
 					textAlign: "center",
 					maxWidth: 600,
+					fontSize: "1.25rem",
+					margin: "0 0 48px 0",
 				}}
 			>
 				{message}
-			</Text>
+			</p>
 
 			{/* Link back home */}
 			<Link href="/">
-				<View
+				<button
 					style={{
 						backgroundColor: "#7c3aed",
-						paddingHorizontal: 32,
-						paddingVertical: 16,
+						padding: "16px 32px",
 						borderRadius: 8,
+						color: "#fff",
+						fontWeight: "bold",
+						border: "none",
+						cursor: "pointer",
+						fontSize: "16px",
 					}}
 				>
-					<Text variant="bold" style={{ color: "#fff" }}>
-						Take me home
-					</Text>
-				</View>
+					Take me home
+				</button>
 			</Link>
 
 			{/* Small refresh hint */}
-			<Text
-				variant="small"
+			<small
 				style={{
 					color: "#666",
 					marginTop: 48,
 					textAlign: "center",
+					fontSize: "0.8rem",
 				}}
 			>
 				psst... refresh for a different message
-			</Text>
-		</View>
+			</small>
+		</div>
 	);
 }

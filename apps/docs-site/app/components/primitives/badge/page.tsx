@@ -164,7 +164,14 @@ import { Badge } from '@braingame/bgui';
 				>
 					<div className="flex flex--gap-6">
 						<div style={{ position: "relative", display: "inline-block" }}>
-							<div style={{ width: 24, height: 24, backgroundColor: 'var(--color-outline)', borderRadius: 4 }} />
+							<div
+								style={{
+									width: 24,
+									height: 24,
+									backgroundColor: "var(--color-outline)",
+									borderRadius: 4,
+								}}
+							/>
 							<Badge
 								text="3"
 								variant="notification"
@@ -176,7 +183,14 @@ import { Badge } from '@braingame/bgui';
 							/>
 						</div>
 						<div style={{ position: "relative", display: "inline-block" }}>
-							<div style={{ width: 24, height: 24, backgroundColor: 'var(--color-outline)', borderRadius: 4 }} />
+							<div
+								style={{
+									width: 24,
+									height: 24,
+									backgroundColor: "var(--color-outline)",
+									borderRadius: 4,
+								}}
+							/>
 							<Badge
 								dot
 								variant="status"
@@ -188,7 +202,14 @@ import { Badge } from '@braingame/bgui';
 							/>
 						</div>
 						<div style={{ position: "relative", display: "inline-block" }}>
-							<div style={{ width: 24, height: 24, backgroundColor: 'var(--color-outline)', borderRadius: 4 }} />
+							<div
+								style={{
+									width: 24,
+									height: 24,
+									backgroundColor: "var(--color-outline)",
+									borderRadius: 4,
+								}}
+							/>
 							<Badge
 								text="12"
 								variant="count"

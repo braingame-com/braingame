@@ -33,7 +33,7 @@ export const AnalyticsSettingsScreen: React.FC = () => {
 			>
 				<AccessibleThemedView variant="background" style={{ marginBottom: theme.sizes.spacingXL }}>
 					<AccessibleThemedText
-						variant="primary"
+						variant="solid"
 						size="3xl"
 						weight="bold"
 						style={{ marginBottom: theme.sizes.spacingSM }}
@@ -41,7 +41,7 @@ export const AnalyticsSettingsScreen: React.FC = () => {
 					>
 						Analytics & Privacy
 					</AccessibleThemedText>
-					<AccessibleThemedText variant="secondary" size="md">
+					<AccessibleThemedText variant="outlined" size="md">
 						Control how we collect and use your data
 					</AccessibleThemedText>
 				</AccessibleThemedView>
@@ -74,7 +74,7 @@ export const AnalyticsSettingsScreen: React.FC = () => {
 
 				{/* Footer Info */}
 				<AccessibleThemedText
-					variant="secondary"
+					variant="outlined"
 					size="xs"
 					style={{
 						marginTop: theme.sizes.spacingXL,

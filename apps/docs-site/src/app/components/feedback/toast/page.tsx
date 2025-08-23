@@ -42,7 +42,7 @@ const toastProps = [
 	},
 	{
 		name: "action",
-		type: "{ label: string; onPress: () => void }",
+		type: "{ label: string; onClick: () => void }",
 		required: false,
 		description: "Optional action button configuration.",
 	},
@@ -72,27 +72,27 @@ export default function ToastDocs() {
 import { toast } from '@braingame/bgui';
 
 // Show different toast types
-<Button onPress={() => toast.info("This is an info message")}>
+<Button onClick={() => toast.info("This is an info message")}>
   Info Toast
 </Button>
 
-<Button onPress={() => toast.success("Operation completed!")}>
+<Button onClick={() => toast.success("Operation completed!")}>
   Success Toast
 </Button>
 
-<Button onPress={() => toast.warning("Please review your input")}>
+<Button onClick={() => toast.warning("Please review your input")}>
   Warning Toast
 </Button>
 
-<Button onPress={() => toast.error("Something went wrong")}>
+<Button onClick={() => toast.error("Something went wrong")}>
   Error Toast
 </Button>`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button onPress={() => console.log("Info toast")}>Info Toast</Button>
-						<Button onPress={() => console.log("Success toast")}>Success Toast</Button>
-						<Button onPress={() => console.log("Warning toast")}>Warning Toast</Button>
-						<Button onPress={() => console.log("Error toast")}>Error Toast</Button>
+						<Button onClick={() => console.log("Info toast")}>Info Toast</Button>
+						<Button onClick={() => console.log("Success toast")}>Success Toast</Button>
+						<Button onClick={() => console.log("Warning toast")}>Warning Toast</Button>
+						<Button onClick={() => console.log("Error toast")}>Error Toast</Button>
 					</div>
 				</LiveExample>
 
@@ -116,10 +116,10 @@ toast.error("No internet connection", {
 });`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button onPress={() => console.log("File saved")}>Save Toast</Button>
-						<Button onPress={() => console.log("Email sent")}>Send Toast</Button>
-						<Button onPress={() => console.log("Syncing")}>Sync Toast</Button>
-						<Button onPress={() => console.log("No internet")}>Offline Toast</Button>
+						<Button onClick={() => console.log("File saved")}>Save Toast</Button>
+						<Button onClick={() => console.log("Email sent")}>Send Toast</Button>
+						<Button onClick={() => console.log("Syncing")}>Sync Toast</Button>
+						<Button onClick={() => console.log("No internet")}>Offline Toast</Button>
 					</div>
 				</LiveExample>
 
@@ -129,7 +129,7 @@ toast.error("No internet connection", {
 toast.success("Item deleted", {
   action: {
     label: "Undo",
-    onPress: () => {
+    onClick: () => {
       // Restore item
       undoDelete();
     }
@@ -140,7 +140,7 @@ toast.success("Item deleted", {
 toast.error("Upload failed", {
   action: {
     label: "Retry",
-    onPress: () => {
+    onClick: () => {
       retryUpload();
     }
   }
@@ -150,16 +150,16 @@ toast.error("Upload failed", {
 toast.info("New message received", {
   action: {
     label: "View",
-    onPress: () => {
+    onClick: () => {
       navigation.navigate("Messages");
     }
   }
 });`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button onPress={() => console.log("Undo toast")}>Undo Toast</Button>
-						<Button onPress={() => console.log("Retry toast")}>Retry Toast</Button>
-						<Button onPress={() => console.log("View toast")}>View Toast</Button>
+						<Button onClick={() => console.log("Undo toast")}>Undo Toast</Button>
+						<Button onClick={() => console.log("Retry toast")}>Retry Toast</Button>
+						<Button onClick={() => console.log("View toast")}>View Toast</Button>
 					</div>
 				</LiveExample>
 
@@ -176,22 +176,22 @@ toast.info("Bottom left", { position: "bottom-left" });
 toast.info("Bottom right", { position: "bottom-right" });`}
 				>
 					<div className="grid grid--cols-3 gap-3">
-						<Button size="sm" onPress={() => console.log("Top left")}>
+						<Button size="sm" onClick={() => console.log("Top left")}>
 							Top Left
 						</Button>
-						<Button size="sm" onPress={() => console.log("Top")}>
+						<Button size="sm" onClick={() => console.log("Top")}>
 							Top
 						</Button>
-						<Button size="sm" onPress={() => console.log("Top right")}>
+						<Button size="sm" onClick={() => console.log("Top right")}>
 							Top Right
 						</Button>
-						<Button size="sm" onPress={() => console.log("Bottom left")}>
+						<Button size="sm" onClick={() => console.log("Bottom left")}>
 							Bottom Left
 						</Button>
-						<Button size="sm" onPress={() => console.log("Bottom")}>
+						<Button size="sm" onClick={() => console.log("Bottom")}>
 							Bottom
 						</Button>
-						<Button size="sm" onPress={() => console.log("Bottom right")}>
+						<Button size="sm" onClick={() => console.log("Bottom right")}>
 							Bottom Right
 						</Button>
 					</div>
@@ -210,14 +210,14 @@ toast.warning("Action required", {
   duration: 0,
   action: {
     label: "Dismiss",
-    onPress: () => toast.dismiss()
+    onClick: () => toast.dismiss()
   }
 });`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button onPress={() => console.log("Quick toast")}>Quick (1s)</Button>
-						<Button onPress={() => console.log("Long toast")}>Long (10s)</Button>
-						<Button onPress={() => console.log("Persistent toast")}>Persistent</Button>
+						<Button onClick={() => console.log("Quick toast")}>Quick (1s)</Button>
+						<Button onClick={() => console.log("Long toast")}>Long (10s)</Button>
+						<Button onClick={() => console.log("Persistent toast")}>Persistent</Button>
 					</div>
 				</LiveExample>
 
@@ -239,11 +239,11 @@ toast.update(toastId, {
   message: "Upload failed",
   action: {
     label: "Retry",
-    onPress: retryUpload
+    onClick: retryUpload
   }
 });`}
 				>
-					<Button onPress={() => console.log("Loading toast flow")}>Upload with Feedback</Button>
+					<Button onClick={() => console.log("Loading toast flow")}>Upload with Feedback</Button>
 				</LiveExample>
 			</section>
 
@@ -270,7 +270,7 @@ function handleDelete() {
     duration: 5000,
     action: {
       label: "Undo",
-      onPress: async () => {
+      onClick: async () => {
         await restoreItem(deleted.id);
         toast.info("Item restored");
       }
@@ -290,7 +290,7 @@ async function uploadFile(file) {
       message: "File uploaded successfully!",
       action: {
         label: "View",
-        onPress: () => openFile(result.id)
+        onClick: () => openFile(result.id)
       }
     });
   } catch (error) {
@@ -300,7 +300,7 @@ async function uploadFile(file) {
       duration: 0, // Keep visible for errors
       action: {
         label: "Retry",
-        onPress: () => uploadFile(file)
+        onClick: () => uploadFile(file)
       }
     });
   }
@@ -424,7 +424,7 @@ interface ToastProviderProps {
       message: "Sync failed",
       action: {
         label: "Retry",
-        onPress: syncData
+        onClick: syncData
       }
     });
   }

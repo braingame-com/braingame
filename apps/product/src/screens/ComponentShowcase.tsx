@@ -64,50 +64,50 @@ export function ComponentShowcase() {
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} variant="primary">
+					<Button onClick={() => {}} variant="solid">
 						Primary
 					</Button>
-					<Button onPress={() => {}} variant="secondary">
+					<Button onClick={() => {}} variant="outlined">
 						Secondary
 					</Button>
-					<Button onPress={() => {}} variant="ghost">
+					<Button onClick={() => {}} variant="plain">
 						Ghost
 					</Button>
-					<Button onPress={() => {}} variant="danger">
+					<Button onClick={() => {}} variant="danger">
 						Danger
 					</Button>
 				</View>
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} size="sm">
+					<Button onClick={() => {}} size="sm">
 						Small
 					</Button>
-					<Button onPress={() => {}} size="md">
+					<Button onClick={() => {}} size="md">
 						Medium
 					</Button>
-					<Button onPress={() => {}} size="lg">
+					<Button onClick={() => {}} size="lg">
 						Large
 					</Button>
 				</View>
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} icon="home">
+					<Button onClick={() => {}} icon="home">
 						With Icon
 					</Button>
-					<Button onPress={() => {}} icon="arrow_forward" iconPosition="right">
+					<Button onClick={() => {}} icon="arrow_forward" iconPosition="right">
 						Icon Right
 					</Button>
-					<Button onPress={() => {}} variant="icon" icon="settings" />
+					<Button onClick={() => {}} variant="icon" icon="settings" />
 				</View>
 
 				<View style={styles.row}>
-					<Button onPress={() => {}} loading>
+					<Button onClick={() => {}} loading>
 						Loading
 					</Button>
-					<Button onPress={() => {}} disabled>
+					<Button onClick={() => {}} disabled>
 						Disabled
 					</Button>
-					<Button onPress={() => {}} fullWidth>
+					<Button onClick={() => {}} fullWidth>
 						Full Width
 					</Button>
 				</View>
@@ -135,19 +135,19 @@ export function ComponentShowcase() {
 				<View style={styles.row}>
 					<Chip
 						label="React"
-						onPress={() => toggleChip("React")}
+						onClick={() => toggleChip("React")}
 						selected={selectedChips.includes("React")}
 						color="primary"
 					/>
 					<Chip
 						label="React Native"
-						onPress={() => toggleChip("React Native")}
+						onClick={() => toggleChip("React Native")}
 						selected={selectedChips.includes("React Native")}
 						color="primary"
 					/>
 					<Chip
 						label="TypeScript"
-						onPress={() => toggleChip("TypeScript")}
+						onClick={() => toggleChip("TypeScript")}
 						selected={selectedChips.includes("TypeScript")}
 						color="primary"
 					/>

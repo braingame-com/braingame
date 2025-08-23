@@ -1,1 +1,0 @@
-commit and push all changes to the current branch. make sure to commit all changes, even ones that I or other agents have changed, not just ones you changed in this session.

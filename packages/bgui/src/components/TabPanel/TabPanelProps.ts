@@ -29,9 +29,37 @@ export interface TabPanelProps {
 	keepMounted?: boolean;
 
 	/**
+	 * The color of the component.
+	 * @default 'neutral'
+	 */
+	color?: "primary" | "neutral" | "danger" | "success" | "warning";
+
+	/**
+	 * The variant to use.
+	 * @default 'plain'
+	 */
+	variant?: "plain" | "outlined" | "soft" | "solid";
+
+	/**
+	 * If `true`, the component is disabled.
+	 * @default false
+	 */
+	disabled?: boolean;
+
+	/**
+	 * Click handler
+	 */
+	onClick?: (event: any) => void;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing

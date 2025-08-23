@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Switch } from "@braingame/bgui";
+import { useState } from "react";
 import { CodeBlock } from "../../../../src/components/CodeBlock";
 import { LiveExample } from "../../../../src/components/LiveExample";
 import { PropsTable } from "../../../../src/components/PropsTable";
@@ -14,7 +14,7 @@ const switchProps = [
 		description: "The on/off state of the switch.",
 	},
 	{
-		name: "onValueChange",
+		name: "onChange",
 		type: "(value: boolean) => void",
 		required: true,
 		description: "Callback function called when the switch state changes.",
@@ -251,7 +251,9 @@ return (
 							</div>
 							<Switch
 								checked={settings.notifications}
-								onValueChange={(value: boolean) => setSettings({ ...settings, notifications: value })}
+								onValueChange={(value: boolean) =>
+									setSettings({ ...settings, notifications: value })
+								}
 							/>
 						</div>
 

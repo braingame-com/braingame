@@ -12,21 +12,30 @@ import type { SelectProps } from "./SelectProps";
 
 interface SelectContextType {
 	value: string | number | string[] | number[] | null;
-	onChange: (value: any) => void;
+	onChange: (value: string | number | string[] | number[] | null) => void;
 	multiple?: boolean;
 	disabled?: boolean;
 	highlightedIndex: number;
 	setHighlightedIndex: (index: number) => void;
 	open: boolean;
 	setOpen: (open: boolean) => void;
-	getOptionProps: (index: number, value: any) => any;
-	options: Array<{ value: any; label: string; disabled?: boolean }>;
+	getOptionProps: (
+		index: number,
+		value: string | number,
+	) => {
+		selected: boolean;
+		highlighted: boolean;
+		onClick: () => void;
+		onMouseEnter: () => void;
+	};
+	options: Array<{ value: string | number; label: string; disabled?: boolean }>;
 }
 
 const SelectContext = React.createContext<SelectContextType | null>(null);
 
 const ChevronDownIcon = () => (
 	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+		<title>Dropdown arrow</title>
 		<path
 			d="M4 6l4 4 4-4"
 			stroke="currentColor"
@@ -82,12 +91,12 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 		const [highlightedIndex, setHighlightedIndex] = useState(-1);
 		const [focusVisible, setFocusVisible] = useState(false);
 		const [options, setOptions] = useState<
-			Array<{ value: any; label: string; disabled?: boolean }>
+			Array<{ value: string | number; label: string; disabled?: boolean }>
 		>([]);
 
 		// Refs
 		const buttonRef = useRef<HTMLButtonElement>(null);
-		const listboxRef = useRef<HTMLDivElement>(null);
+		const listboxRef = useRef<HTMLUListElement>(null);
 		const hiddenInputRef = useRef<HTMLInputElement>(null);
 
 		// Resolve controlled/uncontrolled state
@@ -128,11 +137,11 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
 		// Handle value changes
 		const handleValueChange = useCallback(
-			(newValue: any) => {
+			(newValue: string | number | string[] | number[] | null) => {
 				if (valueProp === undefined) {
 					setInternalValue(newValue);
 				}
-				onChange?.(null as any, newValue);
+				onChange?.(null, newValue);
 			},
 			[onChange, valueProp],
 		);
@@ -154,14 +163,15 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
 		// Collect options from children
 		useEffect(() => {
-			const childOptions: Array<{ value: any; label: string; disabled?: boolean }> = [];
+			const childOptions: Array<{ value: string | number; label: string; disabled?: boolean }> = [];
 
 			React.Children.forEach(children, (child) => {
-				if (React.isValidElement(child) && child.type === Option) {
+				if (React.isValidElement<OptionProps>(child) && child.type === Option) {
+					const childProps = child.props as OptionProps;
 					childOptions.push({
-						value: child.props.value,
-						label: child.props.label || child.props.children || String(child.props.value),
-						disabled: child.props.disabled,
+						value: childProps.value,
+						label: childProps.label || String(childProps.children) || String(childProps.value),
+						disabled: childProps.disabled,
 					});
 				}
 			});
@@ -253,9 +263,9 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
 		// Get option props for context
 		const getOptionProps = useCallback(
-			(index: number, optionValue: any) => ({
+			(index: number, optionValue: string | number) => ({
 				selected: multiple
-					? Array.isArray(value) && value.includes(optionValue)
+					? Array.isArray(value) && value.some((v) => v === optionValue)
 					: value === optionValue,
 				highlighted: highlightedIndex === index,
 				onClick: () => {
@@ -267,7 +277,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 						} else {
 							newValue.splice(valueIndex, 1);
 						}
-						handleValueChange(newValue);
+						handleValueChange(newValue as string | number | string[] | number[] | null);
 					} else {
 						handleValueChange(optionValue);
 						handleOpenChange(false);
@@ -286,7 +296,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
 			if (multiple && Array.isArray(value)) {
 				if (value.length === 0) return placeholder;
-				const selectedOptions = options.filter((opt) => value.includes(opt.value));
+				const selectedOptions = options.filter((opt) => value.some((v) => v === opt.value));
 				return selectedOptions.map((opt) => opt.label).join(", ");
 			}
 			const selectedOption = options.find((opt) => opt.value === value);
@@ -440,14 +450,14 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
 					{/* Listbox */}
 					{open && (
-						<div
+						<ul
 							ref={listboxRef}
 							style={listboxStyles}
 							role="listbox"
 							aria-multiselectable={multiple}
 						>
 							{children}
-						</div>
+						</ul>
 					)}
 				</div>
 			</SelectContext.Provider>
@@ -461,7 +471,7 @@ Select.displayName = "Select";
  * Option component for use within Select
  */
 interface OptionProps {
-	value: any;
+	value: string | number;
 	label?: string;
 	disabled?: boolean;
 	children?: React.ReactNode;
@@ -518,16 +528,25 @@ export const Option: React.FC<OptionProps> = ({ value, label, disabled = false, 
 	};
 
 	return (
-		<div
+		<li
 			style={optionStyles}
 			role="option"
 			aria-selected={selected}
 			aria-disabled={disabled}
+			tabIndex={disabled ? -1 : 0}
 			onClick={disabled ? undefined : onClick}
+			onKeyDown={(e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					if (!disabled) {
+						onClick();
+					}
+				}
+			}}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 		>
 			{children || label || String(value)}
-		</div>
+		</li>
 	);
 };

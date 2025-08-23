@@ -1,5 +1,12 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
+import {
+	type GestureResponderEvent,
+	Pressable,
+	type StyleProp,
+	StyleSheet,
+	View,
+	type ViewStyle,
+} from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { CardProps } from "./CardProps";
@@ -33,7 +40,7 @@ export const Card = forwardRef<View, CardProps>(
 		const cardRef = useRef<View>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => cardRef.current!);
+		useImperativeHandle(ref, () => cardRef.current || ({} as View));
 
 		// Get card variant style from theme
 		const getCardVariantStyle = () => {
@@ -100,16 +107,21 @@ export const Card = forwardRef<View, CardProps>(
 					}
 				: {};
 
-		const cardStyle = [
+		// Filter style to only include React Native compatible properties
+		const nativeStyle = style
+			? (StyleSheet.flatten(style as StyleProp<ViewStyle>) as ViewStyle)
+			: undefined;
+
+		const cardStyle = StyleSheet.flatten([
 			styles.base,
 			cardVariantStyle,
 			{
 				borderRadius,
-				flexDirection: orientation === "horizontal" ? "row" : "column",
+				flexDirection: (orientation === "horizontal" ? "row" : "column") as "row" | "column",
 			},
 			shadowStyle,
-			style,
-		];
+			nativeStyle,
+		]);
 
 		// If card is clickable, use Pressable
 		if (onClick) {
@@ -123,7 +135,14 @@ export const Card = forwardRef<View, CardProps>(
 					accessibilityRole="button"
 					accessibilityLabel={ariaLabel}
 					style={({ pressed }) => [
-						cardStyle,
+						styles.base,
+						cardVariantStyle,
+						{
+							borderRadius,
+							flexDirection: (orientation === "horizontal" ? "row" : "column") as "row" | "column",
+						},
+						shadowStyle,
+						nativeStyle,
 						{
 							opacity: pressed ? 0.8 : 1,
 							transform: [{ scale: pressed ? 0.98 : 1 }],

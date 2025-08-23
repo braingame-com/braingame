@@ -55,7 +55,7 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(
 
 		const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 			if (disabled) return;
-			onChange(value);
+			onChange(value ?? null);
 			onClick?.(event);
 		};
 

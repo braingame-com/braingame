@@ -31,11 +31,14 @@ const LoadingSpinner: React.FC<{ size: string; color: string }> = ({ size, color
 			width={spinnerSize}
 			height={spinnerSize}
 			viewBox="0 0 24 24"
+			role="img"
+			aria-label="Loading"
 			style={{
 				animation: "bgui-spin 1s linear infinite",
 				color,
 			}}
 		>
+			<title>Loading</title>
 			<circle
 				cx="12"
 				cy="12"
@@ -92,7 +95,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		const [active, setActive] = React.useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => buttonRef.current!);
+		useImperativeHandle(ref, () => buttonRef.current || ({} as HTMLButtonElement));
 
 		// Handle loading state
 		const isDisabled = disabled || loading;
@@ -112,7 +115,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				gap: size === "sm" ? 4 : size === "lg" ? 8 : 6,
 				fontFamily: restyleTheme.textVariants.button.fontFamily,
 				fontSize: size === "sm" ? 14 : size === "lg" ? 16 : 15,
-				fontWeight: restyleTheme.textVariants.button.fontWeight as any,
+				fontWeight: restyleTheme.textVariants.button
+					.fontWeight as React.CSSProperties["fontWeight"],
 				lineHeight: 1.5,
 				borderRadius: restyleTheme.radii[size],
 				border: "1px solid transparent",
@@ -246,6 +250,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				data-testid={testID}
 				aria-label={ariaLabel}
 				aria-pressed={ariaPressed}
+				aria-busy={loading}
 				tabIndex={tabIndex}
 				onFocus={handleFocus}
 				onBlur={handleBlur}

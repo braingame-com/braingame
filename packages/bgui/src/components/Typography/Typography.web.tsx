@@ -85,11 +85,12 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
 			display: nesting ? "inline" : startDecorator || endDecorator ? "flex" : "block",
 
 			// Alignment for decorators
-			...(startDecorator ||
-				(endDecorator && {
-					alignItems: "center",
-					gap: "clamp(4px, 0.375em, 0.75rem)",
-				})),
+			...(startDecorator || endDecorator
+				? {
+						alignItems: "center",
+						gap: "clamp(4px, 0.375em, 0.75rem)",
+					}
+				: {}),
 
 			// Wrap behavior
 			...(noWrap && {
@@ -110,12 +111,10 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
 					}
 				: {
 						...variantStyles,
-						...(variant !== "plain" && {
-							paddingBlock: "min(0.1em, 4px)",
-							paddingInline: "0.25em",
-							marginInline: "-0.25em",
-							borderRadius: restyleTheme.radii.xs,
-						}),
+						paddingBlock: "min(0.1em, 4px)",
+						paddingInline: "0.25em",
+						marginInline: "-0.25em",
+						borderRadius: restyleTheme.radii.xs,
 					}),
 
 			// Additional styles

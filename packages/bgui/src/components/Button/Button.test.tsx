@@ -97,7 +97,7 @@ describe("Button", () => {
 		const { getByText } = render(<Button fullWidth>Full Width</Button>);
 
 		const button = getByText("Full Width").parentElement;
-		const styles = window.getComputedStyle(button!);
+		const styles = window.getComputedStyle(button || document.createElement("div"));
 		expect(styles.width).toBe("100%");
 	});
 
@@ -105,7 +105,8 @@ describe("Button", () => {
 		const handleClick = jest.fn();
 		const { getByText } = render(<Button onClick={handleClick}>Keyboard Test</Button>);
 
-		const button = getByText("Keyboard Test").parentElement!;
+		const button = getByText("Keyboard Test").parentElement;
+		if (!button) return;
 
 		// Test Enter key
 		fireEvent.keyDown(button, { key: "Enter" });

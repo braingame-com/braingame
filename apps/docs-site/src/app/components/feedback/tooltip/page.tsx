@@ -118,7 +118,7 @@ export default function TooltipDocs() {
 </Tooltip>
 
 <Tooltip content="Save your changes">
-  <Button onPress={() => {}}>Save</Button>
+  <Button onClick={() => {}}>Save</Button>
 </Tooltip>
 
 <Tooltip content="This field is required">
@@ -137,7 +137,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button onPress={() => {}}>Save</Button>
+							<Button onClick={() => {}}>Save</Button>
 							<div className="tooltip tooltip--top">
 								Save your changes
 								<div className="tooltip__arrow" />
@@ -162,25 +162,25 @@ export default function TooltipDocs() {
 				<LiveExample
 					title="Placement Options"
 					code={`<Tooltip content="Top tooltip" placement="top">
-  <Button onPress={() => {}}>Top</Button>
+  <Button onClick={() => {}}>Top</Button>
 </Tooltip>
 
 <Tooltip content="Bottom tooltip" placement="bottom">
-  <Button onPress={() => {}}>Bottom</Button>
+  <Button onClick={() => {}}>Bottom</Button>
 </Tooltip>
 
 <Tooltip content="Left tooltip" placement="left">
-  <Button onPress={() => {}}>Left</Button>
+  <Button onClick={() => {}}>Left</Button>
 </Tooltip>
 
 <Tooltip content="Right tooltip" placement="right">
-  <Button onPress={() => {}}>Right</Button>
+  <Button onClick={() => {}}>Right</Button>
 </Tooltip>`}
 				>
 					<div className="grid grid--cols-3 gap-4" style={{ maxWidth: 300 }}>
 						<div />
 						<div className="tooltip-container">
-							<Button size="sm" onPress={() => {}}>
+							<Button size="sm" onClick={() => {}}>
 								Top
 							</Button>
 							<div className="tooltip tooltip--top">
@@ -191,7 +191,7 @@ export default function TooltipDocs() {
 						<div />
 
 						<div className="tooltip-container">
-							<Button size="sm" onPress={() => {}}>
+							<Button size="sm" onClick={() => {}}>
 								Left
 							</Button>
 							<div className="tooltip tooltip--left">
@@ -201,7 +201,7 @@ export default function TooltipDocs() {
 						</div>
 						<div />
 						<div className="tooltip-container">
-							<Button size="sm" onPress={() => {}}>
+							<Button size="sm" onClick={() => {}}>
 								Right
 							</Button>
 							<div className="tooltip tooltip--right">
@@ -212,7 +212,7 @@ export default function TooltipDocs() {
 
 						<div />
 						<div className="tooltip-container">
-							<Button size="sm" onPress={() => {}}>
+							<Button size="sm" onClick={() => {}}>
 								Bottom
 							</Button>
 							<div className="tooltip tooltip--bottom">
@@ -252,7 +252,7 @@ export default function TooltipDocs() {
   }
   maxWidth={300}
 >
-  <Button variant="ghost" onPress={() => {}}>Help</Button>
+  <Button variant="plain" onClick={() => {}}>Help</Button>
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-4 flex--align-center">
@@ -268,7 +268,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="ghost" onPress={() => {}}>
+							<Button variant="plain" onClick={() => {}}>
 								Help
 							</Button>
 							<div className="tooltip tooltip--top" style={{ maxWidth: 300 }}>
@@ -286,17 +286,17 @@ export default function TooltipDocs() {
 					title="Trigger Methods"
 					code={`// Hover (default)
 <Tooltip content="Hover to see" trigger="hover">
-  <Button onPress={() => {}}>Hover me</Button>
+  <Button onClick={() => {}}>Hover me</Button>
 </Tooltip>
 
 // Press/Click
 <Tooltip content="Click to see" trigger="press">
-  <Button onPress={() => {}}>Click me</Button>
+  <Button onClick={() => {}}>Click me</Button>
 </Tooltip>
 
 // Long press (mobile)
 <Tooltip content="Long press to see" trigger="longPress">
-  <Button onPress={() => {}}>Hold me</Button>
+  <Button onClick={() => {}}>Hold me</Button>
 </Tooltip>
 
 // Focus (keyboard navigation)
@@ -305,13 +305,13 @@ export default function TooltipDocs() {
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
-						<Button size="sm" onPress={() => {}}>
+						<Button size="sm" onClick={() => {}}>
 							Hover me
 						</Button>
-						<Button size="sm" onPress={() => {}}>
+						<Button size="sm" onClick={() => {}}>
 							Click me
 						</Button>
-						<Button size="sm" onPress={() => {}}>
+						<Button size="sm" onClick={() => {}}>
 							Hold me
 						</Button>
 						<input
@@ -330,7 +330,7 @@ export default function TooltipDocs() {
   backgroundColor="var(--color-surface-inverse)"
   textColor="var(--color-on-surface-inverse)"
 >
-  <Button variant="secondary" onPress={() => {}}>Dark</Button>
+  <Button variant="outlined" onClick={() => {}}>Dark</Button>
 </Tooltip>
 
 <Tooltip 
@@ -339,7 +339,7 @@ export default function TooltipDocs() {
   textColor="var(--color-on-primary)"
   arrow={false}
 >
-  <Button variant="secondary" onPress={() => {}}>Primary</Button>
+  <Button variant="outlined" onClick={() => {}}>Primary</Button>
 </Tooltip>
 
 <Tooltip 
@@ -348,12 +348,12 @@ export default function TooltipDocs() {
   textColor="var(--color-on-tertiary-container)"
   maxWidth={350}
 >
-  <Button variant="secondary" onPress={() => {}}>Large</Button>
+  <Button variant="outlined" onClick={() => {}}>Large</Button>
 </Tooltip>`}
 				>
 					<div className="flex flex--row flex--gap-3 flex--wrap">
 						<div className="tooltip-container">
-							<Button variant="secondary" size="sm" onPress={() => {}}>
+							<Button variant="outlined" size="sm" onClick={() => {}}>
 								Dark
 							</Button>
 							<div
@@ -372,7 +372,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="secondary" size="sm" onPress={() => {}}>
+							<Button variant="outlined" size="sm" onClick={() => {}}>
 								Primary
 							</Button>
 							<div
@@ -387,7 +387,7 @@ export default function TooltipDocs() {
 						</div>
 
 						<div className="tooltip-container">
-							<Button variant="secondary" size="sm" onPress={() => {}}>
+							<Button variant="outlined" size="sm" onClick={() => {}}>
 								Large
 							</Button>
 							<div
@@ -499,19 +499,19 @@ function IconBar() {
   return (
     <View style={styles.iconBar}>
       <Tooltip content="Home">
-        <IconButton icon="home" onPress={goHome} />
+        <IconButton icon="home" onClick={goHome} />
       </Tooltip>
       
       <Tooltip content="Search">
-        <IconButton icon="search" onPress={openSearch} />
+        <IconButton icon="search" onClick={openSearch} />
       </Tooltip>
       
       <Tooltip content="Notifications">
-        <IconButton icon="notifications" onPress={openNotifications} />
+        <IconButton icon="notifications" onClick={openNotifications} />
       </Tooltip>
       
       <Tooltip content="Profile">
-        <IconButton icon="person" onPress={openProfile} />
+        <IconButton icon="person" onClick={openProfile} />
       </Tooltip>
     </View>
   );
@@ -584,13 +584,13 @@ function ActionMenu() {
   return (
     <Menu>
       <Tooltip content="Create a copy of this item" placement="left">
-        <MenuItem icon="content_copy" onPress={duplicate}>
+        <MenuItem icon="content_copy" onClick={duplicate}>
           Duplicate
         </MenuItem>
       </Tooltip>
       
       <Tooltip content="Share with team members" placement="left">
-        <MenuItem icon="share" onPress={share}>
+        <MenuItem icon="share" onClick={share}>
           Share
         </MenuItem>
       </Tooltip>
@@ -600,7 +600,7 @@ function ActionMenu() {
         placement="left"
         backgroundColor="var(--color-error)"
       >
-        <MenuItem icon="delete" onPress={confirmDelete}>
+        <MenuItem icon="delete" onClick={confirmDelete}>
           Delete
         </MenuItem>
       </Tooltip>
@@ -618,15 +618,15 @@ function ActionMenu() {
 					code={`// Always provide tooltips for icon-only buttons
 <View style={styles.toolbar}>
   <Tooltip content="Bold (Cmd+B)">
-    <IconButton icon="format_bold" onPress={toggleBold} />
+    <IconButton icon="format_bold" onClick={toggleBold} />
   </Tooltip>
   
   <Tooltip content="Italic (Cmd+I)">
-    <IconButton icon="format_italic" onPress={toggleItalic} />
+    <IconButton icon="format_italic" onClick={toggleItalic} />
   </Tooltip>
   
   <Tooltip content="Underline (Cmd+U)">
-    <IconButton icon="format_underlined" onPress={toggleUnderline} />
+    <IconButton icon="format_underlined" onClick={toggleUnderline} />
   </Tooltip>
 </View>`}
 					language="tsx"

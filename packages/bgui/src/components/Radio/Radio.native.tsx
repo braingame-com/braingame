@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { type GestureResponderEvent, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 import { Typography } from "../Typography";
@@ -57,7 +57,16 @@ export const Radio = forwardRef<View, RadioProps>(
 		const checkedValue = isControlled ? checked : internalChecked;
 
 		// Merge refs
-		useImperativeHandle(ref, () => radioRef.current!);
+		useImperativeHandle(ref, () => radioRef.current || ({} as View));
+
+		// Handle auto focus
+		useEffect(() => {
+			if (autoFocus && radioRef.current) {
+				// Since React Native doesn't have focus() method on View,
+				// we simulate focus by triggering the accessibility focus
+				radioRef.current.setNativeProps?.({ accessibilityFocused: true });
+			}
+		}, [autoFocus]);
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
@@ -122,7 +131,7 @@ export const Radio = forwardRef<View, RadioProps>(
 				stopPropagation: () => {},
 			};
 
-			onChange?.(mockEvent);
+			onChange?.(mockEvent as any);
 		};
 
 		const variantStyles = getVariantStyles();
@@ -155,7 +164,7 @@ export const Radio = forwardRef<View, RadioProps>(
 		};
 
 		// Container styles
-		const containerStyles = [
+		const containerStyles: any[] = [
 			styles.container,
 			{
 				gap: sizeConfig.gap,
@@ -163,7 +172,7 @@ export const Radio = forwardRef<View, RadioProps>(
 			},
 			overlay && styles.overlay,
 			style,
-		];
+		].filter(Boolean);
 
 		return (
 			<Pressable
@@ -180,8 +189,13 @@ export const Radio = forwardRef<View, RadioProps>(
 					checked: checkedValue,
 					busy: false,
 				}}
-				accessibilityRequired={required}
-				style={({ pressed }) => [containerStyles, pressed && !disabled && { opacity: 0.7 }]}
+				style={({ pressed }) =>
+					StyleSheet.flatten(
+						[...containerStyles, pressed && !disabled ? { opacity: 0.7 } : undefined].filter(
+							Boolean,
+						),
+					)
+				}
 			>
 				<View style={radioStyles}>{renderIcon()}</View>
 

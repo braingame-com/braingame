@@ -77,8 +77,8 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
 
 			// Typography
 			fontFamily: restyleTheme.textVariants.body1.fontFamily,
-			fontSize: restyleTheme.textVariants[`body-${size}`]?.fontSize || "16px",
-			lineHeight: restyleTheme.textVariants[`body-${size}`]?.lineHeight || 1.5,
+			fontSize: (restyleTheme.textVariants as any)[`body-${size}`]?.fontSize || "16px",
+			lineHeight: (restyleTheme.textVariants as any)[`body-${size}`]?.lineHeight || 1.5,
 
 			// Custom styles
 			...style,

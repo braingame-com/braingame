@@ -1,5 +1,6 @@
 "use client";
-import React, { forwardRef, useEffect, useRef } from "react";
+import type React from "react";
+import { forwardRef, useRef } from "react";
 import type { AnimatedGradientBackgroundProps } from "./AnimatedGradientBackgroundProps";
 
 /**
@@ -81,7 +82,6 @@ export const AnimatedGradientBackground = forwardRef<
 			children,
 			style,
 			testID,
-			...props
 		},
 		ref,
 	) => {
@@ -108,9 +108,8 @@ export const AnimatedGradientBackground = forwardRef<
 					height: "100%",
 					overflow: "hidden",
 					background: "linear-gradient(to bottom right, #0f0f0f, #1a1a1a)",
-					...style,
+					...(style as React.CSSProperties),
 				}}
-				{...props}
 			>
 				{/* Gradient blobs */}
 				<div

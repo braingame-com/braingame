@@ -1,6 +1,6 @@
 import type React from "react";
 import { useEffect, useRef } from "react";
-import { Animated, Easing, StyleSheet, View } from "react-native";
+import { Animated, Easing, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import { theme } from "../../theme";
 import type { CircularProgressProps } from "./CircularProgressProps";
@@ -110,14 +110,17 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
 		outputRange: ["0deg", "360deg"],
 	});
 
-	// Container styles
-	const containerStyles = [
+	// Container styles - convert style to compatible ViewStyle
+	const nativeStyle = style
+		? (StyleSheet.flatten(style as StyleProp<ViewStyle>) as ViewStyle)
+		: undefined;
+	const containerStyles: StyleProp<ViewStyle> = [
 		styles.container,
 		{
 			width: circleSize,
 			height: circleSize,
 		},
-		style,
+		nativeStyle,
 	];
 
 	// SVG styles

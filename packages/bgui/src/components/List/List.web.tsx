@@ -10,7 +10,7 @@ import type { ListProps } from "./ListProps";
  * Based on Joy UI's List implementation.
  */
 
-export const List = React.forwardRef<HTMLDivElement, ListProps>(
+export const List = React.forwardRef<HTMLUListElement, ListProps>(
 	(
 		{
 			children,

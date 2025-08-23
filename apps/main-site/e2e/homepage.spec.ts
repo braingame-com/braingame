@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Homepage", () => {
 	test.beforeEach(async ({ page }) => {
@@ -58,10 +58,7 @@ test.describe("Homepage", () => {
 	test("should navigate to GitHub", async ({ page }) => {
 		// Click GitHub link
 		const githubLink = page.getByText("View on GitHub");
-		await expect(githubLink).toHaveAttribute(
-			"href",
-			"https://github.com/braingame-com/braingame",
-		);
+		await expect(githubLink).toHaveAttribute("href", "https://github.com/braingame-com/braingame");
 	});
 
 	test("should be responsive", async ({ page }) => {

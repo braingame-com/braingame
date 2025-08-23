@@ -202,7 +202,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				{shuffledImages.slice(0, Math.min(shuffledImages.length, 15)).map((item, index) => (
 					<TouchableOpacity
 						key={`dot-${item}`}
-						onPress={() => goToSlide(index)}
+						onClick={() => goToSlide(index)}
 						style={{
 							width: 8,
 							height: 8,
@@ -260,7 +260,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				}}
 			>
 				<TouchableOpacity
-					onPress={goToPrevious}
+					onClick={goToPrevious}
 					disabled={currentIndex === 0}
 					style={{
 						backgroundColor: currentIndex === 0 ? "#505060" : "#007fff",
@@ -294,7 +294,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				</Text>
 
 				<TouchableOpacity
-					onPress={goToNext}
+					onClick={goToNext}
 					disabled={currentIndex === shuffledImages.length - 1}
 					style={{
 						backgroundColor: currentIndex === shuffledImages.length - 1 ? "#505060" : "#007fff",

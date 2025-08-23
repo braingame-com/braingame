@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Dimensions, View, StyleSheet } from "react-native";
+import type React from "react";
+import { useEffect, useRef } from "react";
+import { Animated, Dimensions, StyleSheet, View, type ViewStyle } from "react-native";
 import type { AnimatedGradientBackgroundProps } from "./AnimatedGradientBackgroundProps";
 
 /**
@@ -11,10 +12,12 @@ import type { AnimatedGradientBackgroundProps } from "./AnimatedGradientBackgrou
 const DEFAULT_COLORS = ["#FF4136", "#FF851B", "#FFDC00", "#2ECC40", "#0074D9", "#B10DC9"];
 
 interface BlobAnimation {
+	id: string;
 	x: Animated.Value;
 	y: Animated.Value;
 	scale: Animated.Value;
 	opacity: Animated.Value;
+	initialScale: number;
 }
 
 export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProps> = ({
@@ -36,11 +39,14 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
 	useEffect(() => {
 		if (blobAnimations.current.length === 0) {
 			for (let i = 0; i < blobCount; i++) {
+				const initialScale = 0.5 + Math.random() * 0.5;
 				blobAnimations.current.push({
+					id: `blob-${i}`,
 					x: new Animated.Value(Math.random() * width),
 					y: new Animated.Value(Math.random() * height),
-					scale: new Animated.Value(0.5 + Math.random() * 0.5),
+					scale: new Animated.Value(initialScale),
 					opacity: new Animated.Value(blobOpacity),
+					initialScale,
 				});
 			}
 		}
@@ -50,7 +56,12 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
 		if (!animate) return;
 
 		const animations = blobAnimations.current.map((blob) => {
-			const createAnimation = (value: Animated.Value, toValue: number, duration: number) =>
+			const createAnimation = (
+				value: Animated.Value,
+				toValue: number,
+				initialValue: number,
+				duration: number,
+			) =>
 				Animated.loop(
 					Animated.sequence([
 						Animated.timing(value, {
@@ -59,7 +70,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
 							useNativeDriver: true,
 						}),
 						Animated.timing(value, {
-							toValue: value._value,
+							toValue: initialValue,
 							duration: duration / 2,
 							useNativeDriver: true,
 						}),
@@ -67,7 +78,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
 				);
 
 			return Animated.parallel([
-				createAnimation(blob.scale, 1.2, duration),
+				createAnimation(blob.scale, 1.2, blob.initialScale, duration),
 				Animated.loop(
 					Animated.sequence([
 						Animated.timing(blob.x, {
@@ -93,7 +104,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
 	}, [animate, duration, width, height]);
 
 	return (
-		<View style={[styles.container, style]} testID={testID} {...props}>
+		<View style={[styles.container, style as ViewStyle]} testID={testID} {...props}>
 			{/* Background gradient */}
 			<View style={styles.gradientContainer}>
 				{animate &&
@@ -103,7 +114,7 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
 
 						return (
 							<Animated.View
-								key={index}
+								key={blob.id}
 								style={[
 									styles.blob,
 									{

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Text, TextInput, View } from "@braingame/bgui";
 import { memo, useCallback, useState } from "react";
 import { submitEmail } from "../lib/emailService";
 
@@ -44,15 +43,14 @@ export const EmailCaptureForm = memo(function EmailCaptureForm({
 	}, [email, onSuccess]);
 
 	return (
-		<View
+		<div
 			style={{
 				width: "100%",
 				maxWidth: 400,
 				marginBottom: 16,
 			}}
 		>
-			<Text
-				variant="body"
+			<p
 				style={{
 					color: "#ccc",
 					marginBottom: 12,
@@ -60,17 +58,18 @@ export const EmailCaptureForm = memo(function EmailCaptureForm({
 				}}
 			>
 				Subscribe to be alerted when we go live
-			</Text>
+			</p>
 
-			<View
+			<div
 				style={{
-					flexDirection: "row",
+					display: "flex",
 					gap: 12,
 				}}
 			>
-				<TextInput
+				<input
+					type="email"
 					value={email}
-					onValueChange={setEmail}
+					onChange={(e) => setEmail(e.target.value)}
 					placeholder="Enter your email"
 					style={{
 						flex: 1,
@@ -82,38 +81,42 @@ export const EmailCaptureForm = memo(function EmailCaptureForm({
 						color: "#fff",
 						fontSize: 16,
 					}}
-					placeholderTextColor="#666"
-					keyboardType="email-address"
-					autoCapitalize="none"
-					editable={!isSubmitting}
+					disabled={isSubmitting}
 					autoComplete="email"
 				/>
 
-				<Button
-					onPress={handleSubmit}
+				<button
+					onClick={handleSubmit}
 					disabled={isSubmitting || !email.trim()}
-					variant="primary"
-					loading={isSubmitting}
 					aria-label="Join waitlist"
+					style={{
+						backgroundColor: "#007bff",
+						color: "#fff",
+						border: "none",
+						borderRadius: 8,
+						padding: "12px 24px",
+						fontSize: 16,
+						fontWeight: "bold",
+						cursor: isSubmitting || !email.trim() ? "not-allowed" : "pointer",
+						opacity: isSubmitting || !email.trim() ? 0.6 : 1,
+					}}
 				>
-					<Text variant="bold" style={{ color: "#fff" }}>
-						{isSubmitting ? "..." : "Join"}
-					</Text>
-				</Button>
-			</View>
+					{isSubmitting ? "..." : "Join"}
+				</button>
+			</div>
 
 			{submitMessage && (
-				<Text
-					variant="small"
+				<p
 					style={{
 						color: isSuccess ? "#22c55e" : "#ef4444",
 						marginTop: 12,
 						textAlign: "center",
+						fontSize: 14,
 					}}
 				>
 					{submitMessage}
-				</Text>
+				</p>
 			)}
-		</View>
+		</div>
 	);
 });

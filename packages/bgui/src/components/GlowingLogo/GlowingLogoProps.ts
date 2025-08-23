@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import type { ViewProps } from "react-native";
+import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for GlowingLogo component
@@ -50,7 +50,7 @@ export interface GlowingLogoProps extends Omit<ViewProps, "style"> {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing

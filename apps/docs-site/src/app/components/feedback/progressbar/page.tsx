@@ -304,7 +304,7 @@ export default function ProgressBarDocs() {
       />
       
       <View style={styles.actions}>
-        <Button variant="ghost" size="sm">
+        <Button variant="plain" size="sm">
           {status === 'uploading' ? 'Pause' : 'Cancel'}
         </Button>
       </View>

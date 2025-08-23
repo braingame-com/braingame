@@ -99,12 +99,12 @@ export interface RadioProps {
 	/**
 	 * Callback fired when the state is changed.
 	 */
-	onChange?: (event: any) => void;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -120,6 +120,16 @@ export interface RadioProps {
 	 * The id of the element describing the radio button.
 	 */
 	"aria-describedby"?: string;
+
+	/**
+	 * The content of the component
+	 */
+	children?: ReactNode;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * The id of the element labeling the radio button.

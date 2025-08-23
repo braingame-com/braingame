@@ -75,7 +75,7 @@ export interface ButtonProps {
 	 * Web: MouseEvent
 	 * Native: GestureResponderEvent
 	 */
-	onClick?: (event: any) => void;
+	onClick?: (event: React.MouseEvent | GestureResponderEvent) => void;
 
 	/**
 	 * Called when button is pressed in (native only)
@@ -90,7 +90,7 @@ export interface ButtonProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing

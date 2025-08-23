@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import type { ViewProps } from "react-native";
+import type { ViewProps, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for AnimatedGradientBackground component
@@ -50,8 +50,9 @@ export interface AnimatedGradientBackgroundProps extends Omit<ViewProps, "style"
 
 	/**
 	 * Additional styles
+	 * Platform-specific: CSSProperties on web, ViewStyle on native
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties | ViewStyle;
 
 	/**
 	 * Test ID for testing

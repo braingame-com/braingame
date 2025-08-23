@@ -1,6 +1,6 @@
 import type React from "react";
 import { useEffect, useRef } from "react";
-import { Animated, Easing, StyleSheet, View } from "react-native";
+import { Animated, Easing, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { theme } from "../../theme";
 import type { LinearProgressProps } from "./LinearProgressProps";
 
@@ -118,7 +118,7 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 	});
 
 	// Track styles
-	const trackStyles = [
+	const trackStyles: StyleProp<ViewStyle> = [
 		styles.track,
 		{
 			height: progressHeight,
@@ -127,10 +127,10 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 			opacity: 0.3,
 		},
 		style,
-	];
+	].filter(Boolean) as StyleProp<ViewStyle>;
 
 	// Progress styles
-	const progressStyles = [
+	const progressStyles: StyleProp<ViewStyle> = [
 		styles.progress,
 		{
 			height: progressHeight,

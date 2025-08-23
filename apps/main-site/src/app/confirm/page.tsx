@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Link, Text, View } from "@braingame/bgui";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { emailService } from "../../lib/email-service";
@@ -31,8 +31,10 @@ export default function ConfirmPage() {
 	}, [token]);
 
 	return (
-		<View
+		<div
 			style={{
+				display: "flex",
+				flexDirection: "column",
 				flex: 1,
 				backgroundColor: "#000",
 				padding: 20,
@@ -41,40 +43,43 @@ export default function ConfirmPage() {
 				justifyContent: "center",
 			}}
 		>
-			<View
+			<div
 				style={{
 					maxWidth: 500,
 					width: "100%",
+					display: "flex",
+					flexDirection: "column",
 					alignItems: "center",
 				}}
 			>
 				{status === "loading" && (
 					<>
-						<Text
-							variant="displayTitle"
+						<h1
 							style={{
 								color: "#fff",
 								marginBottom: 16,
+								fontSize: "2rem",
+								fontWeight: "bold",
+								margin: "0 0 16px 0",
 							}}
 						>
 							Confirming...
-						</Text>
-						<Text
-							variant="body"
+						</h1>
+						<p
 							style={{
 								color: "#999",
 								marginBottom: 32,
+								margin: "0 0 32px 0",
 							}}
 						>
 							Please wait while we confirm your subscription.
-						</Text>
+						</p>
 					</>
 				)}
 
 				{status === "success" && (
 					<>
-						<Text
-							variant="displayTitle"
+						<div
 							style={{
 								color: "#0074D9",
 								marginBottom: 16,
@@ -82,42 +87,43 @@ export default function ConfirmPage() {
 							}}
 						>
 							✓
-						</Text>
-						<Text
-							variant="displayTitle"
+						</div>
+						<h1
 							style={{
 								color: "#fff",
 								marginBottom: 16,
+								fontSize: "2rem",
+								fontWeight: "bold",
+								margin: "0 0 16px 0",
 							}}
 						>
 							Confirmed!
-						</Text>
-						<Text
-							variant="body"
+						</h1>
+						<p
 							style={{
 								color: "#ccc",
 								marginBottom: 32,
-								lineHeight: 24,
+								lineHeight: 1.5,
+								margin: "0 0 32px 0",
 							}}
 						>
 							{message}
-						</Text>
-						<Text
-							variant="body"
+						</p>
+						<p
 							style={{
 								color: "#999",
 								marginBottom: 40,
+								margin: "0 0 40px 0",
 							}}
 						>
 							We'll keep you updated on Brain Game's progress and notify you as soon as we launch.
-						</Text>
+						</p>
 					</>
 				)}
 
 				{status === "error" && (
 					<>
-						<Text
-							variant="displayTitle"
+						<div
 							style={{
 								color: "#FF4136",
 								marginBottom: 16,
@@ -125,37 +131,48 @@ export default function ConfirmPage() {
 							}}
 						>
 							✗
-						</Text>
-						<Text
-							variant="displayTitle"
+						</div>
+						<h1
 							style={{
 								color: "#fff",
 								marginBottom: 16,
+								fontSize: "2rem",
+								fontWeight: "bold",
+								margin: "0 0 16px 0",
 							}}
 						>
 							Oops!
-						</Text>
-						<Text
-							variant="body"
+						</h1>
+						<p
 							style={{
 								color: "#ccc",
 								marginBottom: 40,
-								lineHeight: 24,
+								lineHeight: 1.5,
+								margin: "0 0 40px 0",
 							}}
 						>
 							{message}
-						</Text>
+						</p>
 					</>
 				)}
 
 				<Link href="/">
-					<View>
-						<Button onPress={() => {}} variant="primary" size="lg">
-							<Text style={{ color: "#000", fontWeight: "bold" }}>Back to Home</Text>
-						</Button>
-					</View>
+					<button
+						style={{
+							backgroundColor: "#0074D9",
+							color: "#000",
+							fontWeight: "bold",
+							padding: "16px 32px",
+							borderRadius: 8,
+							border: "none",
+							cursor: "pointer",
+							fontSize: "16px",
+						}}
+					>
+						Back to Home
+					</button>
 				</Link>
-			</View>
-		</View>
+			</div>
+		</div>
 	);
 }

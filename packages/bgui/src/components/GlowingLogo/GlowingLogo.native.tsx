@@ -1,5 +1,14 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Pressable, View, Image, StyleSheet } from "react-native";
+import type React from "react";
+import { useEffect, useRef } from "react";
+import {
+	Animated,
+	Image,
+	Pressable,
+	type StyleProp,
+	StyleSheet,
+	View,
+	type ViewStyle,
+} from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import type { GlowingLogoProps } from "./GlowingLogoProps";
 
@@ -22,11 +31,7 @@ const glowIntensityMap = {
 const DefaultLogo: React.FC<{ size: number; color: string }> = ({ size, color }) => (
 	<Svg width={size} height={size} viewBox="0 0 120 120">
 		<Circle cx="60" cy="60" r="50" fill={color} />
-		<Path
-			d="M60 20 L80 50 L70 50 L70 80 L50 80 L50 50 L40 50 Z"
-			fill="white"
-			opacity="0.9"
-		/>
+		<Path d="M60 20 L80 50 L70 50 L70 80 L50 80 L50 50 L40 50 Z" fill="white" opacity="0.9" />
 	</Svg>
 );
 
@@ -88,8 +93,17 @@ export const GlowingLogo: React.FC<GlowingLogoProps> = ({
 		};
 	}, [animate, pulseAnim, glowAnim]);
 
+	// Convert style to ViewStyle compatible format
+	const nativeStyle = style
+		? (StyleSheet.flatten(style as StyleProp<ViewStyle>) as ViewStyle)
+		: undefined;
+
 	const content = (
-		<View style={[styles.container, { width: size, height: size }, style]} testID={testID} {...props}>
+		<View
+			style={[styles.container, { width: size, height: size }, nativeStyle]}
+			testID={testID}
+			{...props}
+		>
 			{/* Glow effect */}
 			<Animated.View
 				style={[

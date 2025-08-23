@@ -43,7 +43,7 @@ export const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressPro
 			border: variantStyles.borderColor ? `1px solid ${variantStyles.borderColor}` : undefined,
 
 			// Additional styles
-			...style,
+			...((style as React.CSSProperties) || {}),
 		};
 
 		return (
@@ -56,7 +56,7 @@ export const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressPro
 				}}
 				data-testid={testID}
 			>
-				<div ref={ref} style={linearprogressStyles} aria-label={ariaLabel} {...props}>
+				<div ref={ref} style={linearprogressStyles} role="progressbar" aria-label={ariaLabel} {...props}>
 					{children}
 				</div>
 			</div>

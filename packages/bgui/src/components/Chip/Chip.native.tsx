@@ -1,10 +1,10 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
 import React from "react";
-import { Pressable, View, type ViewStyle } from "react-native";
+import { Pressable, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import type { Theme } from "../../theme/theme";
 import type { ChipProps } from "./ChipProps";
 
-const Box = createBox<Theme>();
+const _Box = createBox<Theme>();
 const ThemedText = createText<Theme>();
 
 /**
@@ -52,7 +52,43 @@ export function Chip({
 	};
 
 	const config = sizeConfig[size];
-	const variantKey = `${variant}-${color}` as keyof Theme["components"]["Chip"]["variants"];
+	const _variantKey = `${variant}-${color}` as keyof Theme["components"]["Chip"]["variants"];
+
+	// Get theme-based colors for the variant
+	const getVariantColors = () => {
+		const themeColors = _theme.colors;
+		switch (variant) {
+			case "solid":
+				return {
+					backgroundColor: themeColors[color],
+					color:
+						themeColors[
+							`on${color.charAt(0).toUpperCase() + color.slice(1)}` as keyof typeof themeColors
+						] || "#fff",
+				};
+			case "soft":
+				return {
+					backgroundColor:
+						themeColors[`${color}Container` as keyof typeof themeColors] ||
+						`${themeColors[color]}20`,
+					color: themeColors[color],
+				};
+			case "outlined":
+				return {
+					backgroundColor: "transparent",
+					borderColor: themeColors[color],
+					borderWidth: 1,
+					color: themeColors[color],
+				};
+			default:
+				return {
+					backgroundColor: "transparent",
+					color: themeColors[color],
+				};
+		}
+	};
+
+	const variantColors = getVariantColors();
 
 	const rootStyles: ViewStyle = {
 		flexDirection: "row",
@@ -63,6 +99,7 @@ export function Chip({
 		borderRadius: config.minHeight / 2, // Full pill shape
 		opacity: disabled ? 0.6 : 1,
 		transform: pressed ? [{ scale: 0.97 }] : [{ scale: 1 }],
+		...variantColors,
 	};
 
 	const contentContainerStyles: ViewStyle = {
@@ -89,6 +126,7 @@ export function Chip({
 					fontSize: config.fontSize,
 					fontWeight: "500",
 					textAlign: "center",
+					color: variantColors.color,
 				}}
 				numberOfLines={1}
 			>
@@ -97,6 +135,11 @@ export function Chip({
 			{endDecorator && <View>{endDecorator}</View>}
 		</View>
 	);
+
+	// Convert style to ViewStyle compatible format
+	const nativeStyle = style
+		? (StyleSheet.flatten(style as StyleProp<ViewStyle>) as ViewStyle)
+		: undefined;
 
 	if (clickable) {
 		return (
@@ -110,24 +153,21 @@ export function Chip({
 				accessibilityRole="button"
 				accessibilityState={{ disabled }}
 				testID={testID}
-				style={style}
+				style={nativeStyle}
 			>
-				<Box variant={variantKey} style={rootStyles}>
-					{renderContent()}
-				</Box>
+				<View style={rootStyles}>{renderContent()}</View>
 			</Pressable>
 		);
 	}
 
 	return (
-		<Box
-			variant={variantKey}
-			style={[rootStyles, style]}
+		<View
+			style={[rootStyles, nativeStyle]}
 			accessible
 			accessibilityLabel={ariaLabel}
 			testID={testID}
 		>
 			{renderContent()}
-		</Box>
+		</View>
 	);
 }

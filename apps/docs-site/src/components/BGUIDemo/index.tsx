@@ -1,11 +1,13 @@
 "use client";
 
 // Re-export types
+// Legacy type exports for backward compatibility
 export type {
 	AlertProps,
 	AvatarProps,
 	BadgeProps,
 	BoxProps,
+	BoxProps as ViewProps,
 	ButtonProps,
 	CardProps,
 	CheckboxProps,
@@ -16,32 +18,35 @@ export type {
 	GridProps,
 	IconButtonProps,
 	InputProps,
+	InputProps as TextInputProps,
 	LinearProgressProps,
 	LinkProps,
-	ListProps,
 	ListItemProps,
+	ListProps,
 	ModalProps,
-	RadioProps,
 	RadioGroupProps,
+	RadioProps,
 	SelectProps,
 	SkeletonProps,
 	StackProps,
 	SwitchProps,
-	TabProps,
 	TabListProps,
 	TabPanelProps,
+	TabProps,
 	TabsProps,
 	TextareaProps,
 	TooltipProps,
 	TypographyProps,
+	TypographyProps as TextProps,
 } from "@braingame/bgui";
-
 // Re-export all components from @braingame/bgui for use in documentation
+// Compatibility exports for old component names
 export {
 	Alert,
 	Avatar,
 	Badge,
 	Box,
+	Box as View,
 	Button,
 	Card,
 	Checkbox,
@@ -52,6 +57,7 @@ export {
 	Grid,
 	IconButton,
 	Input,
+	Input as TextInput,
 	LinearProgress,
 	Link,
 	List,
@@ -71,46 +77,41 @@ export {
 	Textarea,
 	Tooltip,
 	Typography,
+	Typography as Text,
 } from "@braingame/bgui";
 
-// Compatibility exports for old component names
-export { Input as TextInput } from "@braingame/bgui";
-export { Typography as Text } from "@braingame/bgui";
-export { Box as View } from "@braingame/bgui";
-
-// Legacy type exports for backward compatibility
-export type { InputProps as TextInputProps } from "@braingame/bgui";
-export type { TypographyProps as TextProps } from "@braingame/bgui";
-export type { BoxProps as ViewProps } from "@braingame/bgui";
-
 // Import for Icon component
-import { Typography as BGUITypography } from "@braingame/bgui";
-import { Option as BGUIOption } from "@braingame/bgui";
-import React from "react";
+import { Option as BGUIOption, Typography as BGUITypography } from "@braingame/bgui";
 
 // Icon component for backward compatibility - uses Typography with material icon font
-export const Icon = ({ name, size = "md", color, style, ...props }: { 
-  name: string; 
-  size?: "sm" | "md" | "lg"; 
-  color?: string; 
-  style?: any;
-  [key: string]: any;
+export const Icon = ({
+	name,
+	size = "md",
+	color,
+	style,
+	...props
+}: {
+	name: string;
+	size?: "sm" | "md" | "lg";
+	color?: string;
+	style?: any;
+	[key: string]: any;
 }) => {
-  const sizeMap = { sm: 16, md: 24, lg: 32 };
-  return (
-    <BGUITypography 
-      component="span"
-      style={{
-        fontFamily: 'Material Icons',
-        fontSize: sizeMap[size],
-        color,
-        ...style
-      }}
-      {...props}
-    >
-      {name}
-    </BGUITypography>
-  );
+	const sizeMap = { sm: 16, md: 24, lg: 32 };
+	return (
+		<BGUITypography
+			component="span"
+			style={{
+				fontFamily: "Material Icons",
+				fontSize: sizeMap[size],
+				color,
+				...style,
+			}}
+			{...props}
+		>
+			{name}
+		</BGUITypography>
+	);
 };
 
 // SelectItem for backward compatibility

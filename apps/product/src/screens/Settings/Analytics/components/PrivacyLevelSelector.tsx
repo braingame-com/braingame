@@ -19,7 +19,7 @@ export const PrivacyLevelSelector = withMemo(() => {
 	return (
 		<View style={{ marginBottom: theme.sizes.spacingLG }}>
 			<AccessibleThemedText
-				variant="primary"
+				variant="solid"
 				size="lg"
 				weight="semibold"
 				style={{ marginBottom: theme.sizes.spacingMD }}
@@ -31,7 +31,7 @@ export const PrivacyLevelSelector = withMemo(() => {
 			{privacyOptions.map((option) => (
 				<TouchableOpacity
 					key={option.id}
-					onPress={() => handlePrivacyChange(option.id)}
+					onClick={() => handlePrivacyChange(option.id)}
 					style={{
 						marginBottom: theme.sizes.spacingMD,
 						padding: theme.sizes.spacingMD,
@@ -53,18 +53,18 @@ export const PrivacyLevelSelector = withMemo(() => {
 							marginBottom: theme.sizes.spacingSM,
 						}}
 					>
-						<AccessibleThemedText variant="primary" size="md" weight="semibold" style={{ flex: 1 }}>
+						<AccessibleThemedText variant="solid" size="md" weight="semibold" style={{ flex: 1 }}>
 							{option.label}
 						</AccessibleThemedText>
 						{privacyLevel === option.id && (
-							<AccessibleThemedText variant="primary" size="lg">
+							<AccessibleThemedText variant="solid" size="lg">
 								✓
 							</AccessibleThemedText>
 						)}
 					</View>
 
 					<AccessibleThemedText
-						variant="secondary"
+						variant="outlined"
 						size="sm"
 						style={{ marginBottom: theme.sizes.spacingSM }}
 					>
@@ -75,7 +75,7 @@ export const PrivacyLevelSelector = withMemo(() => {
 						{option.features.map((feature) => (
 							<AccessibleThemedText
 								key={feature}
-								variant="secondary"
+								variant="outlined"
 								size="xs"
 								style={{ marginBottom: 2 }}
 							>

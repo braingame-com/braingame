@@ -32,7 +32,6 @@ Object.defineProperty(window, "matchMedia", {
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
-	constructor() {}
 	disconnect() {}
 	observe() {}
 	unobserve() {}
@@ -40,7 +39,6 @@ global.IntersectionObserver = class IntersectionObserver {
 
 // Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
-	constructor() {}
 	disconnect() {}
 	observe() {}
 	unobserve() {}
@@ -50,10 +48,7 @@ global.ResizeObserver = class ResizeObserver {
 const originalError = console.error;
 beforeAll(() => {
 	console.error = (...args) => {
-		if (
-			typeof args[0] === "string" &&
-			args[0].includes("Warning: ReactDOM.render")
-		) {
+		if (typeof args[0] === "string" && args[0].includes("Warning: ReactDOM.render")) {
 			return;
 		}
 		originalError.call(console, ...args);

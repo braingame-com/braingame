@@ -103,12 +103,12 @@ export interface LinkProps {
 	/**
 	 * Callback fired when the link is clicked.
 	 */
-	onClick?: (event: any) => void;
+	onClick?: (event: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => void;
 
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -119,6 +119,26 @@ export interface LinkProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The component used for the root node.
+	 */
+	component?: string;
+
+	/**
+	 * Focus event handler
+	 */
+	onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
+
+	/**
+	 * Blur event handler
+	 */
+	onBlur?: (event: React.FocusEvent<HTMLElement>) => void;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * The id of the element describing the link.

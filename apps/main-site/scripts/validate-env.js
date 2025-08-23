@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Required environment variables for production
 const requiredEnvVars = {
@@ -15,7 +15,7 @@ const requiredEnvVars = {
 
 // Check if .env file exists
 const envPath = path.join(__dirname, "..", ".env");
-const envExamplePath = path.join(__dirname, "..", ".env.example");
+const _envExamplePath = path.join(__dirname, "..", ".env.example");
 
 if (!fs.existsSync(envPath) && process.env.NODE_ENV === "production") {
 	console.error("❌ .env file not found in production!");

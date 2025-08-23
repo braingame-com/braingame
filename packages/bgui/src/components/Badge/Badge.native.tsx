@@ -1,6 +1,6 @@
 import { createBox, createText, useTheme } from "@shopify/restyle";
 import React from "react";
-import { Animated, View } from "react-native";
+import { Animated, View, type ViewStyle } from "react-native";
 import type { Theme } from "../../theme/theme";
 import type { BadgeProps } from "./BadgeProps";
 
@@ -78,10 +78,15 @@ export function Badge({
 	const config = sizeConfig[size];
 
 	// Create theme variant key
-	const variantKey = `${variant}-${color}` as keyof Theme["components"]["Badge"]["variants"];
+	const _variantKey = `${variant}-${color}` as keyof Theme["components"]["Badge"]["variants"];
 
 	return (
-		<View style={[{ position: "relative", alignSelf: "flex-start" }, style]}>
+		<View
+			style={[
+				{ position: "relative", alignSelf: "flex-start" },
+				...(style ? [style as ViewStyle] : []),
+			]}
+		>
 			{children}
 			<Animated.View
 				style={[
@@ -109,13 +114,13 @@ export function Badge({
 				testID={testID}
 			>
 				<Box
-					variant={variantKey}
 					minHeight={config.minHeight}
 					minWidth={config.minHeight}
-					borderRadius={config.minHeight / 2}
+					borderRadius="sm"
 					alignItems="center"
 					justifyContent="center"
-					paddingHorizontal={dot ? 0 : config.paddingX}
+					paddingHorizontal={dot ? "none" : "sm"}
+					backgroundColor="primary"
 				>
 					{!dot && displayValue && (
 						<ThemedText

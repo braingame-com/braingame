@@ -28,6 +28,20 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 		},
 		ref,
 	) => {
+		// Filter out React Native specific props that aren't compatible with HTML
+		const {
+			onTouchStart: _onTouchStart,
+			onTouchEnd: _onTouchEnd,
+			onTouchCancel: _onTouchCancel,
+			onTouchMove: _onTouchMove,
+			hitSlop: _hitSlop,
+			pointerEvents: _pointerEvents,
+			needsOffscreenAlphaCompositing: _needsOffscreenAlphaCompositing,
+			renderToHardwareTextureAndroid: _renderToHardwareTextureAndroid,
+			shouldRasterizeIOS: _shouldRasterizeIOS,
+			...webCompatibleProps
+		} = props;
+
 		// Get color value from theme
 		const getColorValue = (colorKey: string) => {
 			return restyleTheme.colors[colorKey as keyof typeof restyleTheme.colors] || colorKey;
@@ -94,20 +108,20 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 			transition: "all 0.2s ease",
 			overflow: "hidden",
 			position: "relative",
-			...getPaddingStyles(),
-			...getVariantStyles(),
-			...style,
+			...(getPaddingStyles() || {}),
+			...(getVariantStyles() || {}),
+			...((style as React.CSSProperties) || {}),
 		};
 
 		// Add hover effects for clickable cards
-		const handleMouseEnter = (e: React.MouseEvent) => {
+		const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
 			if (onClick) {
 				e.currentTarget.style.transform = "translateY(-2px)";
 				e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
 			}
 		};
 
-		const handleMouseLeave = (e: React.MouseEvent) => {
+		const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
 			if (onClick) {
 				e.currentTarget.style.transform = "translateY(0)";
 				e.currentTarget.style.boxShadow = "none";
@@ -122,15 +136,62 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 		return (
 			<div
 				ref={ref}
-				onClick={onClick}
+				onClick={onClick as React.MouseEventHandler<HTMLDivElement>}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
+				onKeyDown={
+					onClick
+						? (e) => {
+								if (e.key === "Enter" || e.key === " ") {
+									e.preventDefault();
+									// Create a proper synthetic mouse event for the onClick handler
+									const syntheticEvent = {
+										bubbles: e.bubbles,
+										cancelable: e.cancelable,
+										currentTarget: e.currentTarget,
+										defaultPrevented: e.defaultPrevented,
+										eventPhase: e.eventPhase,
+										isTrusted: e.isTrusted,
+										target: e.target,
+										timeStamp: e.timeStamp,
+										type: "click",
+										nativeEvent: new MouseEvent("click", {
+											bubbles: true,
+											cancelable: true,
+											view: window,
+										}),
+										button: 0,
+										buttons: 0,
+										clientX: 0,
+										clientY: 0,
+										movementX: 0,
+										movementY: 0,
+										offsetX: 0,
+										offsetY: 0,
+										pageX: 0,
+										pageY: 0,
+										relatedTarget: null,
+										screenX: 0,
+										screenY: 0,
+										x: 0,
+										y: 0,
+										preventDefault: () => e.preventDefault(),
+										stopPropagation: () => e.stopPropagation(),
+										persist: () => {},
+										isDefaultPrevented: () => e.isDefaultPrevented(),
+										isPropagationStopped: () => false,
+									} as unknown as React.MouseEvent<HTMLDivElement>;
+									onClick(syntheticEvent);
+								}
+							}
+						: undefined
+				}
 				style={cardStyles}
 				data-testid={testID}
-				aria-label={ariaLabel}
-				role={onClick ? "button" : undefined}
+				role={onClick ? "button" : "region"}
+				aria-label={onClick ? ariaLabel : undefined}
 				tabIndex={onClick ? 0 : undefined}
-				{...props}
+				{...webCompatibleProps}
 			>
 				{children}
 			</div>

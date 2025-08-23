@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { StyleSheet, type View } from "react-native";
+import { View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
@@ -23,7 +23,7 @@ export const Alert = forwardRef<View, AlertProps>(
 			endDecorator,
 			invertedColors = false,
 			role = "alert",
-			style,
+			style: _style,
 			testID,
 			"aria-label": ariaLabel,
 		},
@@ -32,7 +32,7 @@ export const Alert = forwardRef<View, AlertProps>(
 		const alertRef = useRef<View>(null);
 
 		// Merge refs
-		useImperativeHandle(ref, () => alertRef.current!);
+		useImperativeHandle(ref, () => alertRef.current || ({} as View));
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
@@ -105,67 +105,58 @@ export const Alert = forwardRef<View, AlertProps>(
 			return colorMap[color] || theme.colors.onSurface;
 		};
 
-		const variantStyles = getVariantStyles();
+		const _variantStyles = getVariantStyles();
 		const sizeConfig = getSizeConfig();
 		const iconColor = getIconColor();
 		const textColor = getTextColor();
 
-		// Container styles
-		const containerStyles = [
-			styles.container,
-			{
-				backgroundColor: variantStyles.backgroundColor,
-				borderColor: variantStyles.borderColor,
-				borderWidth: variantStyles.borderWidth || 0,
-				borderRadius: sizeConfig.borderRadius,
-				paddingHorizontal: sizeConfig.paddingHorizontal,
-				paddingVertical: sizeConfig.paddingVertical,
-				gap: sizeConfig.gap,
-			},
-			style,
-		];
-
 		return (
-			<Box
+			<View
 				ref={alertRef}
-				style={containerStyles}
 				testID={testID}
-				accessibilityRole={role as any}
+				accessibilityRole={role === "alert" ? "alert" : "text"}
 				accessibilityLabel={ariaLabel}
 				accessibilityLiveRegion="polite"
 				accessible={true}
 			>
-				<Box flexDirection="row" alignItems="flex-start" gap={sizeConfig.gap}>
-					{startDecorator && <Box style={{ color: iconColor }}>{startDecorator}</Box>}
+				<Box
+					flexDirection="column"
+					alignItems="stretch"
+					width="100%"
+					backgroundColor="primary"
+					borderColor="primary"
+					borderWidth={1}
+					borderRadius="sm"
+					paddingHorizontal="md"
+					paddingVertical="sm"
+					gap="xs"
+				>
+					<Box flexDirection="row" alignItems="flex-start" gap="xs">
+						{startDecorator && <Box style={{ color: iconColor }}>{startDecorator}</Box>}
 
-					<Box flex={1}>
-						{typeof children === "string" ? (
-							<Typography
-								level="body-md"
-								style={{
-									fontSize: sizeConfig.fontSize,
-									color: textColor,
-									lineHeight: sizeConfig.fontSize * 1.5,
-								}}
-							>
-								{children}
-							</Typography>
-						) : (
-							children
-						)}
+						<Box flex={1}>
+							{typeof children === "string" ? (
+								<Typography
+									level="body-md"
+									style={{
+										fontSize: sizeConfig.fontSize,
+										color: textColor,
+										lineHeight: sizeConfig.fontSize * 1.5,
+									}}
+								>
+									{children}
+								</Typography>
+							) : (
+								children
+							)}
+						</Box>
+
+						{endDecorator && <Box style={{ color: iconColor }}>{endDecorator}</Box>}
 					</Box>
-
-					{endDecorator && <Box style={{ color: iconColor }}>{endDecorator}</Box>}
 				</Box>
-			</Box>
+			</View>
 		);
 	},
 );
 
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: "column",
-		alignItems: "stretch",
-		width: "100%",
-	},
-});
+// Styles moved to Box props for Restyle compatibility

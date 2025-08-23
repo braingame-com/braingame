@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import React from "react";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 
 describe("AnimatedGradientBackground", () => {
@@ -24,9 +23,7 @@ describe("AnimatedGradientBackground", () => {
 	});
 
 	it("applies custom styles", () => {
-		const { container } = render(
-			<AnimatedGradientBackground style={{ backgroundColor: "red" }} />,
-		);
+		const { container } = render(<AnimatedGradientBackground style={{ backgroundColor: "red" }} />);
 		const element = container.firstChild as HTMLElement;
 		expect(element.style.backgroundColor).toBe("red");
 	});
@@ -37,9 +34,7 @@ describe("AnimatedGradientBackground", () => {
 	});
 
 	it("applies testID", () => {
-		const { getByTestId } = render(
-			<AnimatedGradientBackground testID="animated-background" />,
-		);
+		const { getByTestId } = render(<AnimatedGradientBackground testID="animated-background" />);
 		expect(getByTestId("animated-background")).toBeTruthy();
 	});
 });

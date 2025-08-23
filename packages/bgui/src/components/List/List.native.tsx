@@ -1,6 +1,6 @@
 import { createBox, useTheme } from "@shopify/restyle";
 import React, { forwardRef } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, type ViewStyle } from "react-native";
 import { theme } from "../../theme";
 import type { Theme } from "../../theme/theme";
 import type { ListProps } from "./ListProps";
@@ -77,13 +77,13 @@ export const List = forwardRef<View, ListProps>(
 					: "transparent",
 				padding,
 			},
-			style,
+			style as ViewStyle,
 		];
 
 		// Determine if we need a scrollable container for horizontal lists
 		const content = React.Children.map(children, (child, index) =>
 			React.isValidElement(child)
-				? React.cloneElement(child as React.ReactElement<any>, {
+				? React.cloneElement(child as React.ReactElement<unknown>, {
 						// Pass context props to children
 						__listContext: {
 							size,
@@ -100,12 +100,12 @@ export const List = forwardRef<View, ListProps>(
 		if (orientation === "horizontal" && wrap) {
 			return (
 				<ScrollView
-					ref={ref as any}
+					ref={ref as React.Ref<ScrollView>}
 					horizontal
 					showsHorizontalScrollIndicator={false}
-					contentContainerStyle={containerStyles}
+					contentContainerStyle={StyleSheet.flatten(containerStyles)}
 					accessible
-					accessibilityRole={role as any}
+					accessibilityRole={role}
 					accessibilityLabel={ariaLabel}
 					accessibilityLabelledBy={ariaLabelledBy}
 					accessibilityHint={ariaDescribedBy}
@@ -120,9 +120,9 @@ export const List = forwardRef<View, ListProps>(
 		return (
 			<View
 				ref={ref}
-				style={containerStyles}
+				style={StyleSheet.flatten(containerStyles)}
 				accessible
-				accessibilityRole={role as any}
+				accessibilityRole={role}
 				accessibilityLabel={ariaLabel}
 				accessibilityLabelledBy={ariaLabelledBy}
 				accessibilityHint={ariaDescribedBy}

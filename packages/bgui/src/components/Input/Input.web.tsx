@@ -94,7 +94,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 			cursor: disabled ? "not-allowed" : "text",
 			opacity: disabled ? 0.6 : 1,
 			transition: "all 0.2s",
-			...style,
+			...((style as React.CSSProperties) || {}),
 			...(focused && {
 				outline: `2px solid ${restyleTheme.colors[effectiveColor === "neutral" ? "primary" : effectiveColor]}`,
 				outlineOffset: "2px",
@@ -113,10 +113,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 			fontSize: sizeConfig.fontSize,
 			color: variantStyles.color || restyleTheme.colors.onSurface,
 			cursor: disabled ? "not-allowed" : undefined,
-			"::placeholder": {
-				color: restyleTheme.colors.onSurfaceVariant,
-				opacity: 0.64,
-			},
 		};
 
 		// Decorator styles
@@ -127,12 +123,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		};
 
 		return (
-			<div
-				className={className}
-				style={containerStyles}
-				data-testid={testID}
-				onClick={() => ref?.current?.focus()}
-			>
+			<div className={className} style={containerStyles} data-testid={testID}>
 				{startDecorator && (
 					<span style={{ ...decoratorStyles, marginInlineEnd: "-4px" }}>{startDecorator}</span>
 				)}

@@ -1,5 +1,6 @@
 import { createBox } from "@shopify/restyle";
 import type React from "react";
+import { type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import type { Theme } from "../../theme";
 import { theme } from "../../theme";
 import { Typography } from "../Typography";
@@ -41,6 +42,9 @@ export const Divider: React.FC<DividerProps> = ({
 		}),
 	};
 
+	// Convert style to be compatible with Restyle Box
+	const convertedStyle = style ? StyleSheet.flatten(style as StyleProp<ViewStyle>) : undefined;
+
 	// If there are children, render a more complex divider with content
 	if (children) {
 		return (
@@ -49,13 +53,13 @@ export const Divider: React.FC<DividerProps> = ({
 				flexDirection={isVertical ? "column" : "row"}
 				alignItems="center"
 				gap="sm"
-				style={[containerStyle, style]}
+				style={[containerStyle, convertedStyle]}
 			>
 				<Box
 					flex={1}
 					height={isVertical ? undefined : thickness}
 					width={isVertical ? thickness : undefined}
-					backgroundColor={dividerColor as any}
+					style={{ backgroundColor: dividerColor }}
 				/>
 				{typeof children === "string" ? (
 					<Typography level="body-xs" style={{ color: theme.colors.onSurfaceVariant }}>
@@ -68,7 +72,7 @@ export const Divider: React.FC<DividerProps> = ({
 					flex={1}
 					height={isVertical ? undefined : thickness}
 					width={isVertical ? thickness : undefined}
-					backgroundColor={dividerColor as any}
+					style={{ backgroundColor: dividerColor }}
 				/>
 			</Box>
 		);
@@ -80,8 +84,7 @@ export const Divider: React.FC<DividerProps> = ({
 			testID={testID}
 			height={isVertical ? "100%" : thickness}
 			width={isVertical ? thickness : "100%"}
-			backgroundColor={dividerColor as any}
-			style={[containerStyle, style]}
+			style={[{ backgroundColor: dividerColor }, containerStyle, convertedStyle]}
 			accessible
 			accessibilityRole="none"
 		/>

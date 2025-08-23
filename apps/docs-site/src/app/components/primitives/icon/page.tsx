@@ -171,7 +171,12 @@ export default function IconDocs() {
 						<Icon name="favorite" size="sm" color="var(--color-tertiary)" />
 						<Icon name="favorite" size="md" color="var(--color-tertiary)" />
 						<Icon name="favorite" size="lg" color="var(--color-tertiary)" />
-						<Icon name="favorite" size="lg" color="var(--color-tertiary)" style={{ fontSize: 48 }} />
+						<Icon
+							name="favorite"
+							size="lg"
+							color="var(--color-tertiary)"
+							style={{ fontSize: 48 }}
+						/>
 					</div>
 				</LiveExample>
 
@@ -198,22 +203,22 @@ export default function IconDocs() {
 					title="With Button"
 					code={`import { Button, Icon } from '@braingame/bgui';
 
-<Button onPress={() => {}} icon="add">
+<Button onClick={() => {}} icon="add">
   Add Item
 </Button>
 
-<Button onPress={() => {}} variant="icon" aria-label="Settings">
+<Button onClick={() => {}} variant="icon" aria-label="Settings">
   <Icon name="settings" />
 </Button>`}
 				>
 					<div className="flex flex--gap-3">
-						<Button onPress={() => {}} icon="add">
+						<Button onClick={() => {}} icon="add">
 							Add Item
 						</Button>
-						<Button onPress={() => {}} icon="delete" variant="danger">
+						<Button onClick={() => {}} icon="delete" variant="danger">
 							Delete
 						</Button>
-						<Button onPress={() => {}} variant="icon" aria-label="Settings">
+						<Button onClick={() => {}} variant="icon" aria-label="Settings">
 							<Icon name="settings" />
 						</Button>
 					</div>
@@ -225,7 +230,7 @@ export default function IconDocs() {
   <Icon name="edit" color="var(--color-on-surface)" />
 </View>
 
-<Pressable onPress={() => {}}>
+<Pressable onClick={() => {}}>
   {({ pressed }) => (
     <Icon 
       name="favorite" 

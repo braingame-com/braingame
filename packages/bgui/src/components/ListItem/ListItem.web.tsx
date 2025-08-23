@@ -10,7 +10,7 @@ import type { ListItemProps } from "./ListItemProps";
  * Based on Joy UI's ListItem implementation.
  */
 
-export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
+export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
 	(
 		{ children, variant = "plain", className, style, testID, "aria-label": ariaLabel, ...props },
 		ref,

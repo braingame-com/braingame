@@ -11,7 +11,7 @@ import { useTheme } from "../../ThemeContext";
 interface ThemedCardProps extends ViewProps {
 	elevation?: "none" | "low" | "medium" | "high";
 	padding?: "none" | "small" | "medium" | "large";
-	onPress?: () => void;
+	onClick?: () => void;
 }
 
 export const ThemedCard = withMemo<ThemedCardProps>(
@@ -64,7 +64,7 @@ export const ThemedCard = withMemo<ThemedCardProps>(
 
 		if (onPress) {
 			return (
-				<RNTouchableOpacity onPress={onPress} activeOpacity={0.8} {...props}>
+				<RNTouchableOpacity onClick={onPress} activeOpacity={0.8} {...props}>
 					<RNView style={cardStyle}>{children}</RNView>
 				</RNTouchableOpacity>
 			);

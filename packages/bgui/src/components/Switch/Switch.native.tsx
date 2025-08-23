@@ -46,7 +46,7 @@ export const Switch = forwardRef<View, SwitchProps>(
 		const checkedValue = isControlled ? checked : internalChecked;
 
 		// Merge refs
-		useImperativeHandle(ref, () => switchRef.current!);
+		useImperativeHandle(ref, () => switchRef.current || ({} as any));
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
@@ -149,14 +149,14 @@ export const Switch = forwardRef<View, SwitchProps>(
 		});
 
 		// Container styles
-		const containerStyles = [
+		const containerStyles: any[] = [
 			styles.container,
 			{
 				gap: sizeConfig.gap,
 				opacity: disabled ? 0.6 : 1,
 			},
 			style,
-		];
+		].filter(Boolean);
 
 		// Track styles
 		const trackStyles = [
@@ -196,10 +196,11 @@ export const Switch = forwardRef<View, SwitchProps>(
 					checked: checkedValue,
 					busy: false,
 				}}
-				accessibilityRequired={required}
-				style={({ pressed }) => [containerStyles, pressed && !disabled && { opacity: 0.7 }]}
+				style={({ pressed }) =>
+					[...containerStyles, pressed && !disabled ? { opacity: 0.7 } : undefined].filter(Boolean)
+				}
 			>
-				<Box flexDirection="row" alignItems="center" gap={sizeConfig.gap}>
+				<Box flexDirection="row" alignItems="center" gap="xs">
 					{startDecorator}
 
 					<View style={styles.switchContainer}>

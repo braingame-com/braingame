@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 
 const meta = {
@@ -119,6 +118,7 @@ export const WithContent: Story = {
 						Beautiful animated backgrounds
 					</p>
 					<button
+						type="button"
 						style={{
 							padding: "1rem 2rem",
 							fontSize: "1rem",

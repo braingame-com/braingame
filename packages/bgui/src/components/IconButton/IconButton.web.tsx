@@ -23,8 +23,7 @@ function useForkRef<T>(...refs: Array<React.Ref<T> | undefined | null>): React.R
 				}
 			});
 		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		refs,
+		[...refs, refs.forEach],
 	);
 }
 
@@ -38,7 +37,7 @@ function useButton(props: {
 	onKeyUp?: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
 	type?: "button" | "submit" | "reset";
 	href?: string;
-	rootRef?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
+	rootRef?: React.Ref<HTMLElement>;
 }) {
 	const [focusVisible, setFocusVisible] = React.useState(false);
 
@@ -50,7 +49,7 @@ function useButton(props: {
 			}
 			props.onFocus?.(event);
 		},
-		[props],
+		[props.onFocus],
 	);
 
 	const handleBlur = React.useCallback(
@@ -58,7 +57,7 @@ function useButton(props: {
 			setFocusVisible(false);
 			props.onBlur?.(event);
 		},
-		[props],
+		[props.onBlur],
 	);
 
 	const handleKeyDown = React.useCallback(
@@ -68,7 +67,7 @@ function useButton(props: {
 			}
 			props.onKeyDown?.(event);
 		},
-		[props],
+		[props.onKeyDown],
 	);
 
 	const getRootProps = () => ({
@@ -90,7 +89,7 @@ function useButton(props: {
 	};
 }
 
-export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>(
+export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(
 	function IconButton(props, ref) {
 		const {
 			children,
@@ -101,14 +100,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 			loading = false,
 			loadingIndicator: loadingIndicatorProp,
 			loadingPosition = "center",
-			type = "button",
 			href,
 			fullWidth = false,
-			onClick,
-			onBlur,
-			onFocus,
-			onKeyDown,
-			onKeyUp,
 			style,
 			testID,
 			"aria-label": ariaLabel,
@@ -128,8 +121,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 		const disabled = disabledProp || loading;
 		const Component = href && !disabled ? "a" : "button";
 
-		const buttonRef = React.useRef<HTMLButtonElement | HTMLAnchorElement>(null);
-		const handleRef = useForkRef(buttonRef, ref);
+		const buttonRef = React.useRef<HTMLElement>(null);
+		const handleRef = useForkRef(buttonRef, ref as React.Ref<HTMLElement>);
 
 		const { focusVisible, getRootProps } = useButton({
 			...props,
@@ -234,7 +227,9 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 				warning: "warningContainer",
 			};
 
-			const containerColor = restyleTheme.colors[containerColorMap[color]] || "rgba(0, 0, 0, 0.04)";
+			const containerColor =
+				(restyleTheme.colors as Record<string, string>)[containerColorMap[color]] ||
+				"rgba(0, 0, 0, 0.04)";
 
 			// Default hover styles based on variant
 			if (variant === "plain") {
@@ -318,6 +313,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 		const rootProps = getRootProps();
 
 		return (
+			// @ts-ignore - Complex polymorphic component with dynamic props
 			<Component
 				{...rootProps}
 				{...other}
@@ -325,35 +321,36 @@ export const IconButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement
 				onMouseEnter={(e) => {
 					setIsHovered(true);
 					if (Component === "a" && other.onMouseEnter) {
-						(other.onMouseEnter as any)(e);
+						(other.onMouseEnter as React.MouseEventHandler<HTMLElement>)(e);
 					}
 				}}
 				onMouseLeave={(e) => {
 					setIsHovered(false);
 					setIsActive(false);
 					if (Component === "a" && other.onMouseLeave) {
-						(other.onMouseLeave as any)(e);
+						(other.onMouseLeave as React.MouseEventHandler<HTMLElement>)(e);
 					}
 				}}
 				onMouseDown={(e) => {
 					setIsActive(true);
 					if (Component === "a" && other.onMouseDown) {
-						(other.onMouseDown as any)(e);
+						(other.onMouseDown as React.MouseEventHandler<HTMLElement>)(e);
 					}
 				}}
 				onMouseUp={(e) => {
 					setIsActive(false);
 					if (Component === "a" && other.onMouseUp) {
-						(other.onMouseUp as any)(e);
+						(other.onMouseUp as React.MouseEventHandler<HTMLElement>)(e);
 					}
 				}}
-				aria-label={ariaLabel}
+				aria-label={ariaLabel || "Icon button"}
 				aria-describedby={ariaDescribedby}
 				aria-labelledby={ariaLabelledby}
 				aria-pressed={ariaPressed}
 				aria-expanded={ariaExpanded}
 				aria-controls={ariaControls}
 				aria-checked={ariaChecked}
+				aria-busy={loading}
 				data-testid={testID}
 			>
 				{loading && loadingPosition === "center" ? (

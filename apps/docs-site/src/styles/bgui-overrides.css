@@ -17,25 +17,30 @@
 .bgui-tabs,
 .bgui-tab,
 .bgui-modal {
-  font-family: inherit !important;
+	font-family: inherit !important;
 }
 
 /* Ensure Typography components use the correct font */
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 [class*="typography-"],
 [class*="heading-"],
 [class*="title-"],
 [class*="body-"] {
-  font-family: inherit !important;
+	font-family: inherit !important;
 }
 
 /* Fix for React Native Web components */
 div[dir="auto"] {
-  font-family: inherit !important;
+	font-family: inherit !important;
 }
 
 /* Ensure all text inside BGUI components inherits font */
 [data-bgui-component] *,
 [class*="bgui-"] * {
-  font-family: inherit !important;
+	font-family: inherit !important;
 }

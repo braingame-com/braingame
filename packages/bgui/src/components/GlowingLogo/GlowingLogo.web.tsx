@@ -1,5 +1,6 @@
 "use client";
-import React, { forwardRef } from "react";
+import type React from "react";
+import { forwardRef } from "react";
 import type { GlowingLogoProps } from "./GlowingLogoProps";
 
 /**
@@ -42,13 +43,13 @@ const DefaultLogo: React.FC<{ size: number; color: string }> = ({ size, color })
 		viewBox="0 0 120 120"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		role="img"
+		aria-hidden="true"
+		focusable="false"
 	>
+		<title>Company logo</title>
 		<circle cx="60" cy="60" r="50" fill={color} />
-		<path
-			d="M60 20 L80 50 L70 50 L70 80 L50 80 L50 50 L40 50 Z"
-			fill="white"
-			opacity="0.9"
-		/>
+		<path d="M60 20 L80 50 L70 50 L70 80 L50 80 L50 50 L40 50 Z" fill="white" opacity="0.9" />
 	</svg>
 );
 
@@ -72,12 +73,50 @@ export const GlowingLogo = forwardRef<HTMLDivElement, GlowingLogoProps>(
 		const { blur, scale, opacity } = glowIntensityMap[glowIntensity];
 		const isClickable = !!onPress;
 
+		// Filter out React Native specific props that aren't compatible with HTML
+		const {
+			onTouchStart: _onTouchStart,
+			onTouchEnd: _onTouchEnd,
+			onTouchCancel: _onTouchCancel,
+			onTouchMove: _onTouchMove,
+			hitSlop: _hitSlop,
+			pointerEvents: _pointerEvents,
+			needsOffscreenAlphaCompositing: _needsOffscreenAlphaCompositing,
+			renderToHardwareTextureAndroid: _renderToHardwareTextureAndroid,
+			shouldRasterizeIOS: _shouldRasterizeIOS,
+			onLayout: _onLayout,
+			removeClippedSubviews: _removeClippedSubviews,
+			collapsable: _collapsable,
+			nativeID: _nativeID,
+			accessible: _accessible,
+			accessibilityRole: _accessibilityRole,
+			accessibilityLabel: _accessibilityLabel,
+			accessibilityState: _accessibilityState,
+			accessibilityActions: _accessibilityActions,
+			onAccessibilityAction: _onAccessibilityAction,
+			accessibilityLiveRegion: _accessibilityLiveRegion,
+			importantForAccessibility: _importantForAccessibility,
+			accessibilityElementsHidden: _accessibilityElementsHidden,
+			accessibilityViewIsModal: _accessibilityViewIsModal,
+			onResponderGrant: _onResponderGrant,
+			onResponderMove: _onResponderMove,
+			onResponderRelease: _onResponderRelease,
+			onResponderTerminate: _onResponderTerminate,
+			onResponderTerminationRequest: _onResponderTerminationRequest,
+			onStartShouldSetResponder: _onStartShouldSetResponder,
+			onStartShouldSetResponderCapture: _onStartShouldSetResponderCapture,
+			onMoveShouldSetResponder: _onMoveShouldSetResponder,
+			onMoveShouldSetResponderCapture: _onMoveShouldSetResponderCapture,
+			onTouchEndCapture: _onTouchEndCapture,
+			onTouchStartCapture: _onTouchStartCapture
+		} = props as Record<string, unknown>;
+
 		const containerStyle: React.CSSProperties = {
 			position: "relative",
 			width: size,
 			height: size,
 			cursor: isClickable ? "pointer" : "default",
-			...style,
+			...((style as React.CSSProperties) || {}),
 		};
 
 		const glowStyle: React.CSSProperties = {
@@ -91,7 +130,7 @@ export const GlowingLogo = forwardRef<HTMLDivElement, GlowingLogoProps>(
 			borderRadius: "50%",
 			filter: `blur(${blur}px)`,
 			opacity: opacity,
-			animation: animate ? `bgui-logo-glow 3s ease-in-out infinite` : "none",
+			animation: animate ? "bgui-logo-glow 3s ease-in-out infinite" : "none",
 			pointerEvents: "none",
 		};
 
@@ -104,7 +143,7 @@ export const GlowingLogo = forwardRef<HTMLDivElement, GlowingLogoProps>(
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "center",
-			animation: animate ? `bgui-logo-pulse 4s ease-in-out infinite` : "none",
+			animation: animate ? "bgui-logo-pulse 4s ease-in-out infinite" : "none",
 			backgroundColor: children ? "transparent" : "#1a1a1a",
 		};
 
@@ -125,13 +164,12 @@ export const GlowingLogo = forwardRef<HTMLDivElement, GlowingLogoProps>(
 			<div
 				ref={ref}
 				style={containerStyle}
-				onClick={handleClick}
-				onKeyDown={handleKeyDown}
+				onClick={isClickable ? handleClick : undefined}
+				onKeyDown={isClickable ? handleKeyDown : undefined}
 				role={isClickable ? "button" : undefined}
 				tabIndex={isClickable ? 0 : undefined}
-				aria-label={ariaLabel || "Logo"}
+				aria-label={isClickable ? ariaLabel || "Logo" : undefined}
 				data-testid={testID}
-				{...props}
 			>
 				{/* Glow effect */}
 				<div style={glowStyle} />

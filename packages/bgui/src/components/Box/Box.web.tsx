@@ -93,10 +93,10 @@ export const Box: React.FC<
 		style: customStyle,
 		testID,
 		...rest
-	} = props as any; // Type assertion to handle Restyle's complex type system
+	} = props;
 
 	// Helper to get spacing value
-	const getSpacingValue = (value: any): string | number | undefined => {
+	const getSpacingValue = (value: unknown): string | number | undefined => {
 		if (value === undefined || value === null) return undefined;
 		if (typeof value === "number") return value;
 		if (typeof value === "string") {
@@ -104,22 +104,22 @@ export const Box: React.FC<
 			const themeValue = restyleTheme.spacing[value as keyof typeof restyleTheme.spacing];
 			return themeValue || value;
 		}
-		return value;
+		return String(value);
 	};
 
 	// Helper to get color value
-	const getColorValue = (value: any): string | undefined => {
+	const getColorValue = (value: unknown): string | undefined => {
 		if (!value) return undefined;
 		if (typeof value === "string") {
 			// Check if it's a theme color key
 			const themeValue = restyleTheme.colors[value as keyof typeof restyleTheme.colors];
 			return themeValue || value;
 		}
-		return value;
+		return String(value);
 	};
 
 	// Helper to get border radius value
-	const getBorderRadiusValue = (value: any): string | number | undefined => {
+	const getBorderRadiusValue = (value: unknown): string | number | undefined => {
 		if (value === undefined || value === null) return undefined;
 		if (typeof value === "number") return value;
 		if (typeof value === "string") {
@@ -127,20 +127,20 @@ export const Box: React.FC<
 			const themeValue = restyleTheme.borderRadii[value as keyof typeof restyleTheme.borderRadii];
 			return themeValue || value;
 		}
-		return value;
+		return String(value);
 	};
 
 	// Build styles object
 	const styles: React.CSSProperties = {
 		// Layout
 		display: flex !== undefined || flexDirection ? "flex" : undefined,
-		flex,
-		flexDirection: flexDirection as any,
-		flexWrap,
-		justifyContent,
-		alignItems,
-		alignSelf,
-		alignContent,
+		flex: typeof flex === "object" ? 1 : flex,
+		flexDirection: flexDirection as React.CSSProperties["flexDirection"],
+		flexWrap: flexWrap as React.CSSProperties["flexWrap"],
+		justifyContent: justifyContent as React.CSSProperties["justifyContent"],
+		alignItems: alignItems as React.CSSProperties["alignItems"],
+		alignSelf: alignSelf as React.CSSProperties["alignSelf"],
+		alignContent: alignContent as React.CSSProperties["alignContent"],
 		gap: getSpacingValue(gap),
 
 		// Spacing - use shorthand props if provided, otherwise longhand
@@ -157,37 +157,61 @@ export const Box: React.FC<
 		marginLeft: getSpacingValue(ml ?? marginLeft ?? mx ?? marginHorizontal),
 
 		// Size
-		width,
-		height,
-		minWidth,
-		minHeight,
-		maxWidth,
-		maxHeight,
+		width: width as React.CSSProperties["width"],
+		height: height as React.CSSProperties["height"],
+		minWidth: minWidth as React.CSSProperties["minWidth"],
+		minHeight: minHeight as React.CSSProperties["minHeight"],
+		maxWidth: maxWidth as React.CSSProperties["maxWidth"],
+		maxHeight: maxHeight as React.CSSProperties["maxHeight"],
 
 		// Colors
 		backgroundColor: getColorValue(bg ?? backgroundColor),
-		opacity,
+		opacity: typeof opacity === "object" ? undefined : (opacity as React.CSSProperties["opacity"]),
 
 		// Borders
 		borderRadius: getBorderRadiusValue(borderRadius),
-		borderWidth,
+		borderWidth:
+			typeof borderWidth === "object"
+				? undefined
+				: (borderWidth as React.CSSProperties["borderWidth"]),
 		borderColor: getColorValue(borderColor),
-		borderStyle: (borderStyle as any) || (borderWidth ? "solid" : undefined),
-		borderTopWidth,
-		borderRightWidth,
-		borderBottomWidth,
-		borderLeftWidth,
+		borderStyle:
+			(borderStyle as React.CSSProperties["borderStyle"]) || (borderWidth ? "solid" : undefined),
+		borderTopWidth:
+			typeof borderTopWidth === "object"
+				? undefined
+				: (borderTopWidth as React.CSSProperties["borderTopWidth"]),
+		borderRightWidth:
+			typeof borderRightWidth === "object"
+				? undefined
+				: (borderRightWidth as React.CSSProperties["borderRightWidth"]),
+		borderBottomWidth:
+			typeof borderBottomWidth === "object"
+				? undefined
+				: (borderBottomWidth as React.CSSProperties["borderBottomWidth"]),
+		borderLeftWidth:
+			typeof borderLeftWidth === "object"
+				? undefined
+				: (borderLeftWidth as React.CSSProperties["borderLeftWidth"]),
 
 		// Position
-		position: position as any,
-		top,
-		right,
-		bottom,
-		left,
-		zIndex,
+		position: position as React.CSSProperties["position"],
+		top: typeof top === "object" || top === null ? undefined : (top as React.CSSProperties["top"]),
+		right:
+			typeof right === "object" || right === null
+				? undefined
+				: (right as React.CSSProperties["right"]),
+		bottom:
+			typeof bottom === "object" || bottom === null
+				? undefined
+				: (bottom as React.CSSProperties["bottom"]),
+		left:
+			typeof left === "object" || left === null ? undefined : (left as React.CSSProperties["left"]),
+		zIndex: typeof zIndex === "object" ? undefined : (zIndex as React.CSSProperties["zIndex"]),
 
 		// Other
-		overflow,
+		overflow:
+			typeof overflow === "object" ? undefined : (overflow as React.CSSProperties["overflow"]),
 
 		// Custom styles override
 		...customStyle,

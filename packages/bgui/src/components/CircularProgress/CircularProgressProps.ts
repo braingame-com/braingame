@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for CircularProgress component
@@ -68,9 +69,29 @@ export interface CircularProgressProps {
 	"aria-valuemax"?: number;
 
 	/**
+	 * The content of the component
+	 */
+	children?: ReactNode;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
+
+	/**
+	 * The id of the element labeling the progress bar.
+	 */
+	"aria-labelledby"?: string;
+
+	/**
+	 * If provided, the value will be read out to screen readers.
+	 */
+	"aria-valuetext"?: string;
 
 	/**
 	 * Test ID for testing

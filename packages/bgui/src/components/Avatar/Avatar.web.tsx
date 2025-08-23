@@ -138,11 +138,23 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
 			<div
 				ref={ref}
 				style={avatarStyles}
-				onClick={onClick}
-				data-testid={testID}
-				aria-label={ariaLabel || alt}
 				role={onClick ? "button" : "img"}
+				onClick={onClick as React.MouseEventHandler<HTMLDivElement>}
+				data-testid={testID}
+				aria-label={onClick ? ariaLabel || alt : ariaLabel || alt}
 				tabIndex={onClick ? 0 : undefined}
+				onKeyDown={
+					onClick
+						? (e) => {
+								if (e.key === "Enter" || e.key === " ") {
+									e.preventDefault();
+									(onClick as React.MouseEventHandler<HTMLDivElement>)(
+										e as unknown as React.MouseEvent<HTMLDivElement>,
+									);
+								}
+							}
+						: undefined
+				}
 				{...props}
 			>
 				{renderContent()}

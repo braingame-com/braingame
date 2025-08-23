@@ -270,9 +270,9 @@ const styles = StyleSheet.create({
   accessibilityRole="none"
   accessibilityLabel="Main navigation"
 >
-  <Button onPress={() => {}}>Home</Button>
-  <Button onPress={() => {}}>Profile</Button>
-  <Button onPress={() => {}}>Settings</Button>
+  <Button onClick={() => {}}>Home</Button>
+  <Button onClick={() => {}}>Profile</Button>
+  <Button onClick={() => {}}>Settings</Button>
 </View>
 
 <View
@@ -298,9 +298,9 @@ const styles = StyleSheet.create({
 								borderRadius: 8,
 							}}
 						>
-							<Button onPress={() => {}}>Home</Button>
-							<Button onPress={() => {}}>Profile</Button>
-							<Button onPress={() => {}}>Settings</Button>
+							<Button onClick={() => {}}>Home</Button>
+							<Button onClick={() => {}}>Profile</Button>
+							<Button onClick={() => {}}>Settings</Button>
 						</View>
 
 						<View
@@ -354,10 +354,10 @@ function ProfileCard({ user }) {
       </View>
       
       <View style={styles.actions}>
-        <Button onPress={handleFollow} style={{ flex: 1 }}>
+        <Button onClick={handleFollow} style={{ flex: 1 }}>
           Follow
         </Button>
-        <Button variant="ghost" onPress={handleMessage} style={{ flex: 1 }}>
+        <Button variant="plain" onClick={handleMessage} style={{ flex: 1 }}>
           Message
         </Button>
       </View>
@@ -449,7 +449,7 @@ function SafeScreen({ children }) {
     </ScrollView>
     <View style={styles.footer}>
       <TextInput />
-      <Button onPress={handleSubmit}>Submit</Button>
+      <Button onClick={handleSubmit}>Submit</Button>
     </View>
   </View>
 </KeyboardAvoidingView>`}

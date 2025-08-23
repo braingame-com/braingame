@@ -25,7 +25,7 @@ export const ActionButtons: React.FC = () => {
 				variant="outline"
 				size="medium"
 				fullWidth
-				onPress={handlePrivacyPolicy}
+				onClick={handlePrivacyPolicy}
 				accessibilityLabel="View Privacy Policy"
 				accessibilityHint="Opens privacy policy in your browser"
 			>
@@ -33,10 +33,10 @@ export const ActionButtons: React.FC = () => {
 			</AccessibleThemedButton>
 
 			<AccessibleThemedButton
-				variant="ghost"
+				variant="plain"
 				size="medium"
 				fullWidth
-				onPress={handleDataDeletion}
+				onClick={handleDataDeletion}
 				accessibilityLabel="Request Data Deletion"
 				accessibilityHint="Opens data deletion request form in your browser"
 			>

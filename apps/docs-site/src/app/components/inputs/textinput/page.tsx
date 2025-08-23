@@ -14,7 +14,7 @@ const textInputProps = [
 		description: "The input value.",
 	},
 	{
-		name: "onValueChange",
+		name: "onChange",
 		type: "(text: string) => void",
 		required: true,
 		description: "Callback function called when the text changes.",
@@ -116,7 +116,7 @@ export default function TextInputDocs() {
 	const [text1, setText1] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [showPassword, setShowPassword] = useState(false);
+	const [showPassword, _setShowPassword] = useState(false);
 	const [phone, setPhone] = useState("");
 	const [bio, setBio] = useState("");
 	const [search, setSearch] = useState("");
@@ -157,7 +157,7 @@ return (
   />
 );`}
 				>
-					<TextInput value={text1} onValueChange={setText1} placeholder="Enter your name" />
+					<TextInput value={text1} onChange={setText1} placeholder="Enter your name" />
 				</LiveExample>
 
 				<LiveExample
@@ -215,7 +215,7 @@ return (
 />`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<TextInput value="" onValueChange={() => {}} placeholder="Normal state" />
+						<TextInput value="" onChange={() => {}} placeholder="Normal state" />
 						<TextInput
 							value="Error state"
 							onValueChange={() => {}}
@@ -495,7 +495,7 @@ function LoginForm() {
       />
       
       <Button
-        onPress={handleSubmit}
+        onClick={handleSubmit}
         style={styles.button}
       >
         Sign In

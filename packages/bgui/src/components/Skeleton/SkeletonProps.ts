@@ -69,7 +69,7 @@ export interface SkeletonProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -80,6 +80,11 @@ export interface SkeletonProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * If `true`, the component is shown as busy to screen readers.

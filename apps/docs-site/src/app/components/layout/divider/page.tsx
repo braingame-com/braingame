@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Divider, Icon } from "../../../../components/BGUIDemo";
+import { Button, Divider } from "../../../../components/BGUIDemo";
 import { CodeBlock } from "../../../../components/CodeBlock";
 import { LiveExample } from "../../../../components/LiveExample";
 import { PropsTable } from "../../../../components/PropsTable";
@@ -138,7 +138,7 @@ export default function DividerDocs() {
     placeholder="Enter your password"
     secureTextEntry
   />
-  <Button onPress={handleLogin} style={{ marginTop: 16 }}>
+  <Button onClick={handleLogin} style={{ marginTop: 16 }}>
     Sign In
   </Button>
   
@@ -166,7 +166,7 @@ export default function DividerDocs() {
 								className="textinput__input"
 								style={{ marginBottom: "var(--space-4)" }}
 							/>
-							<Button onPress={() => {}}>Sign In</Button>
+							<Button onClick={() => {}}>Sign In</Button>
 						</div>
 
 						<div className="flex flex--align-center flex--gap-3">
@@ -176,10 +176,10 @@ export default function DividerDocs() {
 						</div>
 
 						<div className="flex flex--column flex--gap-3">
-							<Button variant="secondary" onPress={() => {}}>
+							<Button variant="outlined" onClick={() => {}}>
 								Continue with Google
 							</Button>
-							<Button variant="secondary" onPress={() => {}}>
+							<Button variant="outlined" onClick={() => {}}>
 								Continue with Apple
 							</Button>
 						</div>
@@ -196,29 +196,29 @@ function SettingsList() {
   return (
     <View style={styles.container}>
       <SettingsSection title="Account">
-        <SettingsItem icon="person" label="Profile" onPress={openProfile} />
+        <SettingsItem icon="person" label="Profile" onClick={openProfile} />
         <Divider inset={56} spacing="none" />
-        <SettingsItem icon="email" label="Email" onPress={openEmail} />
+        <SettingsItem icon="email" label="Email" onClick={openEmail} />
         <Divider inset={56} spacing="none" />
-        <SettingsItem icon="key" label="Password" onPress={openPassword} />
+        <SettingsItem icon="key" label="Password" onClick={openPassword} />
       </SettingsSection>
       
       <Divider spacing="lg" thickness={8} color="var(--color-surface)" />
       
       <SettingsSection title="Preferences">
-        <SettingsItem icon="palette" label="Theme" onPress={openTheme} />
+        <SettingsItem icon="palette" label="Theme" onClick={openTheme} />
         <Divider inset={56} spacing="none" />
-        <SettingsItem icon="language" label="Language" onPress={openLanguage} />
+        <SettingsItem icon="language" label="Language" onClick={openLanguage} />
         <Divider inset={56} spacing="none" />
-        <SettingsItem icon="notifications" label="Notifications" onPress={openNotifications} />
+        <SettingsItem icon="notifications" label="Notifications" onClick={openNotifications} />
       </SettingsSection>
       
       <Divider label="More Options" labelPosition="start" spacing="lg" />
       
       <SettingsSection>
-        <SettingsItem icon="help" label="Help & Support" onPress={openHelp} />
+        <SettingsItem icon="help" label="Help & Support" onClick={openHelp} />
         <Divider inset={56} spacing="none" />
-        <SettingsItem icon="info" label="About" onPress={openAbout} />
+        <SettingsItem icon="info" label="About" onClick={openAbout} />
       </SettingsSection>
     </View>
   );
@@ -296,15 +296,15 @@ function SettingsList() {
 				<h3 className="text-heading mb-3 mt-6">Toolbar Separator</h3>
 				<CodeBlock
 					code={`<View style={styles.toolbar}>
-  <IconButton icon="format_bold" onPress={toggleBold} />
-  <IconButton icon="format_italic" onPress={toggleItalic} />
-  <IconButton icon="format_underlined" onPress={toggleUnderline} />
+  <IconButton icon="format_bold" onClick={toggleBold} />
+  <IconButton icon="format_italic" onClick={toggleItalic} />
+  <IconButton icon="format_underlined" onClick={toggleUnderline} />
   
   <Divider orientation="vertical" spacing="sm" />
   
-  <IconButton icon="format_align_left" onPress={alignLeft} />
-  <IconButton icon="format_align_center" onPress={alignCenter} />
-  <IconButton icon="format_align_right" onPress={alignRight} />
+  <IconButton icon="format_align_left" onClick={alignLeft} />
+  <IconButton icon="format_align_center" onClick={alignCenter} />
+  <IconButton icon="format_align_right" onClick={alignRight} />
 </View>`}
 					language="tsx"
 				/>

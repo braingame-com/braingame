@@ -138,7 +138,12 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badg
 	return (
 		<span ref={ref} style={rootStyles} data-testid={testID} {...other}>
 			{children}
-			<span style={badgeStyles} aria-label={ariaLabel} role={badgeContent ? "status" : undefined}>
+			<span
+				style={badgeStyles}
+				aria-live={badgeContent ? "polite" : undefined}
+				aria-hidden={isInvisible || !badgeContent ? "true" : undefined}
+				title={badgeContent && ariaLabel ? ariaLabel : undefined}
+			>
 				{displayValue}
 			</span>
 		</span>

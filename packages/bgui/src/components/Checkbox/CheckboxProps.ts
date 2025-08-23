@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Checkbox component
@@ -114,12 +115,14 @@ export interface CheckboxProps {
 	/**
 	 * Callback fired when the state is changed.
 	 */
-	onChange?: (event: any) => void;
+	onChange?: (
+		event: React.ChangeEvent<HTMLInputElement> | import("react-native").GestureResponderEvent,
+	) => void;
 
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -130,6 +133,25 @@ export interface CheckboxProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * Focus event handler
+	 */
+	onFocus?: (
+		event: React.FocusEvent<HTMLInputElement> | import("react-native").GestureResponderEvent,
+	) => void;
+
+	/**
+	 * Blur event handler
+	 */
+	onBlur?: (
+		event: React.FocusEvent<HTMLInputElement> | import("react-native").GestureResponderEvent,
+	) => void;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * The id of the element describing the checkbox.

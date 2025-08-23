@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Chip } from "@braingame/bgui";
+import { useState } from "react";
 import { CodeBlock } from "../../../../src/components/CodeBlock";
 import { LiveExample } from "../../../../src/components/LiveExample";
 import { PropsTable } from "../../../../src/components/PropsTable";
@@ -95,13 +95,13 @@ export default function ChipDocs() {
 				<LiveExample
 					title="Basic Chips"
 					code={`<Chip label="Default Chip" />
-<Chip label="Clickable Chip" onPress={() => alert('Clicked!')} />
+<Chip label="Clickable Chip" onClick={() => alert('Clicked!')} />
 <Chip label="Selected Chip" selected />
 <Chip label="Disabled Chip" disabled />`}
 				>
 					<div className="flex flex--gap-2 flex--wrap">
 						<Chip label="Default Chip" />
-						<Chip label="Clickable Chip" onPress={() => alert("Clicked!")} />
+						<Chip label="Clickable Chip" onClick={() => alert("Clicked!")} />
 						<Chip label="Selected Chip" selected />
 						<Chip label="Disabled Chip" disabled />
 					</div>
@@ -183,7 +183,7 @@ return (
         key={filter}
         label={filter}
         selected={selectedFilters.includes(filter)}
-        onPress={() => toggleFilter(filter)}
+        onClick={() => toggleFilter(filter)}
         icon="check"
       />
     ))}
@@ -196,7 +196,7 @@ return (
 								key={filter}
 								label={filter}
 								selected={selectedFilters.includes(filter)}
-								onPress={() => toggleFilter(filter)}
+								onClick={() => toggleFilter(filter)}
 								icon={selectedFilters.includes(filter) ? "check" : undefined}
 							/>
 						))}
@@ -282,10 +282,10 @@ const styles = StyleSheet.create({
 					code={`// Category filters with counts
 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
   <View style={styles.filterBar}>
-    <Chip label="All" selected onPress={() => {}} />
-    <Chip label="Active (12)" onPress={() => {}} />
-    <Chip label="Completed (8)" onPress={() => {}} />
-    <Chip label="Archived (3)" onPress={() => {}} />
+    <Chip label="All" selected onClick={() => {}} />
+    <Chip label="Active (12)" onClick={() => {}} />
+    <Chip label="Completed (8)" onClick={() => {}} />
+    <Chip label="Archived (3)" onClick={() => {}} />
   </View>
 </ScrollView>`}
 					language="tsx"
@@ -301,13 +301,13 @@ const styles = StyleSheet.create({
       label="React Native" 
       icon="history" 
       size="sm"
-      onPress={() => search('React Native')}
+      onClick={() => search('React Native')}
     />
     <Chip 
       label="Component Library" 
       icon="history" 
       size="sm"
-      onPress={() => search('Component Library')}
+      onClick={() => search('Component Library')}
     />
   </View>
 </View>`}

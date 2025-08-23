@@ -115,3 +115,47 @@ Our primary deployment workflow for the API is located at `.github/workflows/dep
 
 1.  **Lint & Type Check:** The `lint-api` and `typecheck-api` jobs run in parallel to validate the code in the `apps/api` directory.
 2.  **Deploy:** The `deploy_production` job has a `needs: [lint-api, typecheck-api]` condition. It will **only** run if both of the previous jobs complete successfully. This prevents buggy or low-quality code from ever being deployed. 
+
+## Troubleshooting
+
+Deployments, especially with a complex chain of permissions and services like Firebase and Google Cloud, can sometimes fail with opaque error messages. Here are some steps and key learnings from initial setup.
+
+### Getting Verbose Logs from GitHub Actions
+
+The standard `firebase deploy` command can sometimes fail with a generic `exit code 2` in GitHub Actions, hiding the real error. To get more detailed logs directly in the workflow output, add the `--debug` flag to the deployment command.
+
+**Example:**
+```yaml
+- name: Deploy to Firebase
+  run: |
+    npx firebase-tools deploy --only functions --project braingame-prod --force --debug
+```
+This flag forces the CLI to print all API requests and responses, which is invaluable for diagnosing permission issues or precondition failures.
+
+### Handling "Zombie" Functions
+
+**Problem:** A function deployment can fail midway, leaving the function in a broken or `FAILED` state on Google Cloud. Subsequent deployment attempts will then try to `update` this broken function and fail with a `Precondition failed` error before a new build is even started.
+
+**Temporary Workaround:**
+During initial setup or heavy troubleshooting, you may need to manually delete the broken function to force a clean `create` operation on the next deployment attempt.
+
+**Command:**
+```bash
+npx firebase-tools functions:delete <FUNCTION_NAME> --project <PROJECT_ID> --force
+
+# Example for the 'api' function:
+npx firebase-tools functions:delete api --project=braingame-prod --force
+```
+**Important:** You must run this from a terminal where your account is authenticated with the Firebase CLI and has the necessary permissions.
+
+### Long-Term Strategy: Blue/Green Deployments
+
+Manually deleting a function is **not a viable production strategy** as it guarantees downtime. The enterprise-grade, best-practice approach to avoid this issue is to use a **Blue/Green deployment strategy**.
+
+This involves:
+1.  Deploying the new version of a function with a unique name (e.g., `api-v2`, `api-[GIT_HASH]`).
+2.  Running automated health checks against the new version.
+3.  Atomically switching traffic to the new version by updating the Firebase Hosting rewrite rule.
+4.  Cleaning up old, unused function versions later.
+
+This strategy provides zero-downtime deployments and instant rollbacks. Once the core deployment pipeline is stable, our next iteration should be to implement this more robust process. 

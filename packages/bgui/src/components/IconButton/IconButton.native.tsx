@@ -1,5 +1,12 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { ActivityIndicator, Pressable, StyleSheet, type View } from "react-native";
+import {
+	ActivityIndicator,
+	Pressable,
+	type StyleProp,
+	StyleSheet,
+	type View,
+	type ViewStyle,
+} from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
 import type { IconButtonProps } from "./IconButtonProps";
@@ -26,16 +33,14 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 			onClick,
 			onBlur,
 			onFocus,
-			onKeyDown,
-			onKeyUp,
+			// onKeyDown, - unused on native
+			// onKeyUp, - unused on native
 			style,
 			testID,
 			"aria-label": ariaLabel,
 			"aria-describedby": ariaDescribedby,
-			"aria-labelledby": ariaLabelledby,
 			"aria-pressed": ariaPressed,
 			"aria-expanded": ariaExpanded,
-			"aria-controls": ariaControls,
 			"aria-checked": ariaChecked,
 		},
 		ref,
@@ -45,14 +50,14 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => buttonRef.current!);
+		useImperativeHandle(ref, () => buttonRef.current || ({} as View));
 
 		// Get variant styles from theme
 		const getVariantStyles = () => {
 			const variantKey = `${variant}-${color}` as keyof typeof theme.components.Button.variants;
 			return (
-				theme.components.Button.variants[variantKey] ||
-				theme.components.Button.variants["plain-neutral"]
+				(theme.components.Button.variants as Record<string, ViewStyle>)[variantKey] ||
+				(theme.components.Button.variants as Record<string, ViewStyle>)["plain-neutral"]
 			);
 		};
 
@@ -89,33 +94,82 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 			setPressed(false);
 		};
 
-		const handlePress = (event: any) => {
+		const handlePress = (event: import("react-native").GestureResponderEvent) => {
 			if (!disabled && !loading && onClick) {
 				onClick(event);
 			}
 		};
 
-		const handleFocus = (event: any) => {
+		const handleFocus = (
+			event: import("react-native").NativeSyntheticEvent<import("react-native").TargetedEvent>,
+		) => {
 			setFocused(true);
-			onFocus?.(event);
+			// Convert to GestureResponderEvent format for consistency with prop expectations
+			const gestureEvent = {
+				...event,
+				nativeEvent: {
+					...event.nativeEvent,
+					changedTouches: [],
+					identifier: 0,
+					locationX: 0,
+					locationY: 0,
+					pageX: 0,
+					pageY: 0,
+					touches: [],
+					force: 0,
+				},
+			} as unknown as import("react-native").GestureResponderEvent;
+			onFocus?.(gestureEvent);
 		};
 
-		const handleBlur = (event: any) => {
+		const handleBlur = (
+			event: import("react-native").NativeSyntheticEvent<import("react-native").TargetedEvent>,
+		) => {
 			setFocused(false);
-			onBlur?.(event);
+			// Convert to GestureResponderEvent format for consistency with prop expectations
+			const gestureEvent = {
+				...event,
+				nativeEvent: {
+					...event.nativeEvent,
+					changedTouches: [],
+					identifier: 0,
+					locationX: 0,
+					locationY: 0,
+					pageX: 0,
+					pageY: 0,
+					touches: [],
+					force: 0,
+				},
+			} as unknown as import("react-native").GestureResponderEvent;
+			onBlur?.(gestureEvent);
 		};
 
 		const variantStyles = getVariantStyles();
 		const sizeConfig = getSizeConfig();
 		const isDisabled = disabled || loading;
 
-		// Container styles
-		const containerStyles = [
+		// Container styles - filter out web-only CSS properties for React Native
+		const nativeStyle =
+			style && typeof style === "object" && !Array.isArray(style)
+				? (Object.fromEntries(
+						Object.entries(style as Record<string, unknown>).filter(
+							([key]) =>
+								// Keep only React Native compatible style properties
+								(!key.includes("-") && !["gap", "gridGap"].includes(key)) ||
+								// Allow gap since React Native supports it in newer versions
+								key === "gap",
+						),
+					) as StyleProp<ViewStyle>)
+				: (style as StyleProp<ViewStyle>);
+
+		const containerStyles: StyleProp<ViewStyle> = [
 			styles.container,
 			{
-				backgroundColor: variantStyles.backgroundColor,
-				borderColor: variantStyles.borderColor,
-				borderWidth: variantStyles.borderWidth || 0,
+				backgroundColor:
+					((variantStyles as Record<string, unknown>)?.backgroundColor as string) || "transparent",
+				borderColor:
+					((variantStyles as Record<string, unknown>)?.borderColor as string) || "transparent",
+				borderWidth: ((variantStyles as Record<string, unknown>)?.borderWidth as number) || 0,
 				width: fullWidth ? "100%" : sizeConfig.size,
 				height: sizeConfig.size,
 				borderRadius: sizeConfig.borderRadius,
@@ -130,7 +184,7 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 					borderColor: theme.colors.primary,
 					borderWidth: 2,
 				},
-			style,
+			nativeStyle,
 		];
 
 		// Loading indicator
@@ -138,7 +192,12 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 			if (!loading) return null;
 
 			const indicator = loadingIndicator || (
-				<ActivityIndicator size="small" color={variantStyles.color || theme.colors.onSurface} />
+				<ActivityIndicator
+					size="small"
+					color={
+						((variantStyles as Record<string, unknown>)?.color as string) || theme.colors.onSurface
+					}
+				/>
 			);
 
 			return indicator;
@@ -162,9 +221,11 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 					)}
 
 					{React.isValidElement(children)
-						? React.cloneElement(children as React.ReactElement<any>, {
+						? React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
 								size: sizeConfig.iconSize,
-								color: variantStyles.color || theme.colors.onSurface,
+								color:
+									((variantStyles as Record<string, unknown>)?.color as string) ||
+									theme.colors.onSurface,
 							})
 						: children}
 

@@ -27,7 +27,7 @@ export const AnalyticsToggle: React.FC = () => {
 				accessibilityLabel="Enable analytics"
 			/>
 			<AccessibleThemedText
-				variant="secondary"
+				variant="outlined"
 				size="sm"
 				style={{ marginTop: theme.sizes.spacingSM }}
 			>

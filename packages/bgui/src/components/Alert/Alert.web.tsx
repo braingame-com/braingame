@@ -35,7 +35,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 		};
 
 		// Calculate padding based on size
-		const getPadding = () => {
+		const getPadding = (): string => {
 			switch (size) {
 				case "sm":
 					return "8px";
@@ -46,8 +46,20 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 			}
 		};
 
+		// Calculate border radius ensuring it's a string
+		const getBorderRadius = (): string => {
+			const radius = restyleTheme.radii.sm;
+			if (typeof radius === "number") {
+				return `${radius}px`;
+			}
+			if (typeof radius === "string") {
+				return radius;
+			}
+			return "4px"; // fallback
+		};
+
 		// Calculate gap based on size
-		const getGap = () => {
+		const getGap = (): string => {
 			switch (size) {
 				case "sm":
 					return "8px";
@@ -59,7 +71,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 		};
 
 		// Calculate font size based on size
-		const getFontSize = () => {
+		const getFontSize = (): string => {
 			switch (size) {
 				case "sm":
 					return "14px";
@@ -72,19 +84,19 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 
 		// Build styles based on variant and color
 		const getAlertStyles = (): React.CSSProperties => {
-			const baseStyles: React.CSSProperties = {
+			const baseStyles = {
 				display: "flex",
 				alignItems: "center",
 				gap: getGap(),
 				padding: getPadding(),
-				borderRadius: restyleTheme.radii.sm,
+				borderRadius: getBorderRadius(),
 				fontSize: getFontSize(),
 				fontFamily: restyleTheme.textVariants.body1.fontFamily,
 				lineHeight: 1.5,
 				position: "relative",
 				...getVariantStyles(),
 				...style,
-			};
+			} as React.CSSProperties;
 
 			return baseStyles;
 		};
@@ -114,14 +126,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 		};
 
 		return (
-			<div
-				ref={ref}
-				role={role}
-				style={getAlertStyles()}
-				data-testid={testID}
-				aria-label={ariaLabel}
-				{...props}
-			>
+			<div ref={ref} role={role} style={getAlertStyles()} data-testid={testID} {...props}>
 				{startDecorator && (
 					<span style={{ display: "flex", alignItems: "center" }}>{startDecorator}</span>
 				)}

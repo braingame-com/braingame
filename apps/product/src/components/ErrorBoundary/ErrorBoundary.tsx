@@ -100,7 +100,7 @@ Time: ${new Date().toISOString()}
 					</AccessibleThemedText>
 
 					<AccessibleThemedText
-						variant="primary"
+						variant="solid"
 						size="2xl"
 						weight="semibold"
 						style={{ marginBottom: 10, textAlign: "center" }}
@@ -114,7 +114,7 @@ Time: ${new Date().toISOString()}
 					</AccessibleThemedText>
 
 					<AccessibleThemedText
-						variant="secondary"
+						variant="outlined"
 						size="md"
 						style={{ marginBottom: 30, textAlign: "center" }}
 					>
@@ -127,13 +127,13 @@ Time: ${new Date().toISOString()}
 
 					{showDetails && (
 						<TouchableOpacity
-							onPress={() => setDetailsVisible(!detailsVisible)}
+							onClick={() => setDetailsVisible(!detailsVisible)}
 							accessibilityRole="button"
 							accessibilityLabel="Toggle error details"
 							style={{ marginBottom: 20 }}
 						>
 							<AccessibleThemedText
-								variant="primary"
+								variant="solid"
 								size="sm"
 								style={{ textDecorationLine: "underline" }}
 							>
@@ -162,7 +162,7 @@ Time: ${new Date().toISOString()}
 							</AccessibleThemedText>
 
 							<AccessibleThemedText
-								variant="secondary"
+								variant="outlined"
 								size="xs"
 								style={{ fontFamily: "Roboto Mono" }}
 							>
@@ -171,7 +171,7 @@ Time: ${new Date().toISOString()}
 
 							{__DEV__ && (
 								<AccessibleThemedText
-									variant="secondary"
+									variant="outlined"
 									size="xs"
 									style={{
 										marginTop: 10,
@@ -186,10 +186,10 @@ Time: ${new Date().toISOString()}
 
 					<View style={{ gap: 10, width: "100%" }}>
 						<AccessibleThemedButton
-							variant="primary"
+							variant="solid"
 							size="large"
 							fullWidth
-							onPress={resetError}
+							onClick={resetError}
 							accessibilityLabel="Retry"
 							accessibilityHint="Try to recover from the error"
 						>
@@ -202,7 +202,7 @@ Time: ${new Date().toISOString()}
 									variant="outline"
 									size="medium"
 									fullWidth
-									onPress={handleCopyError}
+									onClick={handleCopyError}
 									accessibilityLabel={copied ? "Copied" : "Copy Error Details"}
 									disabled={copied}
 								>
@@ -210,10 +210,10 @@ Time: ${new Date().toISOString()}
 								</AccessibleThemedButton>
 
 								<AccessibleThemedButton
-									variant="ghost"
+									variant="plain"
 									size="medium"
 									fullWidth
-									onPress={handleReportError}
+									onClick={handleReportError}
 									accessibilityLabel="Report Error"
 									accessibilityHint="Send error report via email"
 								>
@@ -343,9 +343,9 @@ export class ErrorBoundary extends Component<Props, State> {
 						<AccessibleThemedText variant="error" size="sm">
 							This component encountered an error
 						</AccessibleThemedText>
-						<TouchableOpacity onPress={this.resetError}>
+						<TouchableOpacity onClick={this.resetError}>
 							<AccessibleThemedText
-								variant="primary"
+								variant="solid"
 								size="sm"
 								style={{ textDecorationLine: "underline", marginTop: 10 }}
 							>

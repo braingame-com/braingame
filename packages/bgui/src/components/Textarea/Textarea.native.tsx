@@ -60,7 +60,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 		const [focused, setFocused] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => textareaRef.current!);
+		useImperativeHandle(ref, () => textareaRef.current || ({} as any));
 
 		// Use error color if error prop is true
 		const effectiveColor = error ? "danger" : color;
@@ -170,7 +170,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 		];
 
 		return (
-			<Box style={containerStyles} testID={testID}>
+			<Box style={StyleSheet.flatten(containerStyles)} testID={testID}>
 				<Box flexDirection="row" alignItems="flex-start" flex={1}>
 					{startDecorator && (
 						<Box marginRight="xs" marginTop="xs">
@@ -180,8 +180,8 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 
 					<TextInput
 						ref={textareaRef}
-						value={value}
-						defaultValue={defaultValue}
+						value={typeof value === "string" ? value : undefined}
+						defaultValue={typeof defaultValue === "string" ? defaultValue : undefined}
 						placeholder={placeholder}
 						placeholderTextColor={theme.colors.onSurfaceVariant}
 						editable={!disabled && !readOnly}
@@ -192,14 +192,12 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 						onChange={handleChange}
 						onFocus={handleFocus}
 						onBlur={handleBlur}
-						style={textareaStyles}
+						style={StyleSheet.flatten(textareaStyles) as any}
 						accessibilityLabel={ariaLabel}
 						accessibilityHint={ariaDescribedby}
 						accessibilityLabelledBy={ariaLabelledby}
-						accessibilityRequired={required}
 						accessibilityState={{
 							disabled: disabled,
-							invalid: error,
 						}}
 						scrollEnabled={!!maxRows}
 						keyboardType="default"

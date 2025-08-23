@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Divider component
@@ -43,7 +44,7 @@ export interface DividerProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing

@@ -85,11 +85,11 @@ export const CircularProgress = React.forwardRef<HTMLSpanElement, CircularProgre
 		let progressColor: string;
 
 		if (variant === "soft") {
-			trackColor = restyleTheme.colors.neutral_soft || "#e0e0e0";
+			trackColor = restyleTheme.colors.neutral || "#e0e0e0";
 			progressColor =
 				variantStyles.color || restyleTheme.colors[color] || restyleTheme.colors.primary;
 		} else if (variant === "solid") {
-			trackColor = restyleTheme.colors[`${color}_soft`] || "#e0e0e0";
+			trackColor = (restyleTheme.colors as Record<string, string>)[`${color}_soft`] || "#e0e0e0";
 			progressColor =
 				variantStyles.backgroundColor || restyleTheme.colors[color] || restyleTheme.colors.primary;
 		} else {
@@ -116,7 +116,7 @@ export const CircularProgress = React.forwardRef<HTMLSpanElement, CircularProgre
 			height: sizeConfig.rootSize,
 			fontSize: sizeConfig.rootSize,
 			color: progressColor,
-			...style,
+			...((style as React.CSSProperties) || {}),
 		};
 
 		// SVG styles
@@ -164,7 +164,8 @@ export const CircularProgress = React.forwardRef<HTMLSpanElement, CircularProgre
 				aria-valuetext={ariaValuetext}
 				data-testid={testID}
 			>
-				<svg style={svgStyles}>
+				<svg style={svgStyles} role="img" aria-label={`Progress ${Math.round(value)}%`}>
+					<title>Progress indicator</title>
 					<circle cx="50%" cy="50%" r={radius} style={trackStyles} />
 					<circle cx="50%" cy="50%" r={radius} style={progressStyles} />
 				</svg>

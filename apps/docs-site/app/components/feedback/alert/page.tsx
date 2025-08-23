@@ -50,7 +50,8 @@ const alertProps = [
 		type: "boolean",
 		required: false,
 		default: "false",
-		description: "If true, the children with an implicit color prop invert their colors to match the component's variant and color.",
+		description:
+			"If true, the children with an implicit color prop invert their colors to match the component's variant and color.",
 	},
 	{
 		name: "role",
@@ -114,9 +115,7 @@ export default function AlertDocs() {
 							Info Alert: This is additional information that might be helpful.
 						</Alert>
 
-						<Alert color="success">
-							Success Alert: Your changes have been saved successfully.
-						</Alert>
+						<Alert color="success">Success Alert: Your changes have been saved successfully.</Alert>
 
 						<Alert color="warning">
 							Warning Alert: Please review your input before proceeding.
@@ -145,13 +144,21 @@ export default function AlertDocs() {
 </Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert color="neutral" variant="solid">Solid Alert</Alert>
+						<Alert color="neutral" variant="solid">
+							Solid Alert
+						</Alert>
 
-						<Alert color="neutral" variant="outlined">Outlined Alert</Alert>
+						<Alert color="neutral" variant="outlined">
+							Outlined Alert
+						</Alert>
 
-						<Alert color="neutral" variant="soft">Soft Alert</Alert>
+						<Alert color="neutral" variant="soft">
+							Soft Alert
+						</Alert>
 
-						<Alert color="neutral" variant="plain">Plain Alert</Alert>
+						<Alert color="neutral" variant="plain">
+							Plain Alert
+						</Alert>
 					</div>
 				</LiveExample>
 
@@ -197,9 +204,7 @@ export default function AlertDocs() {
 </Alert>`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Alert color="neutral">
-							New Feature Available: Try our new dark mode in settings.
-						</Alert>
+						<Alert color="neutral">New Feature Available: Try our new dark mode in settings.</Alert>
 						<Alert color="warning">Your session will expire in 5 minutes.</Alert>
 					</div>
 				</LiveExample>
@@ -292,7 +297,7 @@ function FormWithValidation() {
       
       {/* Form fields */}
       
-      <Button onPress={handleSubmit}>
+      <Button onClick={handleSubmit}>
         Submit
       </Button>
     </View>
@@ -364,8 +369,8 @@ function FormWithValidation() {
 						happened and what to do next.
 					</li>
 					<li className="mb-2">
-						<strong>Appropriate severity:</strong> Choose the right color (neutral, success, warning,
-						danger) to match the message importance.
+						<strong>Appropriate severity:</strong> Choose the right color (neutral, success,
+						warning, danger) to match the message importance.
 					</li>
 					<li className="mb-2">
 						<strong>Actionable alerts:</strong> When possible, provide actions users can take to

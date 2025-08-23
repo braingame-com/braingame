@@ -113,11 +113,11 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(function Chip(
 		cursor: clickable && !disabled ? "pointer" : "default",
 		opacity: disabled ? 0.6 : 1,
 		transition: "all 0.2s ease-in-out",
-		...variantStyles,
-		...style,
+		...(variantStyles || {}),
+		...((style as React.CSSProperties) || {}),
 	};
 
-	const actionStyles: React.CSSProperties = {
+	const _actionStyles: React.CSSProperties = {
 		position: "absolute",
 		inset: 0,
 		zIndex: 0,
@@ -142,16 +142,17 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(function Chip(
 		pointerEvents: "none",
 	};
 
-	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+	const handleClick = (e: React.MouseEvent<HTMLElement>) => {
 		if (!disabled && onClick) {
-			onClick(e);
+			onClick(e as React.MouseEvent<HTMLDivElement>);
 		}
 	};
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-		if (clickable && !disabled && (e.key === "Enter" || e.key === " ")) {
-			e.preventDefault();
-			onClick?.(e as any);
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		// For button elements, native key handling is sufficient
+		// Only add custom behavior if needed
+		if (e.key === "Enter" || e.key === " ") {
+			// Let the button handle this naturally
 		}
 	};
 
@@ -159,28 +160,45 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(function Chip(
 	const handleBlur = () => setFocusVisible(false);
 	const handleMouseDown = () => setFocusVisible(false);
 
+	// Use semantic button element when clickable for better accessibility
+	if (clickable) {
+		return (
+			<button
+				ref={ref as React.Ref<HTMLButtonElement>}
+				type="button"
+				disabled={disabled}
+				aria-label={ariaLabel}
+				data-testid={testID}
+				style={rootStyles}
+				onClick={handleClick}
+				onKeyDown={handleKeyDown}
+				onFocus={handleFocus}
+				onBlur={handleBlur}
+				onMouseDown={handleMouseDown}
+				{...other}
+			>
+				<span style={contentStyles}>
+					{startDecorator && <span>{startDecorator}</span>}
+					<span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{children}</span>
+					{endDecorator && <span>{endDecorator}</span>}
+				</span>
+			</button>
+		);
+	}
+
+	// Use semantic span for non-interactive chips
 	return (
-		<div
-			ref={ref}
-			role={clickable ? "button" : undefined}
-			tabIndex={clickable && !disabled ? 0 : undefined}
-			aria-disabled={disabled}
-			aria-label={ariaLabel}
+		<span
+			ref={ref as React.Ref<HTMLSpanElement>}
 			data-testid={testID}
 			style={rootStyles}
-			onClick={handleClick}
-			onKeyDown={handleKeyDown}
-			onFocus={handleFocus}
-			onBlur={handleBlur}
-			onMouseDown={handleMouseDown}
 			{...other}
 		>
-			{clickable && <span style={actionStyles} aria-hidden="true" />}
 			<span style={contentStyles}>
 				{startDecorator && <span>{startDecorator}</span>}
 				<span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{children}</span>
 				{endDecorator && <span>{endDecorator}</span>}
 			</span>
-		</div>
+		</span>
 	);
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Link, Text, TextInput, View } from "@braingame/bgui";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { emailService } from "../../lib/email-service";
@@ -40,8 +40,10 @@ export default function UnsubscribePage() {
 	}, [emailParam, handleUnsubscribe]);
 
 	return (
-		<View
+		<div
 			style={{
+				display: "flex",
+				flexDirection: "column",
 				flex: 1,
 				backgroundColor: "#000",
 				padding: 20,
@@ -50,83 +52,88 @@ export default function UnsubscribePage() {
 				justifyContent: "center",
 			}}
 		>
-			<View
+			<div
 				style={{
 					maxWidth: 500,
 					width: "100%",
+					display: "flex",
+					flexDirection: "column",
 					alignItems: "center",
 				}}
 			>
 				{status !== "success" ? (
 					<>
-						<Text
-							variant="displayTitle"
+						<h1
 							style={{
 								color: "#fff",
 								marginBottom: 16,
+								fontSize: "2rem",
+								fontWeight: "bold",
+								margin: "0 0 16px 0",
 							}}
 						>
 							Unsubscribe
-						</Text>
-						<Text
-							variant="body"
+						</h1>
+						<p
 							style={{
 								color: "#999",
 								marginBottom: 32,
-								lineHeight: 24,
+								lineHeight: 1.5,
+								margin: "0 0 32px 0",
 							}}
 						>
 							We're sorry to see you go. Enter your email address below to unsubscribe from Brain
 							Game updates.
-						</Text>
+						</p>
 
 						{!emailParam && (
-							<View style={{ width: "100%", marginBottom: 24 }}>
-								<TextInput
+							<div style={{ width: "100%", marginBottom: 24 }}>
+								<input
+									type="email"
 									value={email}
-									onValueChange={setEmail}
+									onChange={(e) => setEmail(e.target.value)}
 									placeholder="Enter your email"
-									keyboardType="email-address"
-									autoCapitalize="none"
 									style={{
 										backgroundColor: "#111",
 										borderColor: "#333",
 										borderWidth: 1,
+										borderStyle: "solid",
 										borderRadius: 8,
 										padding: 16,
 										color: "#fff",
 										fontSize: 16,
 										marginBottom: 16,
+										width: "100%",
+										boxSizing: "border-box",
 									}}
-									placeholderTextColor="#666"
 								/>
-							</View>
+							</div>
 						)}
 
 						{status === "error" && (
-							<Text
-								variant="body"
+							<p
 								style={{
 									color: "#FF4136",
 									marginBottom: 16,
+									margin: "0 0 16px 0",
 								}}
 							>
 								{message}
-							</Text>
+							</p>
 						)}
 
-						<View style={{ flexDirection: "row", gap: 12 }}>
+						<div style={{ display: "flex", flexDirection: "row", gap: 12 }}>
 							<Link href="/">
 								<View>
-									<Button onPress={() => {}} variant="ghost" size="lg">
+									<Button onClick={() => {}} variant="plain" size="lg">
 										<Text style={{ color: "#999" }}>Cancel</Text>
 									</Button>
 								</View>
 							</Link>
 
 							<Button
-								onPress={handleUnsubscribe}
-								variant="primary"
+								onClick={handleUnsubscribe}
+								variant="solid"
 								size="lg"
 								disabled={status === "loading"}
 							>
@@ -137,7 +144,7 @@ export default function UnsubscribePage() {
 						</View>
 
 						<Text
-							variant="small"
+							level="body-sm"
 							style={{
 								color: "#666",
 								marginTop: 40,
@@ -150,7 +157,7 @@ export default function UnsubscribePage() {
 				) : (
 					<>
 						<Text
-							variant="displayTitle"
+							level="h1"
 							style={{
 								color: "#0074D9",
 								marginBottom: 16,
@@ -160,7 +167,7 @@ export default function UnsubscribePage() {
 							✓
 						</Text>
 						<Text
-							variant="displayTitle"
+							level="h1"
 							style={{
 								color: "#fff",
 								marginBottom: 16,
@@ -169,7 +176,7 @@ export default function UnsubscribePage() {
 							Unsubscribed
 						</Text>
 						<Text
-							variant="body"
+							level="body-md"
 							style={{
 								color: "#ccc",
 								marginBottom: 32,
@@ -179,7 +186,7 @@ export default function UnsubscribePage() {
 							{message}
 						</Text>
 						<Text
-							variant="body"
+							level="body-md"
 							style={{
 								color: "#999",
 								marginBottom: 40,
@@ -190,7 +197,7 @@ export default function UnsubscribePage() {
 
 						<Link href="/">
 							<View>
-								<Button onPress={() => {}} variant="primary" size="lg">
+								<Button onClick={() => {}} variant="solid" size="lg">
 									<Text style={{ color: "#000", fontWeight: "bold" }}>Back to Home</Text>
 								</Button>
 							</View>

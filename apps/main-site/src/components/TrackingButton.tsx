@@ -17,7 +17,7 @@ export const TrackingButton = ({
 	trackingEvent,
 	trackingCategory = "button",
 	trackingMetadata,
-	onPress,
+	onClick,
 	...props
 }: TrackingButtonProps) => {
 	const { trackClick } = useAnalytics();
@@ -31,11 +31,11 @@ export const TrackingButton = ({
 			});
 		}
 
-		// Call original onPress
-		onPress?.();
+		// Call original onClick
+		onClick?.();
 	};
 
-	return <Button {...props} onPress={handlePress} />;
+	return <Button {...props} onClick={handlePress} />;
 };
 
 TrackingButton.displayName = "TrackingButton";

@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Chip component
@@ -39,7 +40,7 @@ export interface ChipProps {
 	/**
 	 * Click handler
 	 */
-	onClick?: (event: any) => void;
+	onClick?: (event: React.MouseEvent | import("react-native").GestureResponderEvent) => void;
 
 	/**
 	 * Element placed before the children.
@@ -54,7 +55,7 @@ export interface ChipProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -67,7 +68,7 @@ export interface ChipProps {
 	"aria-label"?: string;
 
 	/**
-	 * Component reference
+	 * Component reference - can be HTMLButtonElement for clickable chips or HTMLSpanElement for static chips
 	 */
-	ref?: React.Ref<any>;
+	ref?: React.Ref<HTMLButtonElement | HTMLSpanElement | import("react-native").View>;
 }

@@ -115,7 +115,7 @@ export default function CardDocs() {
 
 				<LiveExample
 					title="Interactive Cards"
-					code={`<Card variant="interactive" onPress={() => alert('Card pressed!')}>
+					code={`<Card variant="interactive" onClick={() => alert('Card pressed!')}>
   <Text variant="heading">Interactive Card</Text>
   <Text variant="body" color="secondary">
     This card responds to hover and press interactions. Try clicking it!
@@ -137,7 +137,7 @@ export default function CardDocs() {
 </Card>`}
 				>
 					<div className="flex flex--column flex--gap-4">
-						<Card variant="interactive" onPress={() => alert("Card pressed!")}>
+						<Card variant="interactive" onClick={() => alert("Card pressed!")}>
 							<h3 className="text-heading mb-2">Interactive Card</h3>
 							<p className="text-body text-secondary">
 								This card responds to hover and press interactions. Try clicking it!
@@ -232,13 +232,13 @@ export default function CardDocs() {
   </Text>
   
   <View style={styles.cardActions}>
-    <Button variant="ghost" icon="thumb_up" size="sm">
+    <Button variant="plain" icon="thumb_up" size="sm">
       Like
     </Button>
-    <Button variant="ghost" icon="comment" size="sm">
+    <Button variant="plain" icon="comment" size="sm">
       Comment
     </Button>
-    <Button variant="ghost" icon="share" size="sm">
+    <Button variant="plain" icon="share" size="sm">
       Share
     </Button>
   </View>
@@ -296,13 +296,13 @@ export default function CardDocs() {
 							</p>
 
 							<div style={{ display: "flex", gap: "var(--space-2)", marginTop: "var(--space-4)" }}>
-								<Button variant="ghost" icon="thumb_up" size="sm" onPress={() => {}}>
+								<Button variant="plain" icon="thumb_up" size="sm" onClick={() => {}}>
 									Like
 								</Button>
-								<Button variant="ghost" icon="comment" size="sm" onPress={() => {}}>
+								<Button variant="plain" icon="comment" size="sm" onClick={() => {}}>
 									Comment
 								</Button>
-								<Button variant="ghost" icon="share" size="sm" onPress={() => {}}>
+								<Button variant="plain" icon="share" size="sm" onClick={() => {}}>
 									Share
 								</Button>
 							</div>
@@ -348,7 +348,7 @@ return (
       <Card
         key={item.id}
         interactive
-        onPress={() => console.log('Selected:', item.id)}
+        onClick={() => console.log('Selected:', item.id)}
         style={styles.listCard}
       >
         <View style={styles.listCardContent}>
@@ -374,7 +374,7 @@ return (
 							<Card
 								key={item.id}
 								variant="interactive"
-								onPress={() => console.log("Selected:", item.id)}
+								onClick={() => console.log("Selected:", item.id)}
 							>
 								<div
 									style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
@@ -400,7 +400,7 @@ function ProductCard({ product, onPress }) {
   return (
     <Card
       interactive
-      onPress={onPress}
+      onClick={onPress}
       style={styles.productCard}
     >
       <Image
@@ -504,16 +504,16 @@ const styles = StyleSheet.create({
     style={{ height: 200 }}
   />
   <View style={{ padding: 16 }}>
-    <Badge text="NEW" variant="primary" size="sm" style={{ marginBottom: 8 }} />
+    <Badge text="NEW" variant="solid" size="sm" style={{ marginBottom: 8 }} />
     <Text variant="heading">Card Title</Text>
     <Text variant="body" color="secondary" numberOfLines={2}>
       Card description that might be quite long...
     </Text>
     <View style={{ flexDirection: 'row', gap: 8, marginTop: 16 }}>
-      <Button variant="primary" size="sm" style={{ flex: 1 }}>
+      <Button variant="solid" size="sm" style={{ flex: 1 }}>
         View Details
       </Button>
-      <Button variant="ghost" icon="bookmark" size="sm" />
+      <Button variant="plain" icon="bookmark" size="sm" />
     </View>
   </View>
 </Card>`}

@@ -1,21 +1,26 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
+		"composite": true,
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"declaration": true,
 		"declarationMap": true,
+		"emitDeclarationOnly": false,
 		"resolveJsonModule": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"jsx": "react-jsx",
 		"moduleResolution": "bundler",
 		"skipLibCheck": true,
-		"allowJs": true
+		"allowJs": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true
 	},
-	"include": ["src/**/*"],
+	"include": ["src/**/*", "src/bgui-theme.json", "src/theme/m3-theme.json"],
 	"exclude": [
 		"node_modules",
 		"dist",
+		"src/web-bgui/**/*",
 		"**/*.test.ts",
 		"**/*.test.tsx",
 		"**/*.spec.ts",

@@ -17,6 +17,7 @@ Welcome to the Brain Game documentation. This directory contains comprehensive g
 
 ### Development Workflows
 - [Testing Guide](./development/TESTING.md) - Testing strategies and frameworks
+- [Biome Guide](./development/BIOME.md) - Linting and formatting with Biome
 - [Git Worktrees](./development/WORKTREES.md) - Managing multiple branches with git worktrees
 - [PR Review Process](./processes/PR_REVIEW_PROCESS.md) - Code review guidelines and process
 - [i18n Workflow](./processes/I18N_WORKFLOW.md) - Internationalization workflow and best practices

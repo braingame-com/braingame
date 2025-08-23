@@ -63,12 +63,13 @@ export const Divider: React.FC<DividerProps> = ({
 			backgroundColor: dividerColor,
 		};
 
+		// For dividers with content, use a semantic structure with proper labels
 		return (
-			<div data-testid={testID} style={containerStyles} role="separator">
-				<div style={lineStyles} />
+			<fieldset data-testid={testID} style={containerStyles} aria-label="Content divider">
+				<hr style={{ ...lineStyles, border: "none", margin: 0 }} />
 				<div>{children}</div>
-				<div style={lineStyles} />
-			</div>
+				<hr style={{ ...lineStyles, border: "none", margin: 0 }} />
+			</fieldset>
 		);
 	}
 
@@ -78,7 +79,8 @@ export const Divider: React.FC<DividerProps> = ({
 		backgroundColor: dividerColor,
 		height: isVertical ? "100%" : thickness,
 		width: isVertical ? thickness : "100%",
-		...style,
+		border: "none",
+		...((style as React.CSSProperties) || {}),
 	};
 
 	return (

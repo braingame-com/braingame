@@ -1,1 +1,0 @@
-Checkout the main branch and pull latest changes

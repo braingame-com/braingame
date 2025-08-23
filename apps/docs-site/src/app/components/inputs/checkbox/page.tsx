@@ -14,7 +14,7 @@ const checkboxProps = [
 		description: "The checked state of the checkbox.",
 	},
 	{
-		name: "onValueChange",
+		name: "onChange",
 		type: "(value: boolean) => void",
 		required: true,
 		description: "Callback function called when the checkbox state changes.",
@@ -62,7 +62,7 @@ const checkboxProps = [
 
 export default function CheckboxDocs() {
 	const [checked1, setChecked1] = useState(false);
-	const [checked2, setChecked2] = useState(true);
+	const [_checked2, _setChecked2] = useState(true);
 	const [acceptTerms, setAcceptTerms] = useState(false);
 	const [notifications, setNotifications] = useState({
 		email: true,
@@ -89,44 +89,30 @@ export default function CheckboxDocs() {
 return (
   <Checkbox
     checked={checked}
-    onValueChange={setChecked}
+    onChange={setChecked}
     children="I agree to the terms and conditions"
   />
 );`}
 				>
-					<Checkbox checked={checked1} onValueChange={setChecked1}>
-						I agree to the terms and conditions
-					</Checkbox>
+					<Checkbox checked={checked1} onChange={setChecked1} label="I agree to the terms and conditions" />
 				</LiveExample>
 
 				<LiveExample
 					title="States"
-					code={`<Checkbox checked={false} onValueChange={() => {}}>Unchecked</Checkbox>
-<Checkbox checked={true} onValueChange={() => {}}>Checked</Checkbox>
-<Checkbox checked={false} onValueChange={() => {}} disabled>Disabled</Checkbox>
-<Checkbox checked={true} onValueChange={() => {}} children="Disabled Checked" disabled />
-<Checkbox checked={false} onValueChange={() => {}} error>Error</Checkbox>
-<Checkbox checked={false} onValueChange={() => {}} children="Indeterminate" indeterminate />`}
+					code={`<Checkbox checked={false} onChange={() => {}} label="Unchecked" />
+<Checkbox checked={true} onChange={() => {}} label="Checked" />
+<Checkbox checked={false} onChange={() => {}} disabled label="Disabled" />
+<Checkbox checked={true} onChange={() => {}} disabled label="Disabled Checked" />
+<Checkbox checked={false} onChange={() => {}} error label="Error" />
+<Checkbox checked={false} onChange={() => {}} indeterminate label="Indeterminate" />`}
 				>
 					<div className="flex flex--column flex--gap-3">
-						<Checkbox checked={false} onValueChange={() => {}}>
-							Unchecked
-						</Checkbox>
-						<Checkbox checked={true} onValueChange={() => {}}>
-							Checked
-						</Checkbox>
-						<Checkbox checked={false} onValueChange={() => {}} disabled>
-							Disabled
-						</Checkbox>
-						<Checkbox checked={true} onValueChange={() => {}} disabled>
-							Disabled Checked
-						</Checkbox>
-						<Checkbox checked={false} onValueChange={() => {}} error>
-							Error
-						</Checkbox>
-						<Checkbox checked={false} onValueChange={() => {}} indeterminate>
-							Indeterminate
-						</Checkbox>
+						<Checkbox checked={false} onChange={() => {}} label="Unchecked" />
+						<Checkbox checked={true} onChange={() => {}} label="Checked" />
+						<Checkbox checked={false} onChange={() => {}} disabled label="Disabled" />
+						<Checkbox checked={true} onChange={() => {}} disabled label="Disabled Checked" />
+						<Checkbox checked={false} onChange={() => {}} error label="Error" />
+						<Checkbox checked={false} onChange={() => {}} indeterminate label="Indeterminate" />
 					</div>
 				</LiveExample>
 
@@ -172,19 +158,25 @@ return (
 						<div className="flex flex--column flex--gap-3">
 							<Checkbox
 								checked={notifications.email}
-								onValueChange={(value: boolean) => setNotifications({ ...notifications, email: value })}
+								onValueChange={(value: boolean) =>
+									setNotifications({ ...notifications, email: value })
+								}
 							>
 								Email notifications
 							</Checkbox>
 							<Checkbox
 								checked={notifications.sms}
-								onValueChange={(value: boolean) => setNotifications({ ...notifications, sms: value })}
+								onValueChange={(value: boolean) =>
+									setNotifications({ ...notifications, sms: value })
+								}
 							>
 								SMS notifications
 							</Checkbox>
 							<Checkbox
 								checked={notifications.push}
-								onValueChange={(value: boolean) => setNotifications({ ...notifications, push: value })}
+								onValueChange={(value: boolean) =>
+									setNotifications({ ...notifications, push: value })
+								}
 							>
 								Push notifications
 							</Checkbox>
@@ -275,7 +267,7 @@ return (
       </Text>
     )}
     <Button 
-      onPress={handleSubmit} 
+      onClick={handleSubmit} 
       style={{ marginTop: 16 }}
     >
       Submit

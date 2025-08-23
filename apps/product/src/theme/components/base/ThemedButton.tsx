@@ -81,7 +81,7 @@ export const ThemedButton = withMemo<ThemedButtonProps>(
 		return (
 			<RNTouchableOpacity
 				disabled={disabled}
-				onPress={onPress}
+				onClick={onPress}
 				onPressIn={handlePressIn}
 				onPressOut={handlePressOut}
 				{...props}

@@ -4,9 +4,7 @@ module.exports = {
 	transform: {
 		"^.+\\.(t|j)sx?$": "@swc/jest",
 	},
-	transformIgnorePatterns: [
-		"node_modules/(?!.*(@react-native|react-native|@braingame|@expo).*)",
-	],
+	transformIgnorePatterns: ["node_modules/(?!.*(@react-native|react-native|@braingame|@expo).*)"],
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
 	moduleNameMapper: {
 		"^@/(.*)$": "<rootDir>/src/$1",
@@ -15,7 +13,7 @@ module.exports = {
 		"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
 			"<rootDir>/__mocks__/fileMock.js",
 	},
-	setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 	testPathIgnorePatterns: ["/node_modules/", "/.next/"],
 	collectCoverageFrom: [
 		"src/**/*.{ts,tsx}",
@@ -31,8 +29,5 @@ module.exports = {
 			statements: 70,
 		},
 	},
-	testMatch: [
-		"**/__tests__/**/*.{ts,tsx}",
-		"**/?(*.)+(spec|test).{ts,tsx}",
-	],
+	testMatch: ["**/__tests__/**/*.{ts,tsx}", "**/?(*.)+(spec|test).{ts,tsx}"],
 };

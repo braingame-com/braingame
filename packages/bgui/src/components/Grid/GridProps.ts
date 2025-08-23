@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Grid component
@@ -100,9 +101,29 @@ export interface GridProps {
 	wrap?: "nowrap" | "wrap" | "wrap-reverse";
 
 	/**
+	 * Number of columns in the grid
+	 */
+	columns?: number;
+
+	/**
+	 * The component used for the root node.
+	 */
+	component?: string;
+
+	/**
+	 * The size of the grid
+	 */
+	size?: "sm" | "md" | "lg";
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -113,4 +134,10 @@ export interface GridProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * Internal prop for spacing inheritance (React Native)
+	 * @internal
+	 */
+	__gridSpacing?: { horizontal: number; vertical: number };
 }

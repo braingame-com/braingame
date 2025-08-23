@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, MouseEventHandler, ReactNode } from "react";
 import type { GestureResponderEvent } from "react-native";
 
 /**
@@ -48,7 +48,7 @@ export interface AvatarProps {
 	/**
 	 * Click handler
 	 */
-	onClick?: (event: any) => void;
+	onClick?: ((event: GestureResponderEvent) => void) | MouseEventHandler<HTMLDivElement>;
 
 	/**
 	 * Called when avatar is pressed in (native only)
@@ -63,7 +63,7 @@ export interface AvatarProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing

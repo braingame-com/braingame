@@ -75,9 +75,19 @@ export interface TypographyProps {
 	component?: string;
 
 	/**
+	 * The text color of the component.
+	 */
+	textColor?: string;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing

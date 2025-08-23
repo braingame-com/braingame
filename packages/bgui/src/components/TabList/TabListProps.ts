@@ -48,9 +48,31 @@ export interface TabListProps {
 	disabled?: boolean;
 
 	/**
+	 * Click handler for tab selection
+	 */
+	onClick?: (event: any) => void;
+
+	/**
+	 * If `true`, the underline is disabled.
+	 * @default false
+	 */
+	disableUnderline?: boolean;
+
+	/**
+	 * The placement of the underline.
+	 * @default 'bottom'
+	 */
+	underlinePlacement?: "top" | "bottom" | "left" | "right";
+
+	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * Test ID for testing

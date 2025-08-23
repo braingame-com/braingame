@@ -63,11 +63,15 @@ export default function TextDocs() {
 						<Text level="h2">Heading 2</Text>
 						<Text level="h3">Heading 3</Text>
 						<Text level="title-lg">Large Title</Text>
-						<Text level="body-lg">Large body text - The quick brown fox jumps over the lazy dog</Text>
+						<Text level="body-lg">
+							Large body text - The quick brown fox jumps over the lazy dog
+						</Text>
 						<Text level="body-md">Medium body text</Text>
 						<Text level="body-sm">Small body text</Text>
 						<Text level="body-xs">Extra small text for captions</Text>
-						<Text level="body-md" style={{ fontWeight: 'bold' }}>Bold text for emphasis</Text>
+						<Text level="body-md" style={{ fontWeight: "bold" }}>
+							Bold text for emphasis
+						</Text>
 					</div>
 				</LiveExample>
 
@@ -95,9 +99,9 @@ export default function TextDocs() {
 <Text style={{ textAlign: 'right' }}>Right aligned text</Text>`}
 				>
 					<div className="flex flex--column flex--gap-2" style={{ width: "100%" }}>
-						<Text style={{ textAlign: 'left' }}>Left aligned text (default)</Text>
-						<Text style={{ textAlign: 'center' }}>Center aligned text</Text>
-						<Text style={{ textAlign: 'right' }}>Right aligned text</Text>
+						<Text style={{ textAlign: "left" }}>Left aligned text (default)</Text>
+						<Text style={{ textAlign: "center" }}>Center aligned text</Text>
+						<Text style={{ textAlign: "right" }}>Right aligned text</Text>
 					</div>
 				</LiveExample>
 
@@ -118,13 +122,21 @@ export default function TextDocs() {
 				>
 					<div className="flex flex--column flex--gap-3">
 						<div style={{ maxWidth: "400px" }}>
-							<Text style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+							<Text
+								style={{
+									overflow: "hidden",
+									textOverflow: "ellipsis",
+									display: "-webkit-box",
+									WebkitLineClamp: 2,
+									WebkitBoxOrient: "vertical",
+								}}
+							>
 								This is a very long text that will be truncated after two lines. Lorem ipsum dolor
 								sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
 								dolore magna aliqua.
 							</Text>
 						</div>
-						<Text style={{ fontFamily: 'monospace' }}>const code = "Monospace text for code";</Text>
+						<Text style={{ fontFamily: "monospace" }}>const code = "Monospace text for code";</Text>
 					</div>
 				</LiveExample>
 			</section>

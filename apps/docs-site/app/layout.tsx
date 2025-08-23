@@ -28,9 +28,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`${lexend.variable} ${robotoMono.variable}`}>
 			<body className={lexend.className}>
-				<ClientProvider>
-					{children}
-				</ClientProvider>
+				<ClientProvider>{children}</ClientProvider>
 			</body>
 		</html>
 	);

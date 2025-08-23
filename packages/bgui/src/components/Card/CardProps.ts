@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import type { GestureResponderEvent } from "react-native";
+import type { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Card component
@@ -45,7 +45,7 @@ export interface CardProps {
 	/**
 	 * Click handler
 	 */
-	onClick?: (event: any) => void;
+	onClick?: (event: React.MouseEvent | GestureResponderEvent) => void;
 
 	/**
 	 * Called when card is pressed in (native only)
@@ -60,7 +60,7 @@ export interface CardProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: StyleProp<ViewStyle> | CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -71,4 +71,15 @@ export interface CardProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	// React Native specific props that need to be filtered out in web
+	onTouchStart?: (event: GestureResponderEvent) => void;
+	onTouchEnd?: (event: GestureResponderEvent) => void;
+	onTouchCancel?: (event: GestureResponderEvent) => void;
+	onTouchMove?: (event: GestureResponderEvent) => void;
+	hitSlop?: number | { top?: number; left?: number; bottom?: number; right?: number };
+	pointerEvents?: "box-none" | "none" | "box-only" | "auto";
+	needsOffscreenAlphaCompositing?: boolean;
+	renderToHardwareTextureAndroid?: boolean;
+	shouldRasterizeIOS?: boolean;
 }

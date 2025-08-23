@@ -4,17 +4,28 @@ export { default as bguiThemeConfig } from "./bgui-theme.json";
 export * from "./constants";
 export * from "./hooks";
 // Theme exports
-export { BGUIThemeProvider, darkTheme, m3Theme, type Theme, theme } from "./theme";
+// Legacy alias exports for compatibility
+export {
+	BGUIThemeProvider,
+	BGUIThemeProvider as ThemeProvider,
+	darkTheme,
+	m3Theme,
+	type Theme,
+	theme,
+} from "./theme";
 // Universal components - Platform Adapter Pattern complete for web implementations
 
 export type { AlertProps } from "./components/Alert";
 export { Alert } from "./components/Alert";
+// Effects components
+export type { AnimatedGradientBackgroundProps } from "./components/AnimatedGradientBackground";
+export { AnimatedGradientBackground } from "./components/AnimatedGradientBackground";
 export type { AvatarProps } from "./components/Avatar";
 export { Avatar } from "./components/Avatar";
 export type { BadgeProps } from "./components/Badge";
 export { Badge } from "./components/Badge";
-export type { BoxProps } from "./components/Box";
-export { Box } from "./components/Box";
+export type { BoxProps, BoxProps as ViewProps } from "./components/Box";
+export { Box, Box as View } from "./components/Box";
 export type { ButtonProps } from "./components/Button";
 export { Button } from "./components/Button";
 export type { CardProps } from "./components/Card";
@@ -23,18 +34,23 @@ export type { CheckboxProps } from "./components/Checkbox";
 export { Checkbox } from "./components/Checkbox";
 export type { ChipProps } from "./components/Chip";
 export { Chip } from "./components/Chip";
-export type { CircularProgressProps } from "./components/CircularProgress";
-export { CircularProgress } from "./components/CircularProgress";
-export type { ContainerProps } from "./components/Container";
-export { Container } from "./components/Container";
+export type {
+	CircularProgressProps,
+	CircularProgressProps as SpinnerProps,
+} from "./components/CircularProgress";
+export { CircularProgress, CircularProgress as Spinner } from "./components/CircularProgress";
+export type { ContainerProps, ContainerProps as PageWrapperProps } from "./components/Container";
+export { Container, Container as PageWrapper } from "./components/Container";
 export type { DividerProps } from "./components/Divider";
 export { Divider } from "./components/Divider";
+export type { GlowingLogoProps } from "./components/GlowingLogo";
+export { GlowingLogo } from "./components/GlowingLogo";
 export type { GridProps } from "./components/Grid";
 export { Grid } from "./components/Grid";
 export type { IconButtonProps } from "./components/IconButton";
 export { IconButton } from "./components/IconButton";
-export type { InputProps } from "./components/Input";
-export { Input } from "./components/Input";
+export type { InputProps, InputProps as TextInputProps } from "./components/Input";
+export { Input, Input as TextInput } from "./components/Input";
 export type { LinearProgressProps } from "./components/LinearProgress";
 export { LinearProgress } from "./components/LinearProgress";
 export type { LinkProps } from "./components/Link";
@@ -68,14 +84,20 @@ export { Tabs } from "./components/Tabs";
 export type { TextareaProps } from "./components/Textarea";
 export { Textarea } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
-export { Tooltip } from "./components/Tooltip";
-export type { TypographyProps } from "./components/Typography";
-export { Typography } from "./components/Typography";
+export * from "./components/Tooltip";
+// Additional component aliases for common usage patterns
+export type { TypographyProps, TypographyProps as TextProps } from "./components/Typography";
+// Legacy alias exports for backward compatibility
+export { Typography, Typography as Text } from "./components/Typography";
+
+// TODO: Re-add web components after they are migrated from web-bgui quarry
+// export { Accordion } from "./components/Accordion";
+// export { Slider } from "./components/Slider";
+// export { SvgIcon, SvgIcon as Icon } from "./components/SvgIcon";
+
+// TODO: Add ContextErrorBoundary component when needed
+// For now, apps using ContextErrorBoundary should implement their own or use a different pattern
+
 export type { ComponentPerfResult } from "./utils/performance";
 // Performance utilities (for development/testing)
 export { perfMeasurement } from "./utils/performance";
-// Effects components
-export type { AnimatedGradientBackgroundProps } from "./components/AnimatedGradientBackground";
-export { AnimatedGradientBackground } from "./components/AnimatedGradientBackground";
-export type { GlowingLogoProps } from "./components/GlowingLogo";
-export { GlowingLogo } from "./components/GlowingLogo";

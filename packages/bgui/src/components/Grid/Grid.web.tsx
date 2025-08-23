@@ -25,7 +25,7 @@ const resolveResponsiveValue = <T,>(
 		for (let i = currentIndex; i >= 0; i--) {
 			const bp = breakpoints[i] as keyof typeof value;
 			if (value[bp] !== undefined) {
-				return value[bp];
+				return value[bp] as T;
 			}
 		}
 		return defaultValue;
@@ -38,7 +38,11 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 		{
 			children,
 			container = false,
-			size,
+			xs,
+			sm,
+			md,
+			lg,
+			xl,
 			columns = 12,
 			spacing = 0,
 			direction = "row",
@@ -86,7 +90,24 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 			currentBreakpoint,
 			resolvedSpacing,
 		);
-		const resolvedSize = resolveResponsiveValue(size, currentBreakpoint);
+		// Get the size value for the current breakpoint
+		const getCurrentSize = () => {
+			const breakpointOrder = ["xl", "lg", "md", "sm", "xs"];
+			const breakpointValues = { xs, sm, md, lg, xl };
+
+			const currentIndex = breakpointOrder.indexOf(currentBreakpoint);
+
+			// Find the first defined breakpoint value
+			for (let i = currentIndex; i >= 0; i--) {
+				const bp = breakpointOrder[i] as keyof typeof breakpointValues;
+				if (breakpointValues[bp] !== undefined) {
+					return breakpointValues[bp];
+				}
+			}
+			return undefined;
+		};
+
+		const resolvedSize = getCurrentSize();
 
 		// Calculate spacing in pixels (theme spacing is in px)
 		const columnGap = typeof resolvedColumnSpacing === "number" ? resolvedColumnSpacing * 8 : 0;
@@ -94,7 +115,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 
 		// Build styles
 		const gridStyles: React.CSSProperties = {
-			...style,
+			...((style as React.CSSProperties) || {}),
 		};
 
 		if (container) {
@@ -117,7 +138,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 		}
 
 		// Type assertion to handle the component prop properly
-		const ElementType = Component as any;
+		const ElementType = Component as React.ElementType;
 
 		return (
 			<ElementType

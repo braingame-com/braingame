@@ -4,7 +4,7 @@ import { Box } from "../components/Box";
 import { Container } from "../components/Container";
 import { Divider } from "../components/Divider";
 import { Stack } from "../components/Stack";
-import { Text } from "../components/Text";
+import { Typography } from "../components/Typography";
 
 /**
  * Web version of performance baseline component
@@ -149,6 +149,7 @@ export const PerformanceBaseline: React.FC = () => {
 				</p>
 
 				<button
+					type="button"
 					onClick={runPerformanceTests}
 					disabled={isRunning}
 					style={{
@@ -181,7 +182,7 @@ export const PerformanceBaseline: React.FC = () => {
 					</PerfComponent>
 
 					<PerfComponent componentName="Text">
-						<Text variant="h2">Text Component Test</Text>
+						<Typography level="h2">Text Component Test</Typography>
 					</PerfComponent>
 
 					<PerfComponent componentName="Stack">

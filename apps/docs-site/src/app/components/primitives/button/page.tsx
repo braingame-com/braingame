@@ -91,30 +91,30 @@ export default function ButtonDocs() {
 
 				<LiveExample
 					title="Variants"
-					code={`<Button onPress={() => alert('Primary')} variant="primary">
+					code={`<Button onClick={() => alert('Primary')} variant="solid">
   Primary Button
 </Button>
-<Button onPress={() => alert('Secondary')} variant="secondary">
+<Button onClick={() => alert('Secondary')} variant="outlined">
   Secondary Button
 </Button>
-<Button onPress={() => alert('Ghost')} variant="ghost">
+<Button onClick={() => alert('Ghost')} variant="plain">
   Ghost Button
 </Button>
-<Button onPress={() => alert('Danger')} variant="danger">
+<Button onClick={() => alert('Danger')} variant="danger">
   Danger Button
 </Button>`}
 				>
 					<div className="flex flex--gap-3 flex--wrap">
-						<Button onPress={() => alert("Primary")} variant="primary">
+						<Button onClick={() => alert("Primary")} variant="solid">
 							Primary Button
 						</Button>
-						<Button onPress={() => alert("Secondary")} variant="secondary">
+						<Button onClick={() => alert("Secondary")} variant="outlined">
 							Secondary Button
 						</Button>
-						<Button onPress={() => alert("Ghost")} variant="ghost">
+						<Button onClick={() => alert("Ghost")} variant="plain">
 							Ghost Button
 						</Button>
-						<Button onPress={() => alert("Danger")} variant="danger">
+						<Button onClick={() => alert("Danger")} variant="danger">
 							Danger Button
 						</Button>
 					</div>
@@ -122,18 +122,18 @@ export default function ButtonDocs() {
 
 				<LiveExample
 					title="Sizes"
-					code={`<Button onPress={() => {}} size="sm">Small</Button>
-<Button onPress={() => {}} size="md">Medium</Button>
-<Button onPress={() => {}} size="lg">Large</Button>`}
+					code={`<Button onClick={() => {}} size="sm">Small</Button>
+<Button onClick={() => {}} size="md">Medium</Button>
+<Button onClick={() => {}} size="lg">Large</Button>`}
 				>
 					<div className="flex flex--gap-3 flex--wrap" style={{ alignItems: "center" }}>
-						<Button onPress={() => {}} size="sm">
+						<Button onClick={() => {}} size="sm">
 							Small
 						</Button>
-						<Button onPress={() => {}} size="md">
+						<Button onClick={() => {}} size="md">
 							Medium
 						</Button>
-						<Button onPress={() => {}} size="lg">
+						<Button onClick={() => {}} size="lg">
 							Large
 						</Button>
 					</div>
@@ -141,47 +141,47 @@ export default function ButtonDocs() {
 
 				<LiveExample
 					title="With Icons"
-					code={`<Button onPress={() => {}} icon="home">
+					code={`<Button onClick={() => {}} icon="home">
   Home
 </Button>
-<Button onPress={() => {}} icon="arrow_forward" iconPosition="right">
+<Button onClick={() => {}} icon="arrow_forward" iconPosition="right">
   Continue
 </Button>
-<Button onPress={() => {}} variant="icon" icon="settings" aria-label="Settings" />`}
+<Button onClick={() => {}} variant="icon" icon="settings" aria-label="Settings" />`}
 				>
 					<div className="flex flex--gap-3 flex--wrap">
-						<Button onPress={() => {}} icon="home">
+						<Button onClick={() => {}} icon="home">
 							Home
 						</Button>
-						<Button onPress={() => {}} icon="arrow_forward" iconPosition="right">
+						<Button onClick={() => {}} icon="arrow_forward" iconPosition="right">
 							Continue
 						</Button>
-						<Button onPress={() => {}} variant="icon" icon="settings" aria-label="Settings" />
+						<Button onClick={() => {}} variant="icon" icon="settings" aria-label="Settings" />
 					</div>
 				</LiveExample>
 
 				<LiveExample
 					title="States"
-					code={`<Button onPress={() => {}} loading>
+					code={`<Button onClick={() => {}} loading>
   Loading
 </Button>
-<Button onPress={() => {}} disabled>
+<Button onClick={() => {}} disabled>
   Disabled
 </Button>
-<Button onPress={() => {}} fullWidth>
+<Button onClick={() => {}} fullWidth>
   Full Width Button
 </Button>`}
 				>
 					<div className="flex flex--column flex--gap-3">
 						<div className="flex flex--gap-3">
-							<Button onPress={() => {}} loading>
+							<Button onClick={() => {}} loading>
 								Loading
 							</Button>
-							<Button onPress={() => {}} disabled>
+							<Button onClick={() => {}} disabled>
 								Disabled
 							</Button>
 						</div>
-						<Button onPress={() => {}} fullWidth>
+						<Button onClick={() => {}} fullWidth>
 							Full Width Button
 						</Button>
 					</div>
@@ -200,8 +200,8 @@ function MyComponent() {
 
   return (
     <Button 
-      onPress={handlePress}
-      variant="primary"
+      onClick={handlePress}
+      variant="solid"
       icon="send"
     >
       Send Message

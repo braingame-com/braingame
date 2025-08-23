@@ -25,21 +25,21 @@ export const WelcomeScreen: React.FC<Props> = () => {
 				<View style={authStyles.buttonSection}>
 					<TouchableOpacity
 						style={[authStyles.button, authStyles.primaryButton]}
-						onPress={() => navigation.navigate("Login")}
+						onClick={() => navigation.navigate("Login")}
 					>
 						<Text style={authStyles.primaryButtonText}>Sign In</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity
 						style={[authStyles.button, authStyles.secondaryButton]}
-						onPress={() => navigation.navigate("Register")}
+						onClick={() => navigation.navigate("Register")}
 					>
 						<Text style={authStyles.secondaryButtonText}>Create Account</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity
 						style={authStyles.skipButton}
-						onPress={() => {
+						onClick={() => {
 							// In a real app, this would sign in as guest
 							// Guest authentication functionality not yet implemented
 						}}

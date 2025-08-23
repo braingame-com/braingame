@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Button, Modal, Switch, TextInput } from "@braingame/bgui";
+import { useState } from "react";
 import { CodeBlock } from "../../../../src/components/CodeBlock";
 import { LiveExample } from "../../../../src/components/LiveExample";
 import { PropsTable } from "../../../../src/components/PropsTable";
@@ -100,7 +100,7 @@ export default function ModalDocs() {
 
 return (
   <>
-    <Button onPress={() => setVisible(true)}>
+    <Button onClick={() => setVisible(true)}>
       Open Modal
     </Button>
 
@@ -116,7 +116,7 @@ return (
   </>
 );`}
 				>
-					<Button onPress={() => setBasicModal(true)}>Open Modal</Button>
+					<Button onClick={() => setBasicModal(true)}>Open Modal</Button>
 
 					<Modal visible={basicModal} onClose={() => setBasicModal(false)}>
 						<p className="text-body">
@@ -129,10 +129,10 @@ return (
 				<LiveExample
 					title="Modal Sizes"
 					code={`<View style={{ flexDirection: 'row', gap: 8 }}>
-  <Button onPress={() => openModal('sm')}>Small</Button>
-  <Button onPress={() => openModal('md')}>Medium</Button>
-  <Button onPress={() => openModal('lg')}>Large</Button>
-  <Button onPress={() => openModal('fullscreen')}>Fullscreen</Button>
+  <Button onClick={() => openModal('sm')}>Small</Button>
+  <Button onClick={() => openModal('md')}>Medium</Button>
+  <Button onClick={() => openModal('lg')}>Large</Button>
+  <Button onClick={() => openModal('fullscreen')}>Fullscreen</Button>
 </View>
 
 <Modal
@@ -146,10 +146,10 @@ return (
 </Modal>`}
 				>
 					<div className="flex flex--gap-2">
-						<Button onPress={() => setSizeModal("sm")}>Small</Button>
-						<Button onPress={() => setSizeModal("md")}>Medium</Button>
-						<Button onPress={() => setSizeModal("lg")}>Large</Button>
-						<Button onPress={() => setSizeModal("fullscreen")}>Fullscreen</Button>
+						<Button onClick={() => setSizeModal("sm")}>Small</Button>
+						<Button onClick={() => setSizeModal("md")}>Medium</Button>
+						<Button onClick={() => setSizeModal("lg")}>Large</Button>
+						<Button onClick={() => setSizeModal("fullscreen")}>Fullscreen</Button>
 					</div>
 
 					{sizeModal && (
@@ -182,7 +182,7 @@ const handleSubmit = () => {
 
 return (
   <>
-    <Button onPress={() => setVisible(true)}>
+    <Button onClick={() => setVisible(true)}>
       Edit Profile
     </Button>
 
@@ -221,12 +221,12 @@ return (
       
       <ModalFooter>
         <Button 
-          variant="ghost" 
-          onPress={() => setVisible(false)}
+          variant="plain" 
+          onClick={() => setVisible(false)}
         >
           Cancel
         </Button>
-        <Button onPress={handleSubmit}>
+        <Button onClick={handleSubmit}>
           Save Changes
         </Button>
       </ModalFooter>
@@ -234,7 +234,7 @@ return (
   </>
 );`}
 				>
-					<Button onPress={() => setFormModal(true)}>Edit Profile</Button>
+					<Button onClick={() => setFormModal(true)}>Edit Profile</Button>
 
 					<Modal visible={formModal} onClose={() => setFormModal(false)}>
 						<h2 className="text-title mb-4">Edit Profile</h2>
@@ -256,17 +256,19 @@ return (
 								<span className="text-body">Email notifications</span>
 								<Switch
 									checked={formData.notifications}
-									onValueChange={(value: boolean) => setFormData({ ...formData, notifications: value })}
+									onValueChange={(value: boolean) =>
+										setFormData({ ...formData, notifications: value })
+									}
 								/>
 							</div>
 						</div>
 
 						<div className="modal__footer">
-							<Button variant="ghost" onPress={() => setFormModal(false)}>
+							<Button variant="plain" onClick={() => setFormModal(false)}>
 								Cancel
 							</Button>
 							<Button
-								onPress={() => {
+								onClick={() => {
 									console.log("Form submitted:", formData);
 									setFormModal(false);
 								}}
@@ -283,7 +285,7 @@ return (
 
 return (
   <>
-    <Button variant="danger" onPress={() => setVisible(true)}>
+    <Button variant="danger" onClick={() => setVisible(true)}>
       Delete Account
     </Button>
 
@@ -316,15 +318,15 @@ return (
       
       <ModalFooter>
         <Button 
-          variant="ghost" 
-          onPress={() => setVisible(false)}
+          variant="plain" 
+          onClick={() => setVisible(false)}
         >
           Cancel
         </Button>
         <Button 
           variant="danger"
           disabled={confirmText !== 'DELETE'}
-          onPress={handleDelete}
+          onClick={handleDelete}
         >
           Delete Account
         </Button>
@@ -333,7 +335,7 @@ return (
   </>
 );`}
 				>
-					<Button variant="danger" onPress={() => setDeleteModal(true)}>
+					<Button variant="danger" onClick={() => setDeleteModal(true)}>
 						Delete Account
 					</Button>
 
@@ -356,13 +358,13 @@ return (
 							<p className="text-caption text-secondary mb-4">Type "DELETE" to confirm</p>
 						</div>
 
-						<TextInput placeholder="Type DELETE" value="" onValueChange={() => {}} />
+						<TextInput placeholder="Type DELETE" value="" onChange={() => {}} />
 
 						<div className="modal__footer">
-							<Button variant="ghost" onPress={() => setDeleteModal(false)}>
+							<Button variant="plain" onClick={() => setDeleteModal(false)}>
 								Cancel
 							</Button>
-							<Button variant="danger" disabled={true} onPress={() => {}}>
+							<Button variant="danger" disabled={true} onClick={() => {}}>
 								Delete Account
 							</Button>
 						</div>
@@ -387,16 +389,16 @@ return (
   </View>
   
   <ModalFooter>
-    <Button variant="ghost" onPress={() => setVisible(false)}>
+    <Button variant="plain" onClick={() => setVisible(false)}>
       Decline
     </Button>
-    <Button onPress={handleAccept}>
+    <Button onClick={handleAccept}>
       Accept Terms
     </Button>
   </ModalFooter>
 </Modal>`}
 				>
-					<Button onPress={() => setScrollModal(true)}>View Terms</Button>
+					<Button onClick={() => setScrollModal(true)}>View Terms</Button>
 
 					<Modal visible={scrollModal} onClose={() => setScrollModal(false)}>
 						<h2 className="text-title mb-4">Terms of Service</h2>
@@ -431,10 +433,10 @@ return (
 						</div>
 
 						<div className="modal__footer">
-							<Button variant="ghost" onPress={() => setScrollModal(false)}>
+							<Button variant="plain" onClick={() => setScrollModal(false)}>
 								Decline
 							</Button>
-							<Button onPress={() => setScrollModal(false)}>Accept Terms</Button>
+							<Button onClick={() => setScrollModal(false)}>Accept Terms</Button>
 						</div>
 					</Modal>
 				</LiveExample>
@@ -494,7 +496,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
         
         <Select
           value={formData.priority}
-          onValueChange={(value: any) => 
+          onChange={(_event, value) => 
             setFormData({ ...formData, priority: value })
           }
           options={[
@@ -506,11 +508,11 @@ function EditItemModal({ item, visible, onClose, onSave }) {
       </View>
       
       <ModalFooter>
-        <Button variant="ghost" onPress={onClose}>
+        <Button variant="plain" onClick={onClose}>
           Cancel
         </Button>
         <Button 
-          onPress={handleSave}
+          onClick={handleSave}
           disabled={!formData.title.trim()}
         >
           {item ? 'Save Changes' : 'Create Item'}
@@ -577,7 +579,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
     <View style={styles.galleryControls}>
       <IconButton
         icon="chevron_left"
-        onPress={previousImage}
+        onClick={previousImage}
         disabled={currentIndex === 0}
       />
       <Text variant="caption" color="white">
@@ -585,7 +587,7 @@ function EditItemModal({ item, visible, onClose, onSave }) {
       </Text>
       <IconButton
         icon="chevron_right"
-        onPress={nextImage}
+        onClick={nextImage}
         disabled={currentIndex === images.length - 1}
       />
     </View>
@@ -613,13 +615,13 @@ function EditItemModal({ item, visible, onClose, onSave }) {
   
   <ModalFooter>
     <Button
-      variant="ghost"
-      onPress={currentStep === 1 ? handleClose : previousStep}
+      variant="plain"
+      onClick={currentStep === 1 ? handleClose : previousStep}
     >
       {currentStep === 1 ? 'Cancel' : 'Back'}
     </Button>
     <Button
-      onPress={currentStep === 3 ? handleSubmit : nextStep}
+      onClick={currentStep === 3 ? handleSubmit : nextStep}
       disabled={!isStepValid(currentStep)}
     >
       {currentStep === 3 ? 'Submit' : 'Next'}

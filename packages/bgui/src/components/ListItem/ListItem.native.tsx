@@ -116,27 +116,28 @@ export const ListItem = forwardRef<View, ListItemProps & { __listContext?: ListC
 		const variantStyles = getVariantStyles();
 		const sizeStyles = getSizeStyles();
 
-		// Build item styles
+		// Build item styles - ensure only React Native compatible styles
+		const baseItemStyle = {
+			backgroundColor: variantStyles.backgroundColor
+				? restyleTheme.colors[variantStyles.backgroundColor as keyof Theme["colors"]]
+				: "transparent",
+			borderWidth: variantStyles.borderWidth || 0,
+			borderColor: variantStyles.borderColor
+				? restyleTheme.colors[variantStyles.borderColor as keyof Theme["colors"]]
+				: "transparent",
+			paddingVertical: sizeStyles.paddingVertical,
+			paddingHorizontal: sizeStyles.paddingHorizontal,
+			minHeight: sizeStyles.minHeight,
+		};
+
 		const itemStyles = [
 			styles.container,
-			{
-				backgroundColor: variantStyles.backgroundColor
-					? restyleTheme.colors[variantStyles.backgroundColor as keyof Theme["colors"]]
-					: "transparent",
-				borderWidth: variantStyles.borderWidth || 0,
-				borderColor: variantStyles.borderColor
-					? restyleTheme.colors[variantStyles.borderColor as keyof Theme["colors"]]
-					: "transparent",
-				paddingVertical: sizeStyles.paddingVertical,
-				paddingHorizontal: sizeStyles.paddingHorizontal,
-				minHeight: sizeStyles.minHeight,
-			},
+			baseItemStyle,
 			nested && { paddingLeft: sizeStyles.paddingHorizontal * 2 },
 			selected && styles.selected,
 			disabled && styles.disabled,
 			__listContext?.orientation === "horizontal" && styles.horizontal,
-			style,
-		];
+		].filter(Boolean);
 
 		// Get text color
 		const textColor = variantStyles.color
@@ -204,13 +205,13 @@ export const ListItem = forwardRef<View, ListItemProps & { __listContext?: ListC
 						selected: selected || ariaSelected,
 					}}
 					testID={testID}
-					style={({ pressed }) => [
-						itemStyles,
-						{
+					style={({ pressed }) => {
+						const pressedStyle = {
 							opacity: disabled ? 0.6 : pressed || isPressed ? 0.8 : 1,
 							transform: [{ scale: pressed || isPressed ? 0.98 : 1 }],
-						},
-					]}
+						};
+						return [...itemStyles, pressedStyle];
+					}}
 					{...props}
 				>
 					{content}

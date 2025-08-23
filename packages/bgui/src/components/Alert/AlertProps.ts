@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import type { ViewStyle } from "react-native";
 
 /**
  * Shared props interface for Alert component
@@ -53,8 +54,9 @@ export interface AlertProps {
 
 	/**
 	 * Additional styles
+	 * Platform-specific: CSSProperties on web, ViewStyle on native
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties | ViewStyle;
 
 	/**
 	 * Test ID for testing

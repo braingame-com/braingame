@@ -1,5 +1,12 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { type GestureResponderEvent, Image, Pressable, StyleSheet, View } from "react-native";
+import {
+	type GestureResponderEvent,
+	Image,
+	Pressable,
+	StyleSheet,
+	View,
+	type ViewStyle,
+} from "react-native";
 import { theme } from "../../theme";
 import { Typography } from "../Typography";
 import type { AvatarProps } from "./AvatarProps";
@@ -33,7 +40,7 @@ export const Avatar = forwardRef<View, AvatarProps>(
 		const [imgError, setImgError] = useState(false);
 
 		// Merge refs
-		useImperativeHandle(ref, () => avatarRef.current!);
+		useImperativeHandle(ref, () => avatarRef.current || ({} as View));
 
 		// Get avatar variant style from theme
 		const getAvatarVariantStyle = () => {
@@ -71,7 +78,7 @@ export const Avatar = forwardRef<View, AvatarProps>(
 		// Handle press events
 		const handlePress = (event: GestureResponderEvent) => {
 			if (onClick) {
-				onClick(event);
+				(onClick as (event: GestureResponderEvent) => void)(event);
 			}
 		};
 
@@ -92,7 +99,12 @@ export const Avatar = forwardRef<View, AvatarProps>(
 		const sizeStyles = getSizeStyles();
 		const _textVariant = getTextSize();
 
-		const avatarStyle = [styles.base, avatarVariantStyle, sizeStyles, style];
+		const avatarStyle = [
+			styles.base,
+			avatarVariantStyle,
+			sizeStyles,
+			...(style ? [style as ViewStyle] : []),
+		] as ViewStyle[];
 
 		// Render content
 		const renderContent = () => {
@@ -113,13 +125,13 @@ export const Avatar = forwardRef<View, AvatarProps>(
 				return (
 					<Typography
 						level={size === "sm" ? "body-xs" : size === "lg" ? "body-lg" : "body-md"}
-						style={[
-							styles.text,
+						style={
 							{
+								...styles.text,
 								color: variant === "solid" ? "#ffffff" : theme.colors[color],
 								textTransform: "uppercase",
-							},
-						]}
+							} as React.CSSProperties
+						}
 					>
 						{children}
 					</Typography>
@@ -140,13 +152,15 @@ export const Avatar = forwardRef<View, AvatarProps>(
 					testID={testID}
 					accessibilityRole="button"
 					accessibilityLabel={ariaLabel || alt}
-					style={({ pressed }) => [
-						avatarStyle,
-						{
-							opacity: pressed ? 0.8 : 1,
-							transform: [{ scale: pressed ? 0.95 : 1 }],
-						},
-					]}
+					style={({ pressed }) =>
+						[
+							...(Array.isArray(avatarStyle) ? avatarStyle : [avatarStyle]),
+							{
+								opacity: pressed ? 0.8 : 1,
+								transform: [{ scale: pressed ? 0.95 : 1 }],
+							},
+						] as import("react-native").StyleProp<import("react-native").ViewStyle>
+					}
 					{...props}
 				>
 					{renderContent()}

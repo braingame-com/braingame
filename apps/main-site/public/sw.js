@@ -1,5 +1,5 @@
 // Service Worker for offline support and caching
-const CACHE_NAME = "braingame-v1";
+const _CACHE_NAME = "braingame-v1";
 const STATIC_CACHE_NAME = "braingame-static-v1";
 const DYNAMIC_CACHE_NAME = "braingame-dynamic-v1";
 
@@ -93,7 +93,7 @@ async function cacheFirst(request) {
 			cache.put(request, response.clone());
 		}
 		return response;
-	} catch (error) {
+	} catch (_error) {
 		return new Response("Network error", { status: 408 });
 	}
 }

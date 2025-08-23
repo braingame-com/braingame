@@ -92,7 +92,7 @@ export interface SwitchProps {
 	/**
 	 * Additional styles
 	 */
-	style?: CSSProperties | any;
+	style?: CSSProperties;
 
 	/**
 	 * Test ID for testing
@@ -103,6 +103,16 @@ export interface SwitchProps {
 	 * Accessibility label
 	 */
 	"aria-label"?: string;
+
+	/**
+	 * The content of the component
+	 */
+	children?: ReactNode;
+
+	/**
+	 * CSS class name for web styling
+	 */
+	className?: string;
 
 	/**
 	 * The id of the element describing the switch.

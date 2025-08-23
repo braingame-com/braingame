@@ -1,7 +1,8 @@
 import React, { Children, forwardRef, useImperativeHandle, useRef, useState } from "react";
-import type { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 import { Box } from "../Box";
+import type { RadioProps } from "../Radio/RadioProps";
 import type { RadioGroupProps } from "./RadioGroupProps";
 
 /**
@@ -47,7 +48,7 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 		const radioGroupName = name || `radio-group-${Math.random().toString(36).substr(2, 9)}`;
 
 		// Merge refs
-		useImperativeHandle(ref, () => radioGroupRef.current!);
+		useImperativeHandle(ref, () => radioGroupRef.current || ({} as any));
 
 		// Handle radio selection
 		const handleRadioChange = (event: any) => {
@@ -77,52 +78,51 @@ export const RadioGroup = forwardRef<View, RadioGroupProps>(
 		// Clone radio children with shared props
 		const clonedChildren = Children.map(children, (child) => {
 			if (
-				React.isValidElement(child) &&
+				React.isValidElement<RadioProps>(child) &&
 				child.type &&
 				(child.type as any).displayName === "Radio"
 			) {
+				const childProps = child.props as RadioProps;
 				return React.cloneElement(child, {
-					...child.props,
+					...childProps,
 					name: radioGroupName,
-					checked: child.props.value === currentValue,
+					checked: childProps.value === currentValue,
 					onChange: handleRadioChange,
-					disabled: disabled || child.props.disabled,
-					color: child.props.color || color,
-					variant: child.props.variant || variant,
-					size: child.props.size || size,
-					required: required || child.props.required,
-					readOnly: readOnly || child.props.readOnly,
-					disableIcon: disableIcon || child.props.disableIcon,
-					overlay: overlay || child.props.overlay,
+					disabled: disabled || childProps.disabled,
+					color: childProps.color || color,
+					variant: childProps.variant || variant,
+					size: childProps.size || size,
+					required: required || childProps.required,
+					readOnly: readOnly || childProps.readOnly,
+					disableIcon: disableIcon || childProps.disableIcon,
+					overlay: overlay || childProps.overlay,
 				});
 			}
 			return child;
 		});
 
-		// Container styles
-		const containerStyles = [
-			{
-				flexDirection: orientation === "horizontal" ? "row" : "column",
-				gap: theme.spacing.sm,
-				opacity: disabled ? 0.6 : 1,
-			},
-			style,
-		];
+		// Container styles - React Native compatible only
+		const baseContainerStyle = {
+			flexDirection: orientation === "horizontal" ? ("row" as const) : ("column" as const),
+			gap: theme.spacing.sm,
+			opacity: disabled ? 0.6 : 1,
+		};
+
+		const containerStyles = [baseContainerStyle];
 
 		return (
-			<Box
+			<View
 				ref={radioGroupRef}
-				style={containerStyles}
+				style={StyleSheet.flatten(containerStyles)}
 				testID={testID}
 				accessibilityRole="radiogroup"
 				accessibilityLabel={ariaLabel}
 				accessibilityState={{
 					disabled: disabled,
 				}}
-				accessibilityRequired={required}
 			>
 				{clonedChildren}
-			</Box>
+			</View>
 		);
 	},
 );

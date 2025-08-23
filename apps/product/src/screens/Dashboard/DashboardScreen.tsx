@@ -21,7 +21,7 @@ interface ActionItem {
 	icon: string;
 	title: string;
 	description: string;
-	onPress: () => void;
+	onClick: () => void;
 }
 
 interface ActivityItem {
@@ -43,7 +43,7 @@ const StatCard = withMemo<{ item: StatItem }>(
 
 const ActionCard = withMemo<{ item: ActionItem }>(
 	({ item }) => (
-		<TouchableOpacity style={dashboardStyles.actionCard} onPress={item.onPress}>
+		<TouchableOpacity style={dashboardStyles.actionCard} onClick={item.onPress}>
 			<Text style={dashboardStyles.actionIcon}>{item.icon}</Text>
 			<View style={dashboardStyles.actionContent}>
 				<Text style={dashboardStyles.actionTitle}>{item.title}</Text>
@@ -55,9 +55,9 @@ const ActionCard = withMemo<{ item: ActionItem }>(
 	"ActionCard",
 );
 
-const ActivityCard = withMemo<{ item: ActivityItem; onPress: (id: string) => void }>(
+const ActivityCard = withMemo<{ item: ActivityItem; onClick: (id: string) => void }>(
 	({ item, onPress }) => (
-		<TouchableOpacity style={dashboardStyles.activityItem} onPress={() => onPress(item.id)}>
+		<TouchableOpacity style={dashboardStyles.activityItem} onClick={() => onPress(item.id)}>
 			<View style={dashboardStyles.activityDot} />
 			<Text style={dashboardStyles.activityText}>Completed {item.task}</Text>
 			<Text style={dashboardStyles.activityTime}>{item.time}</Text>
@@ -126,14 +126,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 				icon: "🧠",
 				title: "Mindset Training",
 				description: "Daily practice for peak performance",
-				onPress: navigateToMindset,
+				onClick: navigateToMindset,
 			},
 			{
 				id: "tasks",
 				icon: "✅",
 				title: "Today's Tasks",
 				description: "12 tasks remaining",
-				onPress: () => handleTaskPress("task-1"),
+				onClick: () => handleTaskPress("task-1"),
 			},
 		],
 		[navigateToMindset, handleTaskPress],
@@ -148,7 +148,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
 	);
 
 	const renderActivity = useCallback(
-		({ item }: { item: ActivityItem }) => <ActivityCard item={item} onPress={handleTaskPress} />,
+		({ item }: { item: ActivityItem }) => <ActivityCard item={item} onClick={handleTaskPress} />,
 		[handleTaskPress],
 	);
 

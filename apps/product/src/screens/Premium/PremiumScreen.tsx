@@ -55,7 +55,7 @@ const PremiumScreenComponent: React.FC = () => {
 				<View style={styles.featuresSection}>
 					<Text style={styles.sectionTitle}>Everything in Premium</Text>
 
-					<TouchableOpacity onPress={() => handleFeaturePress("AdvancedAnalytics")}>
+					<TouchableOpacity onClick={() => handleFeaturePress("AdvancedAnalytics")}>
 						<PremiumFeature
 							icon="📊"
 							title="Advanced Analytics"
@@ -63,7 +63,7 @@ const PremiumScreenComponent: React.FC = () => {
 						/>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => handleFeaturePress("PersonalCoach")}>
+					<TouchableOpacity onClick={() => handleFeaturePress("PersonalCoach")}>
 						<PremiumFeature
 							icon="🤖"
 							title="AI Personal Coach"
@@ -71,7 +71,7 @@ const PremiumScreenComponent: React.FC = () => {
 						/>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => handleFeaturePress("UnlimitedContent")}>
+					<TouchableOpacity onClick={() => handleFeaturePress("UnlimitedContent")}>
 						<PremiumFeature
 							icon="♾️"
 							title="Unlimited Content"
@@ -79,7 +79,7 @@ const PremiumScreenComponent: React.FC = () => {
 						/>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => handleFeaturePress("OfflineMode")}>
+					<TouchableOpacity onClick={() => handleFeaturePress("OfflineMode")}>
 						<PremiumFeature
 							icon="📱"
 							title="Offline Mode"
@@ -87,7 +87,7 @@ const PremiumScreenComponent: React.FC = () => {
 						/>
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => handleFeaturePress("PrioritySupport")}>
+					<TouchableOpacity onClick={() => handleFeaturePress("PrioritySupport")}>
 						<PremiumFeature
 							icon="💬"
 							title="Priority Support"
@@ -98,7 +98,7 @@ const PremiumScreenComponent: React.FC = () => {
 
 				{/* Pricing */}
 				<View style={styles.pricingSection}>
-					<TouchableOpacity style={styles.pricingOption} onPress={handleSubscribe}>
+					<TouchableOpacity style={styles.pricingOption} onClick={handleSubscribe}>
 						<View style={styles.pricingBadge}>
 							<Text style={styles.pricingBadgeText}>BEST VALUE</Text>
 						</View>
@@ -110,7 +110,7 @@ const PremiumScreenComponent: React.FC = () => {
 
 					<TouchableOpacity
 						style={[styles.pricingOption, styles.pricingOptionMonthly]}
-						onPress={() =>
+						onClick={() =>
 							navigateWithConditions("Payment", {
 								planId: "premium_monthly",
 								price: 9.99,
@@ -124,7 +124,7 @@ const PremiumScreenComponent: React.FC = () => {
 				</View>
 
 				{/* CTA Button */}
-				<TouchableOpacity style={styles.ctaButton} onPress={handleSubscribe}>
+				<TouchableOpacity style={styles.ctaButton} onClick={handleSubscribe}>
 					<Text style={styles.ctaButtonText}>Start Free Trial</Text>
 					<Text style={styles.ctaSubtext}>7 days free, then $79.99/year</Text>
 				</TouchableOpacity>

@@ -91,7 +91,7 @@ interface TrackableTouchableProps
 	extends Omit<React.ComponentProps<typeof TouchableOpacity>, "onPress"> {
 	eventName?: EventName;
 	eventProperties?: EventProperties;
-	onPress?: () => void;
+	onClick?: () => void;
 	children: React.ReactNode;
 }
 
@@ -113,7 +113,7 @@ export const TrackableTouchable: React.FC<TrackableTouchableProps> = ({
 	};
 
 	return (
-		<TouchableOpacity onPress={handlePress} {...props}>
+		<TouchableOpacity onClick={handlePress} {...props}>
 			{children}
 		</TouchableOpacity>
 	);

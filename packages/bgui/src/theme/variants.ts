@@ -3,8 +3,15 @@
  * Each component gets 4 variants × 5 colors = 20 total variants
  */
 
-export function generateComponentVariants() {
-	const variants: any = {};
+interface VariantStyle {
+	backgroundColor?: string;
+	borderColor?: string;
+	borderWidth?: number;
+	color?: string;
+}
+
+export function generateComponentVariants(): Record<string, VariantStyle> {
+	const variants: Record<string, VariantStyle> = {};
 
 	const colors = ["primary", "neutral", "danger", "success", "warning"];
 

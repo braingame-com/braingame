@@ -14,9 +14,9 @@ const ThemedText = createText<Theme>();
  */
 export function Tabs({
 	children,
-	color = "neutral",
-	variant = "solid",
-	size = "md",
+	color: _color = "neutral",
+	variant: _variant = "solid",
+	size: _size = "md",
 	disabled = false,
 	onClick,
 	"aria-label": ariaLabel,
@@ -37,7 +37,7 @@ export function Tabs({
 			accessibilityRole="button"
 			accessibilityState={{ disabled }}
 		>
-			<Box backgroundColor="primary" padding="m" borderRadius="m" opacity={disabled ? 0.5 : 1}>
+			<Box backgroundColor="primary" padding="md" borderRadius="md" opacity={disabled ? 0.5 : 1}>
 				<ThemedText variant="button" color="onPrimary">
 					{children}
 				</ThemedText>
