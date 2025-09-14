@@ -1,8 +1,0 @@
-{
-	"recommendations": [
-		"biomejs.biome",
-		"expo.vscode-expo-tools",
-		"firsttris.vscode-jest-runner",
-		"github.vscode-pull-request-github"
-	]
-}
