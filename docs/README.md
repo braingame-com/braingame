@@ -48,13 +48,13 @@ Welcome to the Brain Game documentation. This directory contains comprehensive g
 
 ### Project-Level Documentation
 - [Project README](../README.md) - Project overview and quick start
-- [Contributing Guide](../.github/CONTRIBUTING.md) - How to contribute
+- [Development Guide](./development/DEVELOPMENT.md) - Environment setup and contribution workflow
 - [Support](../SUPPORT.md) - Getting help and support
 
 ## 🔍 Quick Links
 
 ### For New Contributors
-1. Start with the [Contributing Guide](../.github/CONTRIBUTING.md)
+1. Start with the [Development Guide](./development/DEVELOPMENT.md)
 2. Set up your environment with the [Development Guide](./development/DEVELOPMENT.md)
 3. Review our [Coding Style Guide](./development/CODING_STYLE.md)
 4. Understand the [Architecture](./architecture/ARCHITECTURE.md)

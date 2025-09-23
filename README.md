@@ -125,7 +125,7 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our **[Contributing Guide](./.github/CONTRIBUTING.md)** for the full process, including our code of conduct, PR process, and commit conventions.
+We welcome contributions! Please see our **[Development Guide](./docs/development/DEVELOPMENT.md)** for the full process, including our code of conduct, PR process, and commit conventions.
 
 A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./TODO.md)**.
 
@@ -155,7 +155,7 @@ Our documentation is organized into logical categories for easy navigation. Visi
 2. Review [`Worktrees Guide`](./docs/development/WORKTREES.md)
 
 **Contributing?**
-1. Read [`Contributing Guide`](./.github/CONTRIBUTING.md)
+1. Read [`Development Guide`](./docs/development/DEVELOPMENT.md)
 2. Follow [`PR Review Process`](./docs/processes/PR_REVIEW_PROCESS.md)
 3. Check [`Quality Standards`](./docs/processes/QUALITY.md)
 

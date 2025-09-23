@@ -254,6 +254,6 @@ pnpm workspace list
 
 - [Development Guide](/docs/development/DEVELOPMENT.md) - General development setup
 - [Offline Development](/docs/development/OFFLINE_DEVELOPMENT.md) - Working without internet
-- [Contributing Guide](/.github/CONTRIBUTING.md) - Contribution guidelines
+- [Development Guide](../docs/development/DEVELOPMENT.md) - Contribution guidelines
 - [BGUI Package](/packages/bgui/README.md) - Component library documentation
 - [Git Worktrees](/docs/development/WORKTREES.md) - Worktree workflow guide

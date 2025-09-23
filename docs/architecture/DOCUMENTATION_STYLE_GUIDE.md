@@ -279,6 +279,6 @@ When documenting version-specific information:
 
 ## Related Documentation
 
-- [Contributing Guide](/.github/CONTRIBUTING.md) - How to contribute to the project
+- [Development Guide](../development/DEVELOPMENT.md) - How to contribute to the project
 - [Coding Style Guide](./development/CODING_STYLE.md) - Code standards
 - [PR Review Process](./processes/PR_REVIEW_PROCESS.md) - Review guidelines

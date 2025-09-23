@@ -1,6 +1,6 @@
 # QUALITY.md - Code Quality Playbook
 
-> **Comprehensive quality standards and troubleshooting guide.** For quick reference, see [CONTRIBUTING.md](../.github/CONTRIBUTING.md).
+> **Comprehensive quality standards and troubleshooting guide.** For quick reference, read the [Development Guide](../development/DEVELOPMENT.md).
 
 ---
 
@@ -341,5 +341,5 @@ Quality standards exist to prevent technical debt accumulation. Every shortcut c
 
 **Remember**: Fix the root cause, don't suppress the symptoms.
 
-For quick reference: [CONTRIBUTING.md](../.github/CONTRIBUTING.md)  
+For quick reference: [Development Guide](../development/DEVELOPMENT.md)  
 For historical context: [LESSONS.md](./LESSONS.md)
