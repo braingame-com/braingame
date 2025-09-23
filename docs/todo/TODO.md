@@ -2,13 +2,13 @@
 
 ## 🧩 Complexity Simplification
 - [ ] Boil the repo complexity down while keeping signal high and enterprise standards intact
-  - [x] QUICK: Correct doc references (e.g., `.github/CONTRIBUTING.md`) to point at the actual `docs/development` resources
-  - [x] QUICK: Publish a `docs/development/WORKSPACE_MAP.md` that charts apps, packages, and owner responsibilities at a glance
-  - [ ] MEDIUM: Centralize shared branding assets (favicons/logos) under `assets/` and wire apps to consume them via workspace imports
-  - [ ] MEDIUM: Consolidate dev helper scripts into a single `scripts/workspace-helper` entry point with curated subcommands, retiring duplicates
-  - [ ] MEDIUM: Merge `docs/todo/BGUI_TODO.md` into the primary `docs/todo/TODO.md` roadmap and archive the duplicate tracker
-  - [ ] MEDIUM: Collapse redundant README files by moving their content into `docs/README.md` (or inlining into package docs) and pruning leftovers
-  - [ ] MEDIUM: Restructure the `docs/` directory into fewer top-level groups (e.g., development, operations, reference) and archive low-signal prompt/adr scaffolding
+  - [x] QUICK: Correct doc references (e.g., `.github/CONTRIBUTING.md`) to point at the actual `docs/handbook/development` resources
+  - [x] QUICK: Publish a `docs/handbook/development/WORKSPACE_MAP.md` that charts apps, packages, and owner responsibilities at a glance
+  - [x] MEDIUM: Centralize shared branding assets (favicons/logos) under `assets/` and wire apps to consume them via workspace imports
+  - [x] MEDIUM: Consolidate dev helper scripts into a single `scripts/workspace-helper` entry point with curated subcommands, retiring duplicates
+  - [x] MEDIUM: Merge `docs/todo/BGUI_TODO.md` into the primary `docs/todo/TODO.md` roadmap and archive the duplicate tracker
+  - [x] MEDIUM: Collapse redundant README files by moving their content into `docs/README.md` (or inlining into package docs) and pruning leftovers
+  - [x] MEDIUM: Restructure the `docs/` directory into fewer top-level groups (e.g., development, operations, reference) and archive low-signal prompt/adr scaffolding
   - [ ] HIGH: Rebuild the documentation pipeline so `apps/docs-site` consumes a single `handbook/` source of truth (MDX + frontmatter), eliminating parallel navigation/config files
   - [ ] HIGH: Replace scattered Node scripts with a typed `@braingame/cli` package that exposes subcommands (docs, workspace, components), deprecating ad-hoc JS entrypoints
   - [ ] HIGH: Stand up an asset build system that generates all favicons, app icons, and illustrations from one manifest, wiring every app/package to consume outputs from `assets/dist`
@@ -39,6 +39,16 @@ Just enough to build a landing page:
 - [ ] Modal (GDPR/cookie consent)
 - [ ] Container/Box
 - [ ] Stack (layout)
+
+#### BGUI Migration Backlog (Single Source of Truth)
+- [ ] Retire `packages/bgui_legacy` once all value is ported (remove directory and workspace entry)
+- [ ] Ship Tier 2 surface components (Accordion, Menu, Breadcrumbs, Slider, Snackbar, Table, AspectRatio, Sheet, Dropdown)
+- [ ] Complete complex form and layout primitives (FormControl suite, Card/List/Modal extensions, Dialog system, Button/Avatar groups, Stepper)
+- [ ] Deliver advanced data entry and display (Autocomplete, DataGrid, Drawer) with parity to web headless hooks
+- [ ] Fill platform utilities (SvgIcon, ChipDelete, CssBaseline/ScopedCssBaseline, GlobalStyles, InitColorSchemeScript)
+- [ ] Harden package outputs (finalize entry points, add web/native build targets, enforce smoke test)
+- [ ] Establish dual-environment testing (Jest for native + web, Storybook coverage for both)
+- [ ] Document rollback criteria and ensure bundle analysis prevents platform leakage
 
 #### Build & Deploy Landing Page
 - [ ] Simple hero section
@@ -164,7 +174,7 @@ Components needed for product app:
 
 ### Quick Links
 - [Architecture](../ARCHITECTURE.md)
-- [Development Setup](../development/README.md)
+- [Development Setup](../handbook/development/README.md)
 - [BGUI Components](../../packages/bgui/README.md)
 
 ---

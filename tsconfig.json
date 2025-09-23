@@ -5,7 +5,8 @@
 		"paths": {
 			"@braingame/bgui": ["./packages/bgui"],
 			"@braingame/utils": ["./packages/utils"],
-			"@braingame/config": ["./packages/config"]
+			"@braingame/config": ["./packages/config"],
+			"@braingame/assets/*": ["./assets/branding/*"]
 		}
 	},
 	"references": [

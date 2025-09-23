@@ -6,6 +6,9 @@ const nextConfig = {
 		"react-native-web",
 		"@shopify/restyle",
 	],
+	experimental: {
+		externalDir: true,
+	},
 	webpack: (config) => {
 		config.resolve.alias = {
 			...config.resolve.alias,

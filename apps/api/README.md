@@ -12,7 +12,7 @@ This API is a serverless application. It uses **Express.js** to define routes an
 - **Language**: TypeScript
 - **Validation**: Zod
 
-For a detailed explanation of why this architecture was chosen, see [ADR-0001: Centralized API on Firebase Cloud Functions](../../docs/architecture/adr/0001-centralized-api-on-firebase.md).
+For a detailed explanation of why this architecture was chosen, see [ADR-0001: Centralized API on Firebase Cloud Functions](../../docs/archive/adr/0001-centralized-api-on-firebase.md).
 
 ## Getting Started
 

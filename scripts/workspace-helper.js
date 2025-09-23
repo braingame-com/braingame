@@ -20,6 +20,11 @@ const commands = {
 	dev: "Start dev mode for a specific package",
 	info: "Show package information",
 	deps: "Show dependencies for a package",
+	stats: "Show aggregate project statistics",
+	analyze: "Inspect BGUI components for coverage gaps",
+	"deps-health": "Audit dependency freshness across packages",
+	coverage: "Run the monorepo coverage suite",
+	unused: "Surface potentially unused source files",
 	help: "Show this help message",
 };
 
@@ -109,6 +114,21 @@ switch (command) {
 		break;
 	case "deps":
 		showDependencies(packageName);
+		break;
+	case "stats":
+		showProjectStats();
+		break;
+	case "analyze":
+		analyzeComponents();
+		break;
+	case "deps-health":
+		checkDependencies();
+		break;
+	case "coverage":
+		showCoverage();
+		break;
+	case "unused":
+		findUnusedFiles();
 		break;
 	default:
 		console.error(`Unknown command: ${command}`);
@@ -281,4 +301,230 @@ function showDependencies(name) {
 			console.log(`  ${dep.padEnd(30)} ${version}`);
 		}
 	}
+}
+
+function showProjectStats() {
+	console.log("📊 Project Statistics\n");
+
+	const stats = {
+		components: 0,
+		tests: 0,
+		stories: 0,
+		hooks: 0,
+		utils: 0,
+		totalFiles: 0,
+		linesOfCode: 0,
+	};
+
+	const componentsDir = path.join(rootDir, "packages/bgui/src/components");
+	if (fs.existsSync(componentsDir)) {
+		stats.components = fs
+			.readdirSync(componentsDir, { withFileTypes: true })
+			.filter((dirent) => dirent.isDirectory()).length;
+	}
+
+	function countFiles(dir, extensions) {
+		let count = 0;
+		try {
+			const items = fs.readdirSync(dir, { withFileTypes: true });
+			for (const item of items) {
+				if (item.isDirectory() && !item.name.startsWith(".") && item.name !== "node_modules") {
+					count += countFiles(path.join(dir, item.name), extensions);
+				} else if (item.isFile() && extensions.some((ext) => item.name.endsWith(ext))) {
+					count++;
+					stats.totalFiles++;
+					try {
+						const content = fs.readFileSync(path.join(dir, item.name), "utf8");
+						stats.linesOfCode += content.split("\n").length;
+					} catch (error) {
+						// noop
+					}
+				}
+			}
+		} catch (error) {
+			// noop
+		}
+		return count;
+	}
+
+	stats.tests = countFiles(rootDir, [".test.ts", ".test.tsx", ".spec.ts", ".spec.tsx"]);
+	stats.stories = countFiles(rootDir, [".stories.ts", ".stories.tsx"]);
+	stats.hooks = countFiles(path.join(rootDir, "packages/bgui/src/hooks"), [".ts", ".tsx"]);
+	stats.utils = countFiles(path.join(rootDir, "packages/bgui/src/utils"), [".ts", ".tsx"]);
+
+	console.log(`🧩 Components:     ${stats.components}`);
+	console.log(`🧪 Test files:     ${stats.tests}`);
+	console.log(`📚 Stories:        ${stats.stories}`);
+	console.log(`🪝 Custom hooks:   ${stats.hooks}`);
+	console.log(`🔧 Utilities:      ${stats.utils}`);
+	console.log(`📁 Total files:    ${stats.totalFiles}`);
+	console.log(`📝 Lines of code:  ${stats.linesOfCode.toLocaleString()}`);
+
+	const testCoverage = stats.components > 0 ? ((stats.tests / stats.components) * 100).toFixed(1) : "0.0";
+	const storyCoverage = stats.components > 0 ? ((stats.stories / stats.components) * 100).toFixed(1) : "0.0";
+
+	console.log("\n📈 Coverage:");
+	console.log(`   Tests:     ${testCoverage}% (${stats.tests}/${stats.components} components)`);
+	console.log(`   Stories:   ${storyCoverage}% (${stats.stories}/${stats.components} components)`);
+}
+
+function analyzeComponents() {
+	console.log("🔍 Component Analysis\n");
+
+	const componentsDir = path.join(rootDir, "packages/bgui/src/components");
+	if (!fs.existsSync(componentsDir)) {
+		console.log("No components directory found");
+		return;
+	}
+
+	const components = fs
+		.readdirSync(componentsDir, { withFileTypes: true })
+		.filter((dirent) => dirent.isDirectory())
+		.map((dirent) => dirent.name);
+
+	console.log(`Found ${components.length} components:\n`);
+
+	for (const component of components) {
+		const componentDir = path.join(componentsDir, component);
+		const files = fs.readdirSync(componentDir);
+
+		const hasTest = files.some((file) => file.includes(".test."));
+		const hasStory = files.some((file) => file.includes(".stories."));
+		const hasStyles = files.includes("styles.ts");
+		const hasTypes = files.includes("types.ts");
+
+		const indicators = [
+			hasTest ? "✅" : "❌",
+			hasStory ? "📚" : "❌",
+			hasStyles ? "🎨" : "❌",
+			hasTypes ? "📝" : "❌",
+		].join(" ");
+
+		console.log(`${component.padEnd(20)} ${indicators} ${hasTest ? "" : "(missing tests)"}`);
+	}
+
+	console.log("\nLegend: ✅ Tests | 📚 Stories | 🎨 Styles | 📝 Types");
+
+	const needsAttention = components.filter((component) => {
+		const componentDir = path.join(componentsDir, component);
+		const files = fs.readdirSync(componentDir);
+		return !files.some((file) => file.includes(".test."));
+	});
+
+	if (needsAttention.length > 0) {
+		console.log(`\n⚠️  Components needing tests: ${needsAttention.join(", ")}`);
+	}
+}
+
+function checkDependencies() {
+	console.log("📦 Dependency Health Check\n");
+
+	try {
+		console.log("Checking for outdated dependencies...");
+		const outdated = execSync("pnpm outdated --recursive", { encoding: "utf8", cwd: rootDir });
+		if (outdated.trim()) {
+			console.log("⚠️  Outdated dependencies found:");
+			console.log(outdated);
+		} else {
+			console.log("✅ All dependencies are up to date");
+		}
+	} catch (error) {
+		console.log("✅ All dependencies are up to date");
+	}
+
+	const packageFiles = [
+		path.join(rootDir, "package.json"),
+		path.join(rootDir, "packages/bgui/package.json"),
+		path.join(rootDir, "packages/utils/package.json"),
+		path.join(rootDir, "packages/config/package.json"),
+		path.join(rootDir, "apps/product/package.json"),
+		path.join(rootDir, "apps/main-site/package.json"),
+		path.join(rootDir, "apps/docs-site/package.json"),
+	];
+
+	console.log("\nPackage configuration:");
+
+	for (const pkgFile of packageFiles) {
+		if (!fs.existsSync(pkgFile)) continue;
+		const pkg = JSON.parse(fs.readFileSync(pkgFile, "utf8"));
+		const relativePath = path.relative(rootDir, pkgFile);
+		const scripts = pkg.scripts ? Object.keys(pkg.scripts).length : 0;
+		const deps = pkg.dependencies ? Object.keys(pkg.dependencies).length : 0;
+		const devDeps = pkg.devDependencies ? Object.keys(pkg.devDependencies).length : 0;
+		console.log(
+			`📁 ${relativePath.padEnd(30)} ${scripts} scripts, ${deps} deps, ${devDeps} devDeps`,
+		);
+	}
+}
+
+function showCoverage() {
+	console.log("🧪 Test Coverage Summary\n");
+
+	try {
+		const coverage = execSync("pnpm test:coverage --passWithNoTests", {
+			encoding: "utf8",
+			cwd: rootDir,
+			timeout: 30000,
+		});
+		console.log(coverage);
+	} catch (error) {
+		console.log("⚠️  Could not generate coverage report. Run 'pnpm test:coverage' manually.");
+	}
+}
+
+function findUnusedFiles() {
+	console.log("🗑️  Finding Potentially Unused Files\n");
+
+	const extensions = [".ts", ".tsx", ".js", ".jsx"];
+	const unusedFiles = [];
+
+	function scanDirectory(dir, basePath = "") {
+		try {
+			const items = fs.readdirSync(dir, { withFileTypes: true });
+			for (const item of items) {
+				if (item.isDirectory()) {
+					if (["node_modules", ".git", "dist", "build", ".next"].includes(item.name)) {
+						continue;
+					}
+					scanDirectory(path.join(dir, item.name), path.join(basePath, item.name));
+				} else if (item.isFile()) {
+					const relativePath = path.join(basePath, item.name);
+					if (
+						!extensions.some((ext) => item.name.endsWith(ext)) ||
+						item.name.includes(".test.") ||
+						item.name.includes(".stories.") ||
+						item.name === "index.ts" ||
+						item.name === "index.tsx"
+					) {
+						continue;
+					}
+
+					try {
+						const content = fs.readFileSync(path.join(dir, item.name), "utf8");
+						if (!content.includes("export") && content.split("\n").length < 10) {
+							unusedFiles.push(relativePath);
+						}
+					} catch (error) {
+						// noop
+					}
+				}
+			}
+		} catch (error) {
+			// noop
+		}
+	}
+
+	scanDirectory(path.join(rootDir, "packages"));
+	scanDirectory(path.join(rootDir, "apps"));
+
+	if (unusedFiles.length === 0) {
+		console.log("✅ No obviously unused files found");
+		return;
+	}
+
+	console.log("⚠️  Potentially unused files (manual review recommended):");
+	for (const file of unusedFiles) {
+		console.log(`   ${file}`);
+	}
+	console.log(`\nFound ${unusedFiles.length} files that might be unused`);
 }

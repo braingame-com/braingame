@@ -149,7 +149,7 @@ Use tables for structured data:
 See [Testing Guide](./TESTING.md)
 
 # Full paths from root for cross-directory
-See [Development Guide](/docs/development/DEVELOPMENT.md)
+See [Development Guide](/docs/handbook/development/DEVELOPMENT.md)
 
 # Section links
 See [Code Style](#code-style)
@@ -280,5 +280,5 @@ When documenting version-specific information:
 ## Related Documentation
 
 - [Development Guide](../development/DEVELOPMENT.md) - How to contribute to the project
-- [Coding Style Guide](./development/CODING_STYLE.md) - Code standards
-- [PR Review Process](./processes/PR_REVIEW_PROCESS.md) - Review guidelines
+- [Coding Style Guide](../development/CODING_STYLE.md) - Code standards
+- [PR Review Process](../processes/PR_REVIEW_PROCESS.md) - Review guidelines

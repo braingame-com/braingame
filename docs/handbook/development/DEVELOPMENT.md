@@ -296,7 +296,7 @@ Speed up builds by sharing cache across team members and CI:
 ./scripts/verify-turbo-cache.sh
 
 # See full guide
-docs/development/TURBO_REMOTE_CACHING.md
+docs/handbook/development/TURBO_REMOTE_CACHING.md
 ```
 
 Benefits:

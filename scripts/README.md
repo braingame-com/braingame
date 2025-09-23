@@ -30,54 +30,32 @@ pnpm bgui:scaffold myUtility --util
 - Storybook stories (`MyComponent.stories.tsx`)
 - Barrel export updates
 
-### Development Tools
-
-#### `dev-tools.js`
-Interactive development utilities menu.
-
-```bash
-# Open interactive menu
-pnpm dev:tools
-
-# Direct commands
-pnpm dev:stats      # Show project statistics
-pnpm dev:analyze    # Analyze component structure
-pnpm dev:deps       # Check dependency health
-pnpm dev:coverage   # Display test coverage
-pnpm dev:unused     # Find potentially unused files
-```
-
-**Features:**
-- Lines of code analysis by file type
-- Component and test coverage metrics
-- Dependency vulnerability scanning
-- Unused file detection
-- Interactive menu navigation
-
-### Workspace Management
+### Workspace & Insight CLI
 
 #### `workspace-helper.js`
-Monorepo workspace management utilities.
+Single entry point for workspace management and repo health insights.
 
 ```bash
-# List all workspace packages
+# Package-centric helpers
 pnpm workspace list
-
-# Show package information
 pnpm workspace info @braingame/bgui
-
-# List package scripts
 pnpm workspace scripts @braingame/bgui
-
-# Run scripts in specific packages
 pnpm workspace run @braingame/bgui test
-pnpm workspace test @braingame/bgui  # Shortcut
-pnpm workspace build @braingame/bgui # Shortcut
-pnpm workspace dev @braingame/bgui   # Shortcut
-
-# Show package dependencies
 pnpm workspace deps @braingame/bgui
+
+# Insight utilities (replaces dev-tools.js)
+pnpm dev:stats     # Monorepo statistics snapshot
+pnpm dev:analyze   # Component coverage analysis
+pnpm dev:deps      # Dependency freshness report
+pnpm dev:coverage  # Aggregate Jest coverage
+pnpm dev:unused    # Potential unused file scan
 ```
+
+**Highlights:**
+- Unified command surface for package operations and diagnostics
+- Backed by `node scripts/workspace-helper.js`
+- Reduces duplicate scripts while keeping familiar pnpm aliases
+- Outputs actionable summaries (components missing tests, outdated deps, unused files)
 
 ### Documentation Generation
 
@@ -252,8 +230,8 @@ pnpm workspace list
 
 ## 📚 Related Documentation
 
-- [Development Guide](/docs/development/DEVELOPMENT.md) - General development setup
-- [Offline Development](/docs/development/OFFLINE_DEVELOPMENT.md) - Working without internet
-- [Development Guide](../docs/development/DEVELOPMENT.md) - Contribution guidelines
+- [Development Guide](/docs/handbook/development/DEVELOPMENT.md) - General development setup
+- [Offline Development](/docs/handbook/development/OFFLINE_DEVELOPMENT.md) - Working without internet
+- [Development Guide](../docs/handbook/development/DEVELOPMENT.md) - Contribution guidelines
 - [BGUI Package](/packages/bgui/README.md) - Component library documentation
-- [Git Worktrees](/docs/development/WORKTREES.md) - Worktree workflow guide
+- [Git Worktrees](/docs/handbook/development/WORKTREES.md) - Worktree workflow guide

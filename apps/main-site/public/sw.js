@@ -4,7 +4,7 @@ const STATIC_CACHE_NAME = "braingame-static-v1";
 const DYNAMIC_CACHE_NAME = "braingame-dynamic-v1";
 
 // Assets to cache on install
-const STATIC_ASSETS = ["/", "/offline.html", "/manifest.json", "/favicon.ico"];
+const STATIC_ASSETS = ["/", "/offline.html", "/manifest.json"];
 
 // Install event - cache static assets
 self.addEventListener("install", (event) => {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import faviconPng from "@braingame/assets/favicon.png";
 import { Lexend, Roboto_Mono } from "next/font/google";
 import { CookieConsent } from "../components/CookieConsent";
 import { ErrorBoundary } from "../components/ErrorBoundary";
@@ -24,6 +25,14 @@ const robotoMono = Roboto_Mono({
 	preload: true,
 	fallback: ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "monospace"],
 });
+
+const sharedIcons = [
+	{
+		url: faviconPng.src,
+		type: "image/png",
+		sizes: "32x32",
+	},
+] satisfies NonNullable<Metadata["icons"]>["icon"];
 
 export const metadata: Metadata = {
 	title: {
@@ -75,22 +84,9 @@ export const metadata: Metadata = {
 		creator: "@braingame",
 	},
 	icons: {
-		icon: [
-			{ url: "/favicon.ico" },
-			{ url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-			{ url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-		],
-		apple: [
-			{ url: "/apple-touch-icon.png" },
-			{ url: "/apple-touch-icon-180x180.png", sizes: "180x180" },
-		],
-		other: [
-			{
-				rel: "mask-icon",
-				url: "/safari-pinned-tab.svg",
-				color: "#000000",
-			},
-		],
+		icon: sharedIcons,
+		shortcut: sharedIcons,
+		apple: sharedIcons,
 	},
 	manifest: "/manifest.json",
 	themeColor: [

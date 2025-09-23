@@ -80,6 +80,7 @@ const nextConfig: NextConfig = {
 		optimizeCss: true,
 		optimizePackageImports: ["@braingame/bgui", "@braingame/utils"],
 		optimizeServerReact: true,
+		externalDir: true,
 	},
 
 	webpack: (config, { isServer, dev }) => {

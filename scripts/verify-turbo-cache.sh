@@ -107,4 +107,4 @@ else
 fi
 
 echo ""
-echo "📚 Documentation: docs/development/TURBO_REMOTE_CACHING.md"
+echo "📚 Documentation: docs/handbook/development/TURBO_REMOTE_CACHING.md"

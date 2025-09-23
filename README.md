@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://braingame.com">
-    <img src="./assets/logo.png" alt="Brain Game Logo" width="200" height="200">
+    <img src="./assets/branding/logo.png" alt="Brain Game Logo" width="200" height="200">
   </a>
   
   <h1>Brain Game</h1>
@@ -26,7 +26,7 @@ This monorepo contains the code for all Brain Game applications, websites, and s
 
 ## 🚀 Get Started
 
-To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/development/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
+To get a local copy up and running, follow our comprehensive **[Development Guide](./docs/handbook/development/DEVELOPMENT.md)**. It contains everything you need for setup, from prerequisites to running the apps.
 
 Before running any lint or test commands, make sure your dependencies are installed:
 
@@ -64,7 +64,7 @@ pnpm dev --filter product  # Expo app
 pnpm dev --filter website  # Next.js site
 ```
 
-**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/development/WORKTREES.md) for details.
+**🚨 Important**: Always verify your workspace before starting work. See [WORKTREES.md](./docs/handbook/development/WORKTREES.md) for details.
 
 ---
 
@@ -125,7 +125,7 @@ This repository is a [Turborepo](https://turbo.build/repo) monorepo using [pnpm 
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our **[Development Guide](./docs/development/DEVELOPMENT.md)** for the full process, including our code of conduct, PR process, and commit conventions.
+We welcome contributions! Please see our **[Development Guide](./docs/handbook/development/DEVELOPMENT.md)** for the full process, including our code of conduct, PR process, and commit conventions.
 
 A key part of our workflow is our task management system. See what we're working on in our **[TODO list](./TODO.md)**.
 
@@ -137,27 +137,27 @@ Our documentation is organized into logical categories for easy navigation. Visi
 
 | Document | Description |
 |---|---|
-| [`docs/architecture/`](./docs/architecture/) | System design, architecture decisions, and ADRs |
-| [`docs/development/`](./docs/development/) | Development guides, coding standards, and workflows |
-| [`docs/processes/`](./docs/processes/) | Quality standards, review processes, and workflows |
-| [`docs/features/`](./docs/features/) | Feature documentation (Agents, Token System, Claude) |
-| [`docs/api/`](./docs/api/) | API documentation and references |
+| [`docs/handbook/architecture/`](./docs/handbook/architecture/) | System design, architecture decisions, and implementation notes |
+| [`docs/handbook/development/`](./docs/handbook/development/) | Development guides, coding standards, and workflows |
+| [`docs/handbook/processes/`](./docs/handbook/processes/) | Quality standards, review processes, and workflows |
+| [`docs/handbook/brand/`](./docs/handbook/brand/) | Brand identity and design guidelines |
+| [`docs/handbook/legal/`](./docs/handbook/legal/) | Legal documents and policies |
 
 ### 🚀 Quick Start by Role
 
 **New Developer?**
-1. Start with [`Development Guide`](./docs/development/DEVELOPMENT.md)
-2. Read [`Coding Standards`](./docs/development/CODING_STYLE.md)
-3. Review [`Architecture Overview`](./docs/architecture/ARCHITECTURE.md)
+1. Start with [`Development Guide`](./docs/handbook/development/DEVELOPMENT.md)
+2. Read [`Coding Standards`](./docs/handbook/development/CODING_STYLE.md)
+3. Review [`Architecture Overview`](./docs/handbook/architecture/ARCHITECTURE.md)
 
 **AI Agent?**
 1. Read [`AI Agents Guide`](./AGENTS.md)
-2. Review [`Worktrees Guide`](./docs/development/WORKTREES.md)
+2. Review [`Worktrees Guide`](./docs/handbook/development/WORKTREES.md)
 
 **Contributing?**
-1. Read [`Development Guide`](./docs/development/DEVELOPMENT.md)
-2. Follow [`PR Review Process`](./docs/processes/PR_REVIEW_PROCESS.md)
-3. Check [`Quality Standards`](./docs/processes/QUALITY.md)
+1. Read [`Development Guide`](./docs/handbook/development/DEVELOPMENT.md)
+2. Follow [`PR Review Process`](./docs/handbook/processes/PR_REVIEW_PROCESS.md)
+3. Check [`Quality Standards`](./docs/handbook/processes/QUALITY.md)
 
 ### 📖 Additional Resources
 
