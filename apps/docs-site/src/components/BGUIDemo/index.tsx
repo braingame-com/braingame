@@ -45,34 +45,34 @@ export {
 	Box as View,
 	Button,
 	Container,
+	Footer,
+	Header,
 	Link,
 	Stack,
 	Typography,
 	Typography as Text,
-	Footer,
-	Header,
 } from "@braingame/bgui";
 
-// Import for Icon component
-import type { ChangeEvent } from "react";
-import React from "react";
-import type { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
+import type {
+	BadgeProps as BGUIBadgeProps,
+	CheckboxProps as BGUICheckboxProps,
+	InputProps as BGUIInputProps,
+	SelectProps as BGUISelectProps,
+	SwitchProps as BGUISwitchProps,
+} from "@braingame/bgui";
 import {
+	Badge as BGUIBadge,
 	Checkbox as BGUICheckbox,
 	Input as BGUIInput,
 	Option as BGUIOption,
 	Select as BGUISelect,
 	Switch as BGUISwitch,
-	Badge as BGUIBadge,
 	Typography as BGUITypography,
 } from "@braingame/bgui";
-import type {
-	CheckboxProps as BGUICheckboxProps,
-	InputProps as BGUIInputProps,
-	BadgeProps as BGUIBadgeProps,
-	SelectProps as BGUISelectProps,
-	SwitchProps as BGUISwitchProps,
-} from "@braingame/bgui";
+// Import for Icon component
+import type { ChangeEvent } from "react";
+import React from "react";
+import type { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import { MaterialIcon } from "../MaterialIcon";
 
 type CheckboxDemoProps = BGUICheckboxProps & {
@@ -86,7 +86,9 @@ export const Checkbox = ({ onValueChange, onChange, ...props }: CheckboxDemoProp
 			return;
 		}
 		if (typeof event === "object" && event !== null && "target" in event) {
-			const target = (event as ChangeEvent<HTMLInputElement>).target as HTMLInputElement | undefined;
+			const target = (event as ChangeEvent<HTMLInputElement>).target as
+				| HTMLInputElement
+				| undefined;
 			if (target && typeof target === "object" && "checked" in target) {
 				onValueChange(Boolean((target as HTMLInputElement).checked));
 			}
@@ -104,9 +106,9 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectDemoProps>(
 	({ onValueChange, onChange, ...props }, ref) => {
 		const handleChange: BGUISelectProps["onChange"] | undefined = onValueChange
 			? (event, value) => {
-				onChange?.(event, value);
-				onValueChange(value);
-			}
+					onChange?.(event, value);
+					onValueChange(value);
+				}
 			: onChange;
 
 		return <BGUISelect ref={ref} {...props} onChange={handleChange} />;
@@ -122,22 +124,24 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchDemoProps>(
 	({ onValueChange, onChange, ...props }, ref) => {
 		const handleChange: BGUISwitchProps["onChange"] | undefined = onValueChange
 			? (event) => {
-				onChange?.(event);
-				if (
-					typeof event === "object" &&
-					event !== null &&
-					"target" in event &&
-					typeof (event as React.ChangeEvent<HTMLInputElement>).target === "object"
-				) {
-					const target = (event as React.ChangeEvent<HTMLInputElement>).target as HTMLInputElement | undefined;
-					if (target && typeof target.checked === "boolean") {
-						onValueChange(target.checked);
+					onChange?.(event);
+					if (
+						typeof event === "object" &&
+						event !== null &&
+						"target" in event &&
+						typeof (event as React.ChangeEvent<HTMLInputElement>).target === "object"
+					) {
+						const target = (event as React.ChangeEvent<HTMLInputElement>).target as
+							| HTMLInputElement
+							| undefined;
+						if (target && typeof target.checked === "boolean") {
+							onValueChange(target.checked);
+						}
 					}
 				}
-			}
 			: onChange;
 
-	return <BGUISwitch ref={ref} {...props} onChange={handleChange} />;
+		return <BGUISwitch ref={ref} {...props} onChange={handleChange} />;
 	},
 );
 Switch.displayName = "Switch";
@@ -149,21 +153,24 @@ type InputDemoProps = BGUIInputProps & {
 };
 
 export const Input = React.forwardRef<any, InputDemoProps>(
-	({ onValueChange, onChange, leftIcon, rightIcon, startDecorator, endDecorator, ...props }, ref) => {
+	(
+		{ onValueChange, onChange, leftIcon, rightIcon, startDecorator, endDecorator, ...props },
+		ref,
+	) => {
 		const handleChange: BGUIInputProps["onChange"] | undefined = onValueChange
 			? (event) => {
-				onChange?.(event);
-				if (
-					typeof event === "object" &&
-					event !== null &&
-					"nativeEvent" in event &&
-					"text" in (event as NativeSyntheticEvent<TextInputChangeEventData>).nativeEvent
-				) {
-					onValueChange(
-						(event as NativeSyntheticEvent<TextInputChangeEventData>).nativeEvent.text ?? "",
-					);
+					onChange?.(event);
+					if (
+						typeof event === "object" &&
+						event !== null &&
+						"nativeEvent" in event &&
+						"text" in (event as NativeSyntheticEvent<TextInputChangeEventData>).nativeEvent
+					) {
+						onValueChange(
+							(event as NativeSyntheticEvent<TextInputChangeEventData>).nativeEvent.text ?? "",
+						);
+					}
 				}
-			}
 			: onChange;
 
 		const leading =

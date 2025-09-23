@@ -15,7 +15,16 @@ import {
 import { useState } from "react";
 import type { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
-const primitiveNames = ["Box", "Typography", "Button", "Input", "Stack", "Container", "Link", "Icon"];
+const primitiveNames = [
+	"Box",
+	"Typography",
+	"Button",
+	"Input",
+	"Stack",
+	"Container",
+	"Link",
+	"Icon",
+];
 const compositionNames = ["Header", "Footer"];
 
 export default function LandingPage() {
@@ -57,12 +66,18 @@ export default function LandingPage() {
 								Enterprise UI with startup velocity
 							</Typography>
 							<Typography level="body-lg" style={{ color: "rgba(255,255,255,0.72)" }}>
-								Launch new surfaces in hours, not weeks. Brain Game UI ships React and React Native primitives
-								that stay perfectly in sync across marketing, docs, and product experiences.
+								Launch new surfaces in hours, not weeks. Brain Game UI ships React and React Native
+								primitives that stay perfectly in sync across marketing, docs, and product
+								experiences.
 							</Typography>
 						</Stack>
 
-						<Stack direction="row" spacing="md" useFlexGap style={{ flexWrap: "wrap", alignItems: "center" }}>
+						<Stack
+							direction="row"
+							spacing="md"
+							useFlexGap
+							style={{ flexWrap: "wrap", alignItems: "center" }}
+						>
 							<Box style={{ flex: 1, minWidth: 240 }}>
 								<Input
 									value={email}
@@ -117,7 +132,7 @@ export default function LandingPage() {
 												backgroundColor: "#101827",
 												padding: 12,
 												borderRadius: 10,
-										}}
+											}}
 										>
 											<Typography style={{ color: "white" }}>{name}</Typography>
 										</Box>
@@ -140,7 +155,11 @@ export default function LandingPage() {
 				<Footer
 					brand={{ label: "Brain Game", href: "/" }}
 					socialLinks={[
-						{ icon: "github", label: "GitHub", href: "https://github.com/jordancrow-stewart/braingame" },
+						{
+							icon: "github",
+							label: "GitHub",
+							href: "https://github.com/jordancrow-stewart/braingame",
+						},
 						{ icon: "x", label: "Twitter", href: "https://twitter.com/braingame" },
 					]}
 					links={[
