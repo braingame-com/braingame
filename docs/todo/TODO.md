@@ -1,18 +1,5 @@
 # Brain Game - TODO
 
-## 🧩 Complexity Simplification
-- [ ] Boil the repo complexity down while keeping signal high and enterprise standards intact
-  - [x] QUICK: Correct doc references (e.g., `.github/CONTRIBUTING.md`) to point at the actual `docs/handbook/development` resources
-  - [x] QUICK: Publish a `docs/handbook/development/WORKSPACE_MAP.md` that charts apps, packages, and owner responsibilities at a glance
-  - [x] MEDIUM: Centralize shared branding assets (favicons/logos) under `assets/` and wire apps to consume them via workspace imports
-  - [x] MEDIUM: Consolidate dev helper scripts into a single `scripts/workspace-helper` entry point with curated subcommands, retiring duplicates
-  - [x] MEDIUM: Merge `docs/todo/BGUI_TODO.md` into the primary `docs/todo/TODO.md` roadmap and archive the duplicate tracker
-  - [x] MEDIUM: Collapse redundant README files by moving their content into `docs/README.md` (or inlining into package docs) and pruning leftovers
-  - [x] MEDIUM: Restructure the `docs/` directory into fewer top-level groups (e.g., development, operations, reference) and archive low-signal prompt/adr scaffolding
-  - [ ] HIGH: Rebuild the documentation pipeline so `apps/docs-site` consumes a single `handbook/` source of truth (MDX + frontmatter), eliminating parallel navigation/config files
-  - [ ] HIGH: Replace scattered Node scripts with a typed `@braingame/cli` package that exposes subcommands (docs, workspace, components), deprecating ad-hoc JS entrypoints
-  - [ ] HIGH: Stand up an asset build system that generates all favicons, app icons, and illustrations from one manifest, wiring every app/package to consume outputs from `assets/dist`
-
 ## 🚀 Roadmap to Revenue
 
 ### Phase 1: MVP BGUI & Landing Page
@@ -178,6 +165,21 @@ Components needed for product app:
 - [BGUI Components](../../packages/bgui/README.md)
 
 ---
+
+## 🧩 Complexity Simplification
+**Goal:** Boil the repo complexity down while keeping signal high and enterprise standards intact
+- [x] QUICK: Correct doc references (e.g., `.github/CONTRIBUTING.md`) to point at the actual `docs/handbook/development` resources
+- [x] QUICK: Publish a `docs/handbook/development/WORKSPACE_MAP.md` that charts apps, packages, and owner responsibilities at a glance
+- [x] MEDIUM: Centralize shared branding assets (favicons/logos) under `assets/` and wire apps to consume them via workspace imports
+- [x] MEDIUM: Consolidate dev helper scripts into a single `scripts/workspace-helper` entry point with curated subcommands, retiring duplicates
+- [x] MEDIUM: Merge `docs/todo/BGUI_TODO.md` into the primary `docs/todo/TODO.md` roadmap and archive the duplicate tracker
+- [x] MEDIUM: Collapse redundant README files by moving their content into `docs/README.md` (or inlining into package docs) and pruning leftovers
+- [x] MEDIUM: Restructure the `docs/` directory into fewer top-level groups (e.g., development, operations, reference) and archive low-signal prompt/adr scaffolding
+- [ ] HIGH: Rebuild the documentation pipeline so `apps/docs-site` consumes a single `handbook/` source of truth (MDX + frontmatter), eliminating parallel navigation/config files
+- [ ] HIGH: Replace scattered Node scripts with a typed `@braingame/cli` package that exposes subcommands (docs, workspace, components), deprecating ad-hoc JS entrypoints
+- [ ] HIGH: Stand up an asset build system that generates all favicons, app icons, and illustrations from one manifest, wiring every app/package to consume outputs from `assets/dist`
+
+  ---
 
 **Last Updated:** 2025-08-23
 **Goal:** Get to revenue within 30 days

@@ -1,8 +1,18 @@
 "use client";
 
-import { AnimatedGradientBackground, Box, GlowingLogo, Link, Typography } from "@braingame/bgui";
-import dynamic from "next/dynamic";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import {
+	Box,
+	Button,
+	Container,
+	Footer,
+	Header,
+	Input,
+	Link,
+	Stack,
+	Typography,
+} from "@braingame/bgui";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { StyleSheet } from "react-native";
 import { StructuredData } from "../components/StructuredData";
 import { useToast } from "../contexts/ToastContext";
 import { useAnalytics } from "../hooks/useAnalytics";
@@ -13,28 +23,6 @@ import { emailService } from "../lib/email-service";
 import { validateEmail } from "../lib/email-validation";
 import { getErrorMessage, retryWithBackoff } from "../lib/networkStatus";
 import { generateStructuredData, generateWaitlistStructuredData } from "./metadata";
-
-// Lazy load components for better performance
-const EmailCaptureForm = dynamic(
-	() => import("../components/EmailCaptureForm").then((mod) => mod.EmailCaptureForm),
-	{
-		loading: () => (
-			<Box
-				sx={{
-					height: 150,
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
-				<Typography level="body-md" style={{ color: "#666" }}>
-					Loading...
-				</Typography>
-			</Box>
-		),
-		ssr: true,
-	},
-);
 
 export default function HomePage() {
 	// Register service worker for offline support
@@ -222,6 +210,15 @@ export default function HomePage() {
 		};
 	}, []);
 
+	const navLinks = useMemo(
+		() => [
+			{ label: "Components", href: "#components" },
+			{ label: "Privacy", href: "/privacy" },
+			{ label: "Cookies", href: "/cookies" },
+		],
+		[],
+	);
+
 	const handleSuggestionClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
 		setEmail(suggestedEmail);
@@ -235,130 +232,184 @@ export default function HomePage() {
 		<>
 			<StructuredData data={generateStructuredData()} />
 			<StructuredData data={generateWaitlistStructuredData()} />
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					flex: 1,
-					position: "relative",
-					minHeight: "100vh",
-				}}
-			>
-				<AnimatedGradientBackground />
-
-				{/* Offline indicator */}
+			<Box style={styles.page}>
+				<Header
+					brand={<Typography level="title-sm">Brain Game</Typography>}
+					links={navLinks}
+					cta={{
+						label: "Join Waitlist",
+						onClick: () => {
+							document
+								.getElementById("waitlist-email")
+								?.scrollIntoView({ behavior: "smooth", block: "center" });
+						},
+						variant: "soft",
+					}}
+					backgroundColor="#050505"
+					border={false}
+					paddingY="sm"
+				/>
 				{!networkStatus.isOnline && (
-					<Box
-						sx={{
-							position: "absolute",
-							top: 20,
-							left: 20,
-							right: 20,
-							backgroundColor: "rgba(0, 0, 0, 0.7)",
-							padding: "10px",
-							borderRadius: "8px",
-						}}
-					>
-						<Typography level="body-md" textAlign="center" style={{ color: "white" }}>
+					<Box style={styles.offlineBanner}>
+						<Typography level="body-sm" textAlign="center" style={{ color: "white" }}>
 							You are offline. Some features may be unavailable.
 						</Typography>
 					</Box>
 				)}
-
-				<Box
-					sx={{
-						display: "flex",
-						flex: 1,
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						padding: "0 20px",
-					}}
-				>
-					<GlowingLogo />
-
-					<Typography
-						level="h1"
-						textAlign="center"
-						style={{
-							color: "white",
-							marginTop: "20px",
-						}}
-					>
-						Your OS for Personal Development
-					</Typography>
-
-					<Typography
-						level="title-lg"
-						textAlign="center"
-						style={{
-							color: "rgba(255, 255, 255, 0.8)",
-							marginTop: "10px",
-							marginBottom: "30px",
-							maxWidth: 600,
-						}}
-					>
-						The world's most effective personal development company. Unlock your full potential with
-						our integrated system of tools and training.
-					</Typography>
-
-					<Suspense
-						fallback={
-							<Box
-								sx={{
-									height: 150,
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-								}}
-							>
-								<Typography level="body-md" style={{ color: "#666" }}>
-									Loading form...
-								</Typography>
-							</Box>
-						}
-					>
-						<EmailCaptureForm
-							email={email}
-							onEmailChange={handleEmailChange}
-							honeypot={honeypot}
-							onHoneypotChange={setHoneypot}
-							isSubmitting={isSubmitting}
-							onSubmit={handleSubmit}
-							submitMessage={submitMessage}
-							isSuccess={isSuccess}
-							validationError={validationError}
-						/>
-					</Suspense>
-
-					{showSuggestion && (
-						<Box
-							sx={{
-								marginTop: "10px",
-								display: "flex",
-								alignItems: "center",
-							}}
-						>
-							<Typography level="body-sm" style={{ color: "white" }}>
-								Did you mean {suggestedEmail}?{" "}
+				<Container style={styles.heroContainer}>
+					<Stack spacing="xl" style={styles.heroStack}>
+						<Stack spacing="sm" style={styles.heroCopy}>
+							<Typography level="body-sm" style={{ color: "#38bdf8", letterSpacing: 1.5 }}>
+								THE BRAIN GAME WAITLIST
 							</Typography>
-							<Link href="#" onClick={handleSuggestionClick}>
-								<Typography level="body-sm" style={{ color: "#87CEEB" }}>
-									Yes
+							<Typography level="h1" textAlign="center" style={styles.heroTitle}>
+								Your OS for Personal Development
+							</Typography>
+							<Typography level="title-md" textAlign="center" style={styles.heroSubtitle}>
+								Unlock your potential with focused routines, AI-assisted coaching, and tools that
+								keep you on track every day.
+							</Typography>
+						</Stack>
+						<Stack spacing="sm" style={styles.formStack}>
+							<Stack direction="row" spacing="sm" useFlexGap={false} style={styles.formRow}>
+								<Input
+									id="waitlist-email"
+									value={email}
+									onChange={(event) => handleEmailChange(event.nativeEvent.text)}
+									placeholder="Enter your work email"
+									type="email"
+									autoComplete="email"
+									fullWidth
+									disabled={isSubmitting}
+								/>
+								<Button onClick={handleSubmit} loading={isSubmitting} disabled={isSubmitting}>
+									Join
+								</Button>
+							</Stack>
+							<input
+								type="text"
+								value={honeypot}
+								onChange={(event) => setHoneypot(event.target.value)}
+								aria-hidden="true"
+								tabIndex={-1}
+								style={styles.honeypot}
+								name="company"
+								autoComplete="off"
+							/>
+							{validationError ? (
+								<Typography level="body-sm" textAlign="center" style={styles.errorText}>
+									{validationError}
+								</Typography>
+							) : null}
+							{submitMessage ? (
+								<Typography
+									level="body-sm"
+									textAlign="center"
+									style={isSuccess ? styles.successText : styles.errorText}
+								>
+									{submitMessage}
+								</Typography>
+							) : null}
+						</Stack>
+						{showSuggestion ? (
+							<Stack direction="row" spacing="xs" useFlexGap={false} style={styles.suggestionRow}>
+								<Typography level="body-sm" style={{ color: "white" }}>
+									Did you mean {suggestedEmail}?{" "}
+								</Typography>
+								<Link href="#" onClick={handleSuggestionClick}>
+									<Typography level="body-sm" style={{ color: "#38bdf8" }}>
+										Yes
+									</Typography>
+								</Link>
+							</Stack>
+						) : null}
+						<Box style={styles.bottomLinks}>
+							<Link href="/privacy">
+								<Typography level="body-xs" style={{ color: "#94a3b8" }}>
+									Privacy Policy
 								</Typography>
 							</Link>
 						</Box>
-					)}
-
-					<Box sx={{ marginTop: "40px" }}>
-						<Link href="/privacy">
-							<Typography level="body-xs" style={{ color: "#aaa" }}>
-								Privacy Policy
-							</Typography>
-						</Link>
-					</Box>
-				</Box>
+					</Stack>
+				</Container>
+				<Footer
+					brand={
+						<Typography level="title-sm" style={{ color: "#e2e8f0" }}>
+							Brain Game
+						</Typography>
+					}
+					description="Signal-first tooling and guidance for ambitious humans."
+					links={navLinks}
+					legalLinks={[
+						{ label: "Privacy", href: "/privacy" },
+						{ label: "Terms", href: "/terms" },
+					]}
+					socialLinks={[{ label: "Twitter", href: "https://x.com", icon: "share" }]}
+					copyright="© 2025 Brain Game"
+					backgroundColor="#050505"
+					border={false}
+				/>
 			</Box>
 		</>
 	);
 }
+
+const styles = StyleSheet.create({
+	page: {
+		flex: 1,
+		minHeight: "100vh",
+		backgroundColor: "#050505",
+	},
+	heroContainer: {
+		paddingTop: 96,
+		paddingBottom: 120,
+	},
+	heroStack: {
+		alignItems: "center",
+	},
+	heroCopy: {
+		maxWidth: 720,
+		alignItems: "center",
+		textAlign: "center" as const,
+	},
+	heroTitle: {
+		color: "#f8fafc",
+	},
+	heroSubtitle: {
+		color: "rgba(255,255,255,0.72)",
+	},
+	formStack: {
+		width: "100%",
+		maxWidth: 520,
+		alignItems: "center",
+	},
+	formRow: {
+		width: "100%",
+		alignItems: "center",
+	},
+	honeypot: {
+		display: "none",
+	},
+	errorText: {
+		color: "#f87171",
+	},
+	successText: {
+		color: "#22c55e",
+	},
+	suggestionRow: {
+		marginTop: 12,
+		alignItems: "center",
+	},
+	bottomLinks: {
+		marginTop: 40,
+	},
+	offlineBanner: {
+		marginHorizontal: 16,
+		marginTop: 16,
+		backgroundColor: "rgba(15,23,42,0.9)",
+		padding: 12,
+		borderRadius: 12,
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: "rgba(148, 163, 184, 0.4)",
+	},
+});

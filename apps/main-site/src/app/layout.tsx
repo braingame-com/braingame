@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import faviconPng from "@braingame/assets/favicon.png";
+import type { Metadata } from "next";
 import { Lexend, Roboto_Mono } from "next/font/google";
 import { CookieConsent } from "../components/CookieConsent";
 import { ErrorBoundary } from "../components/ErrorBoundary";

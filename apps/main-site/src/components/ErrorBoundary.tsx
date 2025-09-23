@@ -182,7 +182,7 @@ export class ErrorBoundary extends Component<Props, State> {
 						)}
 
 						<div style={{ display: "flex", flexDirection: "row", gap: 12 }}>
-							<button 
+							<button
 								onClick={() => window.location.reload()}
 								style={{
 									backgroundColor: "#0074D9",
@@ -198,7 +198,7 @@ export class ErrorBoundary extends Component<Props, State> {
 								Refresh Page
 							</button>
 
-							<button 
+							<button
 								onClick={this.handleReset}
 								style={{
 									backgroundColor: "transparent",

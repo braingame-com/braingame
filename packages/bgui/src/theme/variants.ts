@@ -3,7 +3,7 @@
  * Each component gets 4 variants × 5 colors = 20 total variants
  */
 
-interface VariantStyle {
+export interface VariantStyle {
 	backgroundColor?: string;
 	borderColor?: string;
 	borderWidth?: number;

@@ -16,7 +16,8 @@
 			"!**/build/**",
 			"!**/.turbo/**",
 			"!**/test-results/**",
-			"!**/web-bgui/**"
+			"!**/web-bgui/**",
+			"!packages/bgui/src/components/wip/**"
 		]
 	},
 	"formatter": {

@@ -1,10 +1,10 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { Box } from "../components/Box";
-import { Container } from "../components/Container";
-import { Divider } from "../components/Divider";
-import { Stack } from "../components/Stack";
-import { Typography } from "../components/Typography";
+import { Box } from "../components/primitives/Box";
+import { Container } from "../components/primitives/Container";
+import { Stack } from "../components/primitives/Stack";
+import { Typography } from "../components/primitives/Typography";
+import { Divider } from "../components/wip/Divider";
 
 /**
  * Web version of performance baseline component

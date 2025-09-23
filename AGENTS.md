@@ -1,19 +1,23 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-The monorepo uses pnpm workspaces with Turborepo. Application code lives in `apps/`: `product` (Expo), `main-site` and `docs-site` (Next.js), plus `api`. Shared packages reside in `packages/` (`bgui` UI kit, `utils` hooks and tokens, `config`, `i18n`). Supporting content stays in `docs/`, `scripts/`, and `assets/`. Tests are colocated with their source (`Component.test.tsx`), so follow the feature folder when extending coverage.
+The monorepo is managed with pnpm workspaces and Turborepo. Application code sits in `apps/` (`main-site`, `docs-site`, `product`, `api`), shared UI and tooling is under `packages/` (`bgui`, `utils`, `config`, `i18n`), and long-form references stay in `docs/`, `scripts/`, and `assets/`. Tests live beside their subjects (`Component.test.tsx`), so keep coverage updates co-located.
 
 ## Build, Test, and Development Commands
-Run `pnpm install` or `pnpm preflight` before anything else. Use `pnpm dev` for the full workspace or add `--filter` for targeted apps. `pnpm build`, `pnpm build:apps`, and `pnpm build:packages` drive production bundles. `pnpm lint`, `pnpm lint:fix`, `pnpm format:write`, and `pnpm typecheck` enforce style and types. Release gates mirror `pnpm quality` (lint + typecheck + test) and conclude with `pnpm build`. Reach for `pnpm workspace:graph` if you need the dependency map.
+Run `pnpm install` (or `pnpm preflight`) before hacking. Use `pnpm dev` or `pnpm dev --filter <app>` for local work, `pnpm build` for production bundles, and `pnpm build:<scope>` when you need only apps or packages. Quality gates rely on `pnpm lint`, `pnpm typecheck`, `pnpm format:write`, and `pnpm test` (or `pnpm test:e2e` for Playwright flows).
 
 ## Coding Style & Naming Conventions
-Biome (`biome.json`) is canon: tab indentation, 100 character lines, double quotes, and auto-fixes for common issues. Write TypeScript everywhere, prefer functional React components, and import workspace packages via absolute aliases (`@braingame/utils`). Stick to `camelCase` variables, `PascalCase` components and types, `kebab-case` files, and `CONSTANT_CASE` shared constants. Avoid `any`, chained casts, and stray `console.log`; if you must leave debt, annotate with `TODO(name): context`.
+Biome (`biome.json`) is the single source of truth: tabs, 100-column lines, double quotes, and TypeScript everywhere. Stick to `camelCase` variables, `PascalCase` components/types, `kebab-case` files, and reserve `CONSTANT_CASE` for shared constants. Avoid `any`, layered casts, and stray `console.log`; annotate debt with `TODO(name): context` when unavoidable.
 
 ## Testing Guidelines
-Jest with Testing Library powers unit and integration tests; run `pnpm test` or filter by workspace when iterating. Use `pnpm test:coverage` to confirm thresholds before submitting. End-to-end flows live in Playwright (`pnpm test:e2e`, `pnpm test:e2e:ui` for the runner). Keep specs beside the code they exercise, name them `*.test.ts[x]`, and update mocks or fixtures when behavior shifts.
+Jest + Testing Library power unit/integration suites, Playwright covers web E2E. Name specs `*.test.ts[x]`, colocate them with the feature, and refresh fixtures when behavior shifts. Use `pnpm test` with workspace filters for tight loops and `pnpm test:coverage` before sign-off.
 
 ## Commit & Pull Request Guidelines
-Commits must follow Conventional Commits (`feat(bgui): …`, `fix(product): …`) to keep releases healthy. Before pushing, run `pnpm quality`, `pnpm secrets:check`, and include any relevant `pnpm typecheck --strict` output. PRs should link the issue, outline risk, and attach screenshots or videos for UI work. Rebase onto `main` when conflicts arise and avoid force pushes once review starts.
+Commits follow Conventional Commits (`feat(bgui): …`, `fix(docs-site): …`). Before pushing, run `pnpm lint && pnpm typecheck && pnpm test && pnpm build`; avoid `--no-verify`. PRs should link issues, explain risk, and include screenshots or recordings for UI changes. Rebase onto `main` rather than force-pushing mid-review.
 
-## Security & Configuration Tips
-Validate environment files with `pnpm validate:env` before local builds. Audit dependencies via `pnpm security:audit` and sweep for secrets with `pnpm secrets:scan`. After switching worktrees, run `scripts/check-workspace.sh` to confirm the sandbox is clean and safe to modify.
+## Agent Workflow & Guardrails
+- Mandatory reading before coding: `docs/handbook/.claude/CLAUDE.md`, `docs/handbook/architecture/ARCHITECTURE.md`, `docs/handbook/development/DEVELOPMENT.md`, `docs/handbook/development/LESSONS.md`, and `docs/todo/TODO.md`.
+- Zero tolerance quality bar: lint, typecheck, test, and build must be clean (no warnings, no skipped hooks).
+- Verify the workspace every session (`git worktree list`, `pwd`, `git branch --show-current`) to avoid cross-worktree contamination.
+- Human review is required for every agent-generated change, and agents must not close PRs without explicit maintainer approval.
+- Log meaningful actions and keep secrets out of the repo; use the CI secret manager instead.

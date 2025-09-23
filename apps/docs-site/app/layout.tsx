@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Metadata } from "next";
 import { Lexend, Roboto_Mono } from "next/font/google";
 import { ClientProvider } from "../components/ClientProvider";

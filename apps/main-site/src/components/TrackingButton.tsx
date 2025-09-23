@@ -1,7 +1,7 @@
 "use client";
 
+import type { ButtonProps } from "@braingame/bgui";
 import { Button } from "@braingame/bgui";
-import type { ButtonProps } from "@braingame/bgui/src/components/Button/types";
 import { useAnalytics } from "../hooks/useAnalytics";
 
 interface TrackingButtonProps extends ButtonProps {
