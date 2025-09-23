@@ -14,22 +14,22 @@ interface NavSection {
 }
 
 const navigation: NavSection[] = [
-	{
-		title: "Getting Started",
-		items: [
-			{ title: "Introduction", href: "/" },
-			{ title: "Installation", href: "/installation" },
-			{ title: "Usage", href: "/usage" },
-			{ title: "Showcase", href: "/showcase" },
-		],
-	},
-	{
-		title: "Design",
-		items: [
-			{ title: "Colors", href: "/design/colors" },
-			{ title: "Typography", href: "/design/typography" },
-		],
-	},
+	// {
+	// 	title: "Getting Started",
+	// 	items: [
+	// 		{ title: "Introduction", href: "/" },
+	// 		{ title: "Installation", href: "/installation" },
+	// 		{ title: "Usage", href: "/usage" },
+	// 		{ title: "Showcase", href: "/showcase" },
+	// 	],
+	// },
+	// {
+	// 	title: "Design",
+	// 	items: [
+	// 		{ title: "Colors", href: "/design/colors" },
+	// 		{ title: "Typography", href: "/design/typography" },
+	// 	],
+	// },
 	{
 		title: "Primitives",
 		items: [

@@ -14,6 +14,9 @@
   - [ ] Input/TextInput (same issue)
   - [ ] All other split components
 
+#### Set up docs site properly
+- [ ] Make sure docs site is using a header/sidebar etc. from bgui 
+
 #### Build MVP BGUI Components
 Just enough to build a landing page:
 - [ ] Button (fixed single implementation)
@@ -23,11 +26,6 @@ Just enough to build a landing page:
 - [ ] Modal (GDPR/cookie consent)
 - [ ] Container/Box
 - [ ] Stack (layout)
-
-#### Add Components to Docs Site
-- [ ] Create component showcase pages
-- [ ] Add interactive examples
-- [ ] Verify they work on web
 
 #### Build & Deploy Landing Page
 - [ ] Simple hero section
