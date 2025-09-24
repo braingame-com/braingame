@@ -1,3 +1,7 @@
-// @ts-nocheck
-export { Checkbox } from "./Checkbox";
-export type { CheckboxProps } from "./CheckboxProps";
+export { Checkbox } from "../../primitives/Checkbox";
+export type {
+        CheckboxProps,
+        CheckboxColor,
+        CheckboxVariant,
+        CheckboxSize,
+} from "../../primitives/Checkbox";

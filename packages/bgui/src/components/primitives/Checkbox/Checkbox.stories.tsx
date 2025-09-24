@@ -1,14 +1,13 @@
-// @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
 import { Checkbox } from "./Checkbox";
 
 const meta = {
-	title: "Components/Checkbox",
+	title: "Primitives/Checkbox",
 	component: Checkbox,
 	parameters: {
 		docs: {
 			description: {
-				component: "A Checkbox component that works across web and native platforms.",
+				component: "Cross-platform checkbox primitive supporting Joy-inspired variants.",
 			},
 		},
 	},
@@ -25,28 +24,26 @@ const meta = {
 			control: "select",
 			options: ["sm", "md", "lg"],
 		},
-		disabled: {
-			control: "boolean",
-		},
 	},
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		children: "Checkbox",
+		label: "Checkbox",
 	},
 };
 
 export const Variants: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-			<Checkbox variant="solid">Solid</Checkbox>
-			<Checkbox variant="soft">Soft</Checkbox>
-			<Checkbox variant="outlined">Outlined</Checkbox>
-			<Checkbox variant="plain">Plain</Checkbox>
+			<Checkbox variant="solid" label="Solid" />
+			<Checkbox variant="soft" label="Soft" />
+			<Checkbox variant="outlined" label="Outlined" />
+			<Checkbox variant="plain" label="Plain" />
 		</div>
 	),
 };
@@ -54,9 +51,9 @@ export const Variants: Story = {
 export const Sizes: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-			<Checkbox size="sm">Small</Checkbox>
-			<Checkbox size="md">Medium</Checkbox>
-			<Checkbox size="lg">Large</Checkbox>
+			<Checkbox size="sm" label="Small" />
+			<Checkbox size="md" label="Medium" />
+			<Checkbox size="lg" label="Large" />
 		</div>
 	),
 };
@@ -64,18 +61,18 @@ export const Sizes: Story = {
 export const Colors: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-			<Checkbox color="primary">Primary</Checkbox>
-			<Checkbox color="neutral">Neutral</Checkbox>
-			<Checkbox color="danger">Danger</Checkbox>
-			<Checkbox color="success">Success</Checkbox>
-			<Checkbox color="warning">Warning</Checkbox>
+			<Checkbox color="primary" label="Primary" />
+			<Checkbox color="neutral" label="Neutral" />
+			<Checkbox color="danger" label="Danger" />
+			<Checkbox color="success" label="Success" />
+			<Checkbox color="warning" label="Warning" />
 		</div>
 	),
 };
 
 export const Disabled: Story = {
 	args: {
-		children: "Disabled Checkbox",
+		label: "Disabled",
 		disabled: true,
 	},
 };

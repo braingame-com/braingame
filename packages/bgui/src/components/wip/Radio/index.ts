@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Radio } from "./Radio";
-export type { RadioProps } from "./RadioProps";
+export { Radio } from "../../primitives/Radio";
+export type { RadioProps, RadioColor, RadioVariant, RadioSize } from "../../primitives/Radio";

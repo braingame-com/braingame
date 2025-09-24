@@ -1,14 +1,13 @@
-// @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
 import { Radio } from "./Radio";
 
 const meta = {
-	title: "Components/Radio",
+	title: "Primitives/Radio",
 	component: Radio,
 	parameters: {
 		docs: {
 			description: {
-				component: "A Radio component that works across web and native platforms.",
+				component: "Universal radio primitive that pairs with RadioGroup for managed state.",
 			},
 		},
 	},
@@ -25,28 +24,27 @@ const meta = {
 			control: "select",
 			options: ["sm", "md", "lg"],
 		},
-		disabled: {
-			control: "boolean",
-		},
 	},
 } satisfies Meta<typeof Radio>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		children: "Radio",
+		label: "Radio",
+		value: "radio",
 	},
 };
 
 export const Variants: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-			<Radio variant="solid">Solid</Radio>
-			<Radio variant="soft">Soft</Radio>
-			<Radio variant="outlined">Outlined</Radio>
-			<Radio variant="plain">Plain</Radio>
+			<Radio variant="solid" label="Solid" value="solid" />
+			<Radio variant="soft" label="Soft" value="soft" />
+			<Radio variant="outlined" label="Outlined" value="outlined" />
+			<Radio variant="plain" label="Plain" value="plain" />
 		</div>
 	),
 };
@@ -54,9 +52,9 @@ export const Variants: Story = {
 export const Sizes: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-			<Radio size="sm">Small</Radio>
-			<Radio size="md">Medium</Radio>
-			<Radio size="lg">Large</Radio>
+			<Radio size="sm" label="Small" value="small" />
+			<Radio size="md" label="Medium" value="medium" />
+			<Radio size="lg" label="Large" value="large" />
 		</div>
 	),
 };
@@ -64,18 +62,19 @@ export const Sizes: Story = {
 export const Colors: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-			<Radio color="primary">Primary</Radio>
-			<Radio color="neutral">Neutral</Radio>
-			<Radio color="danger">Danger</Radio>
-			<Radio color="success">Success</Radio>
-			<Radio color="warning">Warning</Radio>
+			<Radio color="primary" label="Primary" value="primary" />
+			<Radio color="neutral" label="Neutral" value="neutral" />
+			<Radio color="danger" label="Danger" value="danger" />
+			<Radio color="success" label="Success" value="success" />
+			<Radio color="warning" label="Warning" value="warning" />
 		</div>
 	),
 };
 
 export const Disabled: Story = {
 	args: {
-		children: "Disabled Radio",
+		label: "Disabled",
+		value: "disabled",
 		disabled: true,
 	},
 };
