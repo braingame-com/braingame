@@ -1,9 +1,13 @@
-// @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
+import type { ReactNode } from "react";
+import { Box } from "../../primitives/Box";
+import { Button } from "../../primitives/Button";
+import { Stack } from "../../primitives/Stack";
+import { Typography } from "../../primitives/Typography";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 
 const meta = {
-	title: "Effects/AnimatedGradientBackground",
+	title: "Visual Effects/AnimatedGradientBackground",
 	component: AnimatedGradientBackground,
 	parameters: {
 		layout: "fullscreen",
@@ -38,28 +42,38 @@ const meta = {
 } satisfies Meta<typeof AnimatedGradientBackground>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
+const FullscreenContainer = ({ children }: { children: ReactNode }) => (
+	<Box style={{ width: "100vw", height: "100vh" }}>{children}</Box>
+);
 
 export const Default: Story = {
 	args: {},
 	render: (args) => (
-		<div style={{ width: "100vw", height: "100vh" }}>
+		<FullscreenContainer>
 			<AnimatedGradientBackground {...args}>
-				<div
+				<Stack
+					spacing="lg"
 					style={{
-						display: "flex",
-						alignItems: "center",
+						flex: 1,
 						justifyContent: "center",
-						height: "100%",
-						color: "white",
-						fontSize: "2rem",
-						fontWeight: "bold",
+						alignItems: "center",
 					}}
 				>
-					Animated Gradient Background
-				</div>
+					<Typography level="display-sm" textColor="#ffffff">
+						Animated Gradient Background
+					</Typography>
+					<Typography level="body-lg" textColor="rgba(255, 255, 255, 0.85)">
+						Bring motion to your hero sections with smooth gradients and floating blobs.
+					</Typography>
+					<Button variant="solid" color="primary">
+						Get Started
+					</Button>
+				</Stack>
 			</AnimatedGradientBackground>
-		</div>
+		</FullscreenContainer>
 	),
 };
 
@@ -85,54 +99,9 @@ export const ManyBlobs: Story = {
 	render: Default.render,
 };
 
-export const SharpBlobs: Story = {
-	args: {
-		blurRadius: 20,
-		blobOpacity: 0.5,
-	},
-	render: Default.render,
-};
-
 export const Static: Story = {
 	args: {
 		animate: false,
 	},
 	render: Default.render,
-};
-
-export const WithContent: Story = {
-	render: (args) => (
-		<div style={{ width: "100vw", height: "100vh" }}>
-			<AnimatedGradientBackground {...args}>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-						height: "100%",
-						gap: "2rem",
-					}}
-				>
-					<h1 style={{ color: "white", fontSize: "3rem", margin: 0 }}>Welcome</h1>
-					<p style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "1.5rem", margin: 0 }}>
-						Beautiful animated backgrounds
-					</p>
-					<button
-						type="button"
-						style={{
-							padding: "1rem 2rem",
-							fontSize: "1rem",
-							backgroundColor: "white",
-							border: "none",
-							borderRadius: "0.5rem",
-							cursor: "pointer",
-						}}
-					>
-						Get Started
-					</button>
-				</div>
-			</AnimatedGradientBackground>
-		</div>
-	),
 };
