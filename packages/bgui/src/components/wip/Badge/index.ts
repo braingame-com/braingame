@@ -1,4 +1,2 @@
-// @ts-nocheck
-// Platform-specific exports handled by Metro bundler
-export { Badge } from "./Badge";
-export type { BadgeProps } from "./BadgeProps";
+export { Badge } from "../../primitives/Badge";
+export type { BadgeProps, BadgeColor, BadgeVariant, BadgeSize } from "../../primitives/Badge";
