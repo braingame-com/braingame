@@ -1,69 +1,85 @@
 import { forwardRef } from "react";
-import { type TextProps as RNTextProps, StyleSheet, Text, type TextStyle } from "react-native";
+import { Platform, StyleSheet, Text, type TextStyle } from "react-native";
 import { theme } from "../../../theme";
 import { Box } from "../Box";
 import type { TypographyLevel, TypographyProps } from "./Typography.types";
 
-const levelStyles: Record<TypographyLevel, TextStyle> = {
+type VariantStyle = {
+	backgroundColor?: string;
+	borderColor?: string;
+	borderWidth?: number;
+	color?: string;
+};
+
+const LEVEL_STYLES: Record<TypographyLevel, TextStyle> = {
 	h1: {
 		fontSize: theme.fontSizes.xl5,
 		fontWeight: "700",
 		lineHeight: theme.fontSizes.xl5 * 1.2,
+		fontFamily: "Lexend",
 	},
 	h2: {
 		fontSize: theme.fontSizes.xl4,
 		fontWeight: "700",
 		lineHeight: theme.fontSizes.xl4 * 1.2,
+		fontFamily: "Lexend",
 	},
 	h3: {
 		fontSize: theme.fontSizes.xl3,
 		fontWeight: "600",
 		lineHeight: theme.fontSizes.xl3 * 1.25,
+		fontFamily: "Lexend",
 	},
 	h4: {
 		fontSize: theme.fontSizes.xl2,
 		fontWeight: "600",
 		lineHeight: theme.fontSizes.xl2 * 1.3,
+		fontFamily: "Lexend",
 	},
 	"title-lg": {
 		fontSize: theme.fontSizes.xl,
 		fontWeight: "600",
 		lineHeight: theme.fontSizes.xl * 1.35,
+		fontFamily: "Lexend",
 	},
 	"title-md": {
 		fontSize: theme.fontSizes.lg,
 		fontWeight: "600",
 		lineHeight: theme.fontSizes.lg * 1.35,
+		fontFamily: "Lexend",
 	},
 	"title-sm": {
 		fontSize: theme.fontSizes.md,
 		fontWeight: "600",
 		lineHeight: theme.fontSizes.md * 1.35,
+		fontFamily: "Lexend",
 	},
 	"body-lg": {
 		fontSize: theme.fontSizes.lg,
 		fontWeight: "400",
 		lineHeight: theme.fontSizes.lg * 1.45,
+		fontFamily: "Lexend",
 	},
 	"body-md": {
 		fontSize: theme.fontSizes.md,
 		fontWeight: "400",
 		lineHeight: theme.fontSizes.md * 1.5,
+		fontFamily: "Lexend",
 	},
 	"body-sm": {
 		fontSize: theme.fontSizes.sm,
 		fontWeight: "400",
 		lineHeight: theme.fontSizes.sm * 1.45,
+		fontFamily: "Lexend",
 	},
 	"body-xs": {
 		fontSize: theme.fontSizes.xs,
 		fontWeight: "400",
 		lineHeight: theme.fontSizes.xs * 1.45,
+		fontFamily: "Lexend",
 	},
 	inherit: {},
 };
-
-type ColorKey = "primary" | "neutral" | "danger" | "success" | "warning";
 
 const resolveThemeColor = (color?: string) => {
 	if (!color) return undefined;
@@ -71,71 +87,32 @@ const resolveThemeColor = (color?: string) => {
 	return themeColor ?? color;
 };
 
-const resolveTextColor = (variant: string | undefined, color: ColorKey | undefined) => {
-	if (variant === "solid" && color) {
-		switch (color) {
-			case "primary":
-				return theme.colors.onPrimary;
-			case "neutral":
-				return theme.colors.onSurface;
-			case "danger":
-				return theme.colors.onError;
-			case "success":
-				return theme.colors.onSuccess;
-			case "warning":
-				return theme.colors.onWarning;
-			default:
-				return theme.colors.onSurface;
-		}
-	}
-
-	return color ? (resolveThemeColor(color) ?? theme.colors.onSurface) : theme.colors.onSurface;
-};
-
-const buildVariantContainerStyle = (variant: string | undefined, color: ColorKey | undefined) => {
+const resolveVariantTokens = (
+	variant: TypographyProps["variant"],
+	color: TypographyProps["color"],
+): VariantStyle | undefined => {
 	if (!variant) return undefined;
 
-	const colorValue = resolveThemeColor(color);
+	const variantMap = theme.components.Typography?.variants as
+		| Record<string, VariantStyle>
+		| undefined;
+	if (!variantMap) return undefined;
 
-	switch (variant) {
-		case "soft":
-			return {
-				backgroundColor: `${resolveThemeColor(color) ?? theme.colors.surface}33`,
-				paddingHorizontal: theme.spacing.sm,
-				paddingVertical: theme.spacing.xs,
-				borderRadius: theme.radii.sm,
-			};
-		case "outlined":
-			return {
-				borderWidth: 1,
-				borderColor: colorValue ?? theme.colors.outline,
-				paddingHorizontal: theme.spacing.sm,
-				paddingVertical: theme.spacing.xs,
-				borderRadius: theme.radii.xs,
-			};
-		case "solid":
-			return {
-				backgroundColor: colorValue ?? theme.colors.primary,
-				paddingHorizontal: theme.spacing.sm,
-				paddingVertical: theme.spacing.xs,
-				borderRadius: theme.radii.sm,
-			};
-		default:
-			return undefined;
-	}
+	const key = `${variant}-${color ?? "neutral"}`;
+	return variantMap[key];
 };
 
 export const Typography = forwardRef<Text, TypographyProps>(
 	(
 		{
 			children,
-			color,
-			variant,
+			color = "neutral",
+			variant = "plain",
 			level = "body-md",
 			startDecorator,
 			endDecorator,
-			gutterBottom,
-			noWrap,
+			gutterBottom = false,
+			noWrap = false,
 			textAlign = "left",
 			component,
 			textColor,
@@ -143,42 +120,85 @@ export const Typography = forwardRef<Text, TypographyProps>(
 			numberOfLines,
 			ellipsizeMode,
 			testID,
+			className,
+			accessibilityRole: accessibilityRoleProp,
 			"aria-label": ariaLabel,
+			"aria-describedby": ariaDescribedby,
+			"aria-labelledby": ariaLabelledby,
+			...rest
 		},
 		ref,
 	) => {
-		const effectiveLevel = level in levelStyles ? level : "body-md";
+		const effectiveLevel = level in LEVEL_STYLES ? level : "body-md";
+		const variantTokens = resolveVariantTokens(variant, color);
 
-		const textStyle = StyleSheet.flatten<TextStyle>([
-			levelStyles[effectiveLevel as TypographyLevel],
-			{ color: textColor ?? resolveTextColor(variant, color) },
+		const resolvedTextColor =
+			textColor ??
+			(variantTokens?.color
+				? resolveThemeColor(variantTokens.color)
+				: (resolveThemeColor(color) ?? theme.colors.onSurface));
+
+		const textStyles = StyleSheet.flatten<TextStyle>([
+			LEVEL_STYLES[effectiveLevel as TypographyLevel],
+			{ color: resolvedTextColor, textAlign },
 			gutterBottom ? { marginBottom: theme.spacing.xs } : null,
-			textAlign ? { textAlign } : null,
 			style,
 		]);
 
-		const containerStyle = buildVariantContainerStyle(variant, color);
+		const containerStyle =
+			variant !== "plain" && variantTokens
+				? {
+						backgroundColor: resolveThemeColor(variantTokens.backgroundColor),
+						borderColor: resolveThemeColor(variantTokens.borderColor),
+						borderWidth: variantTokens.borderWidth ?? (variant === "outlined" ? 1 : 0),
+						borderRadius: theme.radii.xs,
+						paddingHorizontal: theme.spacing.sm,
+						paddingVertical: theme.spacing.xs,
+					}
+				: undefined;
 
-		const accessibilityRole: RNTextProps["accessibilityRole"] = component?.startsWith("h")
-			? "header"
-			: undefined;
+		const decoratorsPresent = Boolean(startDecorator || endDecorator);
+		const shouldWrap = decoratorsPresent || Boolean(containerStyle);
 
-		const content = (
+		const resolvedNumberOfLines = noWrap ? 1 : numberOfLines;
+		const resolvedEllipsizeMode = noWrap ? "tail" : ellipsizeMode;
+
+		const derivedRole =
+			accessibilityRoleProp ?? (component?.startsWith("h") ? "header" : undefined);
+
+		const accessibilityProps = {
+			accessibilityLabel: ariaLabel,
+			accessibilityHint: ariaDescribedby,
+			accessibilityLabelledBy: ariaLabelledby,
+			accessibilityRole: derivedRole,
+		} as const;
+
+		const webProps =
+			Platform.OS === "web"
+				? {
+						className,
+						...(ariaDescribedby ? { "aria-describedby": ariaDescribedby } : {}),
+						...(ariaLabelledby ? { "aria-labelledby": ariaLabelledby } : {}),
+					}
+				: {};
+
+		const textElement = (
 			<Text
 				ref={ref}
-				style={textStyle}
-				testID={containerStyle ? undefined : testID}
-				numberOfLines={noWrap ? 1 : numberOfLines}
-				ellipsizeMode={noWrap ? "tail" : ellipsizeMode}
-				accessibilityLabel={ariaLabel}
-				accessibilityRole={accessibilityRole}
+				style={textStyles}
+				testID={shouldWrap ? undefined : testID}
+				numberOfLines={resolvedNumberOfLines}
+				ellipsizeMode={resolvedEllipsizeMode}
+				{...accessibilityProps}
+				{...webProps}
+				{...rest}
 			>
 				{children}
 			</Text>
 		);
 
-		if (!startDecorator && !endDecorator && !containerStyle) {
-			return content;
+		if (!shouldWrap) {
+			return textElement;
 		}
 
 		return (
@@ -186,10 +206,10 @@ export const Typography = forwardRef<Text, TypographyProps>(
 				style={StyleSheet.flatten([{ flexDirection: "row", alignItems: "center" }, containerStyle])}
 				testID={testID}
 				accessibilityLabel={ariaLabel}
-				accessibilityRole={accessibilityRole}
+				accessibilityRole={derivedRole}
 			>
 				{startDecorator ? <Box style={styles.decorator}>{startDecorator}</Box> : null}
-				{content}
+				{textElement}
 				{endDecorator ? <Box style={styles.decorator}>{endDecorator}</Box> : null}
 			</Box>
 		);
