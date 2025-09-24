@@ -1,3 +1,8 @@
-// @ts-nocheck
-export { Switch } from "./Switch";
-export type { SwitchProps } from "./SwitchProps";
+export { Switch } from "../../primitives/Switch";
+export type {
+        SwitchProps,
+        SwitchChangeEvent,
+        SwitchColor,
+        SwitchSize,
+        SwitchVariant,
+} from "../../primitives/Switch";
