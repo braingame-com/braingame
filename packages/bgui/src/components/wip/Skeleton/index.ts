@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Skeleton } from "./Skeleton";
-export type { SkeletonProps } from "./SkeletonProps";
+export { Skeleton } from "../../primitives/Skeleton";
+export type { SkeletonProps } from "../../primitives/Skeleton";
