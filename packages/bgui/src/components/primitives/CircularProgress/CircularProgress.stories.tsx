@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
 import { CircularProgress } from "./CircularProgress";
 
@@ -8,7 +7,8 @@ const meta = {
 	parameters: {
 		docs: {
 			description: {
-				component: "A CircularProgress component that works across web and native platforms.",
+				component:
+					"CircularProgress communicates ongoing operations and can operate in determinate or indeterminate modes.",
 			},
 		},
 	},
@@ -19,14 +19,17 @@ const meta = {
 		},
 		variant: {
 			control: "select",
-			options: ["solid", "soft", "outlined", "plain"],
+			options: ["plain", "outlined", "soft", "solid"],
 		},
 		size: {
 			control: "select",
 			options: ["sm", "md", "lg"],
 		},
-		disabled: {
+		determinate: {
 			control: "boolean",
+		},
+		value: {
+			control: { type: "number", min: 0, max: 100 },
 		},
 	},
 } satisfies Meta<typeof CircularProgress>;
@@ -36,7 +39,16 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		children: "CircularProgress",
+		children: "Loading",
+	},
+};
+
+export const Determinate: Story = {
+	args: {
+		determinate: true,
+		value: 65,
+		children: "65%",
+		color: "success",
 	},
 };
 
@@ -54,28 +66,15 @@ export const Variants: Story = {
 export const Sizes: Story = {
 	render: () => (
 		<div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-			<CircularProgress size="sm">Small</CircularProgress>
-			<CircularProgress size="md">Medium</CircularProgress>
-			<CircularProgress size="lg">Large</CircularProgress>
+			<CircularProgress size="sm" determinate value={25}>
+				25%
+			</CircularProgress>
+			<CircularProgress size="md" determinate value={50}>
+				50%
+			</CircularProgress>
+			<CircularProgress size="lg" determinate value={85}>
+				85%
+			</CircularProgress>
 		</div>
 	),
-};
-
-export const Colors: Story = {
-	render: () => (
-		<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-			<CircularProgress color="primary">Primary</CircularProgress>
-			<CircularProgress color="neutral">Neutral</CircularProgress>
-			<CircularProgress color="danger">Danger</CircularProgress>
-			<CircularProgress color="success">Success</CircularProgress>
-			<CircularProgress color="warning">Warning</CircularProgress>
-		</div>
-	),
-};
-
-export const Disabled: Story = {
-	args: {
-		children: "Disabled CircularProgress",
-		disabled: true,
-	},
 };

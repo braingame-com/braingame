@@ -1,4 +1,2 @@
-// @ts-nocheck
-// Platform-specific exports handled by Metro bundler
-export { Avatar } from "./Avatar";
-export type { AvatarProps } from "./AvatarProps";
+export { Avatar } from "../../primitives/Avatar";
+export type { AvatarProps } from "../../primitives/Avatar";

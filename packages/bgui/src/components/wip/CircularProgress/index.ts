@@ -1,3 +1,7 @@
-// @ts-nocheck
-export { CircularProgress } from "./CircularProgress";
-export type { CircularProgressProps } from "./CircularProgressProps";
+export { CircularProgress } from "../../primitives/CircularProgress";
+export type {
+        CircularProgressProps,
+        CircularProgressColor,
+        CircularProgressSize,
+        CircularProgressVariant,
+} from "../../primitives/CircularProgress";
