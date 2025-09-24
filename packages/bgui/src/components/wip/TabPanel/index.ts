@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { TabPanel } from "./TabPanel";
-export type { TabPanelProps } from "./TabPanelProps";
+export { TabPanel } from "../../compositions/Tabs";
+export type { TabPanelProps } from "../../compositions/Tabs";
