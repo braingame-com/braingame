@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react";
 import {
 	type KeyboardTypeOptions,
 	type NativeSyntheticEvent,
@@ -55,7 +55,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 			fullWidth = false,
 			type = "text",
 			placeholder,
-			name: _name,
+			name,
 			id,
 			required,
 			autoFocus,
@@ -92,6 +92,9 @@ export const Input = forwardRef<TextInput, InputProps>(
 
 		const sizeStyles = sizeConfig[size];
 
+		const placeholderColor =
+			resolveColorToken(variantStyles.color) ?? theme.colors.onSurfaceVariant;
+
 		const handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
 			setFocused(true);
 			onFocus?.(event);
@@ -115,24 +118,42 @@ export const Input = forwardRef<TextInput, InputProps>(
 			},
 		];
 
-		const containerStyles = StyleSheet.flatten<ViewStyle>([
-			styles.container,
-			{
-				minHeight: sizeStyles.minHeight,
-				paddingHorizontal: sizeStyles.paddingHorizontal,
-				backgroundColor: resolveColorToken(variantStyles.backgroundColor) ?? theme.colors.surface,
-				borderColor: resolveColorToken(variantStyles.borderColor) ?? theme.colors.outlineVariant,
-				borderWidth: variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0),
-				borderRadius: theme.radii.sm,
-				width: fullWidth ? "100%" : undefined,
-				opacity: disabled ? 0.6 : 1,
-			},
-			focused && {
-				borderColor: theme.colors[effectiveColor === "neutral" ? "primary" : effectiveColor],
-				borderWidth: 2,
-			},
-			style as ViewStyle,
-		]);
+		const containerStyles = useMemo(
+			() =>
+				StyleSheet.flatten<ViewStyle>([
+					styles.container,
+					{
+						minHeight: sizeStyles.minHeight,
+						paddingHorizontal: sizeStyles.paddingHorizontal,
+						backgroundColor:
+							resolveColorToken(variantStyles.backgroundColor) ?? theme.colors.surface,
+						borderColor:
+							resolveColorToken(variantStyles.borderColor) ?? theme.colors.outlineVariant,
+						borderWidth: variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0),
+						borderRadius: theme.radii.sm,
+						width: fullWidth ? "100%" : undefined,
+						opacity: disabled ? 0.6 : 1,
+					},
+					focused && {
+						borderColor: theme.colors[effectiveColor === "neutral" ? "primary" : effectiveColor],
+						borderWidth: 2,
+					},
+					style,
+				]),
+			[
+				effectiveColor,
+				focused,
+				fullWidth,
+				sizeStyles.minHeight,
+				sizeStyles.paddingHorizontal,
+				variant,
+				variantStyles.backgroundColor,
+				variantStyles.borderColor,
+				variantStyles.borderWidth,
+				disabled,
+				style,
+			],
+		);
 
 		const keyboardType: KeyboardTypeOptions = (() => {
 			switch (type) {
@@ -149,15 +170,25 @@ export const Input = forwardRef<TextInput, InputProps>(
 			}
 		})();
 
-		const autoCompleteProp = autoComplete as TextInputProps["autoComplete"];
+		const autoCompleteProp = (() => {
+			if (autoComplete) return autoComplete as TextInputProps["autoComplete"];
+
+			switch (type) {
+				case "email":
+					return "email";
+				case "password":
+					return "password";
+				case "tel":
+					return "tel";
+				default:
+					return undefined;
+			}
+		})();
+
+		const inputTestID = name ? `${name}-input` : testID;
 
 		return (
-			<Box
-				style={containerStyles}
-				testID={testID}
-				accessibilityLabel={ariaLabel}
-				accessibilityState={{ disabled }}
-			>
+			<Box style={containerStyles} testID={testID}>
 				{startDecorator ? (
 					<Box style={[styles.decorator, { marginRight: sizeStyles.decoratorGap }]}>
 						{startDecorator}
@@ -171,6 +202,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 					editable={!readOnly && !disabled}
 					autoFocus={autoFocus}
 					placeholder={placeholder}
+					placeholderTextColor={placeholderColor}
 					keyboardType={keyboardType}
 					secureTextEntry={type === "password"}
 					autoComplete={autoCompleteProp}
@@ -181,7 +213,9 @@ export const Input = forwardRef<TextInput, InputProps>(
 					onKeyPress={handleKeyPress}
 					importantForAutofill={required ? "yes" : "auto"}
 					accessibilityLabel={ariaLabel}
+					accessibilityState={{ disabled }}
 					nativeID={id}
+					testID={inputTestID}
 				/>
 				{endDecorator ? (
 					<Box style={[styles.decorator, { marginLeft: sizeStyles.decoratorGap }]}>
