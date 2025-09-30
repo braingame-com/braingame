@@ -7,18 +7,19 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": [
-			"apps/**",
-			"packages/**",
-			"!**/node_modules/**",
-			"!**/dist/**",
-			"!**/.next/**",
-			"!**/build/**",
-			"!**/.turbo/**",
-			"!**/test-results/**",
-			"!**/web-bgui/**",
-			"!packages/bgui/src/components/wip/**"
-		]
+		"experimentalScannerIgnores": [
+			"node_modules",
+			"dist",
+			"build",
+			".next",
+			".turbo",
+			"test-results",
+			"packages/bgui/src/components/wip",
+			"packages/bgui/src/components/wip/**",
+			"packages/bgui/src/components/web-bgui",
+			"packages/bgui/src/components/web-bgui/**"
+		],
+		"includes": ["apps/**", "packages/**"]
 	},
 	"formatter": {
 		"enabled": true,

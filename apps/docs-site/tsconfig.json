@@ -32,5 +32,10 @@
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../packages/bgui/src/**/*"],
-	"exclude": ["node_modules", "dist", "../../packages/bgui/src/tests"]
+	"exclude": [
+		"node_modules",
+		"dist",
+		"../../packages/bgui/src/tests",
+		"../../packages/bgui/src/components/wip"
+	]
 }

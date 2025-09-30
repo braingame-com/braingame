@@ -1,12 +1,16 @@
 // @ts-nocheck
 "use client";
 
-import { Stack, Typography } from "../../../../src/components/BGUIDemo";
+import { Typography } from "../../../../src/components/BGUIDemo";
 import { CodeBlock } from "../../../../src/components/CodeBlock";
 import { PropsTable } from "../../../../src/components/PropsTable";
 
 const typographyProps = [
-	{ name: "level", type: '"display" | "h1" | "h2" | "h3" | "title" | "body" | "caption"', description: "Semantic and stylistic preset." },
+	{
+		name: "level",
+		type: '"display" | "h1" | "h2" | "h3" | "title" | "body" | "caption"',
+		description: "Semantic and stylistic preset.",
+	},
 	{ name: "component", type: "React.ElementType", description: "Override the rendered element." },
 	{ name: "textColor", type: "string", description: "Override the default color token." },
 ];
@@ -18,8 +22,8 @@ export default function TypographyDocs() {
 				Typography
 			</Typography>
 			<Typography className="text-body text-secondary mb-6">
-				Use typography levels to communicate hierarchy. Levels map to tokens defined in the design system
-				reference.
+				Use typography levels to communicate hierarchy. Levels map to tokens defined in the design
+				system reference.
 			</Typography>
 
 			<div className="flex flex--column flex--gap-3 mb-8">

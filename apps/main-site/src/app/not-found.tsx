@@ -116,6 +116,7 @@ export default function NotFound() {
 			{/* Link back home */}
 			<Link href="/">
 				<button
+					type="button"
 					style={{
 						backgroundColor: "#7c3aed",
 						padding: "16px 32px",

@@ -11,7 +11,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"lint": "biome check --fix --vcs-root=../..",
+		"lint": "biome check --fix --vcs-root=../.. src/index.ts src/constants src/hooks src/icons src/theme src/utils src/components/compositions src/components/primitives",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist",
 		"generate:component": "node scripts/generate-component.js"

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.pnpm/
+**/node_modules/
+
+# Build artifacts
+.next/
+**/.next/
+dist/
+**/dist/
+build/
+**/build/
+.turbo/
+**/.turbo/
+out/
+**/out/
+web-build/
+
+# Expo cache
+.expo/
+**/.expo/
+
+# Test artifacts
+**/test-results/
+**/playwright-report/
+coverage/
+**/coverage/
+
+# Generated bundles
+**/web-bgui/
+
+# Experimental/WIP code skipped from linting
+packages/bgui/src/components/wip
+packages/bgui/src/components/wip/**
+**/packages/bgui/src/components/wip/**

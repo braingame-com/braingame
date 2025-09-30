@@ -1,11 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { initAnalytics, setUserId, trackEvent, trackPageView } from "../analytics";
 
+type GtagArg = Record<string, unknown> | string | number | boolean | null | undefined;
+type GtagFunction = (...args: GtagArg[]) => void;
+
 // Mock gtag
 declare global {
 	interface Window {
-		gtag?: (...args: any[]) => void;
-		dataLayer?: any[];
+		gtag?: GtagFunction;
+		dataLayer?: GtagArg[][];
 	}
 }
 
@@ -16,7 +19,7 @@ describe("Analytics", () => {
 	beforeEach(() => {
 		// Setup mock gtag
 		window.dataLayer = [];
-		window.gtag = jest.fn((...args: any[]) => {
+		window.gtag = jest.fn((...args: GtagArg[]) => {
 			window.dataLayer?.push(args);
 		});
 

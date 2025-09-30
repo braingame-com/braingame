@@ -1,15 +1,23 @@
 // @ts-nocheck
 "use client";
 
-import { Button, Header, Typography } from "../../../../src/components/BGUIDemo";
+import { Header, Typography } from "../../../../src/components/BGUIDemo";
 import { CodeBlock } from "../../../../src/components/CodeBlock";
 import { LiveExample } from "../../../../src/components/LiveExample";
 import { PropsTable } from "../../../../src/components/PropsTable";
 
 const headerProps = [
 	{ name: "brand", type: "React.ReactNode", description: "Brand element rendered on the left." },
-	{ name: "links", type: "Array<{ label: string; href: string }>", description: "Primary navigation links." },
-	{ name: "cta", type: "{ label: string; onClick: () => void; variant?: string }", description: "Optional call-to-action button." },
+	{
+		name: "links",
+		type: "Array<{ label: string; href: string }>",
+		description: "Primary navigation links.",
+	},
+	{
+		name: "cta",
+		type: "{ label: string; onClick: () => void; variant?: string }",
+		description: "Optional call-to-action button.",
+	},
 ];
 
 export default function HeaderDocs() {
@@ -19,8 +27,8 @@ export default function HeaderDocs() {
 				Header
 			</Typography>
 			<Typography className="text-body text-secondary mb-6">
-				The Header composition bundles brand, navigation, and a call-to-action into a responsive bar for
-				docs and marketing pages.
+				The Header composition bundles brand, navigation, and a call-to-action into a responsive bar
+				for docs and marketing pages.
 			</Typography>
 
 			<LiveExample

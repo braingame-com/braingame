@@ -70,9 +70,14 @@ import {
 	Typography as BGUITypography,
 } from "@braingame/bgui";
 // Import for Icon component
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, ComponentPropsWithoutRef } from "react";
 import React from "react";
-import type { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
+import type {
+	NativeSyntheticEvent,
+	TextInput as RNTextInput,
+	TextInputChangeEventData,
+	TextStyle,
+} from "react-native";
 import { MaterialIcon } from "../MaterialIcon";
 
 type CheckboxDemoProps = BGUICheckboxProps & {
@@ -152,7 +157,7 @@ type InputDemoProps = BGUIInputProps & {
 	rightIcon?: string;
 };
 
-export const Input = React.forwardRef<any, InputDemoProps>(
+export const Input = React.forwardRef<RNTextInput, InputDemoProps>(
 	(
 		{ onValueChange, onChange, leftIcon, rightIcon, startDecorator, endDecorator, ...props },
 		ref,
@@ -215,30 +220,28 @@ export const Badge = ({ text, children, variant, size, ...rest }: BadgeDemoProps
 };
 
 // Icon component for backward compatibility - uses Typography with material icon font
-export const Icon = ({
-	name,
-	size = "md",
-	color,
-	style,
-	...props
-}: {
+type IconProps = Omit<ComponentPropsWithoutRef<typeof BGUITypography>, "children"> & {
 	name: string;
 	size?: "sm" | "md" | "lg";
-	color?: string;
-	style?: any;
-	[key: string]: any;
-}) => {
-	const sizeMap = { sm: 16, md: 24, lg: 32 };
+	style?: TextStyle;
+};
+
+export const Icon = ({ name, size = "md", style, ...props }: IconProps) => {
+	const sizeMap = { sm: 16, md: 24, lg: 32 } as const;
+	const { color, ...restProps } = props;
+	const resolvedColor = typeof color === "string" ? color : undefined;
+
 	return (
 		<BGUITypography
 			component="span"
+			color={color}
+			{...restProps}
 			style={{
 				fontFamily: "Material Icons",
 				fontSize: sizeMap[size],
-				color,
+				color: resolvedColor,
 				...style,
 			}}
-			{...props}
 		>
 			{name}
 		</BGUITypography>

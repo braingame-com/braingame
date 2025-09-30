@@ -58,6 +58,7 @@ export default function NotFound() {
 
 				<Link href="/">
 					<button
+						type="button"
 						style={{
 							backgroundColor: "#0074D9",
 							color: "#000",

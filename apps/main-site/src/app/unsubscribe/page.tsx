@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, Text, View } from "@braingame/bgui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -40,7 +41,7 @@ export default function UnsubscribePage() {
 	}, [emailParam, handleUnsubscribe]);
 
 	return (
-		<div
+		<View
 			style={{
 				display: "flex",
 				flexDirection: "column",
@@ -52,7 +53,7 @@ export default function UnsubscribePage() {
 				justifyContent: "center",
 			}}
 		>
-			<div
+			<View
 				style={{
 					maxWidth: 500,
 					width: "100%",
@@ -87,7 +88,7 @@ export default function UnsubscribePage() {
 						</p>
 
 						{!emailParam && (
-							<div style={{ width: "100%", marginBottom: 24 }}>
+							<View style={{ width: "100%", marginBottom: 24 }}>
 								<input
 									type="email"
 									value={email}
@@ -107,7 +108,7 @@ export default function UnsubscribePage() {
 										boxSizing: "border-box",
 									}}
 								/>
-							</div>
+							</View>
 						)}
 
 						{status === "error" && (
@@ -122,7 +123,7 @@ export default function UnsubscribePage() {
 							</p>
 						)}
 
-						<div style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+						<View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
 							<Link href="/">
 								<View>
 									<Button onClick={() => {}} variant="plain" size="lg">
