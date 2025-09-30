@@ -1,3 +1,2 @@
-// @ts-nocheck
-export * from "./Tooltip";
-export type { TooltipProps } from "./TooltipProps";
+export { Tooltip } from "../../compositions/Tooltip";
+export type { TooltipPlacement, TooltipProps } from "../../compositions/Tooltip";
