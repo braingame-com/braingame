@@ -5,7 +5,7 @@ import { Box } from "../components/primitives/Box";
 import { Container } from "../components/primitives/Container";
 import { Stack } from "../components/primitives/Stack";
 import { Typography } from "../components/primitives/Typography";
-import { Divider } from "../components/wip/Divider";
+import { Divider } from "../components/primitives/Divider";
 import { perfMeasurement } from "../utils/performance";
 
 /**

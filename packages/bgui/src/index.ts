@@ -16,35 +16,95 @@ export {
 
 // Universal components - Platform Adapter Pattern complete for web implementations
 
+export type { AlertProps } from "./components/compositions/Alert";
+export { Alert } from "./components/compositions/Alert";
+// Effects components
+export type { AnimatedGradientBackgroundProps } from "./components/compositions/AnimatedGradientBackground";
+export { AnimatedGradientBackground } from "./components/compositions/AnimatedGradientBackground";
+export type { CardProps } from "./components/compositions/Card";
+export { Card } from "./components/compositions/Card";
 export type {
 	FooterLink,
 	FooterProps,
 	FooterSocialLink,
 } from "./components/compositions/Footer";
 export { Footer } from "./components/compositions/Footer";
+export type { GlowingLogoProps } from "./components/compositions/GlowingLogo";
+export { GlowingLogo } from "./components/compositions/GlowingLogo";
+export type { GridProps } from "./components/compositions/Grid";
+export { Grid } from "./components/compositions/Grid";
 export type {
 	HeaderCta,
 	HeaderLink,
 	HeaderProps,
 } from "./components/compositions/Header";
 export { Header } from "./components/compositions/Header";
+export type { IconButtonProps } from "./components/compositions/IconButton";
+export { IconButton } from "./components/compositions/IconButton";
+export type { ListProps } from "./components/compositions/List";
+export { List } from "./components/compositions/List";
+export type { ListItemProps } from "./components/compositions/ListItem";
+export { ListItem } from "./components/compositions/ListItem";
+export type { ModalProps } from "./components/compositions/Modal";
+export { Modal } from "./components/compositions/Modal";
+export type { RadioGroupProps } from "./components/compositions/RadioGroup";
+export { RadioGroup } from "./components/compositions/RadioGroup";
+export type { SelectProps } from "./components/compositions/Select";
+export { Option, Select } from "./components/compositions/Select";
+export type {
+	TabListProps,
+	TabPanelProps,
+	TabProps,
+	TabsProps,
+} from "./components/compositions/Tabs";
+export { Tab, TabList, TabPanel, Tabs } from "./components/compositions/Tabs";
+export type { TooltipProps } from "./components/compositions/Tooltip";
+export * from "./components/compositions/Tooltip";
+export type { AvatarProps } from "./components/primitives/Avatar";
+export { Avatar } from "./components/primitives/Avatar";
+export type { BadgeProps } from "./components/primitives/Badge";
+export { Badge } from "./components/primitives/Badge";
 export type { BoxProps, BoxProps as ViewProps } from "./components/primitives/Box";
 export { Box, Box as View } from "./components/primitives/Box";
 export type { ButtonProps } from "./components/primitives/Button";
 export { Button } from "./components/primitives/Button";
+export type { CheckboxProps } from "./components/primitives/Checkbox";
+export { Checkbox } from "./components/primitives/Checkbox";
+export type { ChipProps } from "./components/primitives/Chip";
+export { Chip } from "./components/primitives/Chip";
+export type {
+	CircularProgressProps,
+	CircularProgressProps as SpinnerProps,
+} from "./components/primitives/CircularProgress";
+export {
+	CircularProgress,
+	CircularProgress as Spinner,
+} from "./components/primitives/CircularProgress";
 export type {
 	ContainerProps,
 	ContainerProps as PageWrapperProps,
 } from "./components/primitives/Container";
 export { Container, Container as PageWrapper } from "./components/primitives/Container";
+export type { DividerProps } from "./components/primitives/Divider";
+export { Divider } from "./components/primitives/Divider";
 export type { IconProps } from "./components/primitives/Icon";
 export { Icon } from "./components/primitives/Icon";
 export type { InputProps, InputProps as TextInputProps } from "./components/primitives/Input";
 export { Input, Input as TextInput } from "./components/primitives/Input";
+export type { LinearProgressProps } from "./components/primitives/LinearProgress";
+export { LinearProgress } from "./components/primitives/LinearProgress";
 export type { LinkProps } from "./components/primitives/Link";
 export { Link } from "./components/primitives/Link";
+export type { RadioProps } from "./components/primitives/Radio";
+export { Radio } from "./components/primitives/Radio";
+export type { SkeletonProps } from "./components/primitives/Skeleton";
+export { Skeleton } from "./components/primitives/Skeleton";
 export type { StackProps } from "./components/primitives/Stack";
 export { Stack } from "./components/primitives/Stack";
+export type { SwitchProps } from "./components/primitives/Switch";
+export { Switch } from "./components/primitives/Switch";
+export type { TextareaProps } from "./components/primitives/Textarea";
+export { Textarea } from "./components/primitives/Textarea";
 // Additional component aliases for common usage patterns
 export type {
 	TypographyProps,
@@ -52,69 +112,11 @@ export type {
 } from "./components/primitives/Typography";
 // Legacy alias exports for backward compatibility
 export { Typography, Typography as Text } from "./components/primitives/Typography";
-export type { AlertProps } from "./components/wip/Alert";
-export { Alert } from "./components/wip/Alert";
-// Effects components
-export type { AnimatedGradientBackgroundProps } from "./components/wip/AnimatedGradientBackground";
-export { AnimatedGradientBackground } from "./components/wip/AnimatedGradientBackground";
-export type { AvatarProps } from "./components/wip/Avatar";
-export { Avatar } from "./components/wip/Avatar";
-export type { BadgeProps } from "./components/wip/Badge";
-export { Badge } from "./components/wip/Badge";
-export type { CardProps } from "./components/wip/Card";
-export { Card } from "./components/wip/Card";
-export type { CheckboxProps } from "./components/wip/Checkbox";
-export { Checkbox } from "./components/wip/Checkbox";
-export type { ChipProps } from "./components/wip/Chip";
-export { Chip } from "./components/wip/Chip";
-export type {
-	CircularProgressProps,
-	CircularProgressProps as SpinnerProps,
-} from "./components/wip/CircularProgress";
-export { CircularProgress, CircularProgress as Spinner } from "./components/wip/CircularProgress";
-export type { DividerProps } from "./components/wip/Divider";
-export { Divider } from "./components/wip/Divider";
-export type { GlowingLogoProps } from "./components/wip/GlowingLogo";
-export { GlowingLogo } from "./components/wip/GlowingLogo";
-export type { GridProps } from "./components/wip/Grid";
-export { Grid } from "./components/wip/Grid";
-export type { IconButtonProps } from "./components/wip/IconButton";
-export { IconButton } from "./components/wip/IconButton";
-export type { LinearProgressProps } from "./components/wip/LinearProgress";
-export { LinearProgress } from "./components/wip/LinearProgress";
-export type { ListProps } from "./components/wip/List";
-export { List } from "./components/wip/List";
-export type { ListItemProps } from "./components/wip/ListItem";
-export { ListItem } from "./components/wip/ListItem";
-export type { ModalProps } from "./components/wip/Modal";
-export { Modal } from "./components/wip/Modal";
-export type { RadioProps } from "./components/wip/Radio";
-export { Radio } from "./components/wip/Radio";
-export type { RadioGroupProps } from "./components/wip/RadioGroup";
-export { RadioGroup } from "./components/wip/RadioGroup";
-export type { SelectProps } from "./components/wip/Select";
-export { Option, Select } from "./components/wip/Select";
-export type { SkeletonProps } from "./components/wip/Skeleton";
-export { Skeleton } from "./components/wip/Skeleton";
-export type { SwitchProps } from "./components/wip/Switch";
-export { Switch } from "./components/wip/Switch";
-export type { TabProps } from "./components/wip/Tab";
-export { Tab } from "./components/wip/Tab";
-export type { TabListProps } from "./components/wip/TabList";
-export { TabList } from "./components/wip/TabList";
-export type { TabPanelProps } from "./components/wip/TabPanel";
-export { TabPanel } from "./components/wip/TabPanel";
-export type { TabsProps } from "./components/wip/Tabs";
-export { Tabs } from "./components/wip/Tabs";
-export type { TextareaProps } from "./components/wip/Textarea";
-export { Textarea } from "./components/wip/Textarea";
-export type { TooltipProps } from "./components/wip/Tooltip";
-export * from "./components/wip/Tooltip";
 
 // TODO: Re-add web components after they are migrated from web-bgui quarry
-// export { Accordion } from "./components/wip/Accordion";
-// export { Slider } from "./components/wip/Slider";
-// export { SvgIcon, SvgIcon as Icon } from "./components/wip/SvgIcon";
+// export { Accordion } from "./components/compositions/Accordion";
+// export { Slider } from "./components/compositions/Slider";
+// export { SvgIcon, SvgIcon as Icon } from "./components/primitives/SvgIcon";
 
 // TODO: Add ContextErrorBoundary component when needed
 // For now, apps using ContextErrorBoundary should implement their own or use a different pattern

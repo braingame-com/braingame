@@ -14,8 +14,6 @@
 			".next",
 			".turbo",
 			"test-results",
-			"packages/bgui/src/components/wip",
-			"packages/bgui/src/components/wip/**",
 			"packages/bgui/src/components/web-bgui",
 			"packages/bgui/src/components/web-bgui/**"
 		],

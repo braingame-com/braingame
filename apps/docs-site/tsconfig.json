@@ -35,7 +35,6 @@
 	"exclude": [
 		"node_modules",
 		"dist",
-		"../../packages/bgui/src/tests",
-		"../../packages/bgui/src/components/wip"
+		"../../packages/bgui/src/tests"
 	]
 }
