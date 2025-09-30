@@ -20,7 +20,7 @@ interface ComingSoonCard {
 const ComingSoonCardComponent = withMemo<{ item: ComingSoonCard }>(
 	({ item }) => (
 		<View style={mindsetStyles.card}>
-			<Text variant="title" style={mindsetStyles.cardTitle}>
+			<Text level="title-lg" style={mindsetStyles.cardTitle}>
 				{item.icon} {item.title}
 			</Text>
 			<Text style={mindsetStyles.cardDescription}>{item.description}</Text>
@@ -44,7 +44,7 @@ const CompletionHeader = withMemo<{ completedCount: number; totalCount: number }
 const MindsetHeader = withMemo(
 	() => (
 		<View style={{ marginBottom: 32 }}>
-			<Text variant="displayTitle" style={{ textAlign: "center", marginBottom: 8 }}>
+			<Text level="h2" style={{ textAlign: "center", marginBottom: 8 }}>
 				🧠 Mindset Training
 			</Text>
 		</View>
@@ -55,7 +55,7 @@ const MindsetHeader = withMemo(
 const MindsetSubtitle = withMemo(
 	() => (
 		<Text
-			variant="subtitle"
+			level="body-md"
 			style={{
 				textAlign: "center",
 				color: "#aaa",

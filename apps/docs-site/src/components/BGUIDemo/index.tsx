@@ -70,7 +70,7 @@ import {
 	Typography as BGUITypography,
 } from "@braingame/bgui";
 // Import for Icon component
-import type { ChangeEvent, ComponentPropsWithoutRef } from "react";
+import type { ChangeEvent, ComponentPropsWithoutRef, ElementRef } from "react";
 import React from "react";
 import type {
 	NativeSyntheticEvent,
@@ -107,7 +107,9 @@ type SelectDemoProps = BGUISelectProps & {
 	onValueChange?: (value: string | number | string[] | number[] | null) => void;
 };
 
-export const Select = React.forwardRef<HTMLButtonElement, SelectDemoProps>(
+type SelectHandle = ElementRef<typeof BGUISelect>;
+
+export const Select = React.forwardRef<SelectHandle, SelectDemoProps>(
 	({ onValueChange, onChange, ...props }, ref) => {
 		const handleChange: BGUISelectProps["onChange"] | undefined = onValueChange
 			? (event, value) => {
@@ -125,7 +127,9 @@ type SwitchDemoProps = BGUISwitchProps & {
 	onValueChange?: (checked: boolean) => void;
 };
 
-export const Switch = React.forwardRef<HTMLInputElement, SwitchDemoProps>(
+type SwitchHandle = ElementRef<typeof BGUISwitch>;
+
+export const Switch = React.forwardRef<SwitchHandle, SwitchDemoProps>(
 	({ onValueChange, onChange, ...props }, ref) => {
 		const handleChange: BGUISwitchProps["onChange"] | undefined = onValueChange
 			? (event) => {
@@ -236,12 +240,14 @@ export const Icon = ({ name, size = "md", style, ...props }: IconProps) => {
 			component="span"
 			color={color}
 			{...restProps}
-			style={{
-				fontFamily: "Material Icons",
-				fontSize: sizeMap[size],
-				color: resolvedColor,
-				...style,
-			}}
+			style={[
+				{
+					fontFamily: "Material Icons",
+					fontSize: sizeMap[size],
+					color: resolvedColor,
+				},
+				style,
+			]}
 		>
 			{name}
 		</BGUITypography>

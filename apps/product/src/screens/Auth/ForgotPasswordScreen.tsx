@@ -49,7 +49,7 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 			Alert.alert("Email Sent!", "Check your email for password reset instructions.", [
 				{
 					text: "OK",
-					onClick: () => navigation.navigate("Login"),
+					onPress: () => navigation.navigate("Login"),
 				},
 			]);
 		} catch (_error) {
@@ -95,7 +95,7 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 						{/* Reset Button */}
 						<TouchableOpacity
 							style={[authStyles.button, authStyles.primaryButton, { marginTop: 24 }]}
-							onClick={handleResetPassword}
+							onPress={handleResetPassword}
 							disabled={loading || sent}
 						>
 							<Text style={authStyles.primaryButtonText}>
@@ -107,7 +107,7 @@ export const ForgotPasswordScreen: React.FC<Props> = () => {
 						<View style={{ marginTop: 32, alignItems: "center" }}>
 							<Text style={authStyles.footerText}>
 								Remember your password?{" "}
-								<Text style={authStyles.footerLink} onClick={() => navigation.navigate("Login")}>
+								<Text style={authStyles.footerLink} onPress={() => navigation.navigate("Login")}>
 									Sign in
 								</Text>
 							</Text>

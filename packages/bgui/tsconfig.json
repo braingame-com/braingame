@@ -6,6 +6,7 @@
 		"rootDir": "./src",
 		"declaration": true,
 		"declarationMap": true,
+		"noEmit": false,
 		"emitDeclarationOnly": false,
 		"resolveJsonModule": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],

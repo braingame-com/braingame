@@ -111,7 +111,7 @@ export function AnimatedButton({
 
 	return (
 		<Pressable
-			onClick={disabled || loading ? undefined : onClick}
+			onPress={disabled || loading ? undefined : onClick}
 			onPressIn={handlePressIn}
 			onPressOut={handlePressOut}
 			disabled={disabled || loading}

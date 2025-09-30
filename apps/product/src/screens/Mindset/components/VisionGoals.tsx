@@ -152,7 +152,7 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 		<View style={mindsetStyles.card}>
 			{/* Card Header */}
 			<View style={mindsetStyles.cardHeader}>
-				<Text variant="title" style={mindsetStyles.cardTitle}>
+				<Text level="title-lg" style={mindsetStyles.cardTitle}>
 					Vision & Goals
 				</Text>
 				<View
@@ -193,7 +193,7 @@ export const VisionGoals: React.FC<VisionGoalsProps> = ({ onComplete, completed 
 				{/* Submit Button */}
 				<View style={{ marginTop: 24 }}>
 					<TouchableOpacity
-						onClick={handleSubmit}
+						onPress={handleSubmit}
 						disabled={buttonState === "loading"}
 						style={[
 							mindsetStyles.button,

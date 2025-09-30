@@ -219,8 +219,16 @@ export default function HomePage() {
 		[],
 	);
 
-	const handleSuggestionClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-		e.preventDefault();
+	const handleSuggestionClick = (event: unknown) => {
+		if (
+			typeof event === "object" &&
+			event !== null &&
+			"preventDefault" in event &&
+			typeof (event as { preventDefault?: unknown }).preventDefault === "function"
+		) {
+			(event as { preventDefault: () => void }).preventDefault();
+		}
+		if (!suggestedEmail) return;
 		setEmail(suggestedEmail);
 		setShowSuggestion(false);
 		setSubmitMessage("");
@@ -292,7 +300,7 @@ export default function HomePage() {
 								onChange={(event) => setHoneypot(event.target.value)}
 								aria-hidden="true"
 								tabIndex={-1}
-								style={styles.honeypot}
+								style={{ display: "none" }}
 								name="company"
 								autoComplete="off"
 							/>
@@ -357,7 +365,6 @@ export default function HomePage() {
 const styles = StyleSheet.create({
 	page: {
 		flex: 1,
-		minHeight: "100vh",
 		backgroundColor: "#050505",
 	},
 	heroContainer: {
@@ -386,9 +393,6 @@ const styles = StyleSheet.create({
 	formRow: {
 		width: "100%",
 		alignItems: "center",
-	},
-	honeypot: {
-		display: "none",
 	},
 	errorText: {
 		color: "#f87171",

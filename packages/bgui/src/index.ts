@@ -16,6 +16,12 @@ export {
 
 // Universal components - Platform Adapter Pattern complete for web implementations
 
+export type {
+	AccordionItemProps,
+	AccordionProps,
+	AccordionValue,
+} from "./components/compositions/Accordion";
+export { Accordion } from "./components/compositions/Accordion";
 export type { AlertProps } from "./components/compositions/Alert";
 export { Alert } from "./components/compositions/Alert";
 // Effects components
@@ -23,6 +29,12 @@ export type { AnimatedGradientBackgroundProps } from "./components/compositions/
 export { AnimatedGradientBackground } from "./components/compositions/AnimatedGradientBackground";
 export type { CardProps } from "./components/compositions/Card";
 export { Card } from "./components/compositions/Card";
+export type {
+	ContextErrorBoundaryFallback,
+	ContextErrorBoundaryFallbackArgs,
+	ContextErrorBoundaryProps,
+} from "./components/compositions/ContextErrorBoundary";
+export { ContextErrorBoundary } from "./components/compositions/ContextErrorBoundary";
 export type {
 	FooterLink,
 	FooterProps,
@@ -47,7 +59,7 @@ export type { ListItemProps } from "./components/compositions/ListItem";
 export { ListItem } from "./components/compositions/ListItem";
 export type { ModalProps } from "./components/compositions/Modal";
 export { Modal } from "./components/compositions/Modal";
-export type { RadioGroupProps } from "./components/compositions/RadioGroup";
+export type { RadioGroupChangeEvent, RadioGroupProps } from "./components/compositions/RadioGroup";
 export { RadioGroup } from "./components/compositions/RadioGroup";
 export type { SelectProps } from "./components/compositions/Select";
 export { Option, Select } from "./components/compositions/Select";
@@ -95,10 +107,16 @@ export type { LinearProgressProps } from "./components/primitives/LinearProgress
 export { LinearProgress } from "./components/primitives/LinearProgress";
 export type { LinkProps } from "./components/primitives/Link";
 export { Link } from "./components/primitives/Link";
-export type { RadioProps } from "./components/primitives/Radio";
+export type {
+	RadioChangeEvent,
+	RadioFocusEvent,
+	RadioProps,
+} from "./components/primitives/Radio";
 export { Radio } from "./components/primitives/Radio";
 export type { SkeletonProps } from "./components/primitives/Skeleton";
 export { Skeleton } from "./components/primitives/Skeleton";
+export type { SliderProps } from "./components/primitives/Slider";
+export { Slider } from "./components/primitives/Slider";
 export type { StackProps } from "./components/primitives/Stack";
 export { Stack } from "./components/primitives/Stack";
 export type { SwitchProps } from "./components/primitives/Switch";
@@ -113,13 +131,7 @@ export type {
 // Legacy alias exports for backward compatibility
 export { Typography, Typography as Text } from "./components/primitives/Typography";
 
-// TODO: Re-add web components after they are migrated from web-bgui quarry
-// export { Accordion } from "./components/compositions/Accordion";
-// export { Slider } from "./components/compositions/Slider";
 // export { SvgIcon, SvgIcon as Icon } from "./components/primitives/SvgIcon";
-
-// TODO: Add ContextErrorBoundary component when needed
-// For now, apps using ContextErrorBoundary should implement their own or use a different pattern
 
 export type { ComponentPerfResult } from "./utils/performance";
 // Performance utilities (for development/testing)

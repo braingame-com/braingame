@@ -35,7 +35,7 @@ export default function TermsPage() {
 				</Link>
 
 				<Text
-					variant="displayTitle"
+					level="h1"
 					style={{
 						color: "#fff",
 						marginBottom: 16,
@@ -45,7 +45,7 @@ export default function TermsPage() {
 				</Text>
 
 				<Text
-					variant="body"
+					level="body-md"
 					style={{
 						color: "#999",
 						marginBottom: 40,
@@ -57,7 +57,7 @@ export default function TermsPage() {
 				{/* Agreement */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -66,7 +66,7 @@ export default function TermsPage() {
 						1. Agreement to Terms
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -81,7 +81,7 @@ export default function TermsPage() {
 				{/* Use of Services */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -90,7 +90,7 @@ export default function TermsPage() {
 						2. Use of Services
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -119,7 +119,7 @@ export default function TermsPage() {
 				{/* Intellectual Property */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -128,7 +128,7 @@ export default function TermsPage() {
 						3. Intellectual Property
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -145,7 +145,7 @@ export default function TermsPage() {
 				{/* User Content */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -154,7 +154,7 @@ export default function TermsPage() {
 						4. User Content
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -170,7 +170,7 @@ export default function TermsPage() {
 				{/* Privacy */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -179,7 +179,7 @@ export default function TermsPage() {
 						5. Privacy
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -199,7 +199,7 @@ export default function TermsPage() {
 				{/* Disclaimers */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -208,7 +208,7 @@ export default function TermsPage() {
 						6. Disclaimers
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -224,7 +224,7 @@ export default function TermsPage() {
 				{/* Limitation of Liability */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -233,7 +233,7 @@ export default function TermsPage() {
 						7. Limitation of Liability
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -249,7 +249,7 @@ export default function TermsPage() {
 				{/* Indemnification */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -258,7 +258,7 @@ export default function TermsPage() {
 						8. Indemnification
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -273,7 +273,7 @@ export default function TermsPage() {
 				{/* Governing Law */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -282,7 +282,7 @@ export default function TermsPage() {
 						9. Governing Law
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -297,7 +297,7 @@ export default function TermsPage() {
 				{/* Changes */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -306,7 +306,7 @@ export default function TermsPage() {
 						10. Changes to Terms
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -321,7 +321,7 @@ export default function TermsPage() {
 				{/* Contact */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -330,7 +330,7 @@ export default function TermsPage() {
 						11. Contact Information
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -340,7 +340,7 @@ export default function TermsPage() {
 						If you have any questions about these Terms, please contact us at:
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#0074D9",
 							textDecorationLine: "underline",

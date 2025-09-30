@@ -28,7 +28,7 @@ export const AdditionalSettings: React.FC = () => {
 			}}
 		>
 			<AccessibleThemedText
-				variant="solid"
+				variant="primary"
 				size="lg"
 				weight="semibold"
 				style={{ marginBottom: theme.sizes.spacingMD }}
@@ -56,7 +56,7 @@ export const AdditionalSettings: React.FC = () => {
 
 			{!isAnalyticsEnabled && (
 				<AccessibleThemedText
-					variant="outlined"
+					variant="secondary"
 					size="sm"
 					style={{ marginTop: theme.sizes.spacingMD }}
 				>

@@ -18,7 +18,7 @@ export const DataUsageInfo: React.FC = () => {
 			}}
 		>
 			<AccessibleThemedText
-				variant="solid"
+				variant="primary"
 				size="md"
 				weight="semibold"
 				style={{ marginBottom: theme.sizes.spacingSM }}
@@ -28,27 +28,27 @@ export const DataUsageInfo: React.FC = () => {
 			</AccessibleThemedText>
 
 			<AccessibleThemedText
-				variant="outlined"
+				variant="secondary"
 				size="sm"
 				style={{ marginBottom: theme.sizes.spacingSM }}
 			>
 				• Improve app performance and fix bugs
 			</AccessibleThemedText>
 			<AccessibleThemedText
-				variant="outlined"
+				variant="secondary"
 				size="sm"
 				style={{ marginBottom: theme.sizes.spacingSM }}
 			>
 				• Understand feature usage to guide development
 			</AccessibleThemedText>
 			<AccessibleThemedText
-				variant="outlined"
+				variant="secondary"
 				size="sm"
 				style={{ marginBottom: theme.sizes.spacingSM }}
 			>
 				• Personalize your experience (with permission)
 			</AccessibleThemedText>
-			<AccessibleThemedText variant="outlined" size="sm">
+			<AccessibleThemedText variant="secondary" size="sm">
 				• Never sell or share your personal data
 			</AccessibleThemedText>
 		</AccessibleThemedView>

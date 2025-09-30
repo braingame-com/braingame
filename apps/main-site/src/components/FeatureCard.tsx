@@ -57,7 +57,7 @@ export function FeatureCard({ icon, title, description, delay = 0 }: FeatureCard
 					{icon}
 				</Text>
 				<Text
-					variant="h3"
+					level="title-lg"
 					style={{
 						color: "#fff",
 						marginBottom: 8,
@@ -68,7 +68,7 @@ export function FeatureCard({ icon, title, description, delay = 0 }: FeatureCard
 					{title}
 				</Text>
 				<Text
-					variant="body"
+					level="body-md"
 					style={{
 						color: "#999",
 						textAlign: "center",

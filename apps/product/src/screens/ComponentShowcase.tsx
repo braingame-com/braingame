@@ -8,20 +8,45 @@ import {
 	Chip,
 	Divider,
 	Icon,
+	Radio,
 	RadioGroup,
+	type RadioGroupChangeEvent,
 	Slider,
 	Spinner,
 	Switch,
 	Text,
+	Textarea,
 	TextInput,
 	View,
 } from "@braingame/bgui";
 import { useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import {
+	type NativeSyntheticEvent,
+	ScrollView,
+	StyleSheet,
+	type TextInputChangeEventData,
+} from "react-native";
+
+type TextChangeEvent = NativeSyntheticEvent<TextInputChangeEventData>;
+
+const createTextChangeHandler = (setter: (value: string) => void) => (event: TextChangeEvent) => {
+	setter(event.nativeEvent.text ?? "");
+};
+
+const extractRadioValue = (event: RadioGroupChangeEvent) => {
+	const target = "target" in event ? event.target : undefined;
+	const next =
+		typeof target === "object" && target !== null
+			? (target as { value?: unknown }).value
+			: undefined;
+	if (typeof next === "number") return String(next);
+	if (typeof next === "string") return next;
+	return undefined;
+};
 
 /**
  * Component Showcase Screen
- * Demonstrates all the UI primitives available in the bgui package
+ * Demonstrates the UI primitives available in the bgui package
  */
 export function ComponentShowcase() {
 	const [textValue, setTextValue] = useState("");
@@ -34,7 +59,7 @@ export function ComponentShowcase() {
 
 	const toggleChip = (label: string) => {
 		setSelectedChips((prev) =>
-			prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label],
+			prev.includes(label) ? prev.filter((value) => value !== label) : [...prev, label],
 		);
 	};
 
@@ -42,38 +67,43 @@ export function ComponentShowcase() {
 		<ScrollView style={styles.container} contentContainerStyle={styles.content}>
 			{/* Typography Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Typography</Text>
+				<Text level="title-lg">Typography</Text>
 				<Divider style={styles.divider} />
-				<Text variant="displayTitle">Display Title</Text>
-				<Text variant="title">Title</Text>
-				<Text variant="heading">Heading</Text>
-				<Text variant="subtitle">Subtitle</Text>
-				<Text variant="body">Body text - The quick brown fox jumps over the lazy dog</Text>
-				<Text variant="bold">Bold text - Emphasized content</Text>
-				<Text variant="secondaryText">Secondary text - Less important information</Text>
-				<Text variant="small">Small text - Fine print</Text>
-				<Text variant="smallThin">Small thin text - Smallest size</Text>
-				<Text variant="body" mono>
+				<Text level="h1">Display Title</Text>
+				<Text level="title-lg">Title</Text>
+				<Text level="title-sm">Heading</Text>
+				<Text level="body-lg">Body text - The quick brown fox jumps over the lazy dog</Text>
+				<Text level="body-md" style={styles.boldText}>
+					Bold text - Emphasized content
+				</Text>
+				<Text level="body-sm" color="neutral">
+					Secondary text - Less important information
+				</Text>
+				<Text level="body-sm">Small text - Fine print</Text>
+				<Text level="body-xs" style={styles.thinText}>
+					Small thin text - Smallest size
+				</Text>
+				<Text level="body-md" component="code" style={styles.monoText}>
 					Monospace text - Code snippets
 				</Text>
 			</Card>
 
 			{/* Buttons Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Buttons</Text>
+				<Text level="title-lg">Buttons</Text>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Button onClick={() => {}} variant="solid">
+					<Button onClick={() => {}} variant="solid" color="primary">
 						Primary
 					</Button>
-					<Button onClick={() => {}} variant="outlined">
+					<Button onClick={() => {}} variant="outlined" color="neutral">
 						Secondary
 					</Button>
-					<Button onClick={() => {}} variant="plain">
+					<Button onClick={() => {}} variant="plain" color="primary">
 						Ghost
 					</Button>
-					<Button onClick={() => {}} variant="danger">
+					<Button onClick={() => {}} variant="solid" color="danger">
 						Danger
 					</Button>
 				</View>
@@ -91,13 +121,19 @@ export function ComponentShowcase() {
 				</View>
 
 				<View style={styles.row}>
-					<Button onClick={() => {}} icon="home">
+					<Button onClick={() => {}} startDecorator={<Icon name="home" size={20} />}>
 						With Icon
 					</Button>
-					<Button onClick={() => {}} icon="arrow_forward" iconPosition="right">
+					<Button onClick={() => {}} endDecorator={<Icon name="arrow_forward" size={20} />}>
 						Icon Right
 					</Button>
-					<Button onClick={() => {}} variant="icon" icon="settings" />
+					<Button
+						onClick={() => {}}
+						variant="plain"
+						color="neutral"
+						startDecorator={<Icon name="settings" size={20} />}
+						aria-label="Open settings"
+					/>
 				</View>
 
 				<View style={styles.row}>
@@ -115,191 +151,219 @@ export function ComponentShowcase() {
 
 			{/* Chips Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Chips</Text>
+				<Text level="title-lg">Chips</Text>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Chip label="Default" />
-					<Chip label="Primary" color="primary" />
-					<Chip label="Success" color="success" />
-					<Chip label="Warning" color="warning" />
-					<Chip label="Danger" color="danger" />
+					<Chip>Default</Chip>
+					<Chip color="primary">Primary</Chip>
+					<Chip color="success">Success</Chip>
+					<Chip color="warning">Warning</Chip>
+					<Chip color="danger">Danger</Chip>
 				</View>
 
 				<View style={styles.row}>
-					<Chip label="Outlined" variant="outlined" />
-					<Chip label="With Icon" icon="label" color="primary" />
-					<Chip label="Removable" onRemove={() => {}} />
+					<Chip variant="outlined">Outlined</Chip>
+					<Chip color="primary" startDecorator={<Icon name="bookmark" size={18} />}>
+						With Icon
+					</Chip>
+					<Chip onDismiss={() => {}}>Removable</Chip>
 				</View>
 
 				<View style={styles.row}>
-					<Chip
-						label="React"
-						onClick={() => toggleChip("React")}
-						selected={selectedChips.includes("React")}
-						color="primary"
-					/>
-					<Chip
-						label="React Native"
-						onClick={() => toggleChip("React Native")}
-						selected={selectedChips.includes("React Native")}
-						color="primary"
-					/>
-					<Chip
-						label="TypeScript"
-						onClick={() => toggleChip("TypeScript")}
-						selected={selectedChips.includes("TypeScript")}
-						color="primary"
-					/>
+					{["React", "React Native", "TypeScript"].map((label) => {
+						const isSelected = selectedChips.includes(label);
+						return (
+							<Chip
+								key={label}
+								color="primary"
+								variant={isSelected ? "solid" : "soft"}
+								onClick={() => toggleChip(label)}
+							>
+								{label}
+							</Chip>
+						);
+					})}
 				</View>
 			</Card>
 
 			{/* Text Input Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Text Inputs</Text>
+				<Text level="title-lg">Text Inputs</Text>
 				<Divider style={styles.divider} />
 
 				<TextInput
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={createTextChangeHandler(setTextValue)}
 					placeholder="Standard input"
 					style={styles.input}
 				/>
 
 				<TextInput
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={createTextChangeHandler(setTextValue)}
 					placeholder="With left icon"
-					leftIcon="mail"
+					startDecorator={<Icon name="mail" size={20} />}
 					style={styles.input}
 				/>
 
 				<TextInput
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={createTextChangeHandler(setTextValue)}
 					placeholder="With right icon"
-					rightIcon="check"
+					endDecorator={<Icon name="check" size={20} />}
 					style={styles.input}
 				/>
 
 				<TextInput
 					value={textValue}
-					onValueChange={setTextValue}
+					onChange={createTextChangeHandler(setTextValue)}
 					placeholder="Error state"
-					variant="error"
+					error
 					style={styles.input}
 				/>
 
-				<TextInput
+				<Textarea
 					value={multilineValue}
-					onValueChange={setMultilineValue}
+					onChange={createTextChangeHandler(setMultilineValue)}
 					placeholder="Multiline text area - Type multiple lines here..."
-					multiline
-					numberOfLines={4}
-					style={[styles.input, styles.textarea]}
+					minRows={4}
+					style={styles.input}
 				/>
 			</Card>
 
 			{/* Icons Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Icons</Text>
+				<Text level="title-lg">Icons</Text>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Icon name="home" size="sm" />
-					<Icon name="person" size="md" />
-					<Icon name="settings" size="lg" />
-					<Icon name="favorite" size={32} />
+					<Icon name="home" size={20} />
+					<Icon name="person" size={28} />
+					<Icon name="settings" size={36} />
+					<Icon name="favorite" size={40} />
 				</View>
 
 				<View style={styles.row}>
-					<Icon name="star" color="primary" />
-					<Icon name="check_circle" color="success" />
-					<Icon name="warning" color="warning" />
-					<Icon name="cancel" color="danger" />
+					<Icon name="star" size={28} color="#f59e0b" />
+					<Icon name="check_circle" size={28} color="#16a34a" />
+					<Icon name="warning" size={28} color="#facc15" />
+					<Icon name="cancel" size={28} color="#dc2626" />
 				</View>
 			</Card>
 
 			{/* Badges Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Badges</Text>
+				<Text level="title-lg">Badges</Text>
 				<Divider style={styles.divider} />
 
 				<View style={styles.row}>
-					<Badge count={5} />
-					<Badge count={99} color="primary" />
-					<Badge count={999} color="danger" />
-					<Badge text="NEW" color="success" />
-					<Badge dot color="warning" />
+					<Badge badgeContent={5}>
+						<View style={styles.badgeTarget}>
+							<Icon name="mail" size={22} />
+						</View>
+					</Badge>
+					<Badge badgeContent={99} color="primary">
+						<View style={styles.badgeTarget}>
+							<Icon name="notifications" size={22} />
+						</View>
+					</Badge>
+					<Badge badgeContent={999} color="danger" max={99}>
+						<View style={styles.badgeTarget}>
+							<Icon name="favorite" size={22} />
+						</View>
+					</Badge>
+					<Badge badgeContent="NEW" color="success">
+						<View style={styles.badgeTarget}>
+							<Text level="body-sm">Updates</Text>
+						</View>
+					</Badge>
+					<Badge dot color="warning">
+						<View style={styles.badgeTarget}>
+							<Icon name="chat" size={22} />
+						</View>
+					</Badge>
 				</View>
 			</Card>
 
 			{/* Form Controls Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Form Controls</Text>
+				<Text level="title-lg">Form Controls</Text>
 				<Divider style={styles.divider} />
 
 				<View style={styles.formRow}>
 					<Checkbox
 						checked={checkboxValue}
-						onCheckedChange={setCheckboxValue}
+						onChange={() => setCheckboxValue((prev) => !prev)}
 						label="Checkbox option"
 					/>
 				</View>
 
 				<View style={styles.formRow}>
-					<Switch value={switchValue} onValueChange={setSwitchValue} label="Toggle switch" />
+					<Switch checked={switchValue} onValueChange={setSwitchValue}>
+						Toggle switch
+					</Switch>
 				</View>
 
 				<View style={styles.formRow}>
-					<Text variant="subtitle">Slider: {sliderValue}%</Text>
+					<Text level="title-sm">Slider: {sliderValue}%</Text>
 					<Slider
 						value={sliderValue}
-						onValueChange={(value) => setSliderValue(typeof value === "number" ? value : value[0])}
-						min={0}
-						max={100}
+						onValueChange={(value) => setSliderValue(Math.round(value))}
+						minimumValue={0}
+						maximumValue={100}
 					/>
 				</View>
 
 				<View style={styles.formRow}>
-					<RadioGroup value={radioValue} onValueChange={setRadioValue}>
-						<RadioGroup.Item value="option1" label="Option 1" />
-						<RadioGroup.Item value="option2" label="Option 2" />
-						<RadioGroup.Item value="option3" label="Option 3" />
+					<RadioGroup
+						value={radioValue}
+						onChange={(event) => {
+							const next = extractRadioValue(event);
+							if (next) setRadioValue(next);
+						}}
+					>
+						<Radio value="option1" label="Option 1" />
+						<Radio value="option2" label="Option 2" />
+						<Radio value="option3" label="Option 3" />
 					</RadioGroup>
 				</View>
 			</Card>
 
 			{/* Feedback Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Feedback</Text>
+				<Text level="title-lg">Feedback</Text>
 				<Divider style={styles.divider} />
 
 				<Alert
-					type="info"
+					status="info"
+					variant="soft"
 					title="Information"
-					message="This is an informational alert message."
+					description="This is an informational alert message."
 					style={styles.alert}
 				/>
 
 				<Alert
-					type="success"
+					status="success"
+					variant="soft"
 					title="Success"
-					message="Operation completed successfully!"
+					description="Operation completed successfully!"
 					style={styles.alert}
 				/>
 
 				<Alert
-					type="warning"
+					status="warning"
+					variant="soft"
 					title="Warning"
-					message="Please review before proceeding."
+					description="Please review before proceeding."
 					style={styles.alert}
 				/>
 
 				<Alert
-					type="error"
+					status="error"
+					variant="soft"
 					title="Error"
-					message="Something went wrong. Please try again."
+					description="Something went wrong. Please try again."
 					style={styles.alert}
 				/>
 
@@ -313,18 +377,18 @@ export function ComponentShowcase() {
 
 			{/* Accordion Section */}
 			<Card style={styles.section}>
-				<Text variant="title">Accordion</Text>
+				<Text level="title-lg">Accordion</Text>
 				<Divider style={styles.divider} />
 
 				<Accordion>
 					<Accordion.Item value="section1" title="Section 1">
-						<Text>Content for the first section of the accordion.</Text>
+						<Text level="body-md">Content for the first section of the accordion.</Text>
 					</Accordion.Item>
 					<Accordion.Item value="section2" title="Section 2">
-						<Text>Content for the second section goes here.</Text>
+						<Text level="body-md">Content for the second section goes here.</Text>
 					</Accordion.Item>
 					<Accordion.Item value="section3" title="Section 3">
-						<Text>And here's the content for the third section.</Text>
+						<Text level="body-md">And here's the content for the third section.</Text>
 					</Accordion.Item>
 				</Accordion>
 			</Card>
@@ -357,15 +421,29 @@ const styles = StyleSheet.create({
 	},
 	formRow: {
 		marginVertical: 12,
+		gap: 8,
 	},
 	input: {
 		marginVertical: 8,
 	},
-	textarea: {
-		minHeight: 100,
-		textAlignVertical: "top",
-	},
 	alert: {
 		marginVertical: 4,
+	},
+	boldText: {
+		fontWeight: "600",
+	},
+	thinText: {
+		fontWeight: "300",
+	},
+	monoText: {
+		fontFamily: "Menlo, Courier, monospace",
+	},
+	badgeTarget: {
+		minWidth: 40,
+		minHeight: 40,
+		borderRadius: 12,
+		backgroundColor: "#eef2ff",
+		alignItems: "center",
+		justifyContent: "center",
 	},
 });

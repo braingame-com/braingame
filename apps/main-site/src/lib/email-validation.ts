@@ -174,6 +174,26 @@ export function validateEmail(email: string): EmailValidationResult {
 	};
 }
 
+export function calculateRiskScore(email: string): number {
+	return validateEmail(email).riskScore;
+}
+
+export function checkDisposableEmail(email: string): boolean {
+	const domain = email.trim().toLowerCase().split("@")[1];
+	if (!domain) return false;
+	return DISPOSABLE_DOMAINS.has(domain);
+}
+
+export function detectTypo(email: string): string | null {
+	const trimmedEmail = email.trim().toLowerCase();
+	const [, domain] = trimmedEmail.split("@");
+	if (!domain) return null;
+	const suggestion = COMMON_DOMAIN_TYPOS[domain];
+	if (!suggestion) return null;
+	const localPart = trimmedEmail.split("@")[0];
+	return `${localPart}@${suggestion}`;
+}
+
 // DNS validation (requires server-side implementation)
 export async function validateEmailDNS(_email: string): Promise<boolean> {
 	// This would typically make an API call to validate MX records

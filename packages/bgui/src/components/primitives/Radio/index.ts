@@ -1,2 +1,9 @@
 export { Radio } from "./Radio";
-export type { RadioColor, RadioProps, RadioSize, RadioVariant } from "./Radio.types";
+export type {
+	RadioChangeEvent,
+	RadioColor,
+	RadioFocusEvent,
+	RadioProps,
+	RadioSize,
+	RadioVariant,
+} from "./Radio.types";

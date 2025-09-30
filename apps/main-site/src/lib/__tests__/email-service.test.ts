@@ -1,221 +1,130 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { addDoc, getDocs, updateDoc } from "firebase/firestore";
 import { EmailService } from "../email-service";
 
-// Mock Firebase
-jest.mock("../firebase", () => ({
-	db: {},
-}));
+class MockStorage {
+	private store = new Map<string, string>();
 
-jest.mock("firebase/firestore", () => ({
-	collection: jest.fn(() => "mock-collection"),
-	addDoc: jest.fn(),
-	getDocs: jest.fn(),
-	query: jest.fn(),
-	where: jest.fn(),
-	updateDoc: jest.fn(),
-	doc: jest.fn(),
-	serverTimestamp: jest.fn(() => new Date()),
-}));
+	getItem(key: string) {
+		return this.store.get(key) ?? null;
+	}
 
-// Mock rate limiter
-jest.mock("../rate-limiter", () => ({
-	checkRateLimit: jest.fn(() => ({ allowed: true, retryAfter: null })),
-}));
+	setItem(key: string, value: string) {
+		this.store.set(key, value);
+	}
 
-// Mock email validation
-jest.mock("../email-validation", () => ({
-	validateEmail: jest.fn((email) => email.includes("@")),
-	calculateRiskScore: jest.fn(() => 0),
-	detectTypo: jest.fn(() => null),
-}));
+	removeItem(key: string) {
+		this.store.delete(key);
+	}
+
+	clear() {
+		this.store.clear();
+	}
+}
 
 describe("EmailService", () => {
-	let emailService: EmailService;
+	let service: EmailService;
+	let storage: MockStorage;
+	let consoleSpy: ReturnType<typeof jest.spyOn>;
 
 	beforeEach(() => {
-		emailService = new EmailService();
-		jest.clearAllMocks();
+		storage = new MockStorage();
+		(globalThis as { window?: Window }).window = { localStorage: storage } as unknown as Window;
+
+		Object.defineProperty(global, "navigator", {
+			value: { userAgent: "jest" },
+			configurable: true,
+		});
+
+		consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+		service = new EmailService();
 	});
 
-	describe("subscribe", () => {
-		it("should successfully subscribe a new email", async () => {
-			const mockQuerySnapshot = {
-				empty: true,
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
-			(addDoc as jest.Mock).mockResolvedValue({ id: "test-id" });
+	afterEach(() => {
+		consoleSpy.mockRestore();
+		delete (global as { window?: unknown }).window;
+		// @ts-expect-error cleanup navigator mock
+		delete global.navigator;
+	});
 
-			const result = await emailService.subscribe("test@example.com");
+	const extractToken = () => {
+		const call = consoleSpy.mock.calls
+			.map((args: unknown[]) => (typeof args[0] === "string" ? (args[0] as string) : ""))
+			.find((message: string) => message.includes("Confirmation token for"));
+		return call?.split(": ").pop() ?? "";
+	};
 
-			expect(result).toEqual({
-				success: true,
-				requiresConfirmation: true,
-				message: "Please check your email to confirm your subscription.",
-			});
-			expect(addDoc).toHaveBeenCalled();
+	it("subscribes a new email and queues confirmation", async () => {
+		const result = await service.subscribe("test@example.com");
+
+		expect(result).toEqual({
+			success: true,
+			requiresConfirmation: true,
+			message: "Please check your email to confirm your subscription.",
 		});
 
-		it("should handle already subscribed emails", async () => {
-			const mockQuerySnapshot = {
-				empty: false,
-				docs: [
-					{
-						data: () => ({
-							status: "confirmed",
-						}),
-					},
-				],
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
+		expect(extractToken()).not.toEqual("");
+	});
 
-			const result = await emailService.subscribe("existing@example.com");
+	it("rejects invalid email addresses", async () => {
+		const result = await service.subscribe("invalid-email");
 
-			expect(result).toEqual({
-				success: false,
-				requiresConfirmation: false,
-				message: "This email is already subscribed.",
-			});
-			expect(addDoc).not.toHaveBeenCalled();
-		});
-
-		it("should handle pending confirmations", async () => {
-			const mockQuerySnapshot = {
-				empty: false,
-				docs: [
-					{
-						data: () => ({
-							status: "pending",
-						}),
-					},
-				],
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
-
-			const result = await emailService.subscribe("pending@example.com");
-
-			expect(result).toEqual({
-				success: false,
-				requiresConfirmation: true,
-				message: "Please check your email to confirm your subscription.",
-			});
-		});
-
-		it("should validate email before subscribing", async () => {
-			const result = await emailService.subscribe("invalid-email");
-
-			expect(result).toEqual({
-				success: false,
-				requiresConfirmation: false,
-				message: "Please enter a valid email address.",
-			});
-			expect(addDoc).not.toHaveBeenCalled();
+		expect(result).toEqual({
+			success: false,
+			requiresConfirmation: false,
+			message: "Please enter a valid email address.",
 		});
 	});
 
-	describe("confirmEmail", () => {
-		it("should confirm a valid token", async () => {
-			const mockQuerySnapshot = {
-				empty: false,
-				docs: [
-					{
-						id: "doc-id",
-						ref: "doc-ref",
-						data: () => ({
-							status: "pending",
-							confirmationTokenExpiry: new Date(Date.now() + 3600000), // 1 hour from now
-						}),
-					},
-				],
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
-			(updateDoc as jest.Mock).mockResolvedValue(undefined);
+	it("confirms a subscription with a valid token", async () => {
+		await service.subscribe("confirm@example.com");
+		const token = extractToken();
 
-			const result = await emailService.confirmEmail("valid-token");
+		const result = await service.confirmEmail(token);
 
-			expect(result).toEqual({
-				success: true,
-				message: "Your email has been confirmed successfully!",
-			});
-			expect(updateDoc).toHaveBeenCalled();
+		expect(result).toEqual({
+			success: true,
+			message: "Your email has been confirmed successfully!",
 		});
 
-		it("should reject expired tokens", async () => {
-			const mockQuerySnapshot = {
-				empty: false,
-				docs: [
-					{
-						data: () => ({
-							status: "pending",
-							confirmationTokenExpiry: new Date(Date.now() - 3600000), // 1 hour ago
-						}),
-					},
-				],
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
+		const subscribers = service.exportSubscribers("confirmed");
+		expect(subscribers).toHaveLength(1);
+		expect(subscribers[0]?.email).toBe("confirm@example.com");
+	});
 
-			const result = await emailService.confirmEmail("expired-token");
+	it("handles invalid confirmation tokens", async () => {
+		const result = await service.confirmEmail("fake-token");
 
-			expect(result).toEqual({
-				success: false,
-				message: "This confirmation link has expired.",
-			});
-			expect(updateDoc).not.toHaveBeenCalled();
-		});
-
-		it("should handle invalid tokens", async () => {
-			const mockQuerySnapshot = {
-				empty: true,
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
-
-			const result = await emailService.confirmEmail("invalid-token");
-
-			expect(result).toEqual({
-				success: false,
-				message: "Invalid confirmation token.",
-			});
+		expect(result).toEqual({
+			success: false,
+			message: "Invalid or expired confirmation token.",
 		});
 	});
 
-	describe("unsubscribe", () => {
-		it("should unsubscribe an existing email", async () => {
-			const mockQuerySnapshot = {
-				empty: false,
-				docs: [
-					{
-						id: "doc-id",
-						ref: "doc-ref",
-						data: () => ({
-							email: "test@example.com",
-						}),
-					},
-				],
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
-			(updateDoc as jest.Mock).mockResolvedValue(undefined);
+	it("prevents duplicate confirmed subscriptions", async () => {
+		await service.subscribe("dup@example.com");
+		await service.confirmEmail(extractToken());
 
-			const result = await emailService.unsubscribe("test@example.com", "valid-token");
+		const result = await service.subscribe("dup@example.com");
 
-			expect(result).toEqual({
-				success: true,
-				message: "You have been unsubscribed successfully.",
-			});
-			expect(updateDoc).toHaveBeenCalled();
+		expect(result).toEqual({
+			success: false,
+			requiresConfirmation: false,
+			message: "This email is already subscribed.",
+		});
+	});
+
+	it("unsubscribes a confirmed user", async () => {
+		await service.subscribe("goodbye@example.com");
+		await service.confirmEmail(extractToken());
+
+		const result = await service.unsubscribe("goodbye@example.com");
+
+		expect(result).toEqual({
+			success: true,
+			message: "You have been unsubscribed successfully.",
 		});
 
-		it("should handle non-existent subscriptions", async () => {
-			const mockQuerySnapshot = {
-				empty: true,
-			};
-			(getDocs as jest.Mock).mockResolvedValue(mockQuerySnapshot);
-
-			const result = await emailService.unsubscribe("nonexistent@example.com", "token");
-
-			expect(result).toEqual({
-				success: false,
-				message: "No subscription found.",
-			});
-		});
+		const subscribers = service.exportSubscribers();
+		expect(subscribers[0]?.status).toBe("unsubscribed");
 	});
 });

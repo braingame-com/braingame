@@ -123,13 +123,13 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 						marginBottom: 20,
 					}}
 				>
-					<AccessibleThemedText variant="outlined" size="4xl">
+					<AccessibleThemedText variant="secondary" size="4xl">
 						📡
 					</AccessibleThemedText>
 				</View>
 
 				<AccessibleThemedText
-					variant="solid"
+					variant="primary"
 					size="2xl"
 					weight="semibold"
 					style={{ marginBottom: 10, textAlign: "center" }}
@@ -139,7 +139,7 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 				</AccessibleThemedText>
 
 				<AccessibleThemedText
-					variant="outlined"
+					variant="secondary"
 					size="md"
 					style={{ marginBottom: 20, textAlign: "center" }}
 				>
@@ -150,7 +150,7 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 
 				{connectionType !== "unknown" && (
 					<AccessibleThemedText
-						variant="outlined"
+						variant="secondary"
 						size="sm"
 						style={{ marginBottom: 20, textAlign: "center" }}
 					>
@@ -159,9 +159,9 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 				)}
 
 				<AccessibleThemedButton
-					variant="solid"
+					variant="primary"
 					size="medium"
-					onClick={handleRetry}
+					onPress={handleRetry}
 					accessibilityLabel="Try Again"
 					accessibilityHint="Check internet connection and retry"
 					fullWidth
@@ -178,7 +178,7 @@ export const NetworkErrorBoundary: React.FC<NetworkErrorBoundaryProps> = ({
 						width: "100%",
 					}}
 				>
-					<AccessibleThemedText variant="outlined" size="sm" style={{ textAlign: "center" }}>
+					<AccessibleThemedText variant="secondary" size="sm" style={{ textAlign: "center" }}>
 						Some features may be available offline
 					</AccessibleThemedText>
 				</View>

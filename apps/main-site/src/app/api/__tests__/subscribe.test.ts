@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, it, jest } from "@jest/globals";
 import { NextRequest } from "next/server";
 import { POST } from "../subscribe/route";
 

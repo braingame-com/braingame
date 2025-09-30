@@ -79,7 +79,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (_props) => {
 			{/* Logout Button */}
 			<View style={{ marginTop: "auto", padding: 20, paddingTop: 40 }}>
 				<TouchableOpacity
-					onClick={logout}
+					onPress={logout}
 					style={{
 						backgroundColor: "#ff3b30",
 						paddingVertical: 12,

@@ -111,7 +111,7 @@ export function Toast({
 				{typeIcons[type]}
 			</Text>
 			<Text
-				variant="body"
+				level="body-md"
 				style={{
 					flex: 1,
 					color: "#fff",

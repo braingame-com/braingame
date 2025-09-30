@@ -114,7 +114,7 @@ export const AccessibleThemedButton = withMemo<AccessibleThemedButtonProps>(
 		return (
 			<RNTouchableOpacity
 				disabled={disabled}
-				onClick={handlePress}
+				onPress={handlePress}
 				onPressIn={handlePressIn}
 				onPressOut={handlePressOut}
 				{...buttonAccessibilityProps}

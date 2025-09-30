@@ -74,7 +74,7 @@ const AuthErrorFallback: React.FC<AuthErrorFallbackProps> = ({ error, resetError
 						borderRadius: 8,
 						alignItems: "center",
 					}}
-					onClick={handleRetry}
+					onPress={handleRetry}
 				>
 					<Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>Try Again</Text>
 				</TouchableOpacity>
@@ -85,7 +85,7 @@ const AuthErrorFallback: React.FC<AuthErrorFallbackProps> = ({ error, resetError
 						paddingHorizontal: 30,
 						alignItems: "center",
 					}}
-					onClick={handleGoBack}
+					onPress={handleGoBack}
 				>
 					<Text style={{ color: "#007fff", fontSize: 16 }}>Go Back</Text>
 				</TouchableOpacity>

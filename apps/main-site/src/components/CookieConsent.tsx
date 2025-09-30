@@ -89,8 +89,9 @@ export function CookieConsent() {
 		>
 			<View
 				style={{
+					width: "100%",
 					maxWidth: 1200,
-					marginHorizontal: "auto",
+					alignSelf: "center",
 					flexDirection: "row",
 					alignItems: "center",
 					justifyContent: "space-between",
@@ -100,17 +101,18 @@ export function CookieConsent() {
 			>
 				<View style={{ flex: 1, minWidth: 300 }}>
 					<Text
-						variant="bold"
+						level="body-md"
 						style={{
 							color: "#fff",
 							marginBottom: 8,
 							fontSize: 16,
+							fontWeight: "700",
 						}}
 					>
 						🍪 Cookie Consent
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 20,

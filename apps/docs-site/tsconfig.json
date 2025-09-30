@@ -25,16 +25,19 @@
 		],
 		"baseUrl": "../../",
 		"paths": {
-			"@braingame/bgui": ["./packages/bgui"],
-			"@braingame/utils": ["./packages/utils"],
-			"@braingame/config": ["./packages/config"],
+			"@braingame/bgui": ["./packages/bgui/dist"],
+			"@braingame/bgui/*": ["./packages/bgui/dist/*"],
+			"@braingame/utils": ["./packages/utils/dist"],
+			"@braingame/utils/*": ["./packages/utils/dist/*"],
+			"@braingame/config": ["./packages/config/dist"],
+			"@braingame/config/*": ["./packages/config/dist/*"],
 			"@/*": ["./apps/docs-site/src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../packages/bgui/src/**/*"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
 	"exclude": [
 		"node_modules",
 		"dist",
-		"../../packages/bgui/src/tests"
+		"../../packages/bgui/src"
 	]
 }

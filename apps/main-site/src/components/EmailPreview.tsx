@@ -49,17 +49,18 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 				}}
 			>
 				<Text
-					variant="bold"
+					level="body-md"
 					style={{
 						color: "#fff",
 						marginBottom: 8,
+						fontWeight: "700",
 					}}
 				>
 					Email Preview: {templateName}
 				</Text>
 				<View style={{ marginBottom: 8 }}>
 					<Text
-						variant="small"
+						level="body-sm"
 						style={{
 							color: "#999",
 							marginBottom: 4,
@@ -78,7 +79,7 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 				</View>
 				<View>
 					<Text
-						variant="small"
+						level="body-sm"
 						style={{
 							color: "#999",
 							marginBottom: 4,
@@ -110,7 +111,8 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 				<View style={{ marginRight: 8 }}>
 					<Button
 						onClick={() => setViewMode("html")}
-						variant={viewMode === "html" ? "primary" : "ghost"}
+						variant={viewMode === "html" ? "solid" : "plain"}
+						color="primary"
 						size="sm"
 					>
 						<Text style={{ color: viewMode === "html" ? "#000" : "#999" }}>HTML</Text>
@@ -118,7 +120,8 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 				</View>
 				<Button
 					onClick={() => setViewMode("text")}
-					variant={viewMode === "text" ? "primary" : "ghost"}
+					variant={viewMode === "text" ? "solid" : "plain"}
+					color="primary"
 					size="sm"
 				>
 					<Text style={{ color: viewMode === "text" ? "#000" : "#999" }}>Plain Text</Text>
@@ -168,7 +171,7 @@ export function EmailPreview({ templateName, variables = {} }: EmailPreviewProps
 				}}
 			>
 				<Text
-					variant="small"
+					level="body-sm"
 					style={{
 						color: "#999",
 						marginBottom: 8,

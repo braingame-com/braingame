@@ -2,6 +2,12 @@
  * Analytics utility for tracking user interactions and metrics
  */
 
+declare global {
+	interface Window {
+		gtag?: (...args: unknown[]) => void;
+	}
+}
+
 interface AnalyticsEvent {
 	name: string;
 	category: string;
@@ -19,6 +25,35 @@ interface PageViewEvent {
 interface UserProperties {
 	[key: string]: string | number | boolean | Date;
 }
+
+const EVENT_NAME_MAX_LENGTH = 40;
+const PARAM_VALUE_MAX_LENGTH = 100;
+
+const sanitizeEventName = (name: string) => {
+	const safe = name.replace(/[^a-zA-Z0-9_]/g, "_");
+	return safe.slice(0, EVENT_NAME_MAX_LENGTH) || "event";
+};
+
+const clampParams = (params: Record<string, unknown> | undefined) => {
+	if (!params) return {} as Record<string, unknown>;
+	return Object.fromEntries(
+		Object.entries(params).map(([key, value]) => {
+			if (typeof value === "string" && value.length > PARAM_VALUE_MAX_LENGTH) {
+				return [key, value.slice(0, PARAM_VALUE_MAX_LENGTH)];
+			}
+			return [key, value];
+		}),
+	);
+};
+
+const shouldAnonymize = () => {
+	if (typeof navigator === "undefined") return false;
+	const flags = [
+		navigator.doNotTrack,
+		(navigator as unknown as { msDoNotTrack?: string }).msDoNotTrack,
+	];
+	return flags.includes("1") || flags.includes("yes");
+};
 
 class Analytics {
 	private isInitialized = false;
@@ -197,8 +232,7 @@ class Analytics {
 		}
 
 		// Google Analytics 4
-		if (typeof window !== "undefined" && "gtag" in window) {
-			// @ts-expect-error - gtag is added by Google Analytics script
+		if (typeof window !== "undefined" && typeof window.gtag === "function") {
 			window.gtag("event", event.name, {
 				event_category: event.category,
 				event_label: event.label,
@@ -235,6 +269,54 @@ class Analytics {
 
 // Export singleton instance
 export const analytics = new Analytics();
+
+let activeMeasurementId: string | undefined;
+
+export const initAnalytics = (measurementId: string) => {
+	activeMeasurementId = measurementId;
+	if (typeof window === "undefined" || typeof window.gtag !== "function") {
+		return;
+	}
+	window.gtag("js", new Date());
+	window.gtag("config", measurementId, {
+		page_path: typeof window !== "undefined" ? window.location.pathname : undefined,
+	});
+};
+
+export const trackEvent = (eventName: string, params?: Record<string, unknown>) => {
+	const sanitizedName = sanitizeEventName(eventName);
+	const baseParams = clampParams(params);
+	const payload = shouldAnonymize()
+		? {
+				...baseParams,
+				anonymize_ip: true,
+			}
+		: baseParams;
+
+	analytics.track(sanitizedName, payload);
+
+	if (typeof window !== "undefined" && typeof window.gtag === "function") {
+		window.gtag("event", sanitizedName, payload);
+	}
+};
+
+export const trackPageView = (pagePath: string, extra?: Record<string, unknown>) => {
+	const payload = clampParams({
+		page_path: pagePath,
+		...extra,
+	});
+
+	trackEvent("page_view", payload);
+};
+
+export const setUserId = (userId: string | null) => {
+	if (typeof window === "undefined" || typeof window.gtag !== "function") {
+		return;
+	}
+	window.gtag("config", activeMeasurementId ?? "braingame", {
+		user_id: userId ?? null,
+	});
+};
 
 // Export types
 export type { AnalyticsEvent, PageViewEvent, UserProperties };

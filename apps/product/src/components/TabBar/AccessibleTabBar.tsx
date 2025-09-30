@@ -49,7 +49,7 @@ const TabItem = withMemo<{
 	route: Route<string>;
 	index: number;
 	focused: boolean;
-	onClick: () => void;
+	onPress: () => void;
 	onLongPress: () => void;
 }>(({ route, index: _index, focused, onPress, onLongPress }) => {
 	const { theme } = useTheme();
@@ -93,7 +93,7 @@ const TabItem = withMemo<{
 
 	return (
 		<TouchableOpacity
-			onClick={handlePress}
+			onPress={handlePress}
 			onLongPress={onLongPress}
 			style={[tabBarStyles.tabItem]}
 			{...accessibilityProps}
@@ -232,7 +232,7 @@ export const AccessibleTabBar: React.FC<BottomTabBarProps> = ({
 							route={route}
 							index={index}
 							focused={isFocused}
-							onClick={onPress}
+							onPress={onPress}
 							onLongPress={onLongPress}
 						/>
 					);

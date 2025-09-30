@@ -6,7 +6,7 @@ export default function NotFoundScreen() {
 		<>
 			<Stack.Screen options={{ title: "Oops!" }} />
 			<PageWrapper>
-				<Text variant="h1">This screen doesn't exist.</Text>
+				<Text level="h1">This screen doesn't exist.</Text>
 				<Link href="/">Go to home screen!</Link>
 			</PageWrapper>
 		</>

@@ -18,8 +18,9 @@ export default function CookiesPage() {
 		>
 			<View
 				style={{
+					width: "100%",
 					maxWidth: 800,
-					marginHorizontal: "auto",
+					alignSelf: "center",
 					paddingVertical: 40,
 				}}
 			>
@@ -35,7 +36,7 @@ export default function CookiesPage() {
 				</Link>
 
 				<Text
-					variant="displayTitle"
+					level="h1"
 					style={{
 						color: "#fff",
 						marginBottom: 16,
@@ -45,7 +46,7 @@ export default function CookiesPage() {
 				</Text>
 
 				<Text
-					variant="body"
+					level="body-md"
 					style={{
 						color: "#999",
 						marginBottom: 40,
@@ -57,7 +58,7 @@ export default function CookiesPage() {
 				{/* What Are Cookies */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -66,7 +67,7 @@ export default function CookiesPage() {
 						What Are Cookies?
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -82,7 +83,7 @@ export default function CookiesPage() {
 				{/* Types of Cookies */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -92,7 +93,7 @@ export default function CookiesPage() {
 					</Text>
 
 					<Text
-						variant="subtitle"
+						level="title-sm"
 						style={{
 							color: "#fff",
 							marginBottom: 12,
@@ -102,7 +103,7 @@ export default function CookiesPage() {
 						Essential Cookies
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -114,7 +115,7 @@ export default function CookiesPage() {
 					</Text>
 
 					<Text
-						variant="subtitle"
+						level="title-sm"
 						style={{
 							color: "#fff",
 							marginBottom: 12,
@@ -124,7 +125,7 @@ export default function CookiesPage() {
 						Analytics Cookies
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -141,7 +142,7 @@ export default function CookiesPage() {
 					</View>
 
 					<Text
-						variant="subtitle"
+						level="title-sm"
 						style={{
 							color: "#fff",
 							marginBottom: 12,
@@ -151,7 +152,7 @@ export default function CookiesPage() {
 						Performance Cookies
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -166,7 +167,7 @@ export default function CookiesPage() {
 				{/* Cookie Table */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -230,7 +231,7 @@ export default function CookiesPage() {
 				{/* Managing Cookies */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -239,7 +240,7 @@ export default function CookiesPage() {
 						Managing Cookies
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -260,7 +261,7 @@ export default function CookiesPage() {
 						</Text>
 					</View>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -274,7 +275,7 @@ export default function CookiesPage() {
 				{/* Contact */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -283,7 +284,7 @@ export default function CookiesPage() {
 						Questions?
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -293,7 +294,7 @@ export default function CookiesPage() {
 						If you have questions about our use of cookies, please contact us at:
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#0074D9",
 							textDecorationLine: "underline",

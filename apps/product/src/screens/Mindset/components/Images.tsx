@@ -202,7 +202,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				{shuffledImages.slice(0, Math.min(shuffledImages.length, 15)).map((item, index) => (
 					<TouchableOpacity
 						key={`dot-${item}`}
-						onClick={() => goToSlide(index)}
+						onPress={() => goToSlide(index)}
 						style={{
 							width: 8,
 							height: 8,
@@ -233,7 +233,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 		<View style={mindsetStyles.card}>
 			{/* Card Header */}
 			<View style={mindsetStyles.cardHeader}>
-				<Text variant="title" style={mindsetStyles.cardTitle}>
+				<Text level="title-lg" style={mindsetStyles.cardTitle}>
 					🖼️ Visual Inspiration
 				</Text>
 				<View
@@ -260,7 +260,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				}}
 			>
 				<TouchableOpacity
-					onClick={goToPrevious}
+					onPress={goToPrevious}
 					disabled={currentIndex === 0}
 					style={{
 						backgroundColor: currentIndex === 0 ? "#505060" : "#007fff",
@@ -294,7 +294,7 @@ export const Images: React.FC<ImagesProps> = ({ onComplete, completed }) => {
 				</Text>
 
 				<TouchableOpacity
-					onClick={goToNext}
+					onPress={goToNext}
 					disabled={currentIndex === shuffledImages.length - 1}
 					style={{
 						backgroundColor: currentIndex === shuffledImages.length - 1 ? "#505060" : "#007fff",

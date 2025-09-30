@@ -2,10 +2,12 @@ import type React from "react";
 import { useEffect, useRef } from "react";
 import {
 	FlatList,
+	type GestureResponderEvent,
 	type NativeScrollEvent,
 	type NativeSyntheticEvent,
 	ScrollView,
 	TouchableOpacity,
+	type TouchableOpacityProps,
 	View,
 	type ViewabilityConfig,
 	type ViewStyle,
@@ -87,11 +89,9 @@ export const Trackable: React.FC<TrackableProps> = ({
 	);
 };
 
-interface TrackableTouchableProps
-	extends Omit<React.ComponentProps<typeof TouchableOpacity>, "onPress"> {
+interface TrackableTouchableProps extends TouchableOpacityProps {
 	eventName?: EventName;
 	eventProperties?: EventProperties;
-	onClick?: () => void;
 	children: React.ReactNode;
 }
 
@@ -107,13 +107,13 @@ export const TrackableTouchable: React.FC<TrackableTouchableProps> = ({
 }) => {
 	const { track } = useAnalyticsEvent();
 
-	const handlePress = () => {
+	const handlePress = (event: GestureResponderEvent) => {
 		track(eventName, eventProperties);
-		onPress?.();
+		onPress?.(event);
 	};
 
 	return (
-		<TouchableOpacity onClick={handlePress} {...props}>
+		<TouchableOpacity onPress={handlePress} {...props}>
 			{children}
 		</TouchableOpacity>
 	);

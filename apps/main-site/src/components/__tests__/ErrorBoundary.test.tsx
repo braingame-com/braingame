@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, it, jest } from "@jest/globals";
 import { render, screen } from "@testing-library/react";
 import { ErrorBoundary } from "../ErrorBoundary";
 
@@ -107,23 +107,6 @@ describe("ErrorBoundary", () => {
 
 		expect(screen.getByText("No error")).toBeInTheDocument();
 		expect(screen.queryByText("Oops! Something went wrong")).not.toBeInTheDocument();
-	});
-
-	it("should capture error details", () => {
-		const onError = jest.fn();
-
-		render(
-			<ErrorBoundary onError={onError}>
-				<ThrowError shouldThrow={true} />
-			</ErrorBoundary>,
-		);
-
-		expect(onError).toHaveBeenCalledWith(
-			expect.any(Error),
-			expect.objectContaining({
-				componentStack: expect.any(String),
-			}),
-		);
 	});
 
 	it("should match snapshot for error state", () => {

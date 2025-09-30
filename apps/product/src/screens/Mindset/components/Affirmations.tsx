@@ -165,7 +165,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 		<View style={mindsetStyles.card}>
 			{/* Card Header */}
 			<View style={mindsetStyles.cardHeader}>
-				<Text variant="title" style={mindsetStyles.cardTitle}>
+				<Text level="title-lg" style={mindsetStyles.cardTitle}>
 					🎯 Affirmations
 				</Text>
 				<View
@@ -198,7 +198,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 				].map((option) => (
 					<TouchableOpacity
 						key={option.label}
-						onClick={() => handleModeToggle(option.value)}
+						onPress={() => handleModeToggle(option.value)}
 						style={{
 							flex: 1,
 							paddingVertical: 12,
@@ -229,7 +229,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 					) : (
 						<>
 							<TouchableOpacity
-								onClick={togglePlayback}
+								onPress={togglePlayback}
 								style={[
 									mindsetStyles.button,
 									{ marginBottom: 20, backgroundColor: isPlaying ? "#ff6d00" : "#00a550" },
@@ -356,7 +356,7 @@ export const Affirmations: React.FC<AffirmationsProps> = ({ onComplete, complete
 
 					{/* Mark Complete Button */}
 					<TouchableOpacity
-						onClick={handleTextComplete}
+						onPress={handleTextComplete}
 						style={[mindsetStyles.button, { backgroundColor: "#00a550" }]}
 					>
 						<Text style={mindsetStyles.buttonText}>✓ Mark Complete</Text>

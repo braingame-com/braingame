@@ -16,7 +16,6 @@ const config: ExpoConfig = {
 	owner: "braingame",
 	description:
 		"Master mindfulness through science-backed techniques and personalized brain training exercises",
-	privacy: "public",
 	primaryColor: "#3B82F6",
 	backgroundColor: "#000000",
 	ios: {
@@ -119,9 +118,6 @@ const config: ExpoConfig = {
 	],
 	experiments: {
 		typedRoutes: true,
-	},
-	developer: {
-		tool: null,
 	},
 	extra: {
 		eas: {

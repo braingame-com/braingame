@@ -26,14 +26,6 @@ const robotoMono = Roboto_Mono({
 	fallback: ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "monospace"],
 });
 
-const sharedIcons = [
-	{
-		url: faviconPng.src,
-		type: "image/png",
-		sizes: "32x32",
-	},
-] satisfies NonNullable<Metadata["icons"]>["icon"];
-
 export const metadata: Metadata = {
 	title: {
 		default: "Brain Game - The Future of Personal Development",
@@ -84,9 +76,15 @@ export const metadata: Metadata = {
 		creator: "@braingame",
 	},
 	icons: {
-		icon: sharedIcons,
-		shortcut: sharedIcons,
-		apple: sharedIcons,
+		icon: [
+			{
+				url: faviconPng.src,
+				type: "image/png",
+				sizes: "32x32",
+			},
+		],
+		shortcut: [{ url: faviconPng.src }],
+		apple: [{ url: faviconPng.src }],
 	},
 	manifest: "/manifest.json",
 	themeColor: [

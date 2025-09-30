@@ -49,7 +49,7 @@ export const ThemeDemoScreen: React.FC = () => {
 								Heading 2XL Medium
 							</ThemedText>
 							<ThemedText size="xl">Heading XL Regular</ThemedText>
-							<ThemedText size="lg" variant="outlined">
+							<ThemedText size="lg" variant="secondary">
 								Body Large Secondary
 							</ThemedText>
 							<ThemedText size="md">Body Medium Primary</ThemedText>
@@ -94,10 +94,10 @@ export const ThemeDemoScreen: React.FC = () => {
 							</ThemedText>
 
 							<View style={styles.buttonRow}>
-								<ThemedButton variant="solid" size="small">
+								<ThemedButton variant="primary" size="small">
 									Primary Small
 								</ThemedButton>
-								<ThemedButton variant="outlined" size="small">
+								<ThemedButton variant="secondary" size="small">
 									Secondary
 								</ThemedButton>
 							</View>
@@ -106,16 +106,16 @@ export const ThemeDemoScreen: React.FC = () => {
 								<ThemedButton variant="outline" size="medium">
 									Outline Medium
 								</ThemedButton>
-								<ThemedButton variant="plain" size="medium">
+								<ThemedButton variant="ghost" size="medium">
 									Ghost
 								</ThemedButton>
 							</View>
 
-							<ThemedButton variant="solid" size="large" fullWidth>
+							<ThemedButton variant="primary" size="large" fullWidth>
 								Full Width Large
 							</ThemedButton>
 
-							<ThemedButton variant="solid" disabled fullWidth>
+							<ThemedButton variant="primary" disabled fullWidth>
 								Disabled Button
 							</ThemedButton>
 						</ThemedCard>
@@ -173,15 +173,15 @@ export const ThemeDemoScreen: React.FC = () => {
 								Theme Customization
 							</ThemedText>
 
-							<ThemedText variant="outlined" style={{ marginBottom: 16 }}>
+							<ThemedText variant="secondary" style={{ marginBottom: 16 }}>
 								Customize the app's appearance with different theme modes and color schemes.
 							</ThemedText>
 
 							<ThemedButton
-								variant="solid"
+								variant="primary"
 								size="large"
 								fullWidth
-								onClick={() => setThemeSelectorVisible(true)}
+								onPress={() => setThemeSelectorVisible(true)}
 							>
 								Open Theme Selector
 							</ThemedButton>

@@ -16,18 +16,18 @@ export default function EmailPreviewPage() {
 				flex: 1,
 				backgroundColor: "#000",
 				padding: 20,
-				minHeight: "100%",
 			}}
 		>
 			<View
 				style={{
+					width: "100%",
 					maxWidth: 1200,
-					marginHorizontal: "auto",
+					alignSelf: "center",
 					paddingVertical: 40,
 				}}
 			>
 				<Text
-					variant="displayTitle"
+					level="h1"
 					style={{
 						color: "#fff",
 						marginBottom: 16,
@@ -37,7 +37,7 @@ export default function EmailPreviewPage() {
 				</Text>
 
 				<Text
-					variant="body"
+					level="body-md"
 					style={{
 						color: "#999",
 						marginBottom: 40,

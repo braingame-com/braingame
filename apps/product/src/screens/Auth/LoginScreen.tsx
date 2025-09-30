@@ -106,7 +106,7 @@ export const LoginScreen: React.FC<Props> = () => {
 						{/* Forgot Password */}
 						<TouchableOpacity
 							style={authStyles.forgotPassword}
-							onClick={() => navigation.navigate("ForgotPassword")}
+							onPress={() => navigation.navigate("ForgotPassword")}
 						>
 							<Text style={authStyles.forgotPasswordText}>Forgot password?</Text>
 						</TouchableOpacity>
@@ -114,7 +114,7 @@ export const LoginScreen: React.FC<Props> = () => {
 						{/* Login Button */}
 						<TouchableOpacity
 							style={[authStyles.button, authStyles.primaryButton]}
-							onClick={handleLogin}
+							onPress={handleLogin}
 							disabled={loading}
 						>
 							<Text style={authStyles.primaryButtonText}>
@@ -144,7 +144,7 @@ export const LoginScreen: React.FC<Props> = () => {
 						<View style={{ marginTop: 32, alignItems: "center" }}>
 							<Text style={authStyles.footerText}>
 								Don't have an account?{" "}
-								<Text style={authStyles.footerLink} onClick={() => navigation.navigate("Register")}>
+								<Text style={authStyles.footerLink} onPress={() => navigation.navigate("Register")}>
 									Sign up
 								</Text>
 							</Text>

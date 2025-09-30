@@ -165,7 +165,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 			<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 				{settingsSections.map((section) => (
 					<View key={section.id} style={styles.section}>
-						<ThemedText size="sm" variant="outlined" weight="semibold" style={styles.sectionTitle}>
+						<ThemedText size="sm" variant="secondary" weight="semibold" style={styles.sectionTitle}>
 							{section.title.toUpperCase()}
 						</ThemedText>
 
@@ -177,7 +177,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 										styles.settingItem,
 										itemIndex === section.items.length - 1 && styles.lastItem,
 									]}
-									onClick={item.action || (() => {})}
+									onPress={item.action || (() => {})}
 									disabled={!item.action && !item.onToggle}
 								>
 									<View style={styles.settingLeft}>
@@ -186,7 +186,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 											<ThemedText size="md" weight="medium">
 												{item.title}
 											</ThemedText>
-											<ThemedText size="sm" variant="outlined">
+											<ThemedText size="sm" variant="secondary">
 												{item.description}
 											</ThemedText>
 										</View>
@@ -205,7 +205,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 											thumbColor="#fff"
 										/>
 									) : item.showArrow !== false ? (
-										<ThemedText variant="outlined">→</ThemedText>
+										<ThemedText variant="secondary">→</ThemedText>
 									) : null}
 								</TouchableOpacity>
 							))}
@@ -215,7 +215,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 
 				{/* Danger Zone */}
 				<View style={[styles.section, { marginBottom: 40 }]}>
-					<ThemedText size="sm" variant="outlined" weight="semibold" style={styles.sectionTitle}>
+					<ThemedText size="sm" variant="secondary" weight="semibold" style={styles.sectionTitle}>
 						DANGER ZONE
 					</ThemedText>
 
@@ -224,7 +224,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 							<ThemedText size="md" variant="error" weight="medium">
 								Clear Cache
 							</ThemedText>
-							<ThemedText size="sm" variant="outlined">
+							<ThemedText size="sm" variant="secondary">
 								Free up storage space
 							</ThemedText>
 						</TouchableOpacity>
@@ -233,7 +233,7 @@ export const ThemedSettingsScreen: React.FC = () => {
 							<ThemedText size="md" variant="error" weight="medium">
 								Delete Account
 							</ThemedText>
-							<ThemedText size="sm" variant="outlined">
+							<ThemedText size="sm" variant="secondary">
 								Permanently remove your data
 							</ThemedText>
 						</TouchableOpacity>

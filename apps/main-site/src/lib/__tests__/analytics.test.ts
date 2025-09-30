@@ -1,13 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, it, jest } from "@jest/globals";
 import { initAnalytics, setUserId, trackEvent, trackPageView } from "../analytics";
 
 type GtagArg = Record<string, unknown> | string | number | boolean | null | undefined;
-type GtagFunction = (...args: GtagArg[]) => void;
 
-// Mock gtag
 declare global {
 	interface Window {
-		gtag?: GtagFunction;
+		gtag?: (...args: unknown[]) => void;
 		dataLayer?: GtagArg[][];
 	}
 }
@@ -21,7 +19,7 @@ describe("Analytics", () => {
 		window.dataLayer = [];
 		window.gtag = jest.fn((...args: GtagArg[]) => {
 			window.dataLayer?.push(args);
-		});
+		}) as unknown as (...args: unknown[]) => void;
 
 		// Clear localStorage
 		localStorage.clear();
@@ -150,10 +148,11 @@ describe("Analytics", () => {
 
 			const calls = (window.gtag as jest.Mock).mock.calls;
 			const eventCall = calls.find((call) => call[0] === "event");
-			const params = eventCall?.[2];
+			const params = eventCall?.[2] as Record<string, unknown> | undefined;
 
 			// Should truncate long strings
-			expect(params.long_param.length).toBeLessThanOrEqual(100);
+			expect(typeof params?.long_param).toBe("string");
+			expect((params?.long_param as string).length).toBeLessThanOrEqual(100);
 		});
 	});
 

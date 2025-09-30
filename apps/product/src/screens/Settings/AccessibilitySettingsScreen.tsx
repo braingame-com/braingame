@@ -43,7 +43,7 @@ const FontSizeSelector = withMemo(() => {
 	return (
 		<View style={{ marginBottom: theme.sizes.spacingLG }}>
 			<AccessibleThemedText
-				variant="solid"
+				variant="primary"
 				size="lg"
 				weight="semibold"
 				style={{ marginBottom: theme.sizes.spacingMD }}
@@ -58,7 +58,7 @@ const FontSizeSelector = withMemo(() => {
 						key={option.id}
 						variant={fontSize === option.value ? "primary" : "outline"}
 						size="medium"
-						onClick={() => handleFontSizeChange(option.value)}
+						onPress={() => handleFontSizeChange(option.value)}
 						accessibilityLabel={`${option.label} text size`}
 						accessibilityHint={`Changes all text to ${option.scale * 100}% of normal size`}
 						style={{ flex: 1, minWidth: 80 }}
@@ -69,7 +69,7 @@ const FontSizeSelector = withMemo(() => {
 			</View>
 
 			<AccessibleThemedText
-				variant="outlined"
+				variant="secondary"
 				size="sm"
 				style={{
 					marginTop: theme.sizes.spacingMD,
@@ -123,7 +123,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 				{
 					text: "Reset",
 					style: "destructive",
-					onClick: () => {
+					onPress: () => {
 						// Reset logic would go here
 						announce("Settings reset to defaults");
 					},
@@ -145,7 +145,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 			>
 				<AccessibleThemedView variant="background" style={{ marginBottom: theme.sizes.spacingXL }}>
 					<AccessibleThemedText
-						variant="solid"
+						variant="primary"
 						size="3xl"
 						weight="bold"
 						style={{ marginBottom: theme.sizes.spacingSM }}
@@ -153,7 +153,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 					>
 						Accessibility
 					</AccessibleThemedText>
-					<AccessibleThemedText variant="outlined" size="md">
+					<AccessibleThemedText variant="secondary" size="md">
 						Customize your experience for better accessibility
 					</AccessibleThemedText>
 				</AccessibleThemedView>
@@ -180,7 +180,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 					}}
 				>
 					<AccessibleThemedText
-						variant="solid"
+						variant="primary"
 						size="lg"
 						weight="semibold"
 						style={{ marginBottom: theme.sizes.spacingMD }}
@@ -216,7 +216,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 					}}
 				>
 					<AccessibleThemedText
-						variant="solid"
+						variant="primary"
 						size="lg"
 						weight="semibold"
 						style={{ marginBottom: theme.sizes.spacingMD }}
@@ -237,7 +237,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 					</View>
 
 					<AccessibleThemedText
-						variant="outlined"
+						variant="secondary"
 						size="sm"
 						style={{ marginTop: theme.sizes.spacingMD }}
 					>
@@ -251,7 +251,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 						variant="outline"
 						size="large"
 						fullWidth
-						onClick={handleResetSettings}
+						onPress={handleResetSettings}
 						accessibilityLabel="Reset all settings"
 						accessibilityHint="Resets all accessibility preferences to default values"
 					>
@@ -269,7 +269,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 					}}
 				>
 					<AccessibleThemedText
-						variant="solid"
+						variant="primary"
 						size="md"
 						weight="semibold"
 						style={{ marginBottom: theme.sizes.spacingSM }}
@@ -278,7 +278,7 @@ export const AccessibilitySettingsScreen: React.FC = () => {
 						Accessibility Tips
 					</AccessibleThemedText>
 
-					<AccessibleThemedText variant="outlined" size="sm">
+					<AccessibleThemedText variant="secondary" size="sm">
 						• Use VoiceOver (iOS) or TalkBack (Android) for screen reading{"\n"}• Enable Reduce
 						Motion to minimize animations{"\n"}• Increase text size for better readability{"\n"}•
 						Use high contrast mode for better visibility
@@ -312,7 +312,7 @@ const StatusRow = withMemo<{
 			accessibilityRole="text"
 			accessibilityLabel={`${label}: ${enabled ? "Enabled" : "Disabled"}`}
 		>
-			<AccessibleThemedText variant="solid" size="md">
+			<AccessibleThemedText variant="primary" size="md">
 				{label}
 			</AccessibleThemedText>
 			<AccessibleThemedText variant={enabled ? "success" : "secondary"} size="sm" weight="medium">

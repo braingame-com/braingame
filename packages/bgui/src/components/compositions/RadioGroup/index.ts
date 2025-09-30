@@ -1,5 +1,6 @@
 export { RadioGroup, RadioGroupContext, useRadioGroupContext } from "./RadioGroup";
 export type {
+	RadioGroupChangeEvent,
 	RadioGroupContextValue,
 	RadioGroupOrientation,
 	RadioGroupProps,

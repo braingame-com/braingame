@@ -35,7 +35,7 @@ export default function PrivacyPage() {
 				</Link>
 
 				<Text
-					variant="displayTitle"
+					level="h1"
 					style={{
 						color: "#fff",
 						marginBottom: 16,
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
 				</Text>
 
 				<Text
-					variant="body"
+					level="body-md"
 					style={{
 						color: "#999",
 						marginBottom: 40,
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
 				{/* Introduction */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
 						Introduction
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
 				{/* Information We Collect */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -92,7 +92,7 @@ export default function PrivacyPage() {
 					</Text>
 
 					<Text
-						variant="subtitle"
+						level="title-sm"
 						style={{
 							color: "#fff",
 							marginBottom: 12,
@@ -102,7 +102,7 @@ export default function PrivacyPage() {
 						Personal Information
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
 					</View>
 
 					<Text
-						variant="subtitle"
+						level="title-sm"
 						style={{
 							color: "#fff",
 							marginBottom: 12,
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
 						Automatically Collected Information
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -157,7 +157,7 @@ export default function PrivacyPage() {
 				{/* How We Use Your Information */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -166,7 +166,7 @@ export default function PrivacyPage() {
 						How We Use Your Information
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -192,7 +192,7 @@ export default function PrivacyPage() {
 				{/* Data Sharing */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -201,7 +201,7 @@ export default function PrivacyPage() {
 						Information Sharing
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -227,7 +227,7 @@ export default function PrivacyPage() {
 				{/* Data Security */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -236,7 +236,7 @@ export default function PrivacyPage() {
 						Data Security
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -251,7 +251,7 @@ export default function PrivacyPage() {
 				{/* Your Rights */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -260,7 +260,7 @@ export default function PrivacyPage() {
 						Your Rights
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -288,7 +288,7 @@ export default function PrivacyPage() {
 				{/* Contact */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -297,7 +297,7 @@ export default function PrivacyPage() {
 						Contact Us
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,
@@ -308,7 +308,7 @@ export default function PrivacyPage() {
 						us at:
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#0074D9",
 							textDecorationLine: "underline",
@@ -321,7 +321,7 @@ export default function PrivacyPage() {
 				{/* Updates */}
 				<View style={{ marginBottom: 32 }}>
 					<Text
-						variant="title"
+						level="title-md"
 						style={{
 							color: "#fff",
 							marginBottom: 16,
@@ -330,7 +330,7 @@ export default function PrivacyPage() {
 						Changes to This Policy
 					</Text>
 					<Text
-						variant="body"
+						level="body-md"
 						style={{
 							color: "#ccc",
 							lineHeight: 24,

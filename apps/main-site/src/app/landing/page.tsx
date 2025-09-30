@@ -43,7 +43,7 @@ export default function LandingPage() {
 
 	return (
 		<BGUIThemeProvider>
-			<Box style={{ minHeight: "100vh", backgroundColor: "#050505" }}>
+			<Box style={{ flex: 1, backgroundColor: "#050505" }}>
 				<Header
 					brand={<Typography level="title-sm">Brain Game</Typography>}
 					links={[
@@ -59,10 +59,10 @@ export default function LandingPage() {
 				<Container style={{ paddingVertical: 64 }}>
 					<Stack spacing="xl">
 						<Stack spacing="md">
-							<Typography level="eyebrow" textColor="#9ef7ff">
+							<Typography level="title-sm" textColor="#9ef7ff">
 								Lead Generation
 							</Typography>
-							<Typography level="display" style={{ color: "white" }}>
+							<Typography level="h1" style={{ color: "white" }}>
 								Enterprise UI with startup velocity
 							</Typography>
 							<Typography level="body-lg" style={{ color: "rgba(255,255,255,0.72)" }}>
@@ -93,7 +93,7 @@ export default function LandingPage() {
 
 						{status === "submitted" ? (
 							<Box style={{ backgroundColor: "#122b39", padding: 16, borderRadius: 12 }}>
-								<Typography style={{ color: "#a7f3ff" }}>
+								<Typography level="body-md" style={{ color: "#a7f3ff" }}>
 									Thanks! You'll hear from us when the next component drop is ready.
 								</Typography>
 							</Box>
@@ -142,7 +142,7 @@ export default function LandingPage() {
 						) : null}
 
 						<Stack spacing="sm">
-							<Typography style={{ color: "rgba(255,255,255,0.65)" }}>
+							<Typography level="body-md" style={{ color: "rgba(255,255,255,0.65)" }}>
 								Explore the component docs to see live examples or jump straight into the codebase.
 							</Typography>
 							<Link href="https://github.com/jordancrow-stewart/braingame" target="_blank">
@@ -153,26 +153,28 @@ export default function LandingPage() {
 				</Container>
 
 				<Footer
-					brand={{ label: "Brain Game", href: "/" }}
+					brand={<Link href="/">Brain Game</Link>}
+					backgroundColor="#050505"
+					links={[
+						{ label: "Docs", href: "https://braingame.dev/docs" },
+						{ label: "Components", href: "https://braingame.dev/docs/components" },
+					]}
+					legalLinks={[
+						{ label: "Terms", href: "/terms" },
+						{ label: "Privacy", href: "/privacy" },
+					]}
 					socialLinks={[
 						{
-							icon: "github",
+							icon: "code",
 							label: "GitHub",
 							href: "https://github.com/jordancrow-stewart/braingame",
 						},
-						{ icon: "x", label: "Twitter", href: "https://twitter.com/braingame" },
+						{
+							icon: "share",
+							label: "Twitter",
+							href: "https://twitter.com/braingame",
+						},
 					]}
-					links={[
-						[
-							{ label: "Docs", href: "https://braingame.dev/docs" },
-							{ label: "Components", href: "https://braingame.dev/docs/components" },
-						],
-						[
-							{ label: "Terms", href: "/terms" },
-							{ label: "Privacy", href: "/privacy" },
-						],
-					]}
-					style={{ backgroundColor: "#050505", borderTop: "1px solid rgba(255,255,255,0.12)" }}
 				/>
 			</Box>
 		</BGUIThemeProvider>

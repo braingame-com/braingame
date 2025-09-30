@@ -9,8 +9,10 @@
 		"emitDeclarationOnly": false,
 		"paths": {
 			"@/*": ["./*"],
-			"@braingame/bgui": ["../../packages/bgui"],
-			"@braingame/utils": ["../../packages/utils"]
+			"@braingame/bgui": ["../../packages/bgui/dist"],
+			"@braingame/bgui/*": ["../../packages/bgui/dist/*"],
+			"@braingame/utils": ["../../packages/utils/dist"],
+			"@braingame/utils/*": ["../../packages/utils/dist/*"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],

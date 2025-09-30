@@ -27,7 +27,7 @@ interface ActionItem {
 	icon: string;
 	title: string;
 	description: string;
-	onClick: () => void;
+	onPress: () => void;
 }
 
 interface ActivityItem {
@@ -65,7 +65,7 @@ const ActionCard = withMemo<{ item: ActionItem; index: number; total: number }>(
 		return (
 			<TouchableOpacity
 				style={dashboardStyles.actionCard}
-				onClick={item.onPress}
+				onPress={item.onPress}
 				{...getAccessibilityProps(label, hint, "button")}
 			>
 				<Text style={dashboardStyles.actionIcon} importantForAccessibility="no">
@@ -91,7 +91,7 @@ const ActionCard = withMemo<{ item: ActionItem; index: number; total: number }>(
 // Accessible Activity Card
 const ActivityCard = withMemo<{
 	item: ActivityItem;
-	onClick: (id: string) => void;
+	onPress: (id: string) => void;
 	index: number;
 	total: number;
 }>(({ item, onPress, index, total }) => {
@@ -101,7 +101,7 @@ const ActivityCard = withMemo<{
 	return (
 		<TouchableOpacity
 			style={dashboardStyles.activityItem}
-			onClick={() => onPress(item.id)}
+			onPress={() => onPress(item.id)}
 			{...getAccessibilityProps(label, hint, "button")}
 		>
 			<View style={dashboardStyles.activityDot} />
@@ -202,14 +202,14 @@ export const DashboardScreenAccessible: React.FC<Props> = ({ navigation }) => {
 				icon: "🧠",
 				title: "Mindset Training",
 				description: "Daily practice for peak performance",
-				onClick: navigateToMindset,
+				onPress: navigateToMindset,
 			},
 			{
 				id: "tasks",
 				icon: "✅",
 				title: "Today's Tasks",
 				description: "12 tasks remaining",
-				onClick: () => handleTaskPress("task-1"),
+				onPress: () => handleTaskPress("task-1"),
 			},
 		],
 		[navigateToMindset, handleTaskPress],
@@ -232,7 +232,7 @@ export const DashboardScreenAccessible: React.FC<Props> = ({ navigation }) => {
 
 	const renderActivity = useCallback(
 		({ item, index }: { item: ActivityItem; index: number }) => (
-			<ActivityCard item={item} onClick={handleTaskPress} index={index} total={activities.length} />
+			<ActivityCard item={item} onPress={handleTaskPress} index={index} total={activities.length} />
 		),
 		[handleTaskPress, activities.length],
 	);

@@ -10,6 +10,8 @@ interface TrackingButtonProps extends ButtonProps {
 	trackingMetadata?: Record<string, unknown>;
 }
 
+type ButtonClickEvent = Parameters<NonNullable<ButtonProps["onClick"]>>[0];
+
 /**
  * Button component that automatically tracks clicks
  */
@@ -22,7 +24,7 @@ export const TrackingButton = ({
 }: TrackingButtonProps) => {
 	const { trackClick } = useAnalytics();
 
-	const handlePress = () => {
+	const handlePress = (event: ButtonClickEvent) => {
 		// Track the click
 		if (trackingEvent) {
 			trackClick(trackingEvent, {
@@ -32,7 +34,7 @@ export const TrackingButton = ({
 		}
 
 		// Call original onClick
-		onClick?.();
+		onClick?.(event);
 	};
 
 	return <Button {...props} onClick={handlePress} />;

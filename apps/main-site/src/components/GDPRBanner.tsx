@@ -97,7 +97,7 @@ export function GDPRBanner() {
 				}}
 			>
 				<Text
-					variant="title"
+					level="title-md"
 					style={{
 						color: "#fff",
 						marginBottom: 16,
@@ -107,7 +107,7 @@ export function GDPRBanner() {
 				</Text>
 
 				<Text
-					variant="body"
+					level="body-md"
 					style={{
 						color: "#ccc",
 						marginBottom: 24,
@@ -135,7 +135,7 @@ export function GDPRBanner() {
 							<Text style={{ color: "#fff", fontWeight: "bold", marginBottom: 4 }}>
 								Necessary Cookies
 							</Text>
-							<Text variant="small" style={{ color: "#999" }}>
+							<Text level="body-sm" style={{ color: "#999" }}>
 								Required for the website to function properly
 							</Text>
 						</View>
@@ -157,13 +157,14 @@ export function GDPRBanner() {
 							<Text style={{ color: "#fff", fontWeight: "bold", marginBottom: 4 }}>
 								Analytics Cookies
 							</Text>
-							<Text variant="small" style={{ color: "#999" }}>
+							<Text level="body-sm" style={{ color: "#999" }}>
 								Help us understand how you use our website
 							</Text>
 						</View>
 						<Button
 							onClick={() => setSettings({ ...settings, analytics: !settings.analytics })}
-							variant={settings.analytics ? "primary" : "ghost"}
+							variant={settings.analytics ? "solid" : "plain"}
+							color="primary"
 							size="sm"
 						>
 							<Text style={{ color: settings.analytics ? "#000" : "#fff" }}>
@@ -187,13 +188,14 @@ export function GDPRBanner() {
 							<Text style={{ color: "#fff", fontWeight: "bold", marginBottom: 4 }}>
 								Marketing Cookies
 							</Text>
-							<Text variant="small" style={{ color: "#999" }}>
+							<Text level="body-sm" style={{ color: "#999" }}>
 								Used to deliver personalized advertisements
 							</Text>
 						</View>
 						<Button
 							onClick={() => setSettings({ ...settings, marketing: !settings.marketing })}
-							variant={settings.marketing ? "primary" : "ghost"}
+							variant={settings.marketing ? "solid" : "plain"}
+							color="primary"
 							size="sm"
 						>
 							<Text style={{ color: settings.marketing ? "#000" : "#fff" }}>
@@ -215,13 +217,14 @@ export function GDPRBanner() {
 							<Text style={{ color: "#fff", fontWeight: "bold", marginBottom: 4 }}>
 								Preference Cookies
 							</Text>
-							<Text variant="small" style={{ color: "#999" }}>
+							<Text level="body-sm" style={{ color: "#999" }}>
 								Remember your settings and preferences
 							</Text>
 						</View>
 						<Button
 							onClick={() => setSettings({ ...settings, preferences: !settings.preferences })}
-							variant={settings.preferences ? "primary" : "ghost"}
+							variant={settings.preferences ? "solid" : "plain"}
+							color="primary"
 							size="sm"
 						>
 							<Text style={{ color: settings.preferences ? "#000" : "#fff" }}>

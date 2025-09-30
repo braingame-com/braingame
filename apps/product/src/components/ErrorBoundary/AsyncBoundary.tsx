@@ -145,7 +145,7 @@ export function AsyncBoundary<T>({
 				}}
 			>
 				<ActivityIndicator size="large" color={theme.colors.primary} />
-				<AccessibleThemedText variant="outlined" size="md" style={{ marginTop: 16 }}>
+				<AccessibleThemedText variant="secondary" size="md" style={{ marginTop: 16 }}>
 					Loading...
 				</AccessibleThemedText>
 			</View>
@@ -172,7 +172,7 @@ export function AsyncBoundary<T>({
 				</AccessibleThemedText>
 
 				<AccessibleThemedText
-					variant="solid"
+					variant="primary"
 					size="lg"
 					weight="semibold"
 					style={{ marginBottom: 10, textAlign: "center" }}
@@ -181,7 +181,7 @@ export function AsyncBoundary<T>({
 				</AccessibleThemedText>
 
 				<AccessibleThemedText
-					variant="outlined"
+					variant="secondary"
 					size="md"
 					style={{ marginBottom: 20, textAlign: "center" }}
 				>
@@ -190,9 +190,9 @@ export function AsyncBoundary<T>({
 
 				{showRetry && (
 					<AccessibleThemedButton
-						variant="solid"
+						variant="primary"
 						size="medium"
-						onClick={retry}
+						onPress={retry}
 						accessibilityLabel="Retry"
 						accessibilityHint="Try loading the data again"
 					>

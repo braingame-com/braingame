@@ -13,7 +13,7 @@ const STORAGE_KEY = "braingame_email_subscribers";
 const CONFIRMATION_TOKEN_KEY = "braingame_confirmation_tokens";
 
 // In production, this would be handled by a backend service
-class EmailService {
+export class EmailService {
 	private subscribers: Map<string, EmailSubscriber>;
 	private confirmationTokens: Map<string, string>; // token -> email
 
@@ -176,8 +176,12 @@ class EmailService {
 
 		return {
 			success: true,
-			message: "Your subscription has been confirmed!",
+			message: "Your email has been confirmed successfully!",
 		};
+	}
+
+	async confirmEmail(token: string) {
+		return this.confirmSubscription(token);
 	}
 
 	async unsubscribe(email: string): Promise<{
