@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Alert } from "./Alert";
-export type { AlertProps } from "./AlertProps";
+export { Alert } from "../../compositions/Alert";
+export type { AlertProps, AlertStatus, AlertVariant, AlertSize } from "../../compositions/Alert";

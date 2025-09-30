@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Chip } from "./Chip";
-export type { ChipProps } from "./ChipProps";
+export { Chip } from "../../primitives/Chip";
+export type { ChipProps, ChipColor, ChipSize, ChipVariant } from "../../primitives/Chip";
