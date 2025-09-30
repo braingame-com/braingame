@@ -1,3 +1,6 @@
-// @ts-nocheck
-export { RadioGroup } from "./RadioGroup";
-export type { RadioGroupProps } from "./RadioGroupProps";
+export { RadioGroup } from "../../compositions/RadioGroup";
+export type {
+        RadioGroupProps,
+        RadioGroupContextValue,
+        RadioGroupOrientation,
+} from "../../compositions/RadioGroup";
