@@ -116,6 +116,23 @@ export const Button = forwardRef<View, ButtonProps>(
 			: undefined;
 
 		const isDisabled = disabled || loading;
+		const customStyle = StyleSheet.flatten(style as ViewStyle | undefined);
+
+		const accessibilityState = {
+			disabled: isDisabled,
+			busy: loading || undefined,
+			pressed: ariaPressed === true ? true : undefined,
+		} as const;
+
+		const platformProps: Record<string, unknown> =
+			Platform.OS === "web"
+				? {
+						role: "button",
+						...(tabIndex !== undefined ? { tabIndex } : {}),
+						...(type ? { type } : {}),
+						...(ariaPressed !== undefined ? { "aria-pressed": ariaPressed } : {}),
+					}
+				: {};
 		const handlePressIn = (event: GestureResponderEvent) => {
 			setIsPressed(true);
 			onPressIn?.(event);
@@ -135,7 +152,14 @@ export const Button = forwardRef<View, ButtonProps>(
 		const renderLoadingIndicator = () => {
 			if (!loading) return null;
 			if (loadingIndicator) return loadingIndicator;
-			return <ActivityIndicator size={size === "sm" ? "small" : "small"} color={textColor} />;
+
+			return (
+				<ActivityIndicator
+					size={size === "lg" ? "large" : "small"}
+					color={textColor}
+					testID="bgui-button-loading-indicator"
+				/>
+			);
 		};
 
 		const pressableStyle: ViewStyle = {
@@ -151,6 +175,7 @@ export const Button = forwardRef<View, ButtonProps>(
 				onPress={handlePress}
 				onPressIn={handlePressIn}
 				onPressOut={handlePressOut}
+				focusable={!isDisabled}
 				style={({ pressed }) => [
 					styles.root,
 					{
@@ -159,15 +184,18 @@ export const Button = forwardRef<View, ButtonProps>(
 						borderWidth: variantStyles.borderWidth ?? 0,
 						width: fullWidth ? "100%" : undefined,
 						opacity: pressed || isPressed ? 0.9 : pressableStyle.opacity,
+						transform: [{ scale: pressed || isPressed ? 0.97 : 1 }],
 						paddingHorizontal: sizeStyles.paddingHorizontal,
 						paddingVertical: sizeStyles.paddingVertical,
 						minHeight: sizeStyles.minHeight,
 					},
-					style as ViewStyle,
+					customStyle,
 				]}
 				testID={testID}
 				accessibilityLabel={ariaLabel}
-				accessibilityState={{ disabled: isDisabled }}
+				accessibilityRole="button"
+				accessibilityState={accessibilityState}
+				{...platformProps}
 				{...rest}
 			>
 				<Box style={styles.contentWrapper}>

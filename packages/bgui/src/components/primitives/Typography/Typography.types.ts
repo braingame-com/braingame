@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { StyleProp, TextStyle } from "react-native";
+import type { TextProps as RNTextProps, StyleProp, TextStyle } from "react-native";
 
 export type TypographyLevel =
 	| "h1"
@@ -15,7 +15,7 @@ export type TypographyLevel =
 	| "body-xs"
 	| "inherit";
 
-export interface TypographyProps {
+export interface TypographyProps extends Omit<RNTextProps, "style"> {
 	children?: ReactNode;
 	color?: "primary" | "neutral" | "danger" | "success" | "warning";
 	variant?: "plain" | "outlined" | "soft" | "solid";
@@ -29,9 +29,6 @@ export interface TypographyProps {
 	textColor?: string;
 	className?: string;
 	style?: StyleProp<TextStyle>;
-	numberOfLines?: number;
-	ellipsizeMode?: "head" | "middle" | "tail" | "clip";
-	testID?: string;
 	"aria-label"?: string;
 	"aria-describedby"?: string;
 	"aria-labelledby"?: string;
