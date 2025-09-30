@@ -1,6 +1,5 @@
-// @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
-import { Stack } from "./Stack.web";
+import { Stack } from ".";
 
 const meta = {
 	title: "Components/Stack",
@@ -8,8 +7,7 @@ const meta = {
 	parameters: {
 		docs: {
 			description: {
-				component:
-					"A layout component that arranges children with consistent spacing using flexbox.",
+				component: "A layout primitive that arranges children with consistent spacing.",
 			},
 		},
 	},
