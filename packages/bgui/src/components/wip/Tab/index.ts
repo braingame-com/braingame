@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Tab } from "./Tab";
-export type { TabProps } from "./TabProps";
+export { Tab } from "../../compositions/Tabs";
+export type { TabProps } from "../../compositions/Tabs";
