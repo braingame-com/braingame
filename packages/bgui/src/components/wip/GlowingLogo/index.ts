@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { GlowingLogo } from "./GlowingLogo";
-export type { GlowingLogoProps } from "./GlowingLogoProps";
+export { GlowingLogo } from "../../compositions/GlowingLogo";
+export type { GlowingLogoProps } from "../../compositions/GlowingLogo";

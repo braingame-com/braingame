@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { LinearProgress } from "./LinearProgress";
-export type { LinearProgressProps } from "./LinearProgressProps";
+export { LinearProgress } from "../../primitives/LinearProgress";
+export type { LinearProgressProps } from "../../primitives/LinearProgress";
