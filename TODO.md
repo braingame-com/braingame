@@ -6,7 +6,7 @@
 **Goal:** Get lead generation running ASAP
 
 #### Fix BGUI Architecture Issue
-- [ ] Fix dual platform implementation - components should be single .tsx files using React Native Web
+- [x] Fix dual platform implementation - components should be single .tsx files using React Native Web
 
 #### Set up docs site properly
 - [ ] Make sure docs site is using a header/sidebar etc. from bgui 
