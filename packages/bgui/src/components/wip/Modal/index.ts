@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Modal } from "./Modal";
-export type { ModalProps } from "./ModalProps";
+export { Modal } from "../../compositions/Modal";
+export type { ModalProps } from "../../compositions/Modal";
