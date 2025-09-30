@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { IconButton } from "./IconButton";
-export type { IconButtonProps } from "./IconButtonProps";
+export { IconButton } from "../../compositions/IconButton";
+export type { IconButtonProps } from "../../compositions/IconButton";
