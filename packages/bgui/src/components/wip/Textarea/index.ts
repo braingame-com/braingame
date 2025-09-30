@@ -1,3 +1,7 @@
-// @ts-nocheck
-export { Textarea } from "./Textarea";
-export type { TextareaProps } from "./TextareaProps";
+export { Textarea } from "../../primitives/Textarea";
+export type {
+        TextareaProps,
+        TextareaColor,
+        TextareaSize,
+        TextareaVariant,
+} from "../../primitives/Textarea";

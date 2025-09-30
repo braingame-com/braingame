@@ -1,3 +1,2 @@
-// @ts-nocheck
-export { Option, Select } from "./Select";
-export type { SelectProps } from "./SelectProps";
+export { Option, Select } from "../../compositions/Select";
+export type { OptionProps, SelectProps, SelectValue, SelectOptionValue } from "../../compositions/Select";
