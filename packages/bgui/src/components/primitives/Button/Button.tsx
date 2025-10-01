@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react";
 import {
 	ActivityIndicator,
 	type GestureResponderEvent,
@@ -9,7 +9,8 @@ import {
 	type View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { ButtonProps } from "./Button.types";
@@ -21,7 +22,7 @@ type VariantStyle = {
 	color?: string;
 };
 
-const resolveVariantStyles = (variant: string, color: string): VariantStyle => {
+const resolveVariantStyles = (theme: Theme, variant: string, color: string): VariantStyle => {
 	const variants = theme.components.Button.variants as Record<string, Record<string, VariantStyle>>;
 	const variantStyles = variants?.[variant];
 
@@ -32,7 +33,7 @@ const resolveVariantStyles = (variant: string, color: string): VariantStyle => {
 	return variantStyles[color] ?? variantStyles.primary ?? variants.solid?.primary ?? {};
 };
 
-const resolveSizeStyles = (size: NonNullable<ButtonProps["size"]>) => {
+const resolveSizeStyles = (theme: Theme, size: NonNullable<ButtonProps["size"]>) => {
 	const sizeTokens = theme.components.Button.sizes[size];
 
 	return {
@@ -48,20 +49,21 @@ const resolveSizeStyles = (size: NonNullable<ButtonProps["size"]>) => {
 	};
 };
 
-const styles = StyleSheet.create({
-	root: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: theme.radii.sm,
-		borderWidth: 0,
-	},
-	contentWrapper: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
+const createStyles = (theme: Theme) =>
+	StyleSheet.create({
+		root: {
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "center",
+			borderRadius: theme.radii.sm,
+			borderWidth: 0,
+		},
+		contentWrapper: {
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "center",
+		},
+	});
 
 export const Button = forwardRef<View, ButtonProps>(
 	(
@@ -92,26 +94,28 @@ export const Button = forwardRef<View, ButtonProps>(
 	) => {
 		const buttonRef = useRef<View>(null);
 		const [isPressed, setIsPressed] = useState(false);
+		const theme = useTheme();
+		const styles = useMemo(() => createStyles(theme), [theme]);
 
 		useImperativeHandle(ref, () => buttonRef.current || ({} as View));
 
-		const variantStyles = resolveVariantStyles(variant, color);
-		const sizeStyles = resolveSizeStyles(size);
+		const variantStyles = resolveVariantStyles(theme, variant, color);
+		const sizeStyles = resolveSizeStyles(theme, size);
 
 		const backgroundColor = variantStyles.backgroundColor
-			? (theme.colors[variantStyles.backgroundColor as keyof typeof theme.colors] ??
+			? (theme.colors[variantStyles.backgroundColor as keyof Theme["colors"]] ??
 				variantStyles.backgroundColor)
 			: "transparent";
 
 		const textColor = variantStyles.color
-			? (theme.colors[variantStyles.color as keyof typeof theme.colors] ?? variantStyles.color)
+			? (theme.colors[variantStyles.color as keyof Theme["colors"]] ?? variantStyles.color)
 			: theme.colors.onSurface;
 
 		const androidRipple: PressableAndroidRippleConfig | undefined =
 			Platform.OS === "android" ? { color: textColor, borderless: false } : undefined;
 
 		const borderColor = variantStyles.borderColor
-			? (theme.colors[variantStyles.borderColor as keyof typeof theme.colors] ??
+			? (theme.colors[variantStyles.borderColor as keyof Theme["colors"]] ??
 				variantStyles.borderColor)
 			: undefined;
 
