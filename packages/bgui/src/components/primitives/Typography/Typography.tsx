@@ -1,6 +1,7 @@
-import { forwardRef } from "react";
+import { forwardRef, useMemo } from "react";
 import { Platform, StyleSheet, Text, type TextStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import type { TypographyLevel, TypographyProps } from "./Typography.types";
 
@@ -11,7 +12,7 @@ type VariantStyle = {
 	color?: string;
 };
 
-const LEVEL_STYLES: Record<TypographyLevel, TextStyle> = {
+const createLevelStyles = (theme: Theme): Record<TypographyLevel, TextStyle> => ({
 	h1: {
 		fontSize: theme.fontSizes.xl5,
 		fontWeight: "700",
@@ -79,15 +80,16 @@ const LEVEL_STYLES: Record<TypographyLevel, TextStyle> = {
 		fontFamily: "Lexend",
 	},
 	inherit: {},
-};
+});
 
-const resolveThemeColor = (color?: string) => {
+const resolveThemeColor = (theme: Theme, color?: string) => {
 	if (!color) return undefined;
-	const themeColor = theme.colors[color as keyof typeof theme.colors];
+	const themeColor = theme.colors[color as keyof Theme["colors"]];
 	return themeColor ?? color;
 };
 
 const resolveVariantTokens = (
+	theme: Theme,
 	variant: TypographyProps["variant"],
 	color: TypographyProps["color"],
 ): VariantStyle | undefined => {
@@ -129,17 +131,26 @@ export const Typography = forwardRef<Text, TypographyProps>(
 		},
 		ref,
 	) => {
-		const effectiveLevel = level in LEVEL_STYLES ? level : "body-md";
-		const variantTokens = resolveVariantTokens(variant, color);
+		const theme = useTheme();
+		const levelStyles = useMemo(() => createLevelStyles(theme), [theme]);
+		const decoratorStyle = useMemo(
+			() => ({
+				marginLeft: theme.spacing.xs / 2,
+				marginRight: theme.spacing.xs / 2,
+			}),
+			[theme],
+		);
+		const effectiveLevel = level in levelStyles ? level : "body-md";
+		const variantTokens = resolveVariantTokens(theme, variant, color);
 
 		const resolvedTextColor =
 			textColor ??
 			(variantTokens?.color
-				? resolveThemeColor(variantTokens.color)
-				: (resolveThemeColor(color) ?? theme.colors.onSurface));
+				? resolveThemeColor(theme, variantTokens.color)
+				: (resolveThemeColor(theme, color) ?? theme.colors.onSurface));
 
 		const textStyles = StyleSheet.flatten<TextStyle>([
-			LEVEL_STYLES[effectiveLevel as TypographyLevel],
+			levelStyles[effectiveLevel as TypographyLevel],
 			{ color: resolvedTextColor, textAlign },
 			gutterBottom ? { marginBottom: theme.spacing.xs } : null,
 			style,
@@ -148,8 +159,8 @@ export const Typography = forwardRef<Text, TypographyProps>(
 		const containerStyle =
 			variant !== "plain" && variantTokens
 				? {
-						backgroundColor: resolveThemeColor(variantTokens.backgroundColor),
-						borderColor: resolveThemeColor(variantTokens.borderColor),
+						backgroundColor: resolveThemeColor(theme, variantTokens.backgroundColor),
+						borderColor: resolveThemeColor(theme, variantTokens.borderColor),
 						borderWidth: variantTokens.borderWidth ?? (variant === "outlined" ? 1 : 0),
 						borderRadius: theme.radii.xs,
 						paddingHorizontal: theme.spacing.sm,
@@ -208,19 +219,12 @@ export const Typography = forwardRef<Text, TypographyProps>(
 				accessibilityLabel={ariaLabel}
 				accessibilityRole={derivedRole}
 			>
-				{startDecorator ? <Box style={styles.decorator}>{startDecorator}</Box> : null}
+				{startDecorator ? <Box style={decoratorStyle}>{startDecorator}</Box> : null}
 				{textElement}
-				{endDecorator ? <Box style={styles.decorator}>{endDecorator}</Box> : null}
+				{endDecorator ? <Box style={decoratorStyle}>{endDecorator}</Box> : null}
 			</Box>
 		);
 	},
 );
 
 Typography.displayName = "Typography";
-
-const styles = StyleSheet.create({
-	decorator: {
-		marginLeft: theme.spacing.xs / 2,
-		marginRight: theme.spacing.xs / 2,
-	},
-});
