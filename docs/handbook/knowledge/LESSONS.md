@@ -337,6 +337,19 @@ git clean -fdx             # Nuclear option: clean everything
 
 ## Component Architecture
 
+### ✅ In-house Theme Engine Scaffold (2025-01-17)
+**Learning**: Restyle's theme helpers can be replaced with an internal engine that preserves our MD3/Joy token surface while eliminating the external dependency.
+
+**Implementation Notes**:
+- Added `src/theme/engine/` (context, hooks, `createTheme`, and typings) and re-exported them through `@braingame/bgui`.
+- Updated `BGUIThemeProvider` to wrap the internal provider; runtime theme switching now happens without Restyle.
+- Theme tokens continue to live in `theme.ts`, so downstream consumers see the same `theme`, `darkTheme`, and `useTheme` API.
+
+**Next Steps**:
+1. Swap Restyle primitives (`createBox`, etc.) with internal equivalents.
+2. Migrate components to consume tokens via `useTheme` instead of static imports.
+3. Remove Restyle once all consumers are migrated and tests cover light/dark variants.
+
 ### ❌ React Native Web Misconception (03-07-2025)
 **Learning**: Creating separate `.web.tsx` files for React Native components defeats the entire purpose of React Native Web.
 
