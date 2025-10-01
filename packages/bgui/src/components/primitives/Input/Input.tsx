@@ -10,35 +10,54 @@ import {
 	type TextInputProps,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import type { InputProps } from "./Input.types";
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig = {
-	sm: {
-		minHeight: 32,
-		paddingHorizontal: theme.spacing.xs,
-		fontSize: theme.fontSizes.sm,
-		decoratorGap: theme.spacing.xs,
-	},
-	md: {
-		minHeight: 36,
-		paddingHorizontal: theme.spacing.sm,
-		fontSize: theme.fontSizes.md,
-		decoratorGap: theme.spacing.xs,
-	},
-	lg: {
-		minHeight: 44,
-		paddingHorizontal: theme.spacing.md,
-		fontSize: theme.fontSizes.lg,
-		decoratorGap: theme.spacing.sm,
-	},
-} as const;
+const createSizeConfig = (theme: Theme) =>
+	({
+		sm: {
+			minHeight: 32,
+			paddingHorizontal: theme.spacing.xs,
+			fontSize: theme.fontSizes.sm,
+			decoratorGap: theme.spacing.xs,
+		},
+		md: {
+			minHeight: 36,
+			paddingHorizontal: theme.spacing.sm,
+			fontSize: theme.fontSizes.md,
+			decoratorGap: theme.spacing.xs,
+		},
+		lg: {
+			minHeight: 44,
+			paddingHorizontal: theme.spacing.md,
+			fontSize: theme.fontSizes.lg,
+			decoratorGap: theme.spacing.sm,
+		},
+	}) as const;
+
+const createStyles = (theme: Theme) =>
+	StyleSheet.create({
+		container: {
+			flexDirection: "row",
+			alignItems: "center",
+		},
+		input: {
+			flex: 1,
+			paddingVertical: Platform.OS === "web" ? 8 : 0,
+			color: theme.colors.onSurface,
+		},
+		decorator: {
+			justifyContent: "center",
+			alignItems: "center",
+		},
+	});
 
 export const Input = forwardRef<TextInput, InputProps>(
 	(
@@ -81,6 +100,9 @@ export const Input = forwardRef<TextInput, InputProps>(
 	) => {
 		const inputRef = useRef<TextInput>(null);
 		const [focused, setFocused] = useState(false);
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
+		const styles = useMemo(() => createStyles(theme), [theme]);
 
 		useImperativeHandle(ref, () => inputRef.current || ({} as TextInput));
 
@@ -93,7 +115,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 		const sizeStyles = sizeConfig[size];
 
 		const placeholderColor =
-			resolveColorToken(variantStyles.color) ?? theme.colors.onSurfaceVariant;
+			resolveColorToken(theme, variantStyles.color) ?? theme.colors.onSurfaceVariant;
 
 		const handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
 			setFocused(true);
@@ -114,7 +136,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 			styles.input,
 			{
 				fontSize: sizeStyles.fontSize,
-				color: resolveColorToken(variantStyles.color) ?? theme.colors.onSurface,
+				color: resolveColorToken(theme, variantStyles.color) ?? theme.colors.onSurface,
 			},
 		];
 
@@ -126,9 +148,9 @@ export const Input = forwardRef<TextInput, InputProps>(
 						minHeight: sizeStyles.minHeight,
 						paddingHorizontal: sizeStyles.paddingHorizontal,
 						backgroundColor:
-							resolveColorToken(variantStyles.backgroundColor) ?? theme.colors.surface,
+							resolveColorToken(theme, variantStyles.backgroundColor) ?? theme.colors.surface,
 						borderColor:
-							resolveColorToken(variantStyles.borderColor) ?? theme.colors.outlineVariant,
+							resolveColorToken(theme, variantStyles.borderColor) ?? theme.colors.outlineVariant,
 						borderWidth: variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0),
 						borderRadius: theme.radii.sm,
 						width: fullWidth ? "100%" : undefined,
@@ -141,6 +163,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 					style,
 				]),
 			[
+				theme,
 				effectiveColor,
 				focused,
 				fullWidth,
@@ -152,6 +175,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 				variantStyles.borderWidth,
 				disabled,
 				style,
+				styles,
 			],
 		);
 
@@ -226,21 +250,4 @@ export const Input = forwardRef<TextInput, InputProps>(
 		);
 	},
 );
-
 Input.displayName = "Input";
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: "row",
-		alignItems: "center",
-	},
-	input: {
-		flex: 1,
-		paddingVertical: Platform.OS === "web" ? 8 : 0,
-		color: theme.colors.onSurface,
-	},
-	decorator: {
-		justifyContent: "center",
-		alignItems: "center",
-	},
-});
