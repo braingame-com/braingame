@@ -383,7 +383,7 @@ export const Select = forwardRef<View, SelectProps>(
 					]}
 					nativeID={id}
 				>
-					<Box flexDirection="row" alignItems="center" flex={1}>
+					<Box style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
 						{startDecorator ? (
 							<Box style={{ marginRight: sizeStyles.gap }}>{startDecorator}</Box>
 						) : null}
@@ -571,8 +571,8 @@ const SelectOptionItem = ({
 				pressed && !option.disabled ? { backgroundColor: theme.colors.surfaceVariant } : null,
 			]}
 		>
-			<Box flexDirection="row" alignItems="center" justifyContent="space-between">
-				<Box flex={1}>{labelNode}</Box>
+			<Box style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+				<Box style={{ flex: 1 }}>{labelNode}</Box>
 				{multiple && selected ? (
 					<Typography level="body-sm" style={{ color: textColor, marginLeft: theme.spacing.xs }}>
 						✓

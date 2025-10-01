@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { theme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "./Typography";
 
@@ -56,7 +57,7 @@ export const Playground: Story = {
 
 export const Levels: Story = {
 	render: () => (
-		<Box gap="sm">
+		<Box style={{ rowGap: theme.spacing.sm }}>
 			<Typography level="h1">Heading 1</Typography>
 			<Typography level="h2">Heading 2</Typography>
 			<Typography level="title-lg">Title Large</Typography>
@@ -67,7 +68,7 @@ export const Levels: Story = {
 
 export const Variants: Story = {
 	render: () => (
-		<Box flexDirection="row" gap="md">
+		<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
 			<Typography variant="plain" color="primary">
 				Plain
 			</Typography>
@@ -97,7 +98,7 @@ export const WithDecorators: Story = {
 
 export const NoWrap: Story = {
 	render: () => (
-		<Box width={240}>
+		<Box style={{ width: 240 }}>
 			<Typography noWrap>
 				This sentence will be truncated with an ellipsis when it exceeds the container width.
 			</Typography>

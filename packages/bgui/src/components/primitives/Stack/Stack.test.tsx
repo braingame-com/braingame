@@ -1,12 +1,11 @@
-import { ThemeProvider } from "@shopify/restyle";
 import { render } from "@testing-library/react-native";
 import type React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { theme } from "../../../theme";
+import { BGUIThemeProvider, theme } from "../../../theme";
 import { Stack } from ".";
 
 const renderWithTheme = (component: React.ReactElement) =>
-	render(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
+	render(<BGUIThemeProvider forceTheme="light">{component}</BGUIThemeProvider>);
 
 describe("Stack", () => {
 	it("renders children correctly", () => {

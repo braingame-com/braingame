@@ -195,7 +195,7 @@ export const Switch = forwardRef<View, SwitchProps>(
 				onPress={handleToggle}
 				onKeyDown={handleKeyDown}
 			>
-				<Box flexDirection="row" alignItems="center">
+				<Box style={{ flexDirection: "row", alignItems: "center" }}>
 					{startDecorator ? (
 						<Box style={{ marginRight: labelSpacing }}>{startDecorator}</Box>
 					) : null}

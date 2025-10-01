@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { theme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import { Button } from "./Button";
@@ -44,7 +45,14 @@ export const Playground: Story = {
 
 export const Variants: Story = {
 	render: () => (
-		<Box flexDirection="row" flexWrap="wrap" gap="md">
+		<Box
+			style={{
+				flexDirection: "row",
+				flexWrap: "wrap",
+				columnGap: theme.spacing.md,
+				rowGap: theme.spacing.md,
+			}}
+		>
 			<Button variant="solid">Solid</Button>
 			<Button variant="soft">Soft</Button>
 			<Button variant="outlined">Outlined</Button>
@@ -55,7 +63,13 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
 	render: () => (
-		<Box flexDirection="row" gap="md" alignItems="center">
+		<Box
+			style={{
+				flexDirection: "row",
+				columnGap: theme.spacing.md,
+				alignItems: "center",
+			}}
+		>
 			<Button size="sm">Small</Button>
 			<Button size="md">Medium</Button>
 			<Button size="lg">Large</Button>
@@ -65,7 +79,7 @@ export const Sizes: Story = {
 
 export const WithDecorators: Story = {
 	render: () => (
-		<Box flexDirection="row" gap="md">
+		<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
 			<Button startDecorator={<Typography level="body-sm">🚀</Typography>}>Launch</Button>
 			<Button endDecorator={<Typography level="body-sm">→</Typography>}>Next</Button>
 		</Box>
@@ -74,7 +88,7 @@ export const WithDecorators: Story = {
 
 export const LoadingStates: Story = {
 	render: () => (
-		<Box flexDirection="row" gap="md">
+		<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
 			<Button loading loadingPosition="start">
 				Start
 			</Button>
@@ -90,7 +104,7 @@ export const LoadingStates: Story = {
 
 export const FullWidth: Story = {
 	render: () => (
-		<Box width="100%">
+		<Box style={{ width: "100%" }}>
 			<Button fullWidth>Block Action</Button>
 		</Box>
 	),

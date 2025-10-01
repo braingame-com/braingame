@@ -230,7 +230,7 @@ export const Alert = forwardRef<View, AlertProps>(
 							{icon ?? <Icon name={statusIconName} size={sizeStyles.iconSize} color={iconColor} />}
 						</Box>
 					) : null}
-					<Box flex={1}>
+					<Box style={{ flex: 1 }}>
 						{title ? (
 							typeof title === "string" ? (
 								<Typography level={sizeStyles.titleLevel} style={{ color: resolvedTextColor }}>

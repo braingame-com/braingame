@@ -1,12 +1,11 @@
-import { ThemeProvider } from "@shopify/restyle";
 import { render } from "@testing-library/react-native";
 import type React from "react";
-import { theme } from "../../../theme";
+import { BGUIThemeProvider, theme } from "../../../theme";
 import { Box } from "./Box";
 
 describe("Box", () => {
 	const renderWithTheme = (ui: React.ReactNode) =>
-		render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
+		render(<BGUIThemeProvider forceTheme="light">{ui}</BGUIThemeProvider>);
 
 	it("renders children", () => {
 		const { getByText } = renderWithTheme(<Box>Content</Box>);

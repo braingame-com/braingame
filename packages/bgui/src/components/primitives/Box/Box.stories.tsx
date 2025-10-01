@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { theme } from "../../../theme";
 import { Typography } from "../Typography";
 import { Box } from "./Box";
 
@@ -9,7 +10,7 @@ const meta = {
 		docs: {
 			description: {
 				component:
-					"Theme-aware layout primitive that exposes spacing, layout, and color props via Restyle.",
+					"Theme-aware layout primitive that maps BGUI tokens (spacing, colors, radii) onto React Native views.",
 			},
 		},
 	},
@@ -30,7 +31,7 @@ export const Playground: Story = {
 
 export const LayoutExamples: Story = {
 	render: () => (
-		<Box flexDirection="row" gap="md">
+		<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
 			<Box padding="sm" backgroundColor="primary" borderRadius="sm">
 				<Typography level="body-sm" textColor="onPrimary">
 					Primary

@@ -1,12 +1,11 @@
-import { ThemeProvider } from "@shopify/restyle";
 import { render } from "@testing-library/react-native";
 import type React from "react";
 import { StyleSheet, Text } from "react-native";
-import { theme } from "../../../theme";
+import { BGUIThemeProvider, theme } from "../../../theme";
 import { Grid } from ".";
 
 const renderWithTheme = (node: React.ReactElement) =>
-	render(<ThemeProvider theme={theme}>{node}</ThemeProvider>);
+	render(<BGUIThemeProvider forceTheme="light">{node}</BGUIThemeProvider>);
 
 describe("Grid", () => {
 	it("renders container and items", () => {
