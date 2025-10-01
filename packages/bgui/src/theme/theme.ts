@@ -1,4 +1,4 @@
-import { createTheme } from "@shopify/restyle";
+import { createTheme } from "./engine";
 import m3Theme from "./m3-theme.json";
 import { generateComponentVariants } from "./variants";
 
@@ -820,6 +820,7 @@ const theme = createTheme({
 	// Export fontSizes, fontWeights, shadows, and radii at top level for component access
 	fontSizes,
 	fontWeights,
+	lineHeights,
 	shadows,
 	radii,
 });

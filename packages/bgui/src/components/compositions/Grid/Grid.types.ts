@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
+import type { Theme } from "../../../theme";
 import type { BoxProps } from "../../primitives/Box";
 import type { FlexDirection, SpacingValue } from "../../primitives/Stack";
 
-export type GridBreakpoint = keyof typeof import("../../../theme").theme.breakpoints;
+export type GridBreakpoint = keyof Theme["breakpoints"];
 export type ResponsiveProp<T> = T | Partial<Record<GridBreakpoint, T>>;
 export type GridItemSize = boolean | "auto" | number;
 

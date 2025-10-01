@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
+import type { Theme } from "../../../theme";
 
 export type DividerOrientation = "horizontal" | "vertical";
 export type DividerVariant = "default" | "subtle" | "emphasized";
 export type DividerInset = "none" | "context" | DividerSpacingValue;
-export type DividerSpacingValue = keyof typeof import("../../../theme").theme.spacing | number;
-export type DividerColorToken = keyof typeof import("../../../theme").theme.colors;
+export type DividerSpacingValue = keyof Theme["spacing"] | number;
+export type DividerColorToken = keyof Theme["colors"];
 
 export interface DividerProps {
 	children?: ReactNode;
