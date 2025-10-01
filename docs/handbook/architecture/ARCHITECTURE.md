@@ -195,7 +195,7 @@ All AI agents **MUST**:
 
 - Secrets only in CI secret manager; scanned via Secretlint (`pnpm secrets:scan`).  
 - Dependabot weekly updates for npm + GH Actions.  
-- Disclosure policy in [SECURITY.md](../.github/SECURITY.md).
+- Disclosure policy in [SECURITY.md](../../../.github/SECURITY.md).
 
 ---
 

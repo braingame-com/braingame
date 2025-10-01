@@ -342,4 +342,4 @@ Quality standards exist to prevent technical debt accumulation. Every shortcut c
 **Remember**: Fix the root cause, don't suppress the symptoms.
 
 For quick reference: [Development Guide](../development/DEVELOPMENT.md)  
-For historical context: [LESSONS.md](./LESSONS.md)
+For historical context: [LESSONS.md](../knowledge/LESSONS.md)

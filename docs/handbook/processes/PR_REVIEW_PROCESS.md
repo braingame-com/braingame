@@ -330,4 +330,4 @@ For comprehensive understanding of our quality standards and development practic
 
 - **[CODING_STYLE.md](../development/CODING_STYLE.md)** - Code standards and patterns that all PRs must follow
 - **[TESTING.md](../development/TESTING.md)** - Testing requirements and strategies for ensuring code quality
-- **[QUALITY.md](../development/QUALITY.md)** - Zero-tolerance quality policy and comprehensive standards
+- **[QUALITY.md](./QUALITY.md)** - Zero-tolerance quality policy and comprehensive standards

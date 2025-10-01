@@ -348,4 +348,4 @@ For more detailed information on specific aspects of development:
 - **[TESTING.md](./TESTING.md)** - Testing strategy, tools, and best practices
 - **[WORKTREES.md](./WORKTREES.md)** - Git worktree usage and workspace isolation
 - **[Architecture Overview](../architecture/ARCHITECTURE.md)** - System design and technical decisions
-- **[Architecture Decision Records](../architecture/ADR.md)** - Key architectural decisions and their rationale
+- **[Architecture Decision Records](../../archive/adr/README.md)** - Key architectural decisions and their rationale

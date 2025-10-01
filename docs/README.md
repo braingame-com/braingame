@@ -24,26 +24,26 @@ Welcome to the Brain Game documentation. This directory contains comprehensive g
 - [Prompt Experiments](./archive/prompts/) - Retired docs and prompt workflows
 
 ### Learning & Improvement
-- [Lessons Learned](./handbook/development/LESSONS.md) - Key insights from development sessions
+- [Lessons Learned](./handbook/knowledge/LESSONS.md) - Key insights from development sessions
 
 ## 🗂️ Related Documentation
 
 ### Application Documentation
-- [API App](/apps/api/README.md) - Backend API documentation
-- [Documentation Site](/apps/docs-site/README.md) - Documentation website
-- [Main Site](/apps/main-site/README.md) - Marketing website
-- [Product App](/apps/product/README.md) - Main application
+- [API App](../apps/api/README.md) - Backend API documentation
+- [Documentation Site](../apps/docs-site/README.md) - Documentation website
+- [Main Site](../apps/main-site/README.md) - Marketing website
+- [Product App](../apps/product/README.md) - Main application
 
 ### Package Documentation
-- [UI Components (@braingame/bgui)](/packages/bgui/README.md) - Component library
-- [Configuration (@braingame/config)](/packages/config/README.md) - Shared configuration
-- [Internationalization (@braingame/i18n)](/packages/i18n/README.md) - i18n support
-- [Utilities (@braingame/utils)](/packages/utils/README.md) - Shared utilities
+- [UI Components (@braingame/bgui)](../packages/bgui/README.md) - Component library
+- [Configuration (@braingame/config)](../packages/config/README.md) - Shared configuration
+- [Internationalization (@braingame/i18n)](../packages/i18n/README.md) - i18n support
+- [Utilities (@braingame/utils)](../packages/utils/README.md) - Shared utilities
 
 ### Project-Level Documentation
 - [Project README](../README.md) - Project overview and quick start
 - [Development Guide](./handbook/development/DEVELOPMENT.md) - Environment setup and contribution workflow
-- [Support](../SUPPORT.md) - Getting help and support
+- [Support](../.github/SUPPORT.md) - Getting help and support
 
 ## 🔍 Quick Links
 
@@ -60,7 +60,7 @@ Welcome to the Brain Game documentation. This directory contains comprehensive g
 
 ### For Designers
 1. [Brand Guidelines](./handbook/brand/BRAND.md) for design consistency
-2. [UI Components Documentation](/packages/bgui/README.md)
+2. [UI Components Documentation](../packages/bgui/README.md)
 
 ## 📝 Documentation Standards
 
@@ -81,6 +81,6 @@ Quick tips:
 
 ## 🚀 Need Help?
 
-- Check [SUPPORT.md](../SUPPORT.md) for support channels
-- Review [Lessons Learned](./handbook/development/LESSONS.md) for common issues and solutions
+- Check [SUPPORT.md](../.github/SUPPORT.md) for support channels
+- Review [Lessons Learned](./handbook/knowledge/LESSONS.md) for common issues and solutions
 - Submit issues for documentation improvements

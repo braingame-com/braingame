@@ -146,10 +146,10 @@ Use tables for structured data:
 
 ```markdown
 # Relative paths for docs in same directory
-See [Testing Guide](./TESTING.md)
+See [Testing Guide](../development/TESTING.md)
 
 # Full paths from root for cross-directory
-See [Development Guide](/docs/handbook/development/DEVELOPMENT.md)
+See [Development Guide](../development/DEVELOPMENT.md)
 
 # Section links
 See [Code Style](#code-style)

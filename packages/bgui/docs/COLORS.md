@@ -12,7 +12,7 @@ It is critical to **use roles, not hex codes**. Always reference colors by their
 
 ## The Role of Tonal Palettes
 
-In the theme file ([`bgui-theme.json`](../src/constants/bgui-theme.json)), you will see a large section for `palettes`. These are the foundational **Tonal Palettes**.
+In the theme file ([`bgui-theme.json`](../src/bgui-theme.json)), you will see a large section for `palettes`. These are the foundational **Tonal Palettes**.
 
 A tonal palette consists of 13 tones of a single color, ranging from black to white (0 to 100). Our system uses tonal palettes for `primary`, `secondary`, `tertiary`, `neutral`, `neutral-variant`, and `error`.
 

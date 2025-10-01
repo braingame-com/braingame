@@ -230,8 +230,8 @@ pnpm workspace list
 
 ## 📚 Related Documentation
 
-- [Development Guide](/docs/handbook/development/DEVELOPMENT.md) - General development setup
-- [Offline Development](/docs/handbook/development/OFFLINE_DEVELOPMENT.md) - Working without internet
+- [Development Guide](../docs/handbook/development/DEVELOPMENT.md) - General development setup
+- [Offline Development](../docs/handbook/development/OFFLINE_DEVELOPMENT.md) - Working without internet
 - [Development Guide](../docs/handbook/development/DEVELOPMENT.md) - Contribution guidelines
-- [BGUI Package](/packages/bgui/README.md) - Component library documentation
-- [Git Worktrees](/docs/handbook/development/WORKTREES.md) - Worktree workflow guide
+- [BGUI Package](../packages/bgui/README.md) - Component library documentation
+- [Git Worktrees](../docs/handbook/development/WORKTREES.md) - Worktree workflow guide

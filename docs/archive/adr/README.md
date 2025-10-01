@@ -43,16 +43,7 @@ What becomes easier or more difficult to do because of this change?
 ## ADR Index
 
 ### Infrastructure & Architecture
-- [ADR-0001: Use Expo Router for Navigation](./ADR-0001-use-expo-router.md) *(Example - to be created)*
-- [ADR-0002: Monorepo Structure with pnpm Workspaces](./ADR-0002-monorepo-structure.md) *(Example - to be created)*
-
-### Technology Choices
-- [ADR-0003: TypeScript for Type Safety](./ADR-0003-typescript-adoption.md) *(Example - to be created)*
-- [ADR-0004: React Query for Server State](./ADR-0004-react-query.md) *(Example - to be created)*
-
-### Development Practices
-- [ADR-0005: Component-Driven Development](./ADR-0005-component-driven-development.md) *(Example - to be created)*
-- [ADR-0006: Git Worktrees for Feature Development](./ADR-0006-git-worktrees.md) *(Example - to be created)*
+- [ADR-0001: Centralized API on Firebase Cloud Functions](./0001-centralized-api-on-firebase.md)
 
 ## When to Write an ADR
 

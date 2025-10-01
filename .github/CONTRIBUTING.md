@@ -12,15 +12,15 @@ To ensure a smooth process, please follow these steps:
 **Step 1: Set Up Your Environment**
 1.  **Fork** the repository to your own GitHub account.
 2.  **Clone** your fork to your local machine.
-3.  Follow the **[Development Guide](../docs/engineering/DEVELOPMENT.md)** to install prerequisites, dependencies, and set up your environment variables.
+3.  Follow the **[Development Guide](../docs/handbook/development/DEVELOPMENT.md)** to install prerequisites, dependencies, and set up your environment variables.
 
 **Step 2: Plan Your Contribution**
-1.  **Find an issue:** Check the **[TODO list](../docs/project/TODO.md)** for tasks that are marked as `help-wanted` or `good-first-issue`.
+1.  **Find an issue:** Check the **[TODO list](../TODO.md)** for tasks that are marked as `help-wanted` or `good-first-issue`.
 2.  **Propose a change:** If you have a new idea, we recommend opening an issue first to discuss it with the maintainers. This prevents you from spending time on a change that might not be accepted.
 
 **Step 3: Make Your Changes**
 1.  **Create a feature branch** from `main`: `git checkout -b type/your-branch-name` (e.g., `feat/new-button-variant`).
-2.  **Write your code.** Critically, all code must adhere to our **[Coding Style Guide](../docs/engineering/CODING_STYLE.md)**.
+2.  **Write your code.** Critically, all code must adhere to our **[Coding Style Guide](../docs/handbook/development/CODING_STYLE.md)**.
 3.  **Write or update tests.** All new features must have corresponding tests.
 4.  **Commit your work** using the [Conventional Commits](https://www.conventionalcommits.org/) standard. This is mandatory for our automated release process.
 
@@ -109,17 +109,15 @@ docs: update README with new installation steps
 ## 🤖 AI Agent Guidelines
 If you're an AI agent contributing to this project:
 1. **Read the documentation** in the `docs` folder, especially:
-   - [`CLAUDE.md`](../docs/ai/CLAUDE.md) for AI-specific instructions and project context
-   - [`AGENTS.md`](../docs/ai/AGENTS.md) for workspace verification and session documentation
-   - [`CODING_STYLE.md`](../docs/engineering/CODING_STYLE.md) for code standards
-2. **Update task tracking** in [`TODO.md`](../docs/project/TODO.md) when claiming or completing tasks
-3. **Add session summaries** to [`LESSONS.md`](../docs/architecture/LESSONS.md) after completing work
+   - [`AGENTS.md`](../AGENTS.md) for workspace verification and session documentation
+   - [`CODING_STYLE.md`](../docs/handbook/development/CODING_STYLE.md) for code standards
+2. **Update task tracking** in [`TODO.md`](../TODO.md) when claiming or completing tasks
+3. **Add session summaries** to [`LESSONS.md`](../docs/handbook/knowledge/LESSONS.md) after completing work
 
 ---
 
 ## 🎨 Design Contributions
 For UI/UX contributions:
-- Follow the design system defined in [`BGUI_COMPONENT_PLAN.md`](../packages/bgui/docs/BGUI_COMPONENT_PLAN.md)
 - Use existing design tokens from `packages/utils`
 - Ensure all components are accessible and support both light/dark themes
 
@@ -137,7 +135,7 @@ When reporting bugs, please include:
 
 ## 💡 Suggesting Features
 We love new ideas! When suggesting features:
-- Check if it's already in our [`TODO.md`](../docs/project/TODO.md)
+- Check if it's already in our [`TODO.md`](../TODO.md)
 - Explain the use case and why it would benefit users
 - Consider how it fits with our existing architecture
 - Be open to feedback and alternative approaches
@@ -149,7 +147,7 @@ Good documentation is crucial. When contributing:
 - Update relevant documentation for any code changes
 - Use clear, concise language
 - Include code examples where helpful
-- Keep the [`LESSONS.md`](../docs/architecture/LESSONS.md) updated with session summaries if you're an AI agent
+- Keep the [`LESSONS.md`](../docs/handbook/knowledge/LESSONS.md) updated with session summaries if you're an AI agent
 
 ---
 
