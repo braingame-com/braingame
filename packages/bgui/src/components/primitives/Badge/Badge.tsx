@@ -8,16 +8,17 @@ import {
 	type View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type { VariantStyle } from "../../../theme/variants";
 import { Box } from "../Box";
 import { Icon } from "../Icon";
 import { Typography } from "../Typography";
 import type { BadgeProps, BadgeSize } from "./Badge.types";
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
 const sizeConfig: Record<
@@ -136,15 +137,22 @@ export const Badge = forwardRef<View, BadgeProps>(
 		}, [animatedScale, shouldHide]);
 
 		const sizeStyles = sizeConfig[size];
-		const variantKey = `${variant}-${color}` as keyof typeof theme.components.Badge.variants;
-		const variantStyles = (theme.components.Badge.variants[variantKey] ??
-			theme.components.Badge.variants["solid-primary"]) as VariantStyle;
+		const theme = useTheme();
+		const variantMap = theme.components.Badge.variants as Record<string, VariantStyle>;
+		const variantKey = `${variant}-${color}`;
+		const variantStyles = variantMap[variantKey] ?? variantMap["solid-primary"];
 
 		const resolvedBackground =
-			resolveColorToken(variantStyles.backgroundColor) ?? theme.colors.primary;
-		const resolvedTextColor = resolveColorToken(variantStyles.color) ?? theme.colors.onPrimary;
-		const resolvedBorderColor = resolveColorToken(variantStyles.borderColor);
-		const resolvedBorderWidth = variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0);
+			resolveColorToken(theme, variantStyles.backgroundColor) ?? theme.colors.primary;
+		const resolvedTextColor =
+			resolveColorToken(theme, variantStyles.color) ?? theme.colors.onPrimary;
+		const resolvedBorderColor = resolveColorToken(theme, variantStyles.borderColor);
+		const resolvedBorderWidth =
+			typeof variantStyles.borderWidth === "number"
+				? variantStyles.borderWidth
+				: variant === "outlined"
+					? 1
+					: 0;
 
 		const badgeContainerStyle = useMemo<ViewStyle>(() => {
 			const baseStyle = StyleSheet.flatten<ViewStyle>([
