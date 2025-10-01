@@ -10,24 +10,24 @@ import {
 	type View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { AvatarProps, AvatarSize, AvatarVariant } from "./Avatar.types";
 
-type VariantTokens =
-	(typeof theme.components.Avatar.variants)[keyof typeof theme.components.Avatar.variants];
+type VariantTokens = Record<string, string | number | undefined>;
 
 type SizeTokens = {
 	dimension: number;
 	textLevel: "body-xs" | "body-sm" | "body-md";
 };
 
-const SIZE_MAP: Record<AvatarSize, SizeTokens> = {
+const createSizeMap = (): Record<AvatarSize, SizeTokens> => ({
 	sm: { dimension: 32, textLevel: "body-xs" },
 	md: { dimension: 40, textLevel: "body-sm" },
 	lg: { dimension: 48, textLevel: "body-md" },
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
@@ -52,17 +52,17 @@ const styles = StyleSheet.create({
 	},
 });
 
-const resolveThemeColor = (value?: string) => {
+const resolveThemeColor = (theme: Theme, value?: string) => {
 	if (!value) return undefined;
-	return theme.colors[value as keyof typeof theme.colors] ?? value;
+	return theme.colors[value as keyof Theme["colors"]] ?? value;
 };
 
-const avatarVariants = theme.components.Avatar.variants as Record<string, VariantTokens>;
-
 const getVariantTokens = (
+	theme: Theme,
 	variant: AvatarVariant,
 	color: NonNullable<AvatarProps["color"]>,
 ): VariantTokens => {
+	const avatarVariants = theme.components.Avatar.variants as Record<string, VariantTokens>;
 	const key = `${variant}-${color}`;
 	return avatarVariants[key] ?? avatarVariants["soft-neutral"];
 };
@@ -108,15 +108,26 @@ export const Avatar = forwardRef<View, AvatarProps>(
 			void src;
 		}, [src]);
 
-		const sizeTokens = SIZE_MAP[size];
+		const theme = useTheme();
+		const sizeMap = useMemo(() => createSizeMap(), []);
+		const sizeTokens = sizeMap[size];
 
-		const variantTokens = useMemo(() => getVariantTokens(variant, color), [color, variant]);
+		const variantTokens = useMemo(
+			() => getVariantTokens(theme, variant, color),
+			[theme, variant, color],
+		);
 
-		const backgroundColor = resolveThemeColor(variantTokens.backgroundColor) ?? "transparent";
+		const backgroundColor =
+			resolveThemeColor(theme, variantTokens.backgroundColor as string | undefined) ??
+			"transparent";
 		const borderColor =
-			"borderColor" in variantTokens ? resolveThemeColor(variantTokens.borderColor) : undefined;
-		const borderWidth = "borderWidth" in variantTokens ? (variantTokens.borderWidth ?? 0) : 0;
-		const textColor = resolveThemeColor(variantTokens.color) ?? theme.colors.onSurface;
+			typeof variantTokens.borderColor === "string"
+				? resolveThemeColor(theme, variantTokens.borderColor)
+				: undefined;
+		const borderWidth =
+			typeof variantTokens.borderWidth === "number" ? variantTokens.borderWidth : 0;
+		const textColor =
+			resolveThemeColor(theme, variantTokens.color as string | undefined) ?? theme.colors.onSurface;
 
 		const containerStyle: ViewStyle = {
 			width: sizeTokens.dimension,
