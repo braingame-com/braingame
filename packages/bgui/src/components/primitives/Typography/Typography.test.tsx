@@ -1,17 +1,36 @@
 import { render } from "@testing-library/react-native";
 import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Typography } from "./Typography";
 
 describe("Typography", () => {
+	let theme!: Theme;
+
+	beforeAll(() => {
+		const Capture = () => {
+			theme = useTheme();
+			return null;
+		};
+		const { unmount } = render(
+			<BGUIThemeProvider>
+				<Capture />
+			</BGUIThemeProvider>,
+		);
+		unmount();
+	});
+
+	const renderWithProviders = (ui: React.ReactElement) =>
+		render(<BGUIThemeProvider>{ui}</BGUIThemeProvider>);
+
 	it("renders text content", () => {
-		const { getByText } = render(<Typography>Read me</Typography>);
+		const { getByText } = renderWithProviders(<Typography>Read me</Typography>);
 
 		expect(getByText("Read me")).toBeTruthy();
 	});
 
 	it("applies level styles", () => {
-		const { getByText } = render(<Typography level="h2">Heading</Typography>);
+		const { getByText } = renderWithProviders(<Typography level="h2">Heading</Typography>);
 
 		const element = getByText("Heading");
 		const style = StyleSheet.flatten(element.props.style);
@@ -21,7 +40,7 @@ describe("Typography", () => {
 	});
 
 	it("wraps content when decorators are provided", () => {
-		const { getByTestId } = render(
+		const { getByTestId } = renderWithProviders(
 			<Typography startDecorator="•" testID="typography">
 				Decorated
 			</Typography>,
@@ -31,7 +50,7 @@ describe("Typography", () => {
 	});
 
 	it("applies variant container styles", () => {
-		const { getByTestId } = render(
+		const { getByTestId } = renderWithProviders(
 			<Typography variant="solid" color="primary" testID="solid">
 				Solid
 			</Typography>,
@@ -44,7 +63,7 @@ describe("Typography", () => {
 	});
 
 	it("respects noWrap prop", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithProviders(
 			<Typography noWrap numberOfLines={3}>
 				One line
 			</Typography>,
@@ -55,8 +74,10 @@ describe("Typography", () => {
 	});
 
 	it("sets accessibility role when component is a heading", () => {
-		const { getByA11yRole } = render(<Typography component="h3">Accessible Heading</Typography>);
+		const { getByRole } = renderWithProviders(
+			<Typography component="h3">Accessible Heading</Typography>,
+		);
 
-		expect(getByA11yRole("header")).toBeTruthy();
+		expect(getByRole("header")).toBeTruthy();
 	});
 });

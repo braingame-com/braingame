@@ -12,10 +12,10 @@
 - [x] Evaluate building an in-house BGUI theme engine to replace Restyle (requirements, migration plan, effort estimate). _(See `packages/bgui/docs/THEME_ENGINE_EVALUATION.md`.)_
 - [ ] Build an in-house BGUI theme engine to replace Restyle (and remove Restyle)
   - [x] Scaffold new in-house theme engine inside `packages/bgui` with context, hooks, and token typings
-  - [ ] Update `BGUIThemeProvider` to wrap the new provider while preserving public API
-  - [ ] Replace Restyle primitives with internal `Box`/`Text` equivalents and migrate affected components
-  - [ ] Port component styling to `useTheme`/token helpers and remove direct `theme` imports
-  - [ ] Update tests/storybook helpers to use the new provider; remove Restyle dependency
+  - [x] Update `BGUIThemeProvider` to wrap the new provider while preserving public API
+  - [x] Replace Restyle primitives with internal `Box`/`Text` equivalents and migrate affected components
+  - [x] Port component styling to `useTheme`/token helpers and remove direct `theme` imports
+  - [x] Update tests/storybook helpers to use the new provider; remove Restyle dependency _(Follow-up: see "Tech Debt → BGUI test/stories refactor" task)_
 - [ ] Build our own slider so we can remove @react-native-community/slider as a dependency
 - [ ] Remove @mui stuff as dependencies by making sure our own in-house token/design system is up to scratch
 - [ ] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
@@ -123,6 +123,7 @@ Components needed for product app:
 - [ ] Fix Expo dev server issues (or switch to different approach)
 - [ ] Clean up git history/branches
 - [ ] Remove unused dependencies
+- [ ] **Tech Debt:** Finish migrating BGUI tests/stories to the new theme provider and clean up temporary shims
 
 ### Before Production
 - [ ] Environment variables properly configured

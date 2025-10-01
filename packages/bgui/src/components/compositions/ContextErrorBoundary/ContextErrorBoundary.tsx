@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { StyleSheet, View } from "react-native";
-import { theme } from "../../../theme";
+import { type Theme, ThemeContext } from "../../../theme";
 import { Button } from "../../primitives/Button";
 import { Typography } from "../../primitives/Typography";
 import type {
@@ -18,6 +18,8 @@ export class ContextErrorBoundary extends Component<
 	ContextErrorBoundaryProps,
 	ContextErrorBoundaryState
 > {
+	static contextType = ThemeContext;
+
 	public state: ContextErrorBoundaryState = {
 		hasError: false,
 		error: null,
@@ -48,6 +50,8 @@ export class ContextErrorBoundary extends Component<
 	render() {
 		const { children, fallback, contextName } = this.props;
 		const { hasError, error } = this.state;
+		const theme = (this.context ?? {}) as Theme;
+		const styles = getStyles(theme);
 
 		if (!hasError || !error) {
 			return children;
@@ -79,30 +83,31 @@ export class ContextErrorBoundary extends Component<
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-		padding: theme.spacing.lg,
-		backgroundColor: theme.colors.background,
-	},
-	card: {
-		width: "100%",
-		maxWidth: 420,
-		padding: theme.spacing.lg,
-		borderRadius: theme.radii.lg,
-		gap: theme.spacing.md,
-		backgroundColor: theme.colors.surface,
-		borderColor: theme.colors.outlineVariant,
-		borderWidth: StyleSheet.hairlineWidth,
-	},
-	title: {
-		color: theme.colors.onSurface,
-	},
-	message: {
-		color: theme.colors.onSurfaceVariant,
-	},
-});
+const getStyles = (theme: Theme) =>
+	StyleSheet.create({
+		container: {
+			flex: 1,
+			alignItems: "center",
+			justifyContent: "center",
+			padding: theme.spacing?.lg ?? 16,
+			backgroundColor: theme.colors?.background ?? "#fff",
+		},
+		card: {
+			width: "100%",
+			maxWidth: 420,
+			padding: theme.spacing?.lg ?? 16,
+			borderRadius: theme.radii?.lg ?? 12,
+			gap: theme.spacing?.md ?? 12,
+			backgroundColor: theme.colors?.surface ?? "#fff",
+			borderColor: theme.colors?.outlineVariant ?? "#d0d5dd",
+			borderWidth: StyleSheet.hairlineWidth,
+		},
+		title: {
+			color: theme.colors?.onSurface ?? "#0f172a",
+		},
+		message: {
+			color: theme.colors?.onSurfaceVariant ?? "#475467",
+		},
+	});
 
 export type { ContextErrorBoundaryProps } from "./ContextErrorBoundary.types";

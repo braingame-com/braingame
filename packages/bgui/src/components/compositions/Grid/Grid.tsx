@@ -1,7 +1,8 @@
 import type React from "react";
 import { createContext, forwardRef, useContext, useMemo } from "react";
 import { type DimensionValue, StyleSheet, useWindowDimensions, type ViewStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import type { SpacingValue } from "../../primitives/Stack";
 import type { GridBreakpoint, GridItemSize, GridProps, ResponsiveProp } from "./Grid.types";
@@ -16,10 +17,10 @@ interface GridContextValue {
 
 const GridContext = createContext<GridContextValue | null>(null);
 
-const resolveSpacing = (value: SpacingValue | undefined) => {
+const resolveSpacing = (theme: Theme, value: SpacingValue | undefined) => {
 	if (typeof value === "number") return value;
 	if (!value) return 0;
-	return theme.spacing[value as keyof typeof theme.spacing] ?? 0;
+	return theme.spacing[value as keyof Theme["spacing"]] ?? 0;
 };
 
 const resolveResponsiveValue = <T,>(
@@ -48,7 +49,7 @@ const resolveResponsiveValue = <T,>(
 	return fallback;
 };
 
-const resolveBreakpoint = (width: number): GridBreakpoint => {
+const resolveBreakpoint = (theme: Theme, width: number): GridBreakpoint => {
 	let active: GridBreakpoint = "xs";
 	BREAKPOINT_ORDER.forEach((breakpoint) => {
 		if (width >= theme.breakpoints[breakpoint]) {
@@ -97,8 +98,9 @@ export const Grid = forwardRef<React.ComponentRef<typeof Box>, GridProps>(
 			...rest
 		} = props;
 
+		const theme = useTheme();
 		const { width } = useWindowDimensions();
-		const currentBreakpoint = resolveBreakpoint(width || 0);
+		const currentBreakpoint = resolveBreakpoint(theme, width || 0);
 		const parentContext = useContext(GridContext);
 
 		const fallbackColumns = parentContext?.columns ?? 12;
@@ -119,8 +121,8 @@ export const Grid = forwardRef<React.ComponentRef<typeof Box>, GridProps>(
 			baseSpacingToken,
 		);
 
-		const horizontalSpacing = resolveSpacing(horizontalSpacingToken);
-		const verticalSpacing = resolveSpacing(verticalSpacingToken);
+		const horizontalSpacing = resolveSpacing(theme, horizontalSpacingToken);
+		const verticalSpacing = resolveSpacing(theme, verticalSpacingToken);
 
 		const sizes: Partial<Record<GridBreakpoint, GridItemSize>> = { xs, sm, md, lg, xl };
 		const span = resolveItemSpan(sizes, currentBreakpoint);

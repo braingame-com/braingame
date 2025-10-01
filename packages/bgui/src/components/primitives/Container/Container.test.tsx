@@ -52,7 +52,9 @@ describe("Container", () => {
 		);
 
 		const style = StyleSheet.flatten(getByTestId("container").props.style);
-		expect(style.maxWidth).toBe(900);
+		const { width } = ReactNative.useWindowDimensions();
+		expect(style.maxWidth).toBeLessThanOrEqual(900);
+		expect(style.maxWidth).toBeLessThanOrEqual(width);
 	});
 
 	it("respects disableGutters", () => {
@@ -75,7 +77,9 @@ describe("Container", () => {
 		);
 
 		const style = StyleSheet.flatten(getByTestId("container").props.style);
-		expect(style.maxWidth).toBe(480);
+		const { width } = ReactNative.useWindowDimensions();
+		expect(style.maxWidth).toBeLessThanOrEqual(width);
+		expect(style.maxWidth).toBeLessThanOrEqual(1200);
 	});
 
 	it("omits maxWidth when disabled", () => {

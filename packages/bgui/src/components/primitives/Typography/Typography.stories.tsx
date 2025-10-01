@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "./Typography";
 
@@ -56,33 +56,39 @@ export const Playground: Story = {
 };
 
 export const Levels: Story = {
-	render: () => (
-		<Box style={{ rowGap: theme.spacing.sm }}>
-			<Typography level="h1">Heading 1</Typography>
-			<Typography level="h2">Heading 2</Typography>
-			<Typography level="title-lg">Title Large</Typography>
-			<Typography level="body-md">Body Medium</Typography>
-		</Box>
-	),
+	render: () => {
+		const theme = useTheme();
+		return (
+			<Box style={{ rowGap: theme.spacing.sm }}>
+				<Typography level="h1">Heading 1</Typography>
+				<Typography level="h2">Heading 2</Typography>
+				<Typography level="title-lg">Title Large</Typography>
+				<Typography level="body-md">Body Medium</Typography>
+			</Box>
+		);
+	},
 };
 
 export const Variants: Story = {
-	render: () => (
-		<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
-			<Typography variant="plain" color="primary">
-				Plain
-			</Typography>
-			<Typography variant="soft" color="success">
-				Soft
-			</Typography>
-			<Typography variant="outlined" color="danger">
-				Outlined
-			</Typography>
-			<Typography variant="solid" color="warning">
-				Solid
-			</Typography>
-		</Box>
-	),
+	render: () => {
+		const theme = useTheme();
+		return (
+			<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
+				<Typography variant="plain" color="primary">
+					Plain
+				</Typography>
+				<Typography variant="soft" color="success">
+					Soft
+				</Typography>
+				<Typography variant="outlined" color="danger">
+					Outlined
+				</Typography>
+				<Typography variant="solid" color="warning">
+					Solid
+				</Typography>
+			</Box>
+		);
+	},
 };
 
 export const WithDecorators: Story = {

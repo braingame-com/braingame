@@ -74,7 +74,7 @@ describe("Tooltip", () => {
 		});
 
 		act(() => {
-			fireEvent(getByTestId("trigger"), "pressIn");
+			fireEvent(getByTestId("trigger"), "pressIn", { defaultPrevented: false });
 		});
 		act(() => {
 			jest.advanceTimersByTime(200);
@@ -84,7 +84,7 @@ describe("Tooltip", () => {
 		expect(onOpen).toHaveBeenCalled();
 
 		act(() => {
-			fireEvent(getByTestId("trigger"), "pressOut");
+			fireEvent(getByTestId("trigger"), "pressOut", { defaultPrevented: false });
 			jest.runOnlyPendingTimers();
 		});
 
@@ -97,10 +97,10 @@ describe("Tooltip", () => {
 
 		const { getByTestId, queryByText } = renderTooltip();
 
-		fireEvent(getByTestId("trigger"), "mouseEnter", { nativeEvent: {} });
+		fireEvent(getByTestId("trigger"), "mouseEnter", { nativeEvent: {}, defaultPrevented: false });
 		expect(queryByText("Helpful hint")).toBeTruthy();
 
-		fireEvent(getByTestId("trigger"), "mouseLeave", { nativeEvent: {} });
+		fireEvent(getByTestId("trigger"), "mouseLeave", { nativeEvent: {}, defaultPrevented: false });
 		expect(queryByText("Helpful hint")).toBeNull();
 	});
 });

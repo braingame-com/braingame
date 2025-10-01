@@ -9,19 +9,22 @@ import {
 	type ViewStyle,
 } from "react-native";
 import { useInteractiveState } from "../../../hooks";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type { VariantStyle } from "../../../theme/variants";
 import { Box } from "../Box";
 import { Icon } from "../Icon";
 import { Typography } from "../Typography";
 import type { ChipProps, ChipSize } from "./Chip.types";
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig: Record<
+const createSizeConfig = (
+	theme: Theme,
+): Record<
 	ChipSize,
 	{
 		minHeight: number;
@@ -31,7 +34,7 @@ const sizeConfig: Record<
 		textLevel: "body-xs" | "body-sm" | "body-md";
 		dismissIconSize: number;
 	}
-> = {
+> => ({
 	sm: {
 		minHeight: 24,
 		paddingHorizontal: theme.spacing.xs,
@@ -56,7 +59,7 @@ const sizeConfig: Record<
 		textLevel: "body-md",
 		dismissIconSize: 18,
 	},
-};
+});
 
 const baseStyles = StyleSheet.create({
 	container: {
@@ -108,19 +111,22 @@ export const Chip = forwardRef<View, ChipProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
 		const clickable = typeof onClick === "function" && !disabled;
 		const interactiveState = useInteractiveState();
 
-		const variantKey = `${variant}-${color}` as keyof typeof theme.components.Chip.variants;
-		const variantStyles = (theme.components.Chip.variants[variantKey] ??
-			theme.components.Chip.variants["soft-neutral"]) as VariantStyle;
+		const variantKey = `${variant}-${color}`;
+		const variantMap = theme.components.Chip.variants as Record<string, VariantStyle>;
+		const variantStyles = variantMap[variantKey] ?? variantMap["soft-neutral"];
 
 		const sizeStyles = sizeConfig[size];
 
 		const resolvedBackground =
-			resolveColorToken(variantStyles.backgroundColor) ?? theme.colors.surfaceVariant;
-		const resolvedTextColor = resolveColorToken(variantStyles.color) ?? theme.colors.onSurface;
-		const resolvedBorderColor = resolveColorToken(variantStyles.borderColor);
+			resolveColorToken(theme, variantStyles.backgroundColor) ?? theme.colors.surfaceVariant;
+		const resolvedTextColor =
+			resolveColorToken(theme, variantStyles.color) ?? theme.colors.onSurface;
+		const resolvedBorderColor = resolveColorToken(theme, variantStyles.borderColor);
 		const resolvedBorderWidth = variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0);
 
 		const handlePress = (event: GestureResponderEvent) => {
@@ -177,7 +183,7 @@ export const Chip = forwardRef<View, ChipProps>(
 				shadowRadius: 6,
 				elevation: 2,
 			} as ViewStyle;
-		}, [interactiveState.isFocused]);
+		}, [interactiveState.isFocused, theme.colors.primary]);
 
 		const resolvePressableStyle = ({ pressed }: PressableStateCallbackType) =>
 			StyleSheet.flatten<ViewStyle>([

@@ -8,42 +8,44 @@ import {
 	useState,
 } from "react";
 import { Animated, Platform, Pressable, StyleSheet, type View } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { SwitchProps } from "./Switch.types";
 
-const resolveToken = (token?: string) => {
+const resolveToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig = {
-	sm: {
-		trackWidth: 32,
-		trackHeight: 18,
-		thumbSize: 14,
-		thumbOffset: 2,
-		decoratorSpacing: theme.spacing.xs,
-		labelVariant: "body-sm" as const,
-	},
-	md: {
-		trackWidth: 40,
-		trackHeight: 22,
-		thumbSize: 18,
-		thumbOffset: 2,
-		decoratorSpacing: theme.spacing.sm,
-		labelVariant: "body-md" as const,
-	},
-	lg: {
-		trackWidth: 48,
-		trackHeight: 26,
-		thumbSize: 22,
-		thumbOffset: 3,
-		decoratorSpacing: theme.spacing.md,
-		labelVariant: "body-lg" as const,
-	},
-} as const;
+const createSizeConfig = (theme: Theme) =>
+	({
+		sm: {
+			trackWidth: 32,
+			trackHeight: 18,
+			thumbSize: 14,
+			thumbOffset: 2,
+			decoratorSpacing: theme.spacing.xs,
+			labelVariant: "body-sm" as const,
+		},
+		md: {
+			trackWidth: 40,
+			trackHeight: 22,
+			thumbSize: 18,
+			thumbOffset: 2,
+			decoratorSpacing: theme.spacing.sm,
+			labelVariant: "body-md" as const,
+		},
+		lg: {
+			trackWidth: 48,
+			trackHeight: 26,
+			thumbSize: 22,
+			thumbOffset: 3,
+			decoratorSpacing: theme.spacing.md,
+			labelVariant: "body-lg" as const,
+		},
+	}) as const;
 
 export const Switch = forwardRef<View, SwitchProps>(
 	(
@@ -74,6 +76,8 @@ export const Switch = forwardRef<View, SwitchProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
 		const pressableRef = useRef<View>(null);
 		const [internalChecked, setInternalChecked] = useState(defaultChecked);
 		const animatedValue = useRef(new Animated.Value(defaultChecked ? 1 : 0)).current;
@@ -103,8 +107,9 @@ export const Switch = forwardRef<View, SwitchProps>(
 			theme.components.Switch.variants[variantKey] ??
 			theme.components.Switch.variants["solid-neutral"];
 
-		const activeTrackColor = resolveToken(variantStyles.backgroundColor) ?? theme.colors.primary;
-		const thumbColor = resolveToken(variantStyles.color) ?? theme.colors.onPrimary;
+		const activeTrackColor =
+			resolveToken(theme, variantStyles.backgroundColor) ?? theme.colors.primary;
+		const thumbColor = resolveToken(theme, variantStyles.color) ?? theme.colors.onPrimary;
 		const inactiveTrackColor = theme.colors.outlineVariant;
 
 		const currentSize = sizeConfig[size];

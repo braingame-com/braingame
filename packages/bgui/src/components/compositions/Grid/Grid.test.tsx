@@ -1,13 +1,29 @@
 import { render } from "@testing-library/react-native";
 import type React from "react";
 import { StyleSheet, Text } from "react-native";
-import { BGUIThemeProvider, theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Grid } from ".";
 
 const renderWithTheme = (node: React.ReactElement) =>
 	render(<BGUIThemeProvider forceTheme="light">{node}</BGUIThemeProvider>);
 
 describe("Grid", () => {
+	let theme!: Theme;
+
+	beforeAll(() => {
+		const Capture = () => {
+			theme = useTheme();
+			return null;
+		};
+		const { unmount } = render(
+			<BGUIThemeProvider forceTheme="light">
+				<Capture />
+			</BGUIThemeProvider>,
+		);
+		unmount();
+	});
+
 	it("renders container and items", () => {
 		const { getByText } = renderWithTheme(
 			<Grid container>

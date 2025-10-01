@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { StyleSheet, useWindowDimensions, type ViewStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import type { ContainerProps, ContainerWidth } from "./Container.types";
 
@@ -35,7 +36,7 @@ const resolveMaxWidth = (width: ContainerWidth, screenWidth: number, fixed: bool
 	return Math.min(limits[key], screenWidth);
 };
 
-const resolvePadding = (disableGutters: boolean, screenWidth: number) => {
+const resolvePadding = (theme: Theme, disableGutters: boolean, screenWidth: number) => {
 	if (disableGutters) return undefined;
 	return screenWidth >= BREAKPOINTS.sm ? theme.spacing.lg : theme.spacing.md;
 };
@@ -49,6 +50,7 @@ export const Container: React.FC<ContainerProps> = ({
 	testID,
 }) => {
 	const { width: screenWidth } = useWindowDimensions();
+	const theme = useTheme();
 
 	const computedStyle = useMemo(
 		() =>
@@ -57,11 +59,11 @@ export const Container: React.FC<ContainerProps> = ({
 					width: "100%",
 					alignSelf: "center" as const,
 					maxWidth: resolveMaxWidth(maxWidth, screenWidth, fixed),
-					paddingHorizontal: resolvePadding(disableGutters, screenWidth),
+					paddingHorizontal: resolvePadding(theme, disableGutters, screenWidth),
 				},
 				style,
 			]),
-		[disableGutters, fixed, maxWidth, screenWidth, style],
+		[disableGutters, fixed, maxWidth, screenWidth, style, theme],
 	);
 
 	return (

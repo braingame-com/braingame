@@ -19,39 +19,41 @@ import {
 	StyleSheet,
 	type View,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Typography } from "../../primitives/Typography";
 import type { OptionProps, SelectOptionValue, SelectProps, SelectValue } from "./Select.types";
 
-const resolveToken = (token?: string) => {
+const resolveToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig = {
-	sm: {
-		minHeight: 32,
-		paddingHorizontal: theme.spacing.sm,
-		paddingVertical: theme.spacing.xs,
-		gap: theme.spacing.xs,
-		textVariant: "body-sm" as const,
-	},
-	md: {
-		minHeight: 40,
-		paddingHorizontal: theme.spacing.md,
-		paddingVertical: theme.spacing.sm,
-		gap: theme.spacing.sm,
-		textVariant: "body-md" as const,
-	},
-	lg: {
-		minHeight: 48,
-		paddingHorizontal: theme.spacing.lg,
-		paddingVertical: theme.spacing.md,
-		gap: theme.spacing.md,
-		textVariant: "body-lg" as const,
-	},
-} as const;
+const createSizeConfig = (theme: Theme) =>
+	({
+		sm: {
+			minHeight: 32,
+			paddingHorizontal: theme.spacing.sm,
+			paddingVertical: theme.spacing.xs,
+			gap: theme.spacing.xs,
+			textVariant: "body-sm" as const,
+		},
+		md: {
+			minHeight: 40,
+			paddingHorizontal: theme.spacing.md,
+			paddingVertical: theme.spacing.sm,
+			gap: theme.spacing.sm,
+			textVariant: "body-md" as const,
+		},
+		lg: {
+			minHeight: 48,
+			paddingHorizontal: theme.spacing.lg,
+			paddingVertical: theme.spacing.md,
+			gap: theme.spacing.md,
+			textVariant: "body-lg" as const,
+		},
+	}) as const;
 
 type OptionRecord = {
 	value: SelectOptionValue;
@@ -126,6 +128,8 @@ export const Select = forwardRef<View, SelectProps>(
 	) => {
 		const triggerRef = useRef<View>(null);
 		useImperativeHandle(ref, () => triggerRef.current || ({} as View));
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
 
 		const [internalValue, setInternalValue] = useState<SelectValue>(
 			defaultValue !== undefined ? defaultValue : multiple ? [] : null,
@@ -372,9 +376,11 @@ export const Select = forwardRef<View, SelectProps>(
 							paddingHorizontal: sizeStyles.paddingHorizontal,
 							paddingVertical: sizeStyles.paddingVertical,
 							borderRadius: theme.radii.sm,
-							backgroundColor: resolveToken(variantStyles.backgroundColor) ?? theme.colors.surface,
+							backgroundColor:
+								resolveToken(theme, variantStyles.backgroundColor) ?? theme.colors.surface,
 							borderWidth: variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0),
-							borderColor: resolveToken(variantStyles.borderColor) ?? theme.colors.outlineVariant,
+							borderColor:
+								resolveToken(theme, variantStyles.borderColor) ?? theme.colors.outlineVariant,
 							opacity: disabled ? 0.6 : 1,
 							width: fullWidth ? "100%" : undefined,
 						},
@@ -393,7 +399,7 @@ export const Select = forwardRef<View, SelectProps>(
 								flex: 1,
 								color: isPlaceholder
 									? theme.colors.onSurfaceVariant
-									: (resolveToken(variantStyles.color) ?? theme.colors.onSurface),
+									: (resolveToken(theme, variantStyles.color) ?? theme.colors.onSurface),
 								opacity: isPlaceholder ? 0.7 : 1,
 							}}
 							numberOfLines={1}
@@ -456,6 +462,7 @@ const SelectListbox = ({
 	onOptionSelect,
 	onHighlight,
 }: SelectListboxProps) => {
+	const theme = useTheme();
 	if (!open) {
 		return null;
 	}
@@ -531,6 +538,7 @@ const SelectOptionItem = ({
 	onPress,
 	onHighlight,
 }: SelectOptionItemProps) => {
+	const theme = useTheme();
 	const backgroundColor = highlighted
 		? theme.colors.primaryContainer
 		: selected
@@ -567,7 +575,12 @@ const SelectOptionItem = ({
 			accessibilityState={{ disabled: option.disabled, selected }}
 			style={({ pressed }) => [
 				styles.option,
-				{ backgroundColor, opacity: option.disabled ? 0.6 : 1 },
+				{
+					backgroundColor,
+					opacity: option.disabled ? 0.6 : 1,
+					paddingHorizontal: theme.spacing.md,
+					paddingVertical: theme.spacing.sm,
+				},
 				pressed && !option.disabled ? { backgroundColor: theme.colors.surfaceVariant } : null,
 			]}
 		>
@@ -608,8 +621,5 @@ const styles = StyleSheet.create({
 		shadowRadius: 8,
 		elevation: 6,
 	},
-	option: {
-		paddingHorizontal: theme.spacing.md,
-		paddingVertical: theme.spacing.sm,
-	},
+	option: {},
 });

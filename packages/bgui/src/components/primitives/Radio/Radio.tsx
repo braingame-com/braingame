@@ -13,37 +13,40 @@ import {
 } from "react-native";
 import { useControlledState } from "../../../hooks/useControlledState";
 import { useInteractiveState } from "../../../hooks/useInteractiveState";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
+import type { VariantStyle } from "../../../theme/variants";
 import { useRadioGroupContext } from "../../compositions/RadioGroup";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { RadioChangeEvent, RadioProps } from "./Radio.types";
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig = {
-	sm: {
-		outer: 18,
-		inner: 8,
-		fontSize: theme.fontSizes.sm,
-		gap: theme.spacing.xs,
-	},
-	md: {
-		outer: 20,
-		inner: 10,
-		fontSize: theme.fontSizes.md,
-		gap: theme.spacing.sm,
-	},
-	lg: {
-		outer: 24,
-		inner: 12,
-		fontSize: theme.fontSizes.lg,
-		gap: theme.spacing.md,
-	},
-} as const;
+const createSizeConfig = (theme: Theme) =>
+	({
+		sm: {
+			outer: 18,
+			inner: 8,
+			fontSize: theme.fontSizes.sm,
+			gap: theme.spacing.xs,
+		},
+		md: {
+			outer: 20,
+			inner: 10,
+			fontSize: theme.fontSizes.md,
+			gap: theme.spacing.sm,
+		},
+		lg: {
+			outer: 24,
+			inner: 12,
+			fontSize: theme.fontSizes.lg,
+			gap: theme.spacing.md,
+		},
+	}) as const;
 
 const createMockChangeEvent = (value: string | number | undefined): RadioChangeEvent => {
 	return {
@@ -101,6 +104,8 @@ export const Radio = forwardRef<View, RadioProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
 		const context = useRadioGroupContext();
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const pressableRef = useRef<View>(null);
@@ -137,14 +142,14 @@ export const Radio = forwardRef<View, RadioProps>(
 			}
 		}, [autoFocus, checked]);
 
-		const variantKey = `${variant}-${color}` as keyof typeof theme.components.Radio.variants;
-		const variantStyles =
-			theme.components.Radio.variants[variantKey] ||
-			theme.components.Radio.variants["outlined-neutral"];
+		const variantKey = `${variant}-${color}`;
+		const variantMap = theme.components.Radio.variants as Record<string, VariantStyle>;
+		const variantStyles = variantMap[variantKey] ?? variantMap["outlined-neutral"];
 
-		const resolvedBackground = resolveColorToken(variantStyles.backgroundColor);
-		const resolvedBorder = resolveColorToken(variantStyles.borderColor) ?? theme.colors.outline;
-		const resolvedColor = resolveColorToken(variantStyles.color) ?? theme.colors.primary;
+		const resolvedBackground = resolveColorToken(theme, variantStyles.backgroundColor);
+		const resolvedBorder =
+			resolveColorToken(theme, variantStyles.borderColor) ?? theme.colors.outline;
+		const resolvedColor = resolveColorToken(theme, variantStyles.color) ?? theme.colors.primary;
 		const sizeTokens = sizeConfig[size];
 
 		const emitChange = useCallback(

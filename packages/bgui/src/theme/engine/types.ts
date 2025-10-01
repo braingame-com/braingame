@@ -46,6 +46,7 @@ export interface ThemeBreakpointScale {
 	[key: string]: number;
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: component config variants have dynamic shapes
 export type ThemeComponentConfigEntry = Record<string, any>;
 
 export interface ThemeComponentConfig {

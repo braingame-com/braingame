@@ -10,7 +10,7 @@ import {
 	useState,
 } from "react";
 import { LayoutAnimation, Platform, Pressable, StyleSheet, UIManager, View } from "react-native";
-import { theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Typography } from "../../primitives/Typography";
 import type { AccordionItemProps, AccordionProps, AccordionValue } from "./Accordion.types";
 
@@ -52,6 +52,7 @@ const AccordionItemComponent: React.FC<AccordionItemProps> = ({
 	style,
 }) => {
 	const { openValues, toggle, multiple, disabled: accordionDisabled } = useAccordion();
+	const theme = useTheme();
 	const isOpen = openValues.has(value);
 	const isDisabled = accordionDisabled || disabled;
 
@@ -60,6 +61,22 @@ const AccordionItemComponent: React.FC<AccordionItemProps> = ({
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 		toggle(value);
 	}, [isDisabled, toggle, value]);
+
+	const triggerBaseStyle = {
+		paddingHorizontal: theme.spacing.lg,
+		paddingVertical: theme.spacing.md,
+		backgroundColor: theme.colors.surface,
+		gap: theme.spacing.xs,
+	} as const;
+	const titleStyle = { color: theme.colors.onSurface } as const;
+	const descriptionStyle = { color: theme.colors.onSurfaceVariant } as const;
+	const chevronStyle = { color: theme.colors.onSurfaceVariant } as const;
+	const contentStyle = {
+		paddingHorizontal: theme.spacing.lg,
+		paddingBottom: theme.spacing.md,
+		backgroundColor: theme.colors.surface,
+	} as const;
+	const separatorStyle = { backgroundColor: theme.colors.outlineVariant } as const;
 
 	return (
 		<View style={[styles.itemContainer, style]}>
@@ -70,26 +87,30 @@ const AccordionItemComponent: React.FC<AccordionItemProps> = ({
 				accessibilityState={{ expanded: isOpen, disabled: isDisabled }}
 				style={[
 					styles.trigger,
-					isOpen && styles.triggerActive,
+					triggerBaseStyle,
+					isOpen ? { backgroundColor: theme.colors.primaryContainer } : null,
 					isDisabled && styles.triggerDisabled,
 				]}
 			>
 				<View style={styles.triggerContent}>
-					<Typography level="title-sm" style={styles.triggerTitle}>
+					<Typography level="title-sm" style={titleStyle}>
 						{title}
 					</Typography>
-					<Typography level="body-sm" style={[styles.chevron, isOpen && styles.chevronOpen]}>
+					<Typography
+						level="body-sm"
+						style={[styles.chevron, chevronStyle, isOpen && styles.chevronOpen]}
+					>
 						⌄
 					</Typography>
 				</View>
 				{description ? (
-					<Typography level="body-sm" style={styles.description}>
+					<Typography level="body-sm" style={descriptionStyle}>
 						{description}
 					</Typography>
 				) : null}
 			</Pressable>
-			{isOpen ? <View style={styles.content}>{children}</View> : null}
-			{multiple ? <View style={styles.separator} /> : null}
+			{isOpen ? <View style={[styles.content, contentStyle]}>{children}</View> : null}
+			{multiple ? <View style={[styles.separator, separatorStyle]} /> : null}
 		</View>
 	);
 };
@@ -104,6 +125,7 @@ const AccordionComponent: React.FC<AccordionProps> & { Item: typeof AccordionIte
 	allowCollapseAll = true,
 	style,
 }) => {
+	const theme = useTheme();
 	const [internalValues, setInternalValues] = useState<AccordionValue[]>(() =>
 		normalizeValue(defaultValue),
 	);
@@ -163,9 +185,19 @@ const AccordionComponent: React.FC<AccordionProps> & { Item: typeof AccordionIte
 		return validChildren;
 	}, [children]);
 
+	const containerStyle = useMemo(
+		() => ({
+			borderRadius: theme.radii.lg,
+			backgroundColor: theme.colors.surface,
+			borderWidth: StyleSheet.hairlineWidth,
+			borderColor: theme.colors.outlineVariant,
+		}),
+		[theme],
+	);
+
 	return (
 		<AccordionContext.Provider value={contextValue}>
-			<View style={[styles.container, style]}>{items}</View>
+			<View style={[styles.container, containerStyle, style]}>{items}</View>
 		</AccordionContext.Provider>
 	);
 };
@@ -175,25 +207,14 @@ AccordionComponent.Item = AccordionItemComponent;
 export const Accordion = AccordionComponent;
 
 const styles = StyleSheet.create({
-	container: {
-		borderRadius: theme.radii.lg,
-		backgroundColor: theme.colors.surface,
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: theme.colors.outlineVariant,
-	},
+	container: {},
 	itemContainer: {
 		overflow: "hidden",
 	},
 	trigger: {
-		paddingHorizontal: theme.spacing.lg,
-		paddingVertical: theme.spacing.md,
-		backgroundColor: theme.colors.surface,
 		flexDirection: "column",
-		gap: theme.spacing.xs,
 	},
-	triggerActive: {
-		backgroundColor: theme.colors.primaryContainer,
-	},
+	triggerActive: {},
 	triggerDisabled: {
 		opacity: 0.6,
 	},
@@ -202,27 +223,15 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "space-between",
 	},
-	triggerTitle: {
-		color: theme.colors.onSurface,
-	},
-	description: {
-		color: theme.colors.onSurfaceVariant,
-	},
 	chevron: {
 		transform: [{ rotate: "0deg" }],
-		color: theme.colors.onSurfaceVariant,
 	},
 	chevronOpen: {
 		transform: [{ rotate: "180deg" }],
 	},
-	content: {
-		paddingHorizontal: theme.spacing.lg,
-		paddingBottom: theme.spacing.md,
-		backgroundColor: theme.colors.surface,
-	},
+	content: {},
 	separator: {
 		height: StyleSheet.hairlineWidth,
-		backgroundColor: theme.colors.outlineVariant,
 	},
 });
 

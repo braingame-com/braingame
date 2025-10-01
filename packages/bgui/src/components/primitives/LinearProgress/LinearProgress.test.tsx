@@ -1,26 +1,27 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react-native";
+import { Text } from "react-native";
 import { LinearProgress } from "./LinearProgress";
 
 describe("LinearProgress", () => {
 	it("renders determinate progress", () => {
-		render(<LinearProgress determinate value={60} testID="progress" />);
-		const progressbar = screen.getByRole("progressbar");
-		expect(progressbar).toHaveAttribute("aria-valuenow", "60");
-		expect(screen.getByTestId("progress-indicator")).toBeInTheDocument();
+		const { getByTestId } = render(<LinearProgress determinate value={60} testID="progress" />);
+		const progressbar = getByTestId("progress");
+		expect(progressbar.props.accessibilityValue?.now).toBe(60);
+		expect(getByTestId("progress-indicator")).toBeTruthy();
 	});
 
 	it("renders indeterminate progress without aria-valuenow", () => {
-		render(<LinearProgress testID="progress" />);
-		const progressbar = screen.getByRole("progressbar");
-		expect(progressbar).not.toHaveAttribute("aria-valuenow");
+		const { getByTestId } = render(<LinearProgress testID="progress" />);
+		const progressbar = getByTestId("progress");
+		expect(progressbar.props.accessibilityValue?.now).toBeUndefined();
 	});
 
 	it("renders children inside the track", () => {
-		render(
+		const { getByText } = render(
 			<LinearProgress determinate value={40}>
-				<span>Loading</span>
+				<Text>Loading</Text>
 			</LinearProgress>,
 		);
-		expect(screen.getByText("Loading")).toBeInTheDocument();
+		expect(getByText("Loading")).toBeTruthy();
 	});
 });

@@ -1,14 +1,15 @@
 import type { ReactElement } from "react";
 import { Children, Fragment, isValidElement } from "react";
 import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import type { SpacingValue, StackProps } from "./Stack.types";
 
-const resolveSpacing = (value: SpacingValue | undefined) => {
+const resolveSpacing = (theme: Theme, value: SpacingValue | undefined) => {
 	if (typeof value === "number") return value;
 	if (!value) return 0;
-	return theme.spacing[value as keyof typeof theme.spacing] ?? 0;
+	return theme.spacing[value as keyof Theme["spacing"]] ?? 0;
 };
 
 export const Stack: React.FC<StackProps> = ({
@@ -20,7 +21,8 @@ export const Stack: React.FC<StackProps> = ({
 	style,
 	testID,
 }) => {
-	const spacingValue = resolveSpacing(spacing);
+	const theme = useTheme();
+	const spacingValue = resolveSpacing(theme, spacing);
 	const childArray = Children.toArray(children).filter(isValidElement) as ReactElement[];
 
 	const baseStyle = StyleSheet.flatten([{ flexDirection: direction }, style]);

@@ -14,36 +14,39 @@ import {
 } from "react-native";
 import { useControlledState } from "../../../hooks/useControlledState";
 import { useInteractiveState } from "../../../hooks/useInteractiveState";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
+import type { VariantStyle } from "../../../theme/variants";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { CheckboxChangeEvent, CheckboxProps } from "./Checkbox.types";
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig = {
-	sm: {
-		box: 16,
-		icon: 10,
-		fontSize: theme.fontSizes.sm,
-		gap: theme.spacing.xs,
-	},
-	md: {
-		box: 20,
-		icon: 12,
-		fontSize: theme.fontSizes.md,
-		gap: theme.spacing.sm,
-	},
-	lg: {
-		box: 24,
-		icon: 14,
-		fontSize: theme.fontSizes.lg,
-		gap: theme.spacing.md,
-	},
-} as const;
+const createSizeConfig = (theme: Theme) =>
+	({
+		sm: {
+			box: 16,
+			icon: 10,
+			fontSize: theme.fontSizes.sm,
+			gap: theme.spacing.xs,
+		},
+		md: {
+			box: 20,
+			icon: 12,
+			fontSize: theme.fontSizes.md,
+			gap: theme.spacing.sm,
+		},
+		lg: {
+			box: 24,
+			icon: 14,
+			fontSize: theme.fontSizes.lg,
+			gap: theme.spacing.md,
+		},
+	}) as const;
 
 type FocusableInput = HTMLInputElement & { indeterminate?: boolean } & {
 	value?: CheckboxProps["value"];
@@ -77,30 +80,31 @@ const createMockNativeEvent = (
 	};
 };
 
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: "row",
-		alignItems: "center",
-	},
-	checkbox: {
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: theme.radii.xs,
-		borderWidth: 1,
-	},
-	checkMark: {
-		width: 3,
-		height: 8,
-		borderRightWidth: 2,
-		borderBottomWidth: 2,
-		transform: [{ rotate: "45deg" }],
-	},
-	indeterminate: {
-		height: 2,
-		borderRadius: 1,
-		alignSelf: "stretch",
-	},
-});
+const createStyles = (theme: Theme) =>
+	StyleSheet.create({
+		container: {
+			flexDirection: "row",
+			alignItems: "center",
+		},
+		checkbox: {
+			alignItems: "center",
+			justifyContent: "center",
+			borderRadius: theme.radii.xs,
+			borderWidth: 1,
+		},
+		checkMark: {
+			width: 3,
+			height: 8,
+			borderRightWidth: 2,
+			borderBottomWidth: 2,
+			transform: [{ rotate: "45deg" }],
+		},
+		indeterminate: {
+			height: 2,
+			borderRadius: 1,
+			alignSelf: "stretch",
+		},
+	});
 
 const hiddenInputStyle: CSSProperties = {
 	position: "absolute",
@@ -146,6 +150,9 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 	) => {
 		const inputRef = useRef<FocusableInput | null>(null);
 		const pressableRef = useRef<View>(null);
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
+		const styles = useMemo(() => createStyles(theme), [theme]);
 		const [checked, setChecked] = useControlledState<boolean | undefined>(
 			checkedProp,
 			defaultChecked,
@@ -163,16 +170,15 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 
 		const variantKey = `${isActive ? activeVariant : inactiveVariant}-${
 			isActive ? activeColor : inactiveColor
-		}` as keyof typeof theme.components.Checkbox.variants;
+		}`;
 
-		const variantStyles =
-			theme.components.Checkbox.variants[variantKey] ||
-			theme.components.Checkbox.variants["solid-neutral"];
+		const variantMap = theme.components.Checkbox.variants as Record<string, VariantStyle>;
+		const variantStyles = variantMap[variantKey] || variantMap["solid-neutral"];
 
-		const resolvedBackground = resolveColorToken(variantStyles.backgroundColor);
+		const resolvedBackground = resolveColorToken(theme, variantStyles.backgroundColor);
 		const resolvedBorder =
-			resolveColorToken(variantStyles.borderColor) ?? theme.colors.outlineVariant;
-		const resolvedColor = resolveColorToken(variantStyles.color) ?? theme.colors.onSurface;
+			resolveColorToken(theme, variantStyles.borderColor) ?? theme.colors.outlineVariant;
+		const resolvedColor = resolveColorToken(theme, variantStyles.color) ?? theme.colors.onSurface;
 		const sizeTokens = sizeConfig[size];
 
 		useEffect(() => {
@@ -279,7 +285,7 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 				},
 				flattened,
 			];
-		}, [disabled, overlay, style]);
+		}, [disabled, overlay, style, styles]);
 
 		const focusRingStyle: ViewStyle | undefined = isFocused
 			? {

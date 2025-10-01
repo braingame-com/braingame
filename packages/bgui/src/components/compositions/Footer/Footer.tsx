@@ -1,6 +1,7 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Container } from "../../primitives/Container";
 import { Icon } from "../../primitives/Icon";
@@ -9,10 +10,10 @@ import { Stack } from "../../primitives/Stack";
 import { Typography } from "../../primitives/Typography";
 import type { FooterProps } from "./Footer.types";
 
-const paddingMap = {
-	sm: theme.spacing.sm,
-	md: theme.spacing.md,
-	lg: theme.spacing.lg,
+const paddingResolvers = {
+	sm: (theme: Theme) => theme.spacing.sm,
+	md: (theme: Theme) => theme.spacing.md,
+	lg: (theme: Theme) => theme.spacing.lg,
 } as const;
 
 export const Footer = memo(function Footer({
@@ -22,26 +23,31 @@ export const Footer = memo(function Footer({
 	legalLinks = [],
 	socialLinks = [],
 	copyright,
-	backgroundColor = theme.colors.surface,
+	backgroundColor,
 	border = true,
 	paddingY = "md",
 }: FooterProps) {
+	const theme = useTheme();
+	const resolvedBackgroundColor = backgroundColor ?? theme.colors.surface;
+	const paddingYValue = paddingResolvers[paddingY](theme);
+	const brandSpacing = theme.spacing.xs;
+	const brandStyle = useMemo(() => ({ marginBottom: brandSpacing }), [brandSpacing]);
 	return (
 		<Box
 			style={StyleSheet.flatten([
 				styles.wrapper,
 				{
-					backgroundColor,
+					backgroundColor: resolvedBackgroundColor,
 					borderTopWidth: border ? StyleSheet.hairlineWidth : 0,
 					borderTopColor: border ? theme.colors.outlineVariant : "transparent",
-					paddingVertical: paddingMap[paddingY],
+					paddingVertical: paddingYValue,
 				},
 			])}
 		>
 			<Container>
 				<Stack spacing="lg">
 					<Stack spacing="sm" style={styles.topRow}>
-						{brand ? <Box style={styles.brandArea}>{brand}</Box> : null}
+						{brand ? <Box style={brandStyle}>{brand}</Box> : null}
 						{description ? (
 							<Typography level="body-sm" style={styles.description}>
 								{description}
@@ -107,9 +113,6 @@ const styles = StyleSheet.create({
 	},
 	topRow: {
 		alignItems: "flex-start",
-	},
-	brandArea: {
-		marginBottom: theme.spacing.xs,
 	},
 	description: {
 		color: "#94a3b8",

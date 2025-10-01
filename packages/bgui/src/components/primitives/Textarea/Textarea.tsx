@@ -9,45 +9,47 @@ import {
 	type TextInputKeyPressEventData,
 	type TextInputProps,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { TextareaProps } from "./Textarea.types";
 
-const resolveToken = (token?: string) => {
+const resolveToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const sizeConfig = {
-	sm: {
-		minHeight: 64,
-		paddingHorizontal: theme.spacing.xs,
-		paddingVertical: theme.spacing.xs,
-		fontSize: theme.fontSizes.sm,
-		lineHeight: 20,
-		decoratorGap: theme.spacing.xs,
-		labelVariant: "body-sm" as const,
-	},
-	md: {
-		minHeight: 80,
-		paddingHorizontal: theme.spacing.sm,
-		paddingVertical: theme.spacing.sm,
-		fontSize: theme.fontSizes.md,
-		lineHeight: 24,
-		decoratorGap: theme.spacing.xs,
-		labelVariant: "body-md" as const,
-	},
-	lg: {
-		minHeight: 96,
-		paddingHorizontal: theme.spacing.md,
-		paddingVertical: theme.spacing.md,
-		fontSize: theme.fontSizes.lg,
-		lineHeight: 28,
-		decoratorGap: theme.spacing.sm,
-		labelVariant: "body-lg" as const,
-	},
-} as const;
+const createSizeConfig = (theme: Theme) =>
+	({
+		sm: {
+			minHeight: 64,
+			paddingHorizontal: theme.spacing.xs,
+			paddingVertical: theme.spacing.xs,
+			fontSize: theme.fontSizes.sm,
+			lineHeight: 20,
+			decoratorGap: theme.spacing.xs,
+			labelVariant: "body-sm" as const,
+		},
+		md: {
+			minHeight: 80,
+			paddingHorizontal: theme.spacing.sm,
+			paddingVertical: theme.spacing.sm,
+			fontSize: theme.fontSizes.md,
+			lineHeight: 24,
+			decoratorGap: theme.spacing.xs,
+			labelVariant: "body-md" as const,
+		},
+		lg: {
+			minHeight: 96,
+			paddingHorizontal: theme.spacing.md,
+			paddingVertical: theme.spacing.md,
+			fontSize: theme.fontSizes.lg,
+			lineHeight: 28,
+			decoratorGap: theme.spacing.sm,
+			labelVariant: "body-lg" as const,
+		},
+	}) as const;
 
 export const Textarea = forwardRef<TextInput, TextareaProps>(
 	(
@@ -94,6 +96,8 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 	) => {
 		const textInputRef = useRef<TextInput>(null);
 		const [focused, setFocused] = useState(false);
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
 
 		const resolvedDefaultValue = useMemo(() => {
 			if (defaultValue !== undefined) {
@@ -183,8 +187,8 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 				minHeight: calculateHeight(),
 				paddingHorizontal: sizeStyles.paddingHorizontal,
 				paddingVertical: sizeStyles.paddingVertical,
-				backgroundColor: resolveToken(variantStyles.backgroundColor) ?? theme.colors.surface,
-				borderColor: resolveToken(variantStyles.borderColor) ?? theme.colors.outlineVariant,
+				backgroundColor: resolveToken(theme, variantStyles.backgroundColor) ?? theme.colors.surface,
+				borderColor: resolveToken(theme, variantStyles.borderColor) ?? theme.colors.outlineVariant,
 				borderWidth: variantStyles.borderWidth ?? (variant === "outlined" ? 1 : 0),
 				borderRadius: theme.radii.sm,
 				opacity: disabled ? 0.6 : 1,
@@ -205,7 +209,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
 			{
 				fontSize: sizeStyles.fontSize,
 				lineHeight: sizeStyles.lineHeight,
-				color: resolveToken(variantStyles.color) ?? theme.colors.onSurface,
+				color: resolveToken(theme, variantStyles.color) ?? theme.colors.onSurface,
 			},
 			inputStyle,
 			Platform.OS === "web"

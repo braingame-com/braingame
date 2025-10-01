@@ -8,7 +8,9 @@ import {
 	type ViewStyle,
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
+import type { VariantStyle } from "../../../theme/variants";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type {
@@ -31,20 +33,19 @@ const SIZE_MAP: Record<CircularProgressSize, SizeTokens> = {
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const resolveThemeColor = (value?: string) => {
+const resolveThemeColor = (theme: Theme, value?: string) => {
 	if (!value) return undefined;
-	return theme.colors[value as keyof typeof theme.colors] ?? value;
+	return theme.colors[value as keyof Theme["colors"]] ?? value;
 };
 
 const getVariantTokens = (
+	theme: Theme,
 	variant: CircularProgressVariant,
 	color: NonNullable<CircularProgressProps["color"]>,
 ) => {
-	const key = `${variant}-${color}` as keyof typeof theme.components.CircularProgress.variants;
-	return (
-		theme.components.CircularProgress.variants[key] ??
-		theme.components.CircularProgress.variants["soft-primary"]
-	);
+	const key = `${variant}-${color}`;
+	const variants = theme.components.CircularProgress.variants as Record<string, VariantStyle>;
+	return variants[key] ?? variants["soft-primary"];
 };
 
 const styles = StyleSheet.create({
@@ -89,6 +90,7 @@ export const CircularProgress = forwardRef<View, CircularProgressProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
 		const containerRef = useRef<View>(null);
 		useImperativeHandle(ref, () => containerRef.current as View);
 
@@ -101,17 +103,20 @@ export const CircularProgress = forwardRef<View, CircularProgressProps>(
 		const radius = (sizeTokens.size - strokeWidth) / 2;
 		const circumference = 2 * Math.PI * radius;
 
-		const variantTokens = useMemo(() => getVariantTokens(variant, color), [color, variant]);
+		const variantTokens = useMemo(
+			() => getVariantTokens(theme, variant, color),
+			[theme, variant, color],
+		);
 
-		const resolvedBackground = resolveThemeColor(variantTokens.backgroundColor);
-		const resolvedForeground = resolveThemeColor(variantTokens.color);
+		const resolvedBackground = resolveThemeColor(theme, variantTokens.backgroundColor);
+		const resolvedForeground = resolveThemeColor(theme, variantTokens.color);
 
 		const progressColor = useMemo(() => {
 			if (variant === "solid") {
-				return resolvedBackground ?? theme.colors[color];
+				return resolvedBackground ?? theme.colors[color as keyof Theme["colors"]];
 			}
-			return resolvedForeground ?? theme.colors[color];
-		}, [color, resolvedBackground, resolvedForeground, variant]);
+			return resolvedForeground ?? theme.colors[color as keyof Theme["colors"]];
+		}, [color, resolvedBackground, resolvedForeground, theme, variant]);
 
 		const trackColor = useMemo(() => {
 			if (variant === "soft") {
@@ -121,7 +126,7 @@ export const CircularProgress = forwardRef<View, CircularProgressProps>(
 				return theme.colors.surfaceVariant;
 			}
 			return resolvedBackground ?? theme.colors.outlineVariant;
-		}, [resolvedBackground, variant]);
+		}, [resolvedBackground, theme, variant]);
 
 		useEffect(() => {
 			if (!determinate) {

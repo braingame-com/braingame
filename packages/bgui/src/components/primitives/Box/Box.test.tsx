@@ -1,9 +1,25 @@
 import { render } from "@testing-library/react-native";
 import type React from "react";
-import { BGUIThemeProvider, theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Box } from "./Box";
 
 describe("Box", () => {
+	let theme!: Theme;
+
+	beforeAll(() => {
+		const Capture = () => {
+			theme = useTheme();
+			return null;
+		};
+		const { unmount } = render(
+			<BGUIThemeProvider forceTheme="light">
+				<Capture />
+			</BGUIThemeProvider>,
+		);
+		unmount();
+	});
+
 	const renderWithTheme = (ui: React.ReactNode) =>
 		render(<BGUIThemeProvider forceTheme="light">{ui}</BGUIThemeProvider>);
 

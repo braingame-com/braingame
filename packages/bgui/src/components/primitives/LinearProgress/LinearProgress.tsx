@@ -8,23 +8,26 @@ import {
 	View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
+import type { VariantStyle } from "../../../theme/variants";
 import type { LinearProgressProps } from "./LinearProgress.types";
 
 const DEFAULT_LABEL = "Loading…";
 
-const sizeMap = {
-	sm: { height: 4, radius: theme.radii.xs },
-	md: { height: 6, radius: theme.radii.sm },
-	lg: { height: 8, radius: theme.radii.md },
-} as const;
+const createSizeMap = (theme: Theme) =>
+	({
+		sm: { height: 4, radius: theme.radii.xs },
+		md: { height: 6, radius: theme.radii.sm },
+		lg: { height: 8, radius: theme.radii.md },
+	}) as const;
 
 const clampProgress = (value: number) => Math.min(100, Math.max(0, value));
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
 	if (token in theme.colors) {
-		return theme.colors[token as keyof typeof theme.colors];
+		return theme.colors[token as keyof Theme["colors"]];
 	}
 	return token;
 };
@@ -50,6 +53,8 @@ export const LinearProgress = forwardRef<View, LinearProgressProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
+		const sizeMap = useMemo(() => createSizeMap(theme), [theme]);
 		const [trackWidth, setTrackWidth] = useState(0);
 		const progressValue = useRef(new Animated.Value(clampProgress(value))).current;
 		const indeterminateValue = useRef(new Animated.Value(0)).current;
@@ -107,16 +112,15 @@ export const LinearProgress = forwardRef<View, LinearProgressProps>(
 			[onLayout],
 		);
 
-		const variantKey =
-			`${variant}-${color}` as keyof typeof theme.components.LinearProgress.variants;
-		const variantStyles =
-			theme.components.LinearProgress.variants[variantKey] ??
-			theme.components.LinearProgress.variants["soft-primary"];
+		const variantKey = `${variant}-${color}`;
+		const variantMap = theme.components.LinearProgress.variants as Record<string, VariantStyle>;
+		const variantStyles = variantMap[variantKey] ?? variantMap["soft-primary"];
 
 		const resolvedTrackColor =
-			resolveColorToken(variantStyles.backgroundColor) ?? theme.colors.surfaceVariant;
-		const resolvedProgressColor = resolveColorToken(variantStyles.color) ?? theme.colors.primary;
-		const resolvedBorderColor = resolveColorToken(variantStyles.borderColor);
+			resolveColorToken(theme, variantStyles.backgroundColor) ?? theme.colors.surfaceVariant;
+		const resolvedProgressColor =
+			resolveColorToken(theme, variantStyles.color) ?? theme.colors.primary;
+		const resolvedBorderColor = resolveColorToken(theme, variantStyles.borderColor);
 
 		const { height, radius } = sizeMap[size];
 		const progressHeight = thickness ?? height;

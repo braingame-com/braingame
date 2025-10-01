@@ -1,18 +1,37 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Button } from "./Button";
 
 describe("Button", () => {
+	let theme!: Theme;
+
+	beforeAll(() => {
+		const Capture = () => {
+			theme = useTheme();
+			return null;
+		};
+		const { unmount } = render(
+			<BGUIThemeProvider>
+				<Capture />
+			</BGUIThemeProvider>,
+		);
+		unmount();
+	});
+
+	const renderWithProviders = (ui: React.ReactElement) =>
+		render(<BGUIThemeProvider>{ui}</BGUIThemeProvider>);
+
 	it("renders provided label", () => {
-		const { getByText } = render(<Button>Tap me</Button>);
+		const { getByText } = renderWithProviders(<Button>Tap me</Button>);
 
 		expect(getByText("Tap me")).toBeTruthy();
 	});
 
 	it("invokes onClick handler when pressed", () => {
 		const handleClick = jest.fn();
-		const { getByText } = render(<Button onClick={handleClick}>Action</Button>);
+		const { getByText } = renderWithProviders(<Button onClick={handleClick}>Action</Button>);
 
 		fireEvent.press(getByText("Action"));
 
@@ -21,7 +40,7 @@ describe("Button", () => {
 
 	it("prevents interaction when disabled", () => {
 		const handleClick = jest.fn();
-		const { getByText } = render(
+		const { getByText } = renderWithProviders(
 			<Button disabled onClick={handleClick}>
 				Disabled
 			</Button>,
@@ -34,7 +53,7 @@ describe("Button", () => {
 
 	it("prevents interaction when loading", () => {
 		const handleClick = jest.fn();
-		const { getByText } = render(
+		const { getByText } = renderWithProviders(
 			<Button loading onClick={handleClick}>
 				Loading
 			</Button>,
@@ -46,7 +65,7 @@ describe("Button", () => {
 	});
 
 	it("renders decorators around content", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithProviders(
 			<Button startDecorator="*" endDecorator="!">
 				Decorated
 			</Button>,
@@ -56,21 +75,21 @@ describe("Button", () => {
 	});
 
 	it("applies full width style", () => {
-		const { getByA11yRole } = render(<Button fullWidth>Wide</Button>);
-		const button = getByA11yRole("button");
+		const { getByRole } = renderWithProviders(<Button fullWidth>Wide</Button>);
+		const button = getByRole("button");
 		const flattened = StyleSheet.flatten(button.props.style);
 
 		expect(flattened?.width).toBe("100%");
 	});
 
 	it("applies variant background and text colors", () => {
-		const { getByA11yRole, getByText } = render(
+		const { getByRole, getByText } = renderWithProviders(
 			<Button variant="solid" color="primary">
 				Solid
 			</Button>,
 		);
 
-		const button = getByA11yRole("button");
+		const button = getByRole("button");
 		const text = getByText("Solid");
 		const buttonStyle = StyleSheet.flatten(button.props.style);
 		const textStyle = StyleSheet.flatten(text.props.style);
@@ -80,17 +99,17 @@ describe("Button", () => {
 	});
 
 	it("shows loading indicator and busy state", () => {
-		const { getByA11yRole, getAllByTestId } = render(<Button loading>Load</Button>);
+		const { getByRole, getAllByTestId } = renderWithProviders(<Button loading>Load</Button>);
 
-		const button = getByA11yRole("button");
-		expect(button.props.accessibilityState?.busy).toBe(true);
+		const button = getByRole("button");
+		expect(button).toHaveAccessibilityState({ busy: true });
 		expect(getAllByTestId("bgui-button-loading-indicator")).toHaveLength(1);
 	});
 
 	it("marks pressed state when aria-pressed is true", () => {
-		const { getByA11yRole } = render(<Button aria-pressed>Toggle</Button>);
+		const { getByRole } = renderWithProviders(<Button aria-pressed>Toggle</Button>);
 
-		const button = getByA11yRole("button");
-		expect(button.props.accessibilityState?.pressed).toBe(true);
+		const button = getByRole("button");
+		expect(button).toHaveAccessibilityState({ pressed: true });
 	});
 });

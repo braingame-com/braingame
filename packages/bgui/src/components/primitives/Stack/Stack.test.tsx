@@ -1,13 +1,29 @@
 import { render } from "@testing-library/react-native";
 import type React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { BGUIThemeProvider, theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Stack } from ".";
 
 const renderWithTheme = (component: React.ReactElement) =>
 	render(<BGUIThemeProvider forceTheme="light">{component}</BGUIThemeProvider>);
 
 describe("Stack", () => {
+	let theme!: Theme;
+
+	beforeAll(() => {
+		const Capture = () => {
+			theme = useTheme();
+			return null;
+		};
+		const { unmount } = render(
+			<BGUIThemeProvider forceTheme="light">
+				<Capture />
+			</BGUIThemeProvider>,
+		);
+		unmount();
+	});
+
 	it("renders children correctly", () => {
 		const { getByText } = renderWithTheme(
 			<Stack>

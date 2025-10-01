@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Typography } from "../Typography";
 import { Box } from "./Box";
 
@@ -30,23 +30,26 @@ export const Playground: Story = {
 };
 
 export const LayoutExamples: Story = {
-	render: () => (
-		<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
-			<Box padding="sm" backgroundColor="primary" borderRadius="sm">
-				<Typography level="body-sm" textColor="onPrimary">
-					Primary
-				</Typography>
+	render: () => {
+		const theme = useTheme();
+		return (
+			<Box style={{ flexDirection: "row", columnGap: theme.spacing.md }}>
+				<Box padding="sm" backgroundColor="primary" borderRadius="sm">
+					<Typography level="body-sm" textColor="onPrimary">
+						Primary
+					</Typography>
+				</Box>
+				<Box padding="sm" backgroundColor="surfaceVariant" borderRadius="sm">
+					<Typography level="body-sm" textColor="onSurfaceVariant">
+						Surface Variant
+					</Typography>
+				</Box>
+				<Box padding="sm" backgroundColor="success" borderRadius="sm">
+					<Typography level="body-sm" textColor="onSuccess">
+						Success
+					</Typography>
+				</Box>
 			</Box>
-			<Box padding="sm" backgroundColor="surfaceVariant" borderRadius="sm">
-				<Typography level="body-sm" textColor="onSurfaceVariant">
-					Surface Variant
-				</Typography>
-			</Box>
-			<Box padding="sm" backgroundColor="success" borderRadius="sm">
-				<Typography level="body-sm" textColor="onSuccess">
-					Success
-				</Typography>
-			</Box>
-		</Box>
-	),
+		);
+	},
 };

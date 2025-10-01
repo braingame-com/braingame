@@ -17,7 +17,8 @@ import type {
 	ViewStyle,
 } from "react-native";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Stack } from "../../primitives/Stack";
 import type {
@@ -58,10 +59,9 @@ type TabsContextValue = {
 
 const TabsContext = createContext<TabsContextValue | null>(null);
 
-const tabSizeStyles: Record<
-	TabsSize,
-	{ paddingHorizontal: number; paddingVertical: number; minHeight: number }
-> = {
+const createTabSizeStyles = (
+	theme: Theme,
+): Record<TabsSize, { paddingHorizontal: number; paddingVertical: number; minHeight: number }> => ({
 	sm: {
 		paddingHorizontal: theme.spacing.sm,
 		paddingVertical: theme.spacing.xs,
@@ -77,20 +77,21 @@ const tabSizeStyles: Record<
 		paddingVertical: theme.spacing.md,
 		minHeight: 48,
 	},
-};
+});
 
-const panelPadding: Record<TabsSize, number> = {
+const createPanelPadding = (theme: Theme): Record<TabsSize, number> => ({
 	sm: theme.spacing.sm,
 	md: theme.spacing.md,
 	lg: theme.spacing.lg,
-};
+});
 
-const resolveColorToken = (token: string | undefined) => {
+const resolveColorToken = (theme: Theme, token: string | undefined) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
 const resolveVariantStyles = (
+	theme: Theme,
 	component: "Tabs" | "TabList" | "Tab" | "TabPanel",
 	variant: TabsVariant,
 	color: TabsColor,
@@ -114,10 +115,10 @@ const resolveVariantStyles = (
 	const { backgroundColor, borderColor, borderWidth, color: textColor } = variantStyles;
 
 	return {
-		backgroundColor: resolveColorToken(backgroundColor),
-		borderColor: resolveColorToken(borderColor),
+		backgroundColor: resolveColorToken(theme, backgroundColor),
+		borderColor: resolveColorToken(theme, borderColor),
 		borderWidth: borderWidth ?? 0,
-		color: resolveColorToken(textColor),
+		color: resolveColorToken(theme, textColor),
 	} as const;
 };
 
@@ -209,6 +210,7 @@ const TabsComponent = forwardRef<View, TabsProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
 		const [internalValue, setInternalValue] = useState<TabsValue | null>(valueProp ?? defaultValue);
 		const isControlled = valueProp !== undefined;
 		const currentValue = isControlled ? (valueProp ?? null) : internalValue;
@@ -311,6 +313,7 @@ const TabsComponent = forwardRef<View, TabsProps>(
 					style={StyleSheet.flatten([
 						styles.container,
 						orientation === "vertical" ? styles.vertical : styles.horizontal,
+						{ gap: theme.spacing.sm },
 						style,
 					])}
 					testID={testID}
@@ -359,13 +362,14 @@ const TabListComponent = forwardRef<View, TabListProps>(
 			disabled,
 			getTab,
 		} = useTabsContext();
+		const theme = useTheme();
 
 		const resolvedOrientation = orientationProp ?? orientation;
 		const resolvedVariant = variantProp ?? variant;
 		const resolvedColor = colorProp ?? color;
 		const resolvedSize = sizeProp ?? size;
 
-		const variantStyles = resolveVariantStyles("TabList", resolvedVariant, resolvedColor);
+		const variantStyles = resolveVariantStyles(theme, "TabList", resolvedVariant, resolvedColor);
 
 		const spacingToken = useMemo(() => {
 			switch (resolvedSize) {
@@ -477,6 +481,7 @@ const TabListComponent = forwardRef<View, TabListProps>(
 					{
 						backgroundColor: variantStyles.backgroundColor,
 						borderColor: variantStyles.borderColor,
+						borderRadius: theme.borderRadii.md,
 						borderWidth: variantStyles.borderWidth,
 					},
 					style,
@@ -534,6 +539,7 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 		updateTabDisabled,
 		selectTab,
 	} = useTabsContext();
+	const theme = useTheme();
 
 	const internalRef = useRef<View | null>(null);
 	const mergedRef = useMemo(() => mergeRefs(internalRef, ref), [ref]);
@@ -546,6 +552,8 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 	const resolvedVariant = variantProp ?? variant;
 	const isDisabled = tabsDisabled || disabledProp;
 	const isSelected = selectedValue === tabValue;
+	const sizeMap = useMemo(() => createTabSizeStyles(theme), [theme]);
+	const sizeTokens = sizeMap[resolvedSize];
 
 	const [isFocused, setIsFocused] = useState(false);
 
@@ -558,7 +566,7 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 		updateTabDisabled(tabValue, isDisabled);
 	}, [isDisabled, tabValue, updateTabDisabled]);
 
-	const variantStyles = resolveVariantStyles("Tab", resolvedVariant, resolvedColor);
+	const variantStyles = resolveVariantStyles(theme, "Tab", resolvedVariant, resolvedColor);
 
 	const indicatorOrientation = useMemo(() => {
 		if (orientation === "vertical") {
@@ -584,6 +592,7 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 						left: insetOffset,
 						right: insetOffset,
 						backgroundColor: colorValue,
+						borderRadius: theme.borderRadii.xs,
 					},
 				];
 			case "left":
@@ -595,6 +604,7 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 						top: insetOffset,
 						bottom: insetOffset,
 						backgroundColor: colorValue,
+						borderRadius: theme.borderRadii.xs,
 					},
 				];
 			case "right":
@@ -606,6 +616,7 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 						top: insetOffset,
 						bottom: insetOffset,
 						backgroundColor: colorValue,
+						borderRadius: theme.borderRadii.xs,
 					},
 				];
 			default:
@@ -617,10 +628,18 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 						left: insetOffset,
 						right: insetOffset,
 						backgroundColor: colorValue,
+						borderRadius: theme.borderRadii.xs,
 					},
 				];
 		}
-	}, [disableIndicator, indicatorInset, indicatorOrientation, isSelected, variantStyles.color]);
+	}, [
+		disableIndicator,
+		indicatorInset,
+		indicatorOrientation,
+		isSelected,
+		theme,
+		variantStyles.color,
+	]);
 
 	const handleFocus = useCallback(() => {
 		setIsFocused(true);
@@ -645,9 +664,10 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 				styles.tab,
 				orientation === "vertical" ? styles.tabVertical : styles.tabHorizontal,
 				{
-					paddingHorizontal: tabSizeStyles[resolvedSize].paddingHorizontal,
-					paddingVertical: tabSizeStyles[resolvedSize].paddingVertical,
-					minHeight: tabSizeStyles[resolvedSize].minHeight,
+					paddingHorizontal: sizeTokens.paddingHorizontal,
+					paddingVertical: sizeTokens.paddingVertical,
+					minHeight: sizeTokens.minHeight,
+					borderRadius: theme.borderRadii.sm,
 					backgroundColor: variantStyles.backgroundColor,
 					borderColor: variantStyles.borderColor,
 					borderWidth: variantStyles.borderWidth,
@@ -676,12 +696,13 @@ const TabComponent = forwardRef<View, TabProps>((props, ref) => {
 			isFocused,
 			isSelected,
 			orientation,
-			resolvedSize,
 			style,
 			variantStyles.backgroundColor,
 			variantStyles.borderColor,
 			variantStyles.borderWidth,
 			variantStyles.color,
+			theme,
+			sizeTokens,
 		],
 	);
 
@@ -735,10 +756,12 @@ const TabPanelComponent = forwardRef<View, TabPanelProps>(
 		ref,
 	) => {
 		const { value: selectedValue, size, color, variant } = useTabsContext();
+		const theme = useTheme();
 
 		const resolvedSize = sizeProp ?? size;
 		const resolvedColor = colorProp ?? color;
 		const resolvedVariant = variantProp ?? variant;
+		const panelPaddingMap = useMemo(() => createPanelPadding(theme), [theme]);
 
 		const isSelected = selectedValue === value;
 
@@ -746,7 +769,7 @@ const TabPanelComponent = forwardRef<View, TabPanelProps>(
 			return null;
 		}
 
-		const variantStyles = resolveVariantStyles("TabPanel", resolvedVariant, resolvedColor);
+		const variantStyles = resolveVariantStyles(theme, "TabPanel", resolvedVariant, resolvedColor);
 
 		return (
 			<Box
@@ -760,10 +783,11 @@ const TabPanelComponent = forwardRef<View, TabPanelProps>(
 				style={StyleSheet.flatten([
 					styles.panel,
 					{
-						padding: panelPadding[resolvedSize],
+						padding: panelPaddingMap[resolvedSize],
 						display: isSelected ? "flex" : "none",
 						backgroundColor: variantStyles.backgroundColor,
 						borderColor: variantStyles.borderColor,
+						borderRadius: theme.borderRadii.md,
 						borderWidth: variantStyles.borderWidth,
 					},
 					style,
@@ -791,7 +815,6 @@ export const TabPanel = TabPanelComponent;
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: "column",
-		gap: theme.spacing.sm,
 	},
 	horizontal: {
 		alignItems: "stretch",
@@ -799,9 +822,7 @@ const styles = StyleSheet.create({
 	vertical: {
 		flexDirection: "row",
 	},
-	list: {
-		borderRadius: theme.borderRadii.md,
-	},
+	list: {},
 	listHorizontal: {
 		flexGrow: 0,
 	},
@@ -821,7 +842,6 @@ const styles = StyleSheet.create({
 		borderRightWidth: StyleSheet.hairlineWidth,
 	},
 	tab: {
-		borderRadius: theme.borderRadii.sm,
 		justifyContent: "center",
 		alignItems: "center",
 		minWidth: 48,
@@ -834,7 +854,6 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: "absolute",
-		borderRadius: theme.borderRadii.xs,
 	},
 	disabled: {
 		opacity: 0.4,
@@ -845,7 +864,5 @@ const styles = StyleSheet.create({
 	hovered: {
 		opacity: 0.9,
 	},
-	panel: {
-		borderRadius: theme.borderRadii.md,
-	},
+	panel: {},
 });

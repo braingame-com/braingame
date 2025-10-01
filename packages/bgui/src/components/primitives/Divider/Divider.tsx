@@ -1,6 +1,7 @@
 import type { AriaAttributes } from "react";
 import { type DimensionValue, Platform, StyleSheet, type ViewStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box, type BoxProps } from "../Box";
 import { Typography } from "../Typography";
 import type { DividerColorToken, DividerProps, DividerVariant } from "./Divider.types";
@@ -11,7 +12,7 @@ const VARIANT_COLOR_MAP: Record<DividerVariant, DividerColorToken> = {
 	emphasized: "onSurfaceVariant",
 };
 
-const resolveColor = (variant: DividerVariant, color?: DividerProps["color"]) => {
+const resolveColor = (theme: Theme, variant: DividerVariant, color?: DividerProps["color"]) => {
 	if (color) {
 		const themeColor = theme.colors[color as DividerColorToken];
 		return themeColor ?? color;
@@ -20,7 +21,7 @@ const resolveColor = (variant: DividerVariant, color?: DividerProps["color"]) =>
 	return theme.colors[VARIANT_COLOR_MAP[variant]];
 };
 
-const resolveInset = (inset: DividerProps["inset"]) => {
+const resolveInset = (theme: Theme, inset: DividerProps["inset"]) => {
 	if (!inset || inset === "none") {
 		return 0;
 	}
@@ -46,9 +47,10 @@ export const Divider: React.FC<DividerProps> = ({
 	style,
 	testID,
 }) => {
+	const theme = useTheme();
 	const isVertical = orientation === "vertical";
-	const insetValue = resolveInset(inset);
-	const dividerColor = resolveColor(variant, color);
+	const insetValue = resolveInset(theme, inset);
+	const dividerColor = resolveColor(theme, variant, color);
 	const contentSpacing = theme.spacing.sm;
 
 	const baseAccessibility: Pick<BoxProps, "accessibilityRole" | "accessible"> = {

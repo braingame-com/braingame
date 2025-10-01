@@ -1,25 +1,26 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react-native";
+import { Text } from "react-native";
 import { GlowingLogo } from "./GlowingLogo";
 
 describe("GlowingLogo", () => {
 	it("renders with default content", () => {
-		render(<GlowingLogo testID="logo" />);
-		expect(screen.getByTestId("logo")).toBeInTheDocument();
+		const { getByTestId } = render(<GlowingLogo testID="logo" />);
+		expect(getByTestId("logo")).toBeTruthy();
 	});
 
 	it("renders provided children", () => {
-		render(
+		const { getByText } = render(
 			<GlowingLogo>
-				<span>Custom Logo</span>
+				<Text>Custom Logo</Text>
 			</GlowingLogo>,
 		);
-		expect(screen.getByText("Custom Logo")).toBeInTheDocument();
+		expect(getByText("Custom Logo")).toBeTruthy();
 	});
 
 	it("handles press interactions", () => {
 		const handlePress = jest.fn();
-		render(<GlowingLogo onPress={handlePress} aria-label="Brand" />);
-		fireEvent.click(screen.getByRole("button", { name: "Brand" }));
+		const { getByRole } = render(<GlowingLogo onPress={handlePress} aria-label="Brand" />);
+		fireEvent.press(getByRole("button"));
 		expect(handlePress).toHaveBeenCalledTimes(1);
 	});
 });

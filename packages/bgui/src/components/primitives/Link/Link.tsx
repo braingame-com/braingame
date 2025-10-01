@@ -8,17 +8,22 @@ import {
 	useState,
 } from "react";
 import { Linking, Platform, Pressable, StyleSheet, type View, type ViewStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../Box";
 import { Typography } from "../Typography";
 import type { LinkProps } from "./Link.types";
 
-const resolveToken = (token?: string) => {
+const resolveToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-const getVariantStyles = (variant: LinkProps["variant"], color: LinkProps["color"]) => {
+const getVariantStyles = (
+	theme: Theme,
+	variant: LinkProps["variant"],
+	color: LinkProps["color"],
+) => {
 	const variantKey = `${variant}-${color}` as const;
 	const variantTokens =
 		theme.components.Link.variants[variantKey] ?? theme.components.Link.variants["plain-primary"];
@@ -30,14 +35,14 @@ const getVariantStyles = (variant: LinkProps["variant"], color: LinkProps["color
 		justifyContent: "center",
 		paddingHorizontal: variant === "plain" ? undefined : theme.spacing.sm,
 		paddingVertical: variant === "plain" ? undefined : theme.spacing.xs,
-		backgroundColor: resolveToken(variantTokens.backgroundColor),
-		borderColor: resolveToken(variantTokens.borderColor),
+		backgroundColor: resolveToken(theme, variantTokens.backgroundColor),
+		borderColor: resolveToken(theme, variantTokens.borderColor),
 		borderWidth: variantTokens.borderWidth ?? (variant === "outlined" ? 1 : 0),
 	};
 
 	return {
 		container,
-		textColor: resolveToken(variantTokens.color) ?? theme.colors.primary,
+		textColor: resolveToken(theme, variantTokens.color) ?? theme.colors.primary,
 	};
 };
 
@@ -64,6 +69,7 @@ export const Link = forwardRef<View, LinkProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
 		const pressableRef = useRef<View>(null);
 		const [hovered, setHovered] = useState(false);
 		const [pressed, setPressed] = useState(false);
@@ -71,7 +77,10 @@ export const Link = forwardRef<View, LinkProps>(
 
 		useImperativeHandle(ref, () => pressableRef.current || ({} as View));
 
-		const variantStyles = useMemo(() => getVariantStyles(variant, color), [variant, color]);
+		const variantStyles = useMemo(
+			() => getVariantStyles(theme, variant, color),
+			[theme, variant, color],
+		);
 
 		const handleOpenLink = useCallback(async () => {
 			if (!href) return;
@@ -142,6 +151,8 @@ export const Link = forwardRef<View, LinkProps>(
 				<Box style={styles.customContent}>{children}</Box>
 			);
 
+		const decoratorSpacing = theme.spacing.xs;
+
 		return (
 			<Pressable
 				ref={pressableRef}
@@ -168,9 +179,11 @@ export const Link = forwardRef<View, LinkProps>(
 				accessibilityRole="link"
 				accessibilityHint={href ? `Opens ${href}` : undefined}
 			>
-				{startDecorator ? <Box style={styles.startDecorator}>{startDecorator}</Box> : null}
+				{startDecorator ? (
+					<Box style={{ marginRight: decoratorSpacing }}>{startDecorator}</Box>
+				) : null}
 				{content}
-				{endDecorator ? <Box style={styles.endDecorator}>{endDecorator}</Box> : null}
+				{endDecorator ? <Box style={{ marginLeft: decoratorSpacing }}>{endDecorator}</Box> : null}
 			</Pressable>
 		);
 	},
@@ -190,12 +203,6 @@ const styles = StyleSheet.create({
 		right: 0,
 		bottom: 0,
 		left: 0,
-	},
-	startDecorator: {
-		marginRight: theme.spacing.xs,
-	},
-	endDecorator: {
-		marginLeft: theme.spacing.xs,
 	},
 	customContent: {
 		justifyContent: "center",

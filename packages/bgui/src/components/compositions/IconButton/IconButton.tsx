@@ -1,6 +1,7 @@
 import { forwardRef, useMemo } from "react";
 import { type StyleProp, StyleSheet, type View, type ViewStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Button } from "../../primitives/Button";
 import { CircularProgress } from "../../primitives/CircularProgress";
@@ -9,35 +10,36 @@ import type { IconButtonProps } from "./IconButton.types";
 
 const ZERO_WIDTH_SPACE = "\u200B";
 
-const ICON_BUTTON_SIZES = {
-	sm: {
-		dimension: 32,
-		iconSize: 18,
-		padding: theme.spacing.xs,
-		borderRadius: theme.radii.sm,
-		spinnerSize: "sm" as const,
-	},
-	md: {
-		dimension: 40,
-		iconSize: 22,
-		padding: theme.spacing.sm,
-		borderRadius: theme.radii.md,
-		spinnerSize: "sm" as const,
-	},
-	lg: {
-		dimension: 48,
-		iconSize: 26,
-		padding: theme.spacing.md,
-		borderRadius: theme.radii.lg,
-		spinnerSize: "md" as const,
-	},
-} as const;
+const buildIconButtonSizes = (theme: Theme) =>
+	({
+		sm: {
+			dimension: 32,
+			iconSize: 18,
+			padding: theme.spacing.xs,
+			borderRadius: theme.radii.sm,
+			spinnerSize: "sm" as const,
+		},
+		md: {
+			dimension: 40,
+			iconSize: 22,
+			padding: theme.spacing.sm,
+			borderRadius: theme.radii.md,
+			spinnerSize: "sm" as const,
+		},
+		lg: {
+			dimension: 48,
+			iconSize: 26,
+			padding: theme.spacing.md,
+			borderRadius: theme.radii.lg,
+			spinnerSize: "md" as const,
+		},
+	}) as const;
 
-type SizeKey = keyof typeof ICON_BUTTON_SIZES;
+type SizeKey = "sm" | "md" | "lg";
 
-const resolveThemeColor = (value?: string) => {
+const resolveThemeColor = (theme: Theme, value?: string) => {
 	if (!value) return undefined;
-	return theme.colors[value as keyof typeof theme.colors] ?? value;
+	return theme.colors[value as keyof Theme["colors"]] ?? value;
 };
 
 const styles = StyleSheet.create({
@@ -69,7 +71,9 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 		},
 		ref,
 	) => {
-		const sizeTokens = ICON_BUTTON_SIZES[size as SizeKey];
+		const theme = useTheme();
+		const sizeMap = useMemo(() => buildIconButtonSizes(theme), [theme]);
+		const sizeTokens = sizeMap[size as SizeKey];
 
 		if (process.env.NODE_ENV !== "production" && !buttonProps["aria-label"]) {
 			console.warn("IconButton requires an accessible `aria-label` for assistive technologies.");
@@ -79,7 +83,8 @@ export const IconButton = forwardRef<View, IconButtonProps>(
 		const variantTokens =
 			theme.components.IconButton.variants[variantKey] ??
 			theme.components.IconButton.variants["plain-neutral"];
-		const resolvedIconColor = resolveThemeColor(variantTokens.color) ?? theme.colors.onSurface;
+		const resolvedIconColor =
+			resolveThemeColor(theme, variantTokens.color) ?? theme.colors.onSurface;
 
 		const computedIconSize = iconSize ?? sizeTokens.iconSize;
 

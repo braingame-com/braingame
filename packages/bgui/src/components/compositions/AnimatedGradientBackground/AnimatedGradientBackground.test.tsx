@@ -1,26 +1,29 @@
-import { render, screen } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react-native";
+import { Text } from "react-native";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 
 describe("AnimatedGradientBackground", () => {
 	it("renders a container", () => {
-		render(<AnimatedGradientBackground testID="gradient" />);
-		expect(screen.getByTestId("gradient")).toBeInTheDocument();
+		const { getByTestId } = render(<AnimatedGradientBackground testID="gradient" />);
+		expect(getByTestId("gradient")).toBeTruthy();
 	});
 
-	it("renders the expected number of blobs", () => {
+	it("renders the expected number of blobs", async () => {
 		const { getAllByTestId } = render(
 			<AnimatedGradientBackground blobCount={4} animate={false} testID="gradient" />,
 		);
-		expect(getAllByTestId(/bgui-animated-gradient-blob-/i)).toHaveLength(4);
+		await waitFor(() => {
+			expect(getAllByTestId(/bgui-animated-gradient-blob-/i)).toHaveLength(4);
+		});
 	});
 
 	it("renders children", () => {
-		render(
+		const { getByText } = render(
 			<AnimatedGradientBackground>
-				<span>Gradient Content</span>
+				<Text>Gradient Content</Text>
 			</AnimatedGradientBackground>,
 		);
-		expect(screen.getByText("Gradient Content")).toBeInTheDocument();
+		expect(getByText("Gradient Content")).toBeTruthy();
 	});
 
 	it("respects custom colors", () => {

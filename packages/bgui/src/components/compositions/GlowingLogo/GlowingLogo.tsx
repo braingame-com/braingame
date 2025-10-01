@@ -9,7 +9,7 @@ import {
 	type ViewStyle,
 } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
-import { theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type { GlowingLogoProps } from "./GlowingLogo.types";
 
 const DEFAULT_SIZE = 120;
@@ -32,7 +32,7 @@ export const GlowingLogo = forwardRef<View, GlowingLogoProps>(
 	(
 		{
 			size = DEFAULT_SIZE,
-			glowColor = theme.colors.primary,
+			glowColor,
 			glowIntensity = "medium",
 			animate = true,
 			source,
@@ -45,6 +45,8 @@ export const GlowingLogo = forwardRef<View, GlowingLogoProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
+		const resolvedGlowColor = glowColor ?? theme.colors.primary;
 		const pulseAnim = useRef(new Animated.Value(1)).current;
 		const glowAnim = useRef(new Animated.Value(glowIntensityMap[glowIntensity].opacity)).current;
 
@@ -120,7 +122,7 @@ export const GlowingLogo = forwardRef<View, GlowingLogoProps>(
 				marginLeft: -(size * scale) / 2,
 				marginTop: -(size * scale) / 2,
 				borderRadius: (size * scale) / 2,
-				backgroundColor: glowColor,
+				backgroundColor: resolvedGlowColor,
 				opacity: animate ? undefined : opacity,
 			};
 
@@ -134,13 +136,13 @@ export const GlowingLogo = forwardRef<View, GlowingLogoProps>(
 			return [
 				base,
 				{
-					shadowColor: glowColor,
+					shadowColor: resolvedGlowColor,
 					shadowOpacity: 0.35,
 					shadowOffset: { width: 0, height: 0 },
 					shadowRadius: blur / 4,
 				} satisfies ViewStyle,
 			];
-		}, [animate, glowColor, glowIntensity, size]);
+		}, [animate, glowIntensity, resolvedGlowColor, size]);
 
 		const content = (
 			<Animated.View
@@ -165,7 +167,7 @@ export const GlowingLogo = forwardRef<View, GlowingLogoProps>(
 					/>
 				) : (
 					<View style={styles.defaultLogoContainer}>
-						<DefaultLogo size={size * 0.8} color={glowColor} />
+						<DefaultLogo size={size * 0.8} color={resolvedGlowColor} />
 					</View>
 				)}
 			</Animated.View>

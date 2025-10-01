@@ -1,21 +1,23 @@
-import { render } from "@testing-library/react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Skeleton } from "./Skeleton";
 
 describe("Skeleton", () => {
 	it("renders a skeleton with default props", () => {
-		const { getByTestId } = render(<Skeleton testID="skeleton" />);
+		const { getByTestId } = renderWithTheme(<Skeleton testID="skeleton" />);
 
 		expect(getByTestId("skeleton")).toBeTruthy();
 	});
 
 	it("respects the visible prop", () => {
-		const { queryByTestId } = render(<Skeleton visible={false} testID="hidden-skeleton" />);
+		const { queryByTestId } = renderWithTheme(
+			<Skeleton visible={false} testID="hidden-skeleton" />,
+		);
 
 		expect(queryByTestId("hidden-skeleton")).toBeNull();
 	});
 
 	it("renders overlay variant when loading", () => {
-		const { getByTestId } = render(
+		const { getByTestId } = renderWithTheme(
 			<Skeleton variant="overlay" loading animation="wave" testID="overlay-skeleton" />,
 		);
 
@@ -23,10 +25,12 @@ describe("Skeleton", () => {
 	});
 
 	it("disables animations when animation prop is false", () => {
-		const { getByTestId } = render(<Skeleton animation={false} testID="static-skeleton" />);
+		const { getByTestId } = renderWithTheme(
+			<Skeleton animation={false} testID="static-skeleton" />,
+		);
 
 		const skeleton = getByTestId("static-skeleton");
 
-		expect(skeleton.props.children).toBeUndefined();
+		expect(skeleton.props.children).toBeNull();
 	});
 });

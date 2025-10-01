@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+import { Text } from "react-native";
 import { Textarea } from "./Textarea";
 
 describe("Textarea", () => {
@@ -22,14 +23,18 @@ describe("Textarea", () => {
 
 		const input = getByPlaceholderText("Write something");
 
-		fireEvent.changeText(input, "Hello world");
+		fireEvent(input, "change", { nativeEvent: { text: "Hello world" } });
 
 		expect(handleValueChange).toHaveBeenCalledWith("Hello world");
 		expect(handleChange).toHaveBeenCalled();
 	});
 
 	it("renders helper content when non-string children are provided", () => {
-		const { getByText } = render(<Textarea>Helper text</Textarea>);
+		const { getByText } = render(
+			<Textarea>
+				<Text>Helper text</Text>
+			</Textarea>,
+		);
 
 		expect(getByText("Helper text")).toBeTruthy();
 	});

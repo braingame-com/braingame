@@ -2,18 +2,20 @@ import { forwardRef } from "react";
 import { StyleSheet, View, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { iconRegistry } from "../../../icons/iconRegistry";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type { IconProps } from "./Icon.types";
 
 const VIEWBOX = "0 -960 960 960";
 
-const resolveColor = (color?: string) => {
+const resolveColor = (theme: Theme, color?: string) => {
 	if (!color) return theme.colors.onSurface;
-	return theme.colors[color as keyof typeof theme.colors] ?? color;
+	return theme.colors[color as keyof Theme["colors"]] ?? color;
 };
 
 export const Icon = forwardRef<View, IconProps>(
 	({ name, size = 24, color, testID, accessibilityLabel, style }, ref) => {
+		const theme = useTheme();
 		const pathData = iconRegistry[name];
 
 		if (!pathData) {
@@ -23,7 +25,7 @@ export const Icon = forwardRef<View, IconProps>(
 			return null;
 		}
 
-		const resolvedColor = resolveColor(color);
+		const resolvedColor = resolveColor(theme, color);
 		const containerStyle = StyleSheet.flatten<ViewStyle>([
 			styles.container,
 			{ width: size, height: size },

@@ -1,6 +1,7 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Platform, StyleSheet, type ViewStyle } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Button } from "../../primitives/Button";
 import { Container } from "../../primitives/Container";
@@ -10,30 +11,32 @@ import { Stack } from "../../primitives/Stack";
 import { Typography } from "../../primitives/Typography";
 import type { HeaderProps } from "./Header.types";
 
-const paddingMap = {
-	sm: theme.spacing.sm,
-	md: theme.spacing.md,
-	lg: theme.spacing.lg,
+const paddingResolvers = {
+	sm: (theme: Theme) => theme.spacing.sm,
+	md: (theme: Theme) => theme.spacing.md,
+	lg: (theme: Theme) => theme.spacing.lg,
 } as const;
 
 export const Header = memo(function Header({
 	brand,
 	links = [],
 	cta,
-	backgroundColor = theme.colors.surface,
+	backgroundColor,
 	border = true,
 	fixed = false,
 	paddingY = "md",
 }: HeaderProps) {
+	const theme = useTheme();
+	const resolvedBackgroundColor = backgroundColor ?? theme.colors.surface;
 	const ctaIconColor =
 		cta?.iconColor ??
 		(cta?.variant === "solid" || !cta?.variant ? theme.colors.onPrimary : theme.colors.primary);
 	const headerStyle = StyleSheet.flatten([
 		{
-			backgroundColor,
+			backgroundColor: resolvedBackgroundColor,
 			borderBottomWidth: border ? StyleSheet.hairlineWidth : 0,
 			borderBottomColor: border ? theme.colors.outlineVariant : "transparent",
-			paddingVertical: paddingMap[paddingY],
+			paddingVertical: paddingResolvers[paddingY](theme),
 		},
 		fixed
 			? Platform.OS === "web"
@@ -41,6 +44,8 @@ export const Header = memo(function Header({
 				: ({ position: "relative", top: 0, zIndex: 100 } as ViewStyle)
 			: null,
 	]);
+
+	const ctaAreaStyle = useMemo(() => ({ marginLeft: theme.spacing.md }), [theme]);
 
 	return (
 		<Box style={headerStyle}>
@@ -64,7 +69,7 @@ export const Header = memo(function Header({
 						</Stack>
 					) : null}
 					{cta ? (
-						<Box style={styles.ctaArea}>
+						<Box style={ctaAreaStyle}>
 							{cta.href ? (
 								<Link href={cta.href} target="_self">
 									<Button variant={cta.variant ?? "solid"} onClick={cta.onClick}>
@@ -107,9 +112,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "flex-end",
 		flexWrap: "wrap",
-	},
-	ctaArea: {
-		marginLeft: theme.spacing.md,
 	},
 	inlineStack: {
 		alignItems: "center",

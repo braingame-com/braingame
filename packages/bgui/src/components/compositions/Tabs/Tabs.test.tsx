@@ -23,7 +23,7 @@ describe("Tabs composition", () => {
 	});
 
 	it("supports arrow key navigation", () => {
-		const { getByA11yRole, getByText } = render(
+		const { getByRole, getByText } = render(
 			<Tabs defaultValue="first">
 				<TabList>
 					<Tab value="first">First</Tab>
@@ -36,7 +36,7 @@ describe("Tabs composition", () => {
 			</Tabs>,
 		);
 
-		const list = getByA11yRole("tablist");
+		const list = getByRole("tablist");
 
 		fireEvent(list, "keyDown", { nativeEvent: { key: "ArrowRight" } });
 		expect(getByText("Second content")).toBeTruthy();

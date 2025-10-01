@@ -1,11 +1,30 @@
+const path = require("path");
+const reactNativePreset = require("react-native/jest-preset");
+
+const babelTransformer = path.resolve(__dirname, "babel-transformer.js");
+const assetTransformer = reactNativePreset.transform["^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$"];
+
 module.exports = {
-	testEnvironment: "jsdom",
+	...reactNativePreset,
+	testEnvironment: reactNativePreset.testEnvironment,
 	roots: ["<rootDir>/src"],
 	transform: {
-		"^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+		"^.+\\.(js|jsx|ts|tsx)$": babelTransformer,
+		"^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$": assetTransformer,
 	},
-	moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-	setupFilesAfterEnv: ["@testing-library/jest-dom"],
+	transformIgnorePatterns: [
+		"node_modules/(?!((jest-)?react-native|@react-native|@react-native-community|react-native-svg)/)",
+	],
+	moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+	setupFilesAfterEnv: [
+		...(reactNativePreset.setupFilesAfterEnv ?? []),
+		"@testing-library/jest-native/extend-expect",
+		"<rootDir>/jest.setup.js",
+	],
+	moduleNameMapper: {
+		"^@react-native-community/slider$": "<rootDir>/test/mocks/react-native-slider.tsx",
+		"^react-native-svg$": "<rootDir>/test/mocks/react-native-svg.tsx",
+	},
 	testPathIgnorePatterns: ["/node_modules/", "/dist/"],
 	testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|tsx)$",
 	collectCoverageFrom: [

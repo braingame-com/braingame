@@ -16,7 +16,8 @@ import {
 	type ViewProps,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Stack } from "../../primitives/Stack";
 import type { ListContextValue, ListItemValue, ListProps, ListVariant } from "./List.types";
 import { ListContext } from "./ListContext";
@@ -27,41 +28,44 @@ interface RegisteredItem {
 	disabled: boolean;
 }
 
-const resolveThemeColor = (value?: string) => {
+const resolveThemeColor = (theme: Theme, value?: string) => {
 	if (!value) return undefined;
-	return theme.colors[value as keyof typeof theme.colors] ?? value;
+	return theme.colors[value as keyof Theme["colors"]] ?? value;
 };
 
-const getVariantStyles = (variant: ListVariant, color: ListProps["color"]) => {
+const getVariantStyles = (theme: Theme, variant: ListVariant, color: ListProps["color"]) => {
 	const key = `${variant}-${color}` as const;
 	const fallback = "plain-neutral" as const;
 	const tokens =
 		theme.components.List?.variants?.[key] ?? theme.components.List?.variants?.[fallback];
 
 	return {
-		backgroundColor: resolveThemeColor(tokens?.backgroundColor) ?? "transparent",
-		borderColor: resolveThemeColor(tokens?.borderColor),
+		backgroundColor: resolveThemeColor(theme, tokens?.backgroundColor) ?? "transparent",
+		borderColor: resolveThemeColor(theme, tokens?.borderColor),
 		borderWidth: tokens?.borderWidth ?? (variant === "outlined" ? StyleSheet.hairlineWidth : 0),
 	} satisfies Pick<ViewStyle, "backgroundColor" | "borderColor" | "borderWidth">;
 };
 
-const paddingMap = {
-	sm: theme.spacing.xs,
-	md: theme.spacing.sm,
-	lg: theme.spacing.md,
-} as const;
+const createPaddingMap = (theme: Theme) =>
+	({
+		sm: theme.spacing.xs,
+		md: theme.spacing.sm,
+		lg: theme.spacing.md,
+	}) as const;
 
-const gapMap = {
-	sm: theme.spacing.xs,
-	md: theme.spacing.sm,
-	lg: theme.spacing.md,
-} as const;
+const createGapMap = (theme: Theme) =>
+	({
+		sm: theme.spacing.xs,
+		md: theme.spacing.sm,
+		lg: theme.spacing.md,
+	}) as const;
 
-const radiusMap = {
-	sm: theme.radii.sm,
-	md: theme.radii.md,
-	lg: theme.radii.lg,
-} as const;
+const createRadiusMap = (theme: Theme) =>
+	({
+		sm: theme.radii.sm,
+		md: theme.radii.md,
+		lg: theme.radii.lg,
+	}) as const;
 
 type KeyDownEvent = NativeSyntheticEvent<TargetedEvent> & { nativeEvent: { key?: string } };
 
@@ -106,6 +110,10 @@ export const List = forwardRef<View, ListProps>(function List(
 		...viewProps
 	} = rest as ViewProps & { onKeyDown?: (event: KeyDownEvent) => void };
 	const resolvedRole = accessibilityRole ?? "list";
+	const theme = useTheme();
+	const paddingMap = useMemo(() => createPaddingMap(theme), [theme]);
+	const gapMap = useMemo(() => createGapMap(theme), [theme]);
+	const radiusMap = useMemo(() => createRadiusMap(theme), [theme]);
 
 	const itemsRef = useRef<RegisteredItem[]>([]);
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -166,7 +174,10 @@ export const List = forwardRef<View, ListProps>(function List(
 		[resolvedSelectedValue, selectionMode],
 	);
 
-	const variantStyles = useMemo(() => getVariantStyles(variant, color), [variant, color]);
+	const variantStyles = useMemo(
+		() => getVariantStyles(theme, variant, color),
+		[theme, variant, color],
+	);
 
 	const containerBaseStyle = useMemo(
 		() =>
@@ -182,6 +193,8 @@ export const List = forwardRef<View, ListProps>(function List(
 				style,
 			]),
 		[
+			paddingMap,
+			radiusMap,
 			size,
 			style,
 			variantStyles.backgroundColor,
@@ -230,6 +243,9 @@ export const List = forwardRef<View, ListProps>(function List(
 		[activeIndex, focusItem, orientation, restOnKeyDown],
 	);
 
+	const gapSpacing = gapMap[size];
+	const paddingSpacing = paddingMap[size];
+
 	const contextValue = useMemo<ListContextValue>(
 		() => ({
 			color,
@@ -237,8 +253,8 @@ export const List = forwardRef<View, ListProps>(function List(
 			size,
 			orientation,
 			marker,
-			gap: gapMap[size],
-			padding: paddingMap[size],
+			gap: gapSpacing,
+			padding: paddingSpacing,
 			registerItem,
 			unregisterItem,
 			updateItemOptions,
@@ -265,6 +281,8 @@ export const List = forwardRef<View, ListProps>(function List(
 			unregisterItem,
 			updateItemOptions,
 			variant,
+			gapSpacing,
+			paddingSpacing,
 		],
 	);
 

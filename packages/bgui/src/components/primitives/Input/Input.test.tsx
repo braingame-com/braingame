@@ -1,12 +1,12 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
 import React from "react";
 import { StyleSheet, Text, type TextInput } from "react-native";
-
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Input } from "./Input";
 
 describe("Input", () => {
 	it("renders placeholder and value", () => {
-		const { getByPlaceholderText } = render(
+		const { getByPlaceholderText } = renderWithTheme(
 			<Input value="Hello" placeholder="Your name" testID="input" />,
 		);
 
@@ -18,7 +18,7 @@ describe("Input", () => {
 		const handleFocus = jest.fn();
 		const handleBlur = jest.fn();
 
-		const { getByTestId } = render(
+		const { getByTestId } = renderWithTheme(
 			<Input name="email" onFocus={handleFocus} onBlur={handleBlur} placeholder="Email" />,
 		);
 
@@ -33,7 +33,9 @@ describe("Input", () => {
 	it("invokes onChange handler", () => {
 		const handleChange = jest.fn();
 
-		const { getByPlaceholderText } = render(<Input onChange={handleChange} placeholder="Email" />);
+		const { getByPlaceholderText } = renderWithTheme(
+			<Input onChange={handleChange} placeholder="Email" />,
+		);
 
 		const input = getByPlaceholderText("Email");
 		fireEvent(input, "change", { nativeEvent: { text: "A" } });
@@ -42,14 +44,16 @@ describe("Input", () => {
 	});
 
 	it("applies disabled styles", () => {
-		const { getByTestId } = render(<Input disabled testID="input" placeholder="Disabled" />);
+		const { getByTestId } = renderWithTheme(
+			<Input disabled name="disabled" testID="input" placeholder="Disabled" />,
+		);
 
 		const style = StyleSheet.flatten(getByTestId("input").props.style);
 		expect(style.opacity).toBe(0.6);
 	});
 
 	it("renders decorators", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<Input
 				startDecorator={<Text>Start</Text>}
 				endDecorator={<Text>End</Text>}
@@ -62,7 +66,9 @@ describe("Input", () => {
 	});
 
 	it("expands to full width when requested", () => {
-		const { getByTestId } = render(<Input fullWidth testID="input" placeholder="Full width" />);
+		const { getByTestId } = renderWithTheme(
+			<Input fullWidth name="full" testID="input" placeholder="Full width" />,
+		);
 
 		const style = StyleSheet.flatten(getByTestId("input").props.style);
 		expect(style.width).toBe("100%");
@@ -71,7 +77,7 @@ describe("Input", () => {
 	it("forwards refs to the native input", () => {
 		const ref = React.createRef<TextInput>();
 
-		render(<Input ref={ref} placeholder="Ref" />);
+		renderWithTheme(<Input ref={ref} placeholder="Ref" />);
 
 		expect(ref.current).toBeTruthy();
 	});

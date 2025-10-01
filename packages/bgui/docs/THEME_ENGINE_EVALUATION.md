@@ -1,7 +1,7 @@
 # BGUI Theme Engine Evaluation
 
 ## Current State
-- **Restyle footprint**: We currently rely on `@shopify/restyle` for `createTheme`, `ThemeProvider`, and the `Box` primitive produced by `createBox`. Unit tests wrap components in Restyle's `ThemeProvider` to provide tokens.
+- **Engine in use**: Restyle has been replaced by the in-house theme engine (`packages/bgui/src/theme/engine`). `BGUIThemeProvider` now forwards context via our own `ThemeProvider` and exposes optional overrides for custom tokens.
 - **Static theme consumption**: Most primitives/compositions import the exported `theme` object directly (e.g., `Button`, `Typography`, `Card`). This bypasses Restyle's context, so `BGUIThemeProvider` cannot swap tokens at runtime (dark mode/custom themes).
 - **Token surface**: `packages/bgui/src/theme/theme.ts` defines extensive MD3 + Joy UI tokens (colors, spacing, radii, typography, component variant maps) inside `createTheme`. The same file exports a cloned `darkTheme` and forwards the full type.
 - **DX gaps**: Restyle's prop-based ergonomics (`padding="md"`) are only used in `Box`; other components hand-roll styles. At the same time, the dynamic `theme` object is treated as a static module, so we pay dependency cost without runtime benefit.

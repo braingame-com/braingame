@@ -11,7 +11,8 @@ import {
 	View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type {
 	SkeletonAnimation,
 	SkeletonLevel,
@@ -83,7 +84,7 @@ const usePrefersReducedMotion = () => {
 	return prefers;
 };
 
-const getTypographyMetrics = (level: SkeletonLevel) => {
+const getTypographyMetrics = (theme: Theme, level: SkeletonLevel) => {
 	const map: Record<SkeletonLevel, { fontSize: number; lineHeight: number }> = {
 		h1: { fontSize: theme.fontSizes.xl5, lineHeight: theme.fontSizes.xl5 * 1.2 },
 		h2: { fontSize: theme.fontSizes.xl4, lineHeight: theme.fontSizes.xl4 * 1.2 },
@@ -110,6 +111,7 @@ const toDimensionValue = (value?: number | string): DimensionValue | undefined =
 };
 
 const resolveVariantStyles = (
+	theme: Theme,
 	variant: SkeletonVariant,
 	level: SkeletonLevel,
 	width?: number | string,
@@ -117,7 +119,7 @@ const resolveVariantStyles = (
 ): ViewStyle => {
 	const backgroundColor = theme.colors.surfaceVariant;
 	const borderRadius = theme.radii.xs;
-	const metrics = getTypographyMetrics(level);
+	const metrics = getTypographyMetrics(theme, level);
 
 	switch (variant) {
 		case "text":
@@ -195,6 +197,7 @@ export const Skeleton = forwardRef<RNView, SkeletonProps>(
 
 		const pulseAnim = useRef(new Animated.Value(1)).current;
 		const waveAnim = useRef(new Animated.Value(0)).current;
+		const theme = useTheme();
 
 		useEffect(() => {
 			if (!visible || resolvedAnimation !== "pulse") {
@@ -258,7 +261,7 @@ export const Skeleton = forwardRef<RNView, SkeletonProps>(
 			return null;
 		}
 
-		const variantStyles = resolveVariantStyles(variant, level, width, height);
+		const variantStyles = resolveVariantStyles(theme, variant, level, width, height);
 
 		const containerStyles = [styles.container, variantStyles, style].filter(Boolean) as Array<
 			StyleProp<ViewStyle>

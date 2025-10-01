@@ -1,13 +1,29 @@
 import { render } from "@testing-library/react-native";
 import type React from "react";
 import { StyleSheet } from "react-native";
-import { BGUIThemeProvider, theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Divider } from ".";
 
 const renderWithTheme = (node: React.ReactElement) =>
 	render(<BGUIThemeProvider forceTheme="light">{node}</BGUIThemeProvider>);
 
 describe("Divider", () => {
+	let theme!: Theme;
+
+	beforeAll(() => {
+		const Capture = () => {
+			theme = useTheme();
+			return null;
+		};
+		const { unmount } = render(
+			<BGUIThemeProvider forceTheme="light">
+				<Capture />
+			</BGUIThemeProvider>,
+		);
+		unmount();
+	});
+
 	it("renders a horizontal divider by default", () => {
 		const { getByTestId } = renderWithTheme(<Divider testID="divider" thickness={2} />);
 

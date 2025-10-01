@@ -1,14 +1,24 @@
 import CommunitySlider from "@react-native-community/slider";
+import { useMemo } from "react";
 import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type { SliderProps } from "./Slider.types";
 
-const resolveColorToken = (token?: string) => {
+const resolveColorToken = (theme: Theme, token?: string) => {
 	if (!token) return undefined;
-	return theme.colors[token as keyof typeof theme.colors] ?? token;
+	return theme.colors[token as keyof Theme["colors"]] ?? token;
 };
 
-export const Slider: React.FC<SliderProps> = ({
+const createStyles = (theme: Theme) =>
+	StyleSheet.create({
+		base: {
+			width: "100%",
+			marginVertical: theme.spacing.sm,
+		},
+	});
+
+export function Slider({
 	color = "primary",
 	trackColor,
 	thumbColor,
@@ -17,12 +27,16 @@ export const Slider: React.FC<SliderProps> = ({
 	maximumValue = 100,
 	step,
 	...rest
-}) => {
-	const resolvedColor = resolveColorToken(typeof color === "string" ? color : String(color));
+}: SliderProps) {
+	const theme = useTheme();
+	const styles = useMemo(() => createStyles(theme), [theme]);
+	const resolvedColor = resolveColorToken(theme, typeof color === "string" ? color : String(color));
 	const activeTrack =
-		resolveColorToken(trackColor?.active) ?? resolvedColor ?? theme.colors.primary;
-	const inactiveTrack = resolveColorToken(trackColor?.inactive) ?? theme.colors.outlineVariant;
-	const resolvedThumb = resolveColorToken(thumbColor) ?? resolvedColor ?? theme.colors.primary;
+		resolveColorToken(theme, trackColor?.active) ?? resolvedColor ?? theme.colors.primary;
+	const inactiveTrack =
+		resolveColorToken(theme, trackColor?.inactive) ?? theme.colors.outlineVariant;
+	const resolvedThumb =
+		resolveColorToken(theme, thumbColor) ?? resolvedColor ?? theme.colors.primary;
 
 	return (
 		<CommunitySlider
@@ -36,14 +50,7 @@ export const Slider: React.FC<SliderProps> = ({
 			{...rest}
 		/>
 	);
-};
-
-const styles = StyleSheet.create({
-	base: {
-		width: "100%",
-		marginVertical: theme.spacing.sm,
-	},
-});
+}
 
 Slider.displayName = "Slider";
 

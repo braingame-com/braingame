@@ -17,7 +17,8 @@ import {
 	View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Stack } from "../../primitives/Stack";
 import { Typography } from "../../primitives/Typography";
@@ -43,23 +44,23 @@ const CardContext = createContext<CardContextValue | null>(null);
 
 const useCardContext = () => useContext(CardContext);
 
-const radiusMap: Record<CardSize, number> = {
+const createRadiusMap = (theme: Theme): Record<CardSize, number> => ({
 	sm: theme.radii.sm,
 	md: theme.radii.md,
 	lg: theme.radii.lg,
-};
+});
 
-const paddingMap: Record<CardSize, number> = {
+const createPaddingMap = (theme: Theme): Record<CardSize, number> => ({
 	sm: theme.spacing.sm,
 	md: theme.spacing.md,
 	lg: theme.spacing.lg,
-};
+});
 
-const gapMap: Record<CardSize, number> = {
+const createGapMap = (theme: Theme): Record<CardSize, number> => ({
 	sm: theme.spacing.xs,
 	md: theme.spacing.sm,
 	lg: theme.spacing.md,
-};
+});
 
 type VariantStyle = {
 	backgroundColor: string;
@@ -68,12 +69,12 @@ type VariantStyle = {
 	color?: string;
 };
 
-const resolveThemeColor = (value?: string) => {
+const resolveThemeColor = (theme: Theme, value?: string) => {
 	if (!value) return undefined;
-	return theme.colors[value as keyof typeof theme.colors] ?? value;
+	return theme.colors[value as keyof Theme["colors"]] ?? value;
 };
 
-const getVariantStyle = (variant: CardVariant, color: CardProps["color"]) => {
+const getVariantStyle = (theme: Theme, variant: CardVariant, color: CardProps["color"]) => {
 	const normalizedColor = (color ?? "neutral") as Exclude<CardProps["color"], undefined>;
 	const variantKey = `${variant}-${normalizedColor}` as const;
 	const fallbackKey = "outlined-neutral" as const;
@@ -87,9 +88,9 @@ const getVariantStyle = (variant: CardVariant, color: CardProps["color"]) => {
 	}>;
 
 	const backgroundColor =
-		resolveThemeColor(normalizedTokens.backgroundColor) ?? theme.colors.surface;
-	const borderColor = resolveThemeColor(normalizedTokens.borderColor);
-	const resolvedColor = resolveThemeColor(normalizedTokens.color) ?? theme.colors.onSurface;
+		resolveThemeColor(theme, normalizedTokens.backgroundColor) ?? theme.colors.surface;
+	const borderColor = resolveThemeColor(theme, normalizedTokens.borderColor);
+	const resolvedColor = resolveThemeColor(theme, normalizedTokens.color) ?? theme.colors.onSurface;
 
 	return {
 		backgroundColor,
@@ -154,10 +155,17 @@ export const Card = memo(
 			accessibilityRole,
 			...pressableRest
 		} = rest;
+		const theme = useTheme();
+		const radiusMap = useMemo(() => createRadiusMap(theme), [theme]);
+		const paddingMap = useMemo(() => createPaddingMap(theme), [theme]);
+		const gapMap = useMemo(() => createGapMap(theme), [theme]);
 
 		const spacing = gapMap[size];
 		const padding = paddingMap[size];
-		const variantStyle = useMemo(() => getVariantStyle(variant, color), [variant, color]);
+		const variantStyle = useMemo(
+			() => getVariantStyle(theme, variant, color),
+			[theme, variant, color],
+		);
 		const baseStyle: ViewStyle = {
 			borderRadius: radiusMap[size],
 			backgroundColor: variantStyle.backgroundColor,
@@ -228,7 +236,17 @@ export const Card = memo(
 						styles.pressable,
 						pressed ? styles.active : null,
 						isHovered ? styles.hovered : null,
-						isFocused ? styles.focused : null,
+						isFocused && !disabled
+							? {
+									borderColor: theme.colors.primary,
+									borderWidth: (variantStyle.borderWidth ?? (variant === "outlined" ? 1 : 0)) + 1,
+									shadowColor: theme.colors.primary,
+									shadowOpacity: 0.18,
+									shadowOffset: { width: 0, height: 2 },
+									shadowRadius: 6,
+									elevation: 4,
+								}
+							: null,
 						disabled ? styles.disabled : null,
 					]}
 					{...pressableRest}
@@ -264,6 +282,7 @@ export const CardHeader: React.FC<CardHeaderProps> = memo(function CardHeader({
 	style,
 }) {
 	const context = useCardContext();
+	const theme = useTheme();
 	const spacing = context?.spacing ?? theme.spacing.sm;
 
 	return (
@@ -306,6 +325,7 @@ export const CardContent: React.FC<CardContentProps> = memo(function CardContent
 	style,
 }) {
 	const context = useCardContext();
+	const theme = useTheme();
 	const spacing = context?.spacing ?? theme.spacing.sm;
 	const paddingValue = padding ? (context?.padding ?? theme.spacing.md) : undefined;
 
@@ -334,6 +354,7 @@ export const CardActions: React.FC<CardActionsProps> = memo(function CardActions
 	style,
 }) {
 	const context = useCardContext();
+	const theme = useTheme();
 	const spacing = context?.spacing ?? theme.spacing.sm;
 	const paddingValue = context?.padding ?? theme.spacing.md;
 	const justifyContent =
@@ -383,15 +404,6 @@ const styles = StyleSheet.create({
 	},
 	disabled: {
 		opacity: 0.6,
-	},
-	focused: {
-		borderColor: theme.colors.primary,
-		borderWidth: 2,
-		shadowColor: theme.colors.primary,
-		shadowOpacity: 0.18,
-		shadowOffset: { width: 0, height: 2 },
-		shadowRadius: 6,
-		elevation: 4,
 	},
 	headerRow: {
 		alignItems: "center",

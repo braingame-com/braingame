@@ -5,12 +5,16 @@ import { Link } from "./Link";
 
 const openURLSpy = jest.spyOn(Linking, "openURL");
 const canOpenURLSpy = jest.spyOn(Linking, "canOpenURL");
-const platformSpy = jest.spyOn(Platform, "OS", "get");
+const originalPlatform = Platform.OS;
+
+const setPlatform = (os: typeof Platform.OS) => {
+	Object.defineProperty(Platform, "OS", { value: os, configurable: true });
+};
 
 beforeEach(() => {
 	openURLSpy.mockResolvedValue(undefined);
 	canOpenURLSpy.mockResolvedValue(true);
-	platformSpy.mockReturnValue("ios");
+	setPlatform("ios");
 });
 
 afterEach(() => {
@@ -20,7 +24,7 @@ afterEach(() => {
 afterAll(() => {
 	openURLSpy.mockRestore();
 	canOpenURLSpy.mockRestore();
-	platformSpy.mockRestore();
+	setPlatform(originalPlatform);
 });
 
 describe("Link", () => {

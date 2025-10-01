@@ -7,7 +7,8 @@ import {
 	type View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Stack } from "../../primitives/Stack";
 import { Typography } from "../../primitives/Typography";
@@ -16,48 +17,49 @@ import type { ListItemProps } from "./ListItem.types";
 
 let generatedId = 0;
 
-const resolveThemeColor = (value?: string) => {
+const resolveThemeColor = (theme: Theme, value?: string) => {
 	if (!value) return undefined;
-	return theme.colors[value as keyof typeof theme.colors] ?? value;
+	return theme.colors[value as keyof Theme["colors"]] ?? value;
 };
 
-const getVariantStyles = (variant: string, color: string) => {
+const getVariantStyles = (theme: Theme, variant: string, color: string) => {
 	const key = `${variant}-${color}` as const;
 	const fallback = "plain-neutral" as const;
 	const tokens =
 		theme.components.ListItem?.variants?.[key] ?? theme.components.ListItem?.variants?.[fallback];
 
 	return {
-		backgroundColor: resolveThemeColor(tokens?.backgroundColor) ?? "transparent",
-		borderColor: resolveThemeColor(tokens?.borderColor),
+		backgroundColor: resolveThemeColor(theme, tokens?.backgroundColor) ?? "transparent",
+		borderColor: resolveThemeColor(theme, tokens?.borderColor),
 		borderWidth: tokens?.borderWidth ?? (variant === "outlined" ? StyleSheet.hairlineWidth : 0),
-		color: resolveThemeColor(tokens?.color) ?? theme.colors.onSurface,
+		color: resolveThemeColor(theme, tokens?.color) ?? theme.colors.onSurface,
 	};
 };
 
-const sizeMap = {
-	sm: {
-		paddingHorizontal: theme.spacing.sm,
-		paddingVertical: theme.spacing.xs,
-		minHeight: 32,
-		gap: theme.spacing.xs,
-		radius: theme.radii.sm,
-	},
-	md: {
-		paddingHorizontal: theme.spacing.md,
-		paddingVertical: theme.spacing.sm,
-		minHeight: 40,
-		gap: theme.spacing.sm,
-		radius: theme.radii.md,
-	},
-	lg: {
-		paddingHorizontal: theme.spacing.lg,
-		paddingVertical: theme.spacing.md,
-		minHeight: 48,
-		gap: theme.spacing.md,
-		radius: theme.radii.lg,
-	},
-} as const;
+const createSizeMap = (theme: Theme) =>
+	({
+		sm: {
+			paddingHorizontal: theme.spacing.sm,
+			paddingVertical: theme.spacing.xs,
+			minHeight: 32,
+			gap: theme.spacing.xs,
+			radius: theme.radii.sm,
+		},
+		md: {
+			paddingHorizontal: theme.spacing.md,
+			paddingVertical: theme.spacing.sm,
+			minHeight: 40,
+			gap: theme.spacing.sm,
+			radius: theme.radii.md,
+		},
+		lg: {
+			paddingHorizontal: theme.spacing.lg,
+			paddingVertical: theme.spacing.md,
+			minHeight: 48,
+			gap: theme.spacing.md,
+			radius: theme.radii.lg,
+		},
+	}) as const;
 
 const markerSymbols = {
 	disc: "•",
@@ -99,12 +101,14 @@ export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
 	},
 	ref,
 ) {
+	const theme = useTheme();
 	const context = useListContext();
 	const effectiveColor = color ?? context?.color ?? "neutral";
 	const effectiveVariant = variant ?? context?.variant ?? "plain";
 	const effectiveSize = size ?? context?.size ?? "md";
 	const effectiveOrientation = orientation ?? context?.orientation ?? "vertical";
 	const gap = context?.gap ?? theme.spacing.sm;
+	const sizeMap = useMemo(() => createSizeMap(theme), [theme]);
 
 	const { accessibilityRole, ...pressableRest } = rest;
 	const resolvedRole = accessibilityRole ?? (button ? "button" : "text");
@@ -112,8 +116,8 @@ export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
 	const [isFocusedState, setIsFocusedState] = useState(false);
 
 	const variantStyles = useMemo(
-		() => getVariantStyles(effectiveVariant, effectiveColor),
-		[effectiveVariant, effectiveColor],
+		() => getVariantStyles(theme, effectiveVariant, effectiveColor),
+		[theme, effectiveVariant, effectiveColor],
 	);
 	const sizeStyles = sizeMap[effectiveSize];
 
@@ -213,7 +217,7 @@ export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
 			context.marker === "decimal" ? markerSymbols.decimal(index) : markerSymbols[context.marker];
 
 		return (
-			<Typography level="body-md" textColor={textColor} style={styles.marker}>
+			<Typography level="body-md" textColor={textColor} style={{ marginRight: theme.spacing.xs }}>
 				{symbol}
 			</Typography>
 		);
@@ -304,8 +308,5 @@ const styles = StyleSheet.create({
 	},
 	action: {
 		flexShrink: 0,
-	},
-	marker: {
-		marginRight: theme.spacing.xs,
 	},
 });

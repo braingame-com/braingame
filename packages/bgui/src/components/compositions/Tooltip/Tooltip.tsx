@@ -24,7 +24,8 @@ import {
 	type ViewStyle,
 } from "react-native";
 import { useControlledState } from "../../../hooks/useControlledState";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import { Box } from "../../primitives/Box";
 import { Typography } from "../../primitives/Typography";
 import type { TooltipPlacement, TooltipProps } from "./Tooltip.types";
@@ -32,7 +33,7 @@ import type { TooltipPlacement, TooltipProps } from "./Tooltip.types";
 const ARROW_SIZE = 8;
 const VIEWPORT_MARGIN = 8;
 
-const sizeMap = {
+const createSizeMap = (theme: Theme) => ({
 	sm: {
 		paddingX: theme.spacing.sm,
 		paddingY: theme.spacing.xs,
@@ -48,11 +49,11 @@ const sizeMap = {
 		paddingY: theme.spacing.md,
 		textLevel: "body-md" as const,
 	},
-};
+});
 
-const resolveThemeColor = (token: string | undefined, fallback: string) => {
+const resolveThemeColor = (theme: Theme, token: string | undefined, fallback: string) => {
 	if (!token) return fallback;
-	return theme.colors[token as keyof typeof theme.colors] ?? token ?? fallback;
+	return theme.colors[token as keyof Theme["colors"]] ?? token ?? fallback;
 };
 
 const composeEventHandler = <E,>(
@@ -97,6 +98,7 @@ type WebMeasureTarget = {
 type TriggerNode = (NativeMeasureTarget & WebMeasureTarget) | null;
 
 const calculatePosition = (
+	theme: Theme,
 	placement: TooltipPlacement,
 	triggerLayout: LayoutRectangle,
 	tooltipSize: { width: number; height: number },
@@ -409,6 +411,7 @@ export function Tooltip({
 	id,
 	"aria-label": ariaLabel,
 }: TooltipProps) {
+	const theme = useTheme();
 	const generatedId = useId();
 	const tooltipId = id ?? generatedId;
 	const [openState, setOpenState] = useControlledState<boolean>(openProp, defaultOpen);
@@ -422,16 +425,22 @@ export function Tooltip({
 	const hideTimerRef = useRef<NodeJS.Timeout | null>(null);
 	const cursorPositionRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 	const isFocusVisibleRef = useRef(false);
+	const sizeMap = useMemo(() => createSizeMap(theme), [theme]);
 
 	const variantKey = `${variant}-${color}` as const;
 	const variantTokens = theme.components.Tooltip.variants[variantKey] ?? {};
-	const resolvedBackground = resolveThemeColor(variantTokens.backgroundColor, theme.colors.surface);
+	const resolvedBackground = resolveThemeColor(
+		theme,
+		variantTokens.backgroundColor,
+		theme.colors.surface,
+	);
 	const resolvedBorderColor = variantTokens.borderColor
-		? resolveThemeColor(variantTokens.borderColor, theme.colors.outline)
+		? resolveThemeColor(theme, variantTokens.borderColor, theme.colors.outline)
 		: undefined;
-	const resolvedTextColor = resolveThemeColor(variantTokens.color, theme.colors.onSurface);
+	const resolvedTextColor = resolveThemeColor(theme, variantTokens.color, theme.colors.onSurface);
 	const borderWidth = variantTokens.borderWidth ?? (resolvedBorderColor ? 1 : 0);
 	const sizeStyles = sizeMap[size] ?? sizeMap.md;
+	const cursorOffset = theme.spacing.sm;
 
 	const clearTimers = useCallback(() => {
 		if (showTimerRef.current) {
@@ -472,6 +481,7 @@ export function Tooltip({
 				return;
 			}
 			const position = calculatePosition(
+				theme,
 				currentPlacement,
 				triggerLayout,
 				tooltipSizeRef.current,
@@ -479,7 +489,7 @@ export function Tooltip({
 			);
 			setTooltipPosition(position);
 		},
-		[arrow, placement, triggerLayout],
+		[arrow, placement, theme, triggerLayout],
 	);
 
 	const measureTrigger = useCallback(() => {
@@ -605,11 +615,11 @@ export function Tooltip({
 			const { pageX = 0, pageY = 0 } = event.nativeEvent;
 			cursorPositionRef.current = { x: pageX, y: pageY };
 			setTooltipPosition({
-				top: pageY + theme.spacing.sm,
-				left: pageX + theme.spacing.sm,
+				top: pageY + cursorOffset,
+				left: pageX + cursorOffset,
 			});
 		},
-		[disabled, followCursor],
+		[cursorOffset, disabled, followCursor],
 	);
 
 	const handlePressIn = useCallback(
@@ -672,13 +682,13 @@ export function Tooltip({
 		}
 		if (followCursor) {
 			setTooltipPosition({
-				top: cursorPositionRef.current.y + theme.spacing.sm,
-				left: cursorPositionRef.current.x + theme.spacing.sm,
+				top: cursorPositionRef.current.y + cursorOffset,
+				left: cursorPositionRef.current.x + cursorOffset,
 			});
 			return;
 		}
 		updatePosition();
-	}, [followCursor, open, updatePosition]);
+	}, [cursorOffset, followCursor, open, updatePosition]);
 
 	useEffect(() => {
 		if (!open) {
@@ -814,13 +824,18 @@ export function Tooltip({
 	}
 
 	const tooltipContentStyle = StyleSheet.flatten([
-		styles.tooltipSurface,
 		{
 			backgroundColor: resolvedBackground,
 			borderColor: resolvedBorderColor,
 			borderWidth,
 			paddingHorizontal: sizeStyles.paddingX,
 			paddingVertical: sizeStyles.paddingY,
+			borderRadius: theme.radii.sm,
+			shadowColor: theme.colors.outlineVariant,
+			shadowOpacity: 0.2,
+			shadowOffset: { width: 0, height: 4 },
+			shadowRadius: 12,
+			elevation: 3,
 		},
 		style,
 	]);
@@ -905,13 +920,5 @@ const styles = StyleSheet.create({
 	tooltipWrapper: {
 		position: "absolute",
 		maxWidth: 320,
-	},
-	tooltipSurface: {
-		borderRadius: theme.radii.sm,
-		shadowColor: theme.colors.outlineVariant,
-		shadowOpacity: 0.2,
-		shadowOffset: { width: 0, height: 4 },
-		shadowRadius: 12,
-		elevation: 3,
 	},
 });

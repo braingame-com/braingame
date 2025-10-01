@@ -4,7 +4,6 @@ const nextConfig = {
 		"@braingame/bgui",
 		"@braingame/utils",
 		"react-native-web",
-		"@shopify/restyle",
 	],
 	experimental: {
 		externalDir: true,

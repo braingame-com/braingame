@@ -11,7 +11,8 @@ import {
 	type View,
 	type ViewStyle,
 } from "react-native";
-import { theme } from "../../../theme";
+import type { Theme } from "../../../theme";
+import { useTheme } from "../../../theme";
 import type { VariantStyle } from "../../../theme/variants";
 import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
@@ -38,7 +39,9 @@ const STATUS_ICON_MAP = {
 	neutral: "info",
 } as const;
 
-const sizeConfig: Record<
+const createSizeConfig = (
+	theme: Theme,
+): Record<
 	AlertSize,
 	{
 		paddingHorizontal: number;
@@ -50,7 +53,7 @@ const sizeConfig: Record<
 		actionsSpacing: number;
 		descriptionSpacing: number;
 	}
-> = {
+> => ({
 	sm: {
 		paddingHorizontal: theme.spacing.sm,
 		paddingVertical: theme.spacing.xs,
@@ -81,7 +84,7 @@ const sizeConfig: Record<
 		actionsSpacing: theme.spacing.md,
 		descriptionSpacing: 8,
 	},
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
@@ -93,9 +96,6 @@ const styles = StyleSheet.create({
 	iconWrapper: {
 		justifyContent: "flex-start",
 		alignItems: "center",
-	},
-	actionsRow: {
-		marginTop: theme.spacing.xs,
 	},
 	dismissButton: {
 		justifyContent: "center",
@@ -125,6 +125,8 @@ export const Alert = forwardRef<View, AlertProps>(
 		},
 		ref,
 	) => {
+		const theme = useTheme();
+		const sizeConfig = useMemo(() => createSizeConfig(theme), [theme]);
 		const dismissRef = useRef<View>(null);
 		const colorKey = STATUS_COLOR_MAP[status] ?? "primary";
 		const variantKey = `${variant}-${colorKey}` as keyof typeof theme.components.Alert.variants;
@@ -199,6 +201,7 @@ export const Alert = forwardRef<View, AlertProps>(
 				resolvedBorderWidth,
 				sizeStyles.paddingHorizontal,
 				sizeStyles.paddingVertical,
+				theme.radii.sm,
 				style,
 			],
 		);
@@ -266,10 +269,7 @@ export const Alert = forwardRef<View, AlertProps>(
 								direction="row"
 								spacing={sizeStyles.actionsSpacing}
 								useFlexGap={false}
-								style={StyleSheet.flatten([
-									styles.actionsRow,
-									{ marginTop: sizeStyles.actionsSpacing },
-								])}
+								style={{ marginTop: sizeStyles.actionsSpacing }}
 							>
 								{actionItems.map((action) => (
 									<Box key={action.key}>{action.node}</Box>
