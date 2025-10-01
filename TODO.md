@@ -11,7 +11,7 @@
 #### BGUI Quality Checks
 - [x] Evaluate building an in-house BGUI theme engine to replace Restyle (requirements, migration plan, effort estimate). _(See `packages/bgui/docs/THEME_ENGINE_EVALUATION.md`.)_
 - [ ] Build an in-house BGUI theme engine to replace Restyle (and remove Restyle)
-  - [ ] Scaffold new in-house theme engine inside `packages/bgui` with context, hooks, and token typings
+  - [x] Scaffold new in-house theme engine inside `packages/bgui` with context, hooks, and token typings
   - [ ] Update `BGUIThemeProvider` to wrap the new provider while preserving public API
   - [ ] Replace Restyle primitives with internal `Box`/`Text` equivalents and migrate affected components
   - [ ] Port component styling to `useTheme`/token helpers and remove direct `theme` imports

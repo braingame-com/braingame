@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@shopify/restyle";
 import type React from "react";
 import { useColorScheme } from "react-native";
+import { ThemeProvider as InternalThemeProvider } from "./engine";
 import theme, { darkTheme } from "./theme";
 
 interface BGUIThemeProviderProps {
@@ -42,5 +42,5 @@ export function BGUIThemeProvider({ children, forceTheme }: BGUIThemeProviderPro
 			? darkTheme
 			: theme;
 
-	return <ThemeProvider theme={activeTheme}>{children}</ThemeProvider>;
+	return <InternalThemeProvider theme={activeTheme}>{children}</InternalThemeProvider>;
 }
