@@ -2,7 +2,8 @@ const path = require("path");
 const reactNativePreset = require("react-native/jest-preset");
 
 const babelTransformer = path.resolve(__dirname, "babel-transformer.js");
-const assetTransformer = reactNativePreset.transform["^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$"];
+const assetTransformer =
+	reactNativePreset.transform["^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$"];
 
 module.exports = {
 	...reactNativePreset,
@@ -22,7 +23,6 @@ module.exports = {
 		"<rootDir>/jest.setup.js",
 	],
 	moduleNameMapper: {
-		"^@react-native-community/slider$": "<rootDir>/test/mocks/react-native-slider.tsx",
 		"^react-native-svg$": "<rootDir>/test/mocks/react-native-svg.tsx",
 	},
 	testPathIgnorePatterns: ["/node_modules/", "/dist/"],

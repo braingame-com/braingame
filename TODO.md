@@ -16,7 +16,7 @@
   - [x] Replace Restyle primitives with internal `Box`/`Text` equivalents and migrate affected components
   - [x] Port component styling to `useTheme`/token helpers and remove direct `theme` imports
   - [x] Update tests/storybook helpers to use the new provider; remove Restyle dependency _(Follow-up: see "Tech Debt → BGUI test/stories refactor" task)_
-- [ ] Build our own slider so we can remove @react-native-community/slider as a dependency
+- [x] Build our own slider so we can remove @react-native-community/slider as a dependency
 - [ ] Remove @mui stuff as dependencies by making sure our own in-house token/design system is up to scratch
 - [x] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
 - [ ] Add automated coverage (unit or visual regression) proving components render with both light and dark tokens after the theme refactor.

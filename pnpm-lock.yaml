@@ -422,9 +422,6 @@ importers:
       '@mui/utils':
         specifier: ^7.2.0
         version: 7.2.0(@types/react@19.0.14)(react@19.1.0)
-      '@react-native-community/slider':
-        specifier: ^4.5.2
-        version: 4.5.7
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -2867,9 +2864,6 @@ packages:
     resolution: {integrity: sha512-B0BYAkghz3Q2V09BF88RA601XursIEA111tnc2JOaN7axJWmNefmfjZqw/KdSxKZp7CZUuPpjBmz/WCR9uaHYg==}
     peerDependencies:
       react-native: '>=0.59'
-
-  '@react-native-community/slider@4.5.7':
-    resolution: {integrity: sha512-WMDDZjNF2Bd8M8TrSqKf5xhM9ikdfCHtSPur64Ow3bB/OVrKufUQZ59NmYdNZNeGPvcHHTsafuYTY8zfZfbchQ==}
 
   '@react-native/assets-registry@0.76.3':
     resolution: {integrity: sha512-7Fnc3lzCFFpnoyL1egua6d/qUp0KiIpeSLbfOMln4nI2g2BMzyFHdPjJnpLV2NehmS0omOOkrfRqK5u1F/MXzA==}
@@ -12698,8 +12692,6 @@ snapshots:
   '@react-native-community/netinfo@11.4.1(react-native@0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.1.0))':
     dependencies:
       react-native: 0.80.1(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.1.0)
-
-  '@react-native-community/slider@4.5.7': {}
 
   '@react-native/assets-registry@0.76.3': {}
 
