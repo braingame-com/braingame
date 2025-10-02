@@ -237,6 +237,9 @@ export function Slider({
 			if (disabled) return;
 			const key = event.nativeEvent.key;
 			if (!key) return;
+			if (Platform.OS === "web") {
+				onKeyDown?.(event);
+			}
 			let direction = 0;
 			if (key === "ArrowLeft" || key === "ArrowDown") {
 				direction = -1;
@@ -244,12 +247,14 @@ export function Slider({
 				direction = 1;
 			}
 			if (direction === 0) return;
-			(event as unknown as { preventDefault?: () => void }).preventDefault?.();
+			event.preventDefault();
 			const increment = step ?? effectiveRange / 100;
 			const updated = emitValueChange(valueRef.current + direction * increment);
 			valueRef.current = updated;
 			onSlidingComplete?.(updated);
-			onKeyDown?.(event);
+			if (Platform.OS !== "web") {
+				onKeyDown?.(event);
+			}
 		},
 		[disabled, emitValueChange, effectiveRange, onKeyDown, onSlidingComplete, step],
 	);
@@ -278,15 +283,14 @@ export function Slider({
 	const trackTestID = sliderTestID ? `${sliderTestID}-track` : undefined;
 	const activeTrackTestID = sliderTestID ? `${sliderTestID}-track-active` : undefined;
 	const thumbTestID = sliderTestID ? `${sliderTestID}-thumb` : undefined;
-	const webKeyHandlers =
-		Platform.OS === "web"
-			? ({ onKeyDown: handleKeyDownInternal } as Record<string, unknown>)
-			: undefined;
+	const sharedHandlers = {
+		onKeyDown: handleKeyDownInternal,
+		onAccessibilityAction: handleAccessibilityAction,
+	};
 
 	return (
 		<View
 			{...viewProps}
-			{...webKeyHandlers}
 			testID={sliderTestID}
 			style={StyleSheet.flatten([styles.container, disabled && styles.disabled, style])}
 			onStartShouldSetResponder={handleStartShouldSetResponder}
@@ -295,7 +299,7 @@ export function Slider({
 			onResponderMove={handleResponderMove}
 			onResponderRelease={finishSliding}
 			onResponderTerminate={handleTerminate}
-			onAccessibilityAction={handleAccessibilityAction}
+			{...sharedHandlers}
 			accessibilityRole="adjustable"
 			accessibilityValue={{ min: minimumValue, max: maximumValue, now: valueRef.current }}
 			accessibilityState={{ disabled }}

@@ -17,7 +17,7 @@
   - [x] Port component styling to `useTheme`/token helpers and remove direct `theme` imports
   - [x] Update tests/storybook helpers to use the new provider; remove Restyle dependency _(Follow-up: see "Tech Debt → BGUI test/stories refactor" task)_
 - [x] Build our own slider so we can remove @react-native-community/slider as a dependency
-- [ ] Remove @mui stuff as dependencies by making sure our own in-house token/design system is up to scratch
+- [x] Remove @mui stuff as dependencies by making sure our own in-house token/design system is up to scratch
 - [x] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
 - [ ] Add automated coverage (unit or visual regression) proving components render with both light and dark tokens after the theme refactor.
 - [ ] Rewrite `packages/bgui/scripts/generate-component.js` to scaffold the single-file universal component pattern and drop obsolete `.native/.web` outputs.
@@ -125,6 +125,7 @@ Components needed for product app:
 - [ ] Remove unused dependencies
 - [ ] **Tech Debt:** Finish migrating BGUI tests/stories to the new theme provider and clean up temporary shims
 - [ ] **Tech Debt:** Add light/dark regression coverage for BGUI components now that the theme engine is in-house
+- [ ] **Tech Debt:** Reinstate failing pre-commit on test failures once Jest warnings are resolved
 
 ### Before Production
 - [ ] Environment variables properly configured
