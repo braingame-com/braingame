@@ -21,8 +21,8 @@
 - [x] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
 - [x] Add automated coverage (unit or visual regression) proving components render with both light and dark tokens after the theme refactor.
 - [x] Rewrite `packages/bgui/scripts/generate-component.js` to scaffold the single-file universal component pattern and drop obsolete `.native/.web` outputs.
-- [ ] Sync BGUI docs (`README.md`, `docs/JOY_UI_IMPLEMENTATION_SUMMARY.md`, `docs/GOLD_STANDARD.md`, etc.) with the current architecture and workflows.
-- [ ] Introduce a maintainer checklist (living in BGUI docs) covering lint, typecheck, storybook, and theming verification before publishing.
+- [x] Sync BGUI docs (`README.md`, `docs/JOY_UI_IMPLEMENTATION_SUMMARY.md`, `docs/GOLD_STANDARD.md`, etc.) with the current architecture and workflows.
+- [x] Introduce a maintainer checklist (living in BGUI docs) covering lint, typecheck, storybook, and theming verification before publishing.
 
 #### Set up docs site properly
 - [ ] Make sure docs site is using a header/sidebar etc. from bgui 
