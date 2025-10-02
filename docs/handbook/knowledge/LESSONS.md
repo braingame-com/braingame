@@ -101,6 +101,11 @@ module.exports = {
 };
 ```
 
+### RN Testing Tips (2025-10-01)
+- Mock platform-specific primitives (e.g., `react-native/Libraries/Modal/Modal`) to simple fragments when Jest runs in the React Native renderer—this lets us exercise native code paths without a DOM.
+- Override `Platform.OS` inside focused tests to exercise the web-only code paths (`onKeyDown`, ARIA attributes) while leaving the default (`ios`) behaviour untouched for other suites.
+- For hidden nodes (`display: 'none'`, `importantForAccessibility="no-hide-descendants"`), favor `UNSAFE_getByProps` on the parent test instance and inspect the rendered child; RTL queries intentionally skip elements removed from the accessibility tree.
+
 ---
 
 ## TypeScript & Type Safety

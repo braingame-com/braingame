@@ -284,7 +284,7 @@ export const Alert = forwardRef<View, AlertProps>(
 							accessibilityLabel={dismissLabel}
 							hitSlop={8}
 							onPress={(event: GestureResponderEvent) => {
-								event.stopPropagation?.();
+								event?.stopPropagation?.();
 								onDismiss?.();
 							}}
 							style={dismissButtonStyle}

@@ -7,7 +7,7 @@ import { Container } from "./Container";
 const useWindowDimensionsSpy = jest.spyOn(ReactNative, "useWindowDimensions");
 
 const setScreenWidth = (width: number) => {
-	useWindowDimensionsSpy.mockReturnValue({ width, height: 800, scale: 1, fontScale: 1 });
+	useWindowDimensionsSpy.mockImplementation(() => ({ width, height: 800, scale: 1, fontScale: 1 }));
 };
 
 beforeEach(() => {
@@ -15,7 +15,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-	jest.clearAllMocks();
+	useWindowDimensionsSpy.mockReset();
 });
 
 afterAll(() => {
@@ -69,7 +69,6 @@ describe("Container", () => {
 	});
 
 	it("limits width when fixed is true", () => {
-		setScreenWidth(480);
 		const { getByTestId } = render(
 			<Container testID="container" fixed maxWidth="lg">
 				<Text>Content</Text>

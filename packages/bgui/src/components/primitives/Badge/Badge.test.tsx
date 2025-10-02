@@ -1,11 +1,13 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
+import { Text } from "react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Badge } from "./Badge";
 
 describe("Badge", () => {
 	it("renders child content", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<Badge>
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 
@@ -13,9 +15,9 @@ describe("Badge", () => {
 	});
 
 	it("renders badge content", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<Badge badgeContent="5">
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 
@@ -23,9 +25,9 @@ describe("Badge", () => {
 	});
 
 	it("caps numeric content at max", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<Badge badgeContent={120} max={99}>
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 
@@ -33,9 +35,9 @@ describe("Badge", () => {
 	});
 
 	it("hides badge when invisible", () => {
-		const { queryByText } = render(
+		const { queryByText } = renderWithTheme(
 			<Badge badgeContent="5" invisible>
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 
@@ -43,9 +45,9 @@ describe("Badge", () => {
 	});
 
 	it("does not render text in dot mode", () => {
-		const { queryByText } = render(
+		const { queryByText } = renderWithTheme(
 			<Badge dot badgeContent="5">
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 
@@ -54,21 +56,21 @@ describe("Badge", () => {
 
 	it("supports dismiss action", () => {
 		const handleDismiss = jest.fn();
-		const { getByLabelText } = render(
+		const { getByLabelText } = renderWithTheme(
 			<Badge badgeContent="Tip" onDismiss={handleDismiss} dismissLabel="Dismiss badge">
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 
-		fireEvent.press(getByLabelText("Dismiss badge"));
+		fireEvent.press(getByLabelText("Dismiss badge"), { defaultPrevented: false, nativeEvent: {} });
 
 		expect(handleDismiss).toHaveBeenCalledTimes(1);
 	});
 
 	it("applies accessibility label", () => {
-		const { getByLabelText } = render(
+		const { getByLabelText } = renderWithTheme(
 			<Badge badgeContent={3} aria-label="3 unread notifications">
-				<span>Inbox</span>
+				<Text>Inbox</Text>
 			</Badge>,
 		);
 

@@ -10,7 +10,7 @@
 
 #### BGUI Quality Checks
 - [x] Evaluate building an in-house BGUI theme engine to replace Restyle (requirements, migration plan, effort estimate). _(See `packages/bgui/docs/THEME_ENGINE_EVALUATION.md`.)_
-- [ ] Build an in-house BGUI theme engine to replace Restyle (and remove Restyle)
+- [x] Build an in-house BGUI theme engine to replace Restyle (and remove Restyle)
   - [x] Scaffold new in-house theme engine inside `packages/bgui` with context, hooks, and token typings
   - [x] Update `BGUIThemeProvider` to wrap the new provider while preserving public API
   - [x] Replace Restyle primitives with internal `Box`/`Text` equivalents and migrate affected components
@@ -18,7 +18,7 @@
   - [x] Update tests/storybook helpers to use the new provider; remove Restyle dependency _(Follow-up: see "Tech Debt → BGUI test/stories refactor" task)_
 - [ ] Build our own slider so we can remove @react-native-community/slider as a dependency
 - [ ] Remove @mui stuff as dependencies by making sure our own in-house token/design system is up to scratch
-- [ ] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
+- [x] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
 - [ ] Add automated coverage (unit or visual regression) proving components render with both light and dark tokens after the theme refactor.
 - [ ] Rewrite `packages/bgui/scripts/generate-component.js` to scaffold the single-file universal component pattern and drop obsolete `.native/.web` outputs.
 - [ ] Sync BGUI docs (`README.md`, `docs/JOY_UI_IMPLEMENTATION_SUMMARY.md`, `docs/GOLD_STANDARD.md`, etc.) with the current architecture and workflows.
@@ -124,6 +124,7 @@ Components needed for product app:
 - [ ] Clean up git history/branches
 - [ ] Remove unused dependencies
 - [ ] **Tech Debt:** Finish migrating BGUI tests/stories to the new theme provider and clean up temporary shims
+- [ ] **Tech Debt:** Add light/dark regression coverage for BGUI components now that the theme engine is in-house
 
 ### Before Production
 - [ ] Environment variables properly configured

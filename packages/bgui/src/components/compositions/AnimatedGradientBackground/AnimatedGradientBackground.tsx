@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useMemo, useRef } from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import {
 	Animated,
 	Dimensions,
@@ -41,6 +41,7 @@ export const AnimatedGradientBackground = forwardRef<View, AnimatedGradientBackg
 		ref,
 	) => {
 		const { width, height } = Dimensions.get("window");
+		const [, forceUpdate] = useState(0);
 		const blobAnimations = useRef<BlobAnimationState[]>([]);
 		const runningAnimations = useRef<Animated.CompositeAnimation[]>([]);
 		const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -74,6 +75,7 @@ export const AnimatedGradientBackground = forwardRef<View, AnimatedGradientBackg
 					opacity: new Animated.Value(blobOpacity),
 				} satisfies BlobAnimationState;
 			});
+			forceUpdate((value) => value + 1);
 
 			return () => {
 				blobAnimations.current = [];

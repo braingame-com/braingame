@@ -1,5 +1,6 @@
-import { act, fireEvent, render } from "@testing-library/react-native";
+import { act, fireEvent } from "@testing-library/react-native";
 import { Platform } from "react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Box } from "../../primitives/Box";
 import { Tooltip } from "./Tooltip";
 import type { TooltipProps } from "./Tooltip.types";
@@ -17,7 +18,7 @@ describe("Tooltip", () => {
 	});
 
 	const renderTooltip = (props: Partial<TooltipProps> = {}) =>
-		render(
+		renderWithTheme(
 			<Tooltip title="Helpful hint" {...props}>
 				<Box testID="trigger">Trigger</Box>
 			</Tooltip>,
@@ -33,7 +34,7 @@ describe("Tooltip", () => {
 	it("opens on focus and wires accessibility descriptors", () => {
 		const { getByTestId, getByText } = renderTooltip();
 
-		fireEvent(getByTestId("trigger"), "focus");
+		fireEvent(getByTestId("trigger"), "focus", { nativeEvent: {}, defaultPrevented: false });
 
 		expect(getByText("Helpful hint")).toBeTruthy();
 		expect(getByTestId("trigger").props.accessibilityDescribedBy).toBeTruthy();
@@ -42,24 +43,20 @@ describe("Tooltip", () => {
 	it("closes on blur", () => {
 		const { getByTestId, queryByText } = renderTooltip();
 
-		fireEvent(getByTestId("trigger"), "focus");
-		fireEvent(getByTestId("trigger"), "blur");
+		fireEvent(getByTestId("trigger"), "focus", { nativeEvent: {}, defaultPrevented: false });
+		fireEvent(getByTestId("trigger"), "blur", { nativeEvent: {}, defaultPrevented: false });
 
 		expect(queryByText("Helpful hint")).toBeNull();
 	});
 
 	it("honors controlled open prop", () => {
-		const { rerender, queryByText } = renderTooltip({ open: false });
+		const initial = renderTooltip({ open: false });
+		expect(initial.queryByText("Helpful hint")).toBeNull();
+		initial.unmount();
 
-		expect(queryByText("Helpful hint")).toBeNull();
-
-		rerender(
-			<Tooltip title="Helpful hint" open>
-				<Box testID="trigger">Trigger</Box>
-			</Tooltip>,
-		);
-
-		expect(queryByText("Helpful hint")).toBeTruthy();
+		const reopened = renderTooltip({ open: true });
+		expect(reopened.queryByText("Helpful hint")).toBeTruthy();
+		reopened.unmount();
 	});
 
 	it("supports press interactions with touch delays", () => {
@@ -74,7 +71,7 @@ describe("Tooltip", () => {
 		});
 
 		act(() => {
-			fireEvent(getByTestId("trigger"), "pressIn", { defaultPrevented: false });
+			fireEvent(getByTestId("trigger"), "pressIn", { defaultPrevented: false, nativeEvent: {} });
 		});
 		act(() => {
 			jest.advanceTimersByTime(200);
@@ -84,7 +81,7 @@ describe("Tooltip", () => {
 		expect(onOpen).toHaveBeenCalled();
 
 		act(() => {
-			fireEvent(getByTestId("trigger"), "pressOut", { defaultPrevented: false });
+			fireEvent(getByTestId("trigger"), "pressOut", { defaultPrevented: false, nativeEvent: {} });
 			jest.runOnlyPendingTimers();
 		});
 

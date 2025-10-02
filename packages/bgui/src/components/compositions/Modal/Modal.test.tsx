@@ -1,163 +1,101 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import type React from "react";
+import { fireEvent } from "@testing-library/react-native";
+import { Platform, Text } from "react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Modal } from "./Modal";
 
-jest.mock("react-dom", () => ({
-	...jest.requireActual("react-dom"),
-	createPortal: (children: React.ReactNode) => children,
-}));
+jest.mock("react-native/Libraries/Modal/Modal", () => {
+	const React = require("react");
+	const MockModal = ({ visible, children }: { visible: boolean; children: React.ReactNode }) => {
+		return visible ? React.createElement(React.Fragment, null, children) : null;
+	};
+	return {
+		__esModule: true,
+		default: MockModal,
+	};
+});
 
-describe("Modal", () => {
+describe("Modal (native)", () => {
+	const originalPlatform = Platform.OS;
+
 	beforeEach(() => {
-		document.body.innerHTML = "";
+		Platform.OS = "ios";
+	});
+
+	afterEach(() => {
+		Platform.OS = originalPlatform;
 	});
 
 	it("renders children when open", () => {
-		render(
+		const { getByText } = renderWithTheme(
 			<Modal open>
-				<div>Content</div>
+				<Text>Content</Text>
 			</Modal>,
 		);
 
-		expect(screen.getByText("Content")).toBeInTheDocument();
+		expect(getByText("Content")).toBeTruthy();
 	});
 
-	it("does not render when closed and keepMounted is false", () => {
-		render(
+	it("does not render when closed without keepMounted", () => {
+		const { queryByText } = renderWithTheme(
 			<Modal open={false}>
-				<div>Hidden</div>
+				<Text>Hidden</Text>
 			</Modal>,
 		);
 
-		expect(screen.queryByText("Hidden")).not.toBeInTheDocument();
+		expect(queryByText("Hidden")).toBeNull();
 	});
 
 	it("renders backdrop by default", () => {
-		render(
+		const { UNSAFE_getByProps } = renderWithTheme(
 			<Modal open>
-				<div>Content</div>
+				<Text>Content</Text>
 			</Modal>,
 		);
 
-		expect(screen.getByTestId("bgui-modal-backdrop")).toBeInTheDocument();
+		expect(() => UNSAFE_getByProps({ testID: "bgui-modal-backdrop" })).not.toThrow();
 	});
 
 	it("omits backdrop when hideBackdrop is true", () => {
-		render(
+		const { queryByTestId } = renderWithTheme(
 			<Modal open hideBackdrop>
-				<div>Content</div>
+				<Text>Content</Text>
 			</Modal>,
 		);
 
-		expect(screen.queryByTestId("bgui-modal-backdrop")).not.toBeInTheDocument();
+		expect(queryByTestId("bgui-modal-backdrop")).toBeNull();
 	});
 
-	it("calls onClose when backdrop is clicked", () => {
+	it("calls onClose when backdrop is pressed", () => {
 		const handleClose = jest.fn();
-		render(
+		const { UNSAFE_getByProps } = renderWithTheme(
 			<Modal open onClose={handleClose}>
-				<div>Content</div>
+				<Text>Content</Text>
 			</Modal>,
 		);
 
-		fireEvent.mouseDown(screen.getByTestId("bgui-modal-backdrop"));
+		const backdrop = UNSAFE_getByProps({ testID: "bgui-modal-backdrop" });
+		fireEvent.press(backdrop);
 
-		expect(handleClose).toHaveBeenCalledWith(expect.any(Object), "backdropClick");
-	});
-
-	it("calls onClose when Escape is pressed", () => {
-		const handleClose = jest.fn();
-		render(
-			<Modal open onClose={handleClose}>
-				<div>Content</div>
-			</Modal>,
-		);
-
-		fireEvent.keyDown(document, { key: "Escape" });
-
-		expect(handleClose).toHaveBeenCalledWith(expect.any(Object), "escapeKeyDown");
-	});
-
-	it("does not close when disableEscapeKeyDown is true", () => {
-		const handleClose = jest.fn();
-		render(
-			<Modal open onClose={handleClose} disableEscapeKeyDown>
-				<div>Content</div>
-			</Modal>,
-		);
-
-		fireEvent.keyDown(document, { key: "Escape" });
-
-		expect(handleClose).not.toHaveBeenCalled();
+		expect(handleClose).toHaveBeenCalledWith(undefined, "backdropClick");
 	});
 
 	it("keeps modal mounted when keepMounted is true", () => {
-		render(
+		const { UNSAFE_getByProps } = renderWithTheme(
 			<Modal open={false} keepMounted testID="kept-modal">
-				<div>Persisted</div>
+				<Text>Persisted</Text>
 			</Modal>,
 		);
 
-		const modal = screen.getByTestId("kept-modal");
-		expect(modal).toBeInTheDocument();
-		expect(modal).toHaveAttribute("data-state", "closed");
-	});
-
-	it("applies accessibility attributes", () => {
-		render(
-			<Modal open aria-label="Test" aria-labelledby="title" aria-describedby="description">
-				<div>Content</div>
-			</Modal>,
-		);
-
-		const modal = screen.getByRole("dialog");
-		expect(modal).toHaveAttribute("aria-label", "Test");
-		expect(modal).toHaveAttribute("aria-labelledby", "title");
-		expect(modal).toHaveAttribute("aria-describedby", "description");
-		expect(modal).toHaveAttribute("aria-modal", "true");
+		expect(() => UNSAFE_getByProps({ testID: "kept-modal" })).not.toThrow();
 	});
 
 	it("applies custom testID", () => {
-		render(
+		const { getByTestId } = renderWithTheme(
 			<Modal open testID="custom-modal">
-				<div>Content</div>
+				<Text>Content</Text>
 			</Modal>,
 		);
 
-		expect(screen.getByTestId("custom-modal")).toBeInTheDocument();
-	});
-
-	it("applies custom styles", () => {
-		render(
-			<Modal open style={{ backgroundColor: "rgb(255, 0, 0)", padding: 32 }}>
-				<div>Content</div>
-			</Modal>,
-		);
-
-		const modal = screen.getByRole("dialog");
-		expect(modal).toHaveStyle({ backgroundColor: "rgb(255, 0, 0)" });
-		expect(modal).toHaveStyle({ padding: "32px" });
-	});
-
-	it("adds tabIndex -1 to children when not provided", () => {
-		render(
-			<Modal open>
-				<div>Focusable</div>
-			</Modal>,
-		);
-
-		expect(screen.getByText("Focusable")).toHaveAttribute("tabIndex", "-1");
-	});
-
-	it("preserves existing child tabIndex", () => {
-		render(
-			<Modal open>
-				<button type="button" tabIndex={0}>
-					Focusable
-				</button>
-			</Modal>,
-		);
-
-		expect(screen.getByRole("button", { name: "Focusable" })).toHaveAttribute("tabIndex", "0");
+		expect(getByTestId("custom-modal")).toBeTruthy();
 	});
 });

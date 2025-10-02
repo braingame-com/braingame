@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react-native";
 import type React from "react";
+import { Text } from "react-native";
 import type { Theme } from "../../../theme";
 import { BGUIThemeProvider, useTheme } from "../../../theme";
 import { Box } from "./Box";
@@ -24,7 +25,11 @@ describe("Box", () => {
 		render(<BGUIThemeProvider forceTheme="light">{ui}</BGUIThemeProvider>);
 
 	it("renders children", () => {
-		const { getByText } = renderWithTheme(<Box>Content</Box>);
+		const { getByText } = renderWithTheme(
+			<Box>
+				<Text>Content</Text>
+			</Box>,
+		);
 
 		expect(getByText("Content")).toBeTruthy();
 	});

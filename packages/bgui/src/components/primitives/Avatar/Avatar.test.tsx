@@ -1,55 +1,60 @@
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react-native";
+import { Platform } from "react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Avatar } from "./Avatar";
 
 describe("Avatar", () => {
-	it("renders initials from children", () => {
-		const { getByText } = render(<Avatar>jd</Avatar>);
+	const originalPlatform = Platform.OS;
 
-		expect(getByText("JD")).toBeInTheDocument();
+	afterEach(() => {
+		Platform.OS = originalPlatform;
+	});
+
+	it("renders initials from children", () => {
+		const { getByText } = renderWithTheme(<Avatar>jd</Avatar>);
+
+		expect(getByText("JD")).toBeTruthy();
 	});
 
 	it("derives initials from accessible label when no children are provided", () => {
-		const { getByText } = render(<Avatar aria-label="Luna Lovegood" />);
+		const { getByText } = renderWithTheme(<Avatar aria-label="Luna Lovegood" />);
 
-		expect(getByText("LL")).toBeInTheDocument();
+		expect(getByText("LL")).toBeTruthy();
 	});
 
 	it("renders an image when a source is provided", () => {
-		const { container } = render(
+		Platform.OS = "web";
+		const { getAllByLabelText } = renderWithTheme(
 			<Avatar src="https://example.com/avatar.jpg" alt="Example user" />,
 		);
-
-		const img = container.querySelector("img");
-		expect(img).toBeTruthy();
-		expect(img?.getAttribute("src")).toBe("https://example.com/avatar.jpg");
+		const elements = getAllByLabelText("Example user");
+		const image = elements.find((element) => typeof element.props?.onError === "function");
+		expect(image).toBeTruthy();
 	});
 
 	it("falls back to initials when the image fails to load", () => {
-		const { container, getByText } = render(
+		Platform.OS = "web";
+		const { getAllByLabelText, getByText } = renderWithTheme(
 			<Avatar src="https://example.com/broken.jpg" alt="Broken Avatar">
 				JD
 			</Avatar>,
 		);
-
-		const img = container.querySelector("img");
-		expect(img).toBeTruthy();
-
-		if (img) {
-			fireEvent.error(img);
-		}
-
-		expect(getByText("JD")).toBeInTheDocument();
+		const elements = getAllByLabelText("Broken Avatar");
+		const image = elements.find((element) => typeof element.props?.onError === "function");
+		expect(image).toBeTruthy();
+		fireEvent(image!, "error", { nativeEvent: {} });
+		expect(getByText("JD")).toBeTruthy();
 	});
 
 	it("handles press events when clickable", () => {
 		const handleClick = jest.fn();
-		const { getByRole } = render(
+		const { getByRole } = renderWithTheme(
 			<Avatar onClick={handleClick} aria-label="Pressable avatar">
 				AB
 			</Avatar>,
 		);
 
-		fireEvent.click(getByRole("button", { name: "Pressable avatar" }));
+		fireEvent.press(getByRole("button"));
 		expect(handleClick).toHaveBeenCalledTimes(1);
 	});
 });

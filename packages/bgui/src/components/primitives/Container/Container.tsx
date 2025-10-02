@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { StyleSheet, useWindowDimensions, type ViewStyle } from "react-native";
+import * as ReactNative from "react-native";
+import { StyleSheet, type ViewStyle } from "react-native";
 import type { Theme } from "../../../theme";
 import { useTheme } from "../../../theme";
 import { Box } from "../Box";
@@ -49,7 +50,7 @@ export const Container: React.FC<ContainerProps> = ({
 	style,
 	testID,
 }) => {
-	const { width: screenWidth } = useWindowDimensions();
+	const { width: screenWidth } = ReactNative.useWindowDimensions();
 	const theme = useTheme();
 
 	const computedStyle = useMemo(

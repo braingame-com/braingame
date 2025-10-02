@@ -1,17 +1,18 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { Icon } from "../Icon";
 import { Chip } from "./Chip";
 
 describe("Chip", () => {
 	it("renders content", () => {
-		const { getByText } = render(<Chip>Test Chip</Chip>);
+		const { getByText } = renderWithTheme(<Chip>Test Chip</Chip>);
 
 		expect(getByText("Test Chip")).toBeTruthy();
 	});
 
 	it("triggers onClick when interactive", () => {
 		const handleClick = jest.fn();
-		const { getByText } = render(<Chip onClick={handleClick}>Tap me</Chip>);
+		const { getByText } = renderWithTheme(<Chip onClick={handleClick}>Tap me</Chip>);
 
 		fireEvent.press(getByText("Tap me"));
 
@@ -20,7 +21,7 @@ describe("Chip", () => {
 
 	it("does not trigger onClick when disabled", () => {
 		const handleClick = jest.fn();
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<Chip disabled onClick={handleClick}>
 				Disabled Chip
 			</Chip>,
@@ -32,7 +33,7 @@ describe("Chip", () => {
 	});
 
 	it("renders decorators", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<Chip startDecorator={<Icon name="info" />} endDecorator={<Icon name="close" />}>
 				With Icon
 			</Chip>,
@@ -43,7 +44,7 @@ describe("Chip", () => {
 
 	it("supports dismiss action", () => {
 		const handleDismiss = jest.fn();
-		const { getByLabelText } = render(
+		const { getByLabelText } = renderWithTheme(
 			<Chip onDismiss={handleDismiss} dismissLabel="Remove item">
 				Item
 			</Chip>,
@@ -55,12 +56,12 @@ describe("Chip", () => {
 	});
 
 	it("applies accessibility label", () => {
-		const { getByA11yLabel } = render(
+		const { getByLabelText } = renderWithTheme(
 			<Chip aria-label="Custom label" onClick={() => undefined}>
 				Labelled Chip
 			</Chip>,
 		);
 
-		expect(getByA11yLabel("Custom label")).toBeTruthy();
+		expect(getByLabelText("Custom label")).toBeTruthy();
 	});
 });

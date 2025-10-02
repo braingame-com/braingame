@@ -237,7 +237,7 @@ export const Badge = forwardRef<View, BadgeProps>(
 								hitSlop={6}
 								style={{ marginLeft: contentSpacing }}
 								onPress={(event: GestureResponderEvent) => {
-									event.stopPropagation?.();
+									event?.stopPropagation?.();
 									onDismiss?.();
 								}}
 							>

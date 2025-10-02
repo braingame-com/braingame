@@ -135,7 +135,7 @@ export const Chip = forwardRef<View, ChipProps>(
 		};
 
 		const handleDismiss = (event: GestureResponderEvent) => {
-			event.stopPropagation?.();
+			event?.stopPropagation?.();
 			if (disabled || !onDismiss) return;
 			onDismiss();
 		};

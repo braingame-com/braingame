@@ -1,15 +1,16 @@
-import { render, waitFor } from "@testing-library/react-native";
+import { waitFor } from "@testing-library/react-native";
 import { Text } from "react-native";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 
 describe("AnimatedGradientBackground", () => {
 	it("renders a container", () => {
-		const { getByTestId } = render(<AnimatedGradientBackground testID="gradient" />);
+		const { getByTestId } = renderWithTheme(<AnimatedGradientBackground testID="gradient" />);
 		expect(getByTestId("gradient")).toBeTruthy();
 	});
 
 	it("renders the expected number of blobs", async () => {
-		const { getAllByTestId } = render(
+		const { getAllByTestId } = renderWithTheme(
 			<AnimatedGradientBackground blobCount={4} animate={false} testID="gradient" />,
 		);
 		await waitFor(() => {
@@ -18,7 +19,7 @@ describe("AnimatedGradientBackground", () => {
 	});
 
 	it("renders children", () => {
-		const { getByText } = render(
+		const { getByText } = renderWithTheme(
 			<AnimatedGradientBackground>
 				<Text>Gradient Content</Text>
 			</AnimatedGradientBackground>,
@@ -28,6 +29,6 @@ describe("AnimatedGradientBackground", () => {
 
 	it("respects custom colors", () => {
 		const colors = ["#ff0000", "#00ff00"];
-		expect(() => render(<AnimatedGradientBackground colors={colors} />)).not.toThrow();
+		expect(() => renderWithTheme(<AnimatedGradientBackground colors={colors} />)).not.toThrow();
 	});
 });

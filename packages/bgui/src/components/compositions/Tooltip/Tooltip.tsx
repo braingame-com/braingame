@@ -66,7 +66,8 @@ const composeEventHandler = <E,>(
 
 	return (event: E) => {
 		theirHandler?.(event);
-		if ((event as unknown as { defaultPrevented?: boolean }).defaultPrevented) {
+		const prevented = (event as { defaultPrevented?: boolean } | undefined)?.defaultPrevented;
+		if (prevented) {
 			return;
 		}
 		ourHandler?.(event);

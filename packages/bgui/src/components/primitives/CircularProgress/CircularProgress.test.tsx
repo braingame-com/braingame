@@ -1,32 +1,34 @@
-import { render } from "@testing-library/react";
+import { renderWithTheme } from "../../../test-utils/render-with-theme";
 import { CircularProgress } from "./CircularProgress";
 
 describe("CircularProgress", () => {
 	it("renders provided children", () => {
-		const { getByText } = render(<CircularProgress>Loading data</CircularProgress>);
+		const { getByText } = renderWithTheme(<CircularProgress>Loading data</CircularProgress>);
 
-		expect(getByText("Loading data")).toBeInTheDocument();
+		expect(getByText("Loading data")).toBeTruthy();
 	});
 
 	it("exposes determinate progress values for assistive tech", () => {
-		const { getByRole } = render(
-			<CircularProgress determinate value={42} aria-label="Uploading" />,
+		const { getByTestId } = renderWithTheme(
+			<CircularProgress determinate value={42} aria-label="Uploading" testID="progress" />,
 		);
 
-		const progressbar = getByRole("progressbar", { name: "Uploading" });
+		const progressbar = getByTestId("progress");
 
-		expect(progressbar).toHaveAttribute("aria-valuenow", "42");
-		expect(progressbar).toHaveAttribute("aria-valuemin", "0");
-		expect(progressbar).toHaveAttribute("aria-valuemax", "100");
+		expect(progressbar.props.accessibilityValue?.now).toBe(42);
+		expect(progressbar.props.accessibilityValue?.min).toBe(0);
+		expect(progressbar.props.accessibilityValue?.max).toBe(100);
 	});
 
 	it("omits value attributes when indeterminate", () => {
-		const { getByRole } = render(<CircularProgress aria-label="Loading" />);
+		const { getByTestId } = renderWithTheme(
+			<CircularProgress aria-label="Loading" testID="progress" />,
+		);
 
-		const progressbar = getByRole("progressbar", { name: "Loading" });
+		const progressbar = getByTestId("progress");
 
-		expect(progressbar).not.toHaveAttribute("aria-valuenow");
-		expect(progressbar).not.toHaveAttribute("aria-valuemin");
-		expect(progressbar).not.toHaveAttribute("aria-valuemax");
+		expect(progressbar.props.accessibilityValue?.now).toBeUndefined();
+		expect(progressbar.props.accessibilityValue?.min).toBeUndefined();
+		expect(progressbar.props.accessibilityValue?.max).toBeUndefined();
 	});
 });
