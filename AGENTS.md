@@ -16,8 +16,8 @@ Jest + Testing Library power unit/integration suites, Playwright covers web E2E.
 Commits follow Conventional Commits (`feat(bgui): …`, `fix(docs-site): …`). Before pushing, run `pnpm lint && pnpm typecheck && pnpm test && pnpm build`; avoid `--no-verify`. PRs should link issues, explain risk, and include screenshots or recordings for UI changes. Rebase onto `main` rather than force-pushing mid-review.
 
 ## Agent Workflow & Guardrails
-- Mandatory reading before coding: `docs/handbook/.claude/CLAUDE.md`, `docs/handbook/architecture/ARCHITECTURE.md`, `docs/handbook/development/DEVELOPMENT.md`, `docs/handbook/development/LESSONS.md`, and `docs/todo/TODO.md`.
-- Zero tolerance quality bar: lint, typecheck, test, and build must be clean (no warnings, no skipped hooks).
+- Mandatory reading before coding: `docs/handbook/architecture/ARCHITECTURE.md`, `docs/handbook/development/DEVELOPMENT.md`, `docs/handbook/development/LESSONS.md`, and `docs/todo/TODO.md`.
+- Zero tolerance quality bar: lint, typecheck, test, and build must be clean (no errors, no warnings, no skipped hooks).
 - Verify the workspace every session (`git worktree list`, `pwd`, `git branch --show-current`) to avoid cross-worktree contamination.
 - Human review is required for every agent-generated change, and agents must not close PRs without explicit maintainer approval.
 - Log meaningful actions and keep secrets out of the repo; use the CI secret manager instead.

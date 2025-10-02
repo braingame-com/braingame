@@ -34,6 +34,7 @@ Every component MUST satisfy ALL of these requirements:
 - [ ] Composition-friendly (works well with others)
 - [ ] No side effects or external dependencies
 - [ ] Uses hooks appropriately (useTheme, etc.)
+- [ ] App-agnostic API – all data/links are supplied via props so docs-site, main-site, and product can share the surface
 - [ ] Clean file structure:
   ```
   components/{primitives|compositions}/ComponentName/

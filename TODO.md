@@ -5,27 +5,13 @@
 ### Phase 1: MVP BGUI & Landing Page
 **Goal:** Get lead generation running ASAP
 
-#### Fix BGUI Architecture Issue
-- [x] Fix dual platform implementation - components should be single .tsx files using React Native Web
-
-#### BGUI Quality Checks
-- [x] Evaluate building an in-house BGUI theme engine to replace Restyle (requirements, migration plan, effort estimate). _(See `packages/bgui/docs/THEME_ENGINE_EVALUATION.md`.)_
-- [x] Build an in-house BGUI theme engine to replace Restyle (and remove Restyle)
-  - [x] Scaffold new in-house theme engine inside `packages/bgui` with context, hooks, and token typings
-  - [x] Update `BGUIThemeProvider` to wrap the new provider while preserving public API
-  - [x] Replace Restyle primitives with internal `Box`/`Text` equivalents and migrate affected components
-  - [x] Port component styling to `useTheme`/token helpers and remove direct `theme` imports
-  - [x] Update tests/storybook helpers to use the new provider; remove Restyle dependency _(Follow-up: see "Tech Debt → BGUI test/stories refactor" task)_
-- [x] Build our own slider so we can remove @react-native-community/slider as a dependency
-- [x] Remove @mui stuff as dependencies by making sure our own in-house token/design system is up to scratch
-- [x] Refactor primitives and compositions to consume the active Restyle theme (e.g. via `useTheme`) so light/dark modes from `BGUIThemeProvider` render correctly.
-- [x] Add automated coverage (unit or visual regression) proving components render with both light and dark tokens after the theme refactor.
-- [x] Rewrite `packages/bgui/scripts/generate-component.js` to scaffold the single-file universal component pattern and drop obsolete `.native/.web` outputs.
-- [x] Sync BGUI docs (`README.md`, `docs/JOY_UI_IMPLEMENTATION_SUMMARY.md`, `docs/GOLD_STANDARD.md`, etc.) with the current architecture and workflows.
-- [x] Introduce a maintainer checklist (living in BGUI docs) covering lint, typecheck, storybook, and theming verification before publishing.
-
 #### Set up docs site properly
 - [ ] Make sure docs site is using a header/sidebar etc. from bgui 
+  - [ ] Audit `apps/docs-site` layout to capture current header/sidebar behaviour (links, theme toggle, responsive breakpoints).
+  - [ ] Replace the bespoke header with `@braingame/bgui`'s `Header` + supporting primitives, wiring navigation/link config from the existing data.
+  - [ ] Rebuild the sidebar using BGUI stacks/lists so active state, spacing, and typography come from the theme tokens.
+  - [ ] Refactor layout wrappers/global styles to depend on BGUI primitives (`Box`, `Container`, `Stack`) instead of custom CSS where practical.
+  - [ ] Validate the integration (`pnpm --filter @braingame/docs-site build`, `pnpm check:docs`) and document any follow-up UX gaps in TODO/LESSONS.
 
 #### Build & Deploy Landing Page
 - [ ] Simple hero section

@@ -389,6 +389,23 @@ export function MyComponent() {
 
 **Key Takeaway**: React Native Web's entire value proposition is "write once, run everywhere". Creating separate web files defeats this purpose and creates unnecessary maintenance burden.
 
+### ✅ BGUI Components Must Remain App-Agnostic (2025-10-02)
+**Learning**: Every UI surface (docs site, marketing site, product app) must consume the exact same BGUI primitives and compositions; apps should never maintain bespoke component implementations.
+
+**Principles**:
+- Components live in `packages/bgui/src/components/{primitives,compositions}` with flexible APIs. They accept data via props instead of hardcoding copy or navigation.
+- Apps instantiate and configure the components (e.g., pass header links, CTA buttons, theme overrides) but never fork or wrap them with app-specific logic.
+- New layouts discovered in an app are promoted back into BGUI before wider adoption—this keeps styling, accessibility, and theming consistent everywhere.
+
+**Why it matters**:
+1. Prevents divergence: we can "dogfood" the design system across all properties without re-implementing the surface each time.
+2. Speeds maintenance: bug fixes or visual tweaks land once in BGUI and propagate to every consumer automatically.
+3. Protects accessibility & theming: all apps benefit from the shared audit and token evolution.
+
+**Action Items**:
+- When an app needs bespoke UI, first check whether BGUI already provides the primitive/composition. If not, build it inside BGUI and export it from `src/index.ts` before wiring it into the app.
+- Document new usage patterns in `packages/bgui/docs/` so teams know how to configure the components without copying code into apps.
+
 ### Evolution Pattern
 **Learning**: Moving from many specialized components to fewer, more flexible ones provides:
 - Better maintainability
