@@ -1,9 +1,9 @@
 # BGUI - Brain Game UI Component Library
 
-![Status](https://img.shields.io/badge/status-architectural%20reset-orange?style=for-the-badge)
 ![Architecture](https://img.shields.io/badge/architecture-React%20Native%20Web-success?style=for-the-badge)
+![Theme Engine](https://img.shields.io/badge/theme-M3%20in--house-blueviolet?style=for-the-badge)
 
-> Enterprise-grade UI component library for React Native and web platforms
+> Enterprise-grade, single-source UI component library for React Native **and** React Native Web powered by a custom Material 3/Joy-inspired theme engine.
 
 ## 🎯 Project Vision
 
@@ -77,11 +77,10 @@ export const MyComponent = () => {
 We've preserved the valuable setup and raw ingredients:
 
 ### Theme System
-- **Material Design 3** token system with light/dark modes
-- **Joy UI** design patterns mapped to component variants
-- **Typography** scale with Lexend font family
-- **Color system** with semantic naming
-- **Theme Context** for universal styling across platforms
+- **In-house engine** wrapping Material 3 seed generation (`packages/bgui/src/theme/engine`)
+- **Light + dark** tokens verified by automated tests (`theme-coverage.test.tsx`)
+- **Semantic roles** only—no hard-coded hex values or Restyle props
+- **BGUIThemeProvider** allows overrides/`forceTheme` for tests and host apps
 
 ### Developer Experience
 - **TypeScript-first** with comprehensive type definitions
@@ -107,19 +106,19 @@ All components have been stripped from the library. We now start with a clean sl
 4. **Test across all platforms** to ensure universal compatibility
 
 ### Component Structure
-Each component will follow this self-documenting pattern:
+Each component follows a single-file universal pattern:
 
 ```
-src/components/ComponentName/
-├── ComponentName.tsx         # Universal component implementation
-├── ComponentName.stories.tsx # Storybook stories  
-├── ComponentName.test.tsx    # Tests for all platforms
-├── types.ts                 # TypeScript interfaces with JSDoc
+src/components/{primitives|compositions}/ComponentName/
+├── ComponentName.tsx        # Universal implementation (React Native + Web)
+├── ComponentName.types.ts   # TypeScript interfaces with JSDoc
+├── ComponentName.test.tsx   # React Native Testing Library coverage (light/dark when relevant)
+├── ComponentName.stories.tsx# Storybook stories driven by theme tokens
 └── index.ts                 # Public exports
 ```
 
-### Documentation Approach
-We use a **self-documenting** approach:
+### Documentation & Testing Approach
+We use a **self-documenting** approach backed by automated coverage:
 
 ```typescript
 // types.ts - Document props inline
@@ -134,18 +133,13 @@ export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'danger';
 }
 
-// Component.tsx - Add usage examples
-/**
- * Button component for user actions
- * 
- * @example
- * <Button variant="primary" icon="save">
- *   Save Changes
- * </Button>
- */
-export const Button = ({ variant = 'primary', ...props }: ButtonProps) => {
-  // Implementation
-};
+// tests - Verify light/dark behaviour
+it('adapts tone between light and dark', () => {
+  const { getByTestId } = renderWithTheme(<Button tone="primary" testID="subject" />);
+  const lightStyles = getStyle(getByTestId('subject'));
+  const darkStyles = getStyle(renderWithTheme(<Button tone="primary" testID="subject" />, { theme: 'dark' }).getByTestId('subject'));
+  expect(lightStyles.backgroundColor).not.toBe(darkStyles.backgroundColor);
+});
 ```
 
 ## Installation
@@ -157,17 +151,19 @@ pnpm add @braingame/bgui
 ## Quick Start
 
 ```tsx
-import { Button, Card, Text } from '@braingame/bgui';
+import { BGUIThemeProvider, Button, Card, Typography } from "@braingame/bgui";
 
-export function MyComponent() {
-  return (
-    <Card>
-      <Text variant="h2">Welcome to BGUI</Text>
-      <Button onPress={() => console.log('Pressed!')}>
-        Get Started
-      </Button>
-    </Card>
-  );
+export function App() {
+	return (
+		<BGUIThemeProvider>
+			<Button tone="primary">Press me</Button>
+			<Card>
+				<Typography level="body-md">
+					Universal component rendered with the in-house theme.
+				</Typography>
+			</Card>
+		</BGUIThemeProvider>
+	);
 }
 ```
 
@@ -184,11 +180,14 @@ export function MyComponent() {
 
 ### Creating New Components
 
-1. **Start with TypeScript interfaces** - Define props with JSDoc
-2. **Build the universal component** - Follow single-file principles
-3. **Create Storybook stories** - Show all variants and states
-4. **Write comprehensive tests** - Cover all platforms
-5. **No separate docs needed** - Everything is in the code!
+1. **Generate a scaffold**
+   ```bash
+   pnpm --filter @braingame/bgui generate:component primitives/MyComponent
+   ```
+   The generator outputs a universal `.tsx`, `.types.ts`, `.test.tsx`, and Storybook story wired to the in-house theme.
+2. **Document via types** – Fill `*.types.ts` with JSDoc; update Storybook controls.
+3. **Write tests** – Extend the generated spec with behaviour and light/dark assertions where visuals matter.
+4. **Export from `src/index.ts`** – Follow existing patterns to expose the component.
 
 ### Live Interactive Documentation
 ```bash
@@ -200,6 +199,7 @@ Our documentation lives in the code itself:
 - **TypeScript interfaces** with comprehensive JSDoc comments
 - **Storybook stories** showing all variants and use cases  
 - **Live playground** to experiment with props
+- **Maintainer checklist** in [`docs/MAINTAINER_CHECKLIST.md`](./docs/MAINTAINER_CHECKLIST.md) for pre-publish verification
 
 ## License
 

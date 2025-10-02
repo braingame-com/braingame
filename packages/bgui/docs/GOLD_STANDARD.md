@@ -36,12 +36,12 @@ Every component MUST satisfy ALL of these requirements:
 - [ ] Uses hooks appropriately (useTheme, etc.)
 - [ ] Clean file structure:
   ```
-  components/ComponentName/
-  ├── ComponentName.tsx      # Main component
-  ├── types.ts              # TypeScript interfaces
-  ├── index.ts              # Public exports
-  ├── ComponentName.test.tsx # Unit tests
-  └── ComponentName.stories.tsx # Storybook stories
+  components/{primitives|compositions}/ComponentName/
+  ├── ComponentName.tsx        # Universal implementation (RN + Web)
+  ├── ComponentName.types.ts   # TypeScript interfaces with JSDoc
+  ├── ComponentName.test.tsx   # RTL coverage (include light/dark assertions)
+  ├── ComponentName.stories.tsx# Storybook stories
+  └── index.ts                 # Public exports
   ```
 
 ### 4. Styling Standards ✓
