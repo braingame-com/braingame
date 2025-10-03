@@ -1,69 +1,96 @@
-// @ts-nocheck
 "use client";
 
-import { Box, Stack, Typography } from "../../../../src/components/BGUIDemo";
-import { CodeBlock } from "../../../../src/components/CodeBlock";
-import { PropsTable } from "../../../../src/components/PropsTable";
+import {
+	Box,
+	DocsExample,
+	PropsTable,
+	type PropsTableRow,
+	Stack,
+	Typography,
+	useTheme,
+} from "@braingame/bgui";
 
-const stackProps = [
-	{ name: "direction", type: '"column" | "row"', description: "Flex direction." },
-	{ name: "spacing", type: '"none" | "sm" | "md" | "lg"', description: "Gap between children." },
-	{ name: "align", type: '"start" | "center" | "end" | "stretch"', description: "Cross-axis alignment." },
+const stackProps: PropsTableRow[] = [
+	{
+		name: "direction",
+		type: '"column" | "row" | "column-reverse" | "row-reverse"',
+		defaultValue: '"column"',
+		description: "Layout direction.",
+	},
+	{
+		name: "spacing",
+		type: "Spacing token | number",
+		defaultValue: "0",
+		description: "Gap between children.",
+	},
+	{
+		name: "useFlexGap",
+		type: "boolean",
+		defaultValue: "true",
+		description: "Use native gap when available.",
+	},
 ];
 
-export default function StackDocs() {
-	return (
-		<div>
-			<Typography level="h1" className="text-display mb-4">
-				Stack
-			</Typography>
-			<Typography className="text-body text-secondary mb-6">
-				Stack composes flex layouts with consistent gaps. Use it for vertical or horizontal grouping.
-			</Typography>
+const usageSnippet = `import { Stack } from "@braingame/bgui";
 
-			<Stack spacing="md" className="mb-8">
-				<Stack direction="row" spacing="sm">
-					{["One", "Two", "Three"].map((label) => (
-						<Box key={label} style={{ padding: 12, borderRadius: 12, background: "#1f2937", color: "white" }}>
-							{label}
-						</Box>
-					))}
-				</Stack>
-				<Stack spacing="sm">
-					{["Alpha", "Beta", "Gamma"].map((label) => (
-						<Box key={label} style={{ padding: 12, borderRadius: 12, background: "#111827", color: "white" }}>
-							{label}
-						</Box>
-					))}
-				</Stack>
+<Stack direction="row" spacing="md">
+  <Card />
+  <Card />
+</Stack>;`;
+
+export default function StackDocs() {
+	const theme = useTheme();
+
+	const sampleBox = (label: string) => (
+		<Box
+			key={label}
+			backgroundColor="surfaceContainerHigh"
+			padding="md"
+			borderRadius="md"
+			style={{ minWidth: 80, alignItems: "center" }}
+		>
+			<Typography level="body-sm">{label}</Typography>
+		</Box>
+	);
+
+	return (
+		<Stack spacing="xl2">
+			<Stack spacing="sm">
+				<Typography level="h1">Stack</Typography>
+				<Typography level="body-lg" textColor={theme.colors.onSurfaceVariant}>
+					Stack composes children with consistent gaps and supports responsive flexbox directions.
+				</Typography>
 			</Stack>
 
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					API
-				</Typography>
-				<PropsTable props={stackProps} />
-			</section>
+			<DocsExample title="Direction" allowToggle={false}>
+				<Stack spacing="md">
+					<Stack direction="row" spacing="sm" useFlexGap style={{ flexWrap: "wrap" }}>
+						{["One", "Two", "Three"].map(sampleBox)}
+					</Stack>
+					<Stack direction="column" spacing="sm">
+						{["A", "B", "C"].map(sampleBox)}
+					</Stack>
+				</Stack>
+			</DocsExample>
 
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					Usage
-				</Typography>
-				<CodeBlock
-					language="tsx"
-					code={`import { Stack } from "@braingame/bgui";
+			<Stack spacing="sm">
+				<Typography level="h2">API</Typography>
+				<PropsTable rows={stackProps} testID="props-table" />
+			</Stack>
 
-<Stack direction="row" spacing="md" align="center">
-  <Avatar />
-  <Stack spacing="xs">
-    <Typography level="title">Jordan Crow-Stewart</Typography>
-    <Typography level="body" textColor="var(--color-text-secondary)">
-      Founder, Brain Game
-    </Typography>
-  </Stack>
-</Stack>;`}
-				/>
-			</section>
-		</div>
+			<DocsExample title="Usage" code={usageSnippet} allowToggle={false}>
+				<Typography level="body-md" textColor={theme.colors.onSurfaceVariant}>
+					Stack can render grid-like layouts by combining{" "}
+					<Typography component="span" level="body-md">
+						direction
+					</Typography>
+					and{" "}
+					<Typography component="span" level="body-md">
+						useFlexGap
+					</Typography>
+					.
+				</Typography>
+			</DocsExample>
+		</Stack>
 	);
 }

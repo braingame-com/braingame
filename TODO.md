@@ -5,13 +5,19 @@
 ### Phase 1: MVP BGUI & Landing Page
 **Goal:** Get lead generation running ASAP
 
-#### Set up docs site properly
-- [ ] Make sure docs site is using a header/sidebar etc. from bgui 
-  - [ ] Audit `apps/docs-site` layout to capture current header/sidebar behaviour (links, theme toggle, responsive breakpoints).
-  - [ ] Replace the bespoke header with `@braingame/bgui`'s `Header` + supporting primitives, wiring navigation/link config from the existing data.
-  - [ ] Rebuild the sidebar using BGUI stacks/lists so active state, spacing, and typography come from the theme tokens.
-  - [ ] Refactor layout wrappers/global styles to depend on BGUI primitives (`Box`, `Container`, `Stack`) instead of custom CSS where practical.
-  - [ ] Validate the integration (`pnpm --filter @braingame/docs-site build`, `pnpm check:docs`) and document any follow-up UX gaps in TODO/LESSONS.
+#### Set up docs site
+- [ ] Get full docs site ready to ship
+  - [x] Polish homepage hero + showcase visuals so the site feels production-ready.
+  - [x] Run an accessibility sweep (axe/keyboard) and capture any follow-up issues.
+  - [x] Complete all components documentation and examples
+  - [x] Document color usage and spacing tokens on the Design pages
+  - [x] Publish a principles section so teams understand our design philosophy
+  - [x] Make sure components have tests and files are refactor beautifully
+- [ ] Actually get docs-site live
+  - [ ] Set up docs.website.com subdomain
+  - [ ] Deploy app to Firebase
+  - [ ] Point subdomain to Firebase
+  - [ ] Set up any automated tooling needed for publishing and deploying, e.g. Github actions
 
 #### Build & Deploy Landing Page
 - [ ] Simple hero section
@@ -29,19 +35,6 @@
 
 ### Phase 2: Product App Foundation
 **Goal:** Build the core product experience
-
-#### Expand BGUI Component Library
-Components needed for product app:
-- [ ] Navigation components (TabBar, Drawer)
-- [ ] List/ListItem
-- [ ] Avatar
-- [ ] Badge
-- [ ] Switch/Toggle
-- [ ] Select/Dropdown
-- [ ] Checkbox
-- [ ] Radio
-- [ ] Alert/Toast
-- [ ] Spinner/Loading states
 
 #### Backend Infrastructure
 - [ ] Authentication
@@ -105,10 +98,7 @@ Components needed for product app:
 ## 🔧 Technical Debt to Address
 
 ### Immediate Issues
-- [x] Enforce lint/typecheck cleanliness across every workspace
 - [ ] Fix Expo dev server issues (or switch to different approach)
-- [ ] Clean up git history/branches
-- [ ] Remove unused dependencies
 - [ ] **Tech Debt:** Finish migrating BGUI tests/stories to the new theme provider and clean up temporary shims
 - [ ] **Tech Debt:** Add light/dark regression coverage for BGUI components now that the theme engine is in-house
 - [ ] **Tech Debt:** Reinstate failing pre-commit on test failures once Jest warnings are resolved
@@ -121,41 +111,10 @@ Components needed for product app:
 
 ---
 
-## 📝 Notes
-
-### What We're NOT Doing Yet
-- Enterprise features
-- Complex analytics
-- Multi-tenancy
-- Advanced testing suites
-- Extensive documentation
-- Perfect code coverage
-- Microservices architecture
-- All the "consultant report" stuff
-
-### Key Decisions
-- Using React Native Web for universal components (no more dual implementations)
-- Firebase for backend (simple, works, scalable enough)
-- Focus on shipping fast, not perfect architecture
-- Revenue first, optimization later
-
-### Quick Links
-- [Architecture](docs/handbook/architecture/ARCHITECTURE.md)
-- [Development Setup](docs/handbook/development/DEVELOPMENT.md)
-- [BGUI Components](packages/bgui/README.md)
-
----
-
 ## 🧩 Complexity Simplification
 **Goal:** Boil the repo complexity down while keeping signal high and enterprise standards intact
-- [x] QUICK: Correct doc references (e.g., `.github/CONTRIBUTING.md`) to point at the actual `docs/handbook/development` resources
-- [x] QUICK: Publish a `docs/handbook/development/WORKSPACE_MAP.md` that charts apps, packages, and owner responsibilities at a glance
-- [x] MEDIUM: Centralize shared branding assets (favicons/logos) under `assets/` and wire apps to consume them via workspace imports
-- [x] MEDIUM: Consolidate dev helper scripts into a single `scripts/workspace-helper` entry point with curated subcommands, retiring duplicates
-- [x] MEDIUM: Merge `docs/todo/BGUI_TODO.md` into the primary `docs/todo/TODO.md` roadmap and archive the duplicate tracker
-- [x] MEDIUM: Collapse redundant README files by moving their content into `docs/README.md` (or inlining into package docs) and pruning leftovers
-- [x] MEDIUM: Restructure the `docs/` directory into fewer top-level groups (e.g., development, operations, reference) and archive low-signal prompt/adr scaffolding
-- [ ] HIGH: Rebuild the documentation pipeline so `apps/docs-site` consumes a single `handbook/` source of truth (MDX + frontmatter), eliminating parallel navigation/config files
+
+<!-- - [ ] HIGH: Rebuild the documentation pipeline so `apps/docs-site` consumes a single `handbook/` source of truth (MDX + frontmatter), eliminating parallel navigation/config files -->
 - [ ] HIGH: Replace scattered Node scripts with a typed `@braingame/cli` package that exposes subcommands (docs, workspace, components), deprecating ad-hoc JS entrypoints
 - [ ] HIGH: Stand up an asset build system that generates all favicons, app icons, and illustrations from one manifest, wiring every app/package to consume outputs from `assets/dist`
 

@@ -406,6 +406,18 @@ export function MyComponent() {
 - When an app needs bespoke UI, first check whether BGUI already provides the primitive/composition. If not, build it inside BGUI and export it from `src/index.ts` before wiring it into the app.
 - Document new usage patterns in `packages/bgui/docs/` so teams know how to configure the components without copying code into apps.
 
+### ✅ Docs Site Shell Dogfoods BGUI (2025-10-02)
+**Learning**: The documentation app is now a real consumer of our BGUI primitives—`Header`, `SidebarNavigation`, `Modal`, `Box`, and `Stack` drive the entire shell so we spot design-system regressions early.
+
+**Implementation Details**:
+- Replaced bespoke `Header.tsx`/`Sidebar.tsx` with the production components; mobile layouts reuse the same data via a modal drawer hooked to `SidebarNavigation`.
+- Trimmed `layout.css` down to neutral utilities—spacing/grids—so layout tone comes from theme tokens instead of ad-hoc CSS.
+- Added Playwright coverage for desktop navigation, theme toggling, and mobile drawer flows (chromium, multiple breakpoints) to keep the docs surface shippable.
+
+**Future Work**:
+- Polish hero/showcase visuals and run an accessibility sweep before launch (tracked in `TODO.md`).
+- Mirror this pattern in `main-site` so every outward-facing surface validates BGUI in production.
+
 ### Evolution Pattern
 **Learning**: Moving from many specialized components to fewer, more flexible ones provides:
 - Better maintainability

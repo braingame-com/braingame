@@ -1,20 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 test("showcase page displays BGUI components", async ({ page }) => {
-	// Navigate to the showcase page
-	await page.goto("http://localhost:3001/showcase");
-
-	// Wait for the main title to be visible
-	await expect(page.locator("h1").first()).toBeVisible();
-
-	// Check that it contains the main title
-	await expect(page.locator("h1").first()).toHaveText("BGUI Component Showcase");
-
-	// Check that various components are present
-	await expect(page.locator("h2").first()).toBeVisible();
-	await expect(page.locator("button").first()).toBeVisible();
-	await expect(page.locator("input").first()).toBeVisible();
-
-	// Take a screenshot for debugging
-	await page.screenshot({ path: "showcase-components.png" });
+	await page.goto("/showcase");
+	const main = page.getByTestId("docs-main");
+	await expect(main.getByText("Component Showcase", { exact: true })).toBeVisible();
+	await expect(main.getByRole("button", { name: "Primary" })).toBeVisible();
+	await expect(main.getByText("Feedback & media", { exact: true })).toBeVisible();
 });

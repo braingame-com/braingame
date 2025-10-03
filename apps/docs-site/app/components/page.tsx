@@ -1,7 +1,6 @@
-// @ts-nocheck
 "use client";
 
-import Link from "next/link";
+import { Link as BguiLink, Stack, Typography, useTheme } from "@braingame/bgui";
 
 const sections = [
 	{
@@ -32,30 +31,32 @@ const sections = [
 ];
 
 export default function ComponentsIndexPage() {
-	return (
-		<div className="docs-grid">
-			<header className="docs-header">
-				<h1>Component Catalog</h1>
-				<p>
-					Explore the Brain Game UI surfaces that are production-ready today. Each page includes a live
-					sample and the essential props you need to start building.
-				</p>
-			</header>
+	const theme = useTheme();
 
-			<section className="docs-section">
+	return (
+		<Stack spacing="xl2">
+			<Stack spacing="sm">
+				<Typography level="h1">Component Catalog</Typography>
+				<Typography level="body-lg" textColor={theme.colors.onSurfaceVariant}>
+					Explore production-ready Brain Game UI surfaces. Each page includes live examples and prop
+					tables.
+				</Typography>
+			</Stack>
+
+			<Stack spacing="xl">
 				{sections.map((section) => (
-					<div key={section.title} className="docs-section__group">
-						<h2>{section.title}</h2>
-						<ul className="docs-section__list">
+					<Stack key={section.title} spacing="sm">
+						<Typography level="title-md">{section.title}</Typography>
+						<Stack spacing="xs">
 							{section.items.map((item) => (
-								<li key={item.href}>
-									<Link href={item.href}>{item.label}</Link>
-								</li>
+								<BguiLink key={item.href} href={item.href} variant="plain">
+									{item.label}
+								</BguiLink>
 							))}
-						</ul>
-					</div>
+						</Stack>
+					</Stack>
 				))}
-			</section>
-		</div>
+			</Stack>
+		</Stack>
 	);
 }

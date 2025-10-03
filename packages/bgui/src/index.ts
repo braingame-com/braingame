@@ -12,6 +12,7 @@ export {
 	m3Theme,
 	type Theme,
 	theme,
+	useTheme,
 } from "./theme";
 
 // Universal components - Platform Adapter Pattern complete for web implementations
@@ -27,14 +28,34 @@ export { Alert } from "./components/compositions/Alert";
 // Effects components
 export type { AnimatedGradientBackgroundProps } from "./components/compositions/AnimatedGradientBackground";
 export { AnimatedGradientBackground } from "./components/compositions/AnimatedGradientBackground";
-export type { CardProps } from "./components/compositions/Card";
-export { Card } from "./components/compositions/Card";
+export type {
+	AudioPlayerMetadata,
+	AudioPlayerProps,
+} from "./components/compositions/AudioPlayer";
+export { AudioPlayer } from "./components/compositions/AudioPlayer";
+export type {
+	CardActionsProps,
+	CardContentProps,
+	CardHeaderProps,
+	CardProps,
+} from "./components/compositions/Card";
+export { Card, CardActions, CardContent, CardHeader } from "./components/compositions/Card";
+export type { CodeSnippetProps } from "./components/compositions/CodeSnippet";
+export { CodeSnippet } from "./components/compositions/CodeSnippet";
 export type {
 	ContextErrorBoundaryFallback,
 	ContextErrorBoundaryFallbackArgs,
 	ContextErrorBoundaryProps,
 } from "./components/compositions/ContextErrorBoundary";
 export { ContextErrorBoundary } from "./components/compositions/ContextErrorBoundary";
+export type { DocsExampleProps } from "./components/compositions/DocsExample";
+export { DocsExample } from "./components/compositions/DocsExample";
+export type {
+	DrawerPlacement,
+	DrawerProps,
+	DrawerSize,
+} from "./components/compositions/Drawer";
+export { Drawer } from "./components/compositions/Drawer";
 export type {
 	FooterLink,
 	FooterProps,
@@ -59,10 +80,25 @@ export type { ListItemProps } from "./components/compositions/ListItem";
 export { ListItem } from "./components/compositions/ListItem";
 export type { ModalProps } from "./components/compositions/Modal";
 export { Modal } from "./components/compositions/Modal";
+export type { PropsTableProps, PropsTableRow } from "./components/compositions/PropsTable";
+export { PropsTable } from "./components/compositions/PropsTable";
 export type { RadioGroupChangeEvent, RadioGroupProps } from "./components/compositions/RadioGroup";
 export { RadioGroup } from "./components/compositions/RadioGroup";
 export type { SelectProps } from "./components/compositions/Select";
 export { Option, Select } from "./components/compositions/Select";
+export type {
+	SidebarNavigationItem,
+	SidebarNavigationProps,
+	SidebarNavigationSection,
+} from "./components/compositions/SidebarNavigation";
+export { SidebarNavigation } from "./components/compositions/SidebarNavigation";
+export type {
+	TabBarItem,
+	TabBarProps,
+	TabBarSize,
+	TabBarTone,
+} from "./components/compositions/TabBar";
+export { TabBar } from "./components/compositions/TabBar";
 export type {
 	TabListProps,
 	TabPanelProps,
@@ -70,6 +106,8 @@ export type {
 	TabsProps,
 } from "./components/compositions/Tabs";
 export { Tab, TabList, TabPanel, Tabs } from "./components/compositions/Tabs";
+export type { ToastProps, ToastTone, ToastVariant } from "./components/compositions/Toast";
+export { Toast } from "./components/compositions/Toast";
 export type { TooltipProps } from "./components/compositions/Tooltip";
 export * from "./components/compositions/Tooltip";
 export type { AvatarProps } from "./components/primitives/Avatar";
@@ -130,6 +168,7 @@ export type {
 } from "./components/primitives/Typography";
 // Legacy alias exports for backward compatibility
 export { Typography, Typography as Text } from "./components/primitives/Typography";
+export type { IconName } from "./icons";
 
 // export { SvgIcon, SvgIcon as Icon } from "./components/primitives/SvgIcon";
 

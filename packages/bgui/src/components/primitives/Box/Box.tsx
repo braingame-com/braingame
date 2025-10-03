@@ -18,6 +18,7 @@ export interface BoxProps extends ViewProps {
 	backgroundColor?: ColorToken | string;
 	borderRadius?: RadiusToken | number;
 	style?: StyleProp<ViewStyle>;
+	className?: string;
 }
 
 const resolveSpacing = (value: SpacingToken | number | undefined, theme: Theme) => {

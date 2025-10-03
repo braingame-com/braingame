@@ -115,8 +115,9 @@ export function Slider({
 
 	const isControlled = value !== undefined;
 	const [internalValue, setInternalValue] = useState(initialValue);
+	const controlledValue = value ?? internalValue;
 	const currentValue = isControlled
-		? clampStatic(value!, minimumValue, maximumValue, step)
+		? clampStatic(controlledValue, minimumValue, maximumValue, step)
 		: internalValue;
 	const lastEmittedRef = useRef(currentValue);
 	const valueRef = useRef(currentValue);

@@ -1,77 +1,131 @@
-// @ts-nocheck
 "use client";
 
-import { Button, Stack, Typography } from "@braingame/bgui";
-import { CodeBlock } from "../../../../src/components/CodeBlock";
-import { LiveExample } from "../../../../src/components/LiveExample";
-import { PropsTable } from "../../../../src/components/PropsTable";
+import {
+	Button as BguiButton,
+	DocsExample,
+	PropsTable,
+	type PropsTableRow,
+	Stack,
+	Typography,
+	useTheme,
+} from "@braingame/bgui";
+import { useMemo } from "react";
 
-const buttonProps = [
-	{ name: "variant", type: '"solid" | "soft" | "outlined" | "plain"', description: "Visual treatment." },
-	{ name: "color", type: '"primary" | "neutral" | "danger" | "success" | "warning"', description: "Tone of the button." },
-	{ name: "size", type: '"sm" | "md" | "lg"', description: "Height and spacing preset." },
-	{ name: "loading", type: "boolean", description: "Render a spinner and disable interactions." },
+const buttonProps: PropsTableRow[] = [
+	{
+		name: "variant",
+		type: '"solid" | "soft" | "outlined" | "plain"',
+		defaultValue: '"solid"',
+		description: "Visual treatment.",
+	},
+	{
+		name: "color",
+		type: '"primary" | "neutral" | "danger" | "success" | "warning"',
+		defaultValue: '"primary"',
+		description: "Tone of the button.",
+	},
+	{
+		name: "size",
+		type: '"sm" | "md" | "lg"',
+		defaultValue: '"md"',
+		description: "Height and spacing preset.",
+	},
+	{
+		name: "loading",
+		type: "boolean",
+		defaultValue: "false",
+		description: "Render a spinner and disable interactions.",
+	},
+	{
+		name: "startDecorator",
+		type: "React.ReactNode",
+		description: "Leading adornment (icon, text, etc.).",
+	},
+	{
+		name: "endDecorator",
+		type: "React.ReactNode",
+		description: "Trailing adornment.",
+	},
 ];
 
-export default function ButtonDocs() {
-	return (
-		<div>
-			<Typography level="h1" className="text-display mb-4">
-				Button
-			</Typography>
-			<Typography className="text-body text-secondary mb-6">
-				Buttons trigger actions across Brain Game surfaces. Variants map directly to our design tokens and
-				work in both dark and light themes.
-			</Typography>
+const variantsExample = `<Stack direction="row" spacing="md" useFlexGap style={{ flexWrap: \"wrap\" }}>
+  <BguiButton variant="solid">Solid</BguiButton>
+  <BguiButton variant="soft">Soft</BguiButton>
+  <BguiButton variant="outlined">Outlined</BguiButton>
+  <BguiButton variant="plain">Plain</BguiButton>
+</Stack>`;
 
-			<LiveExample
-				title="Variants"
-				code={`<Stack direction="row" spacing="md">
-  <Button variant="solid">Solid</Button>
-  <Button variant="soft">Soft</Button>
-  <Button variant="outlined">Outlined</Button>
-  <Button variant="plain">Plain</Button>
-</Stack>`}
-			>
-				<Stack direction="row" spacing="md">
-					<Button variant="solid">Solid</Button>
-					<Button variant="soft">Soft</Button>
-					<Button variant="outlined">Outlined</Button>
-					<Button variant="plain">Plain</Button>
-				</Stack>
-			</LiveExample>
+const tonesExample = `<Stack direction="row" spacing="md" useFlexGap style={{ flexWrap: \"wrap\" }}>
+  <BguiButton color="primary">Primary</BguiButton>
+  <BguiButton color="neutral" variant="soft">Neutral</BguiButton>
+  <BguiButton color="success" variant="soft">Success</BguiButton>
+  <BguiButton color="danger" variant="soft">Danger</BguiButton>
+</Stack>`;
 
-			<LiveExample
-				title="Loading"
-				code={`<Button loading>Saving</Button>`}
-			>
-				<Button loading>Saving</Button>
-			</LiveExample>
+const usageSnippet = `import { Button } from "@braingame/bgui";
 
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					API
-				</Typography>
-				<PropsTable props={buttonProps} />
-			</section>
-
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					Usage
-				</Typography>
-				<CodeBlock
-					language="tsx"
-					code={`import { Button } from "@braingame/bgui";
-
-function SaveButton() {
+function SaveButton({ onSave }: { onSave: () => void }) {
   return (
-    <Button variant="solid" onClick={handleSave}>
+    <Button variant="solid" color="primary" onClick={onSave}>
       Save changes
     </Button>
   );
-}`}
-				/>
-			</section>
-		</div>
+}`;
+
+export default function ButtonDocs() {
+	const theme = useTheme();
+	const headingColor = useMemo(
+		() => theme.colors.onSurfaceVariant,
+		[theme.colors.onSurfaceVariant],
+	);
+
+	return (
+		<Stack spacing="xl2">
+			<Stack spacing="sm">
+				<Typography level="h1">Button</Typography>
+				<Typography level="body-lg" textColor={headingColor}>
+					Buttons trigger actions across Brain Game surfaces. Variants map directly to our design
+					tokens and work in both dark and light themes.
+				</Typography>
+			</Stack>
+
+			<DocsExample title="Variants" code={variantsExample}>
+				<Stack direction="row" spacing="md" useFlexGap style={{ flexWrap: "wrap" }}>
+					<BguiButton variant="solid">Solid</BguiButton>
+					<BguiButton variant="soft">Soft</BguiButton>
+					<BguiButton variant="outlined">Outlined</BguiButton>
+					<BguiButton variant="plain">Plain</BguiButton>
+				</Stack>
+			</DocsExample>
+
+			<DocsExample title="Color tokens" code={tonesExample}>
+				<Stack direction="row" spacing="md" useFlexGap style={{ flexWrap: "wrap" }}>
+					<BguiButton color="primary">Primary</BguiButton>
+					<BguiButton color="neutral" variant="soft">
+						Neutral
+					</BguiButton>
+					<BguiButton color="success" variant="soft">
+						Success
+					</BguiButton>
+					<BguiButton color="danger" variant="soft">
+						Danger
+					</BguiButton>
+				</Stack>
+			</DocsExample>
+
+			<Stack spacing="sm">
+				<Typography level="h2">API</Typography>
+				<PropsTable rows={buttonProps} testID="props-table" />
+			</Stack>
+
+			<Stack spacing="sm">
+				<Typography level="h2">Usage</Typography>
+				<DocsExample title="Inline usage" code={usageSnippet} allowToggle={false}>
+					<Typography level="body-md" textColor={headingColor}>
+						Use Button directly from @braingame/bgui and provide handlers for the actions you need.
+					</Typography>
+				</DocsExample>
+			</Stack>
+		</Stack>
 	);
 }

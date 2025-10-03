@@ -17,8 +17,7 @@
 		"next": "15.4.1",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
-		"react-native-web": "~0.20.0",
-		"shiki": "^3.8.0"
+		"react-native-web": "~0.20.0"
 	},
 	"devDependencies": {
 		"@braingame/config": "workspace:*",

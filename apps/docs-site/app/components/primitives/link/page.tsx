@@ -1,66 +1,115 @@
-// @ts-nocheck
 "use client";
 
-import { Link as BguiLink, Stack, Typography } from "../../../../src/components/BGUIDemo";
-import { CodeBlock } from "../../../../src/components/CodeBlock";
-import { LiveExample } from "../../../../src/components/LiveExample";
-import { PropsTable } from "../../../../src/components/PropsTable";
+import {
+	Link as BguiLink,
+	DocsExample,
+	PropsTable,
+	type PropsTableRow,
+	Stack,
+	Typography,
+	useTheme,
+} from "@braingame/bgui";
 
-const linkProps = [
-	{ name: "href", type: "string", description: "Destination URL." },
-	{ name: "variant", type: '"primary" | "neutral" | "subtle"', description: "Visual treatment." },
-	{ name: "underline", type: '"always" | "hover" | "none"', description: "Underline behaviour." },
+const linkProps: PropsTableRow[] = [
+	{
+		name: "href",
+		type: "string",
+		required: true,
+		description: "Destination URL.",
+	},
+	{
+		name: "variant",
+		type: '"plain" | "outlined" | "soft" | "solid"',
+		defaultValue: '"plain"',
+		description: "Visual treatment.",
+	},
+	{
+		name: "color",
+		type: '"primary" | "neutral" | "danger" | "success" | "warning"',
+		defaultValue: '"primary"',
+		description: "Tone for the link text/background.",
+	},
+	{
+		name: "underline",
+		type: '"always" | "hover" | "none"',
+		defaultValue: '"hover"',
+		description: "Underline visibility.",
+	},
+	{
+		name: "startDecorator",
+		type: "React.ReactNode",
+		description: "Leading adornment (icon, badge).",
+	},
 ];
 
-export default function LinkDocs() {
-	return (
-		<div>
-			<Typography level="h1" className="text-display mb-4">
-				Link
-			</Typography>
-			<Typography className="text-body text-secondary mb-6">
-				Links expose navigation affordances with typography that matches our design language.
-			</Typography>
+const variantsExample = `<Stack direction="row" spacing="sm" useFlexGap style={{ flexWrap: \"wrap\" }}>
+  <BguiLink href="#" variant="plain">Plain</BguiLink>
+  <BguiLink href="#" variant="outlined">Outlined</BguiLink>
+  <BguiLink href="#" variant="soft">Soft</BguiLink>
+  <BguiLink href="#" variant="solid">Solid</BguiLink>
+</Stack>`;
 
-			<LiveExample
-				title="Variants"
-				code={`<Stack spacing="md">
-  <Link href="/">Primary link</Link>
-  <Link href="/" variant="neutral">Neutral link</Link>
-  <Link href="/" underline="hover">Underline on hover</Link>
-</Stack>`}
-			>
-				<Stack spacing="md">
-					<BguiLink href="/">Primary link</BguiLink>
-					<BguiLink href="/" variant="neutral">
-						Neutral link
+const decoratorsExample = `<BguiLink href="#" startDecorator="↗" target="_blank">
+  External link
+</BguiLink>`;
+
+const usageSnippet = `import { Link } from "@braingame/bgui";
+
+function SettingsLink() {
+  return (
+    <Link href="/settings" variant="plain">
+      Manage settings
+    </Link>
+  );
+}`;
+
+export default function LinkDocs() {
+	const theme = useTheme();
+
+	return (
+		<Stack spacing="xl2">
+			<Stack spacing="sm">
+				<Typography level="h1">Link</Typography>
+				<Typography level="body-lg" textColor={theme.colors.onSurfaceVariant}>
+					Links provide inline navigation with theme-aware styling for hover, focus, and pressed
+					states.
+				</Typography>
+			</Stack>
+
+			<DocsExample title="Variants" code={variantsExample}>
+				<Stack direction="row" spacing="sm" useFlexGap style={{ flexWrap: "wrap" }}>
+					<BguiLink href="#" variant="plain">
+						Plain
 					</BguiLink>
-					<BguiLink href="/" underline="hover">
-						Underline on hover
+					<BguiLink href="#" variant="outlined">
+						Outlined
+					</BguiLink>
+					<BguiLink href="#" variant="soft">
+						Soft
+					</BguiLink>
+					<BguiLink href="#" variant="solid">
+						Solid
 					</BguiLink>
 				</Stack>
-			</LiveExample>
+			</DocsExample>
 
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					API
+			<DocsExample title="Decorators" code={decoratorsExample}>
+				<BguiLink href="#" startDecorator="↗" target="_blank">
+					External link
+				</BguiLink>
+			</DocsExample>
+
+			<Stack spacing="sm">
+				<Typography level="h2">API</Typography>
+				<PropsTable rows={linkProps} testID="props-table" />
+			</Stack>
+
+			<DocsExample title="Usage" code={usageSnippet} allowToggle={false}>
+				<Typography level="body-md" textColor={theme.colors.onSurfaceVariant}>
+					Links render as accessible anchors on web and Pressable on native while preserving focus
+					styles.
 				</Typography>
-				<PropsTable props={linkProps} />
-			</section>
-
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					Usage
-				</Typography>
-				<CodeBlock
-					language="tsx"
-					code={`import { Link } from "@braingame/bgui";
-
-<Link href="/docs" variant="neutral">
-  Visit documentation
-</Link>;`}
-				/>
-			</section>
-		</div>
+			</DocsExample>
+		</Stack>
 	);
 }

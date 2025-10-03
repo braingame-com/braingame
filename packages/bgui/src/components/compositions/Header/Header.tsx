@@ -1,4 +1,5 @@
-import { memo, useMemo } from "react";
+import type { ReactNode } from "react";
+import { memo } from "react";
 import { Platform, StyleSheet, type ViewStyle } from "react-native";
 import type { Theme } from "../../../theme";
 import { useTheme } from "../../../theme";
@@ -25,6 +26,7 @@ export const Header = memo(function Header({
 	border = true,
 	fixed = false,
 	paddingY = "md",
+	actions,
 }: HeaderProps) {
 	const theme = useTheme();
 	const resolvedBackgroundColor = backgroundColor ?? theme.colors.surface;
@@ -45,7 +47,37 @@ export const Header = memo(function Header({
 			: null,
 	]);
 
-	const ctaAreaStyle = useMemo(() => ({ marginLeft: theme.spacing.md }), [theme]);
+	const trailingItems: ReactNode[] = [];
+
+	if (cta) {
+		const buttonContent = cta.href ? (
+			<Link href={cta.href} target="_self">
+				<Button variant={cta.variant ?? "solid"} onClick={cta.onClick}>
+					<Stack direction="row" spacing="xs" useFlexGap={false} style={styles.inlineStack}>
+						{cta.icon ? <Icon name={cta.icon} size={18} color={ctaIconColor} /> : null}
+						{cta.label}
+					</Stack>
+				</Button>
+			</Link>
+		) : (
+			<Button variant={cta.variant ?? "solid"} onClick={cta.onClick}>
+				<Stack direction="row" spacing="xs" useFlexGap={false} style={styles.inlineStack}>
+					{cta.icon ? <Icon name={cta.icon} size={18} color={ctaIconColor} /> : null}
+					{cta.label}
+				</Stack>
+			</Button>
+		);
+
+		trailingItems.push(<Box key="header-cta">{buttonContent}</Box>);
+	}
+
+	if (actions) {
+		trailingItems.push(
+			<Box key="header-actions" style={styles.actionsWrapper}>
+				{actions}
+			</Box>,
+		);
+	}
 
 	return (
 		<Box style={headerStyle}>
@@ -68,31 +100,10 @@ export const Header = memo(function Header({
 							))}
 						</Stack>
 					) : null}
-					{cta ? (
-						<Box style={ctaAreaStyle}>
-							{cta.href ? (
-								<Link href={cta.href} target="_self">
-									<Button variant={cta.variant ?? "solid"} onClick={cta.onClick}>
-										<Stack
-											direction="row"
-											spacing="xs"
-											useFlexGap={false}
-											style={styles.inlineStack}
-										>
-											{cta.icon ? <Icon name={cta.icon} size={18} color={ctaIconColor} /> : null}
-											{cta.label}
-										</Stack>
-									</Button>
-								</Link>
-							) : (
-								<Button variant={cta.variant ?? "solid"} onClick={cta.onClick}>
-									<Stack direction="row" spacing="xs" useFlexGap={false} style={styles.inlineStack}>
-										{cta.icon ? <Icon name={cta.icon} size={18} color={ctaIconColor} /> : null}
-										{cta.label}
-									</Stack>
-								</Button>
-							)}
-						</Box>
+					{trailingItems.length > 0 ? (
+						<Stack direction="row" spacing="sm" style={styles.trailingStack}>
+							{trailingItems}
+						</Stack>
 					) : null}
 				</Stack>
 			</Container>
@@ -114,6 +125,14 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 	},
 	inlineStack: {
+		alignItems: "center",
+	},
+	trailingStack: {
+		flexShrink: 0,
+		alignItems: "center",
+	},
+	actionsWrapper: {
+		justifyContent: "center",
 		alignItems: "center",
 	},
 });

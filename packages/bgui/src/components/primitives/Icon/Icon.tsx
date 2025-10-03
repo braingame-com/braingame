@@ -38,7 +38,7 @@ export const Icon = forwardRef<View, IconProps>(
 				style={containerStyle}
 				testID={testID}
 				accessible={Boolean(accessibilityLabel)}
-				accessibilityRole="image"
+				accessibilityRole={accessibilityLabel ? "image" : undefined}
 				accessibilityLabel={accessibilityLabel}
 			>
 				<Svg width="100%" height="100%" viewBox={VIEWBOX}>

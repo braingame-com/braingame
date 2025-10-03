@@ -1,79 +1,98 @@
-// @ts-nocheck
 "use client";
 
-import { Header, Typography } from "../../../../src/components/BGUIDemo";
-import { CodeBlock } from "../../../../src/components/CodeBlock";
-import { LiveExample } from "../../../../src/components/LiveExample";
-import { PropsTable } from "../../../../src/components/PropsTable";
+import {
+	DocsExample,
+	Header,
+	IconButton,
+	PropsTable,
+	type PropsTableRow,
+	Stack,
+	Typography,
+	useTheme,
+} from "@braingame/bgui";
 
-const headerProps = [
-	{ name: "brand", type: "React.ReactNode", description: "Brand element rendered on the left." },
+const headerProps: PropsTableRow[] = [
 	{
-		name: "links",
-		type: "Array<{ label: string; href: string }>",
-		description: "Primary navigation links.",
+		name: "brand",
+		type: "React.ReactNode",
+		required: true,
+		description: "Brand element rendered on the left.",
 	},
+	{ name: "links", type: "HeaderLink[]", description: "Primary navigation links." },
+	{ name: "cta", type: "HeaderCta", description: "Optional call-to-action button." },
 	{
-		name: "cta",
-		type: "{ label: string; onClick: () => void; variant?: string }",
-		description: "Optional call-to-action button.",
+		name: "actions",
+		type: "React.ReactNode",
+		description: "Custom trailing controls (e.g., theme toggle).",
 	},
 ];
 
-export default function HeaderDocs() {
-	return (
-		<div>
-			<Typography level="h1" className="text-display mb-4">
-				Header
-			</Typography>
-			<Typography className="text-body text-secondary mb-6">
-				The Header composition bundles brand, navigation, and a call-to-action into a responsive bar
-				for docs and marketing pages.
-			</Typography>
+const usageSnippet = `import { Header, Typography } from "@braingame/bgui";
 
-			<LiveExample
+<Header
+  brand={<Typography level="title-sm">Brain Game</Typography>}
+  links={[{ label: "Docs", href: "/components" }]}
+  cta={{ label: "Get Access", onClick: handleAccess }}
+/>;`;
+
+export default function HeaderDocs() {
+	const theme = useTheme();
+
+	return (
+		<Stack spacing="xl2">
+			<Stack spacing="sm">
+				<Typography level="h1">Header</Typography>
+				<Typography level="body-lg" textColor={theme.colors.onSurfaceVariant}>
+					Header bundles brand, navigation, and trailing actions into a responsive bar.
+				</Typography>
+			</Stack>
+
+			<DocsExample
 				title="Default"
 				code={`<Header
   brand={<Typography level="title-sm">Brain Game</Typography>}
   links={[
     { label: "Docs", href: "/components" },
-    { label: "Components", href: "/components" },
+    { label: "Components", href: "/showcase" },
   ]}
-  cta={{ label: "Contact", onClick: () => alert('Contact us') }}
+  cta={{ label: "Get Access", onClick: () => undefined }}
 />`}
 			>
 				<Header
 					brand={<Typography level="title-sm">Brain Game</Typography>}
 					links={[
 						{ label: "Docs", href: "/components" },
-						{ label: "Components", href: "/components" },
+						{ label: "Components", href: "/showcase" },
 					]}
-					cta={{ label: "Contact", onClick: () => undefined }}
+					cta={{ label: "Get Access", onClick: () => undefined }}
 				/>
-			</LiveExample>
+			</DocsExample>
 
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					API
-				</Typography>
-				<PropsTable props={headerProps} />
-			</section>
-
-			<section className="mt-10">
-				<Typography level="h2" className="text-title mb-4">
-					Usage
-				</Typography>
-				<CodeBlock
-					language="tsx"
-					code={`import { Header, Typography } from "@braingame/bgui";
-
-<Header
+			<DocsExample
+				title="Actions"
+				code={`<Header
   brand={<Typography level="title-sm">Brain Game</Typography>}
-  links={[{ label: "Components", href: "/components" }]}
-  cta={{ label: "Join Waitlist", onClick: handleJoin }}
-/>;`}
+  links={[{ label: "Docs", href: "/components" }]}
+  actions={<IconButton iconName="dark_mode" aria-label="Toggle theme" />}
+/>`}
+			>
+				<Header
+					brand={<Typography level="title-sm">Brain Game</Typography>}
+					links={[{ label: "Docs", href: "/components" }]}
+					actions={<IconButton iconName="dark_mode" variant="plain" aria-label="Toggle theme" />}
 				/>
-			</section>
-		</div>
+			</DocsExample>
+
+			<Stack spacing="sm">
+				<Typography level="h2">API</Typography>
+				<PropsTable rows={headerProps} testID="props-table" />
+			</Stack>
+
+			<DocsExample title="Usage" code={usageSnippet} allowToggle={false}>
+				<Typography level="body-md" textColor={theme.colors.onSurfaceVariant}>
+					Links accept optional icons and target attributes for external navigation.
+				</Typography>
+			</DocsExample>
+		</Stack>
 	);
 }

@@ -26,4 +26,5 @@ export interface HeaderProps {
 	border?: boolean;
 	fixed?: boolean;
 	paddingY?: "sm" | "md" | "lg";
+	actions?: ReactNode;
 }

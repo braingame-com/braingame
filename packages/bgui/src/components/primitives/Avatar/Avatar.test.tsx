@@ -42,7 +42,10 @@ describe("Avatar", () => {
 		const elements = getAllByLabelText("Broken Avatar");
 		const image = elements.find((element) => typeof element.props?.onError === "function");
 		expect(image).toBeTruthy();
-		fireEvent(image!, "error", { nativeEvent: {} });
+		if (!image) {
+			throw new Error("Expected image element to trigger error fallback");
+		}
+		fireEvent(image, "error", { nativeEvent: {} });
 		expect(getByText("JD")).toBeTruthy();
 	});
 
